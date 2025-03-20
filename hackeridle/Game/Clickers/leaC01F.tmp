@@ -7,7 +7,6 @@
 size = Vector2(128, 128)
 
 [node name="LearningClicker" type="StaticBody2D"]
-input_pickable = true
 script = ExtResource("1_y51c0")
 
 [node name="LearningClickerSprite" type="Sprite2D" parent="."]
@@ -15,5 +14,9 @@ texture = ExtResource("2_ok40m")
 
 [node name="Collider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_q8md2")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(256, 40)
+texture_normal = ExtResource("2_ok40m")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
