@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ux86vuo0uk5w"]
+
+[ext_resource type="Script" path="res://Game/Singleton/global.gd" id="1_j4ob1"]
+
+[node name="Global" type="Node"]
+script = ExtResource("1_j4ob1")
