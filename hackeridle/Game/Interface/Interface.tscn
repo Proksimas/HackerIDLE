@@ -110,6 +110,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 current_tab = 0
+tabs_visible = false
 
 [node name="Connaissance" type="Control" parent="Panel/VBoxContainer/TabContainer"]
 layout_mode = 2
