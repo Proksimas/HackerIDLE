@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ge0uqxe8ym02"]
+
+[node name="Item" type="Control"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 3
+anchor_right = 0.238889
+anchor_bottom = 0.127083
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
