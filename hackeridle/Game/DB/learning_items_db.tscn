@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqy4xt0muhqoc"]
+
+[ext_resource type="Script" path="res://Game/DB/learning_items_db.gd" id="1_t47no"]
+
+[node name="LearningItemsDB" type="Node"]
+script = ExtResource("1_t47no")
