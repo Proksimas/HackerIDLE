@@ -1,10 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=16 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
+[ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
+[ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_weqoh"]
+[ext_resource type="Texture2D" uid="uid://c2hwsvrfib350" path="res://Game/Graphics/App_icons/dark_shop.png" id="3_aake5"]
+[ext_resource type="Texture2D" uid="uid://i7bysdm7n1xl" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-1.png" id="3_ih8ku"]
+[ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
+[ext_resource type="Texture2D" uid="uid://e1n7cb7f1hyo" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-3.png" id="5_pkx54"]
+[ext_resource type="Texture2D" uid="uid://ber8s0ydnwqry" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-4.png" id="6_bin0a"]
+[ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
+[ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
+[ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_qjpct"]
+frames = 8
+speed_scale = 3.0
+frame_0/texture = ExtResource("2_p6wh3")
+frame_1/texture = ExtResource("3_ih8ku")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("4_xhi7v")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("5_pkx54")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("6_bin0a")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("7_5377l")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("8_dni6j")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("9_0m815")
+frame_7/duration = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
@@ -38,7 +67,7 @@ last_wrap_alignment = 2
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
 layout_mode = 2
-text = "COnnaissance: XXX"
+text = "Connaissance: XXX"
 
 [node name="Label2" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
 layout_mode = 2
@@ -50,25 +79,31 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 columns = 5
 
-[node name="Button" type="Button" parent="Panel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(75, 75)
+[node name="Button" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+texture_normal = SubResource("AnimatedTexture_qjpct")
+ignore_texture_size = true
 
 [node name="Button2" type="Button" parent="Panel/VBoxContainer/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 
 [node name="Button3" type="Button" parent="Panel/VBoxContainer/GridContainer"]
+visible = false
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 
-[node name="Button4" type="Button" parent="Panel/VBoxContainer/GridContainer"]
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
+texture_normal = ExtResource("2_u0lvw")
 
-[node name="Button5" type="Button" parent="Panel/VBoxContainer/GridContainer"]
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
+texture_normal = ExtResource("3_aake5")
 
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
