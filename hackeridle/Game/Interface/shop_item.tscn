@@ -4,7 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
 
 [node name="ShopItem" type="VBoxContainer"]
+anchors_preset = -1
+anchor_right = 0.138889
+anchor_bottom = 0.10625
+offset_right = -75.0
+offset_bottom = -102.0
 script = ExtResource("1_a4nb3")
+metadata/_edit_use_anchors_ = true
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 2

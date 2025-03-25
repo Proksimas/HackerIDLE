@@ -19,10 +19,15 @@ func _process(delta: float) -> void:
 func set_item(item_name):
 	var item_player_cara = Player.learning_item_bought[item_name]
 	var item_cara =  LearningItemsDB.learning_items_db[item_name]
+	current_item_cara = item_player_cara
 	
 	shop_button.texture_normal = load(item_cara["texture_path"])
-	
-	var item_price = item_player_cara["level"] # ATTENTION TODO faut que l'item price correspond au prix
+	set_price()
+
+	pass
+
+func set_price():
+	var item_price = current_item_cara["level"] # ATTENTION TODO faut que l'item price correspond au prix
 	item_price_label.text = Global.number_to_string(item_price)
 	
-	pass
+	
