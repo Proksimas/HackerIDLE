@@ -2,7 +2,7 @@
     "learning_items": [
         {
             "item_name": "post-it",
-            "texture_path": "res://Game/Graphics/App_icons/Post-it.png/final_frame.png",
+            "texture_path": "res://Game/Graphics/App_icons/final_frame.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "base_knowledge_point": 1
         }
