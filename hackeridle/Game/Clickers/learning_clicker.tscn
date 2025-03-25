@@ -7,7 +7,6 @@
 size = Vector2(128, 128)
 
 [node name="LearningClicker" type="StaticBody2D"]
-position = Vector2(208, 120)
 input_pickable = true
 script = ExtResource("1_y51c0")
 

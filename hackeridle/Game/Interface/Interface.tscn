@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
 [ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_weqoh"]
 [ext_resource type="Texture2D" uid="uid://c2hwsvrfib350" path="res://Game/Graphics/App_icons/dark_shop.png" id="3_aake5"]
 [ext_resource type="Texture2D" uid="uid://i7bysdm7n1xl" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-1.png" id="3_ih8ku"]
 [ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
@@ -12,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
+[ext_resource type="PackedScene" uid="uid://cw4lwc84l8omh" path="res://Game/Clickers/learning_clicker.tscn" id="13_ctqbe"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
@@ -77,7 +77,6 @@ text = "Argent: XXX"
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
 columns = 5
 
 [node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
@@ -107,35 +106,55 @@ custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture_normal = ExtResource("3_aake5")
 
-[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
-current_tab = 1
+current_tab = 0
 tabs_visible = false
 
-[node name="Connaissance" type="Control" parent="Panel/VBoxContainer/MainTab"]
+[node name="Connaissance" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MainTab/Connaissance"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 139.0
+offset_top = 159.0
+offset_right = -215.0
+offset_bottom = -215.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_weqoh")
+stretch = true
 
-[node name="Hack" type="Control" parent="Panel/VBoxContainer/MainTab"]
+[node name="SubViewport" type="SubViewport" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance/SubViewportContainer"]
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(176, 176)
+render_target_update_mode = 4
+
+[node name="LearningClicker" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance/SubViewportContainer/SubViewport" instance=ExtResource("13_ctqbe")]
+
+[node name="Hack" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Shop" parent="Panel/VBoxContainer/MainTab" instance=ExtResource("13_ojfgi")]
+[node name="Shop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

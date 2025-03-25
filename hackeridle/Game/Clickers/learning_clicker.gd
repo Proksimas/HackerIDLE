@@ -9,7 +9,7 @@ func _ready() -> void:
 	
 	#TEST 
 	set_learning_clicker(LearningItemsDB.get_item_cara("post-it"))
-	Player.add_item(LearningItemsDB.get_item_cara("post-it"))
+	
 	#END TEST
 	pass # Replace with function body.
 
@@ -29,7 +29,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			Player.knowledge_point += get_earn_kp()
-			print(get_earn_kp())
+			print("Gain de connaissance:", get_earn_kp())
 			#ATTENTION le nomde l'animation doit être celui de l'item
 			if learning_clicker_sprite.is_playing():
 				learning_clicker_sprite.stop()
