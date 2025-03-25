@@ -18,3 +18,14 @@ func load_json(path: String) -> Dictionary:
 	else:
 		print("Erreur: Le fichier JSON n'est pas valide.")
 		return {}
+
+
+func number_to_string(number):
+	if number < 1000000:
+		return str(number)
+	elif number >= pow(10, 6) and number < pow(10, 9):
+		return (number/ pow(10, 6)) + " Millions"
+		
+	elif number >= pow(10, 9):
+		return (number/ pow(10, 9)) + " Milliards"
+	pass

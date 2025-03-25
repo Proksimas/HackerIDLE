@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=17 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
+[ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
@@ -79,7 +80,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 columns = 5
 
-[node name="Button" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 texture_normal = SubResource("AnimatedTexture_qjpct")
@@ -105,18 +107,21 @@ custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture_normal = ExtResource("3_aake5")
 
-[node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
+[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
-current_tab = 0
+current_tab = 1
 tabs_visible = false
 
-[node name="Connaissance" type="Control" parent="Panel/VBoxContainer/TabContainer"]
+[node name="Connaissance" type="Control" parent="Panel/VBoxContainer/MainTab"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/TabContainer/Connaissance"]
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MainTab/Connaissance"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -125,12 +130,13 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_weqoh")
 
-[node name="Hack" type="Control" parent="Panel/VBoxContainer/TabContainer"]
-visible = false
+[node name="Hack" type="Control" parent="Panel/VBoxContainer/MainTab"]
+unique_name_in_owner = true
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Shop" type="Control" parent="Panel/VBoxContainer/TabContainer"]
+[node name="Shop" parent="Panel/VBoxContainer/MainTab" instance=ExtResource("13_ojfgi")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
@@ -139,3 +145,6 @@ metadata/_tab_index = 2
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
+
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/Navigator" to="." method="_on_navigator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/Shopping" to="." method="_on_shopping_pressed"]

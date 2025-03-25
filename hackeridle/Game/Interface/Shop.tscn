@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cm3anxcysmylc"]
+[gd_scene load_steps=3 format=3 uid="uid://cm3anxcysmylc"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop.gd" id="1_x4y7u"]
+[ext_resource type="PackedScene" uid="uid://b7vmw6dhf4lw0" path="res://Game/Interface/shop_item.tscn" id="2_re0i5"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -11,11 +12,44 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_x4y7u")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.00104167
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.998958
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "x 1"
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "x 10"
+
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "x 100"
+
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+text = "Max"
+
+[node name="ShopGrid" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ShopItem" parent="VBoxContainer/ShopGrid" instance=ExtResource("2_re0i5")]
+layout_mode = 2

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwtk81fnv7wg1"
-path="res://.godot/imported/final_frame.png-e5e81e153144541d43fc72302e8cdf80.ctex"
+path="res://.godot/imported/final_frame.png-b6298d72d0449a5e7f5fdc515f9138ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/App_icons/Post-it.png/final_frame.png"
-dest_files=["res://.godot/imported/final_frame.png-e5e81e153144541d43fc72302e8cdf80.ctex"]
+source_file="res://Game/Graphics/App_icons/final_frame.png"
+dest_files=["res://.godot/imported/final_frame.png-b6298d72d0449a5e7f5fdc515f9138ee.ctex"]
 
 [params]
 
