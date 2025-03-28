@@ -1,8 +1,6 @@
 extends Node
 
 
-
-
 func load_json(path: String) -> Dictionary:
 	if not FileAccess.file_exists(path):
 		print("Erreur: Le fichier JSON n'existe pas.")
@@ -29,3 +27,10 @@ func number_to_string(number):
 	elif number >= pow(10, 9):
 		return (number/ pow(10, 9)) + " Milliards"
 	pass
+
+
+func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
+	"""Renvoie la position de la target pour qu'elle soit au centre"""
+	var screen_size = DisplayServer.window_get_size()
+	
+	return (Vector2(screen_size) - Vector2(target_size))  / 2

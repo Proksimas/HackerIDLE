@@ -1,6 +1,7 @@
-extends CanvasLayer
+extends Control
 
-@onready var connaissance: Control = %Connaissance
+
+@onready var learning: Control = %Learning
 @onready var hack: Control = %Hack
 @onready var shop: Control = %Shop
 @onready var main_tab: TabContainer = %MainTab
@@ -17,18 +18,11 @@ func _process(delta: float) -> void:
 
 
 func _on_shopping_pressed() -> void:
-	close_main_tab()
 	shop.show()
 	pass # Replace with function body.
 
 
 func _on_navigator_pressed() -> void:
-	close_main_tab()
-	connaissance.show()
+	learning.show()
+	learning.set_learning_clicker()
 	pass # Replace with function body.
-
-func close_main_tab():
-	for child in main_tab.get_children():
-		child.hide()
-
-pass

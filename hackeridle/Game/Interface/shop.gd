@@ -6,6 +6,8 @@ extends Control
 const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	#Le joueur commence forcement avec le premier item au niveau 1
 	player_bought_item("post-it", 1)
 	
 	pass # Replace with function body.

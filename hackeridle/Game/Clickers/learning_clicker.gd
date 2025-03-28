@@ -1,16 +1,13 @@
 extends StaticBody2D
 
 @onready var learning_clicker_sprite: AnimatedSprite2D = %LearningClickerSprite
+@onready var collider: CollisionShape2D = %Collider
 
 
 var current_item_cara: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	#TEST 
-	set_learning_clicker(LearningItemsDB.get_item_cara("post-it"))
-	
-	#END TEST
 	pass # Replace with function body.
 
 

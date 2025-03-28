@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw4lwc84l8omh"]
+[gd_scene load_steps=4 format=3 uid="uid://b6jp6fcuboydj"]
 
 [ext_resource type="Script" path="res://Game/Clickers/learning_clicker.gd" id="1_y51c0"]
 [ext_resource type="SpriteFrames" uid="uid://b5xc15kavidqm" path="res://Game/Animations/post-it.tres" id="2_umb2c"]
@@ -17,6 +17,7 @@ sprite_frames = ExtResource("2_umb2c")
 animation = &"post-it"
 
 [node name="Collider" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
 shape = SubResource("RectangleShape2D_q8md2")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]

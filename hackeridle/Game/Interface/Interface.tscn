@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
-[ext_resource type="PackedScene" uid="uid://cw4lwc84l8omh" path="res://Game/Clickers/learning_clicker.tscn" id="13_ctqbe"]
+[ext_resource type="Script" path="res://Game/Interface/learning.gd" id="12_341t5"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
@@ -38,17 +38,26 @@ frame_7/duration = 1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
-[node name="Interface" type="CanvasLayer"]
-script = ExtResource("1_81dom")
-
-[node name="Panel" type="Panel" parent="."]
+[node name="Interface" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kypw6")
+mouse_filter = 1
+script = ExtResource("1_81dom")
 metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kypw6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -109,6 +118,8 @@ texture_normal = ExtResource("3_aake5")
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
+mouse_default_cursor_shape = 4
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -119,34 +130,17 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
+mouse_filter = 2
+mouse_default_cursor_shape = 3
 current_tab = 0
 tabs_visible = false
 
-[node name="Connaissance" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
+[node name="Learning" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
+script = ExtResource("12_341t5")
 metadata/_tab_index = 0
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 139.0
-offset_top = 159.0
-offset_right = -215.0
-offset_bottom = -215.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance/SubViewportContainer"]
-handle_input_locally = false
-physics_object_picking = true
-size = Vector2i(176, 176)
-render_target_update_mode = 4
-
-[node name="LearningClicker" parent="Panel/VBoxContainer/MarginContainer/MainTab/Connaissance/SubViewportContainer/SubViewport" instance=ExtResource("13_ctqbe")]
 
 [node name="Hack" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
 unique_name_in_owner = true

@@ -15,6 +15,8 @@ var learning_item_bought: Dictionary = {"item_name": {"item_name": "name",
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
+	
+	
 
 
 func add_item(item_cara):
