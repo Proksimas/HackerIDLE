@@ -12,6 +12,10 @@ func set_learning_clicker():
 	var last_item_name = Player.learning_item_bought.keys()[-1]
 	var last_item = LearningItemsDB.get_item_cara(last_item_name)
 	new_lc.set_learning_clicker(last_item)  #mettre les cara de l'ite
+	
+	new_lc.position = Vector2(self.size)  / 2
+	
+	
 	pass
 
 func resize_viewxport(clicker_size):
