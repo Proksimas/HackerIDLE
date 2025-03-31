@@ -1,15 +1,21 @@
 extends Control
 
 @onready var shop_grid: GridContainer = %ShopGrid
+@onready var buttons_container: HBoxContainer = %ButtonsContainer
 
 
 const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
+
+
+var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
 	#Le joueur commence forcement avec le premier item au niveau 1
 	player_bought_item("post-it", 1)
-	
+	#################"
+	for button:Button in buttons_container.get_children():
+		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
 
 
@@ -47,7 +53,7 @@ func player_bought_item(item_name, quantity):
 			shop_item.set_info()
 	
 	pass
-
+	
 
 func _draw() -> void:
 	set_shop()
@@ -61,3 +67,15 @@ func _clear():
 func _on_shop_button_pressed(item_cara: Dictionary):
 	player_bought_item(item_cara["item_name"], 1)
 	
+
+func _on_x_button_pressed(button_name: String):
+	'''définit le *X d achat possible'''
+	match button_name.trim_suffix("Button"):
+		"X1":
+			x_upgrade_value = 1
+		"X10":
+			x_upgrade_value = 10
+		"X100":
+			x_upgrade_value = 100
+		"XMax":
+			x_upgrade_value = INF  

@@ -12,6 +12,7 @@ class_name ShopItem
 @onready var speed_point_label: Label = %SpeedPointLabel
 
 var current_item_cara: Dictionary
+var x_buy: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -43,5 +44,8 @@ func set_info():
 	level_point_label.text = Global.number_to_string(item_level)
 	
 	
+func x_can_be_buy(_x_buy):
+	"""affiche le nombre de fois que l'item peut etre acheté"""
+	x_buy = _x_buy
 	
 	

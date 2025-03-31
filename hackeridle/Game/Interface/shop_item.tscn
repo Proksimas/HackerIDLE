@@ -17,7 +17,7 @@ variation_transform = Transform2D(1.1, 0, 0, 1, 0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqc5w"]
 
-[node name="ShopItem" type="Button"]
+[node name="ShopItem" type="Button" groups=["g_shop_item"]]
 custom_minimum_size = Vector2(0, 75)
 anchors_preset = -1
 anchor_right = 0.948148
