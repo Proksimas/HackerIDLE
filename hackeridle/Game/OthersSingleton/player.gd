@@ -1,12 +1,18 @@
 extends Node
 
+signal earn_knowledge_point(point)
+signal earn_hacking_point(point)
+
 var knowledge_point: float:
 	set(value):
-		return clamp(value, 0, INF)
+		knowledge_point = clamp(value, 0, INF)
+		earn_knowledge_point.emit(knowledge_point)
+		
 		
 var hacking_point: float:
 	set(value):
-		return clamp(value, 0, INF)
+		hacking_point =  clamp(value, 0, INF)
+		earn_hacking_point.emit(hacking_point)
 		
 		
 var learning_item_bought: Dictionary = {"item_name": {"item_name": "name",

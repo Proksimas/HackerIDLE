@@ -76,10 +76,12 @@ alignment = 1
 last_wrap_alignment = 2
 
 [node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Connaissance: XXX"
 
 [node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Argent: XXX"
 
