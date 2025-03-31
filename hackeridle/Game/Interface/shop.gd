@@ -44,10 +44,6 @@ func player_bought_item(item_name,  quantity):
 	else:
 		Player.item_level_up(item_name, quantity)
 		
-	print("item: ", Player.learning_item_bought[item_name])
-	print("quantity: ", quantity)
-	print("Item price: ", Player.learning_item_bought[item_name]['item_price'] * quantity)
-	
 	if Player.gold >= Player.learning_item_bought[item_name]['item_price'] * quantity:
 		Player.gold -= Player.learning_item_bought[item_name]['item_price'] * quantity
 		

@@ -46,19 +46,30 @@ func set_info():
 	
 func calcul_item_price()-> int:
 	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix
-	# Comme c'est tout le calcul de l'item, on doit mettre la quantité en train 
-	# d'etre acheté
+	# ATTENTION TODO faut que l'item price correspond au prix actuel
+
 	return int(current_item_cara["level"])
 	
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
+	print(calcul_item_price() * x_buy)
 	if _x_buy == -1:
-		print('non')
-		return
+		var total_price = 0
+		for i in range(10):
+			total_price += calcul_item_price() * (i + 1)
+			print(total_price)
+
 	if Player.gold  < calcul_item_price() * x_buy:
 		self.disabled = true
 	else:
 		self.disabled = false
 		
+	
+
+func total_prices(quantity):
+	var total_price = 0
+	for i in range(quantity):
+		total_price += calcul_item_price() 
+		#TODO
+	pass
