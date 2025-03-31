@@ -1,31 +1,133 @@
-[gd_scene load_steps=3 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=9 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="3_2d3tu"]
 
-[node name="ShopItem" type="VBoxContainer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prdu3"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hq43"]
+bg_color = Color(0.099986, 0.099986, 0.099986, 1)
+
+[sub_resource type="FontVariation" id="FontVariation_govgv"]
+variation_transform = Transform2D(1.1, 0, 0, 1, 0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqc5w"]
+
+[node name="ShopItem" type="Button"]
+custom_minimum_size = Vector2(0, 75)
 anchors_preset = -1
-anchor_right = 0.138889
-anchor_bottom = 0.10625
-offset_right = -75.0
-offset_bottom = -102.0
+anchor_right = 0.948148
+anchor_bottom = 0.078125
+offset_right = -6.10352e-05
+size_flags_horizontal = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_rhnfj")
+theme_override_styles/hover = SubResource("StyleBoxFlat_prdu3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_4hq43")
+theme_override_styles/normal = SubResource("StyleBoxFlat_prdu3")
 script = ExtResource("1_a4nb3")
 metadata/_edit_use_anchors_ = true
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer"]
 layout_mode = 2
 
-[node name="ShopButton" type="TextureButton" parent="AspectRatioContainer"]
+[node name="ShopTexture" type="TextureRect" parent="HBoxContainer/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-texture_normal = ExtResource("1_vsjf5")
-ignore_texture_size = true
-stretch_mode = 0
+texture = ExtResource("1_vsjf5")
+expand_mode = 1
 
-[node name="ItemPriceLabel" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="ItemNameLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Prix"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
+size_flags_vertical = 6
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("FontVariation_govgv")
+theme_override_font_sizes/font_size = 25
+text = "XXX"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("3_2d3tu")
+expand_mode = 1
+
+[node name="ItemPriceLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "xxxxx"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Niveau"
+
+[node name="LevelPointLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+alignment = 1
+
+[node name="SpeedLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Delais"
+
+[node name="SpeedPointLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXXXXXXX"
+horizontal_alignment = 2
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_cqc5w")

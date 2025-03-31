@@ -25,7 +25,7 @@ func set_shop():
 		var new_shop_item:ShopItem = SHOP_ITEM.instantiate()
 		shop_grid.add_child(new_shop_item)
 		new_shop_item.set_item(item_name)
-		new_shop_item.shop_button.pressed.connect(_on_shop_button_pressed.bind(new_shop_item.current_item_cara))
+		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item.current_item_cara))
 	
 	pass
 
@@ -44,7 +44,7 @@ func player_bought_item(item_name, quantity):
 	#Puis on ajuste l'ui de l'item acheté pour optimisé
 	for shop_item:ShopItem in shop_grid.get_children():
 		if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
-			shop_item.set_price()
+			shop_item.set_info()
 	
 	pass
 
