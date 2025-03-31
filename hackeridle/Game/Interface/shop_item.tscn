@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=10 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="3_2d3tu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1bkx"]
+bg_color = Color(0.881796, 0.482466, 0.000684034, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prdu3"]
 bg_color = Color(0, 0, 0, 1)
@@ -25,6 +28,7 @@ anchor_bottom = 0.078125
 offset_right = -6.10352e-05
 size_flags_horizontal = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_rhnfj")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_v1bkx")
 theme_override_styles/hover = SubResource("StyleBoxFlat_prdu3")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_4hq43")
 theme_override_styles/normal = SubResource("StyleBoxFlat_prdu3")

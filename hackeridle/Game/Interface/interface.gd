@@ -13,6 +13,7 @@ extends Control
 func _ready() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.earn_hacking_point.connect(_on_earn_hacking_point)
+	Player.earn_gold.connect(_on_earn_gold)
 	pass # Replace with function body.
 
 
@@ -36,4 +37,8 @@ func _on_earn_knowledge_point(point):
 	knowledge_label.text = tr("Connaissance: %s" % [str(int(point))])
 
 func _on_earn_hacking_point(point):
-	gold_label.text = tr("Hacking: %s" % [str(int(point))])
+	return
+	
+func _on_earn_gold(point):
+	gold_label.text = tr("Gold: %s" % [str(int(point))])
+	

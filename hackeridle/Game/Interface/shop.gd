@@ -12,6 +12,7 @@ var x_upgrade_value: int
 func _ready() -> void:
 	
 	#Le joueur commence forcement avec le premier item au niveau 1
+	Player.gold = 10000
 	player_bought_item("post-it", 1)
 	#################"
 	for button:Button in buttons_container.get_children():
@@ -31,20 +32,25 @@ func set_shop():
 		var new_shop_item:ShopItem = SHOP_ITEM.instantiate()
 		shop_grid.add_child(new_shop_item)
 		new_shop_item.set_item(item_name)
-		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item.current_item_cara))
-	
+		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item))
 	pass
 
-func player_bought_item(item_name, quantity):
-	
-	#TODO voir pour les prix
+func player_bought_item(item_name,  quantity):
 	
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_item(item_name):
 		Player.add_item(LearningItemsDB.get_item_cara(item_name))
 	else:
 		Player.item_level_up(item_name, quantity)
-	#
+		
+	print("Item price: ", Player.learning_item_bought[item_name]['item_price'] * quantity)
+	
+	if Player.gold >= Player.learning_item_bought[item_name]['item_price'] * quantity:
+		Player.gold -= Player.learning_item_bought[item_name]['item_price'] * quantity
+		
+	else:
+		push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
+	
 	
 	
 	#Puis on ajuste l'ui de l'item acheté pour optimisé
@@ -64,8 +70,10 @@ func _clear():
 
 
 
-func _on_shop_button_pressed(item_cara: Dictionary):
-	player_bought_item(item_cara["item_name"], 1)
+func _on_shop_button_pressed(shop_item: ShopItem):
+	
+	player_bought_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
+	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
 	
 
 func _on_x_button_pressed(button_name: String):
@@ -78,4 +86,6 @@ func _on_x_button_pressed(button_name: String):
 		"X100":
 			x_upgrade_value = 100
 		"XMax":
-			x_upgrade_value = INF  
+			x_upgrade_value = -1  
+ 
+	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
