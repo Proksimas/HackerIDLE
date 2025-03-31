@@ -18,9 +18,6 @@ func set_learning_clicker():
 	
 	pass
 
-func resize_viewxport(clicker_size):
-	pass
-
 
 func _clear():
 	for elmt in self.get_children():

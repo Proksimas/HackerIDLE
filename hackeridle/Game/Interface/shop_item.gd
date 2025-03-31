@@ -19,9 +19,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func set_item(item_name):
@@ -58,6 +55,7 @@ func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
 	if _x_buy == -1:
+		print('non')
 		return
 	if Player.gold  < calcul_item_price() * x_buy:
 		self.disabled = true

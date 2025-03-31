@@ -10,19 +10,20 @@ const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
 var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	#Le joueur commence forcement avec le premier item au niveau 1
+	############ TEST
 	Player.gold = 10000
+	
+	
+	_clear()
+	#Le joueur commence forcement avec le premier item au niveau 1
+
 	player_bought_item("post-it", 1)
 	#################"
+	
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 
@@ -43,6 +44,8 @@ func player_bought_item(item_name,  quantity):
 	else:
 		Player.item_level_up(item_name, quantity)
 		
+	print("item: ", Player.learning_item_bought[item_name])
+	print("quantity: ", quantity)
 	print("Item price: ", Player.learning_item_bought[item_name]['item_price'] * quantity)
 	
 	if Player.gold >= Player.learning_item_bought[item_name]['item_price'] * quantity:
@@ -63,12 +66,11 @@ func player_bought_item(item_name,  quantity):
 
 func _draw() -> void:
 	set_shop()
+	%X1Button.pressed.emit()
 
 func _clear():
 	for item in shop_grid.get_children():
 		item.queue_free()
-
-
 
 func _on_shop_button_pressed(shop_item: ShopItem):
 	
