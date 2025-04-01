@@ -35,41 +35,52 @@ func set_info():
 	var item_name = current_item_cara["item_name"]
 	item_name_label.text = item_name
 	
-	var item_price = calcul_item_price()
-	item_price_label.text = Global.number_to_string(item_price)
-	#Puis on met à jour le prix de l'item
-	Player.change_property_value(item_name,"item_price",item_price)
-	
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
 	
 	
-func calcul_item_price()-> int:
+func calcul_item_price(level)-> int:
 	"""Fonction qui renvoie le prix de l'item"""
 	# ATTENTION TODO faut que l'item price correspond au prix actuel
+	
+	# on part des paramètres donnés pour calculer le prix de l'item
+	
+	var calcul = level    # TODO
 
-	return int(current_item_cara["level"])
+	return int(calcul)
 	
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-	print(calcul_item_price() * x_buy)
-	if _x_buy == -1:
-		var total_price = 0
-		for i in range(10):
-			total_price += calcul_item_price() * (i + 1)
-			print(total_price)
+	var item_price = calcul_item_price(current_item_cara['level'])
+	if _x_buy == -1:  #CAS DU MAX
+		#TODO
+		
+		pass
+		#var total_price = 0
+		#for i in range(10):
+			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
-	if Player.gold  < calcul_item_price() * x_buy:
+	item_price = total_prices(x_buy)
+	
+	if Player.gold  < item_price:
 		self.disabled = true
 	else:
 		self.disabled = false
+		
+		
+	# on tente de maj le prix ici
+	
+	item_price_label.text = Global.number_to_string(item_price)
+	#Puis on met à jour le prix de l'item
+	Player.change_property_value(current_item_cara["item_name"],"item_price",item_price)
 		
 	
 
 func total_prices(quantity):
 	var total_price = 0
 	for i in range(quantity):
-		total_price += calcul_item_price() 
-		#TODO
+		total_price += calcul_item_price(current_item_cara["level"] + i) 
+		
+	return total_price
 	pass
