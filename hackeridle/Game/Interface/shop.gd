@@ -38,24 +38,30 @@ func set_shop():
 
 func player_bought_item(item_name,  quantity):
 	
+	var cost = 0
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_item(item_name):
-		Player.add_item(LearningItemsDB.get_item_cara(item_name))
+		#on regarde le cout de l'item à l'unité
+		cost = Calculs.total_prices(1, 1)
+		if Player.gold >=  cost:
+			Player.gold -= cost
+			Player.add_item(LearningItemsDB.get_item_cara(item_name))
+		else:
+			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
+			
+			
 	else:
-		Player.item_level_up(item_name, quantity)
-		
-	if Player.gold >= Player.learning_item_bought[item_name]["item_price"] * quantity:
-		Player.gold -= Player.learning_item_bought[item_name]["item_price"] * quantity
-		
-	else:
-		push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
-	
-	
-	
-	#Puis on ajuste l'ui de l'item acheté pour optimisé
-	for shop_item:ShopItem in shop_grid.get_children():
-		if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
-			shop_item.set_info()
+		cost = Calculs.total_prices(Player.learning_item_bought[item_name]["level"], quantity)
+		if Player.gold >=  cost:
+			Player.gold -= cost
+			Player.item_level_up(item_name, quantity)
+		else:
+			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
+
+		##Puis on ajuste l'ui de l'item acheté pour optimisé
+		for shop_item:ShopItem in shop_grid.get_children():
+			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
+				shop_item.set_info()
 	
 	pass
 	

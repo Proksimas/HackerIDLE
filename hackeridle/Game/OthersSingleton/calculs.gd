@@ -19,4 +19,3 @@ func total_prices(base_level, quantity):
 		total_price += calcul_item_price(base_level + i) 
 		
 	return total_price
-	pass

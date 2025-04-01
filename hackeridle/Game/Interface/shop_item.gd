@@ -52,17 +52,14 @@ func x_can_be_buy(_x_buy):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
 	item_price = Calculs.total_prices(current_item_cara["level"], x_buy)
-	
 	if Player.gold  < item_price:
 		self.disabled = true
 	else:
 		self.disabled = false
 		
-		
 	# on tente de maj le prix ici
 	
 	item_price_label.text = Global.number_to_string(item_price)
 	#Puis on met à jour le prix de l'item
-	Player.change_property_value(current_item_cara["item_name"],"item_price",item_price)
 		
 	
