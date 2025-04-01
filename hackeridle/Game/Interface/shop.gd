@@ -44,8 +44,8 @@ func player_bought_item(item_name,  quantity):
 	else:
 		Player.item_level_up(item_name, quantity)
 		
-	if Player.gold >= Player.learning_item_bought[item_name]['item_price'] * quantity:
-		Player.gold -= Player.learning_item_bought[item_name]['item_price'] * quantity
+	if Player.gold >= Player.learning_item_bought[item_name]["item_price"] * quantity:
+		Player.gold -= Player.learning_item_bought[item_name]["item_price"] * quantity
 		
 	else:
 		push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")

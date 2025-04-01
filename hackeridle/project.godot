@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Global="*res://Game/OthersSingleton/global.tscn"
 Player="*res://Game/OthersSingleton/player.gd"
 LearningItemsDB="*res://Game/DB/learning_items_db.tscn"
+Calculs="*res://Game/OthersSingleton/calculs.tscn"
 
 [display]
 

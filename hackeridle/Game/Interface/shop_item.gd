@@ -39,20 +39,10 @@ func set_info():
 	level_point_label.text = Global.number_to_string(item_level)
 	
 	
-func calcul_item_price(level)-> int:
-	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix actuel
-	
-	# on part des paramètres donnés pour calculer le prix de l'item
-	
-	var calcul = level    # TODO
-
-	return int(calcul)
-	
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-	var item_price = calcul_item_price(current_item_cara['level'])
+	var item_price = Calculs.calcul_item_price(current_item_cara['level'])
 	if _x_buy == -1:  #CAS DU MAX
 		#TODO
 		
@@ -61,7 +51,7 @@ func x_can_be_buy(_x_buy):
 		#for i in range(10):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
-	item_price = total_prices(x_buy)
+	item_price = Calculs.total_prices(current_item_cara["level"], x_buy)
 	
 	if Player.gold  < item_price:
 		self.disabled = true
@@ -76,11 +66,3 @@ func x_can_be_buy(_x_buy):
 	Player.change_property_value(current_item_cara["item_name"],"item_price",item_price)
 		
 	
-
-func total_prices(quantity):
-	var total_price = 0
-	for i in range(quantity):
-		total_price += calcul_item_price(current_item_cara["level"] + i) 
-		
-	return total_price
-	pass
