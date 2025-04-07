@@ -1,11 +1,13 @@
 extends Control
 
+
+@onready var passif_clickers: HFlowContainer = %PassifClickers
+@onready var clicker_arc: AspectRatioContainer = $VBoxContainer/CenterContainer/ClickerARC
+
 const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
 
-
-
 func set_learning_clicker():
-	_clear()
+	#_clear()
 	var new_lc = LEARNING_CLICKER.instantiate()
 	self.add_child(new_lc)
 	#On affiche l'item de learning le plus récent

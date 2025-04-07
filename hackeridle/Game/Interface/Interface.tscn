@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=20 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -12,10 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="12_341t5"]
+[ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="13_5f4gp"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="14_kcuwa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3q6ek"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_qjpct"]
 frames = 8
@@ -85,37 +89,56 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Argent: 0"
 
-[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
+[node name="GridContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-columns = 5
+alignment = 1
 
-[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(128, 128)
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/GridContainer"]
 layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 6
 texture_normal = SubResource("AnimatedTexture_qjpct")
 ignore_texture_size = true
+stretch_mode = 0
 
-[node name="Button2" type="Button" parent="Panel/VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(75, 75)
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Button3" type="Button" parent="Panel/VBoxContainer/GridContainer"]
-visible = false
-custom_minimum_size = Vector2(75, 75)
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer2"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-
-[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
+size_flags_horizontal = 6
 texture_normal = ExtResource("2_u0lvw")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/GridContainer"]
-custom_minimum_size = Vector2(75, 75)
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer3"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 6
 texture_normal = ExtResource("3_aake5")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -144,6 +167,79 @@ mouse_filter = 2
 script = ExtResource("12_341t5")
 metadata/_tab_index = 0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerARC" type="AspectRatioContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC"]
+layout_mode = 2
+texture_normal = ExtResource("13_5f4gp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PassifClickers" type="HFlowContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
 [node name="Hack" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
 unique_name_in_owner = true
 visible = false
@@ -157,9 +253,9 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 
-[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/Navigator" to="." method="_on_navigator_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
