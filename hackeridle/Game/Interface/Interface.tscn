@@ -78,12 +78,12 @@ last_wrap_alignment = 2
 [node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Connaissance: XXX"
+text = "Connaissance: 0"
 
 [node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Argent: XXX"
+text = "Argent: 0"
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2

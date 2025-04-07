@@ -74,7 +74,7 @@ size_flags_vertical = 3
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 
 [node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
 custom_minimum_size = Vector2(30, 30)
@@ -85,7 +85,9 @@ expand_mode = 1
 [node name="ItemPriceLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 10
 text = "xxxxx"
+horizontal_alignment = 2
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2

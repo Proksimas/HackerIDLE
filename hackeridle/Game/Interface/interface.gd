@@ -14,6 +14,7 @@ func _ready() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.earn_hacking_point.connect(_on_earn_hacking_point)
 	Player.earn_gold.connect(_on_earn_gold)
+	
 	pass # Replace with function body.
 
 
