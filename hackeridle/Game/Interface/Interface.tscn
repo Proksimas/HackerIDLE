@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=21 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -39,6 +39,8 @@ frame_6/texture = ExtResource("8_dni6j")
 frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_4o4uw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
@@ -144,7 +146,6 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
-mouse_default_cursor_shape = 4
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -198,17 +199,19 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
-[node name="Control" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-layout_mode = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers/Control"]
-
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
+texture = SubResource("AnimatedTexture_4o4uw")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_kcuwa")
+expand_mode = 1
+
+[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture = ExtResource("14_kcuwa")
