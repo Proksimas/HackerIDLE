@@ -19,6 +19,9 @@ var gold: float:
 		gold =  clamp(value, 0, INF)
 		earn_gold.emit(gold)
 		
+var brain_level: int:
+	set(value):
+		brain_level = clamp(value,0, INF)
 		
 var learning_item_bought: Dictionary = {"item_name": {"item_name": "name",
 													"level": 1,

@@ -185,7 +185,7 @@ custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureButton" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC"]
+[node name="ClickerButton" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC"]
 layout_mode = 2
 texture_normal = ExtResource("13_5f4gp")
 ignore_texture_size = true
@@ -198,43 +198,17 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
+[node name="Control" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers/Control"]
+
 [node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-texture = ExtResource("14_kcuwa")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
-
-[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
-
-[node name="TextureRect4" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
-
-[node name="TextureRect5" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
-
-[node name="TextureRect7" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
-
-[node name="TextureRect6" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture = ExtResource("14_kcuwa")
@@ -259,3 +233,4 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MarginContainer/MainTab/Learning" method="_on_clicker_button_pressed"]
