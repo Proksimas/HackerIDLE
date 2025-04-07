@@ -21,6 +21,7 @@ Global="*res://Game/OthersSingleton/global.tscn"
 Player="*res://Game/OthersSingleton/player.gd"
 LearningItemsDB="*res://Game/DB/learning_items_db.tscn"
 Calculs="*res://Game/OthersSingleton/calculs.tscn"
+HackingItemsDb="*res://Game/Clickers/hacking_items_db.tscn"
 
 [display]
 

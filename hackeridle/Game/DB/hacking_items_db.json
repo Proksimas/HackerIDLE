@@ -1,0 +1,11 @@
+{
+    "hacking_items": [
+        {
+            "item_name": "switch_hdmi",
+            "texture_path": "res://Game/Graphics/App_icons/final_frame.png",,
+            "base_gold_point": 1
+        }
+    ]
+
+
+}
