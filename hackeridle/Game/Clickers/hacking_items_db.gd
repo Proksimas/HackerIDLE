@@ -1,6 +1,5 @@
 extends Node
-const HACKING_ITEMS_PATH = "res://Game/Clickers/hacking_items_db.tscn"
-
+const HACKING_ITEMS_PATH = "res://Game/DB/hacking_items_db.json"
 
 var learning_items_db: Dictionary 
 
@@ -11,11 +10,10 @@ func _ready() -> void:
 func init_hacking_items_db():
 	var items: Dictionary = Global.load_json(HACKING_ITEMS_PATH)
 	
-	for item in items["learning_items"]:
+	for item in items["hacking_items"]:
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
-							"animation_path": item["animation_path"],
-							"base_knowledge_point": item["base_knowledge_point"]
+							"base_gold_point": item["base_gold_point"]
 							
 							}
 		if learning_items_db.has(item["item_name"]):
