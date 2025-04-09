@@ -53,7 +53,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 step = 1.0
-value = 11.0
 show_percentage = false
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar"]
@@ -65,9 +64,17 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="SecondsLeft" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer"]
 layout_mode = 2
-text = "0 /  x sec"
+
+[node name="SecondsLeft" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="HackItemCD" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "/ x sec"
 
 [node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -89,10 +96,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="BuyTitle" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
 
 [node name="NbofBuy" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "x 1"
 
@@ -100,6 +109,7 @@ text = "x 1"
 layout_mode = 2
 
 [node name="HackItemPriceLabel" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "xxxxx"
 

@@ -27,12 +27,15 @@ var learning_item_bought: Dictionary = {"item_name": {"item_name": "name",
 													"level": 1,
 													"knowledge_point_earned": 1}
 													}
+var hacking_item_bought: Dictionary = {"item_name": {"item_name": "name",
+													"level": 1,
+													"base_gold_point": 1}}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
 	
 
-func add_item(item_cara):
+func add_learning_item(item_cara):
 
 	var dict_to_store = {"item_name": item_cara['item_name'],
 						"level": 1,
@@ -42,18 +45,42 @@ func add_item(item_cara):
 pass
 	
 ##Gagne le nombre de level donné en paramètre
-func item_level_up(item_name: String, gain_of_level):
+func learning_item_level_up(item_name: String, gain_of_level):
 	learning_item_bought[item_name]["level"] += gain_of_level
-
-	pass
 	
-func has_item(item_name):
+	
+func has_learning_item(item_name):
 	if learning_item_bought.has(item_name):
 		return true
 	else:
 		return false
+		
 
-func change_property_value(item_name: String, property: String, value):
-	if not has_item(item_name):
+func change_learning_property_value(item_name: String, property: String, value):
+	if not has_learning_item(item_name):
 		push_warning("L'item n'existe pas")
 	learning_item_bought[item_name][property] = value
+
+
+func add_hacking_item(item_cara):
+
+	var dict_to_store = {"item_name": item_cara['item_name'],
+						"level": 1,
+						"base_gold_point": 1}
+						
+	hacking_item_bought[item_cara['item_name']] = dict_to_store
+
+##Gagne le nombre de level donné en paramètre
+func hacking_item_level_up(item_name: String, gain_of_level):
+	hacking_item_bought[item_name]["level"] += gain_of_level
+
+func has_hacking_item(item_name):
+	if hacking_item_bought.has(item_name):
+		return true
+	else:
+		return false
+		
+func change_hacking_property_value(item_name: String, property: String, value):
+	if not has_hacking_item(item_name):
+		push_warning("L'item n'existe pas")
+	hacking_item_bought[item_name][property] = value
