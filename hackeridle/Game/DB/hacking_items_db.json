@@ -3,7 +3,8 @@
         {
             "item_name": "switch_hdmi",
             "texture_path": "rres://icon.svg",
-            "base_gold_point": 1
+            "base_gold_point": 1,
+            "base_time_delay": 5
         }
     ]
 

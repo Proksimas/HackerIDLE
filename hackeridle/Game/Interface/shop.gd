@@ -17,7 +17,7 @@ func _ready() -> void:
 	_clear()
 	#Le joueur commence forcement avec le premier item au niveau 1
 
-	player_bought_item("post-it", 1)
+	player_bought_learning_item("post-it", 1)
 	#################"
 	
 	for button:Button in buttons_container.get_children():
@@ -36,13 +36,13 @@ func set_shop():
 		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item))
 	pass
 
-func player_bought_item(item_name,  quantity):
+func player_bought_learning_item(item_name,  quantity):
 	
 	var cost = 0
 	# si le joueur a déjà l'item, on augmente son niveau
-	if not Player.has_item(item_name):
+	if not Player.has_learning_item(item_name):
 		#on regarde le cout de l'item à l'unité
-		cost = Calculs.total_prices(1, 1)
+		cost = Calculs.total_learning_prices(1, 1)
 		if Player.gold >=  cost:
 			Player.gold -= cost
 			Player.add_learning_item(LearningItemsDB.get_item_cara(item_name))
@@ -51,7 +51,7 @@ func player_bought_item(item_name,  quantity):
 			
 			
 	else:
-		cost = Calculs.total_prices(Player.learning_item_bought[item_name]["level"], quantity)
+		cost = Calculs.total_learning_prices(Player.learning_item_bought[item_name]["level"], quantity)
 		if Player.gold >=  cost:
 			Player.gold -= cost
 			Player.learning_item_level_up(item_name, quantity)
@@ -76,7 +76,7 @@ func _clear():
 
 func _on_shop_button_pressed(shop_item: ShopItem):
 	
-	player_bought_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
+	player_bought_learning_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
 	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
 	
 

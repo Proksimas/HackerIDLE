@@ -13,7 +13,8 @@ func init_hacking_items_db():
 	for item in items["hacking_items"]:
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
-							"base_gold_point": item["base_gold_point"]
+							"base_gold_point": item["base_gold_point"],
+							"base_time_delay": item["base_time_delay"]
 							
 							}
 		if learning_items_db.has(item["item_name"]):
