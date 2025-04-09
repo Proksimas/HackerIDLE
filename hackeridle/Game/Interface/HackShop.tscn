@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b7ubmp8sthntc"]
+[gd_scene load_steps=3 format=3 uid="uid://b7ubmp8sthntc"]
 
 [ext_resource type="Script" path="res://Game/Interface/hack_shop.gd" id="1_wmrks"]
+[ext_resource type="PackedScene" uid="uid://d0altvtk67lo8" path="res://Game/Clickers/hack_item_button.tscn" id="2_djb87"]
 
 [node name="HackShop" type="Control"]
 layout_mode = 3
@@ -59,3 +60,9 @@ text = "Max"
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
+
+[node name="HackItemButton" parent="MarginContainer/VBoxContainer/HackGrid" instance=ExtResource("2_djb87")]
+layout_mode = 2
+
+[node name="HackItemButton2" parent="MarginContainer/VBoxContainer/HackGrid" instance=ExtResource("2_djb87")]
+layout_mode = 2
