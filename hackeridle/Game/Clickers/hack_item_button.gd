@@ -1,5 +1,7 @@
 extends Control
 
+class_name HackItemButton
+
 @onready var hack_item_progress_bar: ProgressBar = %HackItemProgressBar
 @onready var seconds_left: Label = %SecondsLeft
 @onready var buy_item_button: Button = %BuyItemButton
@@ -7,6 +9,7 @@ extends Control
 @onready var nbof_buy: Label = %NbofBuy
 @onready var hack_item_price_label: Label = %HackItemPriceLabel
 @onready var hack_item_cd: Label = %HackItemCD
+@onready var hack_item_level: Label = %HackItemLevel
 
 
 var x_buy
@@ -27,13 +30,17 @@ func set_item(item_name):
 	var hack_item_cara = HackingItemsDb.get_item_cara(item_name)
 	current_hack_item_cara = hack_item_cara
 	
-	hack_item_cd.text = hack_item_cara["base_time_delay"]
+	hack_item_cd.text = " / " + str(hack_item_cara["base_time_delay"])
 	seconds_left.text = "0"
+	set_info()
+	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
 	
+func set_info():
+	var item_name = current_hack_item_cara["item_name"]
+	var item_level = current_hack_item_cara["level"]
 	
-	pass
-
-
+	hack_item_level.text = Global.number_to_string(item_level)
+	hack_item_price_label.text =  Global.number_to_string(item_level)
 
 	
 func x_can_be_buy(_x_buy):

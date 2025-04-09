@@ -2,7 +2,7 @@ extends Control
 
 
 @onready var learning: Control = %Learning
-@onready var hack: Control = %Hack
+@onready var hack_shop: Control = %HackShop
 @onready var shop: Control = %Shop
 @onready var main_tab: TabContainer = %MainTab
 @onready var navigator: TextureButton = %Navigator
@@ -16,9 +16,6 @@ func _ready() -> void:
 	Player.earn_gold.connect(_on_earn_gold)
 	
 	pass # Replace with function body.
-
-
-
 
 func _on_shopping_pressed() -> void:
 	shop.show()
@@ -40,3 +37,8 @@ func _on_earn_hacking_point(point):
 func _on_earn_gold(point):
 	gold_label.text = tr("Gold: %s" % [str(int(point))])
 	
+
+
+func _on_dark_shop_pressed() -> void:
+	hack_shop.show()
+	pass # Replace with function body.

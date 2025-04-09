@@ -49,7 +49,6 @@ func player_bought_learning_item(item_name,  quantity):
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
 			
-			
 	else:
 		cost = Calculs.total_learning_prices(Player.learning_item_bought[item_name]["level"], quantity)
 		if Player.gold >=  cost:
@@ -62,9 +61,8 @@ func player_bought_learning_item(item_name,  quantity):
 		for shop_item:ShopItem in shop_grid.get_children():
 			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
 				shop_item.set_info()
-	
-	pass
-	
+				
+				
 
 func _draw() -> void:
 	set_shop()

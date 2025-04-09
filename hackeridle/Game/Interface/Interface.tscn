@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=22 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="13_5f4gp"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="14_kcuwa"]
+[ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
@@ -216,11 +217,10 @@ layout_mode = 2
 texture = ExtResource("14_kcuwa")
 expand_mode = 1
 
-[node name="Hack" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
+[node name="HackShop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-metadata/_tab_index = 1
 
 [node name="Shop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
@@ -235,4 +235,5 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MarginContainer/MainTab/Learning" method="_on_clicker_button_pressed"]
