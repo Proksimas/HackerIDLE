@@ -30,7 +30,7 @@ layout_mode = 2
 
 [node name="HackItemTexture" type="TextureButton" parent="HBoxContainer/AspectRatioContainer/VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture_normal = ExtResource("1_qh5xn")
 ignore_texture_size = true
