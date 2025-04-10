@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=5 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_qh5xn"]
 [ext_resource type="Script" path="res://Game/Clickers/hack_item_button.gd" id="1_qsk31"]
 
-[node name="HackItemButton" type="Control"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnrru"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvn61"]
+bg_color = Color(0.881796, 0.482466, 0.000684034, 1)
+
+[node name="HackItemButton" type="Control" groups=["g_hack_shop_item"]]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchor_right = 1.0
@@ -67,20 +72,30 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer"]
 layout_mode = 2
 
-[node name="SecondsLeft" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+[node name="GoldGain" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "0"
+text = "X"
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_qh5xn")
+expand_mode = 2
 
 [node name="HackItemCD" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "/ x sec"
 
-[node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer" groups=["g_hack_shop_item"]]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bnrru")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_gvn61")
 
 [node name="Container" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BuyItemButton"]
 layout_mode = 1
@@ -118,8 +133,10 @@ text = "xxxxx"
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer/AspectRatioContainer"]
+[node name="BrainTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer/AspectRatioContainer"]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("1_qh5xn")
 expand_mode = 1
+
+[connection signal="pressed" from="HBoxContainer/AspectRatioContainer/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]

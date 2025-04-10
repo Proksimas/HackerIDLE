@@ -1,7 +1,7 @@
 extends Node
 const HACKING_ITEMS_PATH = "res://Game/DB/hacking_items_db.json"
 
-var learning_items_db: Dictionary 
+var hacking_items_db: Dictionary 
 
 func _ready() -> void:
 	init_hacking_items_db()
@@ -18,16 +18,16 @@ func init_hacking_items_db():
 							"level": 0
 							
 							}
-		if learning_items_db.has(item["item_name"]):
+		if hacking_items_db.has(item["item_name"]):
 			push_error("Item initialisation en double")
 		
 		else:
-			learning_items_db[item["item_name"]] = dict_item
+			hacking_items_db[item["item_name"]] = dict_item
 		pass
 
 
 func get_item_cara(item_name: String):
-	if learning_items_db.has(item_name):
-		return learning_items_db[item_name]
+	if hacking_items_db.has(item_name):
+		return hacking_items_db[item_name]
 	else:
 		push_error("L'item demandé n'existe pas")

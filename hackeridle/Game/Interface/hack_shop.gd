@@ -11,6 +11,7 @@ var x_upgrade_value: int
 func _ready() -> void:
 	_clear()
 	
+	#player_bought_hacking_item("switch_hdmi", 1)
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
@@ -18,8 +19,9 @@ func _ready() -> void:
 
 
 func set_shop():
+	"""initialisation du shop initial"""
 	_clear()
-	for item_name in HackingItemsDb.learning_items_db:
+	for item_name in HackingItemsDb.hacking_items_db:
 		var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
 		hack_grid.add_child(new_hack_item)
 		new_hack_item.set_item(item_name)
@@ -43,16 +45,17 @@ func player_bought_hacking_item(item_name,  quantity):
 			
 	else:
 		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
+		print("cost: ", cost)
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.hacking_item_level_up(item_name, quantity)
 		else:
-			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
+			push_warning("On ne devrait pas pouvoir acheter litem, pas assez de connaissance")
 
 		##Puis on ajuste l'ui de l'item acheté pour optimisé
-		for shop_item:HackItemButton in hack_grid.get_children():
-			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
-				shop_item.set_info()
+		for hack_item:HackItemButton in hack_grid.get_children():
+			if  not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
+				hack_item.set_info()
 
 
 func _on_x_button_pressed(button_name: String):
@@ -67,14 +70,16 @@ func _on_x_button_pressed(button_name: String):
 		"XMax":
 			x_upgrade_value = -1  
 
-	#get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
+	get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
 
 func _draw() -> void:
 	set_shop()
 	%X1Button.pressed.emit()
 
 func _on_hack_item_button_pressed(hack_item: HackItemButton):
-
+	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], hack_item.x_buy)
+	get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
+	
 	pass
 
 func _clear():

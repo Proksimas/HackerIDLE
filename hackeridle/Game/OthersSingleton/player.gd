@@ -23,13 +23,8 @@ var brain_level: int:
 	set(value):
 		brain_level = clamp(value,0, INF)
 		
-var learning_item_bought: Dictionary = {"item_name": {"item_name": "name",
-													"level": 1,
-													"knowledge_point_earned": 1}
-													}
-var hacking_item_bought: Dictionary = {"item_name": {"item_name": "name",
-													"level": 1,
-													"base_gold_point": 1}}
+var learning_item_bought: Dictionary = {}
+var hacking_item_bought: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 

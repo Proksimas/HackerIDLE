@@ -6,7 +6,7 @@ func calcul_learning_item_price(level)-> int:
 	
 	# on part des paramètres donnés pour calculer le prix de l'item
 	
-	var calcul = level    # TODO
+	var calcul = level +1   # TODO
 
 	return int(calcul)
 
@@ -25,10 +25,9 @@ func calcul_hacking_item_price(level)-> int:
 	
 	# on part des paramètres donnés pour calculer le prix de l'item
 	
-	var calcul = level    # TODO
+	var calcul = level  + 1 # TODO
 
 	return int(calcul)
-
 
 func total_hacking_prices(base_level, quantity):
 	var total_price = 0
@@ -36,3 +35,11 @@ func total_hacking_prices(base_level, quantity):
 		total_price += calcul_hacking_item_price(base_level + i) 
 		
 	return total_price
+
+func gain_knowledge_point(hacking_item_name):
+	"""combien tu gagnes de points de connaissance selon l'item actuel présent dans l'inventaire"""
+	if !Player.has_hacking_item(hacking_item_name): # item pas présent
+		return
+	
+	var item = Player.hacking_item_bought[hacking_item_name]
+	print(item)
