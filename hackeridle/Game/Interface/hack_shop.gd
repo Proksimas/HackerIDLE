@@ -11,7 +11,6 @@ var x_upgrade_value: int
 func _ready() -> void:
 	_clear()
 	
-	#player_bought_hacking_item("switch_hdmi", 1)
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
@@ -33,19 +32,20 @@ func set_shop():
 func player_bought_hacking_item(item_name,  quantity):
 	
 	var cost = 0
+
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_hacking_item(item_name):
 		#on regarde le cout de l'item à l'unité
 		cost = Calculs.total_hacking_prices(1, 1)
+
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
 		else:
-			push_warning("On ne devrait pas pouvoir acheter litem, pas assez de knowledge_point")
+			push_warning("On ne devrait pas pouvoir acheter litem. Pas présent et pas assez de connaissance")
 			
 	else:
 		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
-		print("cost: ", cost)
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.hacking_item_level_up(item_name, quantity)
@@ -53,8 +53,9 @@ func player_bought_hacking_item(item_name,  quantity):
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez de connaissance")
 
 		##Puis on ajuste l'ui de l'item acheté pour optimisé
+
 		for hack_item:HackItemButton in hack_grid.get_children():
-			if  not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
+			if not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
 				hack_item.set_info()
 
 

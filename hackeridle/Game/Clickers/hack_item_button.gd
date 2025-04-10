@@ -27,7 +27,8 @@ func _process(delta: float) -> void:
 
 
 func set_item(item_name):
-	var hack_item_cara = HackingItemsDb.get_item_cara(item_name)
+	"""Il faut set l'item par rapport à l'inventaire du joueur"""
+	var hack_item_cara = Player.hacking_item_bought[item_name]
 	current_hack_item_cara = hack_item_cara
 	
 	hack_item_cd.text = " / " + str(hack_item_cara["base_time_delay"]) + " secs"
@@ -56,8 +57,7 @@ func x_can_be_buy(_x_buy):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
 	item_price = Calculs.total_hacking_prices(current_hack_item_cara["level"], x_buy)
-	print("item_price: ", item_price)
-	print("knowledge_point: ", Player.knowledge_point )
+
 	if Player.knowledge_point  < item_price:
 		buy_item_button.disabled = true
 	else:

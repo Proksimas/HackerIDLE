@@ -61,7 +61,8 @@ func add_hacking_item(item_cara):
 
 	var dict_to_store = {"item_name": item_cara['item_name'],
 						"level": 1,
-						"base_gold_point": 1}
+						"base_gold_point": 1,
+						"base_time_delay": item_cara["base_time_delay"]}
 						
 	hacking_item_bought[item_cara['item_name']] = dict_to_store
 
