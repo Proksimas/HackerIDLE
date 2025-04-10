@@ -61,8 +61,8 @@ func player_bought_learning_item(item_name,  quantity):
 		for shop_item:ShopItem in shop_grid.get_children():
 			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
 				shop_item.set_info()
-				
-				
+
+
 
 func _draw() -> void:
 	set_shop()

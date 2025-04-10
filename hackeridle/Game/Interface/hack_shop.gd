@@ -27,6 +27,32 @@ func set_shop():
 		
 	pass
 
+				
+func player_bought_hacking_item(item_name,  quantity):
+	
+	var cost = 0
+	# si le joueur a déjà l'item, on augmente son niveau
+	if not Player.has_hacking_item(item_name):
+		#on regarde le cout de l'item à l'unité
+		cost = Calculs.total_hacking_prices(1, 1)
+		if Player.knowledge_point >=  cost:
+			Player.knowledge_point -= cost
+			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
+		else:
+			push_warning("On ne devrait pas pouvoir acheter litem, pas assez de knowledge_point")
+			
+	else:
+		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
+		if Player.knowledge_point >=  cost:
+			Player.knowledge_point -= cost
+			Player.hacking_item_level_up(item_name, quantity)
+		else:
+			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
+
+		##Puis on ajuste l'ui de l'item acheté pour optimisé
+		for shop_item:HackItemButton in hack_grid.get_children():
+			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
+				shop_item.set_info()
 
 
 func _on_x_button_pressed(button_name: String):

@@ -15,7 +15,8 @@ func init_learning_items_db():
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
-							"base_knowledge_point": item["base_knowledge_point"]
+							"base_knowledge_point": item["base_knowledge_point"],
+							"level": 0
 							
 							}
 		if learning_items_db.has(item["item_name"]):

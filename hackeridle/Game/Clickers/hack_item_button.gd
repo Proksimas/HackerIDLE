@@ -36,7 +36,9 @@ func set_item(item_name):
 	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
 	
 func set_info():
+	
 	var item_name = current_hack_item_cara["item_name"]
+	
 	var item_level = current_hack_item_cara["level"]
 	
 	hack_item_level.text = Global.number_to_string(item_level)
@@ -46,7 +48,7 @@ func set_info():
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-	var item_price = Calculs.calcul_item_price(current_hack_item_cara['level'])
+	var item_price = Calculs.calcul_hacking_item_price(current_hack_item_cara['level'])
 	if _x_buy == -1:  #CAS DU MAX
 		#TODO
 		
@@ -56,10 +58,10 @@ func x_can_be_buy(_x_buy):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
 	item_price = Calculs.total_hacking_prices(current_hack_item_cara["level"], x_buy)
-	if Player.gold  < item_price:
-		self.disabled = true
+	if Player.knowledge_point  < item_price:
+		buy_item_button.disabled = true
 	else:
-		self.disabled = false
+		buy_item_button.disabled = false
 		
 	# on tente de maj le prix ici
 	
