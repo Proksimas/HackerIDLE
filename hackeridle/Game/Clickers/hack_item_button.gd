@@ -26,31 +26,47 @@ func _process(delta: float) -> void:
 
 
 
-func set_hacking_item(hack_item_cara):
-	"""initialisation de base de l'item selon la base de donnée"""
-	current_hack_item_cara = hack_item_cara
+func set_hacking_item(item_name):
 	
-	hack_item_cd.text = " / " + str(hack_item_cara["base_time_delay"]) + " secs"
-	
-	set_hacking_item_by_player_info()
-	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
-	
-func set_hacking_item_by_player_info():
-	"""mise à jour des informations de l'item par les informations de l'item dans l'inventaire
-	du joueur """
-			
-	var item_name = current_hack_item_cara["item_name"]
-	var item_level 
-	
-	if !Player.has_hacking_item(current_hack_item_cara["item_name"]):
-		#pas dispo dans l'inventaire, à voir les conditions 
-		item_level = 0
-	else:
-		item_level = current_hack_item_cara["level"]
-		
+	current_hack_item_cara = HackingItemsDb.get_item_cara(item_name)
+	var item_level = current_hack_item_cara["level"]
+	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	
 	hack_item_level.text = Global.number_to_string(item_level)
-	hack_item_price_label.text =  Global.number_to_string(item_level)
+	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
+	hack_item_cd.text = str(current_hack_item_cara["base_time_delay"]) + " secs"
+	#set_hacking_item_by_player_info()
+	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
+	
+
+func set_refresh(item_cara: Dictionary):
+	"""On met à jour les stats du current_item"""
+	current_hack_item_cara = item_cara
+	var item_level = current_hack_item_cara["level"]
+	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+	hack_item_level.text = Global.number_to_string(item_level)
+	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
+	hack_item_cd.text = str(current_hack_item_cara["base_time_delay"]) + " secs"
+	
+	x_can_be_buy(x_buy)
+	
+	pass
+	
+#
+#func set_hacking_item_by_player_info():
+#
+	#var item_name = current_hack_item_cara["item_name"]
+	#var item_level 
+	#
+	#if !Player.has_hacking_item(current_hack_item_cara["item_name"]):
+		##pas dispo dans l'inventaire, à voir les conditions 
+		#item_level = 0
+	#else:
+		#item_level = current_hack_item_cara["level"]
+		#
+	#
+	#hack_item_level.text = Global.number_to_string(item_level)
+	#hack_item_price_label.text =  Global.number_to_string(item_level)
 
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""

@@ -10,10 +10,6 @@ const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
 var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	############ TEST
-	Player.gold = 10000
-	
-	
 	_clear()
 	#Le joueur commence forcement avec le premier item au niveau 1
 

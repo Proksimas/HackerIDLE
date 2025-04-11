@@ -10,7 +10,6 @@ var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_clear()
-	
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
@@ -18,12 +17,12 @@ func _ready() -> void:
 
 
 func set_shop():
-	"""initialisation du shop initial"""
+	"""initialisation du shop initial. On affiche tous les items de la DB"""
 	_clear()
 	for item_name in HackingItemsDb.hacking_items_db:
 		var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
 		hack_grid.add_child(new_hack_item)
-		new_hack_item.set_hacking_item(HackingItemsDb.get_item_cara(item_name))
+		new_hack_item.set_hacking_item(item_name)
 		new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 		
 	pass
@@ -35,9 +34,9 @@ func player_bought_hacking_item(item_name,  quantity):
 
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_hacking_item(item_name):
-		#on regarde le cout de l'item à l'unité
-		cost = Calculs.total_hacking_prices(1, 1)
-
+		#on regarde le cout de l'item à l'unité, qui est donc au level "0"
+		cost = Calculs.total_hacking_prices(0, 1) 
+		print("Item non présent et cout à: ", str(cost))
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
@@ -46,6 +45,7 @@ func player_bought_hacking_item(item_name,  quantity):
 			
 	else:
 		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
+		print("Item  présent et cout à: ", str(cost))
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.hacking_item_level_up(item_name, quantity)
@@ -56,7 +56,7 @@ func player_bought_hacking_item(item_name,  quantity):
 	
 	for hack_item:HackItemButton in hack_grid.get_children():
 		if not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
-			hack_item.set_hacking_item_by_player_info()
+			hack_item.set_refresh(Player.hacking_item_bought[item_name])
 
 
 func _on_x_button_pressed(button_name: String):
@@ -78,8 +78,11 @@ func _draw() -> void:
 	%X1Button.pressed.emit()
 
 func _on_hack_item_button_pressed(hack_item: HackItemButton):
+	"""On a appuyé pour acheter l'item"""
 	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], hack_item.x_buy)
-	get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
+	
+	#Puis on doit refresh toutes les UI.
+	#get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
 	
 	pass
 
