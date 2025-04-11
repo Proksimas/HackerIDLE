@@ -36,9 +36,13 @@ func total_hacking_prices(base_level, quantity):
 		
 	return total_price
 
-func gain_knowledge_point(hacking_item_name):
+func gain_knowledge_point(hacking_item_name) -> int:
 	"""combien tu gagnes de points de connaissance selon l'item actuel présent dans l'inventaire"""
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent
-		return
+		
+		push_warning("L'item n'est pas présent !")
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
+	
+	#faire le calcul
+	return item["base_gold_point"] * item["level"]

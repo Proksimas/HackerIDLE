@@ -81,6 +81,7 @@ text = "X"
 layout_mode = 2
 
 [node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer/AspectRatioContainer"]
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("1_qh5xn")
 expand_mode = 2

@@ -27,27 +27,31 @@ func _process(delta: float) -> void:
 
 
 func set_hacking_item(item_name):
-	
+	"""on initialise depuis la base de donnée."""
 	current_hack_item_cara = HackingItemsDb.get_item_cara(item_name)
 	var item_level = current_hack_item_cara["level"]
 	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
-	
+	#le gain de abse correspond à ce qu'il y a dans la db
+	gold_gain.text = Global.number_to_string((current_hack_item_cara["base_gold_point"]))
+
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
-	hack_item_cd.text = str(current_hack_item_cara["base_time_delay"]) + " secs"
+	hack_item_cd.text =  "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	#set_hacking_item_by_player_info()
 	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
 	
 
 func set_refresh(item_cara: Dictionary):
-	"""On met à jour les stats du current_item"""
+	"""On met à jour les stats du current_item. EN principe le current_item vaut à présent l'item qui 
+	est dans l'inventaire du joueur"""
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	hack_item_cd.text = str(current_hack_item_cara["base_time_delay"]) + " secs"
-	
+	gold_gain.text = Global.number_to_string(Calculs.gain_knowledge_point(current_hack_item_cara["item_name"]))
+
 	x_can_be_buy(x_buy)
 	
 	pass
@@ -96,5 +100,8 @@ func x_can_be_buy(_x_buy):
 
 func _on_hack_item_texture_pressed() -> void:
 	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
+	
+	#TODO Faire le cas où l'item n'est pas encore acheté
+	
 	Calculs.gain_knowledge_point(current_hack_item_cara["item_name"])
 	pass # Replace with function body.
