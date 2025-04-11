@@ -36,7 +36,6 @@ func player_bought_hacking_item(item_name,  quantity):
 	if not Player.has_hacking_item(item_name):
 		#on regarde le cout de l'item à l'unité, qui est donc au level "0"
 		cost = Calculs.total_hacking_prices(0, 1) 
-		print("Item non présent et cout à: ", str(cost))
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
@@ -45,7 +44,6 @@ func player_bought_hacking_item(item_name,  quantity):
 			
 	else:
 		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
-		print("Item  présent et cout à: ", str(cost))
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.hacking_item_level_up(item_name, quantity)
