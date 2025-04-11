@@ -13,7 +13,7 @@ func _ready() -> void:
 	_clear()
 	#Le joueur commence forcement avec le premier item au niveau 1
 
-	player_bought_learning_item("post-it", 1)
+	#player_bought_learning_item("post-it", 1)
 	#################"
 	
 	for button:Button in buttons_container.get_children():
@@ -38,7 +38,7 @@ func player_bought_learning_item(item_name,  quantity):
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_learning_item(item_name):
 		#on regarde le cout de l'item à l'unité
-		cost = Calculs.total_learning_prices(1, 1)
+		cost = Calculs.total_learning_prices(0, 1)
 		if Player.gold >=  cost:
 			Player.gold -= cost
 			Player.add_learning_item(LearningItemsDB.get_item_cara(item_name))
@@ -54,9 +54,9 @@ func player_bought_learning_item(item_name,  quantity):
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
 
 		##Puis on ajuste l'ui de l'item acheté pour optimisé
-		for shop_item:ShopItem in shop_grid.get_children():
-			if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
-				shop_item.set_info()
+	for shop_item:ShopItem in shop_grid.get_children():
+		if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
+			shop_item.set_refresh(Player.learning_item_bought[item_name])
 
 
 

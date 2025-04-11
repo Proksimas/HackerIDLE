@@ -22,22 +22,24 @@ func _ready() -> void:
 
 
 func set_item(item_name):
-	var item_player_cara = Player.learning_item_bought[item_name]
-	var item_cara =  LearningItemsDB.learning_items_db[item_name]
-	current_item_cara = item_player_cara
+	current_item_cara = LearningItemsDB.get_item_cara(item_name)
 	
-	shop_texture.texture = load(item_cara["texture_path"])
-	set_info()
+	item_name_label.text = current_item_cara["item_name"]
+	shop_texture.texture = load(current_item_cara["texture_path"])
+	level_point_label.text = Global.number_to_string(current_item_cara["level"])
+
 	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
 	pass
 
-func set_info():
+func set_refresh(item_cara: Dictionary):
+	current_item_cara = item_cara
 	var item_name = current_item_cara["item_name"]
 	item_name_label.text = item_name
 	
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
-	
+
+	x_can_be_buy(x_buy)
 	
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""

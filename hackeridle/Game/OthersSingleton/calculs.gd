@@ -42,4 +42,3 @@ func gain_knowledge_point(hacking_item_name):
 		return
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
-	print(item)
