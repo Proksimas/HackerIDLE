@@ -14,23 +14,24 @@ class_name HackItemButton
 
 var x_buy
 var current_hack_item_cara
+var progress_activated: bool = false
+var time_process:float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	
 func _process(delta: float) -> void:
-	pass
-
-
-
+	if progress_activated:
+		time_process += delta
+		hack_item_progress_bar.value = time_process
+		if time_process >= current_hack_item_cara["base_time_delay"]:
+			time_finished()
 
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
 	current_hack_item_cara = HackingItemsDb.get_item_cara(item_name)
 	var item_level = current_hack_item_cara["level"]
-	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+
 	#le gain de abse correspond à ce qu'il y a dans la db
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["base_gold_point"]))
 
@@ -38,7 +39,8 @@ func set_hacking_item(item_name):
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	hack_item_cd.text =  "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	#set_hacking_item_by_player_info()
-	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
+	x_buy = 1
+	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	
 
 func set_refresh(item_cara: Dictionary):
@@ -46,31 +48,14 @@ func set_refresh(item_cara: Dictionary):
 	est dans l'inventaire du joueur"""
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
-	hack_item_cd.text = " / " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
-	hack_item_cd.text = str(current_hack_item_cara["base_time_delay"]) + " secs"
-	gold_gain.text = Global.number_to_string(Calculs.gain_knowledge_point(current_hack_item_cara["item_name"]))
-
+	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
+	hack_item_cd.text = "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	x_can_be_buy(x_buy)
 	
 	pass
-	
-#
-#func set_hacking_item_by_player_info():
-#
-	#var item_name = current_hack_item_cara["item_name"]
-	#var item_level 
-	#
-	#if !Player.has_hacking_item(current_hack_item_cara["item_name"]):
-		##pas dispo dans l'inventaire, à voir les conditions 
-		#item_level = 0
-	#else:
-		#item_level = current_hack_item_cara["level"]
-		#
-	#
-	#hack_item_level.text = Global.number_to_string(item_level)
-	#hack_item_price_label.text =  Global.number_to_string(item_level)
 
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
@@ -96,12 +81,31 @@ func x_can_be_buy(_x_buy):
 	hack_item_price_label.text = Global.number_to_string(item_price)
 	nbof_buy.text = "X " + str(x_buy)
 	#Puis on met à jour le prix de l'item
+	
+	
+func lauch_wait_time():
+	hack_item_progress_bar.rounded =false
+	time_process = 0
+	hack_item_progress_bar.max_value = current_hack_item_cara["base_time_delay"]
+	hack_item_progress_bar.min_value = 0
+	hack_item_progress_bar.step = 0.01
+	
+	
+	progress_activated = true
+	
+	pass
+
+
+func time_finished() -> void:
+	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
+	progress_activated = false
+	hack_item_progress_bar.value = 0
+	#TODO Faire le cas où l'item n'est pas encore acheté
+	
+	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
+	pass # Replace with function body.
 
 
 func _on_hack_item_texture_pressed() -> void:
-	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
-	
-	#TODO Faire le cas où l'item n'est pas encore acheté
-	
-	Calculs.gain_knowledge_point(current_hack_item_cara["item_name"])
+	lauch_wait_time()
 	pass # Replace with function body.

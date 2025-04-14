@@ -57,7 +57,6 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-step = 1.0
 show_percentage = false
 
 [node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar"]
@@ -84,7 +83,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 texture = ExtResource("1_qh5xn")
-expand_mode = 2
+expand_mode = 1
 
 [node name="HackItemCD" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
 unique_name_in_owner = true
