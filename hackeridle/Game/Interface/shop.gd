@@ -24,17 +24,37 @@ func _ready() -> void:
 
 
 func set_shop():
-	_clear()
+	#_clear()
+	#for item_name in LearningItemsDB.learning_items_db:
+		#var new_shop_item:ShopItem = SHOP_ITEM.instantiate()
+		#shop_grid.add_child(new_shop_item)
+		#if Player.add_learning_item(item_name):
+			#new_shop_item.x_buy = 1
+			#new_shop_item.set_refresh(Player.learning_item_bought[item_name])
+		#else:
+			#new_shop_item.set_item(item_name)
+		#new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item))
+	#pass
+	#
+	var item_present: Dictionary
+	for shop_item:ShopItem in shop_grid.get_children():
+		item_present[shop_item.current_item_cara["item_name"]] = shop_item
+
 	for item_name in LearningItemsDB.learning_items_db:
-		var new_shop_item:ShopItem = SHOP_ITEM.instantiate()
-		shop_grid.add_child(new_shop_item)
-		if Player.add_learning_item(item_name):
-			new_shop_item.x_buy = 1
-			new_shop_item.set_refresh(Player.learning_item_bought[item_name])
+		
+		if item_present.has(item_name) and Player.has_learning_item(item_name):
+			item_present[item_name].set_refresh(item_present[item_name].current_item_cara)
+			
+		elif item_present.has(item_name) and !Player.has_learning_item(item_name):
+			continue
+			
 		else:
-			new_shop_item.set_item(item_name)
-		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item))
-	pass
+			var new_learning_item:ShopItem = SHOP_ITEM.instantiate()
+			shop_grid.add_child(new_learning_item)
+			new_learning_item.set_item(item_name)
+			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
+pass
+	
 
 func player_bought_learning_item(item_name,  quantity):
 	

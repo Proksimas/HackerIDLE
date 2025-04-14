@@ -22,8 +22,6 @@ func set_shop():
 	for hack_item:HackItemButton in hack_grid.get_children():
 		item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
 
-
-	print(item_present)
 	for item_name in HackingItemsDb.hacking_items_db:
 		
 		if item_present.has(item_name) and Player.has_hacking_item(item_name):
