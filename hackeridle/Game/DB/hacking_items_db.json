@@ -2,9 +2,9 @@
     "hacking_items": [
         {
             "item_name": "switch_hdmi",
-            "texture_path": "rres://icon.svg",
+            "texture_path": "res://icon.svg",
             "base_gold_point": 1,
-            "base_time_delay": 5
+            "base_time_delay": 5,
         }
     ]
 

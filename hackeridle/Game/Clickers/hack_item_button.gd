@@ -51,6 +51,7 @@ func set_refresh(item_cara: Dictionary):
 
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
+	print(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	hack_item_cd.text = "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
 	x_can_be_buy(x_buy)

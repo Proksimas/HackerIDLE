@@ -27,8 +27,8 @@ func set_item(item_name):
 	item_name_label.text = current_item_cara["item_name"]
 	shop_texture.texture = load(current_item_cara["texture_path"])
 	level_point_label.text = Global.number_to_string(current_item_cara["level"])
-
-	x_can_be_buy(1)# par défaut on affiche le prix à 1 item d'acheter
+	x_buy = 1
+	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	pass
 
 func set_refresh(item_cara: Dictionary):

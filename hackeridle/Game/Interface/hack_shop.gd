@@ -18,20 +18,27 @@ func _ready() -> void:
 
 func set_shop():
 	"""initialisation du shop initial. On affiche tous les items de la DB"""
-	_clear()
+	var item_present: Dictionary
+	for hack_item:HackItemButton in hack_grid.get_children():
+		item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
+
+
+	print(item_present)
 	for item_name in HackingItemsDb.hacking_items_db:
-		var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
-		hack_grid.add_child(new_hack_item)
 		
-		if Player.has_hacking_item(item_name):
-			new_hack_item.x_buy = 1  #pour le moment on force à 1
-			new_hack_item.set_refresh(Player.hacking_item_bought[item_name])
-		else:
-			new_hack_item.set_hacking_item(item_name)
+		if item_present.has(item_name) and Player.has_hacking_item(item_name):
+			item_present[item_name].set_refresh(item_present[item_name].current_hack_item_cara)
 			
-		new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
-		
-	pass
+		elif item_present.has(item_name) and !Player.has_hacking_item(item_name):
+			continue
+			
+		else:
+			var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
+			hack_grid.add_child(new_hack_item)
+			new_hack_item.set_hacking_item(item_name)
+			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
+pass
+	
 
 				
 func player_bought_hacking_item(item_name,  quantity):

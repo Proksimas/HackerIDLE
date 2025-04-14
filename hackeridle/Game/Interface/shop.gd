@@ -28,7 +28,11 @@ func set_shop():
 	for item_name in LearningItemsDB.learning_items_db:
 		var new_shop_item:ShopItem = SHOP_ITEM.instantiate()
 		shop_grid.add_child(new_shop_item)
-		new_shop_item.set_item(item_name)
+		if Player.add_learning_item(item_name):
+			new_shop_item.x_buy = 1
+			new_shop_item.set_refresh(Player.learning_item_bought[item_name])
+		else:
+			new_shop_item.set_item(item_name)
 		new_shop_item.pressed.connect(_on_shop_button_pressed.bind(new_shop_item))
 	pass
 
