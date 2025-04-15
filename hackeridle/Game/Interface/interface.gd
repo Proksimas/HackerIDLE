@@ -10,6 +10,9 @@ extends Control
 @onready var gold_label: Label = %GoldLabel
 @onready var passif_clickers: HFlowContainer = %PassifClickers
 
+
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
@@ -49,5 +52,13 @@ func _on_dark_shop_pressed() -> void:
 
 
 func _on_shop_item_bought(item_name):
-	print(item_name)
+	for child: PassifLearningItem in passif_clickers.get_children():
+		if child.shop_item_cara["item_name"] == item_name:
+			child.set_refresh(Player.learning_item_bought[item_name])
+			return
+			
+	#si on est là, c'est que l'item n'est pas encore existant
+	
+
 	pass
+	
