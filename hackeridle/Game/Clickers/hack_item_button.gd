@@ -10,6 +10,7 @@ class_name HackItemButton
 @onready var hack_item_cd: Label = %HackItemCD
 @onready var hack_item_level: Label = %HackItemLevel
 @onready var gold_gain: Label = %GoldGain
+@onready var hack_item_texture: TextureButton = %HackItemTexture
 
 
 var x_buy
@@ -38,6 +39,8 @@ func set_hacking_item(item_name):
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	hack_item_cd.text =  "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+	hack_item_texture.disabled = true
+	
 	#set_hacking_item_by_player_info()
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
@@ -53,6 +56,8 @@ func set_refresh(item_cara: Dictionary):
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	hack_item_cd.text = "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+	if item_cara["level"] > 0:
+		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
 	
 	pass
@@ -90,7 +95,7 @@ func lauch_wait_time():
 	hack_item_progress_bar.min_value = 0
 	hack_item_progress_bar.step = 0.01
 	
-	
+	hack_item_texture.disabled = true
 	progress_activated = true
 	
 	pass
@@ -102,6 +107,7 @@ func time_finished() -> void:
 	hack_item_progress_bar.value = 0
 	#TODO Faire le cas où l'item n'est pas encore acheté
 	
+	hack_item_texture.disabled = false
 	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
 	pass # Replace with function body.
 
