@@ -40,7 +40,11 @@ func set_refresh(item_cara: Dictionary):
 	level_point_label.text = Global.number_to_string(item_level)
 
 	x_can_be_buy(x_buy)
+
+func gold_refresh_shop_item():
+	x_can_be_buy(x_buy)
 	
+
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy

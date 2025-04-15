@@ -8,6 +8,8 @@ const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
 
 
 var x_upgrade_value: int
+
+signal item_bought(name)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_clear()
@@ -81,6 +83,9 @@ func player_bought_learning_item(item_name,  quantity):
 	for shop_item:ShopItem in shop_grid.get_children():
 		if  not shop_item.current_item_cara.is_empty() and shop_item.current_item_cara["item_name"] == item_name:
 			shop_item.set_refresh(Player.learning_item_bought[item_name])
+			
+	# Et on envoie le signal d'achat
+	item_bought.emit(item_name)
 
 
 
@@ -96,6 +101,7 @@ func _on_shop_button_pressed(shop_item: ShopItem):
 	
 	player_bought_learning_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
 	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
+	
 	
 
 func _on_x_button_pressed(button_name: String):

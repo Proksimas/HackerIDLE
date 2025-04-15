@@ -8,12 +8,17 @@ extends Control
 @onready var navigator: TextureButton = %Navigator
 @onready var knowledge_label: Label = %KnowledgeLabel
 @onready var gold_label: Label = %GoldLabel
+@onready var passif_clickers: HFlowContainer = %PassifClickers
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.earn_hacking_point.connect(_on_earn_hacking_point)
 	Player.earn_gold.connect(_on_earn_gold)
+	shop.item_bought.connect(_on_shop_item_bought)
+	
+	for child in passif_clickers.get_children():
+		child.queue_free()
 	
 	pass # Replace with function body.
 
@@ -36,9 +41,13 @@ func _on_earn_hacking_point(point):
 	
 func _on_earn_gold(point):
 	gold_label.text = tr("Gold: %s" % [str(int(point))])
+	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")
 	
-
-
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()
 	pass # Replace with function body.
+
+
+func _on_shop_item_bought(item_name):
+	print(item_name)
+	pass

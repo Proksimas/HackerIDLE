@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bglg83v6yd7uf"]
+
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_v4p1x"]
+[ext_resource type="Script" path="res://Game/Clickers/passif_learning_item.gd" id="2_wbk4n"]
+
+[node name="PassifLearningItem" type="TextureRect"]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = -1
+anchor_right = 0.0925926
+anchor_bottom = 0.0520833
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_v4p1x")
+expand_mode = 1
+script = ExtResource("2_wbk4n")
+metadata/_edit_use_anchors_ = true
