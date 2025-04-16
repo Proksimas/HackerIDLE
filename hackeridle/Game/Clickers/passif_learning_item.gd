@@ -1,9 +1,13 @@
-extends TextureRect
+extends VBoxContainer
 
 class_name PassifLearningItem
 
-var shop_item_cara: Dictionary
+@onready var passif_learning_texture: TextureRect = %PassifLearningTexture
+@onready var passif_learning_level_label: Label = $PassifLearningLevelLabel
+@onready var gain_learning_label: Label = %GainLearningLabel
 
+var shop_item_cara_db: Dictionary
+var gain_learning: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,10 +19,23 @@ func _process(delta: float) -> void:
 	pass
 
 func set_item(item_cara):
-	shop_item_cara = item_cara
+	shop_item_cara_db = item_cara
+	passif_learning_texture.texture = load(shop_item_cara_db["texture_path"])
+	passif_learning_level_label.text = "1"
+	
+	#pour préparer le gain
+	var player_item = Player.learning_item_bought[item_cara["item_name"]]
+	gain_learning = Calculs.passif_learning_gain(player_item["level"],
+												player_item["delay"],
+												player_item["base_knowledge_point"])
+	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
 
 func set_refresh(item_cara):
-	
-	
-	
+	"""ici on refresh l'item, en donnant les carac de l'item ISSUES DE l INVENTAIRE 
+	DU JOUEUR."item_cara"""
+	gain_learning = Calculs.passif_learning_gain(item_cara["level"],
+												item_cara["delay"],
+												item_cara["base_knowledge_point"])
+	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
+
 	pass

@@ -46,6 +46,13 @@ func gain_knowledge_point(learning_item_name) -> int:
 	
 	#faire le calcul
 	return item["base_gold_point"] * item["level"]
+	
+func passif_learning_gain(level, delay, base_point) -> float:
+	"""Le gain passif selon le delais de l'item, son niveau et son gain de base par seconde"""
+	var calcul = (base_point * level) / delay
+	
+	return calcul
+
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 

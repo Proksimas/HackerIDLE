@@ -16,6 +16,7 @@ func init_learning_items_db():
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
 							"base_knowledge_point": item["base_knowledge_point"],
+							"base_delay": item["base_delay"],
 							"level": 0
 							
 							}

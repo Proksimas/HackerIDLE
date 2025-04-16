@@ -18,16 +18,17 @@ func load_json(path: String) -> Dictionary:
 		return {}
 
 
-func number_to_string(number):
+func number_to_string(number) -> String:
 	if number < 1000000:
 		return str(number)
 	elif number >= pow(10, 6) and number < pow(10, 9):
-		return (number/ pow(10, 6)) + " Millions"
+		return str((number/ pow(10, 6))) + " Millions"
 		
 	elif number >= pow(10, 9):
-		return (number/ pow(10, 9)) + " Milliards"
-	pass
-
+		return str((number/ pow(10, 9))) + " Milliards"
+	else:
+		push_error("Probleme dans le calcul")
+		return str(number)
 
 func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	"""Renvoie la position de la target pour qu'elle soit au centre"""

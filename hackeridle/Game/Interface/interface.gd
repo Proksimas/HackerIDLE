@@ -10,7 +10,7 @@ extends Control
 @onready var gold_label: Label = %GoldLabel
 @onready var passif_clickers: HFlowContainer = %PassifClickers
 
-
+const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -53,11 +53,14 @@ func _on_dark_shop_pressed() -> void:
 
 func _on_shop_item_bought(item_name):
 	for child: PassifLearningItem in passif_clickers.get_children():
-		if child.shop_item_cara["item_name"] == item_name:
+		if child.shop_item_cara_db["item_name"] == item_name:
 			child.set_refresh(Player.learning_item_bought[item_name])
 			return
 			
 	#si on est là, c'est que l'item n'est pas encore existant
+	var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+	passif_clickers.add_child(new_passif_item)
+	new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
 	
 
 	pass

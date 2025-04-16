@@ -36,7 +36,8 @@ func add_learning_item(item_cara):
 
 	var dict_to_store = {"item_name": item_cara['item_name'],
 						"level": 1,
-						"base_knowledge_point": 1}
+						"base_knowledge_point": item_cara["base_knowledge_point"],
+						"delay": item_cara["base_delay"]}
 						
 	learning_item_bought[item_cara['item_name']] = dict_to_store
 pass
