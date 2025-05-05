@@ -18,8 +18,7 @@ var gold: float:
 	set(value):
 		gold =  clamp(value, 0, INF)
 		earn_gold.emit(gold)
-		
-		
+			
 		
 var brain_level: int:
 	set(value):

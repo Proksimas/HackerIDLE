@@ -8,7 +8,7 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvn61"]
 bg_color = Color(0.881796, 0.482466, 0.000684034, 1)
 
-[node name="HackItemButton" type="Control" groups=["g_hack_shop_item"]]
+[node name="HackItemButton" type="Control" groups=["g_hack_item_button"]]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchor_right = 1.0
@@ -90,7 +90,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "/ x sec"
 
-[node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer" groups=["g_hack_shop_item"]]
+[node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

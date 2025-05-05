@@ -5,9 +5,9 @@
 
 [node name="PassifLearningItem" type="VBoxContainer"]
 anchors_preset = -1
-anchor_right = 0.17963
+anchor_right = 0.107407
 anchor_bottom = 0.0802083
-offset_right = -57.0
+offset_right = -17.9998
 offset_bottom = -37.0
 script = ExtResource("2_wbk4n")
 metadata/_edit_use_anchors_ = true

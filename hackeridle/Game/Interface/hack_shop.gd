@@ -80,7 +80,7 @@ func _on_x_button_pressed(button_name: String):
 		"XMax":
 			x_upgrade_value = -1  
 
-	get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
+	get_tree().call_group("g_hack_item_button", "x_can_be_buy", x_upgrade_value)
 
 func _draw() -> void:
 	set_shop()

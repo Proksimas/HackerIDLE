@@ -61,6 +61,12 @@ func set_refresh(item_cara: Dictionary):
 	x_can_be_buy(x_buy)
 	
 	pass
+	
+
+
+func gold_refresh_hack_item():
+	set_refresh(current_hack_item_cara)
+	
 
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
