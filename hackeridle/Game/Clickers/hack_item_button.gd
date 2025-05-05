@@ -56,7 +56,7 @@ func set_refresh(item_cara: Dictionary):
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	hack_item_cd.text = "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
-	if item_cara["level"] > 0:
+	if item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
 	
@@ -65,7 +65,8 @@ func set_refresh(item_cara: Dictionary):
 
 
 func gold_refresh_hack_item():
-	set_refresh(current_hack_item_cara)
+	if current_hack_item_cara["level"] > 0:
+		set_refresh(current_hack_item_cara)
 	
 
 func x_can_be_buy(_x_buy):
