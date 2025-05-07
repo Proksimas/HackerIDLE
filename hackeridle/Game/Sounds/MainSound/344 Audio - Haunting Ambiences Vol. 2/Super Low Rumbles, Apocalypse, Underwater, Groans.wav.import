@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cwx5ysoxgce2f"
+path="res://.godot/imported/Super Low Rumbles, Apocalypse, Underwater, Groans.wav-fed6882dcec39e867e688752fad71eeb.sample"
+
+[deps]
+
+source_file="res://Game/Sounds/MainSound/344 Audio - Haunting Ambiences Vol. 2/Super Low Rumbles, Apocalypse, Underwater, Groans.wav"
+dest_files=["res://.godot/imported/Super Low Rumbles, Apocalypse, Underwater, Groans.wav-fed6882dcec39e867e688752fad71eeb.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
