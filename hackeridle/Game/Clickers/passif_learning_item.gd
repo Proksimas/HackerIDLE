@@ -34,7 +34,7 @@ func set_item(item_cara):
 	gain_learning = Calculs.passif_learning_gain(player_item["level"],
 												player_item["delay"],
 												player_item["base_knowledge_point"])
-	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
+	gain_learning_label.text = Global.number_to_string(gain_learning) + " /s"
 
 func set_refresh(item_cara):
 	"""ici on refresh l'item, en donnant les carac de l'item ISSUES DE l INVENTAIRE 

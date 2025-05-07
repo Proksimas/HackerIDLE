@@ -14,11 +14,14 @@
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="12_341t5"]
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="13_5f4gp"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="14_kcuwa"]
+[ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="14_wnef8"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
+[ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3q6ek"]
 
@@ -40,10 +43,6 @@ frame_6/texture = ExtResource("8_dni6j")
 frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_4o4uw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -75,8 +74,13 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
+[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
+
 [node name="RessourceBar" type="HFlowContainer" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
@@ -199,23 +203,29 @@ layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
+[node name="PassifLearningItem" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
-texture = SubResource("AnimatedTexture_4o4uw")
-expand_mode = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
+[node name="PassifLearningItem2" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
 
-[node name="TextureRect3" type="TextureRect" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers"]
-custom_minimum_size = Vector2(75, 75)
+[node name="PassifLearningItem3" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
-texture = ExtResource("14_kcuwa")
-expand_mode = 1
+
+[node name="PassifLearningItem4" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+layout_mode = 2
+
+[node name="PassifLearningItem5" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+layout_mode = 2
+
+[node name="PassifLearningItem6" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+layout_mode = 2
+
+[node name="PassifLearningItem7" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+layout_mode = 2
+
+[node name="PassifLearningItem8" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+layout_mode = 2
 
 [node name="HackShop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
@@ -229,9 +239,12 @@ layout_mode = 2
 metadata/_tab_index = 2
 
 [node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 75)
+custom_minimum_size = Vector2(0, 25)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
+
+[node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+layout_mode = 2
 
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
