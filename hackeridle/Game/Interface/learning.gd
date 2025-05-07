@@ -5,6 +5,7 @@ extends Control
 @onready var clicker_arc: AspectRatioContainer = $VBoxContainer/CenterContainer/ClickerARC
 
 const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
+const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 
 func set_learning_clicker():
 	return # obsolète donc return
@@ -28,6 +29,10 @@ func _clear():
 
 
 func _on_clicker_button_pressed() -> void:
+	var click_particle = CLICK_PARTICLES.instantiate()
+	self.add_child(click_particle)
+	click_particle.global_position = get_global_mouse_position()
 	Player.brain_level += 1
 	Player.knowledge_point += 1 # A CHANGER
+	
 	pass # Replace with function body.

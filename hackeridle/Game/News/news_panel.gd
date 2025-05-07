@@ -3,7 +3,7 @@ extends Panel
 @onready var text_label: Label = %TextLabel
 
 @export var scrolling_time: int = 10
-var news_size: int
+var news_size
 func _ready() -> void:
 	news_size = self.size.x
 	new_news("Aujourd'hui j'aime pas Stephen")
