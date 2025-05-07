@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=23 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -12,8 +12,9 @@
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="12_341t5"]
-[ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="13_5f4gp"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
+[ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="13_whcds"]
+[ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="14_i8kh2"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="14_wnef8"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
@@ -192,7 +193,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ClickerButton" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC"]
 layout_mode = 2
-texture_normal = ExtResource("13_5f4gp")
+texture_normal = ExtResource("13_whcds")
+texture_click_mask = ExtResource("14_i8kh2")
 ignore_texture_size = true
 stretch_mode = 0
 
