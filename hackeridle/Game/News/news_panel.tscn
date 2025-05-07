@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b8u3dxtdeew80"]
+[gd_scene load_steps=3 format=3 uid="uid://b8u3dxtdeew80"]
 
 [ext_resource type="Script" path="res://Game/News/news_panel.gd" id="1_npa8h"]
+[ext_resource type="FontFile" uid="uid://cs7y72ts3hvpq" path="res://Game/Themes/Fonts/News/new_font_file.tres" id="2_31ll7"]
 
 [node name="NewsPanel" type="Panel"]
 custom_minimum_size = Vector2(0, 30)
@@ -19,6 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_31ll7")
 text = "Aujourd'hui."
 vertical_alignment = 1
 clip_text = true
