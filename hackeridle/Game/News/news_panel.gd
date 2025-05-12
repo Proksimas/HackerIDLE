@@ -2,25 +2,43 @@ extends Panel
 
 @onready var text_label: Label = %TextLabel
 
-@export var scrolling_time: int = 10
+@export var scrolling_time: int = 2
+var scroll_starting: bool = false
 var news_size
+var breaking_news = null
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
 }
 
+signal news_finished
+
 func _ready() -> void:
 	news_size = text_label.size.x
-	new_news(pick_random_sentence("random"))
+	new_news(pick_random_sentence("introduction"))
+	
 	pass # Replace with function body.
 
 
-
-func new_news(_text: String):
-	text_label.text = _text
+func _process(delta: float) -> void:
+	if scroll_starting and text_label.position.x > 0 - text_label.size.x:
+		text_label.position -= Vector2(scrolling_time, 0)
+		
+	elif scroll_starting and text_label.position.x <= 0 - text_label.size.x: 
+		scroll_starting = false
+		news_finished.emit()
+		
+	pass
+	
+func new_news(news_key: String):
+	text_label.text = tr(news_key)
 	text_label.position.x = self.size.x
-	start_scrolling()
+		
+	text_label.position = Vector2(news_size, text_label.position.y)
+	self.news_finished.connect(_on_news_finished.bind(news_key))
+	scroll_starting = true
+	
 	pass
 	
 func pick_random_sentence(key: String):
@@ -28,19 +46,25 @@ func pick_random_sentence(key: String):
 		push_error("La clé de traduction n'est pas valide.")
 	var random =randi_range(1, nb_of_msg[key])
 	
-	return tr(key + "_" + str(random))
+	return (key + "_" + str(random))
 	
 	pass
 	
+func _on_news_finished(news_key):
+	self.news_finished.disconnect(_on_news_finished)
+	change_state(news_key)
+	
+	pass
 
-func start_scrolling():
-	var tween = get_tree().create_tween()
-	tween.tween_property(text_label, "position", 
-						Vector2(0 - text_label.size.x, text_label.position.y), 
-						scrolling_time).from(Vector2(news_size, text_label.position.y))
-	tween.set_loops() #pas d'arugument = infini
-	tween.finished.connect(_on_tween_finished)
+func change_state(current_state: String):
+	if breaking_news != null:
+		breaking_news = null
+		return breaking_news  #c'est le moment de la breaking news
+		
+	var splitted = current_state.split("_")[0]
+	match splitted:
+		"introduction":
+			new_news(pick_random_sentence("random"))
+		"random":
+			new_news(pick_random_sentence("random"))
 	
-func _on_tween_finished():
-	
-	pass
