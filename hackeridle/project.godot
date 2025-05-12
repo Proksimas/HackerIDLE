@@ -31,6 +31,10 @@ window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

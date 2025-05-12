@@ -1,0 +1,5 @@
+Le jeu se déroule dans la ville de Novasec. On commence vers les années 1980, et le jeu devrait aller 
+jusqu'à une ère futuriste (mais c'est vraiment vers la fin du jeu ça...).
+L'objectif ici est d'écrire un peu son histoire, à cette ville, à ce monde. EN effet dans le jeu on aurait des nouvelles,
+racontant ce qui se passe pour les habitants de la ville.
+Ces "histoires" doivent être courtes car la lecture se fait via un bandeau d'informations.
