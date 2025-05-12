@@ -2,14 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://bscvbn6punwiu"
+uid="uid://cmifxyrodr0bw"
 valid=false
 
 [deps]
 
-source_file="res://Game/News/TextFiles/generic.csv"
+source_file="res://Game/News/TextFiles/generic_copie.csv"
 
 [params]
 
 compress=true
-delimiter=1
+delimiter=0

@@ -247,6 +247,7 @@ layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
