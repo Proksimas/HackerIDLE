@@ -1,0 +1,118 @@
+Voici un « kit » de formules souvent employées dans les idle/incrémentaux ; libre à toi d’ajuster les constantes pour trouver le rythme qui te plaît.
+Je note i l’index d’un item (il peut y avoir plusieurs hacking items et plusieurs passifs), n son niveau actuel (n ≥ 1).
+
+---
+
+## 1. Coût d’achat (upgrade)
+
+> **Forme canonique :**
+>
+> $$
+> \text{Coût}_{i}(n)=C_{0,i}\;\times\;r_{i}^{\,n-1}
+> $$
+
+* **C₀,ᵢ** : coût de base (niveau 1).
+* **rᵢ > 1** : facteur de croissance (souvent 1 ,07 – 1 ,15 pour une montée « douce », 1 ,25+ pour quelque chose de plus agressif).
+* Option : arrondis à l’entier ou au multiple de 5/10 qui t’arrange ; tu peux aussi ajouter un *discount* global ou par pallier (p. ex. −5 % tous les 25 niveaux).
+
+### Variante logarithmique (anti-explosion)
+
+Pour éviter des sommes astronomiques après 300 niveaux :
+
+$$
+\text{Coût}_{i}(n)=C_{0,i}\times r_{i}^{\,n-1}\;\times
+\Bigl(1+\lambda\;\ln n\Bigr)
+$$
+
+λ≈0 ,05 – 0 ,1 amortit l’exponentielle sans casser la sensation de « plus cher à chaque fois ».
+
+---
+
+## 2. Hacking items : gain actif (or/gold)
+
+### 2.1 Gain par clic
+
+Deux familles populaires :
+
+* **Exponentielle douce**
+
+  $$
+  G_{i}(n)=G_{0,i}\;\times\;(1+g_{i})^{\,n-1}
+  $$
+
+  où gᵢ∈\[0 ,02; 0 ,08].
+
+* **Puissance entière** (un peu plus lisible pour le joueur)
+
+  $$
+  G_{i}(n)=G_{0,i}\;\times\;n^{\,\alpha_{i}}
+  $$
+
+  αᵢ entre 1 ,3 et 2 ,0 donne une progression solide, surtout si le coût est exponentiel.
+
+### 2.2 Cooldown / tempo
+
+Si chaque clic lance un hack qui dure **tᵢ** secondes :
+
+* soit **tᵢ** reste fixe → le DPS (or / s) évolue comme $\tfrac{G_{i}(n)}{t_{i}}$.
+* soit tu veux qu’il se raccourcisse ; une décroissance typique :
+
+  $$
+  t_{i}(n)=\frac{t_{0,i}}{1+\rho_{i}(n-1)}
+  $$
+
+  avec ρᵢ∈\[0 ,01; 0 ,05].
+
+---
+
+## 3. Items passifs : connaissance par seconde (KPS)
+
+> **Formule standard**
+>
+> $$
+> P_{i}(n)=P_{0,i}\;\times\;(1+p_{i})^{\,n-1}
+> $$
+>
+> ou
+>
+> $$
+> P_{i}(n)=P_{0,i}\;\times\;n^{\,\beta_{i}}
+> $$
+
+* **P₀,ᵢ** : KPS de base.
+* **pᵢ / βᵢ** : même idée que pour le gold, mais choisis-les plus modestes que le facteur de coût, sinon le joueur « roule » le contenu trop vite.
+
+---
+
+## 4. Mettre tout ça ensemble
+
+| Catégorie     | Exemple de paramètres “safe” | Commentaire                   |
+| ------------- | ---------------------------- | ----------------------------- |
+| Cost          | C₀ = 100 gold, r = 1.12      | Exponentiel lisse             |
+| Hack gain     | G₀ = 15 gold, g = 0.06       | ≃ ×10 toutes les \~40 niveaux |
+| Hack cooldown | t₀ = 3 s, ρ = 0.02           | À n = 50, t ≃ 1 s             |
+| Passif gain   | P₀ = 0.5 KPS, p = 0.05       | ×10 toutes les \~47 niveaux   |
+
+**Équilibrage pratique**
+
+1. Fixe d’abord les valeurs de départ : combien le tout premier hack rapporte-t-il, et combien vaut son upgrade ?
+2. Choisis r un peu **plus gros** que (1 + g) ou que n^α pour que l’investissement reste nécessaire.
+3. Joue 5-10 minutes, observe la vitesse de progression ; ajuste α/β ou g/p jusqu’à ce que la montée en puissance « sente » bien sans casser le pacing.
+
+---
+
+## 5. Pistes d’évolution
+
+* **Multiplicateurs globaux** (recherches, succès) agissent en × sur *toutes* les KPS ou gold par clic.
+* **Palliers de niveau** : tous les 25 ou 50 niveaux, applique un bonus « ×2 gain » ; ça donne un objectif de prestige clair.
+* **Synergies inter-items** : tel passif booste les hacks de X % par niveau, etc.
+
+---
+
+### TL;DR
+
+* **Coût** : $C_{0,i}\times r_{i}^{\,n-1}$
+* **Gold par clic** : $G_{0,i}\times n^{\alpha_{i}}$ *ou* $G_{0,i}\times(1+g_{i})^{\,n-1}$
+* **Connaissance/sec** : $P_{0,i}\times n^{\beta_{i}}$ *ou* $P_{0,i}\times(1+p_{i})^{\,n-1}$
+
+Ajuste simplement $r,\,\alpha,\,\beta,\,g,\,p$ pour trouver l’équilibre qui rend ton idle hacker fun et « addictif ». Bon dev !
