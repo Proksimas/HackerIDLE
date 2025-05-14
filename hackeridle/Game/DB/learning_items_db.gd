@@ -15,11 +15,14 @@ func init_learning_items_db():
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
-							"base_knowledge_point": item["base_knowledge_point"],
-							"base_delay": item["base_delay"],
-							"level": 0
-							
+							"level": 0,
+							"cost": item["cost"],
+							"cost_factor": item["cost_factor"],
+							"gain": item["gain"],
+							"gain_factor":item["gain_factor"],
+							"formule_type":item["formule_type"]
 							}
+							
 		if learning_items_db.has(item["item_name"]):
 			push_error("Item initialisation en double")
 		

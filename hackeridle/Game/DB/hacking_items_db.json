@@ -1,10 +1,14 @@
 {
     "hacking_items": [
         {
-            "item_name": "switch_hdmi",
+            "item_name": "hdmi",
             "texture_path": "res://icon.svg",
-            "base_gold_point": 1,
-            "base_time_delay": 5,
+            "cost": 100,
+            "cost_factor": 1.12,
+            "gain": 15,
+            "gain_factor":1.45,
+            "delay": 3,
+            "formule_type":"polymoniale"
         }
     ]
 

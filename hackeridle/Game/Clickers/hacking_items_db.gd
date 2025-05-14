@@ -13,11 +13,16 @@ func init_hacking_items_db():
 	for item in items["hacking_items"]:
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
-							"base_gold_point": item["base_gold_point"],
-							"base_time_delay": item["base_time_delay"],
+							"cost": item["cost"],
+							"cost_factor":item['cost_factor'],
+							"gain": item['gain'],
+							"gain_factor": item['gain_factor'],
+							 
+							"delay": item["delay"],
+							"formule_type": item['formule_type'],
 							"level": 0
-							
 							}
+							
 		if hacking_items_db.has(item["item_name"]):
 			push_error("Item initialisation en double")
 		

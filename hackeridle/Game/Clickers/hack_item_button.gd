@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	if progress_activated:
 		time_process += delta
 		hack_item_progress_bar.value = time_process
-		if time_process >= current_hack_item_cara["base_time_delay"]:
+		if time_process >= current_hack_item_cara["delay"]:
 			time_finished()
 
 func set_hacking_item(item_name):
@@ -34,11 +34,11 @@ func set_hacking_item(item_name):
 	var item_level = current_hack_item_cara["level"]
 
 	#le gain de abse correspond à ce qu'il y a dans la db
-	gold_gain.text = Global.number_to_string((current_hack_item_cara["base_gold_point"]))
+	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
-	hack_item_cd.text =  "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+	hack_item_cd.text =  "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	hack_item_texture.disabled = true
 	
 	#set_hacking_item_by_player_info()
@@ -55,7 +55,7 @@ func set_refresh(item_cara: Dictionary):
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-	hack_item_cd.text = "/ " + str(current_hack_item_cara["base_time_delay"]) + " secs"
+	hack_item_cd.text = "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	if item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
@@ -98,7 +98,7 @@ func x_can_be_buy(_x_buy):
 func lauch_wait_time():
 	hack_item_progress_bar.rounded =false
 	time_process = 0
-	hack_item_progress_bar.max_value = current_hack_item_cara["base_time_delay"]
+	hack_item_progress_bar.max_value = current_hack_item_cara["delay"]
 	hack_item_progress_bar.min_value = 0
 	hack_item_progress_bar.step = 0.01
 	

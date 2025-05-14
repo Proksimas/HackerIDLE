@@ -14,7 +14,7 @@ var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message ass
 
 signal news_finished
 
-func _ready() -> void:
+func _ready() -> void:	
 	news_size = text_label.size.x
 	new_news(pick_random_sentence("introduction"))
 	

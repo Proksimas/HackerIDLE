@@ -33,7 +33,7 @@ func set_item(item_cara):
 	var player_item = Player.learning_item_bought[item_cara["item_name"]]
 	gain_learning = Calculs.passif_learning_gain(player_item["level"],
 												player_item["delay"],
-												player_item["base_knowledge_point"])
+												player_item["cost"])
 	gain_learning_label.text = Global.number_to_string(gain_learning) + " /s"
 
 func set_refresh(item_cara):
@@ -41,7 +41,7 @@ func set_refresh(item_cara):
 	DU JOUEUR."item_cara"""
 	gain_learning = Calculs.passif_learning_gain(item_cara["level"],
 												item_cara["delay"],
-												item_cara["base_knowledge_point"])
+												item_cara["cost"])
 	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
 
 	pass

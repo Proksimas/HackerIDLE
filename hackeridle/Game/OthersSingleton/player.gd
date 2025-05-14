@@ -31,12 +31,23 @@ func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
 	
 
-func add_learning_item(item_cara):
+func add_learning_item(item_cara:Dictionary):
 
-	var dict_to_store = {"item_name": item_cara['item_name'],
-						"level": 1,
-						"base_knowledge_point": item_cara["base_knowledge_point"],
-						"delay": item_cara["base_delay"]}
+	var dict_to_store = item_cara.duplicate()
+	#on oublie de mettre le niveau à jour
+	dict_to_store["level"] = 1
+	#{"item_name": item_cara['item_name'],
+						#"level": 1,
+						#"cost": item_cara['cost'],
+						#"cost_factor": item_cara['cost_factor'],
+						#"gain": item_cara['gain'],
+						#"gain_factor":item_cara['gain_factor'],
+						#"delay": item_cara['delay'],
+						#"formule_type":item_cara['formule_type']
+						#}
+
+						
+						#"base_knowledge_point": item_cara["base_knowledge_point"],
 						
 	learning_item_bought[item_cara['item_name']] = dict_to_store
 pass
@@ -59,12 +70,14 @@ func change_learning_property_value(item_name: String, property: String, value):
 	learning_item_bought[item_name][property] = value
 
 
-func add_hacking_item(item_cara):
+func add_hacking_item(item_cara: Dictionary):
 
-	var dict_to_store = {"item_name": item_cara['item_name'],
-						"level": 1,
-						"base_gold_point": 1,
-						"base_time_delay": item_cara["base_time_delay"]}
+	var dict_to_store = item_cara.duplicate()
+	dict_to_store['level'] = 1
+	#{"item_name": item_cara['item_name'],
+						#"level": 1,
+						#"cost": 1,
+						#"delay": item_cara["delay"]}
 						
 	hacking_item_bought[item_cara['item_name']] = dict_to_store
 
