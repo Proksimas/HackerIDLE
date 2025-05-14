@@ -11,13 +11,21 @@ func calcul_learning_item_price(level)-> int:
 	return int(calcul)
 
 
-func total_learning_prices(base_level, quantity):
-	var total_price = 0
-	for i in range(quantity):
-		total_price += calcul_learning_item_price(base_level + i) 
-		
-	return total_price
-
+func total_learning_prices(current_item_cara, quantity):
+	var calcul
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var k = quantity
+	var r = current_item_cara["cost_factor"]
+	
+#	if current_item_cara["formule_type"] == "polymoniale":
+	#calcul = c * (( pow(n + k, lambda + 1) - pow(n, lambda + 1)) / (lambda + 1) )
+	#ATTENTION on est dans une forme exponentielle simple POUR LE MOMENT  
+	calcul = (c * pow(r,n-1)) * ( (pow(r,k) -1 ) / (r -1) )
+	
+	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
+	
+	return round(calcul)
 
 func calcul_hacking_item_price(level)-> int:
 	"""Fonction qui renvoie le prix de l'item"""
@@ -27,25 +35,24 @@ func calcul_hacking_item_price(level)-> int:
 	
 	var calcul = level + 1
 
-	return int(calcul)
-
-#func total_hacking_prices(base_level, quantity):
-	#
-#
-	#var total_price = 0
-	#for i in range(quantity):
-		#total_price += calcul_hacking_item_price(base_level + i) 
-		#
-	#return int(total_price)
+	return round(calcul)
 
 func total_hacking_prices(current_item_cara, quantity):
 	var calcul
-	var current_level = current_item_cara["level"]
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var k = quantity
+	var r = current_item_cara["cost_factor"]
 	
-	if item_cara["formule_type"] == "polymoniale":
+#	if current_item_cara["formule_type"] == "polymoniale":
+	#calcul = c * (( pow(n + k, lambda + 1) - pow(n, lambda + 1)) / (lambda + 1) )
+	#ATTENTION on est dans une forme exponentielle simple POUR LE MOMENT  
+	calcul = (c * pow(r,n-1)) * ( (pow(r,k) -1 ) / (r -1) )
 	
-	else: #exponentiel
-		calcul = current_item_cara["cost"] *
+	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
+	
+	return round(calcul)
+	
 	
 func passif_learning_gain(item_cara) -> float:
 	"""Le gain passif selon le delais de l'item, son niveau et son gain de base par seconde"""
@@ -63,7 +70,7 @@ func gain_gold(hacking_item_name):
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
 	if item["formule_type"] == "polymoniale":
-		return int(item["gain"] * pow(item["level"],item["gain_factor"]))
+		return round(item["gain"] * pow(item["level"],item["gain_factor"]))
 	else:
-		return int(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
+		return round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
 	

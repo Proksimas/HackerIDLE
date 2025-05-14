@@ -46,7 +46,8 @@ func player_bought_hacking_item(item_name,  quantity):
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_hacking_item(item_name):
 		#on regarde le cout de l'item à l'unité, qui est donc au level "0"
-		cost = Calculs.total_hacking_prices(0, 1) 
+		var item_cara = HackingItemsDb.get_item_cara(item_name)
+		cost = Calculs.total_hacking_prices(item_cara, 1) 
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
@@ -54,7 +55,7 @@ func player_bought_hacking_item(item_name,  quantity):
 			push_warning("On ne devrait pas pouvoir acheter litem. Pas présent et pas assez de connaissance")
 			
 	else:
-		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name]["level"], quantity)
+		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name], quantity)
 		if Player.knowledge_point >=  cost:
 			Player.knowledge_point -= cost
 			Player.hacking_item_level_up(item_name, quantity)

@@ -81,7 +81,7 @@ func x_can_be_buy(_x_buy):
 		#for i in range(10):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
-	item_price = Calculs.total_hacking_prices(current_hack_item_cara["level"], x_buy)
+	item_price = Calculs.total_hacking_prices(current_hack_item_cara, x_buy)
 
 	if Player.knowledge_point  < item_price:
 		buy_item_button.disabled = true
