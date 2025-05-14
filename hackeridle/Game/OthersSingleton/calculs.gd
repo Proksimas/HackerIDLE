@@ -25,34 +25,36 @@ func calcul_hacking_item_price(level)-> int:
 	
 	# on part des paramètres donnés pour calculer le prix de l'item
 	
-	var calcul = level  + 1 # TODO
+	var calcul = level + 1
 
 	return int(calcul)
 
-func total_hacking_prices(base_level, quantity):
-	var total_price = 0
-	for i in range(quantity):
-		total_price += calcul_hacking_item_price(base_level + i) 
-		
-	return total_price
+#func total_hacking_prices(base_level, quantity):
+	#
+#
+	#var total_price = 0
+	#for i in range(quantity):
+		#total_price += calcul_hacking_item_price(base_level + i) 
+		#
+	#return int(total_price)
 
-func gain_knowledge_point(learning_item_name) -> int:
-	"""combien tu gagnes de points de connaissance selon l'item actuel présent dans l'inventaire"""
-	if !Player.has_learning_item(learning_item_name): # item pas présent. 
-		
-		push_warning("L'item n'est pas présent !")
+func total_hacking_prices(current_item_cara, quantity):
+	var calcul
+	var current_level = current_item_cara["level"]
 	
-	var item = Player.learning_item_bought[learning_item_name]
+	if item_cara["formule_type"] == "polymoniale":
 	
-	#faire le calcul
-	return item["cost"] * item["level"]
+	else: #exponentiel
+		calcul = current_item_cara["cost"] *
 	
-func passif_learning_gain(level, delay, base_point) -> float:
+func passif_learning_gain(item_cara) -> float:
 	"""Le gain passif selon le delais de l'item, son niveau et son gain de base par seconde"""
-	var calcul = (base_point * level) / delay
 	
-	return calcul
-
+	if item_cara["formule_type"] == "polymoniale":
+		return snapped(item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"]), 0.1)
+	
+	else:
+		return snapped(item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1),0.1)
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
@@ -60,7 +62,8 @@ func gain_gold(hacking_item_name):
 		push_warning("L'item n'est pas présent !")
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
-	
-	#faire le calcul
-	return item["cost"] * item["level"]
+	if item["formule_type"] == "polymoniale":
+		return int(item["gain"] * pow(item["level"],item["gain_factor"]))
+	else:
+		return int(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
 	
