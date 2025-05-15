@@ -25,6 +25,7 @@ var brain_level: int:
 		brain_level = clamp(value,0, INF)
 		
 var learning_item_bought: Dictionary = {}
+var learning_item_statut: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
 													
@@ -40,6 +41,18 @@ func add_learning_item(item_cara:Dictionary):
 
 						
 	learning_item_bought[item_cara['item_name']] = dict_to_store
+	
+		#comme on ajoute l'item, il est forcement en mode unlocked
+	self.learning_item_statut[item_cara['item_name']] = "unlocked"
+	
+	#Il faut ensuite que l'item n +1 soit en mode to_unlocked
+	var items_name = Player.learning_item_statut.keys()
+	for item_name in Player.learning_item_statut:
+		if item_name == item_cara["item_name"]: #alors le prochain doit etre en "ton_unlocked
+			var pos = items_name.find(item_name)
+			if items_name.size() > pos + 1:
+				var next_item_name = items_name[pos + 1]
+				Player.learning_item_statut[next_item_name] = "to_unlocked"
 pass
 	
 ##Gagne le nombre de level donné en paramètre

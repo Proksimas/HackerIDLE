@@ -44,6 +44,8 @@ func set_shop():
 			shop_grid.add_child(new_learning_item)
 			new_learning_item.set_item(item_name)
 			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
+			new_learning_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_learning_item))
+		
 pass
 	
 func player_bought_learning_item(item_name,  quantity):
@@ -52,7 +54,7 @@ func player_bought_learning_item(item_name,  quantity):
 	# si le joueur a déjà l'item, on augmente son niveau
 	if not Player.has_learning_item(item_name):
 		#on regarde le cout de l'item à l'unité
-		var item_cara = HackingItemsDb.get_item_cara(item_name)
+		var item_cara = LearningItemsDB.get_item_cara(item_name)
 		cost = Calculs.total_learning_prices(item_cara, 1)
 		
 		if Player.gold >=  cost:
@@ -77,10 +79,14 @@ func player_bought_learning_item(item_name,  quantity):
 	# Et on envoie le signal d'achat
 	item_bought.emit(item_name)
 
-
+func learning_items_statut_updated():
+	get_tree().call_group("g_shop_item", "statut_updated")
+	
+	pass
 
 func _draw() -> void:
 	set_shop()
+	learning_items_statut_updated()
 	%X1Button.pressed.emit()
 
 func _clear():
@@ -92,6 +98,11 @@ func _on_shop_button_pressed(shop_item: ShopItem):
 	player_bought_learning_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
 	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
 	
+
+func _on_unlocked_button_pressed(shop_item: ShopItem):
+	player_bought_learning_item(shop_item.current_item_cara["item_name"], 1)
+	Player.learning_item_statut[shop_item.current_item_cara["item_name"]] = "unlocked"
+	learning_items_statut_updated()
 	
 
 func _on_x_button_pressed(button_name: String):

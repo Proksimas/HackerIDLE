@@ -10,10 +10,15 @@ class_name ShopItem
 @onready var level_point_label: Label = %LevelPointLabel
 @onready var speed_label: Label = %SpeedLabel
 @onready var speed_point_label: Label = %SpeedPointLabel
+@onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
+@onready var unlocked_button: Button = %UnlockedButton
+@onready var gold_cost: Label = %GoldCost
+@onready var learning_item_info: HBoxContainer = %LearningItemInfo
 
 var current_item_cara: Dictionary
 var x_buy: int
-		
+var first_cost
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -32,6 +37,11 @@ func set_item(item_name):
 	pass
 
 func set_refresh(item_cara: Dictionary):
+	
+	if !Player.learning_item_bought.has(item_cara["item_name"]) or \
+	!Player.learning_item_statut[item_cara["item_name"]] == "unlocked":
+		return
+	
 	current_item_cara = item_cara
 	var item_name = current_item_cara["item_name"]
 	item_name_label.text = item_name
@@ -69,3 +79,22 @@ func x_can_be_buy(_x_buy):
 	#Puis on met à jour le prix de l'item
 		
 	
+func statut_updated():
+	"""met à jour le statut de l'item"""
+	if Player.learning_item_statut[current_item_cara["item_name"]] == 'unlocked':
+		self.show()
+		learning_item_info.show()
+		to_unlocked_panel.hide()
+		
+	elif Player.learning_item_statut[current_item_cara["item_name"]] == 'to_unlocked':
+		#item a un prix de base pour être debloqué + ui associé
+		# TODO
+		self.show()
+		learning_item_info.hide()
+		to_unlocked_panel.show()
+		first_cost = Calculs.total_learning_prices(current_item_cara, 1)
+		gold_cost.text = Global.number_to_string(first_cost)
+		pass
+		
+	elif Player.learning_item_statut[current_item_cara["item_name"]] == 'locked':
+		self.hide()

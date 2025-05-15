@@ -28,7 +28,10 @@ func init_learning_items_db():
 		
 		else:
 			learning_items_db[item["item_name"]] = dict_item
-		pass
+			Player.learning_item_statut[item["item_name"]] = "locked"
+	#le premier item doit etre en mode to_unlocked
+	Player.learning_item_statut[Player.learning_item_statut.keys()[0]] = "to_unlocked"
+		
 
 
 func get_item_cara(item_name: String):

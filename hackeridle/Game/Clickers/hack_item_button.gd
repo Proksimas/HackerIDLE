@@ -146,10 +146,6 @@ func statut_updated():
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
-		#
-	#else:
-		#var pos_in_array = HackingItemsDb.hacking_item_locked.find(current_hack_item_cara["item_name"])
-		#print(pos_in_array)
 
 func _on_hack_item_texture_pressed() -> void:
 	lauch_wait_time()
