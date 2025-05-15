@@ -17,7 +17,7 @@ class_name ShopItem
 
 var current_item_cara: Dictionary
 var x_buy: int
-var first_cost
+var first_cost = INF
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,8 +27,8 @@ func _ready() -> void:
 
 
 func set_item(item_name):
+	set_unlocked_button_state()
 	current_item_cara = LearningItemsDB.get_item_cara(item_name)
-	
 	item_name_label.text = current_item_cara["item_name"]
 	shop_texture.texture = load(current_item_cara["texture_path"])
 	level_point_label.text = Global.number_to_string(current_item_cara["level"])
@@ -53,8 +53,15 @@ func set_refresh(item_cara: Dictionary):
 
 func gold_refresh_shop_item():
 	x_can_be_buy(x_buy)
+	set_unlocked_button_state()
 	
-
+func set_unlocked_button_state():
+	if Player.gold >= first_cost:
+		unlocked_button.disabled = false
+		unlocked_button.modulate = Color(1,1,1)
+	else:
+		unlocked_button.disabled = true
+		unlocked_button.modulate = Color(0.502, 0.502, 0.502)
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy

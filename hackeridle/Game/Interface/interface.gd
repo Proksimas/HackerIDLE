@@ -38,7 +38,7 @@ func _on_navigator_pressed() -> void:
 
 func _on_earn_knowledge_point(point):
 	knowledge_label.text = tr("Connaissance: %s" % [str(int(point))])
-	get_tree().call_group("g_hack_item_button", "gold_refresh_hack_item")
+	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")
 
 func _on_earn_hacking_point(point):
 	return

@@ -21,10 +21,11 @@ var x_buy
 var current_hack_item_cara
 var progress_activated: bool = false
 var time_process:float
-var first_cost: float
+var first_cost = INF
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -36,6 +37,7 @@ func _process(delta: float) -> void:
 
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
+	set_unlocked_button_state()
 	current_hack_item_cara = HackingItemsDb.get_item_cara(item_name)
 	var item_level = current_hack_item_cara["level"]
 
@@ -59,7 +61,7 @@ func set_refresh(item_cara: Dictionary):
 	if !Player.hacking_item_bought.has(item_cara["item_name"]) or \
 	!Player.hacking_item_statut[item_cara["item_name"]] == "unlocked":
 		return
-	
+
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 
@@ -73,10 +75,18 @@ func set_refresh(item_cara: Dictionary):
 	
 	pass
 	
-func gold_refresh_hack_item():
+func knwoledge_refresh_hack_item():
 	if current_hack_item_cara["level"] > 0:
 		set_refresh(current_hack_item_cara)
+	set_unlocked_button_state()
 	
+func set_unlocked_button_state():
+	if Player.knowledge_point >= first_cost:
+		unlocked_button.disabled = false
+		unlocked_button.modulate = Color(1,1,1)
+	else:
+		unlocked_button.disabled = true
+		unlocked_button.modulate = Color(0.502, 0.502, 0.502)
 
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""

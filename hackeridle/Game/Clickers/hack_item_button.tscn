@@ -131,7 +131,6 @@ layout_mode = 2
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,6 +142,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="UnlockedButton" type="Button" parent="ToUnlockedPanel"]
 unique_name_in_owner = true
+modulate = Color(0.501961, 0.501961, 0.501961, 1)
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
 anchors_preset = 15

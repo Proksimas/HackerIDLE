@@ -15,7 +15,7 @@ func init_learning_items_db():
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
-							"level": 0,
+							"level": 1,
 							"cost": item["cost"],
 							"cost_factor": item["cost_factor"],
 							"gain": item["gain"],
