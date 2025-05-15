@@ -22,10 +22,10 @@ func number_to_string(number) -> String:
 	if number < 1000000:
 		return str(number)
 	elif number >= pow(10, 6) and number < pow(10, 9):
-		return str((number/ pow(10, 6))) + " Millions"
+		return str(round((number/ pow(10, 6))), 0.001) + " Millions"
 		
 	elif number >= pow(10, 9):
-		return str((number/ pow(10, 9))) + " Milliards"
+		return str(round((number/ pow(10, 9))), 0.001) + " Milliards"
 	else:
 		push_error("Probleme dans le calcul")
 		return str(number)

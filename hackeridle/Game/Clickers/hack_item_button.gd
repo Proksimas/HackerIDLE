@@ -12,6 +12,7 @@ class_name HackItemButton
 @onready var gold_gain: Label = %GoldGain
 @onready var hack_item_texture: TextureButton = %HackItemTexture
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
+@onready var unlocked_button: Button = %UnlockedButton
 @onready var brain_cost: Label = %BrainCost
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
 
@@ -20,6 +21,7 @@ var x_buy
 var current_hack_item_cara
 var progress_activated: bool = false
 var time_process:float
+var first_cost: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -54,6 +56,10 @@ func set_hacking_item(item_name):
 func set_refresh(item_cara: Dictionary):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
 	est dans l'inventaire du joueur"""
+	if !Player.hacking_item_bought.has(item_cara["item_name"]) or \
+	!Player.hacking_item_statut[item_cara["item_name"]] == "unlocked":
+		return
+	
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 
@@ -123,20 +129,22 @@ func time_finished() -> void:
 
 func statut_updated():
 	"""met à jour le statut de l'item"""
-	if HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
+	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
 		self.show()
 		hack_item_info.show()
 		to_unlocked_panel.hide()
 		
-	elif HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
+	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
 		#item a un prix de base pour être debloqué + ui associé
 		# TODO
 		self.show()
 		hack_item_info.hide()
 		to_unlocked_panel.show()
+		first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
+		brain_cost.text = Global.number_to_string(first_cost)
 		pass
 		
-	elif HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
+	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
 		#
 	#else:

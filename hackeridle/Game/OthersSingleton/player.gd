@@ -26,6 +26,7 @@ var brain_level: int:
 		
 var learning_item_bought: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
+var hacking_item_statut: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
@@ -62,21 +63,21 @@ func change_learning_property_value(item_name: String, property: String, value):
 func add_hacking_item(item_cara: Dictionary):
 
 	var dict_to_store = item_cara.duplicate()
-	dict_to_store['level'] = 1
+	#dict_to_store['level'] = 1
 
 	hacking_item_bought[item_cara['item_name']] = dict_to_store
 
 	#comme on ajoute l'item, il est forcement en mode unlocked
-	HackingItemsDb.hacking_item_statut[item_cara['item_name']] = "unlocked"
+	self.hacking_item_statut[item_cara['item_name']] = "unlocked"
 	
 	#Il faut ensuite que l'item n +1 soit en mode to_unlocked
-	var items_name = HackingItemsDb.hacking_item_statut.keys()
-	for item_name in HackingItemsDb.hacking_item_statut:
+	var items_name = Player.hacking_item_statut.keys()
+	for item_name in Player.hacking_item_statut:
 		if item_name == item_cara["item_name"]: #alors le prochain doit etre en "ton_unlocked
 			var pos = items_name.find(item_name)
-			if items_name.size() < pos:
+			if items_name.size() > pos + 1:
 				var next_item_name = items_name[pos + 1]
-				HackingItemsDb.hacking_item_statut[next_item_name] = "to_unlocked"
+				Player.hacking_item_statut[next_item_name] = "to_unlocked"
 		
 
 ##Gagne le nombre de level donné en paramètre

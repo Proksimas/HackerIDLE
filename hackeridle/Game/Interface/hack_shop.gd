@@ -33,12 +33,9 @@ func set_shop():
 			hack_grid.add_child(new_hack_item)
 			new_hack_item.set_hacking_item(item_name)
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
+			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
 			new_hack_item.hide()
 			
-			#on init la base de donnée des statuts des items
-			#if !HackingItemsDb.hacking_item_statut.has(item_name):
-				#HackingItemsDb.hacking_item_statut[item_name] = "locked"
-				#
 	
 pass
 	
@@ -78,15 +75,6 @@ func hack_items_statut_updated():
 	
 	pass
 
-#func hack_items_statut():
-	#"""on doit afficher uniquement le dernier item que l'on peut acheter.
-	#Ce dernier doit etre en mode: << à déverouiller >> """
-	#for item_cara in HackingItemsDb.hacking_item_locked:
-		#if 
-		#if Player.has_hacking_item(item_cara["item_name"]):
-			#pass
-	#pass
-
 func _on_x_button_pressed(button_name: String):
 	'''définit le *X d achat possible'''
 	match button_name.trim_suffix("Button"):
@@ -109,12 +97,12 @@ func _draw() -> void:
 func _on_hack_item_button_pressed(hack_item: HackItemButton):
 	"""On a appuyé pour acheter l'item"""
 	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], hack_item.x_buy)
-	
-	#Puis on doit refresh toutes les UI.
-	#get_tree().call_group("g_hack_shop_item", "x_can_be_buy", x_upgrade_value)
-	
-	pass
 
+func _on_unlocked_button_pressed(hack_item: HackItemButton):
+	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], 1)
+	Player.hacking_item_statut[hack_item.current_hack_item_cara["item_name"]] = "unlocked"
+	hack_items_statut_updated()
+	
 func _clear():
 	for child in hack_grid.get_children():
 		child.queue_free()
