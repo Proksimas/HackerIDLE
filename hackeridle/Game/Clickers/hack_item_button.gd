@@ -11,12 +11,16 @@ class_name HackItemButton
 @onready var hack_item_level: Label = %HackItemLevel
 @onready var gold_gain: Label = %GoldGain
 @onready var hack_item_texture: TextureButton = %HackItemTexture
+@onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
+@onready var brain_cost: Label = %BrainCost
+@onready var hack_item_info: HBoxContainer = %HackItemInfo
 
 
 var x_buy
 var current_hack_item_cara
 var progress_activated: bool = false
 var time_process:float
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -44,10 +48,11 @@ func set_hacking_item(item_name):
 	#set_hacking_item_by_player_info()
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
+
 	
 
 func set_refresh(item_cara: Dictionary):
-	"""On met à jour les stats du current_item. EN principe le current_item vaut à présent l'item qui 
+	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
 	est dans l'inventaire du joueur"""
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
@@ -62,8 +67,6 @@ func set_refresh(item_cara: Dictionary):
 	
 	pass
 	
-
-
 func gold_refresh_hack_item():
 	if current_hack_item_cara["level"] > 0:
 		set_refresh(current_hack_item_cara)
@@ -118,6 +121,27 @@ func time_finished() -> void:
 	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
 	pass # Replace with function body.
 
+func statut_updated():
+	"""met à jour le statut de l'item"""
+	if HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
+		self.show()
+		hack_item_info.show()
+		to_unlocked_panel.hide()
+		
+	elif HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
+		#item a un prix de base pour être debloqué + ui associé
+		# TODO
+		self.show()
+		hack_item_info.hide()
+		to_unlocked_panel.show()
+		pass
+		
+	elif HackingItemsDb.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
+		self.hide()
+		#
+	#else:
+		#var pos_in_array = HackingItemsDb.hacking_item_locked.find(current_hack_item_cara["item_name"])
+		#print(pos_in_array)
 
 func _on_hack_item_texture_pressed() -> void:
 	lauch_wait_time()

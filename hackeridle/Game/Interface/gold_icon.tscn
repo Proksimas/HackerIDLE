@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2o66qawxrwjp"]
+
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_j3pdw"]
+
+[node name="GoldIcon" type="AspectRatioContainer"]
+
+[node name="GoldTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_j3pdw")
+expand_mode = 1

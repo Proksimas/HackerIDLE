@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=7 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_qh5xn"]
 [ext_resource type="Script" path="res://Game/Clickers/hack_item_button.gd" id="1_qsk31"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_pubii"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnrru"]
 
@@ -19,7 +21,8 @@ size_flags_horizontal = 3
 script = ExtResource("1_qsk31")
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HackItemInfo" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,13 +30,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HackItemInfo"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/AspectRatioContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo/AspectRatioContainer"]
 layout_mode = 2
 
-[node name="HackItemTexture" type="TextureButton" parent="HBoxContainer/AspectRatioContainer/VBoxContainer"]
+[node name="HackItemTexture" type="TextureButton" parent="HackItemInfo/AspectRatioContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
@@ -41,7 +44,7 @@ texture_normal = ExtResource("1_qh5xn")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="HackItemLevel" type="Label" parent="HBoxContainer/AspectRatioContainer/VBoxContainer"]
+[node name="HackItemLevel" type="Label" parent="HackItemInfo/AspectRatioContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 1
@@ -49,17 +52,17 @@ text = "level"
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HackItemProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer"]
+[node name="HackItemProgressBar" type="ProgressBar" parent="HackItemInfo/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 show_percentage = false
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar"]
+[node name="CenterContainer" type="CenterContainer" parent="HackItemInfo/VBoxContainer/HackItemProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,36 +71,30 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer"]
 layout_mode = 2
 
-[node name="GoldGain" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+[node name="GoldGain" type="Label" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "X"
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+[node name="GoldIcon" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
 layout_mode = 2
 
-[node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer/AspectRatioContainer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = ExtResource("1_qh5xn")
-expand_mode = 1
-
-[node name="HackItemCD" type="Label" parent="HBoxContainer/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+[node name="HackItemCD" type="Label" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "/ x sec"
 
-[node name="BuyItemButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="BuyItemButton" type="Button" parent="HackItemInfo/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bnrru")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gvn61")
 
-[node name="Container" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BuyItemButton"]
+[node name="Container" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/BuyItemButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.152263
@@ -107,36 +104,71 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyTitle" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
+[node name="BuyTitle" type="Label" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
 
-[node name="NbofBuy" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
+[node name="NbofBuy" type="Label" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container"]
 layout_mode = 2
 
-[node name="HackItemPriceLabel" type="Label" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer"]
+[node name="HackItemPriceLabel" type="Label" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "xxxxx"
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer"]
+[node name="BrainIcon" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
-size_flags_horizontal = 2
 
-[node name="BrainTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/BuyItemButton/Container/HBoxContainer/AspectRatioContainer"]
-custom_minimum_size = Vector2(30, 30)
+[node name="ToUnlockedPanel" type="ColorRect" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+metadata/_edit_use_anchors_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="ToUnlockedPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UnlockedButton" type="Button" parent="ToUnlockedPanel/CenterContainer"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-texture = ExtResource("1_qh5xn")
-expand_mode = 1
 
-[connection signal="pressed" from="HBoxContainer/AspectRatioContainer/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ToUnlockedPanel/CenterContainer/UnlockedButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="BrainCost" type="Label" parent="ToUnlockedPanel/CenterContainer/UnlockedButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "X"
+
+[node name="BrainIcon" parent="ToUnlockedPanel/CenterContainer/UnlockedButton/HBoxContainer" instance=ExtResource("4_pubii")]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[connection signal="pressed" from="HackItemInfo/AspectRatioContainer/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]

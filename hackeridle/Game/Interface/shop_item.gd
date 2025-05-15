@@ -48,7 +48,7 @@ func gold_refresh_shop_item():
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-	var item_price = Calculs.calcul_learning_item_price(current_item_cara['level'])
+
 	if _x_buy == -1:  #CAS DU MAX
 		#TODO
 		
@@ -57,7 +57,7 @@ func x_can_be_buy(_x_buy):
 		#for i in range(10):
 			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
 
-	item_price = Calculs.total_learning_prices(current_item_cara, x_buy)
+	var item_price = Calculs.total_learning_prices(current_item_cara, x_buy)
 	if Player.gold  < item_price:
 		self.disabled = true
 	else:

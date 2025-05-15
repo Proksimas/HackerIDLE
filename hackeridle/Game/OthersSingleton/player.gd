@@ -36,18 +36,7 @@ func add_learning_item(item_cara:Dictionary):
 	var dict_to_store = item_cara.duplicate()
 	#on oublie de mettre le niveau à jour
 	dict_to_store["level"] = 1
-	#{"item_name": item_cara['item_name'],
-						#"level": 1,
-						#"cost": item_cara['cost'],
-						#"cost_factor": item_cara['cost_factor'],
-						#"gain": item_cara['gain'],
-						#"gain_factor":item_cara['gain_factor'],
-						#"delay": item_cara['delay'],
-						#"formule_type":item_cara['formule_type']
-						#}
 
-						
-						#"base_knowledge_point": item_cara["base_knowledge_point"],
 						
 	learning_item_bought[item_cara['item_name']] = dict_to_store
 pass
@@ -74,12 +63,21 @@ func add_hacking_item(item_cara: Dictionary):
 
 	var dict_to_store = item_cara.duplicate()
 	dict_to_store['level'] = 1
-	#{"item_name": item_cara['item_name'],
-						#"level": 1,
-						#"cost": 1,
-						#"delay": item_cara["delay"]}
-						
+
 	hacking_item_bought[item_cara['item_name']] = dict_to_store
+
+	#comme on ajoute l'item, il est forcement en mode unlocked
+	HackingItemsDb.hacking_item_statut[item_cara['item_name']] = "unlocked"
+	
+	#Il faut ensuite que l'item n +1 soit en mode to_unlocked
+	var items_name = HackingItemsDb.hacking_item_statut.keys()
+	for item_name in HackingItemsDb.hacking_item_statut:
+		if item_name == item_cara["item_name"]: #alors le prochain doit etre en "ton_unlocked
+			var pos = items_name.find(item_name)
+			if items_name.size() < pos:
+				var next_item_name = items_name[pos + 1]
+				HackingItemsDb.hacking_item_statut[next_item_name] = "to_unlocked"
+		
 
 ##Gagne le nombre de level donné en paramètre
 func hacking_item_level_up(item_name: String, gain_of_level):
