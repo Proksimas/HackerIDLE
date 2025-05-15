@@ -9,6 +9,17 @@
             "gain": 1.2,
             "gain_factor":1.35,
             "formule_type":"polymoniale"
+        },
+
+        {
+            "item_name": "livres",
+            "texture_path": "res://icon.svg",
+            "animation_path": "res://Game/Animations/post-it.tres",
+            "cost": 1500,
+            "cost_factor": 1.13,
+            "gain": 6,
+            "gain_factor":1.28,
+            "formule_type":"polymoniale"
         }
     ]
 

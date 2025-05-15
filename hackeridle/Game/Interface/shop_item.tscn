@@ -115,20 +115,21 @@ size_flags_horizontal = 3
 text = "XXX"
 horizontal_alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
+[node name="SpeedContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
 alignment = 1
 
-[node name="SpeedLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2"]
+[node name="SpeedLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delais"
 
-[node name="SpeedPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2"]
+[node name="SpeedPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -142,6 +143,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_cqc5w")
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
