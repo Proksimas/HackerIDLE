@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=25 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_4e0ac"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
 [ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_6jrxw"]
 [ext_resource type="Texture2D" uid="uid://c2hwsvrfib350" path="res://Game/Graphics/App_icons/dark_shop.png" id="3_aake5"]
 [ext_resource type="Texture2D" uid="uid://i7bysdm7n1xl" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-1.png" id="3_ih8ku"]
 [ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
@@ -21,8 +23,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3q6ek"]
 
@@ -44,6 +44,8 @@ frame_6/texture = ExtResource("8_dni6j")
 frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -75,27 +77,40 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HSeparator2" type="HSeparator" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="RessourceBar" type="HFlowContainer" parent="Panel/VBoxContainer"]
+[node name="RessourceBar" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-size_flags_vertical = 4
-alignment = 1
-last_wrap_alignment = 2
+size_flags_horizontal = 0
 
-[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar"]
+layout_mode = 2
+
+[node name="BrainIcon" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
+layout_mode = 2
+
+[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Connaissance: 0"
+size_flags_horizontal = 0
+text = "X"
 
-[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourceBar"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar"]
+layout_mode = 2
+
+[node name="GoldIcon" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
+layout_mode = 2
+
+[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Argent: 0"
+text = "XXXXX"
 
 [node name="GridContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2

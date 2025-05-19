@@ -1,8 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=10 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="3_2d3tu"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="4_wlvil"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
@@ -74,15 +73,8 @@ text = "XXX"
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="LearningItemInfo/VBoxContainer/HBoxContainer"]
+[node name="GoldIcon" parent="LearningItemInfo/VBoxContainer/HBoxContainer" instance=ExtResource("4_wlvil")]
 layout_mode = 2
-size_flags_horizontal = 2
-
-[node name="GoldTexture" type="TextureRect" parent="LearningItemInfo/VBoxContainer/HBoxContainer/AspectRatioContainer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = ExtResource("3_2d3tu")
-expand_mode = 1
 
 [node name="ItemPriceLabel" type="Label" parent="LearningItemInfo/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

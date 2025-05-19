@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bfre1ywod8qf8"]
 
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_kokwr"]
+[ext_resource type="Texture2D" uid="uid://dmh4q3x7ex3wd" path="res://Game/Graphics/Common_icons/brain.png" id="1_0nu4r"]
 
 [node name="BrainIcon" type="AspectRatioContainer"]
 size_flags_horizontal = 2
@@ -8,5 +8,5 @@ size_flags_horizontal = 2
 [node name="BrainTexture" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
-texture = ExtResource("1_kokwr")
+texture = ExtResource("1_0nu4r")
 expand_mode = 1
