@@ -18,7 +18,7 @@ class_name ShopItem
 var current_item_cara: Dictionary
 var x_buy: int
 var first_cost = INF
-
+var quantity_to_buy: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -65,16 +65,16 @@ func set_unlocked_button_state():
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-
+	var item_price
 	if _x_buy == -1:  #CAS DU MAX
 		#TODO
+		quantity_to_buy =  Calculs.quantity_learning_item_to_buy(current_item_cara)
+		if quantity_to_buy == 0:
+			quantity_to_buy = 1  #on force en mettant un achat à x1
+	else:
+		quantity_to_buy = x_buy
 		
-		pass
-		#var total_price = 0
-		#for i in range(10):
-			#total_price += calcul_item_price(current_item_cara["level"] * (i + 1))
-
-	var item_price = Calculs.total_learning_prices(current_item_cara, x_buy)
+	item_price = Calculs.total_learning_prices(current_item_cara, quantity_to_buy)
 	if Player.gold  < item_price:
 		self.disabled = true
 	else:
@@ -83,7 +83,7 @@ func x_can_be_buy(_x_buy):
 	# on tente de maj le prix ici
 	
 	item_price_label.text = Global.number_to_string(item_price)
-	#Puis on met à jour le prix de l'item
+
 		
 	
 func statut_updated():

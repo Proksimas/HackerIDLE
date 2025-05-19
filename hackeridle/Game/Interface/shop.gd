@@ -95,7 +95,7 @@ func _clear():
 
 func _on_shop_button_pressed(shop_item: ShopItem):
 	
-	player_bought_learning_item(shop_item.current_item_cara["item_name"], shop_item.x_buy)
+	player_bought_learning_item(shop_item.current_item_cara["item_name"], shop_item.quantity_to_buy)
 	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
 	
 
