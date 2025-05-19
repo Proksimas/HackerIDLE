@@ -1,15 +1,5 @@
 extends Node
 
-func calcul_learning_item_price(level)-> int:
-	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix actuel
-	
-	# on part des paramètres donnés pour calculer le prix de l'item
-	
-	var calcul = level +1   # TODO
-
-	return int(calcul)
-
 
 func total_learning_prices(current_item_cara, quantity):
 	var calcul
@@ -25,16 +15,6 @@ func total_learning_prices(current_item_cara, quantity):
 	
 	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
 	
-	return round(calcul)
-
-func calcul_hacking_item_price(level)-> int:
-	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix actuel
-	
-	# on part des paramètres donnés pour calculer le prix de l'item
-	
-	var calcul = level + 1
-
 	return round(calcul)
 
 func total_hacking_prices(current_item_cara, quantity):

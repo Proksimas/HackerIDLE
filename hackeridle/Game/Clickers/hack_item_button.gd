@@ -43,7 +43,6 @@ func set_hacking_item(item_name):
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
 	hack_item_level.text = Global.number_to_string(item_level)
-	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	hack_item_cd.text =  "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	hack_item_texture.disabled = true
 	
@@ -64,7 +63,6 @@ func set_refresh(item_cara: Dictionary):
 	var item_level = current_hack_item_cara["level"]
 
 	hack_item_level.text = Global.number_to_string(item_level)
-	hack_item_price_label.text =  Global.number_to_string(Calculs.calcul_hacking_item_price(item_level))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	hack_item_cd.text = "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	if item_cara["level"] > 0 and not progress_activated:
@@ -81,7 +79,7 @@ func gold_refresh_hack_item():
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
 	x_buy = _x_buy
-	var item_price = Calculs.calcul_hacking_item_price(current_hack_item_cara['level'])
+	var item_price
 	if _x_buy == -1:  #CAS DU MAX
 		#TODO
 		
