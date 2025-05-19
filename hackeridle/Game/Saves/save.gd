@@ -35,3 +35,9 @@ func load_date():
 	print(data)
 	f.close()
 	pass
+	
+	
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		print("Fermeture du jeu détectée ! Sauvegarde...")
+		self.save_game()  # Ou ton code perso

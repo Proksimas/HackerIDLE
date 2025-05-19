@@ -50,7 +50,6 @@ func _on_earn_gold(point):
 	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()
-	Save.save_game()
 	pass # Replace with function body.
 
 
@@ -61,7 +60,7 @@ func _on_shop_item_bought(item_name):
 			return
 			
 	#si on est là, c'est que l'item n'est pas encore existant
-	var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+	var new_passif_item = PASSIF_LEARNING_ITEM.insstantiate()
 	passif_clickers.add_child(new_passif_item)
 	new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
 	
