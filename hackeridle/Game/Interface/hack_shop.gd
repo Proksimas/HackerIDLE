@@ -96,7 +96,7 @@ func _draw() -> void:
 
 func _on_hack_item_button_pressed(hack_item: HackItemButton):
 	"""On a appuyé pour acheter l'item"""
-	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], hack_item.x_buy)
+	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], hack_item.quantity_to_buy)
 
 func _on_unlocked_button_pressed(hack_item: HackItemButton):
 	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], 1)

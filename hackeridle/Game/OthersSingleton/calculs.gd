@@ -1,5 +1,40 @@
 extends Node
 
+func quantity_learning_item_to_buy(current_item_cara):
+	var quantity = 0
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var r = current_item_cara["cost_factor"]
+	
+	var p_next = (c * pow(r, n-1))
+	print("item_name: ", current_item_cara["item_name"])
+	
+	if Player.gold < p_next:
+		return 0 #on ne peut rien acheter
+	
+	var a = (r - 1) * Player.gold / p_next + 1
+	quantity = floor( log(a) / log(r))
+	print("quantity max: ", str(quantity))
+	print("\n")
+	return quantity
+	
+func quantity_hacking_item_to_buy(current_item_cara):
+	var quantity = 0
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var r = current_item_cara["cost_factor"]
+	var p_next = (c * pow(r, n-1))
+	print("item_name: ", current_item_cara["item_name"])
+	
+	if Player.knowledge_point < p_next:
+		return 0 #on ne peut rien acheter
+	
+	var a = (r - 1) * Player.knowledge_point / p_next + 1
+	quantity = floor( log(a) / log(r))
+	print("quantity max: ", str(quantity))
+	print("\n")
+	return quantity
+
 
 func total_learning_prices(current_item_cara, quantity):
 	var calcul
@@ -16,6 +51,7 @@ func total_learning_prices(current_item_cara, quantity):
 	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
 	
 	return round(calcul)
+	
 
 func total_hacking_prices(current_item_cara, quantity):
 	var calcul
