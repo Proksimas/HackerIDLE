@@ -107,3 +107,10 @@ func change_hacking_property_value(item_name: String, property: String, value):
 	if not has_hacking_item(item_name):
 		push_warning("L'item n'existe pas")
 	hacking_item_bought[item_name][property] = value
+
+
+func _save_data():
+	return {"gold": self.gold,
+			"knowledge_point": self.knowledge_point,
+			"hacking_point": self.hacking_point
+			}

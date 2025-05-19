@@ -23,7 +23,7 @@ func _ready() -> void:
 	for child in passif_clickers.get_children():
 		child.queue_free()
 	
-	pass # Replace with function body.
+	
 
 func _on_shopping_pressed() -> void:
 	shop.show()
@@ -50,6 +50,7 @@ func _on_earn_gold(point):
 	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()
+	Save.save_game()
 	pass # Replace with function body.
 
 

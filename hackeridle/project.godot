@@ -22,6 +22,7 @@ Player="*res://Game/OthersSingleton/player.gd"
 LearningItemsDB="*res://Game/DB/learning_items_db.tscn"
 Calculs="*res://Game/OthersSingleton/calculs.tscn"
 HackingItemsDb="*res://Game/DB/hacking_items_db.tscn"
+Save="*res://Game/Saves/Save.tscn"
 
 [display]
 
