@@ -8,7 +8,6 @@ func _ready() -> void:
 
 func save_game():
 	save_the_data(Player._save_data())
-	load_date()
 
 func save_the_data(content):
 	var data = {}
@@ -25,17 +24,22 @@ func save_the_data(content):
 	else:
 		print("❌ Impossible d'ouvrir le fichier : %s" % file_path)
 
-func load_date():
+func load_data():
 	var save_path
 	if OS.has_feature("editor"):save_path = editor_path 
 	else: save_path = user_path
 	var file_path = save_path + "data.dat"
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
-	print(data)
+	player_data(data)
 	f.close()
 	pass
-	
+
+func player_data(content):
+	Player.gold = content["gold"]
+	Player.knowledge_point = content["knowledge_point"]
+	Player.hacking_point = content["hacking_point"]
+	pass
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
