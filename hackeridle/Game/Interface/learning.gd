@@ -19,7 +19,6 @@ func set_learning_clicker():
 	return # obsolète donc return
 	_clear()
 	var new_lc = LEARNING_CLICKER.instantiate()
-	self.add_child(new_lc)
 	#On affiche l'item de learning le plus récent
 	var last_item_name = Player.learning_item_bought.keys()[-1]
 	var last_item = LearningItemsDB.get_item_cara(last_item_name)
@@ -38,7 +37,7 @@ func _clear():
 
 func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()
-	self.add_child(click_particle)
+	get_tree().get_root().add_child(click_particle)
 	click_particle.global_position = get_global_mouse_position()
 	Player.brain_level += 1
 	Player.knowledge_point += 1 # A CHANGER
