@@ -19,13 +19,15 @@ func load_json(path: String) -> Dictionary:
 
 
 func number_to_string(number) -> String:
-	if number < 1000000:
+	if number < 1000:
 		return str(number)
+	elif number >= pow(10, 3) and number < pow(10, 6):
+		return str(round((number/ pow(10, 3))), 0.1) + " K" 
 	elif number >= pow(10, 6) and number < pow(10, 9):
-		return str(round((number/ pow(10, 6))), 0.001) + " Millions"
+		return str(round((number/ pow(10, 6))), 0.1) + " M"   #" Millions"
 		
 	elif number >= pow(10, 9):
-		return str(round((number/ pow(10, 9))), 0.001) + " Milliards"
+		return str(round((number/ pow(10, 9))), 0.1) + " Md"#" Milliards"
 	else:
 		push_error("Probleme dans le calcul")
 		return str(number)
