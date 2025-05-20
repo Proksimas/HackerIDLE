@@ -18,10 +18,7 @@ func save_game():
 	
 func save_the_data(content):
 	var data = {}
-	var save_path
-	if OS.has_feature("editor"):save_path = editor_path 
-	else: save_path = user_path
-	
+	var save_path = get_save_path()
 	var file_path = save_path + "data.dat"
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
@@ -33,9 +30,7 @@ func save_the_data(content):
 		print("❌ Impossible d'ouvrir le fichier : %s" % file_path)
 
 func load_data():
-	var save_path
-	if OS.has_feature("editor"):save_path = editor_path 
-	else: save_path = user_path
+	var save_path = get_save_path()
 	var file_path = save_path + "data.dat"
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
@@ -53,6 +48,19 @@ func player_load_data(content):
 	Player.learning_item_statut = content["learning_item_statut"]
 	Player.hacking_item_bought =content["hacking_item_bought"]
 	Player.hacking_item_statut = content["hacking_item_statut"]
+	pass
+	
+func get_save_path():
+	"""renvoie le path user ou editeur"""
+	var save_path
+	if OS.has_feature("editor"):save_path = editor_path 
+	else: save_path = user_path
+	return save_path
+	
+func check_has_save():
+	var save_path = get_save_path()
+	var file = FileAccess
+	#if file.file_exists()
 	pass
 	
 func _notification(what):
