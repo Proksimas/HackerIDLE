@@ -1,14 +1,21 @@
+@tool
 extends Node
 
 var user_path = "user://Saves/"
 var editor_path = "res://Game/Saves/Data/"
 # Called when the node enters the scene tree for the first time.
+var singleton_to_save = [Player]
+
 func _ready() -> void:
+	var nodes_savable = get_tree().get_nodes_in_group("savable")
+	print("Nodes à sauvergarder: ", nodes_savable)
 	pass # Replace with function body.
 
 func save_game():
-	save_the_data(Player._save_data())
-
+	for singleton in singleton_to_save:
+		save_the_data(singleton._save_data())
+	
+	
 func save_the_data(content):
 	var data = {}
 	var save_path
@@ -21,6 +28,7 @@ func save_the_data(content):
 		file.store_var(content)
 		file.close()
 		print("✅ Sauvegarde réussie : %s" % file_path)
+		print("-> ", content)
 	else:
 		print("❌ Impossible d'ouvrir le fichier : %s" % file_path)
 
@@ -31,14 +39,20 @@ func load_data():
 	var file_path = save_path + "data.dat"
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
-	player_data(data)
 	f.close()
+	await player_load_data(data)
+	#CHargement au niveau de l'interface
+	get_tree().get_root().get_node("Main/Interface")._load_data(data)
 	pass
 
-func player_data(content):
+func player_load_data(content):
 	Player.gold = content["gold"]
 	Player.knowledge_point = content["knowledge_point"]
 	Player.hacking_point = content["hacking_point"]
+	Player.learning_item_bought = content["learning_item_bought"]
+	Player.learning_item_statut = content["learning_item_statut"]
+	Player.hacking_item_bought =content["hacking_item_bought"]
+	Player.hacking_item_statut = content["hacking_item_statut"]
 	pass
 	
 func _notification(what):

@@ -5,8 +5,10 @@ extends Control
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
 
 
-const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
+#const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
+const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
+
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
@@ -15,24 +17,22 @@ var clicker_arc_original_size
 func _ready() -> void:
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	
-func set_learning_clicker():
-	return # obsolète donc return
-	_clear()
-	var new_lc = LEARNING_CLICKER.instantiate()
-	#On affiche l'item de learning le plus récent
-	var last_item_name = Player.learning_item_bought.keys()[-1]
-	var last_item = LearningItemsDB.get_item_cara(last_item_name)
-	new_lc.set_learning_clicker(last_item)  #mettre les cara de l'ite
-	
-	new_lc.position = Vector2(self.size)  / 2
-	
-	
-	pass
 
 
 func _clear():
 	for elmt in self.get_children():
 		elmt.queue_free()
+
+func _on_shop_item_bought(item_name):# <-Interface
+	for child: PassifLearningItem in passif_clickers.get_children():
+		if child.shop_item_cara_db["item_name"] == item_name:
+			child.set_refresh(Player.learning_item_bought[item_name])
+			return
+			
+	#si on est là, c'est que l'item n'est pas encore existant
+	var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+	passif_clickers.add_child(new_passif_item)
+	new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
 
 
 func _on_clicker_button_pressed() -> void:
@@ -45,12 +45,6 @@ func _on_clicker_button_pressed() -> void:
 	button_cliked = true
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale
 	
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(clicker_arc, "custom_minimum_size", 
-						#clicker_arc.custom_minimum_size + clicker_scale, 1)
-	##tween.set_parallel(true)
-	
-	
 func _process(delta: float) -> void:
 	if button_cliked:
 		var tween = get_tree().create_tween()
@@ -58,3 +52,13 @@ func _process(delta: float) -> void:
 						clicker_arc_original_size, 1).from(clicker_arc.custom_minimum_size)
 		button_cliked = false
 		
+
+func _load_data(content):
+	# content = dictionnaire des learning_item_bought
+	"""Doit instaurer tous les items passifs"""
+	for passif_item in content:
+		var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+		passif_clickers.add_child(new_passif_item)
+		new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
+	
+	pass
