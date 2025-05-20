@@ -3,6 +3,7 @@ extends Node
 
 var user_path = "user://Saves/"
 var editor_path = "res://Game/Saves/Data/"
+var save_file_name = "data.dat"
 # Called when the node enters the scene tree for the first time.
 var singleton_to_save = [Player]
 
@@ -19,7 +20,7 @@ func save_game():
 func save_the_data(content):
 	var data = {}
 	var save_path = get_save_path()
-	var file_path = save_path + "data.dat"
+	var file_path = save_path + save_file_name
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_var(content)
@@ -31,7 +32,7 @@ func save_the_data(content):
 
 func load_data():
 	var save_path = get_save_path()
-	var file_path = save_path + "data.dat"
+	var file_path = save_path + save_file_name
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
 	f.close()
@@ -60,8 +61,16 @@ func get_save_path():
 func check_has_save():
 	var save_path = get_save_path()
 	var file = FileAccess
-	#if file.file_exists()
-	pass
+	
+	if file.file_exists(save_path + save_file_name): return true
+	else: return false
+
+func clean_save():
+	var save_path = get_save_path()
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var({})
+	file.close()
+
 	
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
