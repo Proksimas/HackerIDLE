@@ -3,27 +3,42 @@ extends Node
 signal earn_knowledge_point(point)
 signal earn_hacking_point(point)
 signal earn_gold(number)
+signal earn_brain_xp(number)
+signal earn_sp(number)
+signal earn_brain_level(number)
 
 var knowledge_point: float:
 	set(value):
 		knowledge_point = clamp(value, 0, INF)
 		earn_knowledge_point.emit(knowledge_point)
-		
 var hacking_point: float:
 	set(value):
 		hacking_point =  clamp(value, 0, INF)
 		earn_hacking_point.emit(hacking_point)
-		
 var gold: float:
 	set(value):
 		gold =  clamp(value, 0, INF)
 		earn_gold.emit(gold)
-			
 		
-var brain_level: int:
+var brain_xp: int:
 	set(value):
-		brain_level = clamp(value,0, INF)
+		brain_xp = clamp(value, 0, INF)
+		earn_brain_xp.emit(brain_xp)
+		_check_level_up()
 		
+var skill_point: int:
+	set(value):
+		skill_point = clamp(value, 0, INF)
+		earn_sp.emit(skill_point)
+var brain_level: int = 1:
+	set(value):
+		brain_level = clamp(value, 0, INF)
+		earn_brain_level.emit(brain_level)
+
+var brain_xp_next: int
+var base_xp: int = 10#200
+var xp_factor: float = 1.25
+
 var learning_item_bought: Dictionary = {}
 var learning_item_statut: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
@@ -31,7 +46,23 @@ var hacking_item_statut: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
+	brain_xp_next = base_xp 
 	
+#region brain level
+func _check_level_up():
+	if brain_xp >= brain_xp_next:
+		level_up()
+		
+func level_up():
+	brain_xp -= brain_xp_next
+	brain_level += 1
+	brain_xp_next =  get_brain_xp(brain_level - 1) 
+	
+
+func get_brain_xp(level_asked):
+	# Base * pow(FacteurDeCroissance, level - 1)
+	return round(base_xp * pow(xp_factor, level_asked))
+#endregion
 
 func add_learning_item(item_cara:Dictionary):
 
@@ -71,7 +102,6 @@ func change_learning_property_value(item_name: String, property: String, value):
 	if not has_learning_item(item_name):
 		push_warning("L'item n'existe pas")
 	learning_item_bought[item_name][property] = value
-
 
 func add_hacking_item(item_cara: Dictionary):
 
