@@ -9,17 +9,26 @@ extends Control
 @onready var knowledge_label: Label = %KnowledgeLabel
 @onready var gold_label: Label = %GoldLabel
 @onready var passif_clickers: HFlowContainer = %PassifClickers
+@onready var skill_point_title: Label = %SkillPointTitle
+@onready var skill_point_label: Label = %SkillPointLabel
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
-	Player.earn_hacking_point.connect(_on_earn_hacking_point)
-	Player.earn_gold.connect(_on_earn_gold)
-	shop.item_bought.connect(learning._on_shop_item_bought)
+	connexions()
 	
 	for child in passif_clickers.get_children():
 		child.queue_free()
+	
+	
+func connexions() -> void:
+	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
+	Player.earn_hacking_point.connect(_on_earn_hacking_point)
+	Player.earn_gold.connect(_on_earn_gold)
+	Player.earn_sp.connect(_on_earn_sp)
+	Player.earn_brain_xp.connect(_on_earn_brain_xp)
+	Player.earn_brain_level.connect(_on_earn_brain_level)
+	shop.item_bought.connect(learning._on_shop_item_bought)
 	
 	
 
@@ -44,6 +53,13 @@ func _on_earn_gold(point):
 	gold_label.text =  Global.number_to_string(int(point))
 	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")
 	
+func _on_earn_sp(point):
+	skill_point_label.text = str(point)
+	
+func _on_earn_brain_xp(point):
+	learning.refresh_brain_xp_bar()
+func _on_earn_brain_level(point):
+	learning.current_brain_level.text = str(point) 
 	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()

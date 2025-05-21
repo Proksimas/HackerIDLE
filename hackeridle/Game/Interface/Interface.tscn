@@ -84,33 +84,55 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="RessourceBar" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+
+[node name="RessourceBar" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar"]
 layout_mode = 2
 
-[node name="BrainIcon" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
+[node name="BrainIcon" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
 layout_mode = 2
 
-[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer"]
+[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "X"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar"]
 layout_mode = 2
 
-[node name="GoldIcon" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
+[node name="GoldIcon" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
 layout_mode = 2
 
-[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/RessourceBar/HBoxContainer2"]
+[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "XXXXX"
+
+[node name="RessourceBar2" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2"]
+layout_mode = 2
+
+[node name="SkillPointTitle" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skill point"
+
+[node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "10"
 
 [node name="GridContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -195,6 +217,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+step = 1.0
+
+[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
 layout_mode = 2

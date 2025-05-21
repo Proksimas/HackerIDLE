@@ -3,6 +3,8 @@ extends Control
 
 @onready var passif_clickers: HFlowContainer = %PassifClickers
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
+@onready var brain_xp_bar: ProgressBar = %BrainXpBar
+@onready var current_brain_level: Label = %CurrentBrainLevel
 
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
@@ -16,6 +18,24 @@ var clicker_arc_original_size
 
 func _ready() -> void:
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
+	current_brain_level.text = str("1")
+	
+
+func refresh_brain_xp_bar():
+	print("xp: ", str(Player.brain_xp))
+	print("next_xp: ", str(Player.get_brain_xp(Player.brain_level - 1)))
+	
+	brain_xp_bar.min_value = 0
+	brain_xp_bar.max_value = Player.get_brain_xp(Player.brain_level -1)
+	
+	#if Player.brain_level <= 1:
+		#brain_xp_bar.min_value = 0
+	#else:
+		#brain_xp_bar.min_value = Player.get_brain_xp(Player.brain_level -1)
+	#brain_xp_bar.max_value = Player.get_brain_xp(Player.brain_level) 
+	
+	brain_xp_bar.value = Player.brain_xp
+	
 	
 
 
@@ -39,8 +59,9 @@ func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()
 	get_tree().get_root().add_child(click_particle)
 	click_particle.global_position = get_global_mouse_position()
-	Player.brain_level += 1
+	Player.brain_xp += 1
 	Player.knowledge_point += 1 # A CHANGER
+	
 	
 	button_cliked = true
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale
