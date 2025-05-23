@@ -38,7 +38,7 @@ var brain_level: int = 1:
 		earn_brain_level.emit(brain_level)
 
 var brain_xp_next: int = 0
-var base_xp: int = 10#200
+var base_xp: int = 200
 var xp_factor: float = 1.25
 
 var learning_item_bought: Dictionary = {}

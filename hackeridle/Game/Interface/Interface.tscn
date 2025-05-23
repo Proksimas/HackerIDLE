@@ -218,22 +218,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-step = 1.0
-
-[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
 [node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -302,6 +286,29 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 2
+anchor_left = 0.00925926
+anchor_top = 0.194792
+anchor_right = 0.287037
+anchor_bottom = 0.251042
+offset_bottom = -1.52588e-05
+size_flags_horizontal = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="BrainXpBar" type="ProgressBar" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+step = 1.0
+show_percentage = false
+
+[node name="CurrentBrainLevel" type="Label" parent="Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1"
+horizontal_alignment = 1
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
