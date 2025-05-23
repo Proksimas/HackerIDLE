@@ -41,14 +41,27 @@ func load_data():
 	get_tree().get_root().get_node("Main/Interface")._load_data(data)
 	pass
 
-func player_load_data(content):
-	Player.gold = content["gold"]
-	Player.knowledge_point = content["knowledge_point"]
-	Player.hacking_point = content["hacking_point"]
-	Player.learning_item_bought = content["learning_item_bought"]
-	Player.learning_item_statut = content["learning_item_statut"]
-	Player.hacking_item_bought =content["hacking_item_bought"]
-	Player.hacking_item_statut = content["hacking_item_statut"]
+func player_load_data(content: Dictionary) -> void:
+	# 1.  Parcourt les propriétés de l’INSTANCE, pas de la ressource script
+	for prop in Player.get_property_list():
+		var name  : String = prop.name
+		var usage : int    = int(prop.usage)
+
+		# 2.  On ne touche qu’aux variables déclarées dans le script,
+		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
+		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
+			print("set %s with %s" % [name, content[name]])
+			Player.set(name, content[name])
+			
+	print(Player.brain_xp)
+	print(Player.brain_xp_next)
+	#Player.gold = content["gold"]
+	#Player.knowledge_point = content["knowledge_point"]
+	#Player.hacking_point = content["hacking_point"]
+	#Player.learning_item_bought = content["learning_item_bought"]
+	#Player.learning_item_statut = content["learning_item_statut"]
+	#Player.hacking_item_bought =content["hacking_item_bought"]
+	#Player.hacking_item_statut = content["hacking_item_statut"]
 	pass
 	
 func get_save_path():

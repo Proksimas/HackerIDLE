@@ -12,6 +12,8 @@ extends Control
 @onready var skill_point_title: Label = %SkillPointTitle
 @onready var skill_point_label: Label = %SkillPointLabel
 
+var test ="bleu"
+var a = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -69,3 +71,12 @@ func _on_dark_shop_pressed() -> void:
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""
 	learning._load_data(data["learning_item_bought"])
+
+
+#func _on_draw() -> void:
+	#print('"on_draw')
+	#knowledge_label.text = Global.number_to_string(int(Player.knowledge_point))
+	#gold_label.text =  Global.number_to_string(int(Player.gold))
+	#skill_point_label.text = Global.number_to_string(int(Player.skill_point))
+	#learning.refresh_brain_xp_bar()
+	#pass # Replace with function body.

@@ -34,7 +34,7 @@ var brain_level: int = 1:
 		brain_level = clamp(value, 0, INF)
 		earn_brain_level.emit(brain_level)
 
-var brain_xp_next: int
+var brain_xp_next: int = 0
 var base_xp: int = 10#200
 var xp_factor: float = 1.25
 
@@ -45,7 +45,7 @@ var hacking_item_statut: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
-	brain_xp_next = base_xp 
+	brain_xp_next = 0# get_brain_xp(0)
 	
 #region brain level
 func _check_level_up():
@@ -62,6 +62,7 @@ func level_up():
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
 	return round(base_xp * pow(xp_factor, level_asked))
+	
 #endregion
 
 func add_learning_item(item_cara:Dictionary):
@@ -140,6 +141,7 @@ func change_hacking_property_value(item_name: String, property: String, value):
 
 
 func _save_data():
+	return Global.get_serialisable_vars(self)
 	return {"gold": self.gold,
 			"knowledge_point": self.knowledge_point,
 			"hacking_point": self.hacking_point,

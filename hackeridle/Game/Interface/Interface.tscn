@@ -303,6 +303,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
+[connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]

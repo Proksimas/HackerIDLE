@@ -20,14 +20,13 @@ func _ready() -> void:
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	current_brain_level.text = str("1")
 	
+	
 
 func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
-	brain_xp_bar.max_value = Player.get_brain_xp(Player.brain_level -1)
+	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
 	
-	
-
 
 func _clear():
 	for elmt in self.get_children():

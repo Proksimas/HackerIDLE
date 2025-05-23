@@ -37,3 +37,13 @@ func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	var screen_size = DisplayServer.window_get_size()
 	
 	return (Vector2(screen_size) - Vector2(target_size))  / 2
+
+	
+func get_serialisable_vars(node: Node) -> Dictionary:
+	"""Permet de return toutes les variables du node donné en paramètre"""
+	var out := {}
+	for prop in node.get_property_list(): 
+		var usage := prop["usage"] as int
+		if usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			out[prop["name"]] = node.get(prop["name"])
+	return out
