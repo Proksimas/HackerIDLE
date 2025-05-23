@@ -22,18 +22,8 @@ func _ready() -> void:
 	
 
 func refresh_brain_xp_bar():
-	print("xp: ", str(Player.brain_xp))
-	print("next_xp: ", str(Player.get_brain_xp(Player.brain_level - 1)))
-	
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.get_brain_xp(Player.brain_level -1)
-	
-	#if Player.brain_level <= 1:
-		#brain_xp_bar.min_value = 0
-	#else:
-		#brain_xp_bar.min_value = Player.get_brain_xp(Player.brain_level -1)
-	#brain_xp_bar.max_value = Player.get_brain_xp(Player.brain_level) 
-	
 	brain_xp_bar.value = Player.brain_xp
 	
 	

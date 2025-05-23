@@ -25,7 +25,6 @@ var brain_xp: int:
 		brain_xp = clamp(value, 0, INF)
 		earn_brain_xp.emit(brain_xp)
 		_check_level_up()
-		
 var skill_point: int:
 	set(value):
 		skill_point = clamp(value, 0, INF)
@@ -55,6 +54,7 @@ func _check_level_up():
 		
 func level_up():
 	brain_xp -= brain_xp_next
+	skill_point += 1
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
 	

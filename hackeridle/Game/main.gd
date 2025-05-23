@@ -6,19 +6,20 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
-	$Interface._on_navigator_pressed()
-	
-
-	
 	
 	if force_new_game or !Save.check_has_save():
-		new_game()
+		await new_game()
 
 	else:
 		####### CHARGEMENT ###############
-		Save.load_data()
+		await Save.load_data()
+		
+	$Interface._on_navigator_pressed()
 	pass # Replace with function body.
 
 func new_game():
 	Player.gold = 10000
 	Player.knowledge_point = 10000
+	Player.brain_level = 1
+	Player.skill_point = 0
+	Player.brain_xp = 0
