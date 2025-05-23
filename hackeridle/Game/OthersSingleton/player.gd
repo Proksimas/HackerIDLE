@@ -21,10 +21,13 @@ var gold: float:
 		earn_gold.emit(gold)
 		
 var brain_xp: int:
-	set(value):
-		brain_xp = clamp(value, 0, INF)
+	set(value):	
+		if _check_level_up():
+			brain_xp = clamp(value - brain_xp, 0, INF)
+		else:
+			brain_xp = clamp(value, 0, INF)
 		earn_brain_xp.emit(brain_xp)
-		_check_level_up()
+		
 var skill_point: int:
 	set(value):
 		skill_point = clamp(value, 0, INF)
@@ -45,15 +48,18 @@ var hacking_item_statut: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
-	brain_xp_next = 0# get_brain_xp(0)
+	brain_xp_next = get_brain_xp(brain_level -1)
 	
 #region brain level
 func _check_level_up():
 	if brain_xp >= brain_xp_next:
 		level_up()
+		return true
+	else: 
+		false
 		
 func level_up():
-	brain_xp -= brain_xp_next
+	#brain_xp -= brain_xp_next
 	skill_point += 1
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
