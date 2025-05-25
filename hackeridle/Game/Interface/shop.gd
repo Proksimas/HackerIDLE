@@ -46,7 +46,7 @@ func set_shop():
 			
 			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
 			new_learning_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_learning_item))
-
+		
 func player_bought_learning_item(item_name,  quantity):
 	
 	var cost = 0

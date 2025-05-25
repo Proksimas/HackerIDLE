@@ -47,11 +47,11 @@ func set_hacking_item(item_name):
 	hack_item_level.text = Global.number_to_string(item_level)
 	hack_item_cd.text =  "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	hack_item_texture.disabled = true
-	
+	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
 	#set_hacking_item_by_player_info()
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
-
+	set_unlocked_button_state()
 	
 
 func set_refresh(item_cara: Dictionary):

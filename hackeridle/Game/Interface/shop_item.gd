@@ -24,17 +24,18 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func set_item(item_name):
-	set_unlocked_button_state()
+	
 	current_item_cara = LearningItemsDB.get_item_cara(item_name)
 	item_name_label.text = current_item_cara["item_name"]
 	shop_texture.texture = load(current_item_cara["texture_path"])
 	level_point_label.text = Global.number_to_string(current_item_cara["level"])
+	first_cost = Calculs.total_learning_prices(current_item_cara, 1)
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
+	set_unlocked_button_state()
 	pass
 
 func set_refresh(item_cara: Dictionary):
-	
 	if !Player.learning_item_bought.has(item_cara["item_name"]) or \
 	!Player.learning_item_statut[item_cara["item_name"]] == "unlocked":
 		return
@@ -47,12 +48,15 @@ func set_refresh(item_cara: Dictionary):
 	level_point_label.text = Global.number_to_string(item_level)
 
 	x_can_be_buy(x_buy)
+	#set_unlocked_button_state()
 
 func gold_refresh_shop_item():
 	x_can_be_buy(x_buy)
 	set_unlocked_button_state()
 	
 func set_unlocked_button_state():
+	#print("PLayer gold: %s" % [Player.gold])
+	#print("first cost: %s" % first_cost)
 	if Player.gold >= first_cost:
 		unlocked_button.disabled = false
 		unlocked_button.modulate = Color(1,1,1)
