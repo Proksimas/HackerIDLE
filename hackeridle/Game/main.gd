@@ -15,6 +15,7 @@ func _ready() -> void:
 		await Save.load_data()
 		
 	$Interface._on_navigator_pressed()
+
 	pass # Replace with function body.
 
 func new_game():

@@ -20,7 +20,7 @@ func _ready() -> void:
 	
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
-	pass # Replace with function body.
+	
 
 
 
@@ -43,11 +43,10 @@ func set_shop():
 			var new_learning_item:ShopItem = SHOP_ITEM.instantiate()
 			shop_grid.add_child(new_learning_item)
 			new_learning_item.set_item(item_name)
+			
 			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
 			new_learning_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_learning_item))
-		
-pass
-	
+
 func player_bought_learning_item(item_name,  quantity):
 	
 	var cost = 0

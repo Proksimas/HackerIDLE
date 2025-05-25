@@ -148,11 +148,11 @@ func change_hacking_property_value(item_name: String, property: String, value):
 
 func _save_data():
 	return Global.get_serialisable_vars(self)
-	return {"gold": self.gold,
-			"knowledge_point": self.knowledge_point,
-			"hacking_point": self.hacking_point,
-			"learning_item_bought": self.learning_item_bought,
-			"learning_item_statut": self.learning_item_statut,
-			"hacking_item_bought": self.hacking_item_bought,
-			"hacking_item_statut": self.hacking_item_statut
-			}
+	#return {"gold": self.gold,
+			#"knowledge_point": self.knowledge_point,
+			#"hacking_point": self.hacking_point,
+			#"learning_item_bought": self.learning_item_bought,
+			#"learning_item_statut": self.learning_item_statut,
+			#"hacking_item_bought": self.hacking_item_bought,
+			#"hacking_item_statut": self.hacking_item_statut
+			#}

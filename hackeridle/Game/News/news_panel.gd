@@ -21,7 +21,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if scroll_starting and text_label.position.x > 0 - text_label.size.x:
 		text_label.position -= Vector2(scrolling_time, 0)
 		
@@ -47,8 +47,6 @@ func pick_random_sentence(key: String):
 	var random =randi_range(1, nb_of_msg[key])
 	
 	return (key + "_" + str(random))
-	
-	pass
 	
 func _on_news_finished(news_key):
 	self.news_finished.disconnect(_on_news_finished)

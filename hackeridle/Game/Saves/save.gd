@@ -18,7 +18,6 @@ func save_game():
 	
 	
 func save_the_data(content):
-	var data = {}
 	var save_path = get_save_path()
 	var file_path = save_path + save_file_name
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
@@ -36,7 +35,7 @@ func load_data():
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
 	f.close()
-	await player_load_data(data)
+	player_load_data(data)
 	#CHargement au niveau de l'interface
 	get_tree().get_root().get_node("Main/Interface")._load_data(data)
 	pass
@@ -44,13 +43,13 @@ func load_data():
 func player_load_data(content: Dictionary) -> void:
 	# 1.  Parcourt les propriétés de l’INSTANCE, pas de la ressource script
 	for prop in Player.get_property_list():
-		var name  : String = prop.name
+		var p_name  : String = prop.name
 		var usage : int    = int(prop.usage)
 
 		# 2.  On ne touche qu’aux variables déclarées dans le script,
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
-			Player.set(name, content[name])
+			Player.set(p_name, content[p_name])
 	
 	#Je force le brain_xp pour actualiser la bar de prorgession
 	Player.brain_xp = content["brain_xp"]

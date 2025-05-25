@@ -35,11 +35,6 @@ func set_shop():
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
 			new_hack_item.hide()
-			
-	
-pass
-	
-
 				
 func player_bought_hacking_item(item_name,  quantity):
 	var cost = 0

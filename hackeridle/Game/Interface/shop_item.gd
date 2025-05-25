@@ -23,9 +23,6 @@ var quantity_to_buy: int
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-
-
 func set_item(item_name):
 	set_unlocked_button_state()
 	current_item_cara = LearningItemsDB.get_item_cara(item_name)

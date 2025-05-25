@@ -21,7 +21,7 @@ func _ready() -> void:
 	
 	for child in passif_clickers.get_children():
 		child.queue_free()
-	
+		
 	
 func connexions() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
@@ -48,7 +48,7 @@ func _on_earn_knowledge_point(point):
 	knowledge_label.text = Global.number_to_string(int(point))
 	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")
 
-func _on_earn_hacking_point(point):
+func _on_earn_hacking_point(_point):
 	return
 	
 func _on_earn_gold(point):
@@ -58,7 +58,7 @@ func _on_earn_gold(point):
 func _on_earn_sp(point):
 	skill_point_label.text = str(point)
 	
-func _on_earn_brain_xp(point):
+func _on_earn_brain_xp(_point):
 	learning.refresh_brain_xp_bar()
 func _on_earn_brain_level(point):
 	learning.current_brain_level.text = str(point) 
@@ -71,12 +71,3 @@ func _on_dark_shop_pressed() -> void:
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""
 	learning._load_data(data["learning_item_bought"])
-
-
-#func _on_draw() -> void:
-	#print('"on_draw')
-	#knowledge_label.text = Global.number_to_string(int(Player.knowledge_point))
-	#gold_label.text =  Global.number_to_string(int(Player.gold))
-	#skill_point_label.text = Global.number_to_string(int(Player.skill_point))
-	#learning.refresh_brain_xp_bar()
-	#pass # Replace with function body.
