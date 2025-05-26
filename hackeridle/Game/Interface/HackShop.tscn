@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b7ubmp8sthntc"]
 
 [ext_resource type="Script" path="res://Game/Interface/hack_shop.gd" id="1_wmrks"]
-[ext_resource type="PackedScene" uid="uid://d0altvtk67lo8" path="res://Game/Clickers/hack_item_button.tscn" id="2_djb87"]
+[ext_resource type="PackedScene" uid="uid://d0altvtk67lo8" path="res://Game/Clickers/Hacking/hack_item_button.tscn" id="2_djb87"]
 
 [node name="HackShop" type="Control" groups=["g_hack_shop_item"]]
 layout_mode = 3
@@ -26,43 +26,52 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="HackingItems" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.0
 metadata/_edit_use_anchors_ = true
 
-[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer2/HackingItems"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="X1Button" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="X1Button" type="Button" parent="MarginContainer/VBoxContainer2/HackingItems/ButtonsContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 text = "x 1"
 
-[node name="X10Button" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="X10Button" type="Button" parent="MarginContainer/VBoxContainer2/HackingItems/ButtonsContainer"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 text = "x 10"
 
-[node name="X100Button" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="X100Button" type="Button" parent="MarginContainer/VBoxContainer2/HackingItems/ButtonsContainer"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 text = "x 100"
 
-[node name="XMaxButton" type="Button" parent="MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="XMaxButton" type="Button" parent="MarginContainer/VBoxContainer2/HackingItems/ButtonsContainer"]
 custom_minimum_size = Vector2(50, 30)
 layout_mode = 2
 text = "Max"
 
-[node name="HackGrid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HackGrid" type="GridContainer" parent="MarginContainer/VBoxContainer2/HackingItems"]
 unique_name_in_owner = true
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HackItemButton" parent="MarginContainer/VBoxContainer/HackGrid" instance=ExtResource("2_djb87")]
+[node name="HackItemButton" parent="MarginContainer/VBoxContainer2/HackingItems/HackGrid" instance=ExtResource("2_djb87")]
 layout_mode = 2
 
-[node name="HackItemButton2" parent="MarginContainer/VBoxContainer/HackGrid" instance=ExtResource("2_djb87")]
+[node name="HackItemButton2" parent="MarginContainer/VBoxContainer2/HackingItems/HackGrid" instance=ExtResource("2_djb87")]
 layout_mode = 2
+
+[node name="Sources" type="VBoxContainer" parent="MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3

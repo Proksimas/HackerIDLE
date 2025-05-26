@@ -3,7 +3,7 @@ extends Control
 @onready var buttons_container: HBoxContainer = %ButtonsContainer
 @onready var hack_grid: GridContainer = %HackGrid
 
-const HACK_ITEM_BUTTON = preload("res://Game/Clickers/hack_item_button.tscn")
+const HACK_ITEM_BUTTON = preload("res://Game/Clickers/Hacking/hack_item_button.tscn")
 
 
 var x_upgrade_value: int

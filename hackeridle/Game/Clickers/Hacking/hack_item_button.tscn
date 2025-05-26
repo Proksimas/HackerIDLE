@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_qh5xn"]
-[ext_resource type="Script" path="res://Game/Clickers/hack_item_button.gd" id="1_qsk31"]
+[ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_pubii"]
 

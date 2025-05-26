@@ -1,0 +1,150 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwsgn0o1qb68m"]
+
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_0wmkp"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_bayeo"]
+[ext_resource type="PackedScene" uid="uid://cwtklmgj62l4b" path="res://Game/Interface/Specials/bullet_point.tscn" id="2_stmvv"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_dkssb"]
+
+[node name="Source" type="Control"]
+layout_mode = 3
+anchor_right = 0.72963
+anchor_bottom = 0.303125
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="Head" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SourceID" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Head"]
+layout_mode = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/MarginContainer/VBoxContainer/Head/SourceID"]
+layout_mode = 2
+
+[node name="SourceTexture" type="TextureRect" parent="Panel/MarginContainer/VBoxContainer/Head/SourceID/AspectRatioContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("1_0wmkp")
+expand_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Head/SourceID"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SourceNameLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Head/SourceID/VBoxContainer"]
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+
+[node name="SourceDesLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/Head/SourceID/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+text = "Je suis une petite description de notre ami..."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Bonus" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/Bonus"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Bonus :"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+layout_mode = 2
+
+[node name="BulletPoint" parent="Panel/MarginContainer/VBoxContainer/Bonus/VBoxContainer3/GridContainer" instance=ExtResource("2_stmvv")]
+layout_mode = 2
+
+[node name="BulletPoint2" parent="Panel/MarginContainer/VBoxContainer/Bonus/VBoxContainer3/GridContainer" instance=ExtResource("2_stmvv")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CostAndBuy" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CostContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/CostContainer"]
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/CostContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cost"
+
+[node name="BrainIcon" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/CostContainer/HBoxContainer" instance=ExtResource("2_bayeo")]
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="UpgradePriceLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/CostContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "xxxxx"
+
+[node name="Button" type="Button" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy"]
+layout_mode = 2
+text = "Acheter x 1"
+
+[node name="SalaryContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Salary" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="SalaryLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer/Salary"]
+layout_mode = 2
+text = "Salary"
+
+[node name="GoldIcon" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer/Salary" instance=ExtResource("3_dkssb")]
+layout_mode = 2
+
+[node name="GoldSalaryLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "xxxxx"
+
+[editable path="Panel/MarginContainer/VBoxContainer/Bonus/VBoxContainer3/GridContainer/BulletPoint2"]

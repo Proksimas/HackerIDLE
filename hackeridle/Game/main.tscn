@@ -5,5 +5,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
+force_new_game = true
 
 [node name="Interface" parent="." instance=ExtResource("2_jep8t")]
