@@ -6,6 +6,8 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().create_timer(0.1).timeout
+	if !OS.has_feature("editor"):
+		force_new_game = false
 	
 	if force_new_game or !Save.check_has_save():
 		await new_game()
@@ -19,8 +21,15 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func new_game():
-	Player.gold = 10000
-	Player.knowledge_point = 10000
-	Player.brain_level = 1
-	Player.skill_point = 0
-	Player.brain_xp = 0
+	if !OS.has_feature("editor"):
+		Player.gold = 0
+		Player.knowledge_point = 0
+		Player.brain_level = 1
+		Player.skill_point = 0
+		Player.brain_xp = 0
+	else:
+		Player.gold = 10000
+		Player.knowledge_point = 10000
+		Player.brain_level = 1
+		Player.skill_point = 0
+		Player.brain_xp = 0

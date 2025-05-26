@@ -1,9 +1,9 @@
 @tool
 extends Node
 
-var user_path = "user://Saves/"
+var user_path = "user://"
 var editor_path = "res://Game/Saves/Data/"
-var save_file_name = "data.dat"
+var save_file_name = "sauvegarde.save"
 # Called when the node enters the scene tree for the first time.
 var singleton_to_save = [Player]
 
@@ -78,6 +78,10 @@ func clean_save():
 
 	
 func _notification(what):
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		print("Fermeture du jeu détectée ! Sauvegarde...")
-		self.save_game()  # Ou ton code perso
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			print("Fermeture du jeu détectée ! Sauvegarde...")
+			self.save_game()  # Ou ton code perso
+		NOTIFICATION_APPLICATION_PAUSED:
+			print("Application mise en pause. Utile pour téléphone")
+			save_game()
