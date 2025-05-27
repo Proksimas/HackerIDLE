@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b8u3dxtdeew80"]
+[gd_scene load_steps=11 format=3 uid="uid://b8u3dxtdeew80"]
 
 [ext_resource type="Script" path="res://Game/News/news_panel.gd" id="1_npa8h"]
 [ext_resource type="FontFile" uid="uid://cs7y72ts3hvpq" path="res://Game/Themes/Fonts/News/new_font_file.tres" id="2_31ll7"]
@@ -23,8 +23,6 @@ variation_transform = Transform2D(1, 0, 0, 1.53, 0, 0)
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_o1xrr"]
 color = Color(0.94902, 0.709804, 0.117647, 1)
 grow_end = -20.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8due"]
 
 [node name="NewsPanel" type="Panel"]
 custom_minimum_size = Vector2(0, 30)
@@ -59,7 +57,6 @@ text = "Le Pulsar de Novasec"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -93,7 +90,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_o1xrr")
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 6
 metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
@@ -113,11 +110,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Quand la ville se tait, le Pulsar parle"
 horizontal_alignment = 1
-
-[node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-theme_override_styles/separator = SubResource("StyleBoxEmpty_k8due")
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
