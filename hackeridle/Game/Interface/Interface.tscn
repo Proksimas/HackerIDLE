@@ -117,43 +117,46 @@ size_flags_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="BrainIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
-size_flags_horizontal = 8
-text = "XXXXX"
-horizontal_alignment = 2
+text = "333"
+vertical_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="GoldIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 
 [node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
-text = "XXXXX"
-horizontal_alignment = 2
+text = "111"
+vertical_alignment = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
 [node name="TrophyIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3" instance=ExtResource("6_gkcdb")]
 layout_mode = 2
+size_flags_horizontal = 0
 
 [node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 8
 text = "10"
+vertical_alignment = 1
 
 [node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer"]
 layout_mode = 2
