@@ -18,7 +18,7 @@ var clicker_arc_original_size
 
 func _ready() -> void:
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
-	current_brain_level.text = str("1")
+	current_brain_level.text = tr("$Level") + " 1"
 	
 
 func refresh_brain_xp_bar():

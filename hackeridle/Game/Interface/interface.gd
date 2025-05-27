@@ -9,7 +9,6 @@ extends Control
 @onready var knowledge_label: Label = %KnowledgeLabel
 @onready var gold_label: Label = %GoldLabel
 @onready var passif_clickers: HFlowContainer = %PassifClickers
-@onready var skill_point_title: Label = %SkillPointTitle
 @onready var skill_point_label: Label = %SkillPointLabel
 
 var test ="bleu"
@@ -61,7 +60,7 @@ func _on_earn_sp(point):
 func _on_earn_brain_xp(_point):
 	learning.refresh_brain_xp_bar()
 func _on_earn_brain_level(point):
-	learning.current_brain_level.text = str(point) 
+	learning.current_brain_level.text = tr("$Level") + " " + str(point) 
 	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()

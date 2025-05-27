@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=30 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_i3dr1"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
 [ext_resource type="Texture2D" uid="uid://e1n7cb7f1hyo" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-3.png" id="5_pkx54"]
 [ext_resource type="Texture2D" uid="uid://ber8s0ydnwqry" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-4.png" id="6_bin0a"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="6_gkcdb"]
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
@@ -120,55 +121,56 @@ layout_mode = 2
 
 [node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-text = "X"
+size_flags_horizontal = 8
+text = "XXXXX"
+horizontal_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
 
 [node name="GoldIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
 layout_mode = 2
+size_flags_horizontal = 2
 
 [node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 8
 text = "XXXXX"
+horizontal_alignment = 2
 
-[node name="RessourceBar2" type="GridContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer"]
-custom_minimum_size = Vector2(0, 35)
-layout_mode = 2
-size_flags_horizontal = 10
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar2"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
 
-[node name="SkillPointTitle" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar2/HBoxContainer"]
+[node name="TrophyIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3" instance=ExtResource("6_gkcdb")]
+layout_mode = 2
+
+[node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Skill point"
-
-[node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar2/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 text = "10"
 
-[node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/NavgationGrid"]
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/NavgationGrid"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer"]
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -177,11 +179,11 @@ texture_normal = SubResource("AnimatedTexture_qjpct")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/NavgationGrid"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer2"]
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -189,11 +191,11 @@ texture_normal = ExtResource("2_u0lvw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/NavgationGrid"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer3"]
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -201,7 +203,8 @@ texture_normal = ExtResource("3_aake5")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/NavgationGrid"]
+[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
@@ -288,11 +291,19 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning"]
-layout_mode = 2
-anchor_right = 0.283019
-anchor_bottom = 0.0818903
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
 size_flags_horizontal = 0
-metadata/_edit_use_anchors_ = true
+
+[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level 1"
+horizontal_alignment = 1
 
 [node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/HBoxContainer"]
 unique_name_in_owner = true
@@ -300,12 +311,6 @@ custom_minimum_size = Vector2(150, 25)
 layout_mode = 2
 step = 1.0
 show_percentage = false
-
-[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
 
 [node name="HackShop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
@@ -324,7 +329,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.33
 
 [connection signal="draw" from="." to="." method="_on_draw"]
-[connection signal="pressed" from="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MainTabMargin/MainTab/Learning" method="_on_clicker_button_pressed"]

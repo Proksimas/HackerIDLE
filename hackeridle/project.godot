@@ -34,7 +34,7 @@ window/handheld/orientation=1
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Game/News/TextFiles/amorce_story_1.en.translation", "res://Game/News/TextFiles/amorce_story_1.fr.translation", "res://Game/News/TextFiles/amorce_story_2.Column2.translation", "res://Game/News/TextFiles/amorce_story_2.Column3.translation", "res://Game/News/TextFiles/amorce_story_2.en.translation", "res://Game/News/TextFiles/amorce_story_2.fr.translation", "res://Game/News/TextFiles/amorce_story_3.en.translation", "res://Game/News/TextFiles/amorce_story_3.fr.translation", "res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/story_breaking_news.en.translation", "res://Game/News/TextFiles/story_breaking_news.fr.translation")
+locale/translations=PackedStringArray("res://Game/News/TextFiles/amorce_story_1.en.translation", "res://Game/News/TextFiles/amorce_story_1.fr.translation", "res://Game/News/TextFiles/amorce_story_2.Column2.translation", "res://Game/News/TextFiles/amorce_story_2.Column3.translation", "res://Game/News/TextFiles/amorce_story_2.en.translation", "res://Game/News/TextFiles/amorce_story_2.fr.translation", "res://Game/News/TextFiles/amorce_story_3.en.translation", "res://Game/News/TextFiles/amorce_story_3.fr.translation", "res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/story_breaking_news.en.translation", "res://Game/News/TextFiles/story_breaking_news.fr.translation", "res://Game/Translations/generic_translations.en.translation", "res://Game/Translations/generic_translations.fr.translation")
 
 [rendering]
 
