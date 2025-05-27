@@ -1,24 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8u3dxtdeew80"]
+[gd_scene load_steps=12 format=3 uid="uid://b8u3dxtdeew80"]
 
 [ext_resource type="Script" path="res://Game/News/news_panel.gd" id="1_npa8h"]
 [ext_resource type="FontFile" uid="uid://cs7y72ts3hvpq" path="res://Game/Themes/Fonts/News/new_font_file.tres" id="2_31ll7"]
+[ext_resource type="FontFile" uid="uid://o7sixv05mfk6" path="res://Game/Themes/Fonts/Orbitron/static/Orbitron-Bold.ttf" id="2_uwqt5"]
 [ext_resource type="Texture2D" uid="uid://baw688hudrvkx" path="res://Game/Graphics/the_pulsar_logo.png" id="3_bujof"]
+[ext_resource type="FontFile" uid="uid://op2fkn0k2iqh" path="res://Game/Themes/Fonts/Orbitron/static/Orbitron-Medium.ttf" id="3_keotb"]
 
-[sub_resource type="StyleBoxLine" id="StyleBoxLine_tlx0e"]
-color = Color(0.180392, 0.968627, 0.996078, 1)
-grow_begin = -10.0
-grow_end = -10.0
-vertical = true
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ut270"]
+
+[sub_resource type="FontVariation" id="FontVariation_33xtf"]
+base_font = ExtResource("2_uwqt5")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_e08d0"]
+color = Color(0.94902, 0.709804, 0.117647, 1)
+grow_begin = -20.0
+
+[sub_resource type="FontVariation" id="FontVariation_vcqae"]
+base_font = ExtResource("3_keotb")
+variation_face_index = 10
+variation_transform = Transform2D(1, 0, 0, 1.53, 0, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_o1xrr"]
+color = Color(0.94902, 0.709804, 0.117647, 1)
+grow_end = -20.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8due"]
 
 [node name="NewsPanel" type="Panel"]
 custom_minimum_size = Vector2(0, 30)
 anchors_preset = -1
-anchor_right = 1.00185
-anchor_bottom = 0.133333
+anchor_right = 1.0
+anchor_bottom = 0.266667
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ut270")
 script = ExtResource("1_npa8h")
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -29,50 +47,71 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 
+[node name="PulsarTitle" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.94902, 0.709804, 0.117647, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = SubResource("FontVariation_33xtf")
+theme_override_font_sizes/font_size = 30
+text = "Le Pulsar de Novasec"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_e08d0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="YearDate" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_vcqae")
+text = "1980"
+horizontal_alignment = 1
+
+[node name="YearDate2" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = SubResource("FontVariation_vcqae")
+theme_override_font_sizes/font_size = 10
+text = "10 - 01
+"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxLine_o1xrr")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer"]
+[node name="LogoTexture" type="TextureRect" parent="VBoxContainer/HBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 texture = ExtResource("3_bujof")
 expand_mode = 1
 
-[node name="PulsarTitle" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Le Pulsar de Novasec"
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 15
-theme_override_styles/separator = SubResource("StyleBoxLine_tlx0e")
-
-[node name="Date" type="Label" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "1980
-"
-
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 15
-theme_override_styles/separator = SubResource("StyleBoxLine_tlx0e")
-
 [node name="PulsarLoganLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Quand la ville se tait
- le Pulsar parle"
+text = "Quand la ville se tait, le Pulsar parle"
 horizontal_alignment = 1
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
@@ -83,7 +122,6 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_k8due")
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
-size_flags_vertical = 3
 color = Color(0, 0, 0, 1)
 
 [node name="TextLabel" type="Label" parent="VBoxContainer/ColorRect"]
