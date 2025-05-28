@@ -32,13 +32,13 @@ func set_item(item_cara):
 	#pour préparer le gain
 	var player_item = Player.learning_item_bought[item_cara["item_name"]]
 	gain_learning = Calculs.passif_learning_gain(player_item)
-	gain_learning_label.text = Global.number_to_string(gain_learning) + " /s"
+	gain_learning_label.text = Global.number_to_string(gain_learning)# + " /s"
 
 func set_refresh(item_cara):
 	"""ici on refresh l'item, en donnant les carac de l'item ISSUES DE l INVENTAIRE 
 	DU JOUEUR."item_cara"""
 	var player_item = Player.learning_item_bought[item_cara["item_name"]]
 	gain_learning = Calculs.passif_learning_gain(player_item)
-	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
+	gain_learning_label.text = Global.number_to_string(gain_learning)# + " /sec"
 
 	pass

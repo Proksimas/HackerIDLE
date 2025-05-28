@@ -96,13 +96,11 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_gvn61")
 
 [node name="Container" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/BuyItemButton"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.152263
-anchor_right = 0.8107
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container"]
 layout_mode = 2
@@ -128,6 +126,10 @@ text = "xxxxx"
 
 [node name="BrainIcon" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
+
+[node name="Button" type="Button" parent="HackItemInfo/VBoxContainer/BuyItemButton/Container"]
+layout_mode = 2
+text = "employe ?"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true

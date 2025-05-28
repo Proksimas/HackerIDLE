@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8u3dxtdeew80"]
+[gd_scene load_steps=12 format=3 uid="uid://b8u3dxtdeew80"]
 
 [ext_resource type="Script" path="res://Game/News/news_panel.gd" id="1_npa8h"]
 [ext_resource type="FontFile" uid="uid://cs7y72ts3hvpq" path="res://Game/Themes/Fonts/News/new_font_file.tres" id="2_31ll7"]
@@ -10,6 +10,8 @@
 
 [sub_resource type="FontVariation" id="FontVariation_33xtf"]
 base_font = ExtResource("2_uwqt5")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bxu1r"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_e08d0"]
 color = Color(0.94902, 0.709804, 0.117647, 1)
@@ -52,8 +54,13 @@ size_flags_vertical = 6
 theme_override_colors/font_color = Color(0.94902, 0.709804, 0.117647, 1)
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = SubResource("FontVariation_33xtf")
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 32
 text = "Le Pulsar de Novasec"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bxu1r")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -77,7 +84,7 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = SubResource("FontVariation_vcqae")
-theme_override_font_sizes/font_size = 10
+theme_override_font_sizes/font_size = 12
 text = "10 - 01
 "
 horizontal_alignment = 1
