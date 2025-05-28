@@ -1,0 +1,18 @@
+{
+    "sources": [
+        {
+            "source_name": "ben",
+            "texture_path": "res://Game/Graphics/Sources/Ben.png",
+            "cost": 100,
+            "cost_factor": 1.2,
+            "salary": 20,
+            "salary_factor":1.45,
+            "affectation": "hdmi",
+            "formule_type":"polymoniale",
+            "effects": {}
+        }
+
+    ]
+
+
+}

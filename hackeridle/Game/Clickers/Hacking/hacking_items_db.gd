@@ -32,8 +32,6 @@ func init_hacking_items_db():
 	#le premier item doit etre en mode to_unlocked
 	Player.hacking_item_statut[Player.hacking_item_statut.keys()[0]] = "to_unlocked"
 		
-
-
 func get_item_cara(item_name: String):
 	if hacking_items_db.has(item_name):
 		return hacking_items_db[item_name]

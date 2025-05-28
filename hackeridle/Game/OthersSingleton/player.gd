@@ -7,6 +7,7 @@ signal earn_brain_xp(number)
 signal earn_sp(number)
 signal earn_brain_level(number)
 
+#region variables clampées
 var knowledge_point: float:
 	set(value):
 		knowledge_point = clamp(value, 0, INF)
@@ -32,10 +33,12 @@ var skill_point: int:
 	set(value):
 		skill_point = clamp(value, 0, INF)
 		earn_sp.emit(skill_point)
+		
 var brain_level: int = 1:
 	set(value):
 		brain_level = clamp(value, 0, INF)
 		earn_brain_level.emit(brain_level)
+#endregion
 
 var brain_xp_next: int = 0
 var base_xp: int = 200
@@ -45,6 +48,8 @@ var learning_item_bought: Dictionary = {}
 var learning_item_statut: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
+var sources_item_bought: Dictionary = {}
+var sources_item_statut: Dictionary = {}
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
