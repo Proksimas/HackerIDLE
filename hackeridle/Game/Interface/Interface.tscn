@@ -1,6 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=31 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
+[ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_i3dr1"]
+[ext_resource type="FontFile" uid="uid://cbio55874a1qe" path="res://Game/Themes/Fonts/DefaultForGame.tres" id="2_4aqlt"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_4e0ac"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
 [ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
@@ -10,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
 [ext_resource type="Texture2D" uid="uid://e1n7cb7f1hyo" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-3.png" id="5_pkx54"]
 [ext_resource type="Texture2D" uid="uid://ber8s0ydnwqry" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-4.png" id="6_bin0a"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="6_gkcdb"]
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
@@ -20,6 +23,25 @@
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="14_wnef8"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
+
+[sub_resource type="FontVariation" id="FontVariation_j3kwv"]
+base_font = ExtResource("1_i3dr1")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_080ad"]
+
+[sub_resource type="Theme" id="Theme_awbs3"]
+default_font = ExtResource("2_4aqlt")
+default_font_size = 18
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 1
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 1
+Label/fonts/font = SubResource("FontVariation_j3kwv")
+Label/styles/normal = SubResource("StyleBoxEmpty_080ad")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
@@ -45,7 +67,7 @@ frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s1qt0"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -55,6 +77,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+theme = SubResource("Theme_awbs3")
 script = ExtResource("1_81dom")
 metadata/_edit_use_anchors_ = true
 
@@ -75,79 +98,85 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
+alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer"]
+[node name="RessourcesMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
 layout_mode = 2
 
-[node name="RessourceBar" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
+[node name="RessourceBar" type="GridContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer"]
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="BrainIcon" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
-layout_mode = 2
-
-[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer"]
-unique_name_in_owner = true
+[node name="BrainIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer" instance=ExtResource("2_4e0ac")]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "X"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar"]
-layout_mode = 2
-
-[node name="GoldIcon" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
-layout_mode = 2
-
-[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar/HBoxContainer2"]
+[node name="KnowledgeLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 0)
 layout_mode = 2
-text = "XXXXX"
+text = "333"
+vertical_alignment = 1
 
-[node name="RessourceBar2" type="GridContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer"]
-custom_minimum_size = Vector2(0, 35)
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
 layout_mode = 2
-size_flags_horizontal = 10
+theme_override_constants/separation = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2"]
-layout_mode = 2
-
-[node name="SkillPointTitle" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Skill point"
-
-[node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/MarginContainer2/HBoxContainer/RessourceBar2/HBoxContainer"]
-unique_name_in_owner = true
+[node name="GoldIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2" instance=ExtResource("3_6jrxw")]
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="GoldLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "111"
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TrophyIcon" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3" instance=ExtResource("6_gkcdb")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SkillPointLabel" type="Label" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/RessourceBar/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "10"
+vertical_alignment = 1
 
-[node name="GridContainer" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/separation = 10
 alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/GridContainer"]
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer"]
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -156,11 +185,11 @@ texture_normal = SubResource("AnimatedTexture_qjpct")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer2"]
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -168,11 +197,11 @@ texture_normal = ExtResource("2_u0lvw")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/GridContainer"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/GridContainer/AspectRatioContainer3"]
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -180,12 +209,13 @@ texture_normal = ExtResource("3_aake5")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/GridContainer"]
+[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer"]
+[node name="MainTabMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -194,7 +224,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer/MarginContainer"]
+[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer/MainTabMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -203,14 +233,14 @@ mouse_filter = 2
 current_tab = 0
 tabs_visible = false
 
-[node name="Learning" type="Control" parent="Panel/VBoxContainer/MarginContainer/MainTab"]
+[node name="Learning" type="Control" parent="Panel/VBoxContainer/MainTabMargin/MainTab"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("12_341t5")
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,97 +248,108 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
+[node name="LevelContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2"]
+layout_mode = 2
+
+[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level 1"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+show_percentage = false
+
+[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="BrainAndCoContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickerARC" type="AspectRatioContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer"]
+[node name="ClickerARC" type="AspectRatioContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickerButton" type="TextureButton" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC"]
+[node name="ClickerButton" type="TextureButton" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC"]
 layout_mode = 2
 texture_normal = ExtResource("13_whcds")
 texture_click_mask = ExtResource("14_i8kh2")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="PassifClickers" type="HFlowContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer"]
+[node name="PassifClickers" type="HFlowContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-size_flags_vertical = 4
+theme_override_constants/h_separation = 10
 alignment = 1
 
-[node name="PassifLearningItem" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem2" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem2" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem3" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem3" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem4" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem4" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem5" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem5" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem6" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem6" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem7" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem7" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="PassifLearningItem8" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/PassifClickers" instance=ExtResource("14_wnef8")]
+[node name="PassifLearningItem8" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning"]
-layout_mode = 2
-anchor_right = 0.283019
-anchor_bottom = 0.0818903
-size_flags_horizontal = 0
-metadata/_edit_use_anchors_ = true
-
-[node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 25)
-layout_mode = 2
-step = 1.0
-show_percentage = false
-
-[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MarginContainer/MainTab/Learning/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "1"
-horizontal_alignment = 1
-
-[node name="HackShop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("15_kr5ho")]
+[node name="HackShop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Shop" parent="Panel/VBoxContainer/MarginContainer/MainTab" instance=ExtResource("13_ojfgi")]
+[node name="Shop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 25)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_s1qt0")
-
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.28
 
 [connection signal="draw" from="." to="." method="_on_draw"]
-[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/GridContainer/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/MarginContainer/MainTab/Learning/VBoxContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MarginContainer/MainTab/Learning" method="_on_clicker_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MainTabMargin/MainTab/Learning" method="_on_clicker_button_pressed"]

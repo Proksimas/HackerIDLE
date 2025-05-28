@@ -64,6 +64,7 @@ text = "Max"
 [node name="HackGrid" type="GridContainer" parent="MarginContainer/VBoxContainer2/HackingItems"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/v_separation = 15
 metadata/_edit_use_anchors_ = true
 
 [node name="HackItemButton" parent="MarginContainer/VBoxContainer2/HackingItems/HackGrid" instance=ExtResource("2_djb87")]
