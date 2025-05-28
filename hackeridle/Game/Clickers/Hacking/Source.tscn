@@ -10,10 +10,11 @@
 [node name="Source" type="Control"]
 custom_minimum_size = Vector2(0, 270)
 layout_mode = 3
-anchor_right = 0.82963
-anchor_bottom = 0.261458
-offset_right = 3.05176e-05
-offset_bottom = 16.0
+anchor_top = -0.00104167
+anchor_right = 0.962963
+anchor_bottom = 0.334375
+offset_top = 1.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -60,11 +61,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="SourceNameLabel" type="Label" parent="MarginContainer/VBoxContainer/Head/SourceID/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Name"
 horizontal_alignment = 1
 
 [node name="SourceDesLabel" type="Label" parent="MarginContainer/VBoxContainer/Head/SourceID/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 text = "Je suis une petite description de notre ami..."
@@ -78,21 +81,23 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+[node name="BonusLabel" type="Label" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Bonus :"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+[node name="BonusGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="BulletPoint" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/GridContainer" instance=ExtResource("2_stmvv")]
+[node name="BulletPoint" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/BonusGrid" instance=ExtResource("2_stmvv")]
 layout_mode = 2
 
-[node name="BulletPoint2" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/GridContainer" instance=ExtResource("2_stmvv")]
+[node name="BulletPoint2" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/BonusGrid" instance=ExtResource("2_stmvv")]
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
@@ -111,6 +116,7 @@ size_flags_vertical = 4
 layout_mode = 2
 
 [node name="CostLabel" type="Label" parent="MarginContainer/VBoxContainer/CostAndBuy/CostContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Cost"
 
@@ -124,7 +130,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "xxxxx"
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/CostAndBuy"]
+[node name="BuySourceButton" type="Button" parent="MarginContainer/VBoxContainer/CostAndBuy"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter x 1"
 
@@ -137,6 +144,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="SalaryLabel" type="Label" parent="MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer/Salary"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Salary"
 
@@ -144,12 +152,16 @@ text = "Salary"
 layout_mode = 2
 
 [node name="GoldSalaryLabel" type="Label" parent="MarginContainer/VBoxContainer/CostAndBuy/SalaryContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "xxxxx"
 
-[node name="TextureButton" type="TextureButton" parent="MarginContainer"]
+[node name="CloseButton" type="TextureButton" parent="MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 texture_normal = ExtResource("5_uj16u")
+
+[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="_on_close_button_pressed"]

@@ -1,11 +1,33 @@
 extends Control
 
+@onready var source_name_label: Label = %SourceNameLabel
+@onready var source_des_label: Label = %SourceDesLabel
+@onready var cost_label: Label = %CostLabel
+@onready var upgrade_price_label: Label = %UpgradePriceLabel
+@onready var buy_source_button: Button = %BuySourceButton
+@onready var salary_label: Label = %SalaryLabel
+@onready var gold_salary_label: Label = %GoldSalaryLabel
+@onready var close_button: TextureButton = %CloseButton
+@onready var bonus_label: Label = %BonusLabel
+@onready var bonus_grid: GridContainer = %BonusGrid
+@onready var source_texture: TextureRect = %SourceTexture
 
+
+var current_source_cara
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-func set_source():
-	
+func set_source(source_cara:Dictionary):
+	self.show()
+	current_source_cara = source_cara
+	source_name_label.text = source_cara['source_name']
+	source_des_label.text = tr(source_cara['source_name'] + "_desc")
+	source_texture.texture = load(source_cara["texture_path"])
 	
 	pass
+
+
+func _on_close_button_pressed() -> void:
+	self.queue_free()
+	pass # Replace with function body.

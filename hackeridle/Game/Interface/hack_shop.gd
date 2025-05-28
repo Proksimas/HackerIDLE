@@ -3,6 +3,7 @@ extends Control
 @onready var buttons_container: HBoxContainer = %ButtonsContainer
 @onready var hack_grid: GridContainer = %HackGrid
 @onready var source_panel: Panel = %SourcePanel
+@onready var source_center: CenterContainer = %SourceCenter
 
 const HACK_ITEM_BUTTON = preload("res://Game/Clickers/Hacking/hack_item_button.tscn")
 const SOURCE = preload("res://Game/Clickers/Hacking/Source.tscn")
@@ -113,10 +114,16 @@ func _on_source_button_pressed(source_associatied: Dictionary):
 	"""On doit ouvrir la source affectée à ce bouton."""
 	hack_grid.hide()
 	source_panel.show()
-	print(source_associatied)
+	var new_source = SOURCE.instantiate()
+	source_center.add_child(new_source)
+	new_source.set_source(source_associatied)
+	new_source.close_button.pressed.connect(_draw)
 	
 	pass
 	
 func _clear():
 	for child in hack_grid.get_children():
 		child.queue_free()
+	
+	for child2 in source_center.get_children():
+		child2.queue_free()
