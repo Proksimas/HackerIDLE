@@ -38,6 +38,17 @@ func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	
 	return (Vector2(screen_size) - Vector2(target_size))  / 2
 
+func center(control: Control, target: Control = null):
+	# S’assurer que le node a déjà calculé sa taille
+	var target_center
+	if target != null:
+		var r = target.get_global_rect()  # Rect2 ou Rect2i, peu importe
+		target_center = (r.position + r.size * 0.5)
+	else:
+		var vp = control.get_viewport_rect()
+		target_center = (vp.position + vp.size * 0.5)
+
+	control.global_position =  target_center - control.size * 0.5
 	
 func get_serialisable_vars(node: Node) -> Dictionary:
 	"""Permet de return toutes les variables du node donné en paramètre"""

@@ -27,6 +27,9 @@ func set_source(source_cara:Dictionary):
 	
 	pass
 
+func _center_deferred(target):
+	Global.call_deferred("center", self, target)
+	pass
 
 func _on_close_button_pressed() -> void:
 	self.queue_free()

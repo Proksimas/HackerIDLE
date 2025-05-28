@@ -33,7 +33,6 @@ theme_override_constants/margin_bottom = 10
 [node name="HackingItems" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
 metadata/_edit_use_anchors_ = true
 
 [node name="ButtonsContainer" type="HBoxContainer" parent="MarginContainer/HackingItems"]
@@ -66,6 +65,7 @@ text = "Max"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 theme_override_constants/v_separation = 15
 metadata/_edit_use_anchors_ = true
 
@@ -81,15 +81,12 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_dudvx")
 
-[node name="SourceCenter" type="CenterContainer" parent="MarginContainer/HackingItems/SourcePanel"]
-unique_name_in_owner = true
+[node name="Source" parent="MarginContainer/HackingItems/SourcePanel" instance=ExtResource("3_j6a1s")]
+custom_minimum_size = Vector2(500, 270)
 layout_mode = 1
 anchors_preset = 15
+anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Source" parent="MarginContainer/HackingItems/SourcePanel/SourceCenter" instance=ExtResource("3_j6a1s")]
-custom_minimum_size = Vector2(500, 270)
-layout_mode = 2
+offset_top = 0.0
+offset_bottom = 0.0
