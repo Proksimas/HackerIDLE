@@ -140,7 +140,8 @@ text = "xxxxx"
 [node name="BrainIcon" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer"]
+[node name="SourceButton" type="Button" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 text = "Source"

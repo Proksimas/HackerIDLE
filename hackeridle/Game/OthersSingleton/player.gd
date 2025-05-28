@@ -134,6 +134,11 @@ func add_hacking_item(item_cara: Dictionary):
 				var next_item_name = items_name[pos + 1]
 				Player.hacking_item_statut[next_item_name] = "to_unlocked"
 		
+func add_source(source_cara: Dictionary):
+	var dict_to_store = source_cara.duplicate()
+	sources_item_bought[source_cara['item_name']] = dict_to_store
+
+	pass
 
 ##Gagne le nombre de level donné en paramètre
 func hacking_item_level_up(item_name: String, gain_of_level):

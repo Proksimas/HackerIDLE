@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwsgn0o1qb68m"]
+[gd_scene load_steps=7 format=3 uid="uid://bwsgn0o1qb68m"]
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_0wmkp"]
+[ext_resource type="Script" path="res://Game/Clickers/Hacking/source.gd" id="1_2ke5q"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_bayeo"]
 [ext_resource type="PackedScene" uid="uid://cwtklmgj62l4b" path="res://Game/Interface/Specials/bullet_point.tscn" id="2_stmvv"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_dkssb"]
@@ -17,6 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_2ke5q")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

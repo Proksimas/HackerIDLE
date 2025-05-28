@@ -1,13 +1,25 @@
 {
     "sources": [
         {
-            "source_name": "ben",
+            "source_name": "Toto",
             "texture_path": "res://Game/Graphics/Sources/Ben.png",
             "cost": 100,
             "cost_factor": 1.2,
             "salary": 20,
             "salary_factor":1.45,
             "affectation": "hdmi",
+            "formule_type":"polymoniale",
+            "effects": {}
+        },
+
+        {
+         "source_name": "FanFan",
+            "texture_path": "res://Game/Graphics/Sources/fanfan.png",
+            "cost": 100,
+            "cost_factor": 1.2,
+            "salary": 20,
+            "salary_factor":1.45,
+            "affectation": "wifi_ephad",
             "formule_type":"polymoniale",
             "effects": {}
         }

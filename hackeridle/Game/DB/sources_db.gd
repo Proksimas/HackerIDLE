@@ -31,10 +31,14 @@ func init_sources_db():
 		
 		else:
 			sources_db[source["source_name"]] = dict_source
-			Player.sources_item_statut[source["source_name"]] = "locked"
+
+func get_associated_source(hack_item_name: String):
+	for i in range(sources_db.size()):
+		if sources_db.values()[i]["affectation"] == hack_item_name:
 			
-	#la première source doit etre en mode to_unlocked
-	Player.hacking_item_statut[Player.hacking_item_statut.keys()[0]] = "to_unlocked"
+			return get_source_cara(sources_db.values()[i]["source_name"])
+	push_error("Problème de nom ou pas de source disponible pour %s" %\
+				[hack_item_name])
 
 func get_source_cara(source_name: String):
 	if sources_db.has(source_name):

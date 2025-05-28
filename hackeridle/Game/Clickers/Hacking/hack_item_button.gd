@@ -15,6 +15,7 @@ class_name HackItemButton
 @onready var unlocked_button: Button = %UnlockedButton
 @onready var brain_cost: Label = %BrainCost
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
+@onready var source_button: Button = %SourceButton
 
 
 var x_buy
@@ -52,6 +53,7 @@ func set_hacking_item(item_name):
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
+	
 	
 
 func set_refresh(item_cara: Dictionary):

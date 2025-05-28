@@ -2,20 +2,24 @@ extends Control
 
 @onready var buttons_container: HBoxContainer = %ButtonsContainer
 @onready var hack_grid: GridContainer = %HackGrid
+@onready var source_panel: Panel = %SourcePanel
 
 const HACK_ITEM_BUTTON = preload("res://Game/Clickers/Hacking/hack_item_button.tscn")
-
+const SOURCE = preload("res://Game/Clickers/Hacking/Source.tscn")
 
 var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	source_panel.hide()
 	_clear()
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 	pass # Replace with function body.
 
 func set_shop():
-	"""initialisation du shop initial. On affiche tous les items de la DB"""
+	"""Comprend l'initialisation et le rafraichissement si l'item est deja présent"""
+	source_panel.hide()
+	hack_grid.show()
 	var item_present: Dictionary
 	for hack_item:HackItemButton in hack_grid.get_children():
 		item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
@@ -32,9 +36,16 @@ func set_shop():
 			var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
 			hack_grid.add_child(new_hack_item)
 			new_hack_item.set_hacking_item(item_name)
+			var source_associatied = SourcesDb.get_associated_source(item_name)
+			
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
+			new_hack_item.source_button.pressed.connect(_on_source_button_pressed.bind(source_associatied))
+			
+			
 			new_hack_item.hide()
+			
+			
 				
 func player_bought_hacking_item(item_name,  quantity):
 	var cost = 0
@@ -97,6 +108,14 @@ func _on_unlocked_button_pressed(hack_item: HackItemButton):
 	player_bought_hacking_item(hack_item.current_hack_item_cara["item_name"], 1)
 	Player.hacking_item_statut[hack_item.current_hack_item_cara["item_name"]] = "unlocked"
 	hack_items_statut_updated()
+	
+func _on_source_button_pressed(source_associatied: Dictionary):
+	"""On doit ouvrir la source affectée à ce bouton."""
+	hack_grid.hide()
+	source_panel.show()
+	print(source_associatied)
+	
+	pass
 	
 func _clear():
 	for child in hack_grid.get_children():
