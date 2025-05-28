@@ -11,6 +11,7 @@ extends Control
 @onready var bonus_label: Label = %BonusLabel
 @onready var bonus_grid: GridContainer = %BonusGrid
 @onready var source_texture: TextureRect = %SourceTexture
+@onready var level_label: Label = %LevelLabel
 
 
 var current_source_cara
@@ -21,9 +22,14 @@ func _ready() -> void:
 func set_source(source_cara:Dictionary):
 	self.show()
 	current_source_cara = source_cara
+	cost_label.text = tr('$Cost') 
+	salary_label.text = tr('$Salary')
+	bonus_label.text = tr('$Effects')
+	
 	source_name_label.text = source_cara['source_name']
 	source_des_label.text = tr(source_cara['source_name'] + "_desc")
 	source_texture.texture = load(source_cara["texture_path"])
+	level_label.text = tr("$Level") + ": " + str(source_cara["level"])
 	
 	pass
 
