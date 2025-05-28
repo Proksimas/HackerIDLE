@@ -54,7 +54,7 @@ func set_hacking_item(item_name):
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
 	
-	
+	#on a la source qui automatise
 
 func set_refresh(item_cara: Dictionary):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
@@ -115,6 +115,8 @@ func x_can_be_buy(_x_buy):
 	
 	
 func lauch_wait_time():
+	if progress_activated == true:
+		return
 	hack_item_progress_bar.rounded =false
 	time_process = 0
 	hack_item_progress_bar.max_value = current_hack_item_cara["delay"]
@@ -135,6 +137,12 @@ func time_finished() -> void:
 	
 	hack_item_texture.disabled = false
 	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
+	
+	#On a la source qui automatise
+	if Player.get_associated_source(current_hack_item_cara["item_name"]):
+		lauch_wait_time()
+	
+	
 	pass # Replace with function body.
 
 func statut_updated():
@@ -156,6 +164,11 @@ func statut_updated():
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
+
+func _draw() -> void:
+	if Player.get_associated_source(current_hack_item_cara["item_name"]):
+		lauch_wait_time()
+	
 
 func _on_hack_item_texture_pressed() -> void:
 	lauch_wait_time()

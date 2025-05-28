@@ -136,7 +136,7 @@ func add_hacking_item(item_cara: Dictionary):
 		
 func add_source(source_cara: Dictionary):
 	var dict_to_store = source_cara.duplicate()
-	sources_item_bought[source_cara['item_name']] = dict_to_store
+	sources_item_bought[source_cara['source_name']] = dict_to_store
 
 	pass
 
@@ -155,6 +155,18 @@ func change_hacking_property_value(item_name: String, property: String, value):
 		push_warning("L'item n'existe pas")
 	hacking_item_bought[item_name][property] = value
 
+func get_associated_source(hack_item_name: String):
+	for i in range(sources_item_bought.size()):
+		if sources_item_bought.values()[i]["affectation"] == hack_item_name:
+			
+			return get_source_cara(sources_item_bought.values()[i]["source_name"])
+	return false
+
+func get_source_cara(source_name: String):
+	if sources_item_bought.has(source_name):
+		return sources_item_bought[source_name]
+	else:
+		push_error("La source demandée n'existe pas")
 
 func _save_data():
 	return Global.get_serialisable_vars(self)

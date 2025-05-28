@@ -110,13 +110,19 @@ func _on_unlocked_button_pressed(hack_item: HackItemButton):
 	Player.hacking_item_statut[hack_item.current_hack_item_cara["item_name"]] = "unlocked"
 	hack_items_statut_updated()
 	
-func _on_source_button_pressed(source_associatied: Dictionary):
+func _on_source_button_pressed(source_associated: Dictionary):
 	"""On doit ouvrir la source affectée à ce bouton."""
 	hack_grid.hide()
 	source_panel.show()
+	#on regarde si le joueur possède dans son inventaire la source. Si non, on l'ajoute
+	if !Player.sources_item_bought.has(source_associated["source_name"]):
+		Player.add_source(source_associated)
+	else:
+		source_associated = Player.sources_item_bought[source_associated["source_name"]]
+	
 	var new_source = SOURCE.instantiate()
 	source_panel.add_child(new_source)
-	new_source.set_source(source_associatied)
+	new_source.set_source(source_associated)
 	new_source._center_deferred(source_panel)
 	new_source.close_button.pressed.connect(_draw)
 	
