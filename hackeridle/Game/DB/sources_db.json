@@ -3,34 +3,28 @@
         {
             "source_name": "Toto",
             "texture_path": "res://Game/Graphics/Sources/Ben.png",
-            "cost": 100,
-            "cost_factor": 1.2,
-            "salary": 20,
-            "salary_factor":1.45,
+            "up_level": 20,
+            "up_factor": 0.8,
             "affectation": "hdmi",
-            "formule_type":"polymoniale",
+            "formule_type":"exponentielle",
             "effects": {}
         },
 
         {
-         "source_name": "BanBan",
+            "source_name": "BanBan",
             "texture_path": "res://Game/Graphics/Sources/banban.png",
-            "cost": 100,
-            "cost_factor": 1.2,
-            "salary": 20,
-            "salary_factor":1.45,
+            "up_level": 30,
+            "up_factor":0.8,
             "affectation": "wifi_ephad",
             "formule_type":"polymoniale",
             "effects": {}
         },
 
          {
-         "source_name": "FanFan",
+            "source_name": "FanFan",
             "texture_path": "res://Game/Graphics/Sources/fanfan.png",
-            "cost": 100,
-            "cost_factor": 1.2,
-            "salary": 20,
-            "salary_factor":1.45,
+            "up_level": 40,
+            "up_factor": 0.8,
             "affectation": "MIT_flathouse",
             "formule_type":"polymoniale",
             "effects": {}

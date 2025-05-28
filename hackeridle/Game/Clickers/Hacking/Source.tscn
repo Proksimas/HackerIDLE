@@ -112,9 +112,11 @@ autowrap_mode = 3
 layout_mode = 2
 
 [node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="CostAndBuy" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 

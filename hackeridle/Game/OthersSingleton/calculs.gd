@@ -85,3 +85,11 @@ func gain_gold(hacking_item_name):
 	else:
 		return round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
 	
+
+func get_next_source_level(source_cara):
+	var level = source_cara["level"]
+	var c = source_cara["up_level"]
+	var r = source_cara["up_factor"]
+
+	var calcul = c * pow(1+r,level -1)
+	

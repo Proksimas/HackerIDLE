@@ -16,10 +16,8 @@ func init_sources_db():
 	for source in sources["sources"]:
 		var dict_source = { "source_name": source["source_name"],
 							"texture_path": source["texture_path"],
-							"cost": source["cost"],
-							"cost_factor":source['cost_factor'],
-							"salary": source['salary'],
-							"salary_factor": source['salary_factor'],
+							"up_level": source["up_level"],
+							"up_factor":source['up_factor'],
 							"affectation": source["affectation"],
 							"formule_type": source['formule_type'],
 							"effects": source['effects'],
