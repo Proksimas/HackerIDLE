@@ -87,9 +87,18 @@ func gain_gold(hacking_item_name):
 	
 
 func get_next_source_level(source_cara):
-	var level = source_cara["level"]
+	if source_cara == null:
+		push_error("La source demandée n'existe pas")
+	var level = source_cara["level"] 
 	var c = source_cara["up_level"]
 	var r = source_cara["up_factor"]
 
-	var calcul = c * pow(1+r,level -1)
-	
+	#On est dans un calcl exponentiel
+	#var calcul_expo = c * pow(1+r,level -1)
+	#coef linear avec legere augmentation
+	if level == 1:
+		return c
+	else:
+		var linear_calcul = c * (level * r)
+		return linear_calcul 
+		

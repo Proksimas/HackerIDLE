@@ -2,31 +2,31 @@
     "sources": [
         {
             "source_name": "Toto",
-            "texture_path": "res://Game/Graphics/Sources/Ben.png",
-            "up_level": 20,
-            "up_factor": 0.8,
+            "texture_path": "res://Game/Graphics/Sources/toto.png",
+            "up_level": 25,
+            "up_factor": 1,
             "affectation": "hdmi",
-            "formule_type":"exponentielle",
+            "formule_type":"linear",
             "effects": {}
         },
 
         {
             "source_name": "BanBan",
             "texture_path": "res://Game/Graphics/Sources/banban.png",
-            "up_level": 30,
-            "up_factor":0.8,
+            "up_level": 35,
+            "up_factor":1.2,
             "affectation": "wifi_ephad",
-            "formule_type":"polymoniale",
+            "formule_type":"linear",
             "effects": {}
         },
 
          {
             "source_name": "FanFan",
             "texture_path": "res://Game/Graphics/Sources/fanfan.png",
-            "up_level": 40,
-            "up_factor": 0.8,
+            "up_level": 50,
+            "up_factor": 1.2,
             "affectation": "MIT_flathouse",
-            "formule_type":"polymoniale",
+            "formule_type":"linear",
             "effects": {}
         }
 

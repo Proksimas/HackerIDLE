@@ -120,6 +120,9 @@ func _on_source_button_pressed(source_associated: Dictionary):
 	else:
 		source_associated = Player.sources_item_bought[source_associated["source_name"]]
 	
+	print(Player.sources_item_bought)
+	print("calculs: ", str(Calculs.get_next_source_level(Player.get_source_cara("Toto"))))
+	
 	var new_source = SOURCE.instantiate()
 	source_panel.add_child(new_source)
 	new_source.set_source(source_associated)

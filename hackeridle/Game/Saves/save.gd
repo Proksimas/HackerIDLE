@@ -25,7 +25,7 @@ func save_the_data(content):
 		file.store_var(content)
 		file.close()
 		print("✅ Sauvegarde réussie : %s" % file_path)
-		print("-> ", content)
+		#print("-> ", content)
 	else:
 		print("❌ Impossible d'ouvrir le fichier : %s" % file_path)
 
