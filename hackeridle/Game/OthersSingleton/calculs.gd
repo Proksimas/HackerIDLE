@@ -96,9 +96,9 @@ func get_next_source_level(source_cara):
 	#On est dans un calcl exponentiel
 	#var calcul_expo = c * pow(1+r,level -1)
 	#coef linear avec legere augmentation
-	if level == 1:
+	if level == 0:
 		return c
 	else:
-		var linear_calcul = c * (level * r)
+		var linear_calcul = c * ((level+1) * r)
 		return linear_calcul 
 		

@@ -37,11 +37,19 @@ func set_shop():
 			var new_hack_item:HackItemButton = HACK_ITEM_BUTTON.instantiate()
 			hack_grid.add_child(new_hack_item)
 			new_hack_item.set_hacking_item(item_name)
-			var source_associatied = SourcesDb.get_associated_source(item_name)
 			
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
-			new_hack_item.source_button.pressed.connect(_on_source_button_pressed.bind(source_associatied))
+			
+			#On colle la source
+			var source_associated = SourcesDb.get_associated_source(item_name)
+			if !Player.sources_item_bought.has(source_associated["source_name"]):
+				Player.add_source(source_associated)
+			else:
+				source_associated = Player.sources_item_bought[source_associated["source_name"]]
+				
+			new_hack_item.source_associated = source_associated
+			new_hack_item.source_button.pressed.connect(_on_source_button_pressed.bind(source_associated))
 			
 			
 			new_hack_item.hide()
@@ -120,12 +128,6 @@ func _on_source_button_pressed(source_associated: Dictionary):
 	hack_grid.hide()
 	source_panel.show()
 	#on regarde si le joueur possède dans son inventaire la source. Si non, on l'ajoute
-	if !Player.sources_item_bought.has(source_associated["source_name"]):
-		Player.add_source(source_associated)
-	else:
-		source_associated = Player.sources_item_bought[source_associated["source_name"]]
-	
-	
 	var new_source = SOURCE.instantiate()
 	source_panel.add_child(new_source)
 	new_source.set_source(source_associated)

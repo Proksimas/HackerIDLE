@@ -24,6 +24,8 @@ var progress_activated: bool = false
 var time_process:float
 var first_cost = INF
 var quantity_to_buy: int
+
+var source_associated: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -138,7 +140,7 @@ func time_finished() -> void:
 	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
 	
 	#On a la source qui automatise
-	if Player.get_associated_source(current_hack_item_cara["item_name"]):
+	if source_associated["level"] > 0:
 		lauch_wait_time()
 	
 	
@@ -173,16 +175,16 @@ func upgrading_source():
 	var max = 100 # on sécurise le up avec un max
 	
 	for loop in range(max):
-		var source_cara = Player.get_associated_source(current_hack_item_cara['item_name'])
-		if not source_cara:
+		
+		if not source_associated:
 			return
-		var cost_level_to_reach = Calculs.get_next_source_level(source_cara)
+		var cost_level_to_reach = Calculs.get_next_source_level(source_associated)
 		if current_hack_item_cara["level"] < cost_level_to_reach:
 			break
 			
 		else:  # la source est upgrade. Voir les effetcs et le level
 #			Player.sources_item_bought[so]
-			source_upgraded(source_cara)
+			source_upgraded(source_associated)
 
 
 func source_upgraded(source_cara):
@@ -191,10 +193,14 @@ func source_upgraded(source_cara):
 	#On parse les effets
 	#on commence simple en réduisant juste le temps 
 	current_hack_item_cara["delay"] = snapped((current_hack_item_cara["delay"] * 0.9), 0.01)
-	print((Player.hacking_item_bought[source_cara['affectation']]))
+	
+	if source_cara["level"] > 0:
+		lauch_wait_time()
+	
+
 
 func _draw() -> void:
-	if Player.get_associated_source(current_hack_item_cara["item_name"]):
+	if source_associated["level"] > 0 :
 		lauch_wait_time()
 	
 

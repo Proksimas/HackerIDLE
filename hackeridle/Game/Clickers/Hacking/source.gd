@@ -20,6 +20,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func set_source(source_cara:Dictionary):
+	_clear()
 	self.show()
 	current_source_cara = source_cara
 	cost_label.text = tr('$Cost') 
@@ -40,3 +41,7 @@ func _center_deferred(target):
 func _on_close_button_pressed() -> void:
 	self.queue_free()
 	pass # Replace with function body.
+
+func _clear():
+	for child in bonus_grid.get_children():
+		child.queue_free()

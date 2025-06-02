@@ -21,7 +21,7 @@ func init_sources_db():
 							"affectation": source["affectation"],
 							"formule_type": source['formule_type'],
 							"effects": source['effects'],
-							"level": 1
+							"level": 0
 							}
 							
 		if sources_db.has(source["source_name"]):
