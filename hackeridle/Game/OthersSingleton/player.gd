@@ -158,9 +158,7 @@ func change_hacking_property_value(item_name: String, property: String, value):
 func get_associated_source(hack_item_name: String):
 	for i in range(sources_item_bought.size()):
 		if sources_item_bought.values()[i]["affectation"] == hack_item_name:
-			
 			return get_source_cara(sources_item_bought.values()[i]["source_name"])
-	return false
 
 func get_source_cara(source_name: String):
 	if sources_item_bought.has(source_name):

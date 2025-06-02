@@ -26,7 +26,6 @@ var first_cost = INF
 var quantity_to_buy: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -164,6 +163,35 @@ func statut_updated():
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
+		
+		
+
+
+func upgrading_source():
+	"""on augmente le niveau de la source si le calcul du up level est bon.
+	De plus, il faut activer ses effets si il y en a"""
+	var max = 100 # on sécurise le up avec un max
+	
+	for loop in range(max):
+		var source_cara = Player.get_associated_source(current_hack_item_cara['item_name'])
+		if not source_cara:
+			return
+		var cost_level_to_reach = Calculs.get_next_source_level(source_cara)
+		if current_hack_item_cara["level"] < cost_level_to_reach:
+			break
+			
+		else:  # la source est upgrade. Voir les effetcs et le level
+#			Player.sources_item_bought[so]
+			source_upgraded(source_cara)
+
+
+func source_upgraded(source_cara):
+	"""On augmente la source de 1 niveau"""
+	source_cara["level"] += 1
+	#On parse les effets
+	#on commence simple en réduisant juste le temps 
+	current_hack_item_cara["delay"] = snapped((current_hack_item_cara["delay"] * 0.9), 0.01)
+	print((Player.hacking_item_bought[source_cara['affectation']]))
 
 func _draw() -> void:
 	if Player.get_associated_source(current_hack_item_cara["item_name"]):

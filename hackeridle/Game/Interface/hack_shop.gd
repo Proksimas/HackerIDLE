@@ -70,8 +70,12 @@ func player_bought_hacking_item(item_name,  quantity):
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez de connaissance")
 
+
+	#Regardons si la source up
+	get_tree().call_group("g_hack_item_button", "upgrading_source")
+
+
 		##Puis on ajuste l'ui de l'item acheté pour optimisé
-	
 	for hack_item:HackItemButton in hack_grid.get_children():
 		if not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
 			hack_item.set_refresh(Player.hacking_item_bought[item_name])
@@ -79,8 +83,9 @@ func player_bought_hacking_item(item_name,  quantity):
 
 func hack_items_statut_updated():
 	get_tree().call_group("g_hack_item_button", "statut_updated")
+
 	
-	pass
+
 
 func _on_x_button_pressed(button_name: String):
 	'''définit le *X d achat possible'''
@@ -120,8 +125,6 @@ func _on_source_button_pressed(source_associated: Dictionary):
 	else:
 		source_associated = Player.sources_item_bought[source_associated["source_name"]]
 	
-	print(Player.sources_item_bought)
-	print("calculs: ", str(Calculs.get_next_source_level(Player.get_source_cara("Toto"))))
 	
 	var new_source = SOURCE.instantiate()
 	source_panel.add_child(new_source)
