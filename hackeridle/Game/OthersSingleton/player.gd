@@ -61,7 +61,7 @@ func _check_level_up():
 		level_up()
 		return true
 	else: 
-		false
+		return false
 		
 func level_up():
 	#brain_xp -= brain_xp_next

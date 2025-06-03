@@ -75,4 +75,6 @@ func _on_settings_button_pressed() -> void:
 
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""
+	
+	#sauvegarde au nivau du learning
 	learning._load_data(data["learning_item_bought"])

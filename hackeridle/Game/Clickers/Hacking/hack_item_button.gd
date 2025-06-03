@@ -19,7 +19,7 @@ class_name HackItemButton
 
 
 var x_buy
-var current_hack_item_cara
+var current_hack_item_cara = {}
 var progress_activated: bool = false
 var time_process:float
 var first_cost = INF
@@ -77,7 +77,7 @@ func set_refresh(item_cara: Dictionary):
 	pass
 	
 func knwoledge_refresh_hack_item():
-	if current_hack_item_cara["level"] > 0:
+	if !current_hack_item_cara.is_empty() and current_hack_item_cara["level"] > 0:
 		set_refresh(current_hack_item_cara)
 	set_unlocked_button_state()
 	
@@ -172,10 +172,9 @@ func statut_updated():
 func upgrading_source():
 	"""on augmente le niveau de la source si le calcul du up level est bon.
 	De plus, il faut activer ses effets si il y en a"""
-	var max = 100 # on sécurise le up avec un max
+	var _max = 100 # on sécurise le up avec un max
 	
-	for loop in range(max):
-		
+	for loop in range(_max):
 		if not source_associated:
 			return
 		var cost_level_to_reach = Calculs.get_next_source_level(source_associated)

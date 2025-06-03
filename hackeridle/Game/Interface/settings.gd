@@ -6,12 +6,6 @@ extends Control
 func _ready() -> void:
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 func _on_new_game_button_pressed() -> void:
 	print(get_tree().get_root().get_node("main"))
 	get_tree().get_root()

@@ -65,6 +65,8 @@ func set_unlocked_button_state():
 		unlocked_button.modulate = Color(0.502, 0.502, 0.502)
 func x_can_be_buy(_x_buy):
 	"""affiche le nombre de fois que l'item peut etre acheté"""
+	if current_item_cara.is_empty():
+		return
 	x_buy = _x_buy
 	var item_price
 	if _x_buy == -1:  #CAS DU MAX

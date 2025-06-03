@@ -35,12 +35,16 @@ func load_data():
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
 	f.close()
+	
 	player_load_data(data)
+	
 	#CHargement au niveau de l'interface
 	get_tree().get_root().get_node("Main/Interface")._load_data(data)
+	
 	pass
 
 func player_load_data(content: Dictionary) -> void:
+	"""Nous settons les variables du Player (gold, skill_point ...)"""
 	# 1.  Parcourt les propriétés de l’INSTANCE, pas de la ressource script
 	for prop in Player.get_property_list():
 		var p_name  : String = prop.name
