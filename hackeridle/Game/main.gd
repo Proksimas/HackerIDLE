@@ -10,21 +10,25 @@ func _ready() -> void:
 		force_new_game = false
 	
 	if force_new_game or !Save.check_has_save():
-		new_game()
+		self.call_thread_safe('new_game')
 
 	else:
 		####### CHARGEMENT ###############
-		self.call_thread_safe('load_interface')
-		Save.call_thread_safe('load_data')
-		OS.delay_msec(1000)
+		self.call_thread_safe('load_game')
 		
-	$Interface._on_navigator_pressed()
+	#$Interface._on_navigator_pressed()
 
 	pass # Replace with function body.
 
+func load_game():
+	load_interface()
+	OS.delay_msec(1000)
+	Save.load_data()
+
 func new_game():
-	self.call_thread_safe("fill_player_stats")
-	self.call_thread_safe('load_interface')
+	fill_player_stats()
+	OS.delay_msec(1000)
+	load_interface()
 
 func load_interface():
 	if self.has_node("Interface"):
@@ -48,5 +52,5 @@ func fill_player_stats():
 		Player.brain_level = 1
 		Player.skill_point = 0
 		Player.brain_xp = 0
-	OS.delay_msec(1000)
+	
 	

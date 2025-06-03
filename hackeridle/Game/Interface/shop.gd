@@ -13,17 +13,8 @@ signal item_bought(name)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_clear()
-	#Le joueur commence forcement avec le premier item au niveau 1
-
-	#player_bought_learning_item("post-it", 1)
-	#################"
-	
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
-	
-
-
-
 
 func set_shop():
 	
@@ -84,6 +75,7 @@ func learning_items_statut_updated():
 	pass
 
 func _draw() -> void:
+	#ATTENTION peut engendrer des bugs si le player n'est pas initialisé avec son inventaire
 	set_shop()
 	learning_items_statut_updated()
 	%X1Button.pressed.emit()

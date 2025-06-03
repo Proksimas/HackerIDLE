@@ -8,7 +8,6 @@ extends Control
 @onready var navigator: TextureButton = %Navigator
 @onready var knowledge_label: Label = %KnowledgeLabel
 @onready var gold_label: Label = %GoldLabel
-@onready var passif_clickers: HFlowContainer = %PassifClickers
 @onready var skill_point_label: Label = %SkillPointLabel
 
 var test ="bleu"
@@ -16,11 +15,9 @@ var a = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	main_tab.current_tab = 0
 	connexions()
-	
-	for child in passif_clickers.get_children():
-		child.queue_free()
-		
+	init_interface()
 	
 func connexions() -> void:
 	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
@@ -30,7 +27,11 @@ func connexions() -> void:
 	Player.earn_brain_xp.connect(_on_earn_brain_xp)
 	Player.earn_brain_level.connect(_on_earn_brain_level)
 	shop.item_bought.connect(learning._on_shop_item_bought)
-	
+
+func init_interface():
+	knowledge_label.text = Global.number_to_string(Player.knowledge_point)
+	gold_label.text =  Global.number_to_string(Player.gold)
+	skill_point_label.text = Global.number_to_string((Player.skill_point))
 	
 
 func _on_shopping_pressed() -> void:

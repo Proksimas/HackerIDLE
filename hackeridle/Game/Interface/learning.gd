@@ -17,6 +17,7 @@ var button_cliked: bool = false
 var clicker_arc_original_size
 
 func _ready() -> void:
+	_clear()
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	current_brain_level.text = tr("$Level") + " 1"
 	
@@ -27,8 +28,9 @@ func refresh_brain_xp_bar():
 	brain_xp_bar.value = Player.brain_xp
 	
 func _clear():
-	for elmt in self.get_children():
-		elmt.queue_free()
+	for child in passif_clickers.get_children():
+		child.queue_free()
+		
 
 func _on_shop_item_bought(item_name):# <-Interface
 	for child: PassifLearningItem in passif_clickers.get_children():

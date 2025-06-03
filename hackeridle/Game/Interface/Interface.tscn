@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=29 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_i3dr1"]
@@ -16,14 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
 [ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
 [ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
-[ext_resource type="Script" path="res://Game/Interface/learning.gd" id="12_341t5"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
-[ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="13_whcds"]
-[ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="14_i8kh2"]
-[ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="14_wnef8"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="17_blev6"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
+[ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
 
 [sub_resource type="FontVariation" id="FontVariation_j3kwv"]
@@ -68,8 +65,6 @@ frame_6/texture = ExtResource("8_dni6j")
 frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -240,107 +235,11 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
-current_tab = 2
+current_tab = 0
 tabs_visible = false
 
-[node name="Learning" type="Control" parent="Panel/VBoxContainer/MainTabMargin/MainTab"]
+[node name="Learning" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
-visible = false
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("12_341t5")
-metadata/_tab_index = 0
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="LevelContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2"]
-layout_mode = 2
-
-[node name="CurrentBrainLevel" type="Label" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "Level 1"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer"]
-layout_mode = 2
-
-[node name="VSeparator" type="VSeparator" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 35
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
-
-[node name="BrainXpBar" type="ProgressBar" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 25)
-layout_mode = 2
-size_flags_horizontal = 3
-step = 1.0
-show_percentage = false
-
-[node name="VSeparator2" type="VSeparator" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/LevelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 35
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
-
-[node name="BrainAndCoContainer" type="VBoxContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CenterContainer" type="CenterContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="ClickerARC" type="AspectRatioContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="ClickerButton" type="TextureButton" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC"]
-layout_mode = 2
-texture_normal = ExtResource("13_whcds")
-texture_click_mask = ExtResource("14_i8kh2")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="PassifClickers" type="HFlowContainer" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-theme_override_constants/h_separation = 10
-alignment = 1
-
-[node name="PassifLearningItem" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem2" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem3" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem4" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem5" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem6" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem7" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
-layout_mode = 2
-
-[node name="PassifLearningItem8" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("14_wnef8")]
 layout_mode = 2
 
 [node name="HackShop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
@@ -350,6 +249,7 @@ layout_mode = 2
 
 [node name="Shop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -368,4 +268,3 @@ size_flags_stretch_ratio = 0.28
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MainTabMargin/MainTab/Learning" method="_on_clicker_button_pressed"]

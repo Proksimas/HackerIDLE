@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8l4i0pf65qbq"]
+
+[ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
+[ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
+[ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="3_b22bg"]
+[ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
+
+[node name="Learning" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_vnwnq")
+metadata/_tab_index = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LevelContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+
+[node name="CurrentBrainLevel" type="Label" parent="VBoxContainer2/LevelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Level 1"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/LevelContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="BrainXpBar" type="ProgressBar" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 25)
+layout_mode = 2
+size_flags_horizontal = 3
+step = 1.0
+show_percentage = false
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 35
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="BrainAndCoContainer" type="VBoxContainer" parent="VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer2/BrainAndCoContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerARC" type="AspectRatioContainer" parent="VBoxContainer2/BrainAndCoContainer/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerButton" type="TextureButton" parent="VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC"]
+layout_mode = 2
+texture_normal = ExtResource("2_b7jv8")
+texture_click_mask = ExtResource("3_b22bg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="PassifClickers" type="HFlowContainer" parent="VBoxContainer2/BrainAndCoContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/h_separation = 10
+alignment = 1
+
+[node name="PassifLearningItem" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem2" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem3" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem4" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem5" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem6" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem7" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[node name="PassifLearningItem8" parent="VBoxContainer2/BrainAndCoContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]
