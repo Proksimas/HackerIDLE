@@ -6,7 +6,7 @@ const SOURCES_DB = "res://Game/DB/sources_db.json"
 var sources_db: Dictionary 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	init_sources_db()
+	#init_sources_db()
 	pass # Replace with function body.
 
 
@@ -25,7 +25,7 @@ func init_sources_db():
 							}
 							
 		if sources_db.has(source["source_name"]):
-			push_error("Source initialisation en double")
+			push_warning("Source initialisation en double")
 		
 		else:
 			sources_db[source["source_name"]] = dict_source

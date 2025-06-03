@@ -7,6 +7,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _on_new_game_button_pressed() -> void:
-	print(get_tree().get_root().get_node("main"))
-	get_tree().get_root()
+	var main = get_tree().get_root().get_node("Main")
+	main.call_thread_safe('new_game')
 	pass # Replace with function body.

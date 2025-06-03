@@ -40,6 +40,22 @@ func load_interface():
 	return true
 
 func fill_player_stats():
+	"""On initialise les stats du joueur"""
+	#tous les dictionnaires sont à mettre à vide
+	for prop in Player.get_property_list():
+		var p_name  : String = prop.name
+		var usage : int    = int(prop.usage)
+		var type : int = int(prop.type)
+		if (usage == PROPERTY_USAGE_SCRIPT_VARIABLE and type == TYPE_DICTIONARY ):
+			Player.set(p_name, {})
+			
+	HackingItemsDb.init_hacking_items_db()
+	HackingItemsDb.init_for_player()
+	LearningItemsDB.init_learning_items_db()
+	LearningItemsDB.init_for_player()
+	SourcesDb.init_sources_db()
+	
+	#cas où l'on veut tricher
 	if !OS.has_feature("editor"):
 		Player.gold = 0
 		Player.knowledge_point = 0

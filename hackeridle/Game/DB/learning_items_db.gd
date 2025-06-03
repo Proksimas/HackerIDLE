@@ -5,7 +5,8 @@ const LEARNING_ITEMS_PATH = "res://Game/DB/learning_items_db.json"
 var learning_items_db: Dictionary 
 
 func _ready() -> void:
-	init_learning_items_db()
+	pass
+	#init_learning_items_db()
 
 
 func init_learning_items_db():
@@ -28,9 +29,18 @@ func init_learning_items_db():
 		
 		else:
 			learning_items_db[item["item_name"]] = dict_item
-			Player.learning_item_statut[item["item_name"]] = "locked"
+			#Player.learning_item_statut[item["item_name"]] = "locked"
+	##le premier item doit etre en mode to_unlocked
+	#Player.learning_item_statut[Player.learning_item_statut.keys()[0]] = "to_unlocked"
+		#
+		
+func init_for_player():
+	for item_name in learning_items_db:
+		Player.learning_item_statut[item_name] = "locked"
+		
 	#le premier item doit etre en mode to_unlocked
 	Player.learning_item_statut[Player.learning_item_statut.keys()[0]] = "to_unlocked"
+	pass
 		
 
 
