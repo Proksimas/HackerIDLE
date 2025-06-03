@@ -1,10 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://586lbad7xryh"]
+[gd_scene load_steps=2 format=3 uid="uid://586lbad7xryh"]
 
 [ext_resource type="Script" path="res://Game/main.gd" id="1_2eeu2"]
-[ext_resource type="PackedScene" uid="uid://bvny24o7ir84f" path="res://Game/Interface/Interface.tscn" id="2_jep8t"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
 force_new_game = true
-
-[node name="Interface" parent="." instance=ExtResource("2_jep8t")]
