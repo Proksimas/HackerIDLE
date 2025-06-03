@@ -21,6 +21,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func load_game():
+	fill_player_stats()
 	load_interface()
 	OS.delay_msec(1000)
 	Save.load_data()

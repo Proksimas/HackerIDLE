@@ -25,7 +25,7 @@ func init_learning_items_db():
 							}
 							
 		if learning_items_db.has(item["item_name"]):
-			push_error("Item initialisation en double")
+			push_warning("Item initialisation en double")
 		
 		else:
 			learning_items_db[item["item_name"]] = dict_item
