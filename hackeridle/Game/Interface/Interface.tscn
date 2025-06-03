@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=33 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_i3dr1"]
@@ -22,7 +22,9 @@
 [ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="14_i8kh2"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="14_wnef8"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="17_blev6"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
+[ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
 
 [sub_resource type="FontVariation" id="FontVariation_j3kwv"]
 base_font = ExtResource("1_i3dr1")
@@ -215,6 +217,14 @@ layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxEmpty_3q6ek")
 
+[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 8
+texture_normal = ExtResource("17_blev6")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="MainTabMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -230,11 +240,12 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
-current_tab = 0
+current_tab = 2
 tabs_visible = false
 
 [node name="Learning" type="Control" parent="Panel/VBoxContainer/MainTabMargin/MainTab"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 mouse_filter = 2
 script = ExtResource("12_341t5")
@@ -339,9 +350,13 @@ layout_mode = 2
 
 [node name="Shop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
+
+[node name="Settings" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
 layout_mode = 2
@@ -352,4 +367,5 @@ size_flags_stretch_ratio = 0.28
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="Panel/VBoxContainer/MainTabMargin/MainTab/Learning" method="_on_clicker_button_pressed"]

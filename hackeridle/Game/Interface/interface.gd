@@ -67,6 +67,11 @@ func _on_dark_shop_pressed() -> void:
 	pass # Replace with function body.
 
 
+func _on_settings_button_pressed() -> void:
+	
+	pass # Replace with function body.
+
+
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""
 	learning._load_data(data["learning_item_bought"])
