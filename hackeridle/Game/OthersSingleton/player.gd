@@ -42,7 +42,7 @@ var brain_level: int = 1:
 
 var brain_xp_next: int = 0
 var base_xp: int = 200
-var xp_factor: float = 1.25
+var xp_factor: float = 1.75
 
 var learning_item_bought: Dictionary = {}
 var learning_item_statut: Dictionary = {}
@@ -68,7 +68,7 @@ func level_up():
 	skill_point += 1
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
-	
+
 
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
