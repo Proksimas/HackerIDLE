@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://b28yttvagtkwo"]
-
-[ext_resource type="Script" path="res://Game/Skills/actif_skill.gd" id="1_cmtj6"]
-
-[node name="ActifSkill" type="Node"]
-script = ExtResource("1_cmtj6")

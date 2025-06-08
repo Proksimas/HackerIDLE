@@ -49,9 +49,8 @@ func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()
 	get_tree().get_root().add_child(click_particle)
 	click_particle.global_position = get_global_mouse_position()
-	Player.brain_xp += 1
-	Player.knowledge_point += 1 # A CHANGER
-	
+	Player.brain_clicked()
+
 	
 	button_cliked = true
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale

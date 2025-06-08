@@ -6,6 +6,7 @@ signal earn_gold(number)
 signal earn_brain_xp(number)
 signal earn_sp(number)
 signal earn_brain_level(number)
+signal s_brain_clicked(brain_xp, knowledge)
 
 #region variables clampées
 var knowledge_point: float:
@@ -49,7 +50,8 @@ var learning_item_statut: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
 var sources_item_bought: Dictionary = {}
-var sources_item_statut: Dictionary = {}
+
+var active_skills_owned: Array
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 
@@ -165,6 +167,17 @@ func get_source_cara(source_name: String):
 		return sources_item_bought[source_name]
 	else:
 		push_error("La source demandée n'existe pas")
+		
+		
+func brain_clicked():
+	"""Le cerveau a été cliqué, on calcul les gains associés"""
+	var brain_xp_to_gain = 1
+	var knowledge_point_to_gain = 1
+	
+	Player.brain_xp += brain_xp_to_gain
+	Player.knowledge_point += knowledge_point_to_gain
+	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain )
+	
 
 func _save_data():
 	return Global.get_serialisable_vars(self)
