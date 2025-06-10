@@ -51,7 +51,8 @@ var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
 var sources_item_bought: Dictionary = {}
 
-var active_skills_owned: Array
+var skills_owned = {"active" : [ActiveSkill],
+					"passive": [] }
 													
 func _ready() -> void:
 	learning_item_bought.clear() # on vide le dictionnaire 

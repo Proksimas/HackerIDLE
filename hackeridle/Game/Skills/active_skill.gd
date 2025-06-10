@@ -1,6 +1,7 @@
 extends Resource
-class_name ActifSkill
+class_name ActiveSkill
 
+@export var cost: int   #son cout en skill point
 @export var as_cd: float
 @export var as_during_time: float
 @export var as_texture: Texture
@@ -27,11 +28,18 @@ func launch_as():
 	pass
 	
 func attach(caster: Node) -> void:
+	""" OBLIGATOIRE lors de l'instantiation d'un skill
+	Appeler lorsqu'on add le skill, cela permet de gérer ce que fait le skill:
+		- les connexions à appeler
+		- l'ajout des stats brut
+		
+		A SURCHARGER"""
+		
 	tree = caster.get_tree()   # on récupère la référence de l'arbre
 	
+func detach(caster: Node)-> void:
+	"""dettache les ajouts que donne le sill
 	
-func as_finished():
-	"""A surcharger"""
-	
+	A SURCHARGER """
 	pass
 	
