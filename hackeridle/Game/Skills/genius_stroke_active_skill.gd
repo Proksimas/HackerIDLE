@@ -1,4 +1,4 @@
-extends ActifSkill
+extends ActiveSkill
 
 
 # Called when the node enters the scene tree for the first time.
@@ -11,7 +11,7 @@ func launch_as():
 	as_is_active = true
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	var timer:Timer = tree.create_timer(self.as_during_time)
-	timer.timeout.connect(as_finished)
+	timer.timeout.connect(as_finished.bind(timer))
 	
 	pass
 	
@@ -22,7 +22,9 @@ func _on_s_brain_clicked(brain_xp, knowledge):
 	pass
 	
 	
-func as_finished():
+func as_finished(timer):
 	"""A surcharger"""
 	Player.s_brain_clicked.disconnect(_on_s_brain_clicked)
+	timer.queue_free()
+	as_is_active = false
 	pass
