@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_2wtxr"]
 [ext_resource type="Script" path="res://Game/Skills/genius_stroke_active_skill.gd" id="4_y3aie"]
 
-[sub_resource type="Resource" id="Resource_ktlxm"]
+[sub_resource type="Resource" id="Resource_a6iqs"]
 resource_local_to_scene = true
 script = ExtResource("4_y3aie")
-cost = 0
+cost = []
 as_cd = 0.0
 as_during_time = 0.0
 as_texture = ExtResource("2_2wtxr")
@@ -46,7 +46,7 @@ columns = 2
 
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-as_associated = SubResource("Resource_ktlxm")
+as_associated = SubResource("Resource_a6iqs")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)

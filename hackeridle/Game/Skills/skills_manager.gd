@@ -5,12 +5,6 @@ var passives_skills: Dictionary = {}
 
 signal as_learned(skill:ActiveSkill)
 
-func try_cast_as(as_name: String) -> bool:
-	var s = active_skills.get(as_name)
-	if s and s.can_cast():
-		s.launch_as()
-		return true
-	return false
 
 
 func learn_as(skill_name: String):
@@ -28,7 +22,7 @@ func learn_as(skill_name: String):
 			return
 
 	Player.skills_owned["active"].append(skill)
-	skill.attach(Player)
+	skill.attach(Player, 1) #on met au niveau 1
 	as_learned.emit(skill)
 	
 	
