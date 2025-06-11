@@ -255,6 +255,9 @@ tabs_visible = false
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="ClickerARC" parent="Panel/VBoxContainer/MainTabMargin/MainTab/Learning/VBoxContainer2/BrainAndCoContainer/CenterContainer" index="0"]
+custom_minimum_size = Vector2(350, 350)
+
 [node name="HackShop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
 visible = false
@@ -289,3 +292,5 @@ size_flags_stretch_ratio = 0.28
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/VBoxContainer/SkillsButton" to="." method="_on_skills_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+
+[editable path="Panel/VBoxContainer/MainTabMargin/MainTab/Learning"]
