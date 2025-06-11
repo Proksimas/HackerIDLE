@@ -19,6 +19,7 @@ func launch_as():
 func _on_s_brain_clicked(brain_xp, knowledge):
 	"""le cerveau a été cliqué, on fait donc les bonus associés"""
 	as_is_active = false
+	print("brain clicked")
 	pass
 	
 	

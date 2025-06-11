@@ -51,7 +51,7 @@ var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
 var sources_item_bought: Dictionary = {}
 
-var skills_owned = {"active" : [ActiveSkill],
+var skills_owned = {"active" : [],
 					"passive": [] }
 													
 func _ready() -> void:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0swth7gti7cd"]
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skills_tree.gd" id="1_xcbpt"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_2wtxr"]
+[ext_resource type="PackedScene" uid="uid://dm748glgb0076" path="res://Game/Interface/Skills/skill_node.tscn" id="2_1d4gm"]
 
 [node name="SkillsTree" type="Control"]
 layout_mode = 3
@@ -33,35 +33,15 @@ layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/GridContainer"]
+[node name="SkillNode" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-texture_normal = ExtResource("2_2wtxr")
-
-[node name="TextureButton2" type="TextureButton" parent="MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-texture_normal = ExtResource("2_2wtxr")
-
-[node name="TextureButton3" type="TextureButton" parent="MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-texture_normal = ExtResource("2_2wtxr")
-
-[node name="TextureButton4" type="TextureButton" parent="MarginContainer/VBoxContainer/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 0
-texture_normal = ExtResource("2_2wtxr")
+skill_name = "genius_stroke"
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel"]
+[node name="SkillsInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,16 +49,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SkillNameLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/VBoxContainer"]
+[node name="SkillNameLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/SkillsInfo"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Nom du skill"
 horizontal_alignment = 1
 
-[node name="SkillDescLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/VBoxContainer"]
+[node name="SkillDescLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/SkillsInfo"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Description du skill
 "
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Panel/VBoxContainer"]
+[node name="BuySkillButton" type="Button" parent="MarginContainer/VBoxContainer/Panel/SkillsInfo"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
+
+[connection signal="skill_button_pressed" from="MarginContainer/VBoxContainer/GridContainer/SkillNode" to="." method="_on_skill_node_skill_button_pressed"]
