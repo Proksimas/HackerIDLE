@@ -10,6 +10,7 @@ extends Control
 @onready var gold_label: Label = %GoldLabel
 @onready var skill_point_label: Label = %SkillPointLabel
 @onready var settings: Control = %Settings
+@onready var skills_tree: Control = %SkillsTree
 
 var test ="bleu"
 var a = 10
@@ -71,6 +72,11 @@ func _on_dark_shop_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	settings.show()
+	pass # Replace with function body.
+
+
+func _on_skills_button_pressed() -> void:
+	skills_tree.show()
 	pass # Replace with function body.
 
 
