@@ -58,3 +58,23 @@ func get_serialisable_vars(node: Node) -> Dictionary:
 		if usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
 			out[prop["name"]] = node.get(prop["name"])
 	return out
+	
+func parse_all_files_in_directory(directory_path: String) -> Array:
+	var files_found = []
+	var dir = DirAccess.open(directory_path)
+	if dir == null:
+		print("Erreur : impossible d'ouvrir le dossier ", directory_path)
+		return []
+
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while file_name != "":
+		if dir.current_is_dir():
+			# On ignore les sous-dossiers ici
+			pass
+		else:
+			files_found.append(directory_path + "/" + file_name)
+			
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	return files_found

@@ -41,7 +41,7 @@ func load_interface():
 	return true
 
 func fill_player_stats():
-	"""On initialise les stats du joueur"""
+	"""On initialise les stats du joueur. OBLIGATOIRE """
 	#tous les dictionnaires sont à mettre à vide
 	for prop in Player.get_property_list():
 		var p_name  : String = prop.name
