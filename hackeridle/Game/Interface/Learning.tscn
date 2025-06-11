@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=8 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
 
 [node name="Learning" type="Control"]
 layout_mode = 3
@@ -121,6 +123,7 @@ layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
 [node name="ActiveSkills" type="FlowContainer" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -135,5 +138,9 @@ layout_mode = 2
 
 [node name="SkillActivation3" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
 layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
 [connection signal="pressed" from="VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]

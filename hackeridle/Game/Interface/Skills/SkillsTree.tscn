@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0swth7gti7cd"]
+[gd_scene load_steps=6 format=3 uid="uid://d0swth7gti7cd"]
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skills_tree.gd" id="1_xcbpt"]
 [ext_resource type="PackedScene" uid="uid://dm748glgb0076" path="res://Game/Interface/Skills/skill_node.tscn" id="2_1d4gm"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_2wtxr"]
+[ext_resource type="Script" path="res://Game/Skills/genius_stroke_active_skill.gd" id="4_y3aie"]
+
+[sub_resource type="Resource" id="Resource_ktlxm"]
+resource_local_to_scene = true
+script = ExtResource("4_y3aie")
+cost = 0
+as_cd = 0.0
+as_during_time = 0.0
+as_texture = ExtResource("2_2wtxr")
+as_name = "genius_stroke"
 
 [node name="SkillsTree" type="Control"]
 layout_mode = 3
@@ -35,7 +46,7 @@ columns = 2
 
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-skill_name = "genius_stroke"
+as_associated = SubResource("Resource_ktlxm")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)

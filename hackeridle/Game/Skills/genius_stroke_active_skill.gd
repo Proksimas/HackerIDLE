@@ -10,8 +10,9 @@ func launch_as():
 	"""A surcharger"""
 	as_is_active = true
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
-	var timer:Timer = tree.create_timer(self.as_during_time)
-	timer.timeout.connect(as_finished.bind(timer))
+	var timer:SceneTreeTimer = tree.create_timer(self.as_during_time)
+	
+	timer.timeout.connect(as_finished)
 	
 	pass
 	
@@ -19,13 +20,12 @@ func launch_as():
 func _on_s_brain_clicked(brain_xp, knowledge):
 	"""le cerveau a été cliqué, on fait donc les bonus associés"""
 	as_is_active = false
-	print("brain clicked")
+	
 	pass
 	
 	
-func as_finished(timer):
+func as_finished():
 	"""A surcharger"""
 	Player.s_brain_clicked.disconnect(_on_s_brain_clicked)
-	timer.queue_free()
 	as_is_active = false
 	pass

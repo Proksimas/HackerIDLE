@@ -18,6 +18,7 @@ var button_cliked: bool = false
 var clicker_arc_original_size
 
 func _ready() -> void:
+	SkillsManager.as_learned.connect(add_skill_activation)
 	_clear()
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	current_brain_level.text = tr("$Level") + " 1"
@@ -36,6 +37,8 @@ func add_skill_activation(skill_to_associated:ActiveSkill):
 func _clear():
 	for child in passif_clickers.get_children():
 		child.queue_free()
+	for skill in active_skills.get_children():
+		skill.queue_free()
 		
 
 func _on_shop_item_bought(item_name):# <-Interface

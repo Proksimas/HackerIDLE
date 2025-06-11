@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="ActiveSkill" load_steps=2 format=3 uid="uid://cx1ols708544v"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cx1ols708544v"]
 
-[ext_resource type="Script" path="res://Game/Skills/active_skill.gd" id="1_eh7w6"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_8nfqn"]
+[ext_resource type="Script" path="res://Game/Skills/genius_stroke_active_skill.gd" id="1_u4hui"]
 
 [resource]
-script = ExtResource("1_eh7w6")
+resource_local_to_scene = true
+script = ExtResource("1_u4hui")
 cost = 0
 as_cd = 0.0
-as_during_time = 0.0
+as_during_time = 5.0
+as_texture = ExtResource("1_8nfqn")
 as_name = "genius_stroke"
