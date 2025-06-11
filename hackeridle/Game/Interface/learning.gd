@@ -5,12 +5,13 @@ extends Control
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
 @onready var brain_xp_bar: ProgressBar = %BrainXpBar
 @onready var current_brain_level: Label = %CurrentBrainLevel
+@onready var active_skills: FlowContainer = %ActiveSkills
 
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
-
+const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
@@ -26,6 +27,11 @@ func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
+	
+func add_skill_activation(skill_to_associated:ActiveSkill):
+	var skill_activation = SKILL_ACTIVATION.instantiate()
+	active_skills.add_child(skill_activation)
+	skill_activation.set_skill_activation(skill_to_associated)
 	
 func _clear():
 	for child in passif_clickers.get_children():
