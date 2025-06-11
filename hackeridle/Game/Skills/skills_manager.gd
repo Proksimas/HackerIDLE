@@ -1,8 +1,9 @@
 extends Node
 
-var active_skills: Dictionary = {"genius_stroke" :preload("res://Game/Skills/genius_stroke_active_skill.tres")}     # id -> Skill
+var active_skills: Dictionary = {"genius_stroke":preload("res://Game/Skills/genius_stroke_active_skill.tres")}     # id -> Skill
 var passives_skills: Dictionary = {}
 
+signal as_learned(skill:ActiveSkill)
 
 func try_cast_as(as_name: String) -> bool:
 	var s = active_skills.get(as_name)
@@ -28,6 +29,6 @@ func learn_as(skill_name: String):
 
 	Player.skills_owned["active"].append(skill)
 	skill.attach(Player)
-
+	as_learned.emit(skill)
 	
 	
