@@ -17,8 +17,6 @@ signal s_as_launched
 signal s_as_finished
 signal s_as_cd_finished
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 
 func launch_as():

@@ -1,6 +1,11 @@
 extends Node
 
-var active_skills: Dictionary = {"genius_stroke":preload("res://Game/Skills/genius_stroke_active_skill.tres")}     # id -> Skill
+var ACTIVE_SKILL_PATH = "res://Game/Skills/ActiveSkills/"
+
+# {"skill_nam": ActiveSkill}
+var active_skills: Dictionary = {
+	"genius_stroke": preload("res://Game/Skills/ActiveSkills/genius_stroke_active_skill.tres")
+}     
 var passives_skills: Dictionary = {}
 
 signal as_learned(skill:ActiveSkill)

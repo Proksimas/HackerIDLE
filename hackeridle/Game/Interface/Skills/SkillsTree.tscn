@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://Game/Interface/Skills/skills_tree.gd" id="1_xcbpt"]
 [ext_resource type="PackedScene" uid="uid://dm748glgb0076" path="res://Game/Interface/Skills/skill_node.tscn" id="2_1d4gm"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_2wtxr"]
-[ext_resource type="Script" path="res://Game/Skills/genius_stroke_active_skill.gd" id="4_y3aie"]
+[ext_resource type="Script" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.gd" id="4_kd2pb"]
 
-[sub_resource type="Resource" id="Resource_a6iqs"]
+[sub_resource type="Resource" id="Resource_5amwd"]
 resource_local_to_scene = true
-script = ExtResource("4_y3aie")
-cost = []
-as_cd = 0.0
-as_during_time = 0.0
+script = ExtResource("4_kd2pb")
+cost = [1, 3, 6]
+as_cd = 5.0
+as_during_time = 10.0
 as_texture = ExtResource("2_2wtxr")
 as_name = "genius_stroke"
 
@@ -39,14 +39,16 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+[node name="SkillsGrid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 columns = 2
 
-[node name="SkillNode" parent="MarginContainer/VBoxContainer/GridContainer" instance=ExtResource("2_1d4gm")]
+[node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-as_associated = SubResource("Resource_a6iqs")
+size_flags_vertical = 2
+as_associated = SubResource("Resource_5amwd")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
@@ -76,5 +78,3 @@ text = "Description du skill
 unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
-
-[connection signal="skill_button_pressed" from="MarginContainer/VBoxContainer/GridContainer/SkillNode" to="." method="_on_skill_node_skill_button_pressed"]

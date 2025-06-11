@@ -4,9 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_ttex8"]
 
 [node name="SkillNode" type="Control"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
-anchor_right = 0.237037
-anchor_bottom = 0.133333
+anchor_right = 0.118519
+anchor_bottom = 0.0666667
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
@@ -23,6 +24,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("1_ttex8")
+ignore_texture_size = true
+stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
 [connection signal="pressed" from="SkillButton" to="." method="_on_skill_button_pressed"]
