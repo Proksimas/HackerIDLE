@@ -64,8 +64,8 @@ func fill_player_stats():
 		Player.skill_point = 0
 		Player.brain_xp = 0
 	else:
-		Player.gold = 100000
-		Player.knowledge_point = 100000
+		Player.gold = 0
+		Player.knowledge_point = 0
 		Player.brain_level = 1
 		Player.skill_point = 0
 		Player.brain_xp = 0
