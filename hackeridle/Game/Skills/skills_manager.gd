@@ -17,7 +17,6 @@ func learn_as(skill_name: String):
 		push_warning("Le skill %s à ajouter n'existe pas" % [skill_name])
 	
 	var skill:ActiveSkill = active_skills[skill_name].duplicate()
-	print(Player.skills_owned['active'])
 	
 	
 	for resource:ActiveSkill in Player.skills_owned['active']:
@@ -29,5 +28,27 @@ func learn_as(skill_name: String):
 	Player.skills_owned["active"].append(skill)
 	skill.attach(Player, 1) #on met au niveau 1
 	as_learned.emit(skill)
+	
+func get_skill_cara(skill_name: String):
+	var skills
+	if active_skills.has(skill_name):
+		skills = active_skills
+
+	elif passives_skills.has(skill_name):
+		skills = passives_skills
+		
+	else:
+		push_warning("Le skill %s  n'existe pas" % [skill_name])
+		
+	var list = {}
+	var properties = skills[skill_name].get_property_list()
+	for prop in properties:
+		var name = prop.name
+		var usage = prop.usage
+		if usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			list[name] = skills[skill_name].get(prop["name"])
+	
+	return list
+
 	
 	
