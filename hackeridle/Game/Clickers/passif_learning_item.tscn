@@ -15,7 +15,6 @@ metadata/_edit_use_anchors_ = true
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 2
 size_flags_vertical = 3
-metadata/_edit_use_anchors_ = null
 
 [node name="PassifLearningTexture" type="TextureRect" parent="AspectRatioContainer"]
 unique_name_in_owner = true
