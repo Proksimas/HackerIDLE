@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.gd" id="4_kd2pb"]
 [ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="5_lb5wa"]
 
-[sub_resource type="Resource" id="Resource_7dhml"]
+[sub_resource type="Resource" id="Resource_sfcm4"]
 resource_local_to_scene = true
 script = ExtResource("4_kd2pb")
 cost = [1, 3, 6]
@@ -49,13 +49,14 @@ columns = 2
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
 size_flags_vertical = 2
-as_associated = SubResource("Resource_7dhml")
+as_associated = SubResource("Resource_sfcm4")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 
 [node name="SkillsInfo" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -104,3 +105,14 @@ text = "X"
 [node name="TrophyIcon" parent="MarginContainer/VBoxContainer/Panel/SkillsInfo/BuySkillButton/HBoxContainer" instance=ExtResource("5_lb5wa")]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="ToUnlockedPanel" type="ColorRect" parent="MarginContainer/VBoxContainer/Panel/SkillsInfo/BuySkillButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.784314)
