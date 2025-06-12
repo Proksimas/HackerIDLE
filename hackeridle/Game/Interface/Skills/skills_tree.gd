@@ -34,7 +34,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
 	if skill_type == "active_skill":
 		cache_skill_cost = skills_cara['cost'][skills_cara["as_level"]]
-		if cache_skill_cost < Player.skill_point:
+		if cache_skill_cost <= Player.skill_point:
 			buy_skill_button.disabled = false
 			to_unlocked_panel.hide()
 		else:
@@ -48,7 +48,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 func _on_buy_skill_button_pressed():
 	match cache_skill_type:
 		"active_skill":
-			if cache_skill_cost < Player.skill_point:
+			if cache_skill_cost <= Player.skill_point:
 				SkillsManager.learn_as(cache_skill_name)
 				Player.skill_point -= cache_skill_cost
 				_draw()

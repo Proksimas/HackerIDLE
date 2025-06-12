@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.gd" id="4_kd2pb"]
 [ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="5_lb5wa"]
 
-[sub_resource type="Resource" id="Resource_sfcm4"]
+[sub_resource type="Resource" id="Resource_i8ktl"]
 resource_local_to_scene = true
 script = ExtResource("4_kd2pb")
 cost = [1, 3, 6]
@@ -49,7 +49,7 @@ columns = 2
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
 size_flags_vertical = 2
-as_associated = SubResource("Resource_sfcm4")
+as_associated = SubResource("Resource_i8ktl")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
