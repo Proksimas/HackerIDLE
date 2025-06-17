@@ -41,7 +41,7 @@ func attach(_caster: Node, level) -> void:
 	tree = _caster.get_tree()   # on récupère la référence de l'arbre
 	self.as_level = level
 	
-func detach(caster: Node)-> void:
+func detach(_caster: Node)-> void:
 	"""dettache les ajouts que donne le sill
 	
 	A SURCHARGER """

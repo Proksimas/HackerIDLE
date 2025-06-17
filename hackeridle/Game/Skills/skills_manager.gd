@@ -43,10 +43,10 @@ func get_skill_cara(skill_name: String):
 	var list = {}
 	var properties = skills[skill_name].get_property_list()
 	for prop in properties:
-		var name = prop.name
+		var p_name = prop.name
 		var usage = prop.usage
 		if usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
-			list[name] = skills[skill_name].get(prop["name"])
+			list[p_name] = skills[skill_name].get(prop["name"])
 	
 	return list
 
