@@ -23,5 +23,6 @@ func detach(_caster: Node)-> void:
 	
 	
 func _on_s_brain_clicked(brain_xp, knowledge):
-	
-	pass
+	for loop in range(0, repeat_click[ps_level - 1]):
+		Player.earn_brain_xp(brain_xp)
+		Player.earn_knowledge_point(knowledge)

@@ -6,7 +6,7 @@ var ACTIVE_SKILL_PATH = "res://Game/Skills/ActiveSkills/"
 var active_skills: Dictionary = {
 	"genius_stroke": preload("res://Game/Skills/ActiveSkills/genius_stroke_active_skill.tres")
 }     
-var passives_skills: Dictionary = {}
+var passives_skills: Dictionary = {"click_worth": preload("res://Game/Skills/PassiveSkills/click_worth.tres")}
 
 signal as_learned(skill:ActiveSkill)
 signal ps_learned(skill:PassiveSkill)

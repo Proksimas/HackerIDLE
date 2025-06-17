@@ -32,27 +32,37 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		buy_skill_button.pressed.connect(_on_buy_skill_button_pressed)
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
-	skill_name_label.text = tr(skills_cara['as_name'])
-	skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
+
 	if skill_type == "active_skill":
+		skill_name_label.text = tr(skills_cara['as_name'])
+		skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
 		cache_skill_cost = skills_cara['cost'][skills_cara["as_level"]]
-		if cache_skill_cost <= Player.skill_point:
-			buy_skill_button.disabled = false
-			to_unlocked_panel.hide()
-		else:
-			buy_skill_button.disabled = true
-			to_unlocked_panel.show()
-		cost_sp_label.text = str(cache_skill_cost)
-	else:
+		unlocked_buy_skill_button()
+	else: #passive skill
+		skill_name_label.text = tr(skills_cara['ps_name'])
+		skill_desc_label.text = tr(skills_cara['ps_name'] + "_desc")
+		cache_skill_cost = skills_cara['cost'][skills_cara["ps_level"]]
+		unlocked_buy_skill_button()
 		pass
 	pass # Replace with function body.
 
+func unlocked_buy_skill_button():
+	if cache_skill_cost <= Player.skill_point:
+		buy_skill_button.disabled = false
+		to_unlocked_panel.hide()
+	else:
+		buy_skill_button.disabled = true
+		to_unlocked_panel.show()
+	cost_sp_label.text = str(cache_skill_cost)
+
+
 func _on_buy_skill_button_pressed():
-	match cache_skill_type:
-		"active_skill":
-			if cache_skill_cost <= Player.skill_point:
+	if cache_skill_cost <= Player.skill_point:
+		match cache_skill_type:
+			"active_skill":
 				SkillsManager.learn_as(cache_skill_name)
-				Player.skill_point -= cache_skill_cost
-				_draw()
-			
+			"passive_skill":
+				SkillsManager.learn_ps(cache_skill_name)
+		Player.skill_point -= cache_skill_cost
+		_draw()
 	pass

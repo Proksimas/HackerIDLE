@@ -2,8 +2,8 @@ extends Resource
 class_name PassiveSkill
 
 @export var cost: Array[int]  #son cout en skill point = le niveau
-@export var as_texture: Texture
-@export var as_name: String
+@export var ps_texture: Texture
+@export var ps_name: String
 
 var ps_level = 0
 var tree
