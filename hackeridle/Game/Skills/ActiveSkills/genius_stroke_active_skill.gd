@@ -22,7 +22,8 @@ func attach(caster: Node, level) -> void:
 func _on_s_brain_clicked(brain_xp, knowledge):
 	"""le cerveau a été cliqué, on fait donc les bonus associés"""
 	# ATTENTION le knowledge reçu ici a déjà été reçu par le joueur.
-	#
+	# ATTENTION il faut bien recevoir le brain_xp et knowledge APRES
+	# toutes leurs améliorations et bonus
 	#as_is_active = false
 	if !as_is_active or as_is_on_cd:
 		return
