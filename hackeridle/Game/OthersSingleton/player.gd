@@ -1,7 +1,7 @@
 extends Node
 
 signal s_earn_knowledge_point(point)
-signal s_earn_hacking_point(point)
+
 signal s_earn_gold(number)
 signal s_earn_brain_xp(number)
 signal s_earn_sp(number)
@@ -11,14 +11,7 @@ signal s_brain_clicked(brain_xp, knowledge)
 #region variables clampées
 var knowledge_point: float
 
-var hacking_point: float:
-	set(value):
-		hacking_point =  clamp(value, 0, INF)
-		s_earn_hacking_point.emit(hacking_point)
-var gold: float:
-	set(value):
-		gold =  clamp(value, 0, INF)
-		s_earn_gold.emit(gold)
+var gold: float
 		
 var brain_xp: int:
 	set(value):	
@@ -70,12 +63,17 @@ func level_up():
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
 
+
 func earn_knowledge_point(earning):
 	knowledge_point += earning
 	knowledge_point = clamp(knowledge_point, 0, INF)
 	s_earn_knowledge_point.emit(knowledge_point)
 	
-
+func earn_gold(earning):
+	self.gold += earning
+	gold = clamp(gold, 0, INF)
+	s_earn_gold.emit(gold)
+	
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
 	return round(base_xp * pow(xp_factor, level_asked))
@@ -187,7 +185,6 @@ func _save_data():
 	return Global.get_serialisable_vars(self)
 	#return {"gold": self.gold,
 			#"knowledge_point": self.knowledge_point,
-			#"hacking_point": self.hacking_point,
 			#"learning_item_bought": self.learning_item_bought,
 			#"learning_item_statut": self.learning_item_statut,
 			#"hacking_item_bought": self.hacking_item_bought,

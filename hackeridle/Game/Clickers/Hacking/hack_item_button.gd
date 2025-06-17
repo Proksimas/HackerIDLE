@@ -137,7 +137,7 @@ func time_finished() -> void:
 	#TODO Faire le cas où l'item n'est pas encore acheté
 	
 	hack_item_texture.disabled = false
-	Player.gold += Calculs.gain_gold(current_hack_item_cara["item_name"])
+	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	
 	#On a la source qui automatise
 	if source_associated["level"] > 0:

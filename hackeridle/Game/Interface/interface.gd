@@ -23,7 +23,6 @@ func _ready() -> void:
 	
 func connexions() -> void:
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
-	Player.s_earn_hacking_point.connect(_on_earn_hacking_point)
 	Player.s_earn_gold.connect(_on_earn_gold)
 	Player.s_earn_sp.connect(_on_earn_sp)
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
@@ -50,9 +49,6 @@ func _on_earn_knowledge_point(point):
 	knowledge_label.text = Global.number_to_string(int(point))
 	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")
 
-func _on_earn_hacking_point(_point):
-	return
-	
 func _on_earn_gold(point):
 	gold_label.text =  Global.number_to_string(int(point))
 	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")

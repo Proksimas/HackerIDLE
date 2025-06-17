@@ -55,8 +55,6 @@ func gold_refresh_shop_item():
 	set_unlocked_button_state()
 	
 func set_unlocked_button_state():
-	#print("PLayer gold: %s" % [Player.gold])
-	#print("first cost: %s" % first_cost)
 	if Player.gold >= first_cost:
 		unlocked_button.disabled = false
 		unlocked_button.modulate = Color(1,1,1)

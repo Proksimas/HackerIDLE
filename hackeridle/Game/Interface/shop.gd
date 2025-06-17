@@ -48,7 +48,7 @@ func player_bought_learning_item(item_name,  quantity):
 		cost = Calculs.total_learning_prices(item_cara, 1)
 		
 		if Player.gold >=  cost:
-			Player.gold -= cost
+			Player.earn_gold(-cost)
 			Player.add_learning_item(LearningItemsDB.get_item_cara(item_name))
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
@@ -56,7 +56,7 @@ func player_bought_learning_item(item_name,  quantity):
 	else:
 		cost = Calculs.total_learning_prices(Player.learning_item_bought[item_name], quantity)
 		if Player.gold >=  cost:
-			Player.gold -= cost
+			Player.earn_gold(-cost)
 			Player.learning_item_level_up(item_name, quantity)
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
