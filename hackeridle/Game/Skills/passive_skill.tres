@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://b051lawek6a31"]
+
+[ext_resource type="Script" path="res://Game/Skills/passive_script.gd" id="1_firwr"]
+
+[resource]
+script = ExtResource("1_firwr")
