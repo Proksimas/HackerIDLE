@@ -20,7 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time += delta
 	if gain_learning > 0 and time >= 1:
-		Player.knowledge_point += gain_learning
+		Player.earn_knowledge_point(gain_learning)
 		time = 0
 	pass
 

@@ -1,26 +1,24 @@
 extends Node
 
-signal earn_knowledge_point(point)
-signal earn_hacking_point(point)
-signal earn_gold(number)
-signal earn_brain_xp(number)
-signal earn_sp(number)
-signal earn_brain_level(number)
+signal s_earn_knowledge_point(point)
+signal s_earn_hacking_point(point)
+signal s_earn_gold(number)
+signal s_earn_brain_xp(number)
+signal s_earn_sp(number)
+signal s_earn_brain_level(number)
 signal s_brain_clicked(brain_xp, knowledge)
 
 #region variables clampées
-var knowledge_point: float:
-	set(value):
-		knowledge_point = clamp(value, 0, INF)
-		earn_knowledge_point.emit(knowledge_point)
+var knowledge_point: float
+
 var hacking_point: float:
 	set(value):
 		hacking_point =  clamp(value, 0, INF)
-		earn_hacking_point.emit(hacking_point)
+		s_earn_hacking_point.emit(hacking_point)
 var gold: float:
 	set(value):
 		gold =  clamp(value, 0, INF)
-		earn_gold.emit(gold)
+		s_earn_gold.emit(gold)
 		
 var brain_xp: int:
 	set(value):	
@@ -28,17 +26,17 @@ var brain_xp: int:
 			brain_xp = clamp(value - brain_xp, 0, INF)
 		else:
 			brain_xp = clamp(value, 0, INF)
-		earn_brain_xp.emit(brain_xp)
+		s_earn_brain_xp.emit(brain_xp)
 		
 var skill_point: int:
 	set(value):
 		skill_point = clamp(value, 0, INF)
-		earn_sp.emit(skill_point)
+		s_earn_sp.emit(skill_point)
 		
 var brain_level: int = 1:
 	set(value):
 		brain_level = clamp(value, 0, INF)
-		earn_brain_level.emit(brain_level)
+		s_earn_brain_level.emit(brain_level)
 #endregion
 
 var brain_xp_next: int = 0
@@ -72,6 +70,11 @@ func level_up():
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
 
+func earn_knowledge_point(earning):
+	knowledge_point += earning
+	knowledge_point = clamp(knowledge_point, 0, INF)
+	s_earn_knowledge_point.emit(knowledge_point)
+	
 
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
@@ -176,7 +179,7 @@ func brain_clicked():
 	var knowledge_point_to_gain = 1
 	
 	Player.brain_xp += brain_xp_to_gain
-	Player.knowledge_point += knowledge_point_to_gain
+	Player.earn_knowledge_point(knowledge_point_to_gain)
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain )
 	
 

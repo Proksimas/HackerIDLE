@@ -25,7 +25,7 @@ func set_learning_clicker(cara:Dictionary):
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			Player.knowledge_point += get_earn_kp()
+			Player.earn_knowledge_point(get_earn_kp())
 
 			#ATTENTION le nomde l'animation doit être celui de l'item
 			if learning_clicker_sprite.is_playing():

@@ -22,12 +22,12 @@ func _ready() -> void:
 	init_interface()
 	
 func connexions() -> void:
-	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
-	Player.earn_hacking_point.connect(_on_earn_hacking_point)
-	Player.earn_gold.connect(_on_earn_gold)
-	Player.earn_sp.connect(_on_earn_sp)
-	Player.earn_brain_xp.connect(_on_earn_brain_xp)
-	Player.earn_brain_level.connect(_on_earn_brain_level)
+	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
+	Player.s_earn_hacking_point.connect(_on_earn_hacking_point)
+	Player.s_earn_gold.connect(_on_earn_gold)
+	Player.s_earn_sp.connect(_on_earn_sp)
+	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
+	Player.s_earn_brain_level.connect(_on_earn_brain_level)
 	shop.item_bought.connect(learning._on_shop_item_bought)
 
 func init_interface():
