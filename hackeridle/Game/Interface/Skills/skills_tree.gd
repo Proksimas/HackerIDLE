@@ -23,6 +23,8 @@ func _draw() -> void:
 	to_unlocked_panel.hide()
 
 func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void:
+	"""Le signal emit par le SkillNode inclut le skill_type en vérifiant si il 
+	y a la ressource associée."""
 	skills_info.show()
 	cache_skill_name = skill_name
 	cache_skill_type = skill_type

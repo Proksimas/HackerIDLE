@@ -1,0 +1,8 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://clo8in4xdbtxg"]
+
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/click_worth.gd" id="1_kputi"]
+
+[resource]
+script = ExtResource("1_kputi")
+cost = Array[int]([2, 4, 8])
+as_name = ""

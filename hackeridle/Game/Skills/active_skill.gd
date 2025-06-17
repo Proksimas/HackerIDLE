@@ -1,7 +1,7 @@
 extends Resource
 class_name ActiveSkill
 
-@export var cost:Array   #son cout en skill point = le niveau
+@export var cost: Array[int]   #son cout en skill point = le niveau
 @export var as_cd: float
 @export var as_during_time: float
 @export var as_texture: Texture

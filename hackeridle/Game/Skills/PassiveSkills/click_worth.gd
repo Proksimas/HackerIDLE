@@ -1,14 +1,7 @@
-extends Resource
-class_name PassiveSkill
+extends PassiveSkill
 
-@export var cost: Array[int]  #son cout en skill point = le niveau
-@export var as_texture: Texture
-@export var as_name: String
+var repeat_click = [1,2,4]
 
-var ps_level = 0
-var tree
-
-	
 func attach(_caster: Node, level) -> void:
 	""" OBLIGATOIRE lors de l'instantiation d'un skill
 	Appeler lorsqu'on add le skill, cela permet de gérer ce que fait le skill:
@@ -19,10 +12,16 @@ func attach(_caster: Node, level) -> void:
 		
 	tree = _caster.get_tree()   # on récupère la référence de l'arbre
 	self.ps_level = level
+	Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	
 func detach(_caster: Node)-> void:
 	"""dettache les ajouts que donne le sill
 	
 	A SURCHARGER """
+	Player.s_brain_clicked.disconnect(_on_s_brain_clicked)
 	pass
 	
+	
+func _on_s_brain_clicked(brain_xp, knowledge):
+	
+	pass
