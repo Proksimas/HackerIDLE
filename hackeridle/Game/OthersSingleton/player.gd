@@ -58,7 +58,6 @@ func _check_level_up():
 		return false
 		
 func level_up():
-	#brain_xp -= brain_xp_next
 	skill_point += 1
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
@@ -73,6 +72,16 @@ func earn_gold(earning):
 	self.gold += earning
 	gold = clamp(gold, 0, INF)
 	s_earn_gold.emit(gold)
+	
+func earn_brain_xp(earning):
+	#on ne peut pas retirer du brain xp
+	if _check_level_up():
+		brain_xp += earning - brain_xp
+		brain_xp = clamp(brain_xp, 0, INF)
+	else:
+		brain_xp += clamp(earning, 0, INF)
+
+	s_earn_brain_xp.emit(brain_xp)
 	
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
@@ -176,7 +185,7 @@ func brain_clicked():
 	var brain_xp_to_gain = 1
 	var knowledge_point_to_gain = 1
 	
-	Player.brain_xp += brain_xp_to_gain
+	Player.earn_brain_xp(brain_xp_to_gain)
 	Player.earn_knowledge_point(knowledge_point_to_gain)
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain )
 	

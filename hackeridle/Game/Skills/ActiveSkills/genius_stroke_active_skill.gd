@@ -30,7 +30,7 @@ func _on_s_brain_clicked(brain_xp, knowledge):
 	var bonus_knowledge = (knowledge * increase_knowledge_and_xp[as_level -1 ])
 	var bonus_xp = (brain_xp * increase_knowledge_and_xp[as_level -1 ])
 	Player.earn_knowledge_point(bonus_knowledge)
-	Player.brain_xp += bonus_xp
+	Player.earn_brain_xp(bonus_xp)
 	pass
 	
 func detach(_caster: Node)-> void:
