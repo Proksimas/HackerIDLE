@@ -55,8 +55,9 @@ func fill_player_stats():
 	LearningItemsDB.init_learning_items_db()
 	LearningItemsDB.init_for_player()
 	SourcesDb.init_sources_db()
+	Player._init()
 	
-	#cas où l'on veut tricher
+	#cas où l'on veut PAS tricher
 	if !OS.has_feature("editor"):
 		Player.gold = 0
 		Player.knowledge_point = 0

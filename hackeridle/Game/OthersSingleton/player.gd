@@ -36,10 +36,13 @@ var skills_owned = {"active" : [],
 					"passive": [] }
 													
 func _ready() -> void:
-	learning_item_bought.clear() # on vide le dictionnaire 
 	brain_xp_next = get_brain_xp(brain_level -1)
 	
-#region brain level
+func _init():
+	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
+	skills_owned = {"active" : [],
+					"passive": [] }
+					
 func _check_level_up():
 	if brain_xp >= brain_xp_next:
 		level_up()
@@ -79,8 +82,6 @@ func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
 	return round(base_xp * pow(xp_factor, level_asked))
 	
-
-
 func add_learning_item(item_cara:Dictionary):
 
 	var dict_to_store = item_cara.duplicate()
@@ -171,7 +172,6 @@ func get_source_cara(source_name: String):
 	else:
 		push_error("La source demandée n'existe pas")
 		
-		
 func brain_clicked():
 	"""Le cerveau a été cliqué, on calcul les gains associés"""
 	var brain_xp_to_gain = 1
@@ -181,14 +181,6 @@ func brain_clicked():
 	Player.earn_knowledge_point(knowledge_point_to_gain)
 	#on envoie les stats qu'engendre un click
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
-	
 
 func _save_data():
 	return Global.get_serialisable_vars(self)
-	#return {"gold": self.gold,
-			#"knowledge_point": self.knowledge_point,
-			#"learning_item_bought": self.learning_item_bought,
-			#"learning_item_statut": self.learning_item_statut,
-			#"hacking_item_bought": self.hacking_item_bought,
-			#"hacking_item_statut": self.hacking_item_statut
-			#}
