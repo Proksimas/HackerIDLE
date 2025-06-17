@@ -8,18 +8,10 @@ signal s_earn_sp(number)
 signal s_earn_brain_level(number)
 signal s_brain_clicked(brain_xp, knowledge)
 
-#region variables clampées
-var knowledge_point: float
 
+var knowledge_point: float
 var gold: float
-		
-var brain_xp: int:
-	set(value):	
-		if _check_level_up():
-			brain_xp = clamp(value - brain_xp, 0, INF)
-		else:
-			brain_xp = clamp(value, 0, INF)
-		s_earn_brain_xp.emit(brain_xp)
+var brain_xp: int
 		
 var skill_point: int:
 	set(value):
@@ -30,7 +22,7 @@ var brain_level: int = 1:
 	set(value):
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
-#endregion
+
 
 var brain_xp_next: int = 0
 var base_xp: int = 200
@@ -62,6 +54,7 @@ func level_up():
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
 
+#region functions de gains
 
 func earn_knowledge_point(earning):
 	knowledge_point += earning
@@ -80,14 +73,15 @@ func earn_brain_xp(earning):
 		brain_xp = clamp(brain_xp, 0, INF)
 	else:
 		brain_xp += clamp(earning, 0, INF)
-
 	s_earn_brain_xp.emit(brain_xp)
+	
+#endregion
 	
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
 	return round(base_xp * pow(xp_factor, level_asked))
 	
-#endregion
+
 
 func add_learning_item(item_cara:Dictionary):
 
