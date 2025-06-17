@@ -32,16 +32,23 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		buy_skill_button.pressed.connect(_on_buy_skill_button_pressed)
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
-
 	if skill_type == "active_skill":
+		#Il faut mettre ç jour le niveau du skill si le player a deja le skill
 		skill_name_label.text = tr(skills_cara['as_name'])
 		skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
 		cache_skill_cost = skills_cara['cost'][skills_cara["as_level"]]
+		for as_skill:ActiveSkill in Player.skills_owned["active"]:
+			if as_skill.as_name == skill_name:
+				cache_skill_cost = as_skill['cost'][as_skill["as_level"]]
 		unlocked_buy_skill_button()
+		
 	else: #passive skill
 		skill_name_label.text = tr(skills_cara['ps_name'])
 		skill_desc_label.text = tr(skills_cara['ps_name'] + "_desc")
 		cache_skill_cost = skills_cara['cost'][skills_cara["ps_level"]]
+		for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
+			if ps_skill.ps_name == skill_name:
+				cache_skill_cost = ps_skill['cost'][ps_skill["ps_level"]]
 		unlocked_buy_skill_button()
 		pass
 	pass # Replace with function body.
