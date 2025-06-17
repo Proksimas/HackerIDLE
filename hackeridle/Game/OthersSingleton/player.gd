@@ -8,7 +8,6 @@ signal s_earn_sp(number)
 signal s_earn_brain_level(number)
 signal s_brain_clicked(brain_xp, knowledge)
 
-
 var knowledge_point: float
 var gold: float
 var brain_xp: int
@@ -22,7 +21,6 @@ var brain_level: int = 1:
 	set(value):
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
-
 
 var brain_xp_next: int = 0
 var base_xp: int = 200
@@ -48,11 +46,6 @@ func _check_level_up():
 		return true
 	else: 
 		return false
-		
-func level_up():
-	skill_point += 1
-	brain_level += 1
-	brain_xp_next =  get_brain_xp(brain_level - 1) 
 
 #region functions de gains
 
@@ -74,6 +67,11 @@ func earn_brain_xp(earning):
 	else:
 		brain_xp += clamp(earning, 0, INF)
 	s_earn_brain_xp.emit(brain_xp)
+	
+func level_up():
+	skill_point += 1
+	brain_level += 1
+	brain_xp_next =  get_brain_xp(brain_level - 1) 
 	
 #endregion
 	
