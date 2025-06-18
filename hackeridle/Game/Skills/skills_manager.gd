@@ -14,12 +14,15 @@ signal ps_learned(skill:PassiveSkill)
 func learn_ps(skill_name: String):
 	if !passives_skills.has(skill_name):
 		push_warning("Le skill %s à ajouter n'existe pas" % [skill_name])
-	var skill:PassiveSkill = passives_skills[skill_name].duplicate()
+	
 	for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 		if ps_skill.ps_name == skill_name and ps_skill.ps_level < len(ps_skill.cost):
 			ps_skill.ps_level += 1
 		return
 
+	var skill:PassiveSkill = passives_skills[skill_name].duplicate()
+	skill.set_meta("resource_path", passives_skills[skill_name].resource_path)
+	#skill.set_meta("skill_name", skill_name)
 	Player.skills_owned["passive"].append(skill)
 	skill.attach(Player, 1) #on met au niveau 1
 	ps_learned.emit(skill)
@@ -28,11 +31,14 @@ func learn_ps(skill_name: String):
 func learn_as(skill_name: String):
 	if !active_skills.has(skill_name):
 		push_warning("Le skill %s à ajouter n'existe pas" % [skill_name])
-	var skill:ActiveSkill = active_skills[skill_name].duplicate()
 	for as_skill:ActiveSkill in Player.skills_owned["active"]:
 		if as_skill.as_name == skill_name and as_skill.as_level < len(as_skill.cost):
 			as_skill.as_level += 1
 		return
+		
+	var skill:ActiveSkill = active_skills[skill_name].duplicate()
+	skill.set_meta("resource_path", active_skills[skill_name].resource_path)
+	#skill.set_meta("skill_name", skill_name)
 	Player.skills_owned["active"].append(skill)
 	skill.attach(Player, 1) #on met au niveau 1
 	as_learned.emit(skill)

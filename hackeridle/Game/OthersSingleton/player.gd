@@ -183,4 +183,29 @@ func brain_clicked():
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
 
 func _save_data():
-	return Global.get_serialisable_vars(self)
+	var all_vars = Global.get_serialisable_vars(self)
+	#on doit réafecter pour les skills qui sont enregistrés sous forme d'objets
+	var obj_skills_owned = all_vars["skills_owned"]
+	all_vars.erase("skills_owned")
+	var skills_owned = {"active": [],
+						"passive": []}
+	for as_skill:ActiveSkill in obj_skills_owned["active"]:
+		var dict = {}
+		dict["as_name"] = as_skill.as_name
+		dict["as_level"] = as_skill.as_level
+		dict["as_is_active"] = as_skill.as_is_active
+		dict["as_is_on_cd"] = as_skill.as_is_on_cd
+		if as_skill.timer_cd != null:
+			dict["timer_cd/time_left"] = as_skill.timer_cd.time_left
+		else:
+			dict["timer_cd/time_left"] = 0
+		skills_owned['active'].append(dict)
+		
+	for ps_skill:PassiveSkill in obj_skills_owned["passive"]:
+		var dict = {}
+		dict["ps_name"] = ps_skill.ps_name
+		dict["ps_level"] = ps_skill.ps_level
+		skills_owned['passive'].append(dict)
+	
+	all_vars["skills_owned"] = skills_owned
+	return all_vars

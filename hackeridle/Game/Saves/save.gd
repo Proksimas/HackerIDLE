@@ -53,8 +53,12 @@ func player_load_data(content: Dictionary) -> void:
 		# 2.  On ne touche qu’aux variables déclarées dans le script,
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
+			
 			Player.set(p_name, content[p_name])
 	
+	#Il faut reassocier les compétences
+	
+	print(content)
 	#Je force le brain_xp pour actualiser la bar de prorgession
 	Player.brain_xp = content["brain_xp"]
 
