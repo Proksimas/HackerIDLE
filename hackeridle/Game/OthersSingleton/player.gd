@@ -40,9 +40,11 @@ func _ready() -> void:
 	
 func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
+	_init_skills_owned()
+	
+func _init_skills_owned():
 	skills_owned = {"active" : [],
 					"passive": [] }
-					
 func _check_level_up():
 	if brain_xp >= brain_xp_next:
 		level_up()

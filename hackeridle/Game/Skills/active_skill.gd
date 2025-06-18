@@ -48,11 +48,15 @@ func detach(_caster: Node)-> void:
 	pass
 	
 
-func as_finished():
-	"""Le sort a fini d'être actif. On lance le timer de on cd A surcharger"""
+func as_finished(surcharge_cd = 0):
+	"""Le sort a fini d'être actif. On lance le timer de on cd. la surcharge_cd est
+	utilisé dans le cadre du chargement de la partie """
 	as_is_active = false
 	as_is_on_cd = true
-	timer_cd = tree.create_timer(self.as_cd)
+	if surcharge_cd == 0: 
+		timer_cd = tree.create_timer(self.as_cd)
+	else:
+		timer_cd = tree.create_timer(surcharge_cd)
 	timer_cd.timeout.connect(as_cd_finished)
 	s_as_finished.emit()
 	pass

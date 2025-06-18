@@ -80,5 +80,7 @@ func _load_data(content):
 		passif_clickers.add_child(new_passif_item)
 		print(LearningItemsDB.get_item_cara(passif_item))
 		new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
+		
+	# on doit instaurer
 	
 	pass
