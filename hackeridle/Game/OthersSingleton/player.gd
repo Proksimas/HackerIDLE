@@ -42,9 +42,11 @@ func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
 	
+	
 func _init_skills_owned():
 	skills_owned = {"active" : [],
 					"passive": [] }
+					
 func _check_level_up():
 	if brain_xp >= brain_xp_next:
 		level_up()
@@ -176,13 +178,19 @@ func get_source_cara(source_name: String):
 		
 func brain_clicked():
 	"""Le cerveau a été cliqué, on calcul les gains associés"""
-	var brain_xp_to_gain = 1
-	var knowledge_point_to_gain = 1
+	var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
+	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
+	var brain_xp_to_gain = StatsManager.current_stat_calcul(\
+	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
 	
-	Player.earn_brain_xp(brain_xp_to_gain)
 	Player.earn_knowledge_point(knowledge_point_to_gain)
+	Player.earn_brain_xp(brain_xp_to_gain)
+	
+	#Player.earn_brain_xp(brain_xp_to_gain)
+	#Player.earn_knowledge_point(knowledge_point_to_gain)
+	#
 	#on envoie les stats qu'engendre un click
-	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
+	#s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
 
 func _save_data():
 	var all_vars = Global.get_serialisable_vars(self)

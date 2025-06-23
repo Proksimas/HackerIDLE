@@ -56,6 +56,7 @@ func fill_player_stats():
 	LearningItemsDB.init_for_player()
 	SourcesDb.init_sources_db()
 	Player._init()
+	StatsManager._init()
 	
 	#cas où l'on veut PAS tricher
 	if !OS.has_feature("editor"):
