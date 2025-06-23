@@ -1,10 +1,10 @@
 extends Node
 
-enum STATS{GOLD}
+enum Stats{GOLD}
 enum MODIFIER_TYPE {PERCENTAGE, FLAT}
 
 const STATS_NAMES = {
-	STATS.GOLD: "Gold",
+	Stats.GOLD: "Gold",
 }
 
 var modifiers : Dictionary = {}    #tous les modifivateurs
@@ -12,17 +12,17 @@ var modifiers : Dictionary = {}    #tous les modifivateurs
 
 func _ready() -> void:
 	_init()
-	add_modifier(STATS.GOLD, MODIFIER_TYPE.PERCENTAGE, 0.10, "test")
-
 	
+	add_modifier(Stats.GOLD, MODIFIER_TYPE.PERCENTAGE, 0.10, "test")
+
 func _init() -> void:
 	"""on doit mettre les stats à calculer"""
-	for stat in STATS_NAMES:
-		modifiers[STATS_NAMES.get(stat)] = []
+	for stat in Stats.values():
+		modifiers[stat] = []
 
-func add_modifier(stat_name: STATS, modifier_type: MODIFIER_TYPE, value: float, source: String = ""):
+func add_modifier(stat_name: Stats, modifier_type: MODIFIER_TYPE, value: float, source: String = ""):
 
-	if !modifiers.has(STATS_NAMES.get(stat_name)):
+	if !modifiers.has(stat_name):
 		push_error("la stat %s n'existe pas pour les modification" % stat_name)
 		return
 		
@@ -31,7 +31,7 @@ func add_modifier(stat_name: STATS, modifier_type: MODIFIER_TYPE, value: float, 
 		"value": value,
 		"source": source
 	} 
-	modifiers[STATS_NAMES.get(stat_name)].append(new_modifier)
+	modifiers[stat_name].append(new_modifier)
 	
 	
 	
