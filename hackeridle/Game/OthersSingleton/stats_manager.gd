@@ -1,13 +1,15 @@
 extends Node
 
-enum Stats{GOLD}
+enum Stats{GOLD, KNOWLEDGE, BRAIN_XP}
 enum MODIFIER_TYPE {PERCENTAGE, FLAT}
 
 const STATS_NAMES = {
-	Stats.GOLD: "Gold",
+	Stats.GOLD: "gold",
+	Stats.KNOWLEDGE: "knowledge",
+	Stats.BRAIN_XP: "brain_xp"
 }
 
-var modifiers : Dictionary = {}    #tous les modifivateurs
+var modifiers : Dictionary = {}    #tous les modificateurs des stats
 
 
 func _ready() -> void:
