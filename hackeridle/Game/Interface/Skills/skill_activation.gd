@@ -22,6 +22,11 @@ func set_skill_activation(skill:ActiveSkill):
 	#on reprend donc son timer
 	if skill_associated.timer_active != null:
 		_on_s_as_launched()
+		
+	elif skill_associated.timer_cd != null:
+		texture_progress_bar.min_value = 0
+		texture_progress_bar.max_value = skill_associated.as_cd
+		texture_progress_bar.value = skill_associated.timer_cd.time_left
 	pass
 
 func _on_skill_button_pressed() -> void:

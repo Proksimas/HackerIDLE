@@ -51,7 +51,7 @@ func detach(_caster: Node)-> void:
 	pass
 	
 
-func as_finished(surcharge_cd = 0):
+func as_finished(surcharge_cd:float = 0):
 	"""Le sort a fini d'être actif. On lance le timer de on cd. la surcharge_cd est
 	utilisé dans le cadre du chargement de la partie """
 	as_is_active = false
