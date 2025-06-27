@@ -78,9 +78,6 @@ func _load_data(content):
 	for passif_item in content:
 		var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
 		passif_clickers.add_child(new_passif_item)
-		print(LearningItemsDB.get_item_cara(passif_item))
 		new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
-		
-	# on doit instaurer
-	
+	refresh_brain_xp_bar()
 	pass

@@ -34,6 +34,7 @@ func init_interface():
 	gold_label.text =  Global.number_to_string(Player.gold)
 	skill_point_label.text = Global.number_to_string((Player.skill_point))
 	
+	
 
 func _on_shopping_pressed() -> void:
 	shop.show()

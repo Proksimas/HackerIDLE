@@ -23,12 +23,12 @@ func _ready() -> void:
 func load_game():
 	fill_player_stats()
 	load_interface()
-	OS.delay_msec(1000)
+	OS.delay_msec(100)
 	Save.load_data()
 
 func new_game():
 	fill_player_stats()
-	OS.delay_msec(1000)
+	OS.delay_msec(100)
 	load_interface()
 
 func load_interface():

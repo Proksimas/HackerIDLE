@@ -42,10 +42,9 @@ func load_data():
 	
 	player_load_data(data["Player"])
 	stats_manager_load_data(data["StatsManager"])
-	
 	#CHargement au niveau de l'interface
 	get_tree().get_root().get_node("Main/Interface")._load_data(data["Player"])
-	print(StatsManager.brain_click_modifiers)
+	#Maintenant des Stats
 	
 	pass
 
@@ -60,7 +59,8 @@ func player_load_data(content: Dictionary) -> void:
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
 			Player.set(p_name, content[p_name])
-	
+	print("Chargement:")
+	print(content)
 	#Il faut reassocier les compétences
 	var skills_owned = content["skills_owned"]
 	Player._init_skills_owned()
