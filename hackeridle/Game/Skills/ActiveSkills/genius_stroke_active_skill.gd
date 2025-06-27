@@ -19,17 +19,17 @@ func attach(caster: Node, level) -> void:
 	
 	
 func launch_as(surcharge_during_time: float = 0):
-	super.launch_as()
-	#Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 
 					StatsManager.ModifierType.BASE, 1, self.as_name)
+	super.launch_as(surcharge_during_time)
 
 func as_finished(surcharge_cd = 0):
-	super.as_finished(surcharge_cd)
 	var dict_to_remove = StatsManager.get_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, self.as_name)
 	if dict_to_remove.is_empty():
 		return
 	StatsManager.remove_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, dict_to_remove)
+					
+	super.as_finished(surcharge_cd)

@@ -64,6 +64,7 @@ func player_load_data(content: Dictionary) -> void:
 	#Il faut reassocier les compétences
 	var skills_owned = content["skills_owned"]
 	Player._init_skills_owned()
+	
 	for as_skill_data in skills_owned["active"]:
 		SkillsManager.learn_as(as_skill_data["as_name"], as_skill_data)
 		

@@ -18,9 +18,11 @@ func set_skill_activation(skill:ActiveSkill):
 	skill_button.texture_normal = skill.as_texture
 	skill_associated.s_as_cd_finished.connect(_on_s_as_cd_finished)
 	skill_associated.s_as_launched.connect(_on_s_as_launched)
+	#si le timer active est actif, alors on a chargé un skill qui était deja activé dans la sauvegarde
+	#on reprend donc son timer
+	if skill_associated.timer_active != null:
+		_on_s_as_launched()
 	pass
-
-
 
 func _on_skill_button_pressed() -> void:
 	skill_associated.launch_as()
