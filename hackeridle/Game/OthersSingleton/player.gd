@@ -200,7 +200,7 @@ func _save_data():
 		dict["as_name"] = as_skill.as_name
 		dict["as_level"] = as_skill.as_level
 		dict["as_is_active"] = as_skill.as_is_active
-		if as_skill.as_is_active != null:
+		if as_skill.timer_active != null:
 			dict["timer_active/time_left"] = as_skill.timer_active.time_left
 		else:
 			dict["timer_active/time_left"] = 0
