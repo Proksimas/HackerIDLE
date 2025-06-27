@@ -47,15 +47,11 @@ func learn_as(skill_name: String, data = {}):
 	Player.skills_owned["active"].append(skill)
 	if data == {}:skill.attach(Player, 1) #on met au niveau 1
 	else:
-		skill.attach(Player, data["as_level"])
-		#if data["timer_cd/time_left"] != 0: #alors y'a la compétence en cd
-			#var timer_active: SceneTreeTimer = skill.tree.create_timer(data["timer_cd/time_left"])
-			#timer_active.timeout.connect(skill.as_finished)
-		# ATTENTION si le sort est en cours d'activation, on va tricher en 
-		# lançant son cd
-		# Le cd n'est pas encore en cours
-		if data["as_is_active"] == true and not data["as_is_on_cd"]:
-			skill.as_finished()
+		skill.attach(Player, data["as_level"])		
+		if data["timer_active/time_left"] != 0 and not data["as_is_on_cd"]:
+			#une compétence etait en cours. On relance !
+			skill.launch_as(data["timer_active/time_left"])
+			
 		#alors on reprend le CD 
 		elif data["timer_cd/time_left"] != 0 and data["as_is_on_cd"]:
 			skill.as_finished(data["timer_cd/time_left"])

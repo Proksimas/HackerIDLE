@@ -18,7 +18,7 @@ func attach(caster: Node, level) -> void:
 	self.as_level = level
 	
 	
-func launch_as():
+func launch_as(surcharge_during_time: float = 0):
 	super.launch_as()
 	#Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
@@ -33,26 +33,3 @@ func as_finished(surcharge_cd = 0):
 		return
 	StatsManager.remove_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, dict_to_remove)
-					
-	#StatsManager.remove_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
-					#StatsManager.Stats.KNOWLEDGE, self.as_name)
-	#
-#func _on_s_brain_clicked(brain_xp, knowledge):
-	#"""le cerveau a été cliqué, on fait donc les bonus associés"""
-	## ATTENTION le knowledge reçu ici a déjà été reçu par le joueur.
-	## ATTENTION il faut bien recevoir le brain_xp et knowledge APRES
-	## toutes leurs améliorations et bonus
-	##as_is_active = false
-	#if !as_is_active or as_is_on_cd:
-		#return
-		#
-	#var bonus_knowledge = (knowledge * increase_knowledge_and_xp[as_level -1 ])
-	#var bonus_xp = (brain_xp * increase_knowledge_and_xp[as_level -1 ])
-	#
-	#print("bonus de knowledge %s" % bonus_knowledge)
-	#
-	#
-	##Player.earn_knowledge_point(bonus_knowledge)
-	##Player.earn_brain_xp(bonus_xp)
-	#pass
-	

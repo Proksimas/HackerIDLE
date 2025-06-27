@@ -12,6 +12,7 @@ var tree
 var as_is_active: bool = false
 var as_is_on_cd:bool = false
 var timer_cd: SceneTreeTimer
+var timer_active: SceneTreeTimer
 
 signal s_as_launched
 signal s_as_finished
@@ -19,13 +20,15 @@ signal s_as_cd_finished
 # Called when the node enters the scene tree for the first time.
 
 
-func launch_as():
+func launch_as(surcharge_during_time: float = 0):
 	"""A surcharger eventuellement"""
 	if as_is_active or as_is_on_cd:
 		return
 	as_is_active = true
-	
-	var timer_active: SceneTreeTimer = tree.create_timer(self.as_during_time)
+	if surcharge_during_time == 0:
+		timer_active = tree.create_timer(self.as_during_time)
+	else:
+		timer_active = tree.create_timer(surcharge_during_time)
 	timer_active.timeout.connect(as_finished)
 	s_as_launched.emit()
 	pass

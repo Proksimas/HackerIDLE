@@ -187,12 +187,6 @@ func brain_clicked():
 	
 	Player.earn_knowledge_point(knowledge_point_to_gain)
 	Player.earn_brain_xp(brain_xp_to_gain)
-	
-	#Player.earn_brain_xp(brain_xp_to_gain)
-	#Player.earn_knowledge_point(knowledge_point_to_gain)
-	#
-	#on envoie les stats qu'engendre un click
-	#s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
 
 func _save_data():
 	var all_vars = Global.get_serialisable_vars(self)
@@ -206,6 +200,10 @@ func _save_data():
 		dict["as_name"] = as_skill.as_name
 		dict["as_level"] = as_skill.as_level
 		dict["as_is_active"] = as_skill.as_is_active
+		if as_skill.as_is_active != null:
+			dict["timer_active/time_left"] = as_skill.timer_active.time_left
+		else:
+			dict["timer_active/time_left"] = 0
 		dict["as_is_on_cd"] = as_skill.as_is_on_cd
 		if as_skill.timer_cd != null:
 			dict["timer_cd/time_left"] = as_skill.timer_cd.time_left

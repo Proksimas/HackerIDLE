@@ -45,6 +45,7 @@ func load_data():
 	
 	#CHargement au niveau de l'interface
 	get_tree().get_root().get_node("Main/Interface")._load_data(data["Player"])
+	print(StatsManager.brain_click_modifiers)
 	
 	pass
 
@@ -68,6 +69,7 @@ func player_load_data(content: Dictionary) -> void:
 		
 	for ps_skill_data in skills_owned["passive"]:
 		SkillsManager.learn_ps(ps_skill_data["ps_name"], ps_skill_data)
+		
 	#Je force le brain_xp pour actualiser la bar de prorgession
 	Player.brain_xp = content["brain_xp"]
 
