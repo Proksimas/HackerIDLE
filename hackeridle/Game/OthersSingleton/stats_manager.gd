@@ -13,7 +13,6 @@ const STATS_NAMES = {
 }
 
 # Sous la forme: {Stats: [new_modifier, ...]}
-
 var global_modifiers: Dictionary = {}    #tous les modificateurs des stats
 var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 
@@ -57,31 +56,24 @@ func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 				return
 			brain_click_modifiers[stat_name].append(new_modifier)
 	
-	
-	
-func remove_modifier(target_modifier:TargetModifier, stat_name: String,\
-					 modifier_to_remove:Dictionary):
-						
-	var modifier_dict
-	match target_modifier:
-		TargetModifier.GLOBAL:
-			modifier_dict = global_modifiers
-		TargetModifier.BRAIN_CLICK:
-			modifier_dict = brain_click_modifiers
-			
+func remove_modifier(target_modifier:TargetModifier, stat_name: Stats, modifier_to_remove: Dictionary ):
+	var modifier_dict = get_accurate_modifier(target_modifier)
 	if modifier_dict.has(stat_name):
 		var index = modifier_dict[stat_name].find(modifier_to_remove)
 		if index != -1:
 			modifier_dict[stat_name].remove_at(index)
 			
+func get_modifier_by_source_name(target_modifier:TargetModifier, stat_name: Stats, source_name: String) -> Dictionary:
+	var modifier_dict = get_accurate_modifier(target_modifier)
+	if modifier_dict.has(stat_name):
+		for dict in modifier_dict[stat_name]:
+			if dict["source"] == source_name:
+				return dict
+	return {}
+			
 func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> float:
 	"""Renvoie la valeur de la stat après calcul de tous ses paramètres"""
-	var modifier_dict: Dictionary
-	match target_modifier:
-		TargetModifier.GLOBAL:
-			modifier_dict = global_modifiers
-		TargetModifier.BRAIN_CLICK:
-			modifier_dict = brain_click_modifiers
+	var modifier_dict = get_accurate_modifier(target_modifier)
 
 	var perc = 0.0
 	var flat = 0
@@ -98,7 +90,14 @@ func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> fl
 	#var calcul = (base + flat) * (1 + perc)
 	return calcul
 	
-	
+func  get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
+	var modifier_dict: Dictionary
+	match target_modifier:
+		TargetModifier.GLOBAL:
+			modifier_dict = global_modifiers
+		TargetModifier.BRAIN_CLICK:
+			modifier_dict = brain_click_modifiers
+	return modifier_dict
 func _show_stats_modifiers(stat_name: Stats):
 	var for_global_modifiers = { "percentage": [],
 								"base": [],

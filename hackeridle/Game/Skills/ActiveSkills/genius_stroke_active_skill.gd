@@ -21,14 +21,20 @@ func attach(caster: Node, level) -> void:
 func launch_as():
 	super.launch_as()
 	#Player.s_brain_clicked.connect(_on_s_brain_clicked)
-	print("Modificateur ajouté")
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 
 					StatsManager.ModifierType.BASE, 1, self.as_name)
 
 func as_finished(surcharge_cd = 0):
 	super.as_finished(surcharge_cd)
-	print("on retire le truc")
+	var dict_to_remove = StatsManager.get_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
+					StatsManager.Stats.KNOWLEDGE, self.as_name)
+	if dict_to_remove.is_empty():
+		return
+	StatsManager.remove_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
+					StatsManager.Stats.KNOWLEDGE, dict_to_remove)
+	#StatsManager.remove_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
+					#StatsManager.Stats.KNOWLEDGE, self.as_name)
 	#
 #func _on_s_brain_clicked(brain_xp, knowledge):
 	#"""le cerveau a été cliqué, on fait donc les bonus associés"""
