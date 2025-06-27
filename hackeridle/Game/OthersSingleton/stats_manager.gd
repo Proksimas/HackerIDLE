@@ -133,3 +133,7 @@ func _show_stats_modifiers(stat_name: Stats):
 	print("\tpercentage: ", for_brain_click_modifiers["percentage"])
 	print("\tbase: ", for_brain_click_modifiers["base"])
 	print("\tflat: ", for_brain_click_modifiers["flat"])
+
+func _save_data():
+	var all_vars = Global.get_serialisable_vars(self)
+	return all_vars

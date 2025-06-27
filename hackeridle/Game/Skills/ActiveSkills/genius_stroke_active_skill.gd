@@ -33,6 +33,7 @@ func as_finished(surcharge_cd = 0):
 		return
 	StatsManager.remove_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, dict_to_remove)
+					
 	#StatsManager.remove_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
 					#StatsManager.Stats.KNOWLEDGE, self.as_name)
 	#

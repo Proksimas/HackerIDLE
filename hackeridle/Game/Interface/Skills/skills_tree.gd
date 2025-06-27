@@ -36,6 +36,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		#Il faut mettre ç jour le niveau du skill si le player a deja le skill
 		skill_name_label.text = tr(skills_cara['as_name'])
 		skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
+		if is_max_level(skills_cara, skill_type): return
 		cache_skill_cost = skills_cara['cost'][skills_cara["as_level"]]
 		for as_skill:ActiveSkill in Player.skills_owned["active"]:
 			if as_skill.as_name == skill_name:
@@ -45,6 +46,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	else: #passive skill
 		skill_name_label.text = tr(skills_cara['ps_name'])
 		skill_desc_label.text = tr(skills_cara['ps_name'] + "_desc")
+		if is_max_level(skills_cara, skill_type): return
 		cache_skill_cost = skills_cara['cost'][skills_cara["ps_level"]]
 		for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 			if ps_skill.ps_name == skill_name:
@@ -52,6 +54,40 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		unlocked_buy_skill_button()
 		pass
 	pass # Replace with function body.
+	
+func is_max_level(skill_cara, skill_type)-> bool:
+	Player.skills_owned["active"]
+	match skill_type:
+		"active_skill":
+			for as_skill:ActiveSkill in Player.skills_owned["active"]:
+				if as_skill.as_name == skill_cara["as_name"]:
+					skill_cara = as_skill
+			if skill_cara.as_level >= len(skill_cara.cost):
+				skill_name_label.text = tr(skill_cara['as_name'])
+				skill_desc_label.text = tr(skill_cara['as_name'] + "_desc")
+				buy_skill_button.disabled = true
+				to_unlocked_panel.hide()
+				cost_sp_label.text = "Max"
+				return true
+
+		"passive_skill":
+			for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
+				if ps_skill.ps_name == skill_cara["ps_name"]:
+					skill_cara = ps_skill
+			if skill_cara.ps_level >= len(skill_cara.cost):
+				skill_name_label.text = tr(skill_cara['ps_name'])
+				skill_desc_label.text = tr(skill_cara['ps_name'] + "_desc")
+				buy_skill_button.disabled = true
+				to_unlocked_panel.hide()
+				cost_sp_label.text = "Max"
+				return true
+		_:
+			push_error("Pas normal pas de type")
+			return true
+			
+	return false
+			
+	
 
 func unlocked_buy_skill_button():
 	if cache_skill_cost <= Player.skill_point:
