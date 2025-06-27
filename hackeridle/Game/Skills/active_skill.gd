@@ -42,7 +42,7 @@ func attach(_caster: Node, level) -> void:
 	self.as_level = level
 	
 func detach(_caster: Node)-> void:
-	"""dettache les ajouts que donne le sill
+	"""dettache les ajouts que donne le sill. Nous sommes vraiment dans 
 	
 	A SURCHARGER """
 	pass

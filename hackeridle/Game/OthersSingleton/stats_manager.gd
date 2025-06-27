@@ -82,7 +82,7 @@ func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> fl
 			modifier_dict = global_modifiers
 		TargetModifier.BRAIN_CLICK:
 			modifier_dict = brain_click_modifiers
-			
+
 	var perc = 0.0
 	var flat = 0
 	var base = 0
@@ -99,3 +99,38 @@ func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> fl
 	return calcul
 	
 	
+func _show_stats_modifiers(stat_name: Stats):
+	var for_global_modifiers = { "percentage": [],
+								"base": [],
+								"flat": []}
+	var for_brain_click_modifiers= { "percentage": [],
+								"base": [],
+								"flat": []}
+	
+	if global_modifiers.has(stat_name):
+		for modifier in global_modifiers[stat_name]:
+			match modifier["type"]:
+				ModifierType.BASE:
+					for_global_modifiers['base'].append(modifier["value"])
+				ModifierType.PERCENTAGE:
+					for_global_modifiers["percentage"].append(modifier["value"])
+				ModifierType.FLAT:
+					for_global_modifiers["flat"].append(modifier["value"])
+					
+	if brain_click_modifiers.has(stat_name):
+		for modifier in brain_click_modifiers[stat_name]:
+			match modifier["type"]:
+				ModifierType.BASE:
+					for_brain_click_modifiers['base'].append(str(modifier["value"]) + ": " + modifier["source"])
+				ModifierType.PERCENTAGE:
+					for_brain_click_modifiers["percentage"].append(str(modifier["value"]) + ": " + modifier["source"])
+				ModifierType.FLAT:
+					for_brain_click_modifiers["flat"].append(str(modifier["value"]) + ": " + modifier["source"])
+	print("global modifiers:")
+	print("\tpercentage: ", for_global_modifiers["percentage"])
+	print("\tbase: ", for_global_modifiers["base"])
+	print("\tflat: ", for_global_modifiers["flat"])
+	print("brain click modifiers:")
+	print("\tpercentage: ", for_brain_click_modifiers["percentage"])
+	print("\tbase: ", for_brain_click_modifiers["base"])
+	print("\tflat: ", for_brain_click_modifiers["flat"])
