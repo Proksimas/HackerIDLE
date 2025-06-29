@@ -21,7 +21,8 @@ func attach(caster: Node, level) -> void:
 func launch_as(surcharge_during_time: float = 0):
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 
-					StatsManager.ModifierType.BASE, 1, self.as_name)
+					StatsManager.ModifierType.BASE, 
+					increase_knowledge_and_xp[as_level - 1], self.as_name)
 	super.launch_as(surcharge_during_time)
 
 func as_finished(surcharge_cd:float = 0):

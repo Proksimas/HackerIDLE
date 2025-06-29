@@ -24,5 +24,9 @@ func detach(_caster: Node)-> void:
 	
 func _on_s_brain_clicked(brain_xp, knowledge):
 	for loop in range(0, repeat_click[ps_level - 1]):
-		Player.earn_brain_xp(brain_xp)
-		Player.earn_knowledge_point(knowledge)
+		var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
+		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
+		var brain_xp_to_gain = StatsManager.current_stat_calcul(\
+		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
+		Player.earn_knowledge_point(knowledge_point_to_gain)
+		Player.earn_brain_xp(brain_xp_to_gain)
