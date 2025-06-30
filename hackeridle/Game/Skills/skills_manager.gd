@@ -91,9 +91,11 @@ func get_skill_translation(player_skill, type) -> String:
 		match player_skill["as_name"]:
 			_:
 				print(player_skill["as_level"])
-				var level = 1 if player_skill["as_level"] == 0 else player_skill["as_level"]
-				var data_bonus_1 = [] if player_skill["data_bonus_1"].is_empty() else player_skill["data_bonus_1"][level - 1]
-				var data_bonus_2 = [] if player_skill["data_bonus_2"].is_empty() else player_skill["data_bonus_2"][level - 1]
+				var level = player_skill["as_level"]
+				if level >= len(player_skill["cost"]):
+					level = len(player_skill["cost"]) - 1
+				var data_bonus_1 = [] if player_skill["data_bonus_1"].is_empty() else player_skill["data_bonus_1"][level]
+				var data_bonus_2 = [] if player_skill["data_bonus_2"].is_empty() else player_skill["data_bonus_2"][level]
 
 				return tr(player_skill['as_name'] + "_desc").\
 						format(
