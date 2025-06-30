@@ -4,7 +4,7 @@ extends Node
 
 var knowledge_point: float
 var gold: float
-var brain_xp: int
+var brain_xp: float
 		
 var skill_point: int:
 	set(value):
@@ -78,12 +78,12 @@ func earn_gold(earning):
 	
 func earn_brain_xp(earning):
 	#on ne peut pas retirer du brain xp
-	
 	if _check_level_up():
 		brain_xp += earning - brain_xp
 		brain_xp = clamp(brain_xp, 0, INF)
 	else:
 		brain_xp += clamp(earning, 0, INF)
+	brain_xp = snapped(brain_xp, 0.1)
 	s_earn_brain_xp.emit(brain_xp)
 	
 func level_up():
@@ -220,7 +220,7 @@ func brain_clicked():
 	var brain_xp_to_gain = StatsManager.current_stat_calcul(\
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
 	
-	#StatsManager._show_stats_modifiers(StatsManager.Stats.KNOWLEDGE)
+	#StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP)
 	Player.earn_knowledge_point(knowledge_point_to_gain)
 	Player.earn_brain_xp(brain_xp_to_gain)
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
