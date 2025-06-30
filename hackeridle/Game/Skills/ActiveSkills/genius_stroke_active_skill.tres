@@ -11,5 +11,5 @@ as_cd = 5.0
 as_during_time = 10.0
 as_texture = ExtResource("1_fc40h")
 as_name = "genius_stroke"
-data_bonus_1 = [100, 200, 400]
+data_bonus_1 = [100.0, 200.0, 400.0]
 data_bonus_2 = []

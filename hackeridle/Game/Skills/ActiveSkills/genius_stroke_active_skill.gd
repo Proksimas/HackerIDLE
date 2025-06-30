@@ -9,7 +9,7 @@ func _ready() -> void:
 func launch_as(surcharge_during_time: float = 0):
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 
-					StatsManager.ModifierType.BASE, 
+					StatsManager.ModifierType.PERCENTAGE, 
 					data_bonus_1[as_level - 1]/100, self.as_name)
 	super.launch_as(surcharge_during_time)
 
