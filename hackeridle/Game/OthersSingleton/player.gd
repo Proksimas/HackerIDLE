@@ -16,8 +16,8 @@ var brain_level: int = 1:
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
 
-var brain_xp_next: int = 0
-var base_xp: int = 200
+var brain_xp_next: float = 0
+var base_xp: float = 200
 var xp_factor: float = 1.75
 
 var learning_item_bought: Dictionary = {}
@@ -78,6 +78,7 @@ func earn_gold(earning):
 	
 func earn_brain_xp(earning):
 	#on ne peut pas retirer du brain xp
+	
 	if _check_level_up():
 		brain_xp += earning - brain_xp
 		brain_xp = clamp(brain_xp, 0, INF)
@@ -218,8 +219,8 @@ func brain_clicked():
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
 	var brain_xp_to_gain = StatsManager.current_stat_calcul(\
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
-
-	#StatsManager._show_stats_modifiers(StatsManager.Stats.KNOWLEDGE)
+	
+	StatsManager._show_stats_modifiers(StatsManager.Stats.KNOWLEDGE)
 	Player.earn_knowledge_point(knowledge_point_to_gain)
 	Player.earn_brain_xp(brain_xp_to_gain)
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)

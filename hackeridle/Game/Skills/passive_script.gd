@@ -4,6 +4,8 @@ class_name PassiveSkill
 @export var cost: Array[int]  #son cout en skill point = le niveau
 @export var ps_texture: Texture
 @export var ps_name: String
+@export var data_bonus_1: Array
+@export var data_bonus_2: Array
 
 var ps_level = 0
 var tree

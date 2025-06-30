@@ -1,6 +1,5 @@
 extends PassiveSkill
 
-var repeat_click = [1,2,4]
 
 func attach(_caster: Node, level) -> void:
 	super.attach(_caster, level)
@@ -16,7 +15,7 @@ func detach(_caster: Node)-> void:
 	
 	
 func _on_s_brain_clicked(_brain_xp, _knowledge):
-	for loop in range(0, repeat_click[ps_level - 1]):
+	for loop in range(0, data_bonus_1[ps_level - 1]):
 		var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
 		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
 		var brain_xp_to_gain = StatsManager.current_stat_calcul(\

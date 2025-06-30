@@ -10,7 +10,7 @@ func launch_as(surcharge_during_time: float = 0):
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 
 					StatsManager.ModifierType.BASE, 
-					data_bonus_1[as_level - 1], self.as_name)
+					data_bonus_1[as_level - 1]/100, self.as_name)
 	super.launch_as(surcharge_during_time)
 
 func as_finished(surcharge_cd:float = 0):

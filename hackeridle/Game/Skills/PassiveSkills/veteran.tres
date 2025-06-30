@@ -8,3 +8,5 @@ script = ExtResource("1_1p00l")
 cost = Array[int]([1, 3, 6])
 ps_texture = ExtResource("1_dvdr3")
 ps_name = "veteran"
+data_bonus_1 = [10, 20, 30]
+data_bonus_2 = []

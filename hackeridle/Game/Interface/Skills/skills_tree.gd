@@ -52,7 +52,13 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		
 	else: #passive skill
 		skill_name_label.text = tr(skills_cara['ps_name'])
-		skill_desc_label.text = tr(skills_cara['ps_name'] + "_desc")
+		var desc
+		if Player.get_skill(skill_name, "passive") != null:
+			desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "passive"), "ps_name")
+		else:
+			desc = SkillsManager.get_skill_translation(skills_cara, "ps_name")
+		skill_desc_label.text = desc
+
 		if is_max_level(skills_cara, skill_type): return
 		cache_skill_cost = skills_cara['cost'][skills_cara["ps_level"]]
 		for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
@@ -76,7 +82,6 @@ func is_max_level(skill_cara, skill_type)-> bool:
 					desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "active"), "as_name")
 				else:
 					desc = SkillsManager.get_skill_translation(skill_cara, "as_name")
-				
 				skill_desc_label.text = desc
 				
 				buy_skill_button.disabled = true
@@ -85,12 +90,19 @@ func is_max_level(skill_cara, skill_type)-> bool:
 				return true
 
 		"passive_skill":
+			var skill_name = skill_cara['ps_name']
 			for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 				if ps_skill.ps_name == skill_cara["ps_name"]:
 					skill_cara = ps_skill
 			if skill_cara.ps_level >= len(skill_cara.cost):
 				skill_name_label.text = tr(skill_cara['ps_name'])
-				skill_desc_label.text = tr(skill_cara['ps_name'] + "_desc")
+				var desc
+				if Player.get_skill(skill_name, "passive") != null:
+					desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "passive"), "ps_name")
+				else:
+					desc = SkillsManager.get_skill_translation(skill_cara, "ps_name")
+				skill_desc_label.text = desc
+		
 				buy_skill_button.disabled = true
 				to_unlocked_panel.hide()
 				cost_sp_label.text = "Max"

@@ -1,14 +1,14 @@
 extends PassiveSkill
 
-var aug_xp = [0.1,0.2,0.3]
 
 
 func attach(_caster: Node, level) -> void:
 	super.attach(_caster, level)
+	print(data_bonus_1[ps_level - 1]/100)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.BRAIN_XP, 
 					StatsManager.ModifierType.PERCENTAGE, 
-					aug_xp[ps_level - 1], self.ps_name)
+					data_bonus_1[ps_level - 1]/100, self.ps_name)
 	
 func detach(_caster: Node)-> void:
 	"""dettache les ajouts que donne le sill

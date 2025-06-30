@@ -88,26 +88,35 @@ func get_skill_cara(skill_name: String):
 func get_skill_translation(player_skill, type) -> String:
 	var translation: String
 	if type == "as_name":
-		match player_skill["as_name"]:
-			_:
-				print(player_skill["as_level"])
-				var level = player_skill["as_level"]
-				if level >= len(player_skill["cost"]):
-					level = len(player_skill["cost"]) - 1
-				var data_bonus_1 = [] if player_skill["data_bonus_1"].is_empty() else player_skill["data_bonus_1"][level]
-				var data_bonus_2 = [] if player_skill["data_bonus_2"].is_empty() else player_skill["data_bonus_2"][level]
+		var level = player_skill["as_level"]
+		if level >= len(player_skill["cost"]):
+			level = len(player_skill["cost"]) - 1
+		var data_bonus_1 = [] if player_skill["data_bonus_1"].is_empty() else player_skill["data_bonus_1"][level]
+		var data_bonus_2 = [] if player_skill["data_bonus_2"].is_empty() else player_skill["data_bonus_2"][level]
 
-				return tr(player_skill['as_name'] + "_desc").\
-						format(
-							{"as_during_time": player_skill["as_during_time"],
-							"as_name": player_skill["as_name"],
-							"cost": player_skill["cost"],
-							"data_bonus_1": data_bonus_1,
-							"data_bonus_2": data_bonus_2
-							})
-		
+		return tr(player_skill['as_name'] + "_desc").\
+				format(
+					{"as_during_time": player_skill["as_during_time"],
+					"as_name": player_skill["as_name"],
+					"cost": player_skill["cost"],
+					"data_bonus_1": data_bonus_1,
+					"data_bonus_2": data_bonus_2
+					})
 	else:
+		var level = player_skill["ps_level"]
+		if level >= len(player_skill["cost"]):
+			level = len(player_skill["cost"]) - 1
+		var data_bonus_1 = [] if player_skill["data_bonus_1"].is_empty() else player_skill["data_bonus_1"][level]
+		var data_bonus_2 = [] if player_skill["data_bonus_2"].is_empty() else player_skill["data_bonus_2"][level]
+
+		return tr(player_skill['ps_name'] + "_desc").\
+				format(
+					{"ps_name": player_skill["ps_name"],
+					"cost": player_skill["cost"],
+					"data_bonus_1": data_bonus_1,
+					"data_bonus_2": data_bonus_2
+					})
 		return ""
-	pass
+	
 	
 	
