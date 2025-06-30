@@ -24,7 +24,7 @@ func learn_ps(skill_name: String, data = {}):
 			#mettre à jour le skill
 			ps_skill.detach(Player)
 			ps_skill.attach(Player,ps_skill.ps_level)
-		return
+			return
 
 	var skill:PassiveSkill = passives_skills[skill_name].duplicate()
 	skill.set_meta("resource_path", passives_skills[skill_name].resource_path)
