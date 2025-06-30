@@ -45,7 +45,11 @@ func _on_navigator_pressed() -> void:
 	learning.show()
 	pass # Replace with function body.
 
-
+func refresh_specially_resources():
+	knowledge_label.text = Global.number_to_string(int(Player.knowledge_point))
+	gold_label.text = Global.number_to_string(int(Player.gold))
+	skill_point_label.text = Global.number_to_string(int(Player.skill_point))
+	
 func _on_earn_knowledge_point(point):
 	knowledge_label.text = Global.number_to_string(int(point))
 	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")

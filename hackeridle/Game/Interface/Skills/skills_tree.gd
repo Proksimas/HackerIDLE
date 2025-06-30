@@ -56,7 +56,6 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	pass # Replace with function body.
 	
 func is_max_level(skill_cara, skill_type)-> bool:
-	Player.skills_owned["active"]
 	match skill_type:
 		"active_skill":
 			for as_skill:ActiveSkill in Player.skills_owned["active"]:

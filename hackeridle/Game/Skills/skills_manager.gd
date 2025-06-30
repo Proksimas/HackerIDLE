@@ -8,7 +8,8 @@ var active_skills: Dictionary = {
 }     
 var passives_skills: Dictionary = {
 	"click_worth": preload("res://Game/Skills/PassiveSkills/click_worth.tres"),
-	"veteran": preload("res://Game/Skills/PassiveSkills/veteran.tres")}
+	"veteran": preload("res://Game/Skills/PassiveSkills/veteran.tres"),
+	"business_acumen": preload("res://Game/Skills/PassiveSkills/business_acumen.tres")}
 
 signal as_learned(skill:ActiveSkill)
 signal ps_learned(skill:PassiveSkill)

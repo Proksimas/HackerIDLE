@@ -31,7 +31,6 @@ func _init(new_game:bool = true) -> void:
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, 1, "birth")
-	
 
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
@@ -88,6 +87,24 @@ func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> fl
 				flat += modifier["value"]
 	var calcul = (base * (1 + perc)) + flat
 	#var calcul = (base + flat) * (1 + perc)
+	return calcul
+	
+func calcul_global_stat(stat_name: Stats, earning) -> float:
+	"""renvoie la valeur de la stat après l'ajout de ses modificateurs
+	Ici, le earning est ajouté à la stat de base"""
+	var perc = 0.0
+	var flat = 0
+	var base = 0
+	for modifier in global_modifiers[stat_name]:
+		match modifier["type"]:
+			ModifierType.BASE:
+				base += modifier["value"]
+			ModifierType.PERCENTAGE:
+				perc += modifier["value"]
+			ModifierType.FLAT:
+				flat += modifier["value"]
+	
+	var calcul = ((base + earning) * (1 + perc)) + flat
 	return calcul
 	
 func  get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:

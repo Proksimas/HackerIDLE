@@ -15,7 +15,7 @@ func detach(_caster: Node)-> void:
 	pass
 	
 	
-func _on_s_brain_clicked(brain_xp, knowledge):
+func _on_s_brain_clicked(_brain_xp, _knowledge):
 	for loop in range(0, repeat_click[ps_level - 1]):
 		var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
 		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)

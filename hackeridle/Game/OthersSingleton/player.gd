@@ -1,12 +1,6 @@
 extends Node
 
-signal s_earn_knowledge_point(point)
 
-signal s_earn_gold(number)
-signal s_earn_brain_xp(number)
-signal s_earn_sp(number)
-signal s_earn_brain_level(number)
-signal s_brain_clicked(brain_xp, knowledge)
 
 var knowledge_point: float
 var gold: float
@@ -34,7 +28,16 @@ var sources_item_bought: Dictionary = {}
 
 var skills_owned = {"active" : [],
 					"passive": [] }
-													
+					
+					
+signal s_earn_knowledge_point(point)
+signal s_knowledge_to_earn(point)
+signal s_earn_gold(number)
+signal s_gold_to_earn(number)
+signal s_earn_brain_xp(number)
+signal s_earn_sp(number)
+signal s_earn_brain_level(number)
+signal s_brain_clicked(brain_xp, knowledge)
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
 	
@@ -57,13 +60,20 @@ func _check_level_up():
 #region functions de gains
 
 func earn_knowledge_point(earning):
+	"""Le earning est la connaissance qu'on va gagner. Il faut y ajouter les bonus globaux"""	
+	earning = StatsManager.calcul_global_stat(StatsManager.Stats.KNOWLEDGE, earning)
+
 	knowledge_point += earning
 	knowledge_point = clamp(knowledge_point, 0, INF)
+	s_knowledge_to_earn.emit(earning)
 	s_earn_knowledge_point.emit(knowledge_point)
 	
 func earn_gold(earning):
+	"""Le earning est l'argent qu'on va gagner. Il faut y ajouter les bonus globaux"""
+	earning = StatsManager.calcul_global_stat(StatsManager.Stats.GOLD, earning)
 	self.gold += earning
 	gold = clamp(gold, 0, INF)
+	s_gold_to_earn.emit(earning)
 	s_earn_gold.emit(gold)
 	
 func earn_brain_xp(earning):
@@ -193,7 +203,7 @@ func _save_data():
 	#on doit réafecter pour les skills qui sont enregistrés sous forme d'objets
 	var obj_skills_owned = all_vars["skills_owned"]
 	all_vars.erase("skills_owned")
-	var skills_owned = {"active": [],
+	var skills_owned_to_save = {"active": [],
 						"passive": []}
 	for as_skill:ActiveSkill in obj_skills_owned["active"]:
 		var dict = {}
@@ -209,13 +219,13 @@ func _save_data():
 			dict["timer_cd/time_left"] = as_skill.timer_cd.time_left
 		else:
 			dict["timer_cd/time_left"] = 0
-		skills_owned['active'].append(dict)
+		skills_owned_to_save['active'].append(dict)
 		
 	for ps_skill:PassiveSkill in obj_skills_owned["passive"]:
 		var dict = {}
 		dict["ps_name"] = ps_skill.ps_name
 		dict["ps_level"] = ps_skill.ps_level
-		skills_owned['passive'].append(dict)
+		skills_owned_to_save['passive'].append(dict)
 	
-	all_vars["skills_owned"] = skills_owned
+	all_vars["skills_owned"] = skills_owned_to_save
 	return all_vars
