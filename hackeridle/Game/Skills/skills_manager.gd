@@ -6,7 +6,9 @@ var ACTIVE_SKILL_PATH = "res://Game/Skills/ActiveSkills/"
 var active_skills: Dictionary = {
 	"genius_stroke": preload("res://Game/Skills/ActiveSkills/genius_stroke_active_skill.tres")
 }     
-var passives_skills: Dictionary = {"click_worth": preload("res://Game/Skills/PassiveSkills/click_worth.tres")}
+var passives_skills: Dictionary = {
+	"click_worth": preload("res://Game/Skills/PassiveSkills/click_worth.tres"),
+	"veteran": preload("res://Game/Skills/PassiveSkills/veteran.tres")}
 
 signal as_learned(skill:ActiveSkill)
 signal ps_learned(skill:PassiveSkill)
@@ -18,6 +20,9 @@ func learn_ps(skill_name: String, data = {}):
 	for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 		if ps_skill.ps_name == skill_name and ps_skill.ps_level < len(ps_skill.cost):
 			ps_skill.ps_level += 1
+			#mettre à jour le skill
+			ps_skill.detach(Player)
+			ps_skill.attach(Player,ps_skill.ps_level)
 		return
 
 	var skill:PassiveSkill = passives_skills[skill_name].duplicate()

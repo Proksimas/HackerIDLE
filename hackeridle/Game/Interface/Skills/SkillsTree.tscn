@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0swth7gti7cd"]
+[gd_scene load_steps=9 format=3 uid="uid://d0swth7gti7cd"]
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skills_tree.gd" id="1_xcbpt"]
 [ext_resource type="PackedScene" uid="uid://dm748glgb0076" path="res://Game/Interface/Skills/skill_node.tscn" id="2_1d4gm"]
@@ -6,8 +6,9 @@
 [ext_resource type="Script" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.gd" id="4_kd2pb"]
 [ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="5_lb5wa"]
 [ext_resource type="Resource" uid="uid://clo8in4xdbtxg" path="res://Game/Skills/PassiveSkills/click_worth.tres" id="5_onmtj"]
+[ext_resource type="Resource" uid="uid://2a6nq6m0kycl" path="res://Game/Skills/PassiveSkills/veteran.tres" id="6_pwon5"]
 
-[sub_resource type="Resource" id="Resource_f8f6w"]
+[sub_resource type="Resource" id="Resource_smrdr"]
 resource_local_to_scene = true
 script = ExtResource("4_kd2pb")
 cost = Array[int]([1, 3, 6])
@@ -49,13 +50,15 @@ columns = 2
 
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-size_flags_vertical = 2
-as_associated = SubResource("Resource_f8f6w")
+as_associated = SubResource("Resource_smrdr")
 
 [node name="SkillNode2" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-size_flags_vertical = 2
 ps_associated = ExtResource("5_onmtj")
+
+[node name="SkillNode3" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
+layout_mode = 2
+ps_associated = ExtResource("6_pwon5")
 
 [node name="Panel" type="Panel" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 150)

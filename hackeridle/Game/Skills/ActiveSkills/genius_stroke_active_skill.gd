@@ -6,18 +6,6 @@ var increase_knowledge_and_xp = [1,2,4]   #100%,200%,400%
 func _ready() -> void:
 	pass # Replace with function body.
 
-func attach(caster: Node, level) -> void:
-	""" OBLIGATOIRE lors de l'instantiation d'un skill
-	Appeler lorsqu'on add le skill, cela permet de gérer ce que fait le skill:
-		- les connexions à appeler
-		- l'ajout des stats brut
-		
-		A SURCHARGER EVENTUELLEMENT"""
-		
-	tree = caster.get_tree()   # on récupère la référence de l'arbre
-	self.as_level = level
-	
-	
 func launch_as(surcharge_during_time: float = 0):
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.KNOWLEDGE, 

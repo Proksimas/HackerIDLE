@@ -11,7 +11,7 @@ anchor_bottom = 0.0666667
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
-size_flags_vertical = 3
+size_flags_vertical = 2
 script = ExtResource("1_d73xw")
 metadata/_edit_use_anchors_ = true
 
