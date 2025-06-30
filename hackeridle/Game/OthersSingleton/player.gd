@@ -180,6 +180,32 @@ func get_associated_source(hack_item_name: String):
 		if sources_item_bought.values()[i]["affectation"] == hack_item_name:
 			return get_source_cara(sources_item_bought.values()[i]["source_name"])
 
+func get_skill(skill_name, type: String = "active"):
+	"""type = active ou passive"""
+	match type:
+		"active":
+			for skill in skills_owned["active"]:
+				if skill["as_name"] == skill_name:
+					return skill
+		"passive":
+			for skill in skills_owned["passive"]:
+				if skill["ps_name"] == skill_name:
+					return skill
+		_:
+			return null
+					
+func get_skill_cara(skill_name: String, type: String = "active"):
+	var skill = get_skill(skill_name, type)
+	var list = {}
+	var properties = skill.get_property_list()
+	for prop in properties:
+		var p_name = prop.name
+		var usage = prop.usage
+		if usage & PROPERTY_USAGE_SCRIPT_VARIABLE:
+			list[p_name] = skill.get(prop["name"])
+	return list
+	
+	
 func get_source_cara(source_name: String):
 	if sources_item_bought.has(source_name):
 		return sources_item_bought[source_name]

@@ -33,9 +33,17 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
 	if skill_type == "active_skill":
-		#Il faut mettre ç jour le niveau du skill si le player a deja le skill
 		skill_name_label.text = tr(skills_cara['as_name'])
-		skill_desc_label.text = tr(skills_cara['as_name'] + "_desc")
+		var desc: String
+		#Il faut mettre ç jour le niveau du skill si le player a deja le skill
+		
+		if Player.get_skill(skill_name, "active") != null:
+			desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "active"), "as_name")
+		else:
+			desc = SkillsManager.get_skill_translation(skills_cara, "as_name")
+		
+		skill_desc_label.text = desc
+		
 		if is_max_level(skills_cara, skill_type): return
 		cache_skill_cost = skills_cara['cost'][skills_cara["as_level"]]
 		for as_skill:ActiveSkill in Player.skills_owned["active"]:
@@ -62,8 +70,11 @@ func is_max_level(skill_cara, skill_type)-> bool:
 				if as_skill.as_name == skill_cara["as_name"]:
 					skill_cara = as_skill
 			if skill_cara.as_level >= len(skill_cara.cost):
+
 				skill_name_label.text = tr(skill_cara['as_name'])
-				skill_desc_label.text = tr(skill_cara['as_name'] + "_desc")
+				skill_desc_label.text = tr(skill_cara['as_name'] + "_desc").\
+					format({"as_during_time": skill_cara["as_during_time"]})
+					
 				buy_skill_button.disabled = true
 				to_unlocked_panel.hide()
 				cost_sp_label.text = "Max"

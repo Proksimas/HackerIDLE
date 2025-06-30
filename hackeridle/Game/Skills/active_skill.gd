@@ -6,6 +6,8 @@ class_name ActiveSkill
 @export var as_during_time: float
 @export var as_texture: Texture
 @export var as_name: String
+@export var data_bonus_1: Array
+@export var data_bonus_2: Array
 
 var as_level = 0
 var tree
@@ -13,6 +15,7 @@ var as_is_active: bool = false
 var as_is_on_cd:bool = false
 var timer_cd: SceneTreeTimer
 var timer_active: SceneTreeTimer
+
 
 signal s_as_launched
 signal s_as_finished

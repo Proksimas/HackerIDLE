@@ -9,3 +9,4 @@ cost = Array[int]([])
 as_cd = 0.0
 as_during_time = 0.0
 as_name = ""
+data_bonus = {}
