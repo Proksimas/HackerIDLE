@@ -11,6 +11,8 @@ extends Control
 @onready var skill_point_label: Label = %SkillPointLabel
 @onready var settings: Control = %Settings
 @onready var skills_tree: Control = %SkillsTree
+@onready var second_timer: Timer = %SecondTimer
+
 
 var test ="bleu"
 var a = 10
@@ -23,6 +25,7 @@ func _ready() -> void:
 	
 func connexions() -> void:
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
+	Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	Player.s_earn_gold.connect(_on_earn_gold)
 	Player.s_earn_sp.connect(_on_earn_sp)
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
@@ -33,6 +36,7 @@ func init_interface():
 	knowledge_label.text = Global.number_to_string(Player.knowledge_point)
 	gold_label.text =  Global.number_to_string(Player.gold)
 	skill_point_label.text = Global.number_to_string((Player.skill_point))
+	_on_s_brain_clicked(0,0)
 	
 	
 
@@ -66,6 +70,29 @@ func _on_earn_brain_xp(_point):
 func _on_earn_brain_level(point):
 	learning.current_brain_level.text = tr("$Level") + " " + str(point) 
 	
+
+var _recent_clicks: Array = []  # Stocke des paires [timestamp, valeur]
+var _window_ms := 1100  # taille de la fenêtre mobile
+var _sum_earning:float = 0
+func _on_s_brain_clicked(brain_xp, knowledge):
+	"""chaque Connaissance acquise via le click du cerveau.
+	Nous additionnons avec le gain par seconde des items passifs"""
+	var now:= Time.get_ticks_msec()
+	_recent_clicks.append([now, knowledge])
+	_recent_clicks = _recent_clicks.filter(await func(e): return now - e[0] <= _window_ms)
+
+	_sum_earning = 0
+	for e in _recent_clicks:
+		_sum_earning += e[1]
+	var total = _sum_earning + learning.passives_knowledge 
+	
+	learning.knowledge_per_second.text = Global.number_to_string(total) + " /s"
+	#et_tree().create_timer(1.0).timeout.connect(_on_sum_timer)
+	
+#func _on_sum_timer():
+	#"""On force pour la réinitialisation à zero"""
+	#Player.earn_knowledge_point(0)
+	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()
 	pass # Replace with function body.
@@ -80,6 +107,9 @@ func _on_skills_button_pressed() -> void:
 	skills_tree.show()
 	pass # Replace with function body.
 
+func _on_second_timer_timeout() -> void:
+	_on_s_brain_clicked(0, 0)
+	pass # Replace with function body.
 
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""

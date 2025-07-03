@@ -67,6 +67,7 @@ func earn_knowledge_point(earning):
 	knowledge_point = clamp(knowledge_point, 0, INF)
 	s_knowledge_to_earn.emit(earning)
 	s_earn_knowledge_point.emit(knowledge_point)
+
 	
 func earn_gold(earning):
 	"""Le earning est l'argent qu'on va gagner. Il faut y ajouter les bonus globaux"""

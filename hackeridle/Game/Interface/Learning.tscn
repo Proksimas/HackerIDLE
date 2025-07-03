@@ -1,12 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=10 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
 [ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="3_b22bg"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
 
@@ -60,6 +63,24 @@ show_percentage = false
 layout_mode = 2
 theme_override_constants/separation = 35
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer2/LevelContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_enkis")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer2/LevelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="KnowledgePerSecond" type="Label" parent="VBoxContainer2/LevelContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "10000 /s"
+
+[node name="BrainIcon" parent="VBoxContainer2/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
+layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="BrainAndCoContainer" type="VBoxContainer" parent="VBoxContainer2"]
 layout_mode = 2
