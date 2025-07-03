@@ -4,7 +4,6 @@ extends PassiveSkill
 
 func attach(_caster: Node, level) -> void:
 	super.attach(_caster, level)
-	print(data_bonus_1[ps_level - 1]/100)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
 					StatsManager.Stats.BRAIN_XP, 
 					StatsManager.ModifierType.PERCENTAGE, 

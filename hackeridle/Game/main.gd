@@ -49,14 +49,6 @@ func fill_player_stats():
 		var type : int = int(prop.type)
 		if (usage == PROPERTY_USAGE_SCRIPT_VARIABLE and type == TYPE_DICTIONARY ):
 			Player.set(p_name, {})
-			
-	HackingItemsDb.init_hacking_items_db()
-	HackingItemsDb.init_for_player()
-	LearningItemsDB.init_learning_items_db()
-	LearningItemsDB.init_for_player()
-	SourcesDb.init_sources_db()
-	Player._init()
-	StatsManager._init()
 	
 	#cas où l'on veut PAS tricher
 	if !OS.has_feature("editor"):
@@ -73,3 +65,11 @@ func fill_player_stats():
 		Player.skill_point = 42
 		Player.brain_xp = 0
 	
+	#Initialisation de toutes les DB et singletons
+	HackingItemsDb.init_hacking_items_db()
+	HackingItemsDb.init_for_player()
+	LearningItemsDB.init_learning_items_db()
+	LearningItemsDB.init_for_player()
+	SourcesDb.init_sources_db()
+	Player._init()
+	StatsManager._init()

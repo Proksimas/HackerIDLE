@@ -22,3 +22,4 @@ func _on_s_brain_clicked(_brain_xp, _knowledge):
 		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
 		Player.earn_knowledge_point(knowledge_point_to_gain)
 		Player.earn_brain_xp(brain_xp_to_gain)
+		tree.get_root().get_node("Main/Interface")._on_s_brain_clicked(brain_xp_to_gain, knowledge_point_to_gain)

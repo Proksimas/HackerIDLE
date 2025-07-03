@@ -62,12 +62,10 @@ func _check_level_up():
 func earn_knowledge_point(earning):
 	"""Le earning est la connaissance qu'on va gagner. Il faut y ajouter les bonus globaux"""	
 	earning = StatsManager.calcul_global_stat(StatsManager.Stats.KNOWLEDGE, earning)
-
 	knowledge_point += earning
 	knowledge_point = clamp(knowledge_point, 0, INF)
 	s_knowledge_to_earn.emit(earning)
 	s_earn_knowledge_point.emit(knowledge_point)
-
 	
 func earn_gold(earning):
 	"""Le earning est l'argent qu'on va gagner. Il faut y ajouter les bonus globaux"""
@@ -91,6 +89,14 @@ func level_up():
 	skill_point += 1
 	brain_level += 1
 	brain_xp_next =  get_brain_xp(brain_level - 1) 
+	#On ajuste la stat
+	var dict_to_remove = StatsManager.get_modifier_by_source_name(StatsManager.TargetModifier.BRAIN_CLICK, 
+					StatsManager.Stats.KNOWLEDGE, "birth")
+	StatsManager.remove_modifier(StatsManager.TargetModifier.BRAIN_CLICK, 
+					StatsManager.Stats.KNOWLEDGE, dict_to_remove)
+	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
+						StatsManager.Stats.KNOWLEDGE, 
+						StatsManager.ModifierType.BASE, Player.brain_level, "birth")
 	
 #endregion
 	

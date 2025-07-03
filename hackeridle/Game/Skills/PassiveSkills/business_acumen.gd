@@ -24,7 +24,6 @@ func detach(_caster: Node)-> void:
 func _on_s_earn_knowledge_point_to_learn(knowledge_point_to_learn):
 	"""on fait le calcul qu'on va mettre dan s la gold flat"""
 	var calcul = knowledge_point_to_learn * (data_bonus_1[ps_level - 1] /100)
-	#print(Player.gold)
 	Player.gold += calcul
 	if tree.get_root().has_node("Main/Interface"):
 		tree.get_root().get_node("Main/Interface").refresh_specially_resources()

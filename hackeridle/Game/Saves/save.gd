@@ -15,8 +15,6 @@ func _ready() -> void:
 func save_game():
 	var content = {}
 	for singleton in singleton_to_save:
-		#print(singleton)
-		#save_the_data(singleton._save_data())
 		content[singleton.name] = singleton._save_data()
 	
 	save_the_data(content)

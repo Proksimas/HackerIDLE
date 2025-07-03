@@ -30,7 +30,7 @@ func _init(new_game:bool = true) -> void:
 		brain_click_modifiers[stat] = []
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
-		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, 1, "birth")
+		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, Player.brain_level, "birth")
 
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
@@ -61,6 +61,7 @@ func remove_modifier(target_modifier:TargetModifier, stat_name: Stats, modifier_
 		var index = modifier_dict[stat_name].find(modifier_to_remove)
 		if index != -1:
 			modifier_dict[stat_name].remove_at(index)
+			
 			
 func get_modifier_by_source_name(target_modifier:TargetModifier, stat_name: Stats, source_name: String) -> Dictionary:
 	var modifier_dict = get_accurate_modifier(target_modifier)
