@@ -34,25 +34,37 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LevelContainer" type="VBoxContainer" parent="AllContainer"]
+[node name="Control" type="Control" parent="AllContainer"]
+z_index = 80
 layout_mode = 2
+size_flags_vertical = 3
 
-[node name="CurrentBrainLevel" type="Label" parent="AllContainer/LevelContainer"]
+[node name="LevelContainer" type="VBoxContainer" parent="AllContainer/Control"]
+z_index = 90
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 94.0
+grow_horizontal = 2
+
+[node name="CurrentBrainLevel" type="Label" parent="AllContainer/Control/LevelContainer"]
 unique_name_in_owner = true
+z_index = 50
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Level 1"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/LevelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer"]
+z_index = 50
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="AllContainer/LevelContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 35
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
 
-[node name="BrainXpBar" type="ProgressBar" parent="AllContainer/LevelContainer/HBoxContainer"]
+[node name="BrainXpBar" type="ProgressBar" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 25)
 layout_mode = 2
@@ -60,32 +72,36 @@ size_flags_horizontal = 3
 step = 1.0
 show_percentage = false
 
-[node name="VSeparator2" type="VSeparator" parent="AllContainer/LevelContainer/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 35
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
 
-[node name="HSeparator" type="HSeparator" parent="AllContainer/LevelContainer"]
+[node name="HSeparator" type="HSeparator" parent="AllContainer/Control/LevelContainer"]
+z_index = 50
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_enkis")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="AllContainer/LevelContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="AllContainer/Control/LevelContainer"]
+z_index = 50
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="KnowledgePerSecond" type="Label" parent="AllContainer/LevelContainer/HBoxContainer2"]
+[node name="KnowledgePerSecond" type="Label" parent="AllContainer/Control/LevelContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "10000 /s"
 
-[node name="BrainIcon" parent="AllContainer/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
+[node name="BrainIcon" parent="AllContainer/Control/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
 layout_mode = 2
 size_flags_horizontal = 4
 
 [node name="BrainAndCoContainer" type="VBoxContainer" parent="AllContainer"]
+z_index = 90
 layout_mode = 2
 size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="AllContainer/BrainAndCoContainer"]
 layout_mode = 2
@@ -168,8 +184,9 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
 [node name="PassiveItemsTextures" type="Control" parent="."]
 unique_name_in_owner = true
+z_index = 50
 layout_mode = 1
-anchor_top = 0.2
+anchor_top = 0.00833333
 anchor_right = 1.0
 anchor_bottom = 0.8
 grow_horizontal = 2

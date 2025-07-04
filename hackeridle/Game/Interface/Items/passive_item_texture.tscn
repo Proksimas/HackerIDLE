@@ -5,7 +5,7 @@
 
 [node name="PassiveItemTexture" type="AspectRatioContainer"]
 modulate = Color(0.733005, 0.733005, 0.733005, 0.556863)
-z_index = 10
+z_index = 100
 anchors_preset = -1
 anchor_right = 0.0925926
 anchor_bottom = 0.0520833

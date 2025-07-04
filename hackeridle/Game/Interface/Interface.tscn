@@ -1,8 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
-[ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_i3dr1"]
-[ext_resource type="FontFile" uid="uid://cbio55874a1qe" path="res://Game/Themes/Fonts/DefaultForGame.tres" id="2_4aqlt"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_4e0ac"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
 [ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
@@ -24,25 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
-
-[sub_resource type="FontVariation" id="FontVariation_j3kwv"]
-base_font = ExtResource("1_i3dr1")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_080ad"]
-
-[sub_resource type="Theme" id="Theme_awbs3"]
-default_font = ExtResource("2_4aqlt")
-default_font_size = 18
-Label/colors/font_color = Color(1, 1, 1, 1)
-Label/colors/font_outline_color = Color(0, 0, 0, 1)
-Label/colors/font_shadow_color = Color(0, 0, 0, 0)
-Label/constants/line_spacing = 3
-Label/constants/outline_size = 0
-Label/constants/shadow_offset_x = 1
-Label/constants/shadow_offset_y = 1
-Label/constants/shadow_outline_size = 1
-Label/fonts/font = SubResource("FontVariation_j3kwv")
-Label/styles/normal = SubResource("StyleBoxEmpty_080ad")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
@@ -75,10 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-theme = SubResource("Theme_awbs3")
 script = ExtResource("1_81dom")
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -288,7 +264,6 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
