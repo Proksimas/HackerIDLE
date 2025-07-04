@@ -47,9 +47,8 @@ func item_moving(_pos: Vector2, _size: Vector2) -> void:
 	var min_x = _pos.x
 	var max_x = _size.x -15 # Prendre en compte la largeur de l'objet
 	var random_x = randi_range(min_x, max_x)
-	print("self_position: %s" % self.position)
-	print("self_global_position: %s" % self.global_position)
-	var start_y = _pos.y
+
+	var start_y = _pos.y - 15
 
 	self.global_position = Vector2(random_x, start_y)
 
@@ -63,8 +62,14 @@ func item_moving(_pos: Vector2, _size: Vector2) -> void:
 	# Ici, nous voulons que le bas de l'objet atteigne _pos.y + _size.y
 	var end_y = _pos.y + _size.y # Ajuster pour que le bas de l'objet soit à la limite inférieure
 	var end_pos = Vector2(random_x, end_y)
+	
+	get_tree().create_timer(time_to_move - 2).timeout.connect(_on_timeout)
+	var tween2: Tween = get_tree().create_tween()
+	await tween2.tween_property(self, "modulate", Color(0.733, 0.733, 0.733, 0.557), 
+									2).from(Color(0.733, 0.733, 0.733, 0))
+	
 
-	# Tween propre
+
 	var tween: Tween = get_tree().create_tween()
 	tween.finished.connect(_on_tween_finished)
 	tween.tween_property(self, "global_position", end_pos, time_to_move).from(self.global_position)
@@ -72,3 +77,8 @@ func item_moving(_pos: Vector2, _size: Vector2) -> void:
 	
 func _on_tween_finished():
 	self.queue_free()
+
+func _on_timeout():
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(self, "modulate", Color(0.733, 0.733, 0.733, 0), 2).from(self.modulate)
+	

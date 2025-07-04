@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Game/Interface/Items/passive_item_texture.gd" id="2_4nfmd"]
 
 [node name="PassiveItemTexture" type="AspectRatioContainer"]
-modulate = Color(0.733005, 0.733005, 0.733005, 0.556863)
+modulate = Color(0.733333, 0.733333, 0.733333, 0.556863)
 z_index = 100
 anchors_preset = -1
 anchor_right = 0.0925926

@@ -255,6 +255,8 @@ layout_mode = 2
 metadata/_tab_index = 4
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+z_index = 90
+z_as_relative = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.28

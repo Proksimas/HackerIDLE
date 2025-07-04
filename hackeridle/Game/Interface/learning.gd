@@ -67,12 +67,6 @@ func get_all_passives_knowledge():
 	return value
 
 func create_passive_item_texture():
-
-	print("DEBUG: center_container global_position: ", all_container.global_position)
-	print("DEBUG: center_container size: ", all_container.size)
-	print("DEBUG: : position ", all_container.position)
-
-
 	for i in range(1):
 		var new_item = PASSIVE_ITEM_TEXTURE.instantiate()
 		passive_items_textures.add_child(new_item)
