@@ -10,6 +10,7 @@ extends Control
 @onready var passive_items_textures: Control = %PassiveItemsTextures
 @onready var all_container: VBoxContainer = $AllContainer
 
+
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
@@ -76,11 +77,9 @@ func create_passive_item_texture():
 
 func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()
-	get_tree().get_root().add_child(click_particle)
+	clicker_arc.add_child(click_particle)
 	click_particle.global_position = get_global_mouse_position()
 	Player.brain_clicked()
-
-	
 	button_cliked = true
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale
 	
