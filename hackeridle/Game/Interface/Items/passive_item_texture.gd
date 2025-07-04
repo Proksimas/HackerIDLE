@@ -9,7 +9,6 @@ var rotation_speed = 0.0  # radians par seconde
 var time_to_move:int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	item_moving()
 	# 1 chance sur 2 de commencer à tourner
 	if randi() % 2 == 0:
 		is_rotating = true
@@ -43,22 +42,32 @@ func _process(delta: float) -> void:
 			rotation += rotation_speed * delta
 	pass
 
+func item_moving(_pos: Vector2, _size: Vector2) -> void:
+	# Position X aléatoire dans la zone définie par _pos et _size
+	var min_x = _pos.x
+	var max_x = _size.x -15 # Prendre en compte la largeur de l'objet
+	var random_x = randi_range(min_x, max_x)
+	print("self_position: %s" % self.position)
+	print("self_global_position: %s" % self.global_position)
+	var start_y = _pos.y
 
-func item_moving():
-	#on choisit aléatoirement la position
-	var screen_size = DisplayServer.window_get_size()
-	var random_x = randi_range(15, screen_size.x - 15)
-	self.global_position = Vector2(random_x, 0)
-	var random_rot = randi_range(-40,40)
-	self.set_rotation_degrees(random_rot)
-	
-	time_to_move = randi_range(12,20)
+	self.global_position = Vector2(random_x, start_y)
 
-	var tween:Tween = get_tree().create_tween()
+	# Rotation aléatoire
+	self.rotation_degrees = randf_range(-40.0, 40.0)
+
+	# Durée aléatoire pour la chute
+	var time_to_move = randf_range(12.0, 20.0)
+
+	# Position finale Y = en bas de la zone définie par _pos et _size
+	# Ici, nous voulons que le bas de l'objet atteigne _pos.y + _size.y
+	var end_y = _pos.y + _size.y # Ajuster pour que le bas de l'objet soit à la limite inférieure
+	var end_pos = Vector2(random_x, end_y)
+
+	# Tween propre
+	var tween: Tween = get_tree().create_tween()
 	tween.finished.connect(_on_tween_finished)
-	tween.tween_property(self, "global_position", 
-						Vector2(random_x,screen_size.y), time_to_move).from(self.global_position)
-	
+	tween.tween_property(self, "global_position", end_pos, time_to_move).from(self.global_position)
 	
 	
 func _on_tween_finished():

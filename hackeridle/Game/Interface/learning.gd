@@ -7,12 +7,14 @@ extends Control
 @onready var current_brain_level: Label = %CurrentBrainLevel
 @onready var active_skills: FlowContainer = %ActiveSkills
 @onready var knowledge_per_second: Label = %KnowledgePerSecond
-
+@onready var passive_items_textures: Control = %PassiveItemsTextures
+@onready var all_container: VBoxContainer = $AllContainer
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
+const PASSIVE_ITEM_TEXTURE = preload("res://Game/Interface/Items/passive_item_texture.tscn")
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
@@ -24,11 +26,13 @@ func _ready() -> void:
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	current_brain_level.text = tr("$Level") + " 1"
 	
+	
 
 func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
+	create_passive_item_texture()
 	
 func add_skill_activation(skill_to_associated:ActiveSkill):
 	var skill_activation = SKILL_ACTIVATION.instantiate()
@@ -61,6 +65,20 @@ func get_all_passives_knowledge():
 	for passive_clicker:PassifLearningItem in passif_clickers.get_children():
 		value += passive_clicker.gain_learning
 	return value
+
+func create_passive_item_texture():
+
+	print("DEBUG: center_container global_position: ", all_container.global_position)
+	print("DEBUG: center_container size: ", all_container.size)
+	print("DEBUG: : position ", all_container.position)
+
+
+	for i in range(1):
+		var new_item = PASSIVE_ITEM_TEXTURE.instantiate()
+		passive_items_textures.add_child(new_item)
+		new_item.item_moving(all_container.global_position, all_container.size)
+
+			
 
 func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()

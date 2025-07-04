@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=11 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
@@ -6,6 +6,7 @@
 [ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="3_b22bg"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
+[ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
@@ -25,7 +26,7 @@ script = ExtResource("1_vnwnq")
 metadata/_tab_index = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="."]
+[node name="AllContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -33,25 +34,25 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="LevelContainer" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="LevelContainer" type="VBoxContainer" parent="AllContainer"]
 layout_mode = 2
 
-[node name="CurrentBrainLevel" type="Label" parent="VBoxContainer2/LevelContainer"]
+[node name="CurrentBrainLevel" type="Label" parent="AllContainer/LevelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Level 1"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/LevelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/LevelContainer"]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="AllContainer/LevelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 35
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
 
-[node name="BrainXpBar" type="ProgressBar" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+[node name="BrainXpBar" type="ProgressBar" parent="AllContainer/LevelContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 25)
 layout_mode = 2
@@ -59,55 +60,56 @@ size_flags_horizontal = 3
 step = 1.0
 show_percentage = false
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer2/LevelContainer/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="AllContainer/LevelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 35
 theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer2/LevelContainer"]
+[node name="HSeparator" type="HSeparator" parent="AllContainer/LevelContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_enkis")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer2/LevelContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="AllContainer/LevelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="KnowledgePerSecond" type="Label" parent="VBoxContainer2/LevelContainer/HBoxContainer2"]
+[node name="KnowledgePerSecond" type="Label" parent="AllContainer/LevelContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "10000 /s"
 
-[node name="BrainIcon" parent="VBoxContainer2/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
+[node name="BrainIcon" parent="AllContainer/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BrainAndCoContainer" type="VBoxContainer" parent="VBoxContainer2"]
+[node name="BrainAndCoContainer" type="VBoxContainer" parent="AllContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer2/BrainAndCoContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="AllContainer/BrainAndCoContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickerARC" type="AspectRatioContainer" parent="VBoxContainer2/BrainAndCoContainer/CenterContainer"]
+[node name="ClickerARC" type="AspectRatioContainer" parent="AllContainer/BrainAndCoContainer/CenterContainer"]
 unique_name_in_owner = true
+z_index = 90
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickerButton" type="TextureButton" parent="VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC"]
+[node name="ClickerButton" type="TextureButton" parent="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC"]
 layout_mode = 2
 texture_normal = ExtResource("2_b7jv8")
 texture_click_mask = ExtResource("3_b22bg")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer2/BrainAndCoContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/BrainAndCoContainer"]
 layout_mode = 2
 
-[node name="PassifClickers" type="HFlowContainer" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
+[node name="PassifClickers" type="HFlowContainer" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
@@ -115,62 +117,65 @@ size_flags_horizontal = 3
 theme_override_constants/h_separation = 10
 alignment = 1
 
-[node name="PassifLearningItem" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem2" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem2" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem3" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem3" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem4" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem4" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem5" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem5" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem6" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem6" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem7" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem7" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem9" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem9" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="PassifLearningItem8" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
+[node name="PassifLearningItem8" parent="AllContainer/BrainAndCoContainer/HBoxContainer/PassifClickers" instance=ExtResource("4_6oyge")]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
-[node name="ActiveSkills" type="FlowContainer" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
+[node name="ActiveSkills" type="FlowContainer" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 vertical = true
 
-[node name="SkillActivation" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
+[node name="SkillActivation" parent="AllContainer/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
 layout_mode = 2
 
-[node name="SkillActivation2" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
+[node name="SkillActivation2" parent="AllContainer/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
 layout_mode = 2
 
-[node name="SkillActivation3" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
+[node name="SkillActivation3" parent="AllContainer/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
 layout_mode = 2
 
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer2/BrainAndCoContainer/HBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
 [node name="PassiveItemsTextures" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchor_top = 0.2
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.8
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("7_nxp20")
+metadata/_edit_use_anchors_ = true
 
-[connection signal="pressed" from="VBoxContainer2/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]
+[connection signal="pressed" from="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]

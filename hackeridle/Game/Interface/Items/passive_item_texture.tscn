@@ -4,11 +4,14 @@
 [ext_resource type="Script" path="res://Game/Interface/Items/passive_item_texture.gd" id="2_4nfmd"]
 
 [node name="PassiveItemTexture" type="AspectRatioContainer"]
+modulate = Color(0.733005, 0.733005, 0.733005, 0.556863)
+z_index = 10
 anchors_preset = -1
 anchor_right = 0.0925926
 anchor_bottom = 0.0520833
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("2_4nfmd")
 metadata/_edit_use_anchors_ = true
 
@@ -16,6 +19,7 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("1_6mjuu")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
