@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=12 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
@@ -13,6 +13,8 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e22jq"]
 
 [node name="Learning" type="Control"]
 layout_mode = 3
@@ -38,9 +40,11 @@ grow_vertical = 2
 z_index = 80
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
 
 [node name="LevelContainer" type="VBoxContainer" parent="AllContainer/Control"]
 z_index = 90
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -127,6 +131,7 @@ layout_mode = 2
 
 [node name="PassifClickers" type="HFlowContainer" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -166,7 +171,9 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 
 [node name="ActiveSkills" type="FlowContainer" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+size_flags_horizontal = 6
 vertical = true
 
 [node name="SkillActivation" parent="AllContainer/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]
@@ -181,6 +188,10 @@ layout_mode = 2
 [node name="VSeparator2" type="VSeparator" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
+
+[node name="HSeparator" type="HSeparator" parent="AllContainer/BrainAndCoContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_e22jq")
 
 [node name="PassiveItemsTextures" type="Control" parent="."]
 unique_name_in_owner = true
