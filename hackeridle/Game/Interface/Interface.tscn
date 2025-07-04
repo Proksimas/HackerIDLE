@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=27 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
+[ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_4e0ac"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
 [ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
@@ -54,6 +55,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_lxm1j")
 script = ExtResource("1_81dom")
 
 [node name="Panel" type="Panel" parent="."]

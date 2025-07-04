@@ -1,15 +1,15 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://pa6h7asj8qd8"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://c0cer8qg8niwg"]
 
-[ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_ytc4t"]
-[ext_resource type="FontFile" uid="uid://cbio55874a1qe" path="res://Game/Themes/Fonts/DefaultForGame.tres" id="2_fvrj7"]
+[ext_resource type="FontFile" uid="uid://bpvhin35iet14" path="res://Game/Themes/Fonts/Orbitron/Orbitron-VariableFont_wght.ttf" id="1_6caqo"]
+[ext_resource type="FontFile" uid="uid://cbio55874a1qe" path="res://Game/Themes/Fonts/DefaultForGame.tres" id="2_ldbdc"]
 
 [sub_resource type="FontVariation" id="FontVariation_j3kwv"]
-base_font = ExtResource("1_ytc4t")
+base_font = ExtResource("1_6caqo")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_080ad"]
 
 [resource]
-default_font = ExtResource("2_fvrj7")
+default_font = ExtResource("2_ldbdc")
 default_font_size = 18
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
