@@ -15,12 +15,13 @@ extends Control
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
-const PASSIVE_ITEM_TEXTURE = preload("res://Game/Interface/Items/passive_item_texture.tscn")
+
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
 var clicker_arc_original_size
 var passives_knowledge:float = 0
+
 func _ready() -> void:
 	SkillsManager.as_learned.connect(add_skill_activation)
 	_clear()
@@ -66,12 +67,6 @@ func get_all_passives_knowledge():
 	for passive_clicker:PassifLearningItem in passif_clickers.get_children():
 		value += passive_clicker.gain_learning
 	return value
-
-func create_passive_item_texture():
-	for i in range(1):
-		var new_item = PASSIVE_ITEM_TEXTURE.instantiate()
-		passive_items_textures.add_child(new_item)
-		new_item.item_moving(all_container.global_position, all_container.size)
 
 			
 
