@@ -1,6 +1,5 @@
-[gd_scene load_steps=27 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
 
-[ext_resource type="Theme" uid="uid://pa6h7asj8qd8" path="res://Game/Themes/Fonts/MainTheme.tres" id="1_8ajt3"]
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_4e0ac"]
 [ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
@@ -55,10 +54,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-theme = ExtResource("1_8ajt3")
 script = ExtResource("1_81dom")
-metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -259,6 +255,8 @@ layout_mode = 2
 metadata/_tab_index = 4
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+z_index = 90
+z_as_relative = false
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.28
@@ -268,7 +266,6 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
