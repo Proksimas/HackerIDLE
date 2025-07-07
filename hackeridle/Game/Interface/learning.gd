@@ -33,8 +33,7 @@ func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
-	
-	
+
 func add_skill_activation(skill_to_associated:ActiveSkill):
 	var skill_activation = SKILL_ACTIVATION.instantiate()
 	active_skills.add_child(skill_activation)

@@ -38,13 +38,14 @@ signal s_earn_brain_xp(number)
 signal s_earn_sp(number)
 signal s_earn_brain_level(number)
 signal s_brain_clicked(brain_xp, knowledge)
+
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
 	
 func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
-	
+	brain_xp_next = get_brain_xp(brain_level -1)
 	
 func _init_skills_owned():
 	skills_owned = {"active" : [],

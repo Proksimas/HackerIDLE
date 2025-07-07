@@ -71,6 +71,7 @@ func player_load_data(content: Dictionary) -> void:
 		
 	#Je force le brain_xp pour actualiser la bar de prorgession
 	Player.brain_xp = content["brain_xp"]
+	Player.brain_xp_next = content["brain_xp_next"]
 
 func stats_manager_load_data(content: Dictionary) -> void:
 	for prop in StatsManager.get_property_list():
