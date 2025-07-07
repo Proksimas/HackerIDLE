@@ -21,6 +21,8 @@ func spawn_item(item_name, texture):
 		item_spawned[item_name] += 1
 	else:
 		item_spawned[item_name] = 1
+		
+	item_spawn_timer.wait_time = randf_range(0.5, 1.5)
 	
 func _on_item_spawn_timer_timeout() -> void:
 	var items_to_spawn = Player.learning_item_bought.keys()
@@ -42,17 +44,12 @@ func _on_item_spawn_timer_timeout() -> void:
 			"cumulative_weight": total_weight
 		})
 
-		# 🔍 Impression pour vérification
-		print("Item: %s | Level: %d | Weight: %d | Cumul: %d" % [
-			item_name, level, weight, total_weight
-		])
-
 	if total_weight == 0:
 		return
 
 	# 🎯 Tirage aléatoire entre 0 et total_weight - 1
 	var random_pick = randi() % int(total_weight)
-	print("Random pick: ", random_pick)
+
 
 	# 📦 Sélection de l’item selon le poids cumulé
 	for entry in cumulative_weights:
@@ -61,7 +58,6 @@ func _on_item_spawn_timer_timeout() -> void:
 			var item_level = Player.learning_item_bought[item_name]["level"]
 			var item_texture = Player.learning_item_bought[item_name]["texture_path"]
 
-			print("🎯 Selected: %s (Level: %d)" % [item_name, item_level])
 
 			# logique de spawn
 			if item_spawned.has(item_name) and item_level > item_spawned[item_name]:
