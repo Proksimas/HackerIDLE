@@ -74,12 +74,12 @@ func _on_earn_brain_level(point):
 var _recent_clicks: Array = []  # Stocke des paires [timestamp, valeur]
 var _window_ms := 1100  # taille de la fenêtre mobile
 var _sum_earning:float = 0
-func _on_s_brain_clicked(brain_xp, knowledge):
+func _on_s_brain_clicked(_brain_xp, knowledge):
 	"""chaque Connaissance acquise via le click du cerveau.
 	Nous additionnons avec le gain par seconde des items passifs"""
 	var now:= Time.get_ticks_msec()
 	_recent_clicks.append([now, knowledge])
-	_recent_clicks = _recent_clicks.filter(await func(e): return now - e[0] <= _window_ms)
+	_recent_clicks = _recent_clicks.filter(func(e): return now - e[0] <= _window_ms)
 
 	_sum_earning = 0
 	for e in _recent_clicks:

@@ -209,5 +209,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ItemSpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+autostart = true
 
 [connection signal="pressed" from="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]
+[connection signal="timeout" from="ItemSpawnTimer" to="PassiveItemsTextures" method="_on_item_spawn_timer_timeout"]

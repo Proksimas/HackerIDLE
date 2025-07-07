@@ -29,12 +29,11 @@ func _ready() -> void:
 	current_brain_level.text = tr("$Level") + " 1"
 	
 	
-
 func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
-	create_passive_item_texture()
+	
 	
 func add_skill_activation(skill_to_associated:ActiveSkill):
 	var skill_activation = SKILL_ACTIVATION.instantiate()

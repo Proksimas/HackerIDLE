@@ -182,7 +182,7 @@ func upgrading_source():
 			break
 			
 		else:  # la source est upgrade. Voir les effetcs et le level
-#			Player.sources_item_bought[so]
+
 			source_upgraded(source_associated)
 
 

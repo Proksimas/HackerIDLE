@@ -86,7 +86,7 @@ func get_skill_cara(skill_name: String):
 	return list
 
 func get_skill_translation(player_skill, type) -> String:
-	var translation: String
+	var _translation: String
 	if type == "as_name":
 		var level = player_skill["as_level"]
 		if level >= len(player_skill["cost"]):
@@ -116,7 +116,7 @@ func get_skill_translation(player_skill, type) -> String:
 					"data_bonus_1": data_bonus_1,
 					"data_bonus_2": data_bonus_2
 					})
-		return ""
+
 	
 	
 	
