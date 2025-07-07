@@ -34,7 +34,7 @@ func _on_item_spawn_timer_timeout() -> void:
 
 	for item_name in items_to_spawn:
 		var level = Player.learning_item_bought[item_name]["level"]
-		var weight = pow(level, 1.3)  # pondération quadratique pour favoriser les plus hauts niveaux
+		var weight = pow(level, 1)  # pondération quadratique pour favoriser les plus hauts niveaux
 		if weight <= 0:
 			continue
 
@@ -43,12 +43,16 @@ func _on_item_spawn_timer_timeout() -> void:
 			"item_name": item_name,
 			"cumulative_weight": total_weight
 		})
-
+		print("Item: %s | Level: %d | Weight: %d | Cumul: %d" % [
+			item_name, level, weight, total_weight
+		])
 	if total_weight == 0:
 		return
 
 	# 🎯 Tirage aléatoire entre 0 et total_weight - 1
 	var random_pick = randi() % int(total_weight)
+
+	
 
 
 	# 📦 Sélection de l’item selon le poids cumulé
