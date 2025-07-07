@@ -17,6 +17,7 @@ class_name HackItemButton
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
 @onready var source_button: Button = %SourceButton
 
+const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 
 var x_buy
 var current_hack_item_cara = {}
@@ -205,4 +206,15 @@ func _draw() -> void:
 
 func _on_hack_item_texture_pressed() -> void:
 	lauch_wait_time()
+	pass # Replace with function body.
+
+
+func _on_buy_item_button_pressed() -> void:
+	"""le signal est aussi récupéré ailleurs"""
+	var particle = CLICK_BRAIN_PARTICLES.instantiate()
+	particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
+	self.add_child(particle)
+	
+	
+	
 	pass # Replace with function body.
