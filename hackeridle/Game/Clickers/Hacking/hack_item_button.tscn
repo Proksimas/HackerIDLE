@@ -148,6 +148,7 @@ text = "Source"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,3 +189,4 @@ layout_mode = 2
 size_flags_horizontal = 4
 
 [connection signal="pressed" from="HackItemInfo/AspectRatioContainer/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]
+[connection signal="pressed" from="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
