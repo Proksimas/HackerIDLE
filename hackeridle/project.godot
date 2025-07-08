@@ -26,6 +26,7 @@ SourcesDb="*res://Game/DB/sources_db.tscn"
 SkillsManager="*res://Game/Skills/skills_manager.tscn"
 StatsManager="*res://Game/OthersSingleton/stats_manager.tscn"
 Save="*res://Game/Saves/Save.tscn"
+TimeManager="*res://Game/OthersSingleton/time_manager.gd"
 
 [display]
 
