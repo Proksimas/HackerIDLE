@@ -10,6 +10,8 @@ extends Node
 var time_scale   : float
 var game_seconds : float = 0.0
 
+signal s_date(array)
+
 func _ready():
 	var real_seconds    = session_minutes * 60.0
 	var game_seconds_full = total_years * 365 * 86400.0
@@ -38,7 +40,7 @@ func _update_date_display():
 	var date_text = "%04d-%02d-%02d %02d:%02d" % [
 		year, month, day, hour, minute
 	]
-	print(date_text)
+	s_date.emit([year, month, day, hour, minute])
 
 # conversion d’un jour de l’année en mois/jour
 func _day_to_month_day(doy:int) -> Array:
@@ -56,3 +58,7 @@ func end_session():
 	Il faut check si la force de hacking est suffisante, et voir pour le rebirth"""
 	
 	pass
+	
+func _save_data():
+	var all_vars = Global.get_serialisable_vars(self)
+	return all_vars

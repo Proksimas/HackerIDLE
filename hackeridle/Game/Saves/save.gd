@@ -5,7 +5,7 @@ var user_path = "user://"
 var editor_path = "res://Game/Saves/Data/"
 var save_file_name = "save.save"
 # Called when the node enters the scene tree for the first time.
-var singleton_to_save = [Player, StatsManager]
+var singleton_to_save = [Player, StatsManager, TimeManager]
 
 func _ready() -> void:
 	var nodes_savable = get_tree().get_nodes_in_group("savable")
@@ -82,6 +82,16 @@ func stats_manager_load_data(content: Dictionary) -> void:
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
 			StatsManager.set(p_name, content[p_name])
+			
+func time_manager_load_data(content: Dictionary) -> void:
+	for prop in TimeManager.get_property_list():
+		var p_name  : String = prop.name
+		var usage : int    = int(prop.usage)
+
+		# 2.  On ne touche qu’aux variables déclarées dans le script,
+		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
+		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
+			TimeManager.set(p_name, content[p_name])
 	
 func get_save_path():
 	"""renvoie le path user ou editeur"""

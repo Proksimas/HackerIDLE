@@ -1,7 +1,5 @@
 extends Node
 
-
-
 var knowledge_point: float
 var gold: float
 var brain_xp: float
