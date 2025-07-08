@@ -2,13 +2,13 @@
 extends Node
 
 # paramètres exportés pour ajuster en éditeur
-@export var total_years        : float = 62.0
-@export var session_minutes   : float = 52  # remplacez 30 par votre x
-@export var start_year        : int   = 1980      # année de départ dans la partie
+var total_years        : int = 62.0
+var session_minutes   : int = 52  # remplacez 30 par votre x
+var start_year        : int   = 1980      # année de départ dans la partie
 
 # valeurs calculées
-var time_scale   : float
-var game_seconds : float = 0.0
+var time_scale   : int
+var game_seconds : int = 0.0
 
 signal s_date(array)
 
@@ -19,9 +19,10 @@ func _ready():
 
 func _process(delta):
 	# avancer le temps de jeu
-	game_seconds += delta * time_scale
+	game_seconds += int(delta * time_scale)
 	# mettre à jour l’affichage
 	_update_date_display()
+
 
 func _update_date_display():
 	var days       = int(game_seconds / 86400)        # nb de jours écoulés

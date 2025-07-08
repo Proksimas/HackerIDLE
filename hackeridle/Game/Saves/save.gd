@@ -5,7 +5,6 @@ var user_path = "user://"
 var editor_path = "res://Game/Saves/Data/"
 var save_file_name = "save.save"
 # Called when the node enters the scene tree for the first time.
-var singleton_to_save = [Player, StatsManager, TimeManager]
 
 func _ready() -> void:
 	var nodes_savable = get_tree().get_nodes_in_group("savable")
@@ -14,9 +13,10 @@ func _ready() -> void:
 
 func save_game():
 	var content = {}
-	for singleton in singleton_to_save:
-		content[singleton.name] = singleton._save_data()
-	
+
+	content[Player.name] = Player._save_data()
+	content[StatsManager.name] = StatsManager._save_data()
+	content[TimeManager.name] = TimeManager._save_data()
 	save_the_data(content)
 	
 func save_the_data(content):
@@ -40,6 +40,7 @@ func load_data():
 	
 	player_load_data(data["Player"])
 	stats_manager_load_data(data["StatsManager"])
+	time_manager_load_data(data["TimeManager"])
 	#CHargement au niveau de l'interface
 	get_tree().get_root().get_node("Main/Interface")._load_data(data["Player"])
 	#Maintenant des Stats
@@ -57,7 +58,7 @@ func player_load_data(content: Dictionary) -> void:
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
 			Player.set(p_name, content[p_name])
-	print("Chargement:")
+	print("Chargement du joueur:")
 	print(content)
 	#Il faut reassocier les compétences
 	var skills_owned = content["skills_owned"]
@@ -74,6 +75,8 @@ func player_load_data(content: Dictionary) -> void:
 	Player.brain_xp_next = content["brain_xp_next"]
 
 func stats_manager_load_data(content: Dictionary) -> void:
+	print("Chargement des stats:")
+	print(content)
 	for prop in StatsManager.get_property_list():
 		var p_name  : String = prop.name
 		var usage : int    = int(prop.usage)
@@ -84,6 +87,8 @@ func stats_manager_load_data(content: Dictionary) -> void:
 			StatsManager.set(p_name, content[p_name])
 			
 func time_manager_load_data(content: Dictionary) -> void:
+	print("Chargement du temps:")
+	print(content)
 	for prop in TimeManager.get_property_list():
 		var p_name  : String = prop.name
 		var usage : int    = int(prop.usage)
