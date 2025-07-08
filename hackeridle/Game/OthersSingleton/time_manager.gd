@@ -2,8 +2,8 @@
 extends Node
 
 # paramètres exportés pour ajuster en éditeur
-var total_years        : int = 62.0
-var session_minutes   : int = 52  # remplacez 30 par votre x
+var total_years        : int = 62
+var session_minutes   : float = 52  # remplacez 30 par votre x
 var start_year        : int   = 1980      # année de départ dans la partie
 
 # valeurs calculées
@@ -22,6 +22,9 @@ func _process(delta):
 	game_seconds += int(delta * time_scale)
 	# mettre à jour l’affichage
 	_update_date_display()
+	if game_seconds >= total_years * 365 * 86400.0:
+		end_session()
+		
 
 
 func _update_date_display():
@@ -57,7 +60,7 @@ func _day_to_month_day(doy:int) -> Array:
 func end_session():
 	"""on a atteind la fin de la session. Envoyons l'écran de fin de sessions.
 	Il faut check si la force de hacking est suffisante, et voir pour le rebirth"""
-	
+	print("SESSION TERMINEE")
 	pass
 	
 func _save_data():
