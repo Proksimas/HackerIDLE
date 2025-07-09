@@ -20,17 +20,18 @@ class_name HackItemButton
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
-
+const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
 var x_buy
 var current_hack_item_cara = {}
 var progress_activated: bool = false
 var time_process:float
 var first_cost = INF
 var quantity_to_buy: int
-
+var file_content: Array
 var source_associated: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hack_item_progress_bar.value = 0
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -76,6 +77,11 @@ func set_refresh(item_cara: Dictionary):
 	if item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
+	
+	#Mise à jour de l'ui de code
+	file_content = Global.load_txt(HACKING_DIALOG_PATH + item_cara["item_name"] + ".txt")
+	var content =[file_content[0], current_hack_item_cara["delay"]]
+	hack_item_code_edit.edit_text(true, content)
 	
 	pass
 	

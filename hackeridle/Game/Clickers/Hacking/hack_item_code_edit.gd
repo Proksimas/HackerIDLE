@@ -3,6 +3,27 @@ extends CodeEdit
 func _ready() -> void:
 	python()
 
+
+
+func edit_text(is_empty: bool, content):
+	var text: String
+	print(content)
+	if is_empty:
+		var first_line: String = content[0]
+		first_line = first_line.lstrip("hack_name:")
+		first_line = first_line.rstrip(')')
+		var hack_duration: int = content[1]
+		text = "if __name__ == '__main__':\n\t"
+		text += "hack_duration = %s s\n\t%s, hack_duration" % [str(hack_duration), first_line]
+		self.text = text
+
+	pass
+
+
+
+
+
+
 func bash():
 	var highlighter := CodeHighlighter.new()
 
@@ -51,7 +72,7 @@ func bash():
 		"'*'": Color("#FFFF66")
 	}
 	highlighter.function_color = Color("#4EC9B0")
-	
+
 	# Appliquer
 	syntax_highlighter = highlighter
 
@@ -117,7 +138,7 @@ func python():
 	# 6. Chaînes de caractères
 	highlighter.member_keyword_colors["\"*\""] = Color("#FFFF66")
 	highlighter.member_keyword_colors["'*'"] = Color("#FFFF66")
-	
+
 	highlighter.function_color = Color("#569CD6")
 
 	# Appliquer au CodeEdit

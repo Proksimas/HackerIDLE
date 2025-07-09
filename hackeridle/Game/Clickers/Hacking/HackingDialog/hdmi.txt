@@ -1,0 +1,35 @@
+hack_name:hack_granny_tv(TV_IP)
+import os
+import socket
+import hdmi
+import grandma_protection_bypass as gpb
+
+TV_IP = "192.168.0.42"
+PORT = 1337
+
+def spoof_hdmi_handshake(ip):
+    packet = hdmi.generate_handshake_packet(device="PS5_Pro_Max")
+    hdmi.send_packet(ip, packet)
+
+def override_remote_control():
+    os.system("irsend SEND_START KEY_VOLUMEUP")
+    os.system("irsend SEND_STOP KEY_VOLUMEUP")
+    return True
+
+def inject_signal_override(ip):
+    payload = open("cyberflix_2049.signal", "rb").read()
+    hdmi.inject_stream(ip, payload, codec="granny-proof")
+
+def hack_granny_tv(ip):
+    if not gpb.bypass_grandma_lock():
+        raise PermissionError("Access blocked: too much knitting detected.")
+    
+    spoof_hdmi_handshake(ip)
+    override_remote_control()
+    inject_signal_override(ip)
+
+Hack successful ! Grandma unknowingly watches Twitch
+
+if __name__ == "__main__":
+    hack_granny_tv(TV_IP)
+    hack_duration = {hack_delay} seconds
