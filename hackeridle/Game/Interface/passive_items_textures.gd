@@ -43,17 +43,12 @@ func _on_item_spawn_timer_timeout() -> void:
 			"item_name": item_name,
 			"cumulative_weight": total_weight
 		})
-		print("Item: %s | Level: %d | Weight: %d | Cumul: %d" % [
-			item_name, level, weight, total_weight
-		])
+
 	if total_weight == 0:
 		return
 
 	# 🎯 Tirage aléatoire entre 0 et total_weight - 1
 	var random_pick = randi() % int(total_weight)
-
-	
-
 
 	# 📦 Sélection de l’item selon le poids cumulé
 	for entry in cumulative_weights:
