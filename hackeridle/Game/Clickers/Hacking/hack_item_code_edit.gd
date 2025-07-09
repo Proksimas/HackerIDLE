@@ -1,7 +1,7 @@
 extends CodeEdit
 
 func _ready() -> void:
-	bash()
+	python()
 
 func bash():
 	var highlighter := CodeHighlighter.new()

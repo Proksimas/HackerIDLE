@@ -137,18 +137,23 @@ layout_mode = 2
 text = "LOADING"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
+size_flags_vertical = 4
+alignment = 2
 
 [node name="GoldGain" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "X"
+size_flags_horizontal = 8
 
 [node name="GoldIcon" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="HackItemCD" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer"]
@@ -174,6 +179,7 @@ caret_move_on_right_click = false
 caret_multiple = false
 use_default_word_separators = false
 draw_tabs = true
+gutters_draw_line_numbers = true
 indent_size = 8
 script = ExtResource("4_dn8le")
 
@@ -196,8 +202,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -213,14 +221,18 @@ text = "x 1"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
 layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
 
 [node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "xxxxx"
+text = "390.8 K"
 
 [node name="BrainIcon" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
+size_flags_horizontal = 10
+alignment_horizontal = 2
 
 [node name="HSeparator" type="HSeparator" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 layout_mode = 2
@@ -228,7 +240,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_8mqma")
 
 [node name="SourceButton" type="Button" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_constants/outline_size = 14
 text = "Source"
