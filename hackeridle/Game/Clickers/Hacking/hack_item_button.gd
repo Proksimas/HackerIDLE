@@ -16,6 +16,8 @@ class_name HackItemButton
 @onready var brain_cost: Label = %BrainCost
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
 @onready var source_button: Button = %SourceButton
+@onready var hack_item_code_edit: CodeEdit = %HackItemCodeEdit
+
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 
@@ -167,8 +169,6 @@ func statut_updated():
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
 		
-		
-
 
 func upgrading_source():
 	"""on augmente le niveau de la source si le calcul du up level est bon.
