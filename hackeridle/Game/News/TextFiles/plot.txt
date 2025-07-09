@@ -2,10 +2,98 @@ Le jeu se déroule dans la ville de Novasec. On commence vers les années 1980, 
 jusqu'à une ère futuriste (mais c'est vraiment vers la fin du jeu ça...).
 L'objectif ici est d'écrire un peu son histoire, à cette ville, à ce monde. EN effet dans le jeu on aurait des nouvelles,
 racontant ce qui se passe pour les habitants de la ville.
-Ces "histoires" doivent être courtes car la lecture se fait via un bandeau d'informations.
+
+1. ADN de la cité
+| Axe                    | Essence                                                                   | Détails inspirants pour vos récits                                                                                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Origine & Nom**      | « Nova » = nouvelle chance, « sec » = sécurité (digues-écluses d’origine) | Fondée en 1908 par des ingénieurs hollandais venus protéger le delta de crues répétées ; devise initiale : *“Flumen regitur, populus floret”* (Le fleuve maîtrisé, le peuple s’épanouit).          |
+| **Topographie**        | Delta en éventail, 3 îles intérieures                                     | Rues radiales nommées d’après constellations ; au centre, la Place du Méridien marque le passage d’un ancien axe solaire.                                                                          |
+| **Architecture**       | Trame art-déco → brutaliste → néo-organique                               | 1) Façades brique-cuivre (1910-40) <br>2) Blocs béton nervuré et passerelles aériennes (50-70) <br>3) Tours en « peau vivante » : vitrage autotintable + lianes O² (depuis 2030).                  |
+| **Énergie**            | Transition continue                                                       | Hydro-turbines sous-fluviales (1958) → cellules photo-organiques sur toits (2005) → micro-réacteurs à fusion froide municipaux (2044).                                                             |
+| **Économie**           | « Du fer au firmware »                                                    | Métallurgie lourde → micro-usines DIY (années 90) → cluster cybersécurité & implants médicaux (« Silicone Seine »).                                                                                |
+| **Innovation civique** | Laboratoire urbain permanent                                              | Budget participatif 100 % blockchain dès 2022 ; essais de « quartiers bêta » où les lois locales peuvent être suspendues 6 mois pour tester des politiques (mobilité gratuite, revenu vert, etc.). |
+| **Culture populaire**  | Fête du *Lumen Fleuve* (21 juin)                                          | Parade fluviale : barges-écrans défilent, projetant sur la brume des archives vidéo familiales ; souvenirs privés deviennent feu d’artifice collectif.                                             |
+| **Dialecte**           | *Novalang*                                                                | Mélange français-néerlandais-argot techno. Ex. : « Pinguer » = contacter, « Sécu-flux » = données personnelles protégées.                                                                          |
+| **Valeurs cardinales** | 1. Adaptabilité  2. Transparence  3. Joie partagée                        | La ville se voit comme un organisme ; chaque crise (crue, bulle, pollution) est l’occasion d’“une mue”. D’où un optimisme endurci mais festif.                                                     |
+| **Symboles**           | Emblème : Héron stylisé tenant un circuit imprimé                         | Le héron vit dans les marais du delta ; il symbolise l’équilibre entre nature et haute technologie.                                                                                                |
+| **Croyances urbaines** | *Mythe du Souterrain Serein*                                              | Légende : un ancien tunnel d’évacuation abriterait une horloge qui compte les secondes jusqu’à « l’apothéose » de Novasec. Hackers et poètes la cherchent encore.                                  |
+| **Rituels sociaux**    | « Pulse-Café » quotidien (7 h & 19 h)                                     | À ces heures, tous les écrans publics passent en pause, invitant à partager un café (réel ou virtuel) avec un inconnu connecté aléatoirement.                                                      |
+
+
+2. Historique
+
+| Période       | Surnom local            | Faits marquants                                                                                                  | Ton dominant                      |
+| ------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| **1980-1989** | *Les Années Laser*      | Arrivée des néons, boom des clubs synth-pop, première borne d’arcade connectée                                   | Optimisme clinquant               |
+| **1990-1999** | *L’Éveil Numérique*     | Internet câble coaxial, fondation de l’Institut Cybernétique, friches industrielles transformées en lofts        | Curiosité, DIY                    |
+| **2000-2009** | *L’Air de Verre*        | Premiers immeubles en verre photovoltaïque, bulle start-up, rachat massif de terrasses pour antennes cellulaires | Fulgurance, spéculation           |
+| **2010-2019** | *Renaissance Verte*     | Toits potagers, interdiction des bus diesel, lancement du Skyrail aéro-magnétique                                | Fierté écolo                      |
+| **2020-2029** | *La Décennie Augmentée* | Réseau AR municipal « Vue-Seine », drapeaux holographiques, IA civique *SOLIS*                                   | Hyper-connectivité, débat éthique |
+| **2030-2049** | *L’Ère Flottante*       | Digues-jardins face à la montée des eaux, marché flottant du Vieux-Port, habitats modulaires                     | Adaptation, solidarité            |
+| **2050+**     | *Horizon Σ*             | Ascenseur orbital « Pillar-One », transit quantique de données, colonies sous-orbitales partenaires              | Vertige futuriste                 |
+
+
+3. Lieux clés (extraits)
+
+    Square Valmont : cœur social. Kiosque à musique rétro, mare aux nénuphars luminescents la nuit. Surtout connu pour Tito Mansi, maître-glacier dont la vitrine affiche en continu la température idéale de dégustation.
+
+    Tour Opaline : gratte-ciel spiralé de verre auto-réparant ; abrite la Bourse des Idées où les citoyens votent des budgets participatifs en direct.
+
+    Galeries Subterranea : anciennes lignes de métro réaffectées en espace artistique ; murales à base de peintures bactériologiques phosphorescentes.
+
+    Orbital Hub « Novasec-1 » : en construction dans l’arc narratif final ; point de départ pour colonies-nuages et relais logistique Terre-orbite --> Arrive vers 2060
+1. Pont des Ombres
+Le jour, ses dalles vitrées dévoilent le trafic fluvial vertigineux ; la nuit, le verre s’opacifie et devient l’écran vierge de batailles de graffitis AR, effacées à l’aube ; seuls les joggeurs matinaux colportent encore les scores.
+
+2. Crypte d’Argon
+Ancienne chambre froide pour alliages expérimentaux, la crypte souterraine luit sous des lampes à argon. On y descend par monte-charge, déguste des cocktails azotés tandis qu’un DJ masqué diffuse des vinyles introuvables, étiquettes cachées derrière d’étranges lunettes anti-reflet.
+
+3. Serres Lysiane
+Les dômes hydroponiques occupent l’ancienne gare de triage ; chaque bulle climatique se loue à l’heure. Familles pique-niquent sous des tomates flottantes, pendant que des étudiants en biotech piratent les nutriments, espérant créer des saveurs impossibles jugées plus tard par des chefs exigeants.
+
+4. Théâtre Halo
+Ancré à des pylônes invisibles, le théâtre circulaire flotte au-dessus de la brume du delta. Les spectateurs embarquent sur des gondoles ; billets-casques diffusent hologrammes 360 ° ondulant sur des écrans de vapeur, fusionnant public et acteurs en un ballet lumineux.
+
+5. Mirador Δ
+Peinte de dégradés d’aurore, la tour météorologique diffuse en temps réel données climatiques et panoramas. Les couples y verrouillent des capsules-temps, programmées pour s’ouvrir lors de futurs orages identiques, minutieusement prévus par l’intelligence climatique municipale.
+
+6. Usine Écho
+Dans la nef turbineuse d’une centrale désaffectée, douze secondes de réverbération deviennent matière première : musiciens sculptent des « échos » immersifs ; visiteurs, dans d’anciens postes de contrôle, remixent grondements industriels, superposant souvenirs manufacturiers à une toile sonore d’espoir décadent.
+
+7. Parc des Archives
+Des algorithmes transforment continuellement coupures de presse centenaires en statues métamorphes. Plaques mises à jour instantanément affichent des manchettes oubliées mais soudain brûlantes, obligeant pique-niqueurs et flâneurs à débattre : prophéties de marbre ou simple rappel que l’histoire bégaye ?
+
+8. Galerie Nébuleuse
+Étroit passage vitré tapissé de miroirs fumés diffusant des motifs cosmiques. Au crépuscule, artisans vendent filtres AR qui superposent constellations mouvantes aux passants ; chaque échange redessine le ciel urbain, modifiant instantanément la hiérarchie sociale scintillante de la ruelle.
+
+9. Café des Courants
+Barges solaires amarrées au chenal émettent potins maritimes par bursts onde-courte. Clients échangent prévisions d’expédition cryptées contre crédits espresso, tandis que des carpes numériques sous le plancher de verre tracent les routes commerciales, brillant selon l’intensité des spéculations.
+
+10. Labyrinthe Quartz
+Jardin minéral bordé de cristaux géants réfractant la lune ; chaque plein-lune, des vérins souterrains redisposent les chemins. Haut-parleurs dissimulés murmurent des poèmes synchronisés aux étoiles, invitant les promeneurs à naviguer par l’oreille plutôt que par la vue.
+
+11. Station Lumen-Nord
+Ancienne bouche de métro devenue serre à lucioles modifiées ; leur bioluminescence clignote vert à l’arrivée d’un tram, violet lors des perturbations. Les retards se changent en ballets lumineux, attirant photographes, penseurs et rêveurs en quête de nouvelles métaphores.
+
+12. Bunker Sigma
+Abri cylindrique en béton, vestige des grandes crues, recyclé en escape-game muséal. Équipes résolvent énigmes industrielles tandis qu’un anneau d’eau monte dans les chambres transparentes ; vainqueurs activent la purge, révélant sur les parois ruisselantes d’anciennes vidéos archivées.
+
+
+4. Personnages individuels et collectifs possibles
+
+    Les Gardiens des Rails : anciens conducteurs de tram devenus archivistes urbains.
+
+    Collectif Voxel : hackers citoyens, nettoyeurs de données corrompues. 
+
+    Compagnie Azur : société de taxis-drones ; symbole de la gentrification aérienne --> arrive à partir des années 2020
+
+    Tito Mansi, maître-glacier (depuis 1975) : chaque parfum est associé à un feed musical diffusé par micro-enceintes dans son store-bike.
+
+    “Les Bancaires” : retraités qui parient sur les scores d’e-sport projetés sur le kiosque les samedis après-midi.
+
+5. Le Pulsar de Novasec
+
 Le journal d'information se nomme: "Le Pulsar de Novasec". Slogan: Quand la ville se tait, le Pulsar parle.
 
 description complète: Le Pulsar de Novasec capte ce que d'autres ignorent. Comme les pulsars dans l'univers, nous émettons nos signaux, réguliers, persistants,
  porteurs d'une vérité que le tumulte voudrait étouffer. Chaque battement est une fenêtre sur ce que la ville tente de cacher
-
-Quelques lieux notables: Le square Valmont, très prisé par tous les habitants de Novasec notamment graçe à son marchand de glace qui est incroyable.
