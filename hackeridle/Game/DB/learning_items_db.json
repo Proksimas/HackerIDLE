@@ -4,8 +4,33 @@
             "item_name": "post-it",
             "texture_path": "res://Game/Graphics/App_icons/final_frame.png",
             "animation_path": "res://Game/Animations/post-it.tres",
-            "base_knowledge_point": 1,
-            "base_delay": 5
+            "cost": 200,
+            "cost_factor": 1.11,
+            "gain": 1.2,
+            "gain_factor":1.35,
+            "formule_type":"polymoniale"
+        },
+
+        {
+            "item_name": "livres",
+            "texture_path": "res://icon.svg",
+            "animation_path": "res://Game/Animations/post-it.tres",
+            "cost": 3000,
+            "cost_factor": 1.13,
+            "gain": 8,
+            "gain_factor":1.28,
+            "formule_type":"polymoniale"
+        },
+
+         {
+            "item_name": "MOOC",
+            "texture_path": "res://icon.svg",
+            "animation_path": "res://Game/Animations/post-it.tres",
+            "cost": 20000,
+            "cost_factor": 1.16,
+            "gain": 35,
+            "gain_factor":1.22,
+            "formule_type":"polymoniale"
         }
     ]
 

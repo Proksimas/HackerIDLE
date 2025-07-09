@@ -20,7 +20,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time += delta
 	if gain_learning > 0 and time >= 1:
-		Player.knowledge_point += gain_learning
+		Player.earn_knowledge_point(gain_learning)
 		time = 0
 	pass
 
@@ -31,17 +31,14 @@ func set_item(item_cara):
 	
 	#pour préparer le gain
 	var player_item = Player.learning_item_bought[item_cara["item_name"]]
-	gain_learning = Calculs.passif_learning_gain(player_item["level"],
-												player_item["delay"],
-												player_item["base_knowledge_point"])
-	gain_learning_label.text = Global.number_to_string(gain_learning) + " /s"
+	gain_learning = Calculs.passif_learning_gain(player_item)
+	gain_learning_label.text = Global.number_to_string(gain_learning)# + " /s"
 
 func set_refresh(item_cara):
 	"""ici on refresh l'item, en donnant les carac de l'item ISSUES DE l INVENTAIRE 
 	DU JOUEUR."item_cara"""
-	gain_learning = Calculs.passif_learning_gain(item_cara["level"],
-												item_cara["delay"],
-												item_cara["base_knowledge_point"])
-	gain_learning_label.text = Global.number_to_string(gain_learning) + " /sec"
+	var player_item = Player.learning_item_bought[item_cara["item_name"]]
+	gain_learning = Calculs.passif_learning_gain(player_item)
+	gain_learning_label.text = Global.number_to_string(gain_learning)# + " /sec"
 
 	pass

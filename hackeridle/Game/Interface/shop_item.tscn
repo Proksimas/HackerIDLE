@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="3_2d3tu"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="4_wlvil"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
 
@@ -35,7 +35,8 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_prdu3")
 script = ExtResource("1_a4nb3")
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="LearningItemInfo" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,21 +45,21 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="LearningItemInfo"]
 layout_mode = 2
 
-[node name="ShopTexture" type="TextureRect" parent="HBoxContainer/AspectRatioContainer"]
+[node name="ShopTexture" type="TextureRect" parent="LearningItemInfo/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture = ExtResource("1_vsjf5")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="LearningItemInfo"]
 layout_mode = 2
 size_flags_horizontal = 2
 
-[node name="ItemNameLabel" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="ItemNameLabel" type="Label" parent="LearningItemInfo/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
@@ -66,74 +67,107 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/font = SubResource("FontVariation_govgv")
 theme_override_font_sizes/font_size = 25
-text = "XXX"
+text = "Nom"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="GoldIcon" parent="LearningItemInfo/VBoxContainer/HBoxContainer" instance=ExtResource("4_wlvil")]
 layout_mode = 2
-size_flags_horizontal = 2
 
-[node name="GoldTexture" type="TextureRect" parent="HBoxContainer/VBoxContainer/HBoxContainer/AspectRatioContainer"]
-custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-texture = ExtResource("3_2d3tu")
-expand_mode = 1
-
-[node name="ItemPriceLabel" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer"]
+[node name="ItemPriceLabel" type="Label" parent="LearningItemInfo/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "xxxxx"
 horizontal_alignment = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="LearningItemInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
 alignment = 1
 
-[node name="LevelLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="LevelLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Niveau"
 
-[node name="LevelPointLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer"]
+[node name="LevelPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "XXX"
 horizontal_alignment = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer2"]
+[node name="SpeedContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
 alignment = 1
 
-[node name="SpeedLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="SpeedLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Delais"
 
-[node name="SpeedPointLabel" type="Label" parent="HBoxContainer/VBoxContainer2/HBoxContainer2"]
+[node name="SpeedPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "XXXXXXXX"
 horizontal_alignment = 2
 
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="LearningItemInfo"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_cqc5w")
+
+[node name="ToUnlockedPanel" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="UnlockedButton" type="Button" parent="ToUnlockedPanel"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ToUnlockedPanel/UnlockedButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GoldCost" type="Label" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "X"
+
+[node name="GoldIcon" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer" instance=ExtResource("4_wlvil")]
+layout_mode = 2

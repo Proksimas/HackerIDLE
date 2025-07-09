@@ -1,6 +1,8 @@
 extends Panel
 
 @onready var text_label: Label = %TextLabel
+@onready var year_date: Label = %YearDate
+@onready var month_day: Label = %MonthDay
 
 @export var scrolling_time: int = 2
 var scroll_starting: bool = false
@@ -14,14 +16,14 @@ var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message ass
 
 signal news_finished
 
-func _ready() -> void:
+func _ready() -> void:	
 	news_size = text_label.size.x
 	new_news(pick_random_sentence("introduction"))
-	
+	TimeManager.s_date.connect(_on_s_date)
 	pass # Replace with function body.
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if scroll_starting and text_label.position.x > 0 - text_label.size.x:
 		text_label.position -= Vector2(scrolling_time, 0)
 		
@@ -48,8 +50,6 @@ func pick_random_sentence(key: String):
 	
 	return (key + "_" + str(random))
 	
-	pass
-	
 func _on_news_finished(news_key):
 	self.news_finished.disconnect(_on_news_finished)
 	change_state(news_key)
@@ -68,3 +68,8 @@ func change_state(current_state: String):
 		"random":
 			new_news(pick_random_sentence("random"))
 	
+
+func _on_s_date(array):
+	# array[year, month, day, hour, minute]
+	year_date.text = str(array[0])
+	month_day.text = str(array[1]) + " - " + str(array[2])

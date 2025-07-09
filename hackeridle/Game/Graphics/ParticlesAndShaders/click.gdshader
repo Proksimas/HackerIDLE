@@ -20,7 +20,7 @@ void fragment() {
 
     // Modulation radiale : on fait osciller le rayon entre un extérieur et un intérieur
     // grâce au cosinus multiplié par le nombre de pointes.
-    float spike_factor = (1.0 + u_sharpness * cos(u_spikes * ang)) 
+    float spike_factor = (1.0 + u_sharpness * cos(u_spikes * ang))
                          / (1.0 + u_sharpness);
 
     float threshold = u_outer_radius * spike_factor;

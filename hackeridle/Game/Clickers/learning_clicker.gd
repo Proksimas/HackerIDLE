@@ -25,7 +25,7 @@ func set_learning_clicker(cara:Dictionary):
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
-			Player.knowledge_point += get_earn_kp()
+			Player.earn_knowledge_point(get_earn_kp())
 
 			#ATTENTION le nomde l'animation doit être celui de l'item
 			if learning_clicker_sprite.is_playing():
@@ -39,8 +39,8 @@ func get_earn_kp() -> float:
 	var gain: float = 0.0
 	for learning_item_name in Player.learning_item_bought:
 		var level_item = Player.learning_item_bought[learning_item_name]["level"]
-		var base_knowledge_point = Player.learning_item_bought[learning_item_name]["base_knowledge_point"]
+		var cost = Player.learning_item_bought[learning_item_name]["cost"]
 		
-		gain += level_item * base_knowledge_point
+		gain += level_item * cost
 	
 	return gain

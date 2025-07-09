@@ -8,22 +8,37 @@ extends Control
 @onready var navigator: TextureButton = %Navigator
 @onready var knowledge_label: Label = %KnowledgeLabel
 @onready var gold_label: Label = %GoldLabel
-@onready var passif_clickers: HFlowContainer = %PassifClickers
+@onready var skill_point_label: Label = %SkillPointLabel
+@onready var settings: Control = %Settings
+@onready var skills_tree: Control = %SkillsTree
+@onready var second_timer: Timer = %SecondTimer
 
-const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 
+var test ="bleu"
+var a = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	Player.earn_knowledge_point.connect(_on_earn_knowledge_point)
-	Player.earn_hacking_point.connect(_on_earn_hacking_point)
-	Player.earn_gold.connect(_on_earn_gold)
-	shop.item_bought.connect(_on_shop_item_bought)
+	main_tab.current_tab = 0
+	connexions()
+	init_interface()
 	
-	for child in passif_clickers.get_children():
-		child.queue_free()
+func connexions() -> void:
+	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
+	Player.s_brain_clicked.connect(_on_s_brain_clicked)
+	Player.s_earn_gold.connect(_on_earn_gold)
+	Player.s_earn_sp.connect(_on_earn_sp)
+	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
+	Player.s_earn_brain_level.connect(_on_earn_brain_level)
+	shop.item_bought.connect(learning._on_shop_item_bought)
+
+func init_interface():
+	knowledge_label.text = Global.number_to_string(Player.knowledge_point)
+	gold_label.text =  Global.number_to_string(Player.gold)
+	skill_point_label.text = Global.number_to_string((Player.skill_point))
+	_on_s_brain_clicked(0,0)
 	
-	pass # Replace with function body.
+	
 
 func _on_shopping_pressed() -> void:
 	shop.show()
@@ -32,38 +47,73 @@ func _on_shopping_pressed() -> void:
 
 func _on_navigator_pressed() -> void:
 	learning.show()
-	learning.set_learning_clicker()
 	pass # Replace with function body.
 
-
-func _on_earn_knowledge_point(point):
-	knowledge_label.text = tr("Connaissance: %s" % [str(int(point))])
-	get_tree().call_group("g_hack_item_button", "gold_refresh_hack_item")
-
-func _on_earn_hacking_point(point):
-	return
+func refresh_specially_resources():
+	knowledge_label.text = Global.number_to_string(int(Player.knowledge_point))
+	gold_label.text = Global.number_to_string(int(Player.gold))
+	skill_point_label.text = Global.number_to_string(int(Player.skill_point))
 	
+func _on_earn_knowledge_point(point):
+	knowledge_label.text = Global.number_to_string(int(point))
+	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")
+
 func _on_earn_gold(point):
-	gold_label.text = tr("Gold: %s" % [str(int(point))])
+	gold_label.text =  Global.number_to_string(int(point))
 	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")
 	
+func _on_earn_sp(point):
+	skill_point_label.text = str(point)
+	
+func _on_earn_brain_xp(_point):
+	learning.refresh_brain_xp_bar()
+func _on_earn_brain_level(point):
+	learning.current_brain_level.text = tr("$Level") + " " + str(point) 
+	
+
+var _recent_clicks: Array = []  # Stocke des paires [timestamp, valeur]
+var _window_ms := 1100  # taille de la fenêtre mobile
+var _sum_earning:float = 0
+func _on_s_brain_clicked(_brain_xp, knowledge):
+	"""chaque Connaissance acquise via le click du cerveau.
+	Nous additionnons avec le gain par seconde des items passifs"""
+	var now:= Time.get_ticks_msec()
+	_recent_clicks.append([now, knowledge])
+	_recent_clicks = _recent_clicks.filter(func(e): return now - e[0] <= _window_ms)
+
+	_sum_earning = 0
+	for e in _recent_clicks:
+		_sum_earning += e[1]
+	var total = _sum_earning + learning.passives_knowledge 
+	
+	learning.knowledge_per_second.text = Global.number_to_string(total) + " /s"
+	#et_tree().create_timer(1.0).timeout.connect(_on_sum_timer)
+	
+#func _on_sum_timer():
+	#"""On force pour la réinitialisation à zero"""
+	#Player.earn_knowledge_point(0)
 	
 func _on_dark_shop_pressed() -> void:
 	hack_shop.show()
 	pass # Replace with function body.
 
 
-func _on_shop_item_bought(item_name):
-	for child: PassifLearningItem in passif_clickers.get_children():
-		if child.shop_item_cara_db["item_name"] == item_name:
-			child.set_refresh(Player.learning_item_bought[item_name])
-			return
-			
-	#si on est là, c'est que l'item n'est pas encore existant
-	var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
-	passif_clickers.add_child(new_passif_item)
-	new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
-	
+func _on_settings_button_pressed() -> void:
+	settings.show()
+	pass # Replace with function body.
 
-	pass
-	
+
+func _on_skills_button_pressed() -> void:
+	skills_tree.show()
+	pass # Replace with function body.
+
+func _on_second_timer_timeout() -> void:
+	_on_s_brain_clicked(0, 0)
+	pass # Replace with function body.
+
+func _load_data(data):
+	"""Manage les chargement dans l'interface"""
+	# Met à jour l'UI
+	init_interface()
+	#sauvegarde au nivau du learning
+	learning._load_data(data["learning_item_bought"])

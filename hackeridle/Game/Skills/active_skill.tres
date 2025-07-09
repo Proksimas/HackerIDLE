@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ActiveSkill" load_steps=2 format=3 uid="uid://do2g0uohx513s"]
+
+[ext_resource type="Script" path="res://Game/Skills/active_skill.gd" id="1_yhsit"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_yhsit")
+cost = Array[int]([])
+as_cd = 0.0
+as_during_time = 0.0
+as_name = ""
+data_bonus_1 = []
+data_bonus_2 = []

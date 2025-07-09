@@ -1,58 +1,78 @@
 extends Node
 
-func calcul_learning_item_price(level)-> int:
-	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix actuel
+func quantity_learning_item_to_buy(current_item_cara):
+	var quantity = 0
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var r = current_item_cara["cost_factor"]
+
+	var p_next = (c * pow(r, n-1))
 	
-	# on part des paramètres donnés pour calculer le prix de l'item
+	if Player.gold < p_next:
+		return 0 #on ne peut rien acheter
 	
-	var calcul = level +1   # TODO
-
-	return int(calcul)
-
-
-func total_learning_prices(base_level, quantity):
-	var total_price = 0
-	for i in range(quantity):
-		total_price += calcul_learning_item_price(base_level + i) 
-		
-	return total_price
-
-
-func calcul_hacking_item_price(level)-> int:
-	"""Fonction qui renvoie le prix de l'item"""
-	# ATTENTION TODO faut que l'item price correspond au prix actuel
+	var a = (r - 1) * Player.gold / p_next + 1
+	quantity = floor( log(a) / log(r))
+	return quantity
 	
-	# on part des paramètres donnés pour calculer le prix de l'item
-	
-	var calcul = level  + 1 # TODO
+func quantity_hacking_item_to_buy(current_item_cara):
+	var quantity = 0
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var r = current_item_cara["cost_factor"]
+	var p_next = (c * pow(r, n-1))
 
-	return int(calcul)
+	
+	if Player.knowledge_point < p_next:
+		return 0 #on ne peut rien acheter
+	
+	var a = (r - 1) * Player.knowledge_point / p_next + 1
+	quantity = floor( log(a) / log(r))
+	return quantity
 
-func total_hacking_prices(base_level, quantity):
-	var total_price = 0
-	for i in range(quantity):
-		total_price += calcul_hacking_item_price(base_level + i) 
-		
-	return total_price
 
-func gain_knowledge_point(learning_item_name) -> int:
-	"""combien tu gagnes de points de connaissance selon l'item actuel présent dans l'inventaire"""
-	if !Player.has_learning_item(learning_item_name): # item pas présent. 
-		
-		push_warning("L'item n'est pas présent !")
+func total_learning_prices(current_item_cara, quantity):
+	var calcul
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var k = quantity
+	var r = current_item_cara["cost_factor"]
 	
-	var item = Player.learning_item_bought[learning_item_name]
+#	if current_item_cara["formule_type"] == "polymoniale":
+	#calcul = c * (( pow(n + k, lambda + 1) - pow(n, lambda + 1)) / (lambda + 1) )
+	#ATTENTION on est dans une forme exponentielle simple POUR LE MOMENT  
+	calcul = (c * pow(r,n-1)) * ( (pow(r,k) -1 ) / (r -1) )
 	
-	#faire le calcul
-	return item["base_gold_point"] * item["level"]
+	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
 	
-func passif_learning_gain(level, delay, base_point) -> float:
+	return round(calcul)
+	
+
+func total_hacking_prices(current_item_cara, quantity):
+	var calcul
+	var c = current_item_cara["cost"]
+	var n = current_item_cara["level"]
+	var k = quantity
+	var r = current_item_cara["cost_factor"]
+	
+#	if current_item_cara["formule_type"] == "polymoniale":
+	#calcul = c * (( pow(n + k, lambda + 1) - pow(n, lambda + 1)) / (lambda + 1) )
+	#ATTENTION on est dans une forme exponentielle simple POUR LE MOMENT  
+	calcul = (c * pow(r,n-1)) * ( (pow(r,k) -1 ) / (r -1) )
+	
+	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
+	
+	return round(calcul)
+	
+	
+func passif_learning_gain(item_cara) -> float:
 	"""Le gain passif selon le delais de l'item, son niveau et son gain de base par seconde"""
-	var calcul = (base_point * level) / delay
 	
-	return calcul
-
+	if item_cara["formule_type"] == "polymoniale":
+		return snapped(item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"]), 0.1)
+	
+	else:
+		return snapped(item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1),0.1)
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
@@ -60,7 +80,25 @@ func gain_gold(hacking_item_name):
 		push_warning("L'item n'est pas présent !")
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
+	if item["formule_type"] == "polymoniale":
+		return round(item["gain"] * pow(item["level"],item["gain_factor"]))
+	else:
+		return round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
 	
-	#faire le calcul
-	return item["base_gold_point"] * item["level"]
-	
+
+func get_next_source_level(source_cara):
+	if source_cara == null:
+		push_error("La source demandée n'existe pas")
+	var level = source_cara["level"] 
+	var c = source_cara["up_level"]
+	var r = source_cara["up_factor"]
+
+	#On est dans un calcl exponentiel
+	#var calcul_expo = c * pow(1+r,level -1)
+	#coef linear avec legere augmentation
+	if level == 0:
+		return c
+	else:
+		var linear_calcul = c * ((level+1) * r)
+		return linear_calcul 
+		

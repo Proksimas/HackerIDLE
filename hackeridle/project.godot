@@ -22,6 +22,11 @@ Player="*res://Game/OthersSingleton/player.gd"
 LearningItemsDB="*res://Game/DB/learning_items_db.tscn"
 Calculs="*res://Game/OthersSingleton/calculs.tscn"
 HackingItemsDb="*res://Game/DB/hacking_items_db.tscn"
+SourcesDb="*res://Game/DB/sources_db.tscn"
+SkillsManager="*res://Game/Skills/skills_manager.tscn"
+StatsManager="*res://Game/OthersSingleton/stats_manager.tscn"
+Save="*res://Game/Saves/Save.tscn"
+TimeManager="*res://Game/OthersSingleton/time_manager.tscn"
 
 [display]
 
@@ -33,7 +38,7 @@ window/handheld/orientation=1
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://Game/News/TextFiles/amorce_story_1.en.translation", "res://Game/News/TextFiles/amorce_story_1.fr.translation", "res://Game/News/TextFiles/amorce_story_2.Column2.translation", "res://Game/News/TextFiles/amorce_story_2.Column3.translation", "res://Game/News/TextFiles/amorce_story_2.en.translation", "res://Game/News/TextFiles/amorce_story_2.fr.translation", "res://Game/News/TextFiles/amorce_story_3.en.translation", "res://Game/News/TextFiles/amorce_story_3.fr.translation", "res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/story_breaking_news.en.translation", "res://Game/News/TextFiles/story_breaking_news.fr.translation")
+locale/translations=PackedStringArray("res://Game/News/TextFiles/amorce_story_1.en.translation", "res://Game/News/TextFiles/amorce_story_1.fr.translation", "res://Game/News/TextFiles/amorce_story_2.Column2.translation", "res://Game/News/TextFiles/amorce_story_2.Column3.translation", "res://Game/News/TextFiles/amorce_story_2.en.translation", "res://Game/News/TextFiles/amorce_story_2.fr.translation", "res://Game/News/TextFiles/amorce_story_3.en.translation", "res://Game/News/TextFiles/amorce_story_3.fr.translation", "res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/story_breaking_news.en.translation", "res://Game/News/TextFiles/story_breaking_news.fr.translation", "res://Game/Translations/generic_translations.en.translation", "res://Game/Translations/generic_translations.fr.translation", "res://Game/Translations/Skills/skills_translations.en.translation", "res://Game/Translations/Skills/skills_translations.fr.translation")
 
 [rendering]
 

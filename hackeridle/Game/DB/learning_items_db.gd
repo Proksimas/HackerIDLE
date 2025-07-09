@@ -5,7 +5,8 @@ const LEARNING_ITEMS_PATH = "res://Game/DB/learning_items_db.json"
 var learning_items_db: Dictionary 
 
 func _ready() -> void:
-	init_learning_items_db()
+	pass
+	#init_learning_items_db()
 
 
 func init_learning_items_db():
@@ -15,17 +16,32 @@ func init_learning_items_db():
 		var dict_item = { "item_name": item["item_name"],
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
-							"base_knowledge_point": item["base_knowledge_point"],
-							"base_delay": item["base_delay"],
-							"level": 0
-							
+							"level": 1,
+							"cost": item["cost"],
+							"cost_factor": item["cost_factor"],
+							"gain": item["gain"],
+							"gain_factor":item["gain_factor"],
+							"formule_type":item["formule_type"]
 							}
+							
 		if learning_items_db.has(item["item_name"]):
-			push_error("Item initialisation en double")
+			push_warning("Item initialisation en double")
 		
 		else:
 			learning_items_db[item["item_name"]] = dict_item
-		pass
+			#Player.learning_item_statut[item["item_name"]] = "locked"
+	##le premier item doit etre en mode to_unlocked
+	#Player.learning_item_statut[Player.learning_item_statut.keys()[0]] = "to_unlocked"
+		#
+		
+func init_for_player():
+	for item_name in learning_items_db:
+		Player.learning_item_statut[item_name] = "locked"
+		
+	#le premier item doit etre en mode to_unlocked
+	Player.learning_item_statut[Player.learning_item_statut.keys()[0]] = "to_unlocked"
+	pass
+		
 
 
 func get_item_cara(item_name: String):

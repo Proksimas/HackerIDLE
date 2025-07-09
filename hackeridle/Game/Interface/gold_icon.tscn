@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2o66qawxrwjp"]
+
+[ext_resource type="Texture2D" uid="uid://4u241k20culk" path="res://Game/Graphics/Common_icons/coin.png" id="1_fum8l"]
+
+[node name="GoldIcon" type="AspectRatioContainer"]
+
+[node name="GoldTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_fum8l")
+expand_mode = 1
