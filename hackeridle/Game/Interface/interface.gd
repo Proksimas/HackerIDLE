@@ -6,16 +6,13 @@ extends Control
 @onready var shop: Control = %Shop
 @onready var main_tab: TabContainer = %MainTab
 @onready var navigator: TextureButton = %Navigator
-@onready var knowledge_label: Label = %KnowledgeLabel
-@onready var gold_label: Label = %GoldLabel
-@onready var skill_point_label: Label = %SkillPointLabel
 @onready var settings: Control = %Settings
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
 
-
-var test ="bleu"
-var a = 10
+@onready var knowledge_resource: Control = %KnowledgeResource
+@onready var gold_resource: Control = %GoldResource
+@onready var sp_resource: Control = %SPResource
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,9 +30,14 @@ func connexions() -> void:
 	shop.item_bought.connect(learning._on_shop_item_bought)
 
 func init_interface():
-	knowledge_label.text = Global.number_to_string(Player.knowledge_point)
-	gold_label.text =  Global.number_to_string(Player.gold)
-	skill_point_label.text = Global.number_to_string((Player.skill_point))
+	knowledge_resource.set_resource_box("BRAIN")
+	gold_resource.set_resource_box("GOLD")
+	sp_resource.set_resource_box("SP")
+	
+	knowledge_resource.refresh_value(int(Player.knowledge_point))
+	gold_resource.refresh_value(int(Player.gold))
+	sp_resource.refresh_value(int(Player.skill_point))
+	
 	_on_s_brain_clicked(0,0)
 	
 	
@@ -50,20 +52,22 @@ func _on_navigator_pressed() -> void:
 	pass # Replace with function body.
 
 func refresh_specially_resources():
-	knowledge_label.text = Global.number_to_string(int(Player.knowledge_point))
-	gold_label.text = Global.number_to_string(int(Player.gold))
-	skill_point_label.text = Global.number_to_string(int(Player.skill_point))
+	knowledge_resource.refresh_value(int(Player.knowledge_point))
+	gold_resource.refresh_value(int(Player.gold))
+	sp_resource.refresh_value(int(Player.skill_point))
+	
+
 	
 func _on_earn_knowledge_point(point):
-	knowledge_label.text = Global.number_to_string(int(point))
+	knowledge_resource.refresh_value(int(point))
 	get_tree().call_group("g_hack_item_button", "knwoledge_refresh_hack_item")
 
 func _on_earn_gold(point):
-	gold_label.text =  Global.number_to_string(int(point))
+	gold_resource.refresh_value(int(point))
 	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")
 	
 func _on_earn_sp(point):
-	skill_point_label.text = str(point)
+	sp_resource.refresh_value(int(point))
 	
 func _on_earn_brain_xp(_point):
 	learning.refresh_brain_xp_bar()
