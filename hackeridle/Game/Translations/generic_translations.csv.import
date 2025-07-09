@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cbixvcfomxa2q"
+
+[deps]
+
+files=["res://Game/Translations/generic_translations.fr.translation", "res://Game/Translations/generic_translations.en.translation"]
+
+source_file="res://Game/Translations/generic_translations.csv"
+dest_files=["res://Game/Translations/generic_translations.fr.translation", "res://Game/Translations/generic_translations.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

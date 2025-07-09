@@ -1,0 +1,82 @@
+[gd_resource type="SpriteFrames" load_steps=19 format=3 uid="uid://b5xc15kavidqm"]
+
+[ext_resource type="Texture2D" uid="uid://cysued8lcmg3p" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-0.png" id="1_nkjws"]
+[ext_resource type="Texture2D" uid="uid://dpkp25y2w17k4" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-1.png" id="2_p7blc"]
+[ext_resource type="Texture2D" uid="uid://dkqao1t2nqd82" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-2.png" id="3_6r712"]
+[ext_resource type="Texture2D" uid="uid://b8drri64lsgct" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-3.png" id="4_cu7oi"]
+[ext_resource type="Texture2D" uid="uid://b0mteuxbupcux" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-4.png" id="5_1uq3o"]
+[ext_resource type="Texture2D" uid="uid://cnstu3q4tiwsr" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-5.png" id="6_lnftj"]
+[ext_resource type="Texture2D" uid="uid://sus8uq73dcyh" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-6.png" id="7_6u4e7"]
+[ext_resource type="Texture2D" uid="uid://864ejyiqjb5q" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-7.png" id="8_n1asd"]
+[ext_resource type="Texture2D" uid="uid://chumryqohk4r7" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-8.png" id="9_da67n"]
+[ext_resource type="Texture2D" uid="uid://bym4d6dtev8ue" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-9.png" id="10_nw1ix"]
+[ext_resource type="Texture2D" uid="uid://bfqfy8mqxs1bo" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-10.png" id="11_1bsp0"]
+[ext_resource type="Texture2D" uid="uid://d1s1wdyvrun0u" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-11.png" id="12_r1eyk"]
+[ext_resource type="Texture2D" uid="uid://dblsr2wse2aek" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-12.png" id="13_0s6cm"]
+[ext_resource type="Texture2D" uid="uid://c2hpagyatrn2j" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-13.png" id="14_ey0g7"]
+[ext_resource type="Texture2D" uid="uid://b6qsc88a2pw58" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-14.png" id="15_t6v7a"]
+[ext_resource type="Texture2D" uid="uid://c6ukuc5cs0qom" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-15.png" id="16_4mnik"]
+[ext_resource type="Texture2D" uid="uid://bmmrwbk3o5vmu" path="res://Game/Graphics/App_icons/Post-it.png/c87a18f1cf1c4e12d1d7ef35a7a05b56d4qQqZWtfFJk356J-16.png" id="17_o1bi7"]
+[ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="18_i6qm6"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nkjws")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_p7blc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6r712")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_cu7oi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1uq3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_lnftj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_6u4e7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_n1asd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_da67n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_nw1ix")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_1bsp0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_r1eyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_0s6cm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ey0g7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_t6v7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_4mnik")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_o1bi7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_i6qm6")
+}],
+"loop": false,
+"name": &"post-it",
+"speed": 30.0
+}]

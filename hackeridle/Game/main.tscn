@@ -2,5 +2,6 @@
 
 [ext_resource type="Script" path="res://Game/main.gd" id="1_2eeu2"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
+force_new_game = true

@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw4lwc84l8omh"]
+
+[ext_resource type="Script" path="res://Game/Clickers/learning_clicker.gd" id="1_y51c0"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_ok40m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8md2"]
+size = Vector2(128, 128)
+
+[node name="LearningClicker" type="StaticBody2D"]
+script = ExtResource("1_y51c0")
+
+[node name="LearningClickerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_ok40m")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q8md2")
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(256, 40)
+texture_normal = ExtResource("2_ok40m")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

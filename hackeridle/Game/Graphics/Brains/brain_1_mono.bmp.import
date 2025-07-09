@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://ud40kw60g3ab"
+path="res://.godot/imported/brain_1_mono.bmp-959fdbd12814ea4cf2bcb4abc0dd12ff.res"
+
+[deps]
+
+source_file="res://Game/Graphics/Brains/brain_1_mono.bmp"
+dest_files=["res://.godot/imported/brain_1_mono.bmp-959fdbd12814ea4cf2bcb4abc0dd12ff.res"]
+
+[params]
+
+create_from=0
+threshold=0.0

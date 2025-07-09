@@ -15,12 +15,32 @@ run/main_scene="res://Game/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Game/OthersSingleton/global.tscn"
+Player="*res://Game/OthersSingleton/player.gd"
+LearningItemsDB="*res://Game/DB/learning_items_db.tscn"
+Calculs="*res://Game/OthersSingleton/calculs.tscn"
+HackingItemsDb="*res://Game/DB/hacking_items_db.tscn"
+SourcesDb="*res://Game/DB/sources_db.tscn"
+SkillsManager="*res://Game/Skills/skills_manager.tscn"
+StatsManager="*res://Game/OthersSingleton/stats_manager.tscn"
+Save="*res://Game/Saves/Save.tscn"
+
 [display]
 
 window/size/viewport_width=540
 window/size/viewport_height=960
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://Game/News/TextFiles/amorce_story_1.en.translation", "res://Game/News/TextFiles/amorce_story_1.fr.translation", "res://Game/News/TextFiles/amorce_story_2.Column2.translation", "res://Game/News/TextFiles/amorce_story_2.Column3.translation", "res://Game/News/TextFiles/amorce_story_2.en.translation", "res://Game/News/TextFiles/amorce_story_2.fr.translation", "res://Game/News/TextFiles/amorce_story_3.en.translation", "res://Game/News/TextFiles/amorce_story_3.fr.translation", "res://Game/News/TextFiles/generic.en.translation", "res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/story_breaking_news.en.translation", "res://Game/News/TextFiles/story_breaking_news.fr.translation", "res://Game/Translations/generic_translations.en.translation", "res://Game/Translations/generic_translations.fr.translation", "res://Game/Translations/Skills/skills_translations.en.translation", "res://Game/Translations/Skills/skills_translations.fr.translation")
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true

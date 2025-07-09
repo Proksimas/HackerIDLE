@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dmq8i2ilikcpp"
+
+[deps]
+
+files=["res://Game/Translations/Skills/skills_translations.fr.translation", "res://Game/Translations/Skills/skills_translations.en.translation"]
+
+source_file="res://Game/Translations/Skills/skills_translations.csv"
+dest_files=["res://Game/Translations/Skills/skills_translations.fr.translation", "res://Game/Translations/Skills/skills_translations.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

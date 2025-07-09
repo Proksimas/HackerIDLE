@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbfejfsm30m5t"]
+
+[ext_resource type="Texture2D" uid="uid://dmh4q3x7ex3wd" path="res://Game/Graphics/Common_icons/brain.png" id="1_aur0w"]
+[ext_resource type="Script" path="res://Game/Graphics/ParticlesAndShaders/click_brain_particles.gd" id="2_3l8mi"]
+
+[sub_resource type="Curve" id="Curve_c83kf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.916667, 0.461538), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[node name="click_brain_particles" type="CPUParticles2D"]
+amount = 6
+lifetime = 1.2
+speed_scale = 2.0
+texture = ExtResource("1_aur0w")
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
+direction = Vector2(0, -1)
+spread = 25.0
+gravity = Vector2(0, 100)
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+radial_accel_max = 50.0
+angle_max = 720.0
+scale_amount_min = 0.1
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_c83kf")
+script = ExtResource("2_3l8mi")

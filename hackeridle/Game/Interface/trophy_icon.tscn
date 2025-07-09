@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7l0lwdbj0t01"]
+
+[ext_resource type="Texture2D" uid="uid://dhs1tkit0jlp2" path="res://Game/Graphics/UIs/TrophyIcons_46_t.PNG" id="1_26njd"]
+
+[node name="TrophyIcon" type="AspectRatioContainer"]
+anchors_preset = -1
+anchor_right = 0.0555556
+anchor_bottom = 0.03125
+size_flags_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BrainTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_26njd")
+expand_mode = 1

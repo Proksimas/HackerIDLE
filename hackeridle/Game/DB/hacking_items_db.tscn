@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcirvld20u3tp"]
+
+[ext_resource type="Script" path="res://Game/Clickers/Hacking/hacking_items_db.gd" id="1_jtt8o"]
+
+[node name="HackingItemsDB" type="Node"]
+script = ExtResource("1_jtt8o")

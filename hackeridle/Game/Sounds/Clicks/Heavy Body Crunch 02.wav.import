@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cfe18s57mpttj"
+path="res://.godot/imported/Heavy Body Crunch 02.wav-4bb38a5ee9543e754935d675bc8c7fba.sample"
+
+[deps]
+
+source_file="res://Game/Sounds/Clicks/Heavy Body Crunch 02.wav"
+dest_files=["res://.godot/imported/Heavy Body Crunch 02.wav-4bb38a5ee9543e754935d675bc8c7fba.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

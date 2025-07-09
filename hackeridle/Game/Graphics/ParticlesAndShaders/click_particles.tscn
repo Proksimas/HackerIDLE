@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://df8nahp5n1cu6"]
+
+[ext_resource type="Shader" path="res://Game/Graphics/ParticlesAndShaders/click.gdshader" id="1_cxlj4"]
+[ext_resource type="Script" path="res://Game/Graphics/ParticlesAndShaders/click_particles.gd" id="2_y2cj1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qf52m"]
+shader = ExtResource("1_cxlj4")
+shader_parameter/u_center = Vector2(0.5, 0.5)
+shader_parameter/u_outer_radius = 0.5
+shader_parameter/u_spikes = 6.0
+shader_parameter/u_sharpness = 0.5
+
+[node name="ClickParticles" type="CPUParticles2D"]
+material = SubResource("ShaderMaterial_qf52m")
+emitting = false
+amount = 100
+lifetime = 0.5
+one_shot = true
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 100.0
+scale_amount_min = 5.0
+scale_amount_max = 10.0
+script = ExtResource("2_y2cj1")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

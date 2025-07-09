@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://g21c21owd8m8"]
+
+[ext_resource type="Script" path="res://Game/OthersSingleton/player.gd" id="1_y746i"]
+
+[node name="Player" type="Node"]
+script = ExtResource("1_y746i")

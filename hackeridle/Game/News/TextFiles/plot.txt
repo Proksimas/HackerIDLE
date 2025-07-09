@@ -1,0 +1,11 @@
+Le jeu se déroule dans la ville de Novasec. On commence vers les années 1980, et le jeu devrait aller 
+jusqu'à une ère futuriste (mais c'est vraiment vers la fin du jeu ça...).
+L'objectif ici est d'écrire un peu son histoire, à cette ville, à ce monde. EN effet dans le jeu on aurait des nouvelles,
+racontant ce qui se passe pour les habitants de la ville.
+Ces "histoires" doivent être courtes car la lecture se fait via un bandeau d'informations.
+Le journal d'information se nomme: "Le Pulsar de Novasec". Slogan: Quand la ville se tait, le Pulsar parle.
+
+description complète: Le Pulsar de Novasec capte ce que d'autres ignorent. Comme les pulsars dans l'univers, nous émettons nos signaux, réguliers, persistants,
+ porteurs d'une vérité que le tumulte voudrait étouffer. Chaque battement est une fenêtre sur ce que la ville tente de cacher
+
+Quelques lieux notables: Le square Valmont, très prisé par tous les habitants de Novasec notamment graçe à son marchand de glace qui est incroyable.

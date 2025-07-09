@@ -1,0 +1,41 @@
+{
+    "hacking_items": [
+        {
+            "item_name": "hdmi",
+            "texture_path": "res://icon.svg",
+            "cost": 100,
+            "cost_factor": 1.25,
+            "gain": 20,
+            "gain_factor":1.45,
+            "delay": 10,
+            "formule_type":"polymoniale"
+        },
+
+        {
+
+            "item_name": "wifi_ephad",
+            "texture_path": "res://icon.svg",
+            "cost": 1500,
+            "cost_factor": 1.14,
+            "gain": 200,
+            "gain_factor":1.3,
+            "delay": 20,
+            "formule_type":"polymoniale"
+        },
+
+         {
+
+            "item_name": "MIT_flathouse",
+            "texture_path": "res://icon.svg",
+            "cost": 22000,
+            "cost_factor": 1.17,
+            "gain": 3000,
+            "gain_factor":1.3,
+            "delay": 45,
+            "formule_type":"polymoniale"
+        }
+
+    ]
+
+
+}
