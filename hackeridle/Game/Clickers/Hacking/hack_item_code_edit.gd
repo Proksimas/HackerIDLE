@@ -8,15 +8,14 @@ func _ready() -> void:
 
 func edit_text(is_empty: bool, content):
 	var text: String
+	var first_line: String = content[0]
+	first_line = first_line.lstrip("hack_name:")
+	var hack_duration: int = content[1]
+	text = "%s %s)" % [first_line, str(hack_duration),]
 	if is_empty:
-		var first_line: String = content[0]
-		first_line = first_line.lstrip("hack_name:")
-		first_line = first_line.rstrip(')')
-		var hack_duration: int = content[1]
-		text = "if __name__ == '__main__':\n\t"
-		text += "hack_duration = %s\n\t%s, hack_duration)" % [str(hack_duration), first_line]
 		self.text = text
-
+	else:
+		self.text += text
 	pass
 
 

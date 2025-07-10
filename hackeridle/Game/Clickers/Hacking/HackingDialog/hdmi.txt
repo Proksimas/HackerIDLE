@@ -1,4 +1,4 @@
-hack_name:hack_granny_tv(TV_IP)
+hack_name:hack_granny_tv(TV_IP, hack_duration = 
 import os
 import socket
 import hdmi
@@ -29,7 +29,3 @@ def hack_granny_tv(ip):
     inject_signal_override(ip)
 
 Hack successful ! Grandma unknowingly watches Twitch
-
-if __name__ == "__main__":
-    hack_granny_tv(TV_IP)
-    hack_duration = {hack_delay} seconds

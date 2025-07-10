@@ -46,9 +46,15 @@ func _process(delta: float) -> void:
 		progress_value_label.text = str(perc) + " %"
 		if time_process >= current_hack_item_cara["delay"]:
 			time_finished()
+
+	#on automatise si on a la sorce
+	elif not progress_activated and source_associated["level"] > 0:
+			lauch_wait_time()
 	else:
 		progress_value_label.text = str(perc) + " %"
 
+	print(source_associated["level"])
+	
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
 	set_unlocked_button_state()
@@ -157,11 +163,7 @@ func time_finished() -> void:
 	
 	hack_item_texture.disabled = false
 	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-	
-	#On a la source qui automatise
-	if source_associated["level"] > 0:
-		lauch_wait_time()
-	
+
 	
 	pass # Replace with function body.
 
@@ -184,79 +186,126 @@ func statut_updated():
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
-		
 
+#region char defilement
+
+# Variable pour stocker le texte complet une fois filtré et préparé pour l'animation
+var full_text_to_animate: String = ""
+
+# --- Fonction principale pour démarrer l'effet de machine à écrire ---
 func play_typewriter_effect() -> void:
-	# --- PRÉPARATION DU TEXTE ---
+	# --- 1. Préparation et filtrage du texte ---
+	full_text_to_animate = ""
 	var filtered_lines = []
-	var main_found = false
-
-	# Étape 1: Supprimer la première ligne
+	
+	# S'assurer qu'il y a du contenu avant de tenter de le filtrer
 	if file_content.size() > 0:
-		# Nous commençons à partir du deuxième élément (index 1)
+		var main_found = false
+		# Commence à partir du deuxième élément (index 1) pour ignorer la première ligne
 		for i in range(1, file_content.size()):
 			var line = file_content[i]
 			
-			# Étape 2: Supprimer les lignes après "if __name__ == "__main__":"
+			# Ajoute les lignes tant que la section "__main__" n'est pas trouvée
 			if not main_found:
 				if "if __name__ == \"__main__\":" in line:
+					# Marque que la section "__main__" a été trouvée;
+					# cette ligne et les suivantes seront ignorées.
 					main_found = true
 				else:
 					filtered_lines.append(line)
-			# Si main_found est vrai, nous arrêtons d'ajouter des lignes
 	
-	# Mettre à jour file_content avec les lignes filtrées
-	var lines_to_display = filtered_lines
-	# --- FIN DE LA PRÉPARATION DU TEXTE ---
+	# Concatène toutes les lignes filtrées en une seule chaîne, en ajoutant les sauts de ligne
+	full_text_to_animate = ""
+	for i in range(filtered_lines.size()):
+		full_text_to_animate += filtered_lines[i]
+		# Ajoute un saut de ligne entre les lignes, sauf après la dernière
+		if i < filtered_lines.size() - 1:
+			full_text_to_animate += "\n"
 
-	# Le reste de votre logique d'effet de machine à écrire reste inchangé,
-	# mais il utilisera maintenant 'lines_to_display' au lieu de 'file_content'.
-
-	# 1) Calculer le nombre total de caractères
-	var total_chars := 0
-	for line in lines_to_display: # Utilisation de lines_to_display
-		total_chars += line.length()
+	var total_steps = full_text_to_animate.length() # Nombre total de caractères/pas à animer
 	
-	if lines_to_display.size() > 1: # Utilisation de lines_to_display
-		total_chars += (lines_to_display.size() - 1)
-
-	if total_chars == 0:
+	# Gère les cas où il n'y a rien à animer
+	if total_steps == 0:
 		return 
 
-	# 2) Déterminer l’intervalle entre chaque caractère
-	var char_interval = current_hack_item_cara["delay"] / float(total_chars)
-
-	# 3) Construire et afficher le texte caractère par caractère
-	var current_line_index := 0
-	var current_column_index := 0
-
-	hack_item_code_edit.text = "" 
-
-	for line in lines_to_display: # Utilisation de lines_to_display
-		for c in line:
-			hack_item_code_edit.text += c 
-			
-			current_column_index += 1
-			hack_item_code_edit.set_caret_line(current_line_index)
-			hack_item_code_edit.set_caret_column(current_column_index)
-			
-			await get_tree().create_timer(char_interval).timeout
+	var total_duration = current_hack_item_cara["delay"] # Durée totale de l'animation en secondes
+	
+	# Gère les durées nulles ou négatives : affiche tout le texte instantanément
+	if total_duration <= 0.0:
+		hack_item_code_edit.text = full_text_to_animate
+		hack_item_code_edit.grab_focus()
+		var final_line_index = hack_item_code_edit.get_line_count() - 1
+		if final_line_index >= 0:
+			hack_item_code_edit.set_caret_line(final_line_index)
+			# Positionne le curseur à la fin de la dernière ligne
+			hack_item_code_edit.set_caret_column(hack_item_code_edit.get_line_content(final_line_index).length())
 		
-		if current_line_index < lines_to_display.size() - 1: # Utilisation de lines_to_display
-			hack_item_code_edit.text += "\n" 
-			current_line_index += 1 
-			current_column_index = 0 
-			
-			hack_item_code_edit.set_caret_line(current_line_index)
-			hack_item_code_edit.set_caret_column(current_column_index)
-			
+		# CORRECTED LINE FOR SCROLLING: Assure le défilement au maximum
+		if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
+			hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
+		return
+	
+	hack_item_code_edit.text = "" # Efface le texte précédent avant de commencer l'animation
 
+	# --- 2. Création et configuration de l'animation Tween ---
+	var tween = create_tween()
+	# Utilise TWEEN_PROCESS_PHYSICS pour une mise à jour fluide, alignée sur le pas physique du jeu
+	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS) 
+
+	# Anime une valeur flottante de 0.0 à 'total_steps' sur la 'total_duration'.
+	# La méthode '_update_typewriter_text' sera appelée avec la valeur interpolée à chaque update.
+	tween.tween_method(Callable(self, "_update_typewriter_text"), 0.0, float(total_steps), total_duration)
+	
+	# Connecte le signal 'finished' du Tween à une fonction de callback
+	# pour effectuer des actions une fois l'animation terminée.
+	tween.finished.connect(_on_typewriter_tween_finished)
+
+
+# --- Fonction appelée à chaque étape du Tween pour mettre à jour l'affichage ---
+func _update_typewriter_text(current_step: float) -> void:
+	# Convertit la valeur flottante interpolée en un index de caractère entier
+	var chars_to_display = int(current_step)
+	
+	# S'assure que l'index ne dépasse pas la longueur totale du texte
+	chars_to_display = clampi(chars_to_display, 0, full_text_to_animate.length())
+	
+	# Met à jour le texte visible dans le CodeEdit
+	hack_item_code_edit.text = full_text_to_animate.substr(0, chars_to_display)
+	
+	# Met à jour la position du curseur pour suivre l'écriture
+	var line_count = hack_item_code_edit.get_line_count()
+	if line_count > 0: # S'assure qu'il y a au moins une ligne
+		hack_item_code_edit.set_caret_line(line_count - 1) # Déplace le curseur sur la dernière ligne
+		# Positionne le curseur à la fin de la dernière ligne.
+		# get_line_content().length() est la méthode correcte pour obtenir la longueur d'une ligne.
+
+		# S'assure que CodeEdit défile pour que la dernière ligne soit visible
+		# CORRECTED LINE FOR SCROLLING:
+		if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
+			hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
+
+# --- Fonction appelée lorsque l'animation Tween est complètement terminée ---
+func _on_typewriter_tween_finished() -> void:
+	# S'assure que tout le texte est affiché à la fin de l'animation
+	hack_item_code_edit.text = full_text_to_animate
+	
+	# Assure que le CodeEdit a le focus d'entrée
 	hack_item_code_edit.grab_focus()
-	#
+	
+	# Positionne le curseur à la toute fin du texte
 	var final_line_index = hack_item_code_edit.get_line_count() - 1
-	hack_item_code_edit.set_caret_line(final_line_index)
+	if final_line_index >= 0:
+		hack_item_code_edit.set_caret_line(final_line_index)
+
+	# S'assure que le défilement est à la toute fin du contenu
+	# CORRECTED LINE FOR SCROLLING:
+	if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
+		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
+	
 
 
+#endregion
+	
 func source_upgraded(source_cara):
 	"""On augmente la source de 1 niveau"""
 	source_cara["level"] += 1
