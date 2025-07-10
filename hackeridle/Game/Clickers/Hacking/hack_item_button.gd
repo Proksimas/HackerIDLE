@@ -33,6 +33,8 @@ var source_associated: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hack_item_progress_bar.value = 0
+	hack_item_code_edit.add_theme_constant_override("scrollbar_v_size", 0)
+	hack_item_code_edit.add_theme_constant_override("scrollbar_h_size", 0)
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -185,81 +187,74 @@ func statut_updated():
 		
 
 func play_typewriter_effect() -> void:
+	# --- PRÉPARATION DU TEXTE ---
+	var filtered_lines = []
+	var main_found = false
+
+	# Étape 1: Supprimer la première ligne
+	if file_content.size() > 0:
+		# Nous commençons à partir du deuxième élément (index 1)
+		for i in range(1, file_content.size()):
+			var line = file_content[i]
+			
+			# Étape 2: Supprimer les lignes après "if __name__ == "__main__":"
+			if not main_found:
+				if "if __name__ == \"__main__\":" in line:
+					main_found = true
+				else:
+					filtered_lines.append(line)
+			# Si main_found est vrai, nous arrêtons d'ajouter des lignes
+	
+	# Mettre à jour file_content avec les lignes filtrées
+	var lines_to_display = filtered_lines
+	# --- FIN DE LA PRÉPARATION DU TEXTE ---
+
+	# Le reste de votre logique d'effet de machine à écrire reste inchangé,
+	# mais il utilisera maintenant 'lines_to_display' au lieu de 'file_content'.
+
 	# 1) Calculer le nombre total de caractères
-	var lines = file_content
 	var total_chars := 0
-	for line in lines:
+	for line in lines_to_display: # Utilisation de lines_to_display
 		total_chars += line.length()
 	
-	# Ajoutez 1 pour chaque saut de ligne, car ils sont aussi "tapés"
-	if lines.size() > 1:
-		total_chars += (lines.size() - 1)
+	if lines_to_display.size() > 1: # Utilisation de lines_to_display
+		total_chars += (lines_to_display.size() - 1)
 
 	if total_chars == 0:
-		return # rien à afficher
+		return 
 
 	# 2) Déterminer l’intervalle entre chaque caractère
-	var char_interval = current_hack_item_cara["delay"] / float(total_chars) # Utiliser float pour une division précise
+	var char_interval = current_hack_item_cara["delay"] / float(total_chars)
 
 	# 3) Construire et afficher le texte caractère par caractère
 	var current_line_index := 0
 	var current_column_index := 0
 
-	# Effacez le texte précédent avant de commencer
 	hack_item_code_edit.text = "" 
 
-	for line in lines:
-		# Ajoute les caractères de la ligne actuelle
+	for line in lines_to_display: # Utilisation de lines_to_display
 		for c in line:
-			hack_item_code_edit.text += c # Ajoute un seul caractère
+			hack_item_code_edit.text += c 
 			
-			# Met à jour la position du curseur
 			current_column_index += 1
 			hack_item_code_edit.set_caret_line(current_line_index)
 			hack_item_code_edit.set_caret_column(current_column_index)
 			
-			# Le CodeEdit est conçu pour défiler automatiquement et maintenir le curseur visible.
-			# Il n'est généralement pas nécessaire d'appeler scroll_to_line() ou set_v_scroll()
-			# manuellement si le curseur est constamment mis à jour.
-			
 			await get_tree().create_timer(char_interval).timeout
 		
-		# Si ce n'est pas la dernière ligne, ajoute un saut de ligne et passe à la ligne suivante
-		if current_line_index < lines.size() - 1:
-			hack_item_code_edit.text += "\n" # Ajoute le saut de ligne
-			current_line_index += 1 # Incrémente l'index de la ligne
-			current_column_index = 0 # Réinitialise la colonne pour la nouvelle ligne
+		if current_line_index < lines_to_display.size() - 1: # Utilisation de lines_to_display
+			hack_item_code_edit.text += "\n" 
+			current_line_index += 1 
+			current_column_index = 0 
 			
-			# Après avoir ajouté un saut de ligne, assurez-vous que le curseur est au début de la nouvelle ligne
 			hack_item_code_edit.set_caret_line(current_line_index)
 			hack_item_code_edit.set_caret_column(current_column_index)
 			
-			# Temps d'attente pour le saut de ligne si vous voulez qu'il soit perceptible
-			# await get_tree().create_timer(char_interval).timeout 
 
-	# S'assurer que le CodeEdit est bien focusé à la fin de l'animation
 	hack_item_code_edit.grab_focus()
-	
-	# Positionne le curseur à la toute fin du texte après l'animation complète
+	#
 	var final_line_index = hack_item_code_edit.get_line_count() - 1
 	hack_item_code_edit.set_caret_line(final_line_index)
-
-
-func upgrading_source():
-	"""on augmente le niveau de la source si le calcul du up level est bon.
-	De plus, il faut activer ses effets si il y en a"""
-	var _max = 100 # on sécurise le up avec un max
-	
-	for loop in range(_max):
-		if not source_associated:
-			return
-		var cost_level_to_reach = Calculs.get_next_source_level(source_associated)
-		if current_hack_item_cara["level"] < cost_level_to_reach:
-			break
-			
-		else:  # la source est upgrade. Voir les effetcs et le level
-
-			source_upgraded(source_associated)
 
 
 func source_upgraded(source_cara):

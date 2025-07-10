@@ -5,9 +5,9 @@ func _ready() -> void:
 
 
 
+
 func edit_text(is_empty: bool, content):
 	var text: String
-	print(content)
 	if is_empty:
 		var first_line: String = content[0]
 		first_line = first_line.lstrip("hack_name:")

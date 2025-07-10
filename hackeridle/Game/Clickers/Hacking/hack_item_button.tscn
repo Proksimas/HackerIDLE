@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=13 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_qh5xn"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
+[ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="4_7kjjd"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_code_edit.gd" id="4_dn8le"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_pubii"]
 
@@ -167,19 +168,27 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("4_7kjjd")
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
 text = "if __name__ == \"__main__\":
     hack_granny_tv(TV_IP)
     hack_duration = X seconds"
-indent_wrapped_lines = true
-scroll_past_end_of_file = true
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
 caret_blink = true
 caret_move_on_right_click = false
 caret_multiple = false
-use_custom_word_separators = true
+use_default_word_separators = false
 draw_tabs = true
+gutters_draw_line_numbers = true
 indent_size = 8
+indent_automatic = true
 script = ExtResource("4_dn8le")
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
