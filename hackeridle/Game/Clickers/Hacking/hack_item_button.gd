@@ -18,6 +18,7 @@ class_name HackItemButton
 @onready var source_button: Button = %SourceButton
 @onready var hack_item_code_edit: CodeEdit = %HackItemCodeEdit
 @onready var progress_value_label: Label = %ProgressValueLabel
+@onready var hack_duration: Label = %HackDuration
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
@@ -69,7 +70,7 @@ func set_hacking_item(item_name):
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
-	
+	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
 	#on a la source qui automatise
 
 func set_refresh(item_cara: Dictionary):
@@ -85,7 +86,7 @@ func set_refresh(item_cara: Dictionary):
 	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
 				str(Calculs.get_next_source_level(source_associated))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-	#hack_item_cd.text = "/ " + str(current_hack_item_cara["delay"]) + " secs"
+	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
 	if item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
