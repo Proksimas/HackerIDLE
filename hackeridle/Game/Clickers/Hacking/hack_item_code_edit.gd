@@ -14,7 +14,7 @@ func edit_text(is_empty: bool, content):
 		first_line = first_line.rstrip(')')
 		var hack_duration: int = content[1]
 		text = "if __name__ == '__main__':\n\t"
-		text += "hack_duration = %s\n\t%s, hack_duration" % [str(hack_duration), first_line]
+		text += "hack_duration = %s\n\t%s, hack_duration)" % [str(hack_duration), first_line]
 		self.text = text
 
 	pass

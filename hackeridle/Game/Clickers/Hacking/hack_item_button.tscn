@@ -132,8 +132,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
+[node name="ProgressValueLabel" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/outline_size = 2
 text = "LOADING"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
@@ -146,6 +148,7 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 15
 
 [node name="GoldIcon" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
 layout_mode = 2
@@ -165,6 +168,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
 text = "if __name__ == \"__main__\":
     hack_granny_tv(TV_IP)
     hack_duration = X seconds"
@@ -226,6 +230,7 @@ alignment = 2
 [node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 text = "390.8 K"
 
 [node name="BrainIcon" parent="NinePatchRect/MarginContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]

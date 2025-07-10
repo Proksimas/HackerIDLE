@@ -17,6 +17,7 @@ class_name HackItemButton
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
 @onready var source_button: Button = %SourceButton
 @onready var hack_item_code_edit: CodeEdit = %HackItemCodeEdit
+@onready var progress_value_label: Label = %ProgressValueLabel
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
@@ -35,11 +36,16 @@ func _ready() -> void:
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
+	var perc = 0
 	if progress_activated:
 		time_process += delta
 		hack_item_progress_bar.value = time_process
+		perc = round((time_process / hack_item_progress_bar.max_value) * 100)
+		progress_value_label.text = str(perc) + " %"
 		if time_process >= current_hack_item_cara["delay"]:
 			time_finished()
+	else:
+		progress_value_label.text = str(perc) + " %"
 
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
@@ -79,6 +85,7 @@ func set_refresh(item_cara: Dictionary):
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
+	
 	file_content = Global.load_txt(HACKING_DIALOG_PATH + item_cara["item_name"] + ".txt")
 	var content =[file_content[0], current_hack_item_cara["delay"]]
 	hack_item_code_edit.edit_text(true, content)
