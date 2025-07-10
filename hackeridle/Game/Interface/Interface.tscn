@@ -93,6 +93,12 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_qwjif")
 
+[node name="Label" type="Label" parent="Panel/VBoxContainer/Header"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 24.0
+text = "1980 - 10 - 01"
+
 [node name="Panel" type="ColorRect" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
@@ -178,9 +184,19 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_6q8rc")
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
 z_index = 90
 z_as_relative = false
+custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 size_flags_stretch_ratio = 0.25
+
+[node name="HSeparator" parent="Panel/VBoxContainer/NewsPanel/VBoxContainer/HBoxContainer2" index="0"]
+visible = false
+
+[node name="VBoxContainer" parent="Panel/VBoxContainer/NewsPanel/VBoxContainer/HBoxContainer2" index="1"]
+visible = false
+
+[node name="PulsarLoganLabel" parent="Panel/VBoxContainer/NewsPanel/VBoxContainer/HBoxContainer" index="1"]
+visible = false
 
 [node name="MainTabMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -336,3 +352,5 @@ autostart = true
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/SkillsButton" to="." method="_on_skills_button_pressed"]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]
+
+[editable path="Panel/VBoxContainer/NewsPanel"]
