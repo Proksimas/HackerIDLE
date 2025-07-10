@@ -48,12 +48,11 @@ func _process(delta: float) -> void:
 			time_finished()
 
 	#on automatise si on a la sorce
-	elif not progress_activated and source_associated["level"] > 0:
-			lauch_wait_time()
+	#elif not progress_activated and source_associated["level"] > 0:
+			#lauch_wait_time()
 	else:
 		progress_value_label.text = str(perc) + " %"
 
-	print(source_associated["level"])
 	
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
@@ -151,7 +150,7 @@ func lauch_wait_time():
 	hack_item_texture.disabled = true
 	progress_activated = true
 	play_typewriter_effect()
-	
+
 	pass
 
 
@@ -163,7 +162,8 @@ func time_finished() -> void:
 	
 	hack_item_texture.disabled = false
 	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-
+	if source_associated["level"] > 0:
+		lauch_wait_time()
 	
 	pass # Replace with function body.
 
@@ -302,9 +302,23 @@ func _on_typewriter_tween_finished() -> void:
 	if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
 		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 	
-
-
 #endregion
+
+func upgrading_source():
+	"""on augmente le niveau de la source si le calcul du up level est bon.
+	De plus, il faut activer ses effets si il y en a"""
+	var _max = 100 # on sécurise le up avec un max
+	
+	for loop in range(_max):
+		if not source_associated:
+			return
+		var cost_level_to_reach = Calculs.get_next_source_level(source_associated)
+		if current_hack_item_cara["level"] < cost_level_to_reach:
+			break
+			
+		else:  # la source est upgrade. Voir les effetcs et le level
+
+			source_upgraded(source_associated)
 	
 func source_upgraded(source_cara):
 	"""On augmente la source de 1 niveau"""
