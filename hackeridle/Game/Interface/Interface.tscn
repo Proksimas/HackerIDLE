@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=29 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -27,6 +27,11 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
 bg_color = Color(0, 0.501961, 0.501961, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwjif"]
+bg_color = Color(0.0588235, 0.262745, 0.262745, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6q8rc"]
+
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_qjpct"]
 frames = 8
 speed_scale = 3.0
@@ -45,6 +50,13 @@ frame_6/texture = ExtResource("8_dni6j")
 frame_6/duration = 1.0
 frame_7/texture = ExtResource("9_0m815")
 frame_7/duration = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_856t7"]
+bg_color = Color(0.745098, 0.745098, 0.745098, 0.67451)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -73,7 +85,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 0
 alignment = 1
+
+[node name="Header" type="Panel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qwjif")
 
 [node name="Panel" type="ColorRect" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
@@ -151,6 +169,11 @@ layout_mode = 2
 [node name="SPResource" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6q8rc")
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
 z_index = 90
@@ -282,6 +305,25 @@ size_flags_vertical = 8
 texture_normal = ExtResource("17_yc3nt")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="Tail" type="Panel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="ColorRect" type="Panel" parent="Panel/VBoxContainer/Tail"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -1.0
+offset_right = 75.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_856t7")
 
 [node name="SecondTimer" type="Timer" parent="."]
 unique_name_in_owner = true
