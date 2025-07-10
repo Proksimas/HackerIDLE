@@ -142,6 +142,7 @@ func lauch_wait_time():
 	
 	hack_item_texture.disabled = true
 	progress_activated = true
+	play_typewriter_effect()
 	
 	pass
 
@@ -182,6 +183,67 @@ func statut_updated():
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
 		
+
+func play_typewriter_effect() -> void:
+	# 1) Calculer le nombre total de caractères
+	var lines = file_content
+	var total_chars := 0
+	for line in lines:
+		total_chars += line.length()
+	
+	# Ajoutez 1 pour chaque saut de ligne, car ils sont aussi "tapés"
+	if lines.size() > 1:
+		total_chars += (lines.size() - 1)
+
+	if total_chars == 0:
+		return # rien à afficher
+
+	# 2) Déterminer l’intervalle entre chaque caractère
+	var char_interval = current_hack_item_cara["delay"] / float(total_chars) # Utiliser float pour une division précise
+
+	# 3) Construire et afficher le texte caractère par caractère
+	var current_line_index := 0
+	var current_column_index := 0
+
+	# Effacez le texte précédent avant de commencer
+	hack_item_code_edit.text = "" 
+
+	for line in lines:
+		# Ajoute les caractères de la ligne actuelle
+		for c in line:
+			hack_item_code_edit.text += c # Ajoute un seul caractère
+			
+			# Met à jour la position du curseur
+			current_column_index += 1
+			hack_item_code_edit.set_caret_line(current_line_index)
+			hack_item_code_edit.set_caret_column(current_column_index)
+			
+			# Le CodeEdit est conçu pour défiler automatiquement et maintenir le curseur visible.
+			# Il n'est généralement pas nécessaire d'appeler scroll_to_line() ou set_v_scroll()
+			# manuellement si le curseur est constamment mis à jour.
+			
+			await get_tree().create_timer(char_interval).timeout
+		
+		# Si ce n'est pas la dernière ligne, ajoute un saut de ligne et passe à la ligne suivante
+		if current_line_index < lines.size() - 1:
+			hack_item_code_edit.text += "\n" # Ajoute le saut de ligne
+			current_line_index += 1 # Incrémente l'index de la ligne
+			current_column_index = 0 # Réinitialise la colonne pour la nouvelle ligne
+			
+			# Après avoir ajouté un saut de ligne, assurez-vous que le curseur est au début de la nouvelle ligne
+			hack_item_code_edit.set_caret_line(current_line_index)
+			hack_item_code_edit.set_caret_column(current_column_index)
+			
+			# Temps d'attente pour le saut de ligne si vous voulez qu'il soit perceptible
+			# await get_tree().create_timer(char_interval).timeout 
+
+	# S'assurer que le CodeEdit est bien focusé à la fin de l'animation
+	hack_item_code_edit.grab_focus()
+	
+	# Positionne le curseur à la toute fin du texte après l'animation complète
+	var final_line_index = hack_item_code_edit.get_line_count() - 1
+	hack_item_code_edit.set_caret_line(final_line_index)
+
 
 func upgrading_source():
 	"""on augmente le niveau de la source si le calcul du up level est bon.
