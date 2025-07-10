@@ -45,12 +45,12 @@ func set_shop():
 			var source_associated = SourcesDb.get_associated_source(item_name)
 			if !Player.sources_item_bought.has(source_associated["source_name"]):
 				Player.add_source(source_associated)
+
 			else:
 				source_associated = Player.sources_item_bought[source_associated["source_name"]]
-				
+		
 			new_hack_item.source_associated = source_associated
 			new_hack_item.source_button.pressed.connect(_on_source_button_pressed.bind(source_associated))
-			
 			
 			new_hack_item.hide()
 			

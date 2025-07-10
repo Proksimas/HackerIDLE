@@ -63,8 +63,6 @@ func set_hacking_item(item_name):
 	#le gain de abse correspond à ce qu'il y a dans la db
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
-	hack_item_level.text = Global.number_to_string(item_level)
-	#hack_item_cd.text =  "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	hack_item_texture.disabled = true
 	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
 	#set_hacking_item_by_player_info()
@@ -84,7 +82,8 @@ func set_refresh(item_cara: Dictionary):
 	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 
-	hack_item_level.text = Global.number_to_string(item_level)
+	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
+				str(Calculs.get_next_source_level(source_associated))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	#hack_item_cd.text = "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	if item_cara["level"] > 0 and not progress_activated:
