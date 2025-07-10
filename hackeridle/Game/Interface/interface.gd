@@ -121,3 +121,4 @@ func _load_data(data):
 	init_interface()
 	#sauvegarde au nivau du learning
 	learning._load_data(data["learning_item_bought"])
+	hack_shop._load_data("")

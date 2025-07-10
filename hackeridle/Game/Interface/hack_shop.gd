@@ -18,17 +18,20 @@ func _ready() -> void:
 
 func set_shop():
 	"""Comprend l'initialisation et le rafraichissement si l'item est deja présent"""
+
 	_clear_sources()
 	source_panel.hide()
 	hack_grid.show()
 	var item_present: Dictionary
 	for hack_item:HackItemButton in hack_grid.get_children():
-		item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
+		if !hack_item.current_hack_item_cara.is_empty():
+			
+			item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
 
 	for item_name in HackingItemsDb.hacking_items_db:
 		
 		if item_present.has(item_name) and Player.has_hacking_item(item_name):
-			item_present[item_name].set_refresh(item_present[item_name].current_hack_item_cara)
+			item_present[item_name].set_refresh(Player.hacking_item_bought[item_name])
 			
 		elif item_present.has(item_name) and !Player.has_hacking_item(item_name):
 			continue
@@ -54,7 +57,7 @@ func set_shop():
 			
 			new_hack_item.hide()
 			
-			
+
 				
 func player_bought_hacking_item(item_name,  quantity):
 	var cost = 0
@@ -82,7 +85,6 @@ func player_bought_hacking_item(item_name,  quantity):
 	#Regardons si la source up
 	get_tree().call_group("g_hack_item_button", "upgrading_source")
 
-
 		##Puis on ajuste l'ui de l'item acheté pour optimisé
 	for hack_item:HackItemButton in hack_grid.get_children():
 		if not hack_item.current_hack_item_cara.is_empty() and hack_item.current_hack_item_cara["item_name"] == item_name:
@@ -91,9 +93,6 @@ func player_bought_hacking_item(item_name,  quantity):
 
 func hack_items_statut_updated():
 	get_tree().call_group("g_hack_item_button", "statut_updated")
-
-	
-
 
 func _on_x_button_pressed(button_name: String):
 	'''définit le *X d achat possible'''
@@ -144,3 +143,16 @@ func _clear_sources():
 func _clear():
 	for child in hack_grid.get_children():
 		child.queue_free()
+		
+func _load_data(data):
+	_clear()
+	#on force le set_shop meme si on a pas encore ouvert l'ui
+	var items_cache = Player.hacking_item_bought.duplicate()
+	Player.hacking_item_bought.clear()
+	
+	var items_cara = []
+	for item in items_cache:
+		Player.add_hacking_item(items_cache[item])
+		items_cara.append(items_cache[item])
+	set_shop()
+	pass

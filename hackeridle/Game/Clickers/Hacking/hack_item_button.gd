@@ -71,29 +71,30 @@ func set_hacking_item(item_name):
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
 	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
-	#on a la source qui automatise
 
-func set_refresh(item_cara: Dictionary):
+func set_refresh(item_cara: Dictionary = {}):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
-	est dans l'inventaire du joueur"""
-	if !Player.hacking_item_bought.has(item_cara["item_name"]) or \
-	!Player.hacking_item_statut[item_cara["item_name"]] == "unlocked":
+	est dans l'inventaire du joueur. Donc si vide, on ignore"""
+	if !item_cara.is_empty():
+		current_hack_item_cara = item_cara
+	if !Player.hacking_item_bought.has(current_hack_item_cara["item_name"]) or \
+	!Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
 		return
+	
 
-	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 
 	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
 				str(Calculs.get_next_source_level(source_associated))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
-	if item_cara["level"] > 0 and not progress_activated:
+	if current_hack_item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
 	
-	file_content = Global.load_txt(HACKING_DIALOG_PATH + item_cara["item_name"] + ".txt")
+	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 	var content =[file_content[0], current_hack_item_cara["delay"]]
 	hack_item_code_edit.edit_text(true, content)
 	
@@ -173,7 +174,7 @@ func statut_updated():
 		self.show()
 		hack_item_info.show()
 		to_unlocked_panel.hide()
-		
+			
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
 		#item a un prix de base pour être debloqué + ui associé
 		# TODO
@@ -347,7 +348,10 @@ func _on_buy_item_button_pressed() -> void:
 	var particle = CLICK_BRAIN_PARTICLES.instantiate()
 	particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
 	self.add_child(particle)
-	
-	
-	
 	pass # Replace with function body.
+
+
+func _load_data():
+	"""dans le chargement. Dois juste se refresh lui meme"""
+	
+	pass
