@@ -78,7 +78,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pcgk5")
 
-[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect"]
+[node name="MainMarginContainer" type="MarginContainer" parent="NinePatchRect"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,20 +91,23 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HackNameEdit" type="CodeEdit" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HackNameEdit" type="CodeEdit" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 15
+theme_override_font_sizes/font_size = 16
 text = "Hack_Granny_TV(TVP_IP, duration = X)"
+script = ExtResource("4_dn8le")
 
-[node name="HackLevelLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="HackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -112,22 +116,22 @@ text = "1 / 20"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HackItemInfo" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer"]
+[node name="HackItemInfo" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
 layout_mode = 2
 
-[node name="HackItemProgressBar" type="ProgressBar" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
+[node name="HackItemProgressBar" type="ProgressBar" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
@@ -138,7 +142,7 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_d1dab")
 value = 70.0
 show_percentage = false
 
-[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar"]
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -146,38 +150,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressValueLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
+[node name="ProgressValueLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/outline_size = 2
 text = "LOADING"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 2
 
-[node name="GoldGain" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="GoldGain" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 15
 
-[node name="GoldIcon" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
+[node name="GoldIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="HackItemCD" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="HackItemCD" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HackItemCodeEdit" type="CodeEdit" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
+[node name="HackItemCodeEdit" type="CodeEdit" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -206,11 +210,11 @@ indent_size = 8
 indent_automatic = true
 script = ExtResource("4_dn8le")
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
+[node name="HBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BuyItemButton" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+[node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -218,7 +222,7 @@ size_flags_vertical = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bnrru")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gvn61")
 
-[node name="Container" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton"]
+[node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -227,42 +231,42 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyTitle" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
+[node name="BuyTitle" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
 
-[node name="NbofBuy" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
+[node name="NbofBuy" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
 
-[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer"]
+[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "390.8 K"
 
-[node name="BrainIcon" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
+[node name="BrainIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment_horizontal = 2
 
-[node name="HSeparator" type="HSeparator" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_8mqma")
 
-[node name="SourceButton" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+[node name="SourceButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(100, 0)
@@ -270,10 +274,10 @@ layout_mode = 2
 theme_override_constants/outline_size = 14
 text = "Source"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 layout_mode = 2
 
-[node name="HackItemTexture" type="Button" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
+[node name="HackItemTexture" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
@@ -284,17 +288,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_yo4qo")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0hmjf")
 text = "Hack"
 
-[node name="HackItemLevel" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 1
-theme_override_font_sizes/font_size = 12
-text = "level"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="HackDuration" type="Label" parent="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
+[node name="HackDuration" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
@@ -344,7 +338,7 @@ text = "X"
 layout_mode = 2
 size_flags_horizontal = 4
 
-[connection signal="lines_edited_from" from="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_lines_edited_from"]
-[connection signal="text_set" from="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_text_set"]
-[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
-[connection signal="pressed" from="NinePatchRect/MarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]
+[connection signal="lines_edited_from" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_lines_edited_from"]
+[connection signal="text_set" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_text_set"]
+[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]

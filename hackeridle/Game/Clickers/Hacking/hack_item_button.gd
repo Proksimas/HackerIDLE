@@ -19,6 +19,8 @@ class_name HackItemButton
 @onready var hack_item_code_edit: CodeEdit = %HackItemCodeEdit
 @onready var progress_value_label: Label = %ProgressValueLabel
 @onready var hack_duration: Label = %HackDuration
+@onready var hack_name_edit: CodeEdit = %HackNameEdit
+@onready var main_margin_container: MarginContainer = %MainMarginContainer
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
@@ -96,7 +98,9 @@ func set_refresh(item_cara: Dictionary = {}):
 	
 	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 	var content =[file_content[0], current_hack_item_cara["delay"]]
-	hack_item_code_edit.edit_text(true, content)
+	#hack_item_code_edit.edit_text(true, content)
+	hack_name_edit.edit_text(true, content)
+	hack_item_code_edit.text = tr("$WaitingHacked")
 	
 	pass
 	
@@ -172,14 +176,14 @@ func statut_updated():
 	"""met à jour le statut de l'item"""
 	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
 		self.show()
-		hack_item_info.show()
+		main_margin_container.show()
 		to_unlocked_panel.hide()
 			
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
 		#item a un prix de base pour être debloqué + ui associé
 		# TODO
 		self.show()
-		hack_item_info.hide()
+		main_margin_container.hide()
 		to_unlocked_panel.show()
 		first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
 		brain_cost.text = Global.number_to_string(first_cost)
