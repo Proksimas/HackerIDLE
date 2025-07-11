@@ -349,9 +349,9 @@ func _on_hack_item_texture_pressed() -> void:
 
 func _on_buy_item_button_pressed() -> void:
 	"""le signal est aussi récupéré ailleurs"""
-	var particle = CLICK_BRAIN_PARTICLES.instantiate()
-	particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
-	self.add_child(particle)
+	#var particle = CLICK_BRAIN_PARTICLES.instantiate()
+	#particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
+	#self.add_child(particle)
 	pass # Replace with function body.
 
 

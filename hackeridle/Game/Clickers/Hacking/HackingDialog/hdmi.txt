@@ -1,4 +1,4 @@
-hack_name:Hack_Granny_TV(TV_IP, duration = 
+hack_name:Granny_TV(TV_IP, duration = 
 import os
 import socket
 import hdmi
