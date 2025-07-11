@@ -185,6 +185,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 theme = ExtResource("4_7kjjd")
 theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 13
@@ -268,13 +269,13 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_8mqma")
 
 [node name="SourceButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
-visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(85, 50)
 layout_mode = 2
 theme_override_constants/outline_size = 14
 text = "Source"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+visible = false
 layout_mode = 2
 
 [node name="HackItemTexture" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
@@ -338,6 +339,7 @@ text = "X"
 layout_mode = 2
 size_flags_horizontal = 4
 
+[connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]
 [connection signal="lines_edited_from" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_lines_edited_from"]
 [connection signal="text_set" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_text_set"]
 [connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton" to="." method="_on_buy_item_button_pressed"]

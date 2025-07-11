@@ -144,6 +144,7 @@ func x_can_be_buy(_x_buy):
 	
 	
 func lauch_wait_time():
+	"""Lancement du hack"""
 	if progress_activated == true:
 		return
 	hack_item_progress_bar.rounded =false
@@ -359,3 +360,10 @@ func _load_data():
 	"""dans le chargement. Dois juste se refresh lui meme"""
 	
 	pass
+
+
+func _on_hack_item_code_edit_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			lauch_wait_time()
+	pass # Replace with function body.
