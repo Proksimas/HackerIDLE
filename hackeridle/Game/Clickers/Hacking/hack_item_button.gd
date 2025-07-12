@@ -198,8 +198,16 @@ func statut_updated():
 # Variable pour stocker le texte complet une fois filtré et préparé pour l'animation
 var full_text_to_animate: String = ""
 
+# Variable pour garder une référence au Tween actif, afin de le gérer si un nouvel appel est fait
+var _current_typewriter_tween: Tween = null
+
 # --- Fonction principale pour démarrer l'effet de machine à écrire ---
 func play_typewriter_effect() -> void:
+	# Si un Tween est déjà en cours d'exécution, l'arrêter avant d'en créer un nouveau
+	if _current_typewriter_tween != null and _current_typewriter_tween.is_running():
+		_current_typewriter_tween.stop()
+		_current_typewriter_tween = null # Libère la référence
+
 	# --- 1. Préparation et filtrage du texte ---
 	full_text_to_animate = ""
 	var filtered_lines = []
@@ -234,20 +242,13 @@ func play_typewriter_effect() -> void:
 	if total_steps == 0:
 		return 
 
-	var total_duration = current_hack_item_cara["delay"] # Durée totale de l'animation en secondes
+	var total_duration = current_hack_item_cara.get("delay", 0.0) # Durée totale de l'animation en secondes, avec valeur par défaut
 	
 	# Gère les durées nulles ou négatives : affiche tout le texte instantanément
 	if total_duration <= 0.0:
 		hack_item_code_edit.text = full_text_to_animate
-		hack_item_code_edit.grab_focus()
-		var final_line_index = hack_item_code_edit.get_line_count() - 1
-		if final_line_index >= 0:
-			hack_item_code_edit.set_caret_line(final_line_index)
-			# Positionne le curseur à la fin de la dernière ligne
-			hack_item_code_edit.set_caret_column(hack_item_code_edit.get_line_content(final_line_index).length())
-		
-		# CORRECTED LINE FOR SCROLLING: Assure le défilement au maximum
-		if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
+		# Assure le défilement au maximum
+		if hack_item_code_edit.get_v_scroll_bar():
 			hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 		return
 	
@@ -255,8 +256,10 @@ func play_typewriter_effect() -> void:
 
 	# --- 2. Création et configuration de l'animation Tween ---
 	var tween = create_tween()
-	# Utilise TWEEN_PROCESS_PHYSICS pour une mise à jour fluide, alignée sur le pas physique du jeu
-	tween.set_process_mode(Tween.TWEEN_PROCESS_PHYSICS) 
+	# Utilise TWEEN_PROCESS_IDLE pour une mise à jour fluide et performante pour les animations visuelles
+	tween.set_process_mode(Tween.TWEEN_PROCESS_IDLE)
+	
+	_current_typewriter_tween = tween # Stocke la référence au nouveau Tween
 
 	# Anime une valeur flottante de 0.0 à 'total_steps' sur la 'total_duration'.
 	# La méthode '_update_typewriter_text' sera appelée avec la valeur interpolée à chaque update.
@@ -278,36 +281,21 @@ func _update_typewriter_text(current_step: float) -> void:
 	# Met à jour le texte visible dans le CodeEdit
 	hack_item_code_edit.text = full_text_to_animate.substr(0, chars_to_display)
 	
-	# Met à jour la position du curseur pour suivre l'écriture
-	var line_count = hack_item_code_edit.get_line_count()
-	if line_count > 0: # S'assure qu'il y a au moins une ligne
-		hack_item_code_edit.set_caret_line(line_count - 1) # Déplace le curseur sur la dernière ligne
-		# Positionne le curseur à la fin de la dernière ligne.
-		# get_line_content().length() est la méthode correcte pour obtenir la longueur d'une ligne.
+	# S'assure que CodeEdit défile pour que la dernière ligne soit visible
+	if hack_item_code_edit.get_v_scroll_bar():
+		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 
-		# S'assure que CodeEdit défile pour que la dernière ligne soit visible
-		# CORRECTED LINE FOR SCROLLING:
-		if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
-			hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 
 # --- Fonction appelée lorsque l'animation Tween est complètement terminée ---
 func _on_typewriter_tween_finished() -> void:
 	# S'assure que tout le texte est affiché à la fin de l'animation
 	hack_item_code_edit.text = full_text_to_animate
 	
-	# Assure que le CodeEdit a le focus d'entrée
-	hack_item_code_edit.grab_focus()
-	
-	# Positionne le curseur à la toute fin du texte
-	var final_line_index = hack_item_code_edit.get_line_count() - 1
-	if final_line_index >= 0:
-		hack_item_code_edit.set_caret_line(final_line_index)
-
 	# S'assure que le défilement est à la toute fin du contenu
-	# CORRECTED LINE FOR SCROLLING:
-	if hack_item_code_edit.get_v_scroll_bar(): # Vérifie si la barre de défilement existe
+	if hack_item_code_edit.get_v_scroll_bar():
 		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 	
+	_current_typewriter_tween = null # Libère la référence une fois l'animation terminée
 #endregion
 
 func upgrading_source():
