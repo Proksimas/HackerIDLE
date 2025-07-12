@@ -339,6 +339,8 @@ text = "X"
 layout_mode = 2
 size_flags_horizontal = 4
 
+[connection signal="draw" from="." to="." method="_on_draw"]
+[connection signal="hidden" from="." to="." method="_on_hidden"]
 [connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]
 [connection signal="lines_edited_from" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_lines_edited_from"]
 [connection signal="text_set" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_text_set"]

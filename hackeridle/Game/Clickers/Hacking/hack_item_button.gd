@@ -367,3 +367,13 @@ func _on_hack_item_code_edit_gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			lauch_wait_time()
 	pass # Replace with function body.
+
+
+func _on_hidden() -> void:
+	"""On cache tous les processus d'écriture en cours"""
+	hack_item_code_edit.hide()
+	pass # Replace with function body.
+
+func _on_draw() -> void:
+	hack_item_code_edit.show()
+	pass # Replace with function body.
