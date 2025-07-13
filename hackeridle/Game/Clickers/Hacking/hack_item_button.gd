@@ -194,19 +194,27 @@ func statut_updated():
 		self.hide()
 
 #region char defilement
-
 # Variable pour stocker le texte complet une fois filtré et préparé pour l'animation
 var full_text_to_animate: String = ""
 
 # Variable pour garder une référence au Tween actif, afin de le gérer si un nouvel appel est fait
 var _current_typewriter_tween: Tween = null
 
+# Variable pour stocker le nombre de caractères affichés lors de la dernière mise à jour
+var _last_displayed_chars: int = 0
+
+# Seuil de caractères avant de déclencher une nouvelle mise à jour de l'affichage
+# Ajustez cette valeur : plus elle est élevée, moins les mises à jour sont fréquentes (plus performant, moins fluide)
+# Une valeur de 1 signifie "chaque caractère" (comportement original)
+# Une valeur de 5-10 est un bon point de départ pour l'optimisation
+const UPDATE_CHAR_THRESHOLD: int = 3
+
 # --- Fonction principale pour démarrer l'effet de machine à écrire ---
 func play_typewriter_effect() -> void:
 	# Si un Tween est déjà en cours d'exécution, l'arrêter avant d'en créer un nouveau
 	if _current_typewriter_tween != null and _current_typewriter_tween.is_running():
 		_current_typewriter_tween.stop()
-		_current_typewriter_tween = null # Libère la référence
+		_current_typewriter_tween = null
 
 	# --- 1. Préparation et filtrage du texte ---
 	full_text_to_animate = ""
@@ -238,6 +246,9 @@ func play_typewriter_effect() -> void:
 
 	var total_steps = full_text_to_animate.length() # Nombre total de caractères/pas à animer
 	
+	# Réinitialise le compteur de caractères affichés pour la nouvelle animation
+	_last_displayed_chars = 0 
+
 	# Gère les cas où il n'y a rien à animer
 	if total_steps == 0:
 		return 
@@ -278,12 +289,15 @@ func _update_typewriter_text(current_step: float) -> void:
 	# S'assure que l'index ne dépasse pas la longueur totale du texte
 	chars_to_display = clampi(chars_to_display, 0, full_text_to_animate.length())
 	
-	# Met à jour le texte visible dans le CodeEdit
-	hack_item_code_edit.text = full_text_to_animate.substr(0, chars_to_display)
-	
-	# S'assure que CodeEdit défile pour que la dernière ligne soit visible
-	if hack_item_code_edit.get_v_scroll_bar():
-		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
+	# Optimisation : Ne met à jour le texte que si suffisamment de nouveaux caractères sont apparus
+	# ou si c'est la toute fin de l'animation pour s'assurer que tout le texte est affiché.
+	if chars_to_display - _last_displayed_chars >= UPDATE_CHAR_THRESHOLD or chars_to_display == full_text_to_animate.length():
+		hack_item_code_edit.text = full_text_to_animate.substr(0, chars_to_display)
+		_last_displayed_chars = chars_to_display # Met à jour le dernier compte de caractères affichés
+		
+		# S'assure que CodeEdit défile pour que la dernière ligne soit visible
+		if hack_item_code_edit.get_v_scroll_bar():
+			hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 
 
 # --- Fonction appelée lorsque l'animation Tween est complètement terminée ---
@@ -295,7 +309,8 @@ func _on_typewriter_tween_finished() -> void:
 	if hack_item_code_edit.get_v_scroll_bar():
 		hack_item_code_edit.scroll_vertical = hack_item_code_edit.get_v_scroll_bar().max_value
 	
-	_current_typewriter_tween = null # Libère la référence une fois l'animation terminée
+	_current_typewriter_tween = null
+	_last_displayed_chars = 0 # Réinitialise pour la prochaine animation
 #endregion
 
 func upgrading_source():
