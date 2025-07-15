@@ -1,4 +1,4 @@
-# MonScript.gd (Version Finale Corrigée 2)
+# MonScript.gd (Version Finale Corrigée 4 - Calcul unique)
 extends RichTextLabel
 
 # --- Variables d'état de l'animation ---
@@ -8,6 +8,7 @@ var _line_index_counter: int = 0
 
 # --- Paramètres d'optimisation ---
 const MAX_DISPLAY_LINES: int = 6
+const CHARS_PER_STEP: int = 5 # Nombre de caractères à afficher en un coup
 
 # --- Vos Couleurs Personnalisées ---
 const COLOR_IMPORTANT_KEYWORD = Color("#00FF99")
@@ -58,6 +59,41 @@ func _init():
 	PYTHON_OPERATORS_SORTED.sort_custom(func(a, b): return a.length() > b.length())
 	ALL_IMPORTANT_WORDS_SORTED = ALL_IMPORTANT_WORDS_RAW.duplicate()
 	ALL_IMPORTANT_WORDS_SORTED.sort_custom(func(a, b): return a.length() > b.length())
+
+
+
+
+func _prepare_script_for_display(file_content_lines: Array) -> void:
+	if !_full_filtered_lines_with_bbcode.is_empty():
+		#alors on est deja préparé
+		return
+	#_full_filtered_lines_with_bbcode.clear()
+	_line_index_counter = 0
+
+	var filtered_lines_raw = []
+	if file_content_lines.size() > 0:
+		for i in range(file_content_lines.size()):
+			var line = file_content_lines[i]
+			# Skip lines containing "__main__" or "hack_name:"
+			if "if __name__ == \"__main__\":" in line:
+				continue
+			elif "hack_name:" in line:
+				continue
+			else:
+				if not line.is_empty():
+					filtered_lines_raw.append(line)
+					
+	for i in range(filtered_lines_raw.size()):
+		_line_index_counter += 1
+		var line_number_info = _format_line_number(_line_index_counter)
+		var line_data = _apply_syntax_highlighting_to_line(filtered_lines_raw[i])
+		line_data.bbcode_text = line_number_info.bbcode + line_data.bbcode_text
+		line_data.formatted_text_length = line_number_info.length + line_data.raw_text_length
+		_full_filtered_lines_with_bbcode.append(line_data)
+
+	# Optionnel : Si vous voulez afficher le script complet sans animation au démarrage
+	# text = _get_display_text_for_final_state()
+	# visible_characters = -1
 
 # --- Coloration Syntaxique ---
 func _apply_syntax_highlighting_to_line(line_content: String) -> LineData:
@@ -132,12 +168,13 @@ func _apply_code_highlighting(code_segment: String) -> String:
 
 # --- Fonctions Utilitaires ---
 
-# ✅ NOUVELLE FONCTION pour remplacer RegEx.escape()
 func _escape_regex_string(text: String) -> String:
+	# Custom escaping for regex special characters
 	return text.replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+").replace("*", "\\*").replace("?", "\\?").replace("^", "\\^").replace("$", "\\$").replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]").replace("{", "\\{").replace("}", "\\}").replace("|", "\\|")
 
 func _is_overlapping(start_new: int, end_new: int, existing_highlights: Array[HighlightSegment]) -> bool:
 	for existing in existing_highlights:
+		# Check for any overlap
 		if start_new < existing.end and end_new > existing.start:
 			return true
 	return false
@@ -148,34 +185,16 @@ func _format_line_number(line_num: int) -> Dictionary:
 	return { "bbcode": bbcode_str, "length": num_str.length() + 1 }
 
 # --- Fonctions Principales (Animation) ---
-func start_typewriter_effect(file_content_lines: Array, hack_parameters: Dictionary) -> void:
+func start_typewriter_effect(hack_parameters: Dictionary) -> void: # file_content_lines n'est plus nécessaire ici
 	if _current_typing_tween != null and _current_typing_tween.is_running():
 		_current_typing_tween.kill()
 
-	_full_filtered_lines_with_bbcode.clear()
-	_line_index_counter = 0
-
-	var filtered_lines_raw = []
-	if file_content_lines.size() > 0:
-		var main_found = false
-		for i in range(file_content_lines.size()):
-			var line = file_content_lines[i]
-			if not main_found:
-				if "if __name__ == \"__main__\":" in line:
-					main_found = true
-				else:
-					if not line.is_empty():
-						filtered_lines_raw.append(line)
-	
-	for i in range(filtered_lines_raw.size()):
-		_line_index_counter += 1
-		var line_number_info = _format_line_number(_line_index_counter)
-		var line_data = _apply_syntax_highlighting_to_line(filtered_lines_raw[i])
-		line_data.bbcode_text = line_number_info.bbcode + line_data.bbcode_text
-		line_data.formatted_text_length = line_number_info.length + line_data.raw_text_length
-		_full_filtered_lines_with_bbcode.append(line_data)
-
+	# Vérifier si le contenu a déjà été préparé
 	if _full_filtered_lines_with_bbcode.is_empty():
+		# Si vous appelez start_typewriter_effect avant _ready() ou la préparation,
+		# vous pourriez vouloir charger un fichier ici ou afficher une erreur.
+		# Pour l'instant, nous allons juste vider le texte.
+		printerr("Le contenu du script n'a pas été préparé. Appelez _prepare_script_for_display d'abord.")
 		text = ""
 		return
 	
@@ -188,7 +207,7 @@ func start_typewriter_effect(file_content_lines: Array, hack_parameters: Diction
 
 	var total_chars = 0
 	for line_data in _full_filtered_lines_with_bbcode:
-		total_chars += line_data.formatted_text_length + 1
+		total_chars += line_data.formatted_text_length + 1 # +1 for newline character
 
 	if total_chars == 0:
 		_on_typing_animation_finished()
@@ -202,6 +221,9 @@ func start_typewriter_effect(file_content_lines: Array, hack_parameters: Diction
 func _update_displayed_lines(progress: float) -> void:
 	if _full_filtered_lines_with_bbcode.is_empty(): return
 	
+	var effective_progress = round(progress / CHARS_PER_STEP) * CHARS_PER_STEP
+	effective_progress = max(0, effective_progress)
+
 	var char_sum = 0
 	var current_line_idx = -1
 	var chars_in_current_line = 0
@@ -209,13 +231,13 @@ func _update_displayed_lines(progress: float) -> void:
 	for i in range(_full_filtered_lines_with_bbcode.size()):
 		var line_data = _full_filtered_lines_with_bbcode[i]
 		var line_len = line_data.formatted_text_length + 1
-		if char_sum + line_len > progress:
+		if char_sum + line_len > effective_progress:
 			current_line_idx = i
-			chars_in_current_line = int(progress - char_sum)
+			chars_in_current_line = int(effective_progress - char_sum)
 			break
 		char_sum += line_len
 	
-	if current_line_idx == -1 and progress > 0:
+	if current_line_idx == -1 and effective_progress > 0:
 		current_line_idx = _full_filtered_lines_with_bbcode.size() - 1
 		if not _full_filtered_lines_with_bbcode.is_empty():
 			chars_in_current_line = _full_filtered_lines_with_bbcode[current_line_idx].formatted_text_length
@@ -235,19 +257,24 @@ func _update_displayed_lines(progress: float) -> void:
 	var total_visible_chars_in_window = 0
 	for i in range(start_line, current_line_idx):
 		total_visible_chars_in_window += _full_filtered_lines_with_bbcode[i].formatted_text_length + 1
+			
 	total_visible_chars_in_window += chars_in_current_line
 
 	visible_characters = total_visible_chars_in_window
 
 func _on_typing_animation_finished() -> void:
-	if not is_instance_valid(self): return
+	if not is_instance_valid(self) or not is_node_ready(): return 
+
 	text = _get_display_text_for_final_state()
 	visible_characters = -1
 	_current_typing_tween = null
+
 
 func _get_display_text_for_final_state() -> String:
 	var parts = []
 	var start_line = max(0, _full_filtered_lines_with_bbcode.size() - MAX_DISPLAY_LINES)
 	for i in range(start_line, _full_filtered_lines_with_bbcode.size()):
 		parts.append(_full_filtered_lines_with_bbcode[i].bbcode_text)
-	return "\n".join(parts)
+	if not parts.is_empty():
+		return "\n".join(parts)
+	return ""

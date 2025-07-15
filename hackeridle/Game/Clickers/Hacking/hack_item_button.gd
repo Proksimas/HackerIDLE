@@ -102,6 +102,8 @@ func set_refresh(item_cara: Dictionary = {}):
 	hack_name_edit.edit_text(true, content)
 	hack_item_code_edit.text = tr("$WaitingHacked")
 	
+	hack_item_code_edit._prepare_script_for_display(file_content)
+	
 	pass
 	
 func knwoledge_refresh_hack_item():
@@ -157,7 +159,8 @@ func lauch_wait_time():
 	progress_activated = true
 	
 	#On lance dans le rich_label l'effet machine à écrire
-	hack_item_code_edit.start_typewriter_effect(file_content, {"delay": current_hack_item_cara["delay"]})
+	#on a deja préparé le contenu du bouton lors du chargement
+	hack_item_code_edit.start_typewriter_effect({"delay": current_hack_item_cara["delay"]})
 
 	pass
 
