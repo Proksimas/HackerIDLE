@@ -73,6 +73,7 @@ func set_hacking_item(item_name):
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
 	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
+	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 
 func set_refresh(item_cara: Dictionary = {}):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
@@ -95,10 +96,7 @@ func set_refresh(item_cara: Dictionary = {}):
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
-	
-	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 	var content =[file_content[0], current_hack_item_cara["delay"]]
-	#hack_item_code_edit.edit_text(true, content)
 	hack_name_edit.edit_text(true, content)
 	hack_item_code_edit.text = tr("$WaitingHacked")
 	
