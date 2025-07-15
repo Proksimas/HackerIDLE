@@ -155,7 +155,7 @@ func lauch_wait_time():
 	
 	hack_item_texture.disabled = true
 	progress_activated = true
-	start_typewriter_effect(file_content, {"delay": current_hack_item_cara["delay"]})
+	hack_item_code_edit.start_typewriter_effect(file_content, {"delay": current_hack_item_cara["delay"]})
 
 	pass
 
@@ -321,7 +321,6 @@ func _apply_code_highlighting(code_segment: String) -> String:
 		for match in matches:
 			if not _is_overlapping(match.get_start(), match.get_end(), highlights):
 				highlights.append(HighlightSegment.new(match.get_start(), match.get_end(), COLOR_OPERATOR))
-
 
 
 	var result_bbcode = ""
