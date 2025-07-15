@@ -181,35 +181,22 @@ layout_mode = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HackItemCodeEdit" type="CodeEdit" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
+[node name="HackItemCodeEdit" type="RichTextLabel" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
 theme = ExtResource("4_7kjjd")
-theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 13
+bbcode_enabled = true
 text = "if __name__ == \"__main__\":
     hack_granny_tv(TV_IP)
     hack_duration = X seconds
 klklkjhjkh"
-context_menu_enabled = false
+scroll_active = false
+scroll_following = true
 shortcut_keys_enabled = false
-selecting_enabled = false
 deselect_on_focus_loss_enabled = false
 drag_and_drop_selection_enabled = false
-virtual_keyboard_enabled = false
-middle_mouse_paste_enabled = false
-wrap_mode = 1
-caret_blink = true
-caret_move_on_right_click = false
-caret_multiple = false
-use_default_word_separators = false
-draw_tabs = true
-gutters_draw_line_numbers = true
-indent_size = 8
-indent_automatic = true
-script = ExtResource("4_dn8le")
 
 [node name="HBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
@@ -342,7 +329,5 @@ size_flags_horizontal = 4
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]
 [connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]
-[connection signal="lines_edited_from" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_lines_edited_from"]
-[connection signal="text_set" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_text_set"]
 [connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
 [connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]
