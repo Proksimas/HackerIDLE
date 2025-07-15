@@ -193,7 +193,6 @@ text = "if __name__ == \"__main__\":
     hack_granny_tv(TV_IP)
     hack_duration = X seconds
 klklkjhjkh"
-scroll_active = false
 scroll_following = true
 shortcut_keys_enabled = false
 deselect_on_focus_loss_enabled = false

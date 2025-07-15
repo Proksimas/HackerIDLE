@@ -1,4 +1,4 @@
-# MonScript.gd (Version Corrigée)
+# MonScript.gd (Version Finale Corrigée 2)
 extends RichTextLabel
 
 # --- Variables d'état de l'animation ---
@@ -55,9 +55,9 @@ class HighlightSegment extends RefCounted:
 
 # --- Initialisation ---
 func _init():
-
+	PYTHON_OPERATORS_SORTED.sort_custom(func(a, b): return a.length() > b.length())
 	ALL_IMPORTANT_WORDS_SORTED = ALL_IMPORTANT_WORDS_RAW.duplicate()
-
+	ALL_IMPORTANT_WORDS_SORTED.sort_custom(func(a, b): return a.length() > b.length())
 
 # --- Coloration Syntaxique ---
 func _apply_syntax_highlighting_to_line(line_content: String) -> LineData:
@@ -83,10 +83,10 @@ func _apply_code_highlighting(code_segment: String) -> String:
 	for match in string_regex.search_all(code_segment):
 		highlights.append(HighlightSegment.new(match.get_start(), match.get_end(), COLOR_STRING))
 
-	# 2. Mots importants (mots-clés, littéraux, fonctions)
+	# 2. Mots importants
 	for word in ALL_IMPORTANT_WORDS_SORTED:
 		var regex = RegEx.new()
-		regex.compile("\\b" + _escape_regex_chars(word) + "\\b")
+		regex.compile("\\b" + _escape_regex_string(word) + "\\b")
 		for match in regex.search_all(code_segment):
 			if not _is_overlapping(match.get_start(), match.get_end(), highlights):
 				var color_to_use = COLOR_IMPORTANT_KEYWORD
@@ -104,25 +104,24 @@ func _apply_code_highlighting(code_segment: String) -> String:
 	# 4. Opérateurs
 	for op in PYTHON_OPERATORS_SORTED:
 		var op_regex = RegEx.new()
-		op_regex.compile(_escape_regex_chars(op))
+		op_regex.compile(_escape_regex_string(op))
 		for match in op_regex.search_all(code_segment):
 			if not _is_overlapping(match.get_start(), match.get_end(), highlights):
 				highlights.append(HighlightSegment.new(match.get_start(), match.get_end(), COLOR_SYMBOL_OPERATOR))
 
+	# --- Assemblage du BBCode (Version Robuste) ---
+	highlights.sort_custom(func(a, b): return a.start < b.start)
 
 	var result_bbcode = ""
 	var current_pos = 0
 
 	for segment in highlights:
-		if segment.start > current_pos:
-			result_bbcode += "[color=" + COLOR_DEFAULT + "]" + code_segment.substr(current_pos, segment.start - current_pos) + "[/color]"
-		
-		# ## CORRECTION ICI ##
-		# On utilise .to_html() pour convertir l'objet Color en chaîne hexadécimale.
-		result_bbcode += "[color=" + segment.color.to_html() + "]" + code_segment.substr(segment.start, segment.end - segment.start) + "[/color]"
-		
-		current_pos = segment.end
-	
+		if segment.start >= current_pos:
+			if segment.start > current_pos:
+				result_bbcode += "[color=" + COLOR_DEFAULT + "]" + code_segment.substr(current_pos, segment.start - current_pos) + "[/color]"
+			result_bbcode += "[color=" + segment.color.to_html() + "]" + code_segment.substr(segment.start, segment.end - segment.start) + "[/color]"
+			current_pos = segment.end
+
 	if current_pos < code_segment.length():
 		result_bbcode += "[color=" + COLOR_DEFAULT + "]" + code_segment.substr(current_pos) + "[/color]"
 	
@@ -132,14 +131,16 @@ func _apply_code_highlighting(code_segment: String) -> String:
 	return result_bbcode
 
 # --- Fonctions Utilitaires ---
+
+# ✅ NOUVELLE FONCTION pour remplacer RegEx.escape()
+func _escape_regex_string(text: String) -> String:
+	return text.replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+").replace("*", "\\*").replace("?", "\\?").replace("^", "\\^").replace("$", "\\$").replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]").replace("{", "\\{").replace("}", "\\}").replace("|", "\\|")
+
 func _is_overlapping(start_new: int, end_new: int, existing_highlights: Array[HighlightSegment]) -> bool:
 	for existing in existing_highlights:
 		if start_new < existing.end and end_new > existing.start:
 			return true
 	return false
-
-func _escape_regex_chars(text: String) -> String:
-	return text.replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+").replace("*", "\\*").replace("?", "\\?").replace("^", "\\^").replace("$", "\\$").replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]").replace("{", "\\{").replace("}", "\\}").replace("|", "\\|")
 
 func _format_line_number(line_num: int) -> Dictionary:
 	var num_str = str(line_num)
@@ -154,7 +155,6 @@ func start_typewriter_effect(file_content_lines: Array, hack_parameters: Diction
 	_full_filtered_lines_with_bbcode.clear()
 	_line_index_counter = 0
 
-	# (Le reste de votre logique de filtrage de lignes est conservé)
 	var filtered_lines_raw = []
 	if file_content_lines.size() > 0:
 		var main_found = false
@@ -164,7 +164,8 @@ func start_typewriter_effect(file_content_lines: Array, hack_parameters: Diction
 				if "if __name__ == \"__main__\":" in line:
 					main_found = true
 				else:
-					filtered_lines_raw.append(line)
+					if not line.is_empty():
+						filtered_lines_raw.append(line)
 	
 	for i in range(filtered_lines_raw.size()):
 		_line_index_counter += 1
@@ -189,12 +190,18 @@ func start_typewriter_effect(file_content_lines: Array, hack_parameters: Diction
 	for line_data in _full_filtered_lines_with_bbcode:
 		total_chars += line_data.formatted_text_length + 1
 
+	if total_chars == 0:
+		_on_typing_animation_finished()
+		return
+
 	var tween = create_tween().set_process_mode(Tween.TWEEN_PROCESS_IDLE)
 	_current_typing_tween = tween
 	tween.tween_method(Callable(self, "_update_displayed_lines"), 0.0, float(total_chars), animation_duration)
-	tween.finished.connect(func(): _on_typing_animation_finished())
+	tween.finished.connect(_on_typing_animation_finished)
 
 func _update_displayed_lines(progress: float) -> void:
+	if _full_filtered_lines_with_bbcode.is_empty(): return
+	
 	var char_sum = 0
 	var current_line_idx = -1
 	var chars_in_current_line = 0
@@ -208,9 +215,12 @@ func _update_displayed_lines(progress: float) -> void:
 			break
 		char_sum += line_len
 	
-	if current_line_idx == -1: # Au cas où on est à la toute fin
+	if current_line_idx == -1 and progress > 0:
 		current_line_idx = _full_filtered_lines_with_bbcode.size() - 1
-		chars_in_current_line = _full_filtered_lines_with_bbcode[current_line_idx].formatted_text_length
+		if not _full_filtered_lines_with_bbcode.is_empty():
+			chars_in_current_line = _full_filtered_lines_with_bbcode[current_line_idx].formatted_text_length
+
+	if current_line_idx == -1: return
 
 	var display_bbcode_parts = []
 	var start_line = max(0, current_line_idx - MAX_DISPLAY_LINES + 1)
@@ -230,10 +240,10 @@ func _update_displayed_lines(progress: float) -> void:
 	visible_characters = total_visible_chars_in_window
 
 func _on_typing_animation_finished() -> void:
+	if not is_instance_valid(self): return
 	text = _get_display_text_for_final_state()
 	visible_characters = -1
 	_current_typing_tween = null
-	print("Animation terminée.")
 
 func _get_display_text_for_final_state() -> String:
 	var parts = []
