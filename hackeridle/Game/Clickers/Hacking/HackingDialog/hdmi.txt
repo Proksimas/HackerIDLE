@@ -28,4 +28,4 @@ def hack_granny_tv(ip):
     override_remote_control()
     inject_signal_override(ip)
 
-Hack successful ! Grandma unknowingly watches Twitch
+"Hack successful ! Grandma unknowingly watches Twitch"
