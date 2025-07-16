@@ -28,7 +28,7 @@ func set_item(item_name):
 	item_name_label.text = current_item_cara["item_name"]
 	shop_texture.texture = load(current_item_cara["texture_path"])
 	level_point_label.text = Global.number_to_string(current_item_cara["level"])
-	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara))
+	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
 	first_cost = Calculs.total_learning_prices(current_item_cara, 1)
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
@@ -45,7 +45,7 @@ func set_refresh(item_cara: Dictionary):
 	item_name_label.text = item_name
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
-	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara))
+	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
 	
 
 	x_can_be_buy(x_buy)

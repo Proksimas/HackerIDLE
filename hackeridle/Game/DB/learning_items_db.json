@@ -12,7 +12,7 @@
         },
 
         {
-            "item_name": "livres",
+            "item_name": "livre",
             "texture_path": "res://Game/Graphics/LearningItems/book.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 3000,
