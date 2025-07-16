@@ -1,27 +1,85 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=16 format=3 uid="uid://d0altvtk67lo8"]
 
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_qh5xn"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
+[ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="4_7kjjd"]
+[ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_code_edit.gd" id="4_dn8le"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_pubii"]
+[ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_riche_label.gd" id="5_k0tnd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pcgk5"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 5
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 1, 0.6, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbs0m"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(7.09929e-07, 0.246251, 0.133309, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d1dab"]
+bg_color = Color(0, 1, 0.6, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_bottom = 3
+border_color = Color(0, 0.247059, 0.133333, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bnrru"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gvn61"]
 bg_color = Color(0.881796, 0.482466, 0.000684034, 1)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8mqma"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i50no"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yo4qo"]
+bg_color = Color(0, 1, 0.6, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hmjf"]
+bg_color = Color(0, 0.67451, 0.403922, 1)
+
 [node name="HackItemButton" type="Control" groups=["g_hack_item_button"]]
-custom_minimum_size = Vector2(0, 100)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 3
 anchor_right = 1.0
-anchor_bottom = 0.133333
+anchor_bottom = 0.2
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 script = ExtResource("1_qsk31")
 metadata/_edit_use_anchors_ = true
 
-[node name="HackItemInfo" type="HBoxContainer" parent="."]
+[node name="NinePatchRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pcgk5")
+
+[node name="MainMarginContainer" type="MarginContainer" parent="NinePatchRect"]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -29,69 +87,63 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HackItemInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo/AspectRatioContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HackItemTexture" type="TextureButton" parent="HackItemInfo/AspectRatioContainer/VBoxContainer"]
+[node name="HackNameEdit" type="CodeEdit" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-texture_normal = ExtResource("1_qh5xn")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="HackItemLevel" type="Label" parent="HackItemInfo/AspectRatioContainer/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 1
-text = "level"
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Hack_Granny_TV(TVP_IP, duration = X)"
+script = ExtResource("4_dn8le")
 
-[node name="HackItemProgressBar" type="ProgressBar" parent="HackItemInfo/VBoxContainer"]
+[node name="HackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 40)
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
-size_flags_vertical = 1
-show_percentage = false
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 13
+text = "1 / 20"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="HackItemInfo/VBoxContainer/HackItemProgressBar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer"]
-layout_mode = 2
-
-[node name="GoldGain" type="Label" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
+[node name="HackItemInfo" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "X"
-
-[node name="GoldIcon" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
-layout_mode = 2
-
-[node name="HackItemCD" type="Label" parent="HackItemInfo/VBoxContainer/HackItemProgressBar/CenterContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "/ x sec"
-
-[node name="Panel" type="Panel" parent="HackItemInfo/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/Panel"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
+layout_mode = 2
+
+[node name="HackItemProgressBar" type="ProgressBar" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_styles/background = SubResource("StyleBoxFlat_lbs0m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d1dab")
+value = 70.0
+show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,7 +151,60 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BuyItemButton" type="Button" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer"]
+[node name="ProgressValueLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/outline_size = 2
+text = "LOADING"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 2
+
+[node name="GoldGain" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 15
+
+[node name="GoldIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HackItemCD" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HackItemCodeEdit" type="RichTextLabel" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme = ExtResource("4_7kjjd")
+bbcode_enabled = true
+text = "if __name__ == \"__main__\":
+    hack_granny_tv(TV_IP)
+    hack_duration = X seconds
+klklkjhjkh"
+scroll_active = false
+scroll_following = true
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("5_k0tnd")
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -107,44 +212,79 @@ size_flags_vertical = 3
 theme_override_styles/focus = SubResource("StyleBoxEmpty_bnrru")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_gvn61")
 
-[node name="Container" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton"]
+[node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container"]
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="BuyTitle" type="Label" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container/VBoxContainer"]
+[node name="BuyTitle" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Acheter"
 
-[node name="NbofBuy" type="Label" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container/VBoxContainer"]
+[node name="NbofBuy" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x 1"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container"]
 layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
 
-[node name="HackItemPriceLabel" type="Label" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container/HBoxContainer"]
+[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "xxxxx"
+theme_override_font_sizes/font_size = 15
+text = "390.8 K"
 
-[node name="BrainIcon" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
+[node name="BrainIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
+size_flags_horizontal = 10
+alignment_horizontal = 2
 
-[node name="SourceButton" type="Button" parent="HackItemInfo/VBoxContainer/Panel/HBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_8mqma")
+
+[node name="SourceButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2(85, 50)
 layout_mode = 2
+theme_override_constants/outline_size = 14
 text = "Source"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
+visible = false
+layout_mode = 2
+
+[node name="HackItemTexture" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 50)
+layout_mode = 2
+theme_override_constants/outline_size = 2
+theme_override_styles/disabled = SubResource("StyleBoxFlat_i50no")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yo4qo")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_yo4qo")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0hmjf")
+text = "Hack"
+
+[node name="HackDuration" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.4, 1, 1)
+text = "10 s"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
@@ -188,5 +328,8 @@ text = "X"
 layout_mode = 2
 size_flags_horizontal = 4
 
-[connection signal="pressed" from="HackItemInfo/AspectRatioContainer/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]
-[connection signal="pressed" from="HackItemInfo/VBoxContainer/Panel/HBoxContainer/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
+[connection signal="draw" from="." to="." method="_on_draw"]
+[connection signal="hidden" from="." to="." method="_on_hidden"]
+[connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]
+[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer/HackItemTexture" to="." method="_on_hack_item_texture_pressed"]

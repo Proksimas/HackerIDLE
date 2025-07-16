@@ -1,0 +1,38 @@
+hack_name:Nursing_Home(MAC, duration = 
+import time
+import wifi_scanner
+import network_analyzer
+import router_exploit_kit as rek
+import bingo_card_generator as bcg
+
+NETWORK_ID = "Nursing_Home_FreeWifi_Guest"
+TARGET_DEVICE_MAC = "AC:DE:48:00:BEEF" # Assuming a smart bingo machine
+
+def scan_vulnerable_access_points(network_id):
+    print(f"[{time.time()}] Scanning for vulnerable access points in {network_id}...")
+    vulnerable_aps = wifi_scanner.find_weak_signals(network_id, min_strength=-70)
+    if not vulnerable_aps:
+        raise ConnectionRefusedError("No weak Wi-Fi signals found. Granny's network is surprisingly robust.")
+    print(f"[{time.time()}] Found {len(vulnerable_aps)} potentially vulnerable APs.")
+    return vulnerable_aps[0] # Just pick the first one
+
+def deauthenticate_bingo_machine(target_mac):
+    print(f"[{time.time()}] Deauthenticating target device: {target_mac} (Bingo Machine)...")
+    network_analyzer.send_deauth_packet(target_mac, reason="too_many_bingo_losses")
+    time.sleep(2) # Give it a moment to disconnect
+    print(f"[{time.time()}] Deauthentication successful.")
+
+def inject_bingo_payload(ap_info, target_mac):
+    print(f"[{time.time()}] Injecting custom bingo payload via {ap_info['ssid']}...")
+    # This payload subtly influences the bingo number generation
+    payload = bcg.generate_winning_pattern_payload("B-I-N-G-O")
+    if not rek.exploit_router_firmware(ap_info['ip'], payload, backdoor_port=8888):
+        raise ExploitFailedError("Router firmware too stubborn. Probably running on a potato.")
+    print(f"[{time.time()}] Payload injected. Expecting 'BINGO!' soon.")
+
+def hack_nursing_home_wifi(network_id, target_device_mac):
+    ap_to_exploit = scan_vulnerable_access_points(network_id)
+    deauthenticate_bingo_machine(target_device_mac)
+    inject_bingo_payload(ap_to_exploit, target_device_mac)
+
+Hack successful! Bingo night just got a lot more interesting.

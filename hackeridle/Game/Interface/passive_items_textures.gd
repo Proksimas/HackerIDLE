@@ -43,9 +43,7 @@ func _on_item_spawn_timer_timeout() -> void:
 			"item_name": item_name,
 			"cumulative_weight": total_weight
 		})
-		print("Item: %s | Level: %d | Weight: %d | Cumul: %d" % [
-			item_name, level, weight, total_weight
-		])
+
 	if total_weight == 0:
 		return
 
