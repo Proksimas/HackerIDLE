@@ -2,7 +2,7 @@
     "learning_items": [
         {
             "item_name": "post-it",
-            "texture_path": "res://Game/Graphics/App_icons/final_frame.png",
+            "texture_path": "res://Game/Graphics/Gifs/postit_last_frame.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 200,
             "cost_factor": 1.11,
