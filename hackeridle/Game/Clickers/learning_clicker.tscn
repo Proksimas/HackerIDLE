@@ -1,14 +1,62 @@
-[gd_scene load_steps=4 format=3 uid="uid://b6jp6fcuboydj"]
+[gd_scene load_steps=4 format=3 uid="uid://csry2ikcfu3mv"]
 
-[ext_resource type="Script" path="res://Game/Clickers/learning_clicker.gd" id="1_y51c0"]
 [ext_resource type="SpriteFrames" uid="uid://b5xc15kavidqm" path="res://Game/Animations/post-it.tres" id="2_umb2c"]
+
+[sub_resource type="GDScript" id="GDScript_lhkan"]
+script/source = "extends StaticBody2D
+
+@onready var learning_clicker_sprite: AnimatedSprite2D = %LearningClickerSprite
+@onready var collider: CollisionShape2D = %Collider
+
+
+var current_item_cara: Dictionary
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func set_learning_clicker(cara:Dictionary):
+	current_item_cara = cara
+	learning_clicker_sprite.sprite_frames = load(current_item_cara[\"animation_path\"])
+	
+	pass
+
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			Player.earn_knowledge_point(get_earn_kp())
+
+			#ATTENTION le nomde l'animation doit être celui de l'item
+			if learning_clicker_sprite.is_playing():
+				learning_clicker_sprite.stop()
+			
+			learning_clicker_sprite.play(current_item_cara[\"item_name\"])
+			
+
+
+func get_earn_kp() -> float:
+	var gain: float = 0.0
+	for learning_item_name in Player.learning_item_bought:
+		var level_item = Player.learning_item_bought[learning_item_name][\"level\"]
+		var cost = Player.learning_item_bought[learning_item_name][\"cost\"]
+		
+		gain += level_item * cost
+	
+	return gain
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8md2"]
 size = Vector2(128, 128)
 
 [node name="LearningClicker" type="StaticBody2D"]
 input_pickable = true
-script = ExtResource("1_y51c0")
+script = SubResource("GDScript_lhkan")
 
 [node name="LearningClickerSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true

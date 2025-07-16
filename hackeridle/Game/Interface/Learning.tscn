@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=14 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8p8n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lk2jh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
@@ -52,6 +56,10 @@ anchor_right = 1.0
 offset_bottom = 94.0
 grow_horizontal = 2
 
+[node name="HSeparator3" type="HSeparator" parent="AllContainer/Control/LevelContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_k8p8n")
+
 [node name="CurrentBrainLevel" type="Label" parent="AllContainer/Control/LevelContainer"]
 unique_name_in_owner = true
 z_index = 50
@@ -59,6 +67,11 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Level 1"
 horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="AllContainer/Control/LevelContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_lk2jh")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer"]
 z_index = 50
@@ -129,6 +142,7 @@ stretch_mode = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/BrainAndCoContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 
 [node name="PassifClickers" type="HFlowContainer" parent="AllContainer/BrainAndCoContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -174,7 +188,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_rul6f")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 vertical = true
 
 [node name="SkillActivation" parent="AllContainer/BrainAndCoContainer/HBoxContainer/ActiveSkills" instance=ExtResource("5_gg0yo")]

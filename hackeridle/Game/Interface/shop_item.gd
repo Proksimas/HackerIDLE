@@ -8,12 +8,11 @@ class_name ShopItem
 @onready var item_name_label: Label = %ItemNameLabel
 @onready var level_label: Label = %LevelLabel
 @onready var level_point_label: Label = %LevelPointLabel
-@onready var speed_label: Label = %SpeedLabel
-@onready var speed_point_label: Label = %SpeedPointLabel
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var unlocked_button: Button = %UnlockedButton
 @onready var gold_cost: Label = %GoldCost
 @onready var learning_item_info: HBoxContainer = %LearningItemInfo
+@onready var gain_knowledge_label: Label = %GainKnowledgeLabel
 
 var current_item_cara: Dictionary
 var x_buy: int
@@ -29,6 +28,7 @@ func set_item(item_name):
 	item_name_label.text = current_item_cara["item_name"]
 	shop_texture.texture = load(current_item_cara["texture_path"])
 	level_point_label.text = Global.number_to_string(current_item_cara["level"])
+	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
 	first_cost = Calculs.total_learning_prices(current_item_cara, 1)
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
@@ -43,9 +43,10 @@ func set_refresh(item_cara: Dictionary):
 	current_item_cara = item_cara
 	var item_name = current_item_cara["item_name"]
 	item_name_label.text = item_name
-	
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
+	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
+	
 
 	x_can_be_buy(x_buy)
 	#set_unlocked_button_state()

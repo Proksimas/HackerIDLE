@@ -17,6 +17,20 @@ func load_json(path: String) -> Dictionary:
 		print("Erreur: Le fichier JSON n'est pas valide.")
 		return {}
 
+func load_txt(path: String) -> Array:
+	var lines = []
+	if not FileAccess.file_exists(path):
+		print("Erreur: Le fichier TXT n'existe pas.")
+		return []
+		
+	var file := FileAccess.open(path, FileAccess.READ)
+
+# Lire toutes les lignes en mémoire
+	while not file.eof_reached():
+		lines.append(file.get_line())
+	file.close()
+	return lines
+
 
 func number_to_string(number) -> String:
 	if number < 1000:

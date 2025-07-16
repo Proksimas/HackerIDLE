@@ -10,34 +10,53 @@ class_name HackItemButton
 @onready var hack_item_cd: Label = %HackItemCD
 @onready var hack_item_level: Label = %HackItemLevel
 @onready var gold_gain: Label = %GoldGain
-@onready var hack_item_texture: TextureButton = %HackItemTexture
+@onready var hack_item_texture: Button = %HackItemTexture
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var unlocked_button: Button = %UnlockedButton
 @onready var brain_cost: Label = %BrainCost
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
 @onready var source_button: Button = %SourceButton
+@onready var hack_item_code_edit: RichTextLabel = %HackItemCodeEdit
+@onready var progress_value_label: Label = %ProgressValueLabel
+@onready var hack_duration: Label = %HackDuration
+@onready var hack_name_edit: CodeEdit = %HackNameEdit
+@onready var main_margin_container: MarginContainer = %MainMarginContainer
+
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
-
+const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
 var x_buy
 var current_hack_item_cara = {}
 var progress_activated: bool = false
 var time_process:float
 var first_cost = INF
 var quantity_to_buy: int
-
+var file_content: Array
 var source_associated: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hack_item_progress_bar.value = 0
+	hack_item_code_edit.add_theme_constant_override("scrollbar_v_size", 0)
+	hack_item_code_edit.add_theme_constant_override("scrollbar_h_size", 0)
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
+	var perc = 0
 	if progress_activated:
 		time_process += delta
 		hack_item_progress_bar.value = time_process
+		perc = round((time_process / hack_item_progress_bar.max_value) * 100)
+		progress_value_label.text = str(perc) + " %"
 		if time_process >= current_hack_item_cara["delay"]:
 			time_finished()
 
+	#on automatise si on a la sorce
+	#elif not progress_activated and source_associated["level"] > 0:
+			#lauch_wait_time()
+	else:
+		progress_value_label.text = str(perc) + " %"
+
+	
 func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
 	set_unlocked_button_state()
@@ -47,33 +66,41 @@ func set_hacking_item(item_name):
 	#le gain de abse correspond à ce qu'il y a dans la db
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
-	hack_item_level.text = Global.number_to_string(item_level)
-	hack_item_cd.text =  "/ " + str(current_hack_item_cara["delay"]) + " secs"
 	hack_item_texture.disabled = true
 	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
 	#set_hacking_item_by_player_info()
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
-	
-	#on a la source qui automatise
+	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
+	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 
-func set_refresh(item_cara: Dictionary):
+func set_refresh(item_cara: Dictionary = {}):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
-	est dans l'inventaire du joueur"""
-	if !Player.hacking_item_bought.has(item_cara["item_name"]) or \
-	!Player.hacking_item_statut[item_cara["item_name"]] == "unlocked":
+	est dans l'inventaire du joueur. Donc si vide, on ignore"""
+	if !item_cara.is_empty():
+		current_hack_item_cara = item_cara
+	if !Player.hacking_item_bought.has(current_hack_item_cara["item_name"]) or \
+	!Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
 		return
+	
 
-	current_hack_item_cara = item_cara
 	var item_level = current_hack_item_cara["level"]
 
-	hack_item_level.text = Global.number_to_string(item_level)
+	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
+				str(Calculs.get_next_source_level(source_associated))
 	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-	hack_item_cd.text = "/ " + str(current_hack_item_cara["delay"]) + " secs"
-	if item_cara["level"] > 0 and not progress_activated:
+	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
+	if current_hack_item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
+	
+	#Mise à jour de l'ui de code
+	var content =[file_content[0], current_hack_item_cara["delay"]]
+	hack_name_edit.edit_text(true, content)
+	hack_item_code_edit.text = tr("$WaitingHacked")
+	
+	hack_item_code_edit._prepare_script_for_display(file_content)
 	
 	pass
 	
@@ -117,6 +144,7 @@ func x_can_be_buy(_x_buy):
 	
 	
 func lauch_wait_time():
+	"""Lancement du hack"""
 	if progress_activated == true:
 		return
 	hack_item_progress_bar.rounded =false
@@ -128,6 +156,10 @@ func lauch_wait_time():
 	hack_item_texture.disabled = true
 	progress_activated = true
 	
+	#On lance dans le rich_label l'effet machine à écrire
+	#on a deja préparé le contenu du bouton lors du chargement
+	hack_item_code_edit.start_typewriter_effect({"delay": current_hack_item_cara["delay"]})
+
 	pass
 
 
@@ -139,11 +171,8 @@ func time_finished() -> void:
 	
 	hack_item_texture.disabled = false
 	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
-	
-	#On a la source qui automatise
 	if source_associated["level"] > 0:
 		lauch_wait_time()
-	
 	
 	pass # Replace with function body.
 
@@ -151,14 +180,14 @@ func statut_updated():
 	"""met à jour le statut de l'item"""
 	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
 		self.show()
-		hack_item_info.show()
+		main_margin_container.show()
 		to_unlocked_panel.hide()
-		
+			
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'to_unlocked':
 		#item a un prix de base pour être debloqué + ui associé
 		# TODO
 		self.show()
-		hack_item_info.hide()
+		main_margin_container.hide()
 		to_unlocked_panel.show()
 		first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
 		brain_cost.text = Global.number_to_string(first_cost)
@@ -166,8 +195,6 @@ func statut_updated():
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':
 		self.hide()
-		
-		
 
 
 func upgrading_source():
@@ -185,8 +212,7 @@ func upgrading_source():
 		else:  # la source est upgrade. Voir les effetcs et le level
 
 			source_upgraded(source_associated)
-
-
+	
 func source_upgraded(source_cara):
 	"""On augmente la source de 1 niveau"""
 	source_cara["level"] += 1
@@ -211,10 +237,30 @@ func _on_hack_item_texture_pressed() -> void:
 
 func _on_buy_item_button_pressed() -> void:
 	"""le signal est aussi récupéré ailleurs"""
-	var particle = CLICK_BRAIN_PARTICLES.instantiate()
-	particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
-	self.add_child(particle)
+	#var particle = CLICK_BRAIN_PARTICLES.instantiate()
+	#particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
+	#self.add_child(particle)
+	pass # Replace with function body.
+
+
+func _load_data():
+	"""dans le chargement. Dois juste se refresh lui meme"""
 	
-	
-	
+	pass
+
+
+func _on_hack_item_code_edit_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			lauch_wait_time()
+	pass # Replace with function body.
+
+
+func _on_hidden() -> void:
+	"""On cache tous les processus d'écriture en cours"""
+	hack_item_code_edit.hide()
+	pass # Replace with function body.
+
+func _on_draw() -> void:
+	hack_item_code_edit.show()
 	pass # Replace with function body.

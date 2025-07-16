@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=11 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
-[ext_resource type="Texture2D" uid="uid://dwtk81fnv7wg1" path="res://Game/Graphics/App_icons/final_frame.png" id="1_vsjf5"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_r5rc6"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_1kn6s"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="4_wlvil"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
@@ -52,7 +53,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
-texture = ExtResource("1_vsjf5")
+texture = ExtResource("2_r5rc6")
 expand_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="LearningItemInfo"]
@@ -107,26 +108,22 @@ size_flags_horizontal = 3
 text = "XXX"
 horizontal_alignment = 2
 
-[node name="SpeedContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
-visible = false
+[node name="HBoxContainer2" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 6
 alignment = 1
 
-[node name="SpeedLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
-unique_name_in_owner = true
+[node name="BrainIcon" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2" instance=ExtResource("4_1kn6s")]
 custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "Delais"
+alignment_horizontal = 0
 
-[node name="SpeedPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/SpeedContainer"]
+[node name="GainKnowledgeLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "XXXXXXXX"
-horizontal_alignment = 2
+text = "+ XXX"
 
 [node name="VSeparator" type="VSeparator" parent="LearningItemInfo"]
 custom_minimum_size = Vector2(35, 0)

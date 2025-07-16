@@ -2,7 +2,7 @@
     "learning_items": [
         {
             "item_name": "post-it",
-            "texture_path": "res://Game/Graphics/App_icons/final_frame.png",
+            "texture_path": "res://Game/Graphics/LearningItems/post-it_2.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 200,
             "cost_factor": 1.11,
@@ -12,8 +12,8 @@
         },
 
         {
-            "item_name": "livres",
-            "texture_path": "res://icon.svg",
+            "item_name": "livre",
+            "texture_path": "res://Game/Graphics/LearningItems/book.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 3000,
             "cost_factor": 1.13,
@@ -24,7 +24,7 @@
 
          {
             "item_name": "MOOC",
-            "texture_path": "res://icon.svg",
+            "texture_path": "res://Game/Graphics/LearningItems/MOOC.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 20000,
             "cost_factor": 1.16,

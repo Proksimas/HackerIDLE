@@ -1,0 +1,27 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://caima42uc2vm4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p3u43"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_58q82"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e5ijm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g0uxs"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pebja"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nw31l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sx4hl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nb3g2"]
+
+[resource]
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_p3u43")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_58q82")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_e5ijm")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_g0uxs")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_pebja")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_nw31l")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_sx4hl")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_nb3g2")

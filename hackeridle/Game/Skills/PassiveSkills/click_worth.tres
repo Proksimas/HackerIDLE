@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_kputi")
-cost = Array[int]([2, 4, 8])
+cost = Array[int]([2, 4, 6, 8])
 ps_texture = ExtResource("1_pihmh")
 ps_name = "click_worth"
-data_bonus_1 = [1, 2, 4]
+data_bonus_1 = [1, 2, 3, 4]
 data_bonus_2 = []
