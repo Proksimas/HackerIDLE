@@ -1,5 +1,11 @@
 extends Node
 
+#################### DESCRIPTION ##############################################
+# Est géré les stats pour le jeu, ainsi que les modificateurs associés
+# Est géré également l'infamie (infamy) dans ce fichier
+#
+################################################################################
+
 enum Stats{GOLD, KNOWLEDGE, BRAIN_XP}
 enum ModifierType {PERCENTAGE, FLAT, BASE} 
 #FLAT = sans augmentation de pourcentage: Surement très peu utilisé
@@ -16,7 +22,9 @@ const STATS_NAMES = {
 var global_modifiers: Dictionary = {}    #tous les modificateurs des stats
 var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 
+var infamy: Dictionary
 
+signal s_go_to_jail()
 func _ready() -> void:
 	_init()
 	
@@ -28,10 +36,18 @@ func _init(new_game:bool = true) -> void:
 	for stat in Stats.values():
 		global_modifiers[stat] = []
 		brain_click_modifiers[stat] = []
+
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, Player.brain_level, "birth")
-
+	_init_infamy()
+	
+func _init_infamy():
+	infamy.clear()
+	infamy["min"] = 0 # doit jamais dépasser 90
+	infamy["max"] = 100 # Ne devrait jamais depasser 100
+	infamy["current"] = 0 # clamp entre min et max
+		
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 			modifier_type: ModifierType, value: float, source: String = ""):
@@ -151,6 +167,26 @@ func _show_stats_modifiers(stat_name: Stats):
 	print("\tpercentage: ", for_brain_click_modifiers["percentage"])
 	print("\tbase: ", for_brain_click_modifiers["base"])
 	print("\tflat: ", for_brain_click_modifiers["flat"])
+
+#region INFAMY
+
+func add_min_infay(_earning: int):
+	infamy["min"] = clamp(infamy["min"] + _earning, 0, 90)
+
+func add_infamy(_earning: float):
+	var earning = round(_earning)
+	infamy["current"] = clamp(infamy["current"] + earning, infamy["min"], infamy["max"])
+	if infamy["current"] == 100:
+		#DIRECT EN PRISON TODO
+		s_go_to_jail.emit()
+		pass
+	
+func get_infamy_effects():
+	var current_infamy = infamy["current"]
+	
+	
+#endregion
+
 
 func _save_data():
 	var all_vars = Global.get_serialisable_vars(self)
