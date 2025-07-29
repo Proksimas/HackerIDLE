@@ -30,6 +30,7 @@ func new_game():
 	fill_player_stats()
 	OS.delay_msec(100)
 	load_interface()
+	TimeManager.reset()
 
 func load_interface():
 	if self.has_node("Interface"):

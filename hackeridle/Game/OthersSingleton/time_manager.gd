@@ -63,6 +63,11 @@ func end_session():
 	print("SESSION TERMINEE")
 	pass
 	
+func reset(_session_minutes = session_minutes):
+	"""On retourne à zero !"""
+	session_minutes = _session_minutes
+	game_seconds = 0 
+	
 func _save_data():
 	var all_vars = Global.get_serialisable_vars(self)
 	return all_vars
