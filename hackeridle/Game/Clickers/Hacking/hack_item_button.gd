@@ -167,9 +167,10 @@ func time_finished() -> void:
 	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
 	progress_activated = false
 	hack_item_progress_bar.value = 0
-	#TODO Faire le cas où l'item n'est pas encore acheté
-	
 	hack_item_texture.disabled = false
+	
+	#Gain de l'or
+	# TODO modificateurs sur lz gain de gold du hack spécifique
 	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
 	if source_associated["level"] > 0:
 		lauch_wait_time()
