@@ -19,7 +19,8 @@ signal news_finished
 func _ready() -> void:	
 	news_size = text_label.size.x
 	new_news(pick_random_sentence("introduction"))
-	TimeManager.s_date.connect(_on_s_date)
+	
+	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
 	pass # Replace with function body.
 
 

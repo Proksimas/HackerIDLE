@@ -13,6 +13,7 @@ extends Control
 @onready var knowledge_resource: Control = %KnowledgeResource
 @onready var gold_resource: Control = %GoldResource
 @onready var sp_resource: Control = %SPResource
+@onready var date_label: Label = %DateLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,6 +29,7 @@ func connexions() -> void:
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
 	Player.s_earn_brain_level.connect(_on_earn_brain_level)
 	shop.item_bought.connect(learning._on_shop_item_bought)
+	TimeManager.s_date.connect(_on_s_date)
 
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
@@ -114,6 +116,14 @@ func _on_skills_button_pressed() -> void:
 func _on_second_timer_timeout() -> void:
 	_on_s_brain_clicked(0, 0)
 	pass # Replace with function body.
+	
+
+func _on_s_date(array):
+	# array[year, month, day, hour, minute]
+	
+	date_label.text = str(array[0]) +  " - " + str(array[1]) + " - " + str(array[2])
+	
+
 
 func _load_data(data):
 	"""Manage les chargement dans l'interface"""
