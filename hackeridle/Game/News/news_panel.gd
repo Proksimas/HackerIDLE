@@ -24,6 +24,7 @@ func _ready() -> void:
 	news_size = text_label.size.x
 	new_news(pick_random_sentence("introduction"))
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
+	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
@@ -77,16 +78,19 @@ func change_state(current_state: String):
 	
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
-	draw_infamy_stats()
+	
 
 func _on_infamy_icon_pressed() -> void:
 	infamy_stats.visible = !infamy_stats.visible
 	pass # Replace with function body.
 
 func draw_infamy_stats():
+	"""Dessine les caractéristiques liées à l'infamie actuelle"""
 	for effect in infamy_effects.get_children():
 		effect.queue_free()
 
+func _draw():
+	infamy_value.text = str(StatsManager.infamy["current_value"])
 
 func _on_cheat_infamy_pressed() -> void:
 	StatsManager.add_infamy(1)
@@ -96,6 +100,3 @@ func _on_cheat_infamy_pressed() -> void:
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-1)
 	pass # Replace with function body.
-
-func _draw():
-	_on_s_add_infamy(StatsManager.infamy["current_value"])
