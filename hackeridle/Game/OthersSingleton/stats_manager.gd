@@ -262,36 +262,35 @@ func get_infamy_treshold() -> Infamy:
 
 func get_infamy_effects():
 	""" Ici tous les effets lié à l'INFAMIE"""
-	var infamy_threshold = get_infamy_treshold()
-	var infamy_texts = []
-	match infamy_threshold:
+	var _infamy_threshold = get_infamy_treshold()
+	match _infamy_threshold:
 		Infamy.INNOCENT:
 			pass
 		Infamy.REPORT:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.25, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, -0.25, INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.USP:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.USA:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.2, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, 0.2, INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.TARGETED:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.5, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, -0.5, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.3, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, 0.3, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
-				ModifierType.PERCENTAGE, 0.1, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, 0.1, INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.PUBLIC_ENEMY:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.75, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, -0.75, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.5, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, 0.5, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
-				ModifierType.PERCENTAGE, 0.25, INFAMY_NAMES.get(infamy_threshold))
+				ModifierType.PERCENTAGE, 0.25, INFAMY_NAMES.get(_infamy_threshold))
 			pass
 	
 #endregion

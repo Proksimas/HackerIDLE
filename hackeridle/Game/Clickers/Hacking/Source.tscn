@@ -105,9 +105,6 @@ columns = 2
 [node name="BulletPoint" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/BonusGrid" instance=ExtResource("2_stmvv")]
 layout_mode = 2
 
-[node name="Label" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/BonusGrid/BulletPoint" index="1"]
-autowrap_mode = 3
-
 [node name="BulletPoint2" parent="MarginContainer/VBoxContainer/Bonus/VBoxContainer3/BonusGrid" instance=ExtResource("2_stmvv")]
 layout_mode = 2
 

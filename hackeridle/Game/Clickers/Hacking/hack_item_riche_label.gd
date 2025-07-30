@@ -104,8 +104,8 @@ func _apply_syntax_highlighting_to_line(line_content: String) -> LineData:
 		var code_part = line_content.substr(0, comment_match_pos)
 		var comment_part = line_content.substr(comment_match_pos)
 		var colored_code_part = _apply_code_highlighting(code_part)
-		var colored_line = colored_code_part + "[color=" + COLOR_COMMENT + "]" + comment_part + "[/color]"
-		return LineData.new(colored_line, initial_raw_length, initial_raw_length)
+		var _colored_line = colored_code_part + "[color=" + COLOR_COMMENT + "]" + comment_part + "[/color]"
+		return LineData.new(_colored_line, initial_raw_length, initial_raw_length)
 
 	var colored_line = _apply_code_highlighting(line_content)
 	return LineData.new(colored_line, initial_raw_length, initial_raw_length)
@@ -168,9 +168,9 @@ func _apply_code_highlighting(code_segment: String) -> String:
 
 # --- Fonctions Utilitaires ---
 
-func _escape_regex_string(text: String) -> String:
+func _escape_regex_string(_text: String) -> String:
 	# Custom escaping for regex special characters
-	return text.replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+").replace("*", "\\*").replace("?", "\\?").replace("^", "\\^").replace("$", "\\$").replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]").replace("{", "\\{").replace("}", "\\}").replace("|", "\\|")
+	return _text.replace("\\", "\\\\").replace(".", "\\.").replace("+", "\\+").replace("*", "\\*").replace("?", "\\?").replace("^", "\\^").replace("$", "\\$").replace("(", "\\(").replace(")", "\\)").replace("[", "\\[").replace("]", "\\]").replace("{", "\\{").replace("}", "\\}").replace("|", "\\|")
 
 func _is_overlapping(start_new: int, end_new: int, existing_highlights: Array[HighlightSegment]) -> bool:
 	for existing in existing_highlights:

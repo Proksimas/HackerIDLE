@@ -144,7 +144,7 @@ func _clear():
 	for child in hack_grid.get_children():
 		child.queue_free()
 		
-func _load_data(data):
+func _load_data(_data):
 	_clear()
 	#on force le set_shop meme si on a pas encore ouvert l'ui
 	var items_cache = Player.hacking_item_bought.duplicate()

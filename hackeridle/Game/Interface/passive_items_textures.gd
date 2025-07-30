@@ -28,14 +28,14 @@ func _on_item_spawn_timer_timeout():
 	# Calcul des poids cumulés
 	var total_weight := 0.0
 	var cumulative_weights := []
-	for name in keys:
-		var level = Player.learning_item_bought[name]['level']
+	for _name in keys:
+		var level = Player.learning_item_bought[_name]['level']
 		var weight = pow(level, 2)
 		if weight <= 0:
 			continue
 		total_weight += weight
 		cumulative_weights.append({
-			'item_name': name,
+			'item_name': _name,
 			'cumulative_weight': total_weight
 		})
 

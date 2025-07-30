@@ -70,7 +70,7 @@ func item_moving(_pos: Vector2, _size: Vector2) -> void:
 	self.rotation_degrees = randf_range(-40.0, 40.0)
 
 	# Durée aléatoire pour la chute
-	time_to_move = randi_range(18, 25.0)
+	time_to_move = randi_range(18, 25)
 
 	# Position finale Y = en bas de la zone définie par _pos et _size
 	# Ici, nous voulons que le bas de l'objet atteigne _pos.y + _size.y

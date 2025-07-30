@@ -96,3 +96,6 @@ func _on_cheat_infamy_pressed() -> void:
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-1)
 	pass # Replace with function body.
+
+func _draw():
+	_on_s_add_infamy(StatsManager.infamy["current_value"])

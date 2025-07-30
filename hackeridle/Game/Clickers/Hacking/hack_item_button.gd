@@ -61,7 +61,7 @@ func set_hacking_item(item_name):
 	"""on initialise depuis la base de donnée."""
 	set_unlocked_button_state()
 	current_hack_item_cara = HackingItemsDb.get_item_cara(item_name)
-	var item_level = current_hack_item_cara["level"]
+	var _item_level = current_hack_item_cara["level"]
 
 	#le gain de abse correspond à ce qu'il y a dans la db
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))

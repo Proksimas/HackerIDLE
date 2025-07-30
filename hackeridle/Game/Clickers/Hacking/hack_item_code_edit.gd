@@ -7,20 +7,16 @@ func _ready() -> void:
 
 
 func edit_text(is_empty: bool, content):
-	var text: String
+	var _text: String
 	var first_line: String = content[0]
 	first_line = first_line.lstrip("hack_name:")
 	var hack_duration: int = content[1]
-	text = "%s %s)" % [first_line, str(hack_duration),]
+	_text = "%s %s)" % [first_line, str(hack_duration),]
 	if is_empty:
-		self.text = text
+		self.text = _text
 	else:
-		self.text += text
+		self.text += _text
 	pass
-
-
-
-
 
 
 func bash():
