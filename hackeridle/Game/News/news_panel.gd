@@ -2,12 +2,16 @@ extends Panel
 
 @onready var text_label: Label = %TextLabel
 @onready var infamy_value: Label = %InfamyValue
+@onready var infamy_stats: Panel = %InfamyStats
 
 @export var scrolling_time: int = 2
+
+const GENERIC = "res://Game/News/TextFiles/generic.csv"
+const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
+
 var scroll_starting: bool = false
 var news_size
 var breaking_news = null
-const GENERIC = "res://Game/News/TextFiles/generic.csv"
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
@@ -21,6 +25,7 @@ func _ready() -> void:
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
 	_on_s_add_infamy(StatsManager.infamy["current"])
+	infamy_stats.hide()
 	pass # Replace with function body.
 
 
@@ -72,3 +77,8 @@ func change_state(current_state: String):
 	
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
+
+
+func _on_infamy_icon_pressed() -> void:
+	infamy_stats.visible = !infamy_stats.visible
+	pass # Replace with function body.
