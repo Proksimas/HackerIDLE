@@ -38,6 +38,7 @@ func _ready() -> void:
 	hack_item_progress_bar.value = 0
 	hack_item_code_edit.add_theme_constant_override("scrollbar_v_size", 0)
 	hack_item_code_edit.add_theme_constant_override("scrollbar_h_size", 0)
+	StatsManager.s_infamy_effect_added.connect(self._on_s_infamy_effect_added)
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -89,7 +90,12 @@ func set_refresh(item_cara: Dictionary = {}):
 
 	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
 				str(Calculs.get_next_source_level(source_associated))
-	gold_gain.text = Global.number_to_string(Calculs.gain_gold(current_hack_item_cara["item_name"]))
+				
+				
+	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,
+					Calculs.gain_gold(current_hack_item_cara["item_name"])))
+	
+	
 	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
 	if current_hack_item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
@@ -173,7 +179,7 @@ func time_finished() -> void:
 	# TODO modificateurs sur lz gain de gold du hack spécifique
 	var gold_from_item = Calculs.gain_gold(current_hack_item_cara["item_name"])
 	var final_hack_gold = StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD, gold_from_item)
-	print(final_hack_gold)
+	print_debug(final_hack_gold)
 	#Player.earn_gold()
 	if source_associated["level"] > 0:
 		lauch_wait_time()
@@ -268,3 +274,6 @@ func _on_hidden() -> void:
 func _on_draw() -> void:
 	hack_item_code_edit.show()
 	pass # Replace with function body.
+	
+func _on_s_infamy_effect_added():
+	set_refresh()

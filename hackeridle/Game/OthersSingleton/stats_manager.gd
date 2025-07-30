@@ -38,6 +38,7 @@ var infamy_threshold = [10,25,40,60,90,99]
 
 signal s_go_to_jail()
 signal s_add_infamy(infamy_value)
+signal s_infamy_effect_added()
 func _ready() -> void:
 	_init()
 	
@@ -63,7 +64,7 @@ func _init_infamy():
 	infamy["min"] = 0 # doit jamais dépasser 90
 	infamy["max"] = 100 # Ne devrait jamais depasser 100
 	infamy["current_value"] = 0 # clamp entre min et max
-	get_infamy_effects() #on prend le premier effet
+	add_infamy_effects() #on prend le premier effet
 		
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
@@ -238,9 +239,9 @@ func add_infamy(_earning: float):
 					filtered_list.append(dict_item)
 			hack_modifiers[stat] = filtered_list
 		#on recupere les nouveaux effets d'infamie
-		get_infamy_effects()
+		add_infamy_effects()
 
-	print(hack_modifiers)
+	print_debug(hack_modifiers)
 	
 	
 func get_infamy_treshold() -> Infamy:
@@ -260,8 +261,8 @@ func get_infamy_treshold() -> Infamy:
 	else:
 		return Infamy.NULL
 
-func get_infamy_effects():
-	""" Ici tous les effets lié à l'INFAMIE"""
+func add_infamy_effects():
+	""" On ajoute l'effet lié à l'INFAMIE dans les stats"""
 	var _infamy_threshold = get_infamy_treshold()
 	match _infamy_threshold:
 		Infamy.INNOCENT:
@@ -291,7 +292,7 @@ func get_infamy_effects():
 				ModifierType.PERCENTAGE, 0.5, INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
 				ModifierType.PERCENTAGE, 0.25, INFAMY_NAMES.get(_infamy_threshold))
-			pass
+	s_infamy_effect_added.emit()
 	
 #endregion
 
