@@ -48,7 +48,8 @@ func _process(delta: float) -> void:
 		hack_item_progress_bar.value = time_process
 		perc = round((time_process / hack_item_progress_bar.max_value) * 100)
 		progress_value_label.text = str(perc) + " %"
-		if time_process >= current_hack_item_cara["delay"]:
+		
+		if time_process >= StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"]):
 			time_finished()
 
 	#on automatise si on a la sorce
@@ -73,7 +74,7 @@ func set_hacking_item(item_name):
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
-	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
+	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 
 func set_refresh(item_cara: Dictionary = {}):
@@ -96,13 +97,13 @@ func set_refresh(item_cara: Dictionary = {}):
 					Calculs.gain_gold(current_hack_item_cara["item_name"])))
 	
 	
-	hack_duration.text = str(current_hack_item_cara["delay"]) + " s"
+	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 	if current_hack_item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
-	var content =[file_content[0], current_hack_item_cara["delay"]]
+	var content =[file_content[0], StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])]
 	hack_name_edit.edit_text(true, content)
 	hack_item_code_edit.text = tr("$WaitingHacked")
 	
@@ -155,7 +156,7 @@ func lauch_wait_time():
 		return
 	hack_item_progress_bar.rounded =false
 	time_process = 0
-	hack_item_progress_bar.max_value = current_hack_item_cara["delay"]
+	hack_item_progress_bar.max_value = StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])
 	hack_item_progress_bar.min_value = 0
 	hack_item_progress_bar.step = 0.01
 	
@@ -164,7 +165,7 @@ func lauch_wait_time():
 	
 	#On lance dans le rich_label l'effet machine à écrire
 	#on a deja préparé le contenu du bouton lors du chargement
-	hack_item_code_edit.start_typewriter_effect({"delay": current_hack_item_cara["delay"]})
+	hack_item_code_edit.start_typewriter_effect({"delay": StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])})
 
 	pass
 
@@ -277,3 +278,4 @@ func _on_draw() -> void:
 	
 func _on_s_infamy_effect_added():
 	set_refresh()
+	
