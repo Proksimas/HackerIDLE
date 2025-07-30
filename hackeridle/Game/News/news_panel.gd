@@ -1,8 +1,6 @@
 extends Panel
 
 @onready var text_label: Label = %TextLabel
-@onready var year_date: Label = %YearDate
-@onready var month_day: Label = %MonthDay
 
 @export var scrolling_time: int = 2
 var scroll_starting: bool = false
@@ -69,8 +67,3 @@ func change_state(current_state: String):
 		"random":
 			new_news(pick_random_sentence("random"))
 	
-
-func _on_s_date(array):
-	# array[year, month, day, hour, minute]
-	year_date.text = str(array[0])
-	month_day.text = str(array[1]) + " - " + str(array[2])

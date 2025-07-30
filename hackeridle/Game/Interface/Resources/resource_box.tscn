@@ -837,21 +837,19 @@ layout_mode = 3
 anchor_right = 0.277778
 anchor_bottom = 0.03125
 offset_right = -5.99982
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_g2raf")
-metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 show_behind_parent = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.125
-anchor_top = 0.133333
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.9
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0.501961, 0.501961, 1)
-metadata/_edit_use_anchors_ = true
 
 [node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
 layout_mode = 1
@@ -870,15 +868,19 @@ size_flags_vertical = 3
 text = "333"
 vertical_alignment = 1
 
-[node name="ResourceName" type="Label" parent="ColorRect"]
-unique_name_in_owner = true
+[node name="CenterContainer2" type="CenterContainer" parent="ColorRect"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.100952
-anchor_top = -0.521739
-anchor_right = 0.939048
-anchor_bottom = 0.26087
+anchor_top = -0.600939
+anchor_right = 1.0
+anchor_bottom = 0.399061
 grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ResourceName" type="Label" parent="ColorRect/CenterContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.94902, 0.709804, 0.117647, 1)
 theme_override_constants/outline_size = 1
