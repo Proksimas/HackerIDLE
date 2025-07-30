@@ -59,7 +59,7 @@ func _check_level_up():
 #region functions de gains
 
 func earn_knowledge_point(earning):
-	"""Le earning est la connaissance qu'on va gagner. Il faut y ajouter les bonus globaux"""	
+	"""Le earning est la connaissance qu'on va gagner. Il faut y ajouter les bonus globaux"""
 	earning = StatsManager.calcul_global_stat(StatsManager.Stats.KNOWLEDGE, earning)
 	knowledge_point += earning
 	knowledge_point = clamp(knowledge_point, 0, INF)
