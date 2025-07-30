@@ -25,7 +25,7 @@ func _ready() -> void:
 	new_news(pick_random_sentence("introduction"))
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
-	_on_s_add_infamy(StatsManager.infamy["current"])
+	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
 	pass # Replace with function body.
 
@@ -86,3 +86,13 @@ func _on_infamy_icon_pressed() -> void:
 func draw_infamy_stats():
 	for effect in infamy_effects.get_children():
 		effect.queue_free()
+
+
+func _on_cheat_infamy_pressed() -> void:
+	StatsManager.add_infamy(1)
+	pass # Replace with function body.
+
+
+func _on_cheat_infamy_2_pressed() -> void:
+	StatsManager.add_infamy(-1)
+	pass # Replace with function body.

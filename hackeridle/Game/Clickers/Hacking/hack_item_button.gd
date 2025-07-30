@@ -171,7 +171,10 @@ func time_finished() -> void:
 	
 	#Gain de l'or
 	# TODO modificateurs sur lz gain de gold du hack spécifique
-	Player.earn_gold(Calculs.gain_gold(current_hack_item_cara["item_name"]))
+	var gold_from_item = Calculs.gain_gold(current_hack_item_cara["item_name"])
+	var final_hack_gold = StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD, gold_from_item)
+	print(final_hack_gold)
+	#Player.earn_gold()
 	if source_associated["level"] > 0:
 		lauch_wait_time()
 	
