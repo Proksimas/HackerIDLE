@@ -8,6 +8,7 @@ extends Node
 
 enum Stats{GOLD, KNOWLEDGE, BRAIN_XP}
 enum ModifierType {PERCENTAGE, FLAT, BASE} 
+enum Infamy{INNOCENT, REPORT, USP, USA, TARGETED, PUBLIC_ENEMY}
 #FLAT = sans augmentation de pourcentage: Surement très peu utilisé
 #BASE = subit l'augmentation de pourcentage
 enum TargetModifier {GLOBAL, BRAIN_CLICK}
@@ -17,12 +18,21 @@ const STATS_NAMES = {
 	Stats.KNOWLEDGE: "knowledge",
 	Stats.BRAIN_XP: "brain_xp"
 }
+const INFAMY_NAMES = {
+	Infamy.INNOCENT: "innocent",
+	Infamy.REPORT: "report",
+	Infamy.USP: "usp",
+	Infamy.USA: "usa",
+	Infamy.TARGETED: "targeted",
+	Infamy.PUBLIC_ENEMY: "public_enemy"
+}
 
 # Sous la forme: {Stats: [new_modifier, ...]}
 var global_modifiers: Dictionary = {}    #tous les modificateurs des stats
 var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 
 var infamy: Dictionary
+var infamy_threshold = [10,25,40,60,90,99]
 
 signal s_go_to_jail()
 signal s_add_infamy(infamy_value)
@@ -47,7 +57,7 @@ func _init_infamy():
 	infamy.clear()
 	infamy["min"] = 0 # doit jamais dépasser 90
 	infamy["max"] = 100 # Ne devrait jamais depasser 100
-	infamy["current"] = 0 # clamp entre min et max
+	infamy["current_value"] = 0 # clamp entre min et max
 		
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
@@ -176,16 +186,36 @@ func add_min_infay(_earning: int):
 
 func add_infamy(_earning: float):
 	var earning = round(_earning)
-	infamy["current"] = clamp(infamy["current"] + earning, infamy["min"], infamy["max"])
-	s_add_infamy.emit(infamy["current"])
-	if infamy["current"] == 100:
+	infamy["current_value"] = clamp(infamy["current_value"] + earning, infamy["min"], infamy["max"])
+	s_add_infamy.emit(infamy["current_value"])
+	if infamy["current_value"] == 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
-		pass
+	else:
+		get_infamy_treshold()
 	
-func get_infamy_effects():
-	var current_infamy = infamy["current"]
 	
+func get_infamy_treshold():
+	var current_infamy = infamy["current_value"]
+	if current_infamy < infamy_threshold[0]:
+		return Infamy.INNOCENT
+	elif current_infamy < infamy_threshold[1]:
+		return Infamy.REPORT
+	elif current_infamy < infamy_threshold[2]:
+		return Infamy.USP
+	elif current_infamy < infamy_threshold[3]:
+		return Infamy.USA
+	elif current_infamy < infamy_threshold[4]:
+		return Infamy.TARGETED
+	elif current_infamy < infamy_threshold[5]:
+		return Infamy.PUBLIC_ENEMY
+
+func get_infamy_effects_text():
+	var infamy_treshold = get_infamy_treshold()
+	var infamy_texts = []
+	match infamy_threshold:
+		Infamy.INNOCENT:
+			pass
 	
 #endregion
 

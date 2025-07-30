@@ -3,6 +3,7 @@ extends Panel
 @onready var text_label: Label = %TextLabel
 @onready var infamy_value: Label = %InfamyValue
 @onready var infamy_stats: Panel = %InfamyStats
+@onready var infamy_effects: GridContainer = %InfamyEffects
 
 @export var scrolling_time: int = 2
 
@@ -74,11 +75,14 @@ func change_state(current_state: String):
 		"random":
 			new_news(pick_random_sentence("random"))
 	
-	
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
-
+	draw_infamy_stats()
 
 func _on_infamy_icon_pressed() -> void:
 	infamy_stats.visible = !infamy_stats.visible
 	pass # Replace with function body.
+
+func draw_infamy_stats():
+	for effect in infamy_effects.get_children():
+		effect.queue_free()
