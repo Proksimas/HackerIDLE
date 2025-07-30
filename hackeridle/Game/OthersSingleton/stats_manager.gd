@@ -25,6 +25,7 @@ var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 var infamy: Dictionary
 
 signal s_go_to_jail()
+signal s_add_infamy(infamy_value)
 func _ready() -> void:
 	_init()
 	
@@ -176,6 +177,7 @@ func add_min_infay(_earning: int):
 func add_infamy(_earning: float):
 	var earning = round(_earning)
 	infamy["current"] = clamp(infamy["current"] + earning, infamy["min"], infamy["max"])
+	s_add_infamy.emit(infamy["current"])
 	if infamy["current"] == 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()

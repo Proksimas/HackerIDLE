@@ -1,6 +1,7 @@
 extends Panel
 
 @onready var text_label: Label = %TextLabel
+@onready var infamy_value: Label = %InfamyValue
 
 @export var scrolling_time: int = 2
 var scroll_starting: bool = false
@@ -17,8 +18,9 @@ signal news_finished
 func _ready() -> void:	
 	news_size = text_label.size.x
 	new_news(pick_random_sentence("introduction"))
-	
+	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
+	_on_s_add_infamy(StatsManager.infamy["current"])
 	pass # Replace with function body.
 
 
@@ -67,3 +69,6 @@ func change_state(current_state: String):
 		"random":
 			new_news(pick_random_sentence("random"))
 	
+	
+func _on_s_add_infamy(_infamy_value):
+	infamy_value.text = str(_infamy_value)
