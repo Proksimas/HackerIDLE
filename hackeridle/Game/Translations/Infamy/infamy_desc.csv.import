@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cagiol11nxy66"
+
+[deps]
+
+files=["res://Game/Translations/Infamy/infamy_desc.fr.translation", "res://Game/Translations/Infamy/infamy_desc.en.translation"]
+
+source_file="res://Game/Translations/Infamy/infamy_desc.csv"
+dest_files=["res://Game/Translations/Infamy/infamy_desc.fr.translation", "res://Game/Translations/Infamy/infamy_desc.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

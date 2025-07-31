@@ -4,6 +4,7 @@ extends Panel
 @onready var infamy_value: Label = %InfamyValue
 @onready var infamy_stats: Panel = %InfamyStats
 @onready var infamy_effects: GridContainer = %InfamyEffects
+@onready var treshold_name_label: Label = %TresholdNameLabel
 
 @export var scrolling_time: int = 2
 
@@ -75,6 +76,11 @@ func change_state(current_state: String):
 			new_news(pick_random_sentence("random"))
 		"random":
 			new_news(pick_random_sentence("random"))
+			
+#region INFAMY
+
+## On gère l'infamie
+
 	
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
@@ -88,9 +94,46 @@ func draw_infamy_stats():
 	"""Dessine les caractéristiques liées à l'infamie actuelle"""
 	for effect in infamy_effects.get_children():
 		effect.queue_free()
+		
+	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
+	var _hack_modifiers = StatsManager.hack_modifiers
+	var _translations:Array = []
+	for stat: StatsManager.Stats in _hack_modifiers:
+		if _hack_modifiers[stat].is_empty():
+			continue
+			
+		var hack_dicts = _hack_modifiers[stat]
+		var value: float
+		var has_value: bool = false
+		for dict in hack_dicts:
+			if dict["source"].begins_with("infamy_"):
+				value = dict["value"] * 100
+				has_value = true
+				
+		if has_value == false:
+			push_warning("Pas valeur trouvée, pas normal ")
+			return
+		
+		var value_str: String
+		if value > 0:
+			value_str = "+%s" % str(value)
+		elif value < 0:
+			value_str = "-%s" % str(abs(value))
+		else:
+			value_str = ""
+		_translations.append(tr("hack_" + StatsManager.STATS_NAMES.get(stat)).\
+				format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str}))
+	
+	for trad in _translations:
+		var bullet_label = BULLET_POINT.instantiate()
+		infamy_effects.add_child(bullet_label)
+		bullet_label.set_bullet_point(trad)
+
+	#
 
 func _draw():
 	infamy_value.text = str(StatsManager.infamy["current_value"])
+	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
 
 func _on_cheat_infamy_pressed() -> void:
 	StatsManager.add_infamy(1)
@@ -100,3 +143,4 @@ func _on_cheat_infamy_pressed() -> void:
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-1)
 	pass # Replace with function body.
+#endregion

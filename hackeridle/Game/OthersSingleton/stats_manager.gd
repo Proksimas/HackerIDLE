@@ -17,7 +17,9 @@ enum TargetModifier{GLOBAL, BRAIN_CLICK, HACK}
 const STATS_NAMES = {
 	Stats.GOLD: "gold",
 	Stats.KNOWLEDGE: "knowledge",
-	Stats.BRAIN_XP: "brain_xp"
+	Stats.BRAIN_XP: "brain_xp",
+	Stats.TIME: "time",
+	Stats.JAIL: "jail"
 }
 const INFAMY_NAMES = {
 	Infamy.INNOCENT: "innocent",
@@ -235,14 +237,11 @@ func add_infamy(_earning: float):
 			var old_treshold_name = INFAMY_NAMES.get(old_treshold) # Récupère le nom du seuil une seule fois
 			for dict_item in hack_modifiers[stat]:
 				# Si la source n'est PAS celle de l'ancien seuil, ajoute-la à la nouvelle liste
-				if "source" in dict_item and dict_item["source"] != old_treshold_name:
+				if "source" in dict_item and dict_item["source"] != "infamy_" + old_treshold_name:
 					filtered_list.append(dict_item)
 			hack_modifiers[stat] = filtered_list
 		#on recupere les nouveaux effets d'infamie
 		add_infamy_effects()
-
-	print_debug(hack_modifiers)
-	
 	
 func get_infamy_treshold() -> Infamy:
 	var current_infamy = infamy["current_value"]
@@ -269,30 +268,44 @@ func add_infamy_effects():
 			pass
 		Infamy.REPORT:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.25, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, -0.25, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.USP:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, -0.4, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.USA:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.4, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, -0.4, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.2, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, 0.2, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.TARGETED:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.5, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, -0.5, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.3, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, 0.3, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
-				ModifierType.PERCENTAGE, 0.1, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, 0.1, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 		Infamy.PUBLIC_ENEMY:
 			self.add_modifier(TargetModifier.HACK, Stats.GOLD,
-				ModifierType.PERCENTAGE, -0.75, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, -0.75, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.TIME,
-				ModifierType.PERCENTAGE, 0.5, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, 0.5, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
-				ModifierType.PERCENTAGE, 0.25, INFAMY_NAMES.get(_infamy_threshold))
+				ModifierType.PERCENTAGE, 0.25, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 	s_infamy_effect_added.emit()
+	
+	
+func get_infamy_translation() -> String:
+	var _translation: String
+
+	return "plop"
+	#return tr(player_skill['as_name'] + "_desc").\
+			#format(
+				#{"as_during_time": player_skill["as_during_time"],
+				#"as_name": player_skill["as_name"],
+				#"cost": player_skill["cost"],
+				#"data_bonus_1": data_bonus_1,
+				#"data_bonus_2": data_bonus_2
+				#})
 	
 #endregion
 
