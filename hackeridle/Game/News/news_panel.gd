@@ -136,11 +136,11 @@ func _draw():
 	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
 
 func _on_cheat_infamy_pressed() -> void:
-	StatsManager.add_infamy(1)
+	StatsManager.add_infamy(5)
 	pass # Replace with function body.
 
 
 func _on_cheat_infamy_2_pressed() -> void:
-	StatsManager.add_infamy(-1)
+	StatsManager.add_infamy(-5)
 	pass # Replace with function body.
 #endregion
