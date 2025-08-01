@@ -27,7 +27,8 @@ const INFAMY_NAMES = {
 	Infamy.USP: "usp",
 	Infamy.USA: "usa",
 	Infamy.TARGETED: "targeted",
-	Infamy.PUBLIC_ENEMY: "public_enemy"
+	Infamy.PUBLIC_ENEMY: "public_enemy",
+	Infamy.NULL: "NULL"
 }
 
 # Sous la forme: {Stats: [new_modifier, ...]}
@@ -228,7 +229,7 @@ func add_infamy(_earning: float):
 	if infamy["current_value"] == 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
-		
+		print_debug("infamy >= 100")
 		return
 		
 	if old_treshold != new_treshold:
