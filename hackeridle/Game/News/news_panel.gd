@@ -68,10 +68,12 @@ func _on_news_finished(news_key):
 	pass
 
 func _on_s_date(date):
-	var formatted_date_1 = "%s-%s-%s" % [date[0], date[1], date[2]]
-	if tr(formatted_date_1):
-		print("translation available: %s" % tr(formatted_date_1))
-	
+	var formatted_date_1: String = "%s-%s-%s" % [date[0], date[1], date[2]]
+	var has_trad = tr(formatted_date_1)
+	if has_trad != formatted_date_1: # il y a une traduction
+		# TODO
+		print(tr(formatted_date_1))
+
 
 func change_state(current_state: String):
 	if breaking_news != null:
