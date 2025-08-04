@@ -6,6 +6,7 @@ extends PanelContainer
 @onready var infamy_effects: GridContainer = %InfamyEffects
 @onready var treshold_name_label: Label = %TresholdNameLabel
 
+@export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
 
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
@@ -33,19 +34,20 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	if scroll_starting and text_label.position.x > 0 - text_label.size.x:
-		text_label.position -= Vector2(scrolling_time, 0)
-		
-	elif scroll_starting and text_label.position.x <= 0 - text_label.size.x: 
-		scroll_starting = false
-		news_finished.emit()
-		
-	pass
+	if scroll_starting:
+		# Calculer le déplacement basé sur le temps écoulé (delta)
+		var move_amount = scroll_speed_pixels_per_second * _delta
+		# Déplacer le texte vers la gauche
+		text_label.position.x -= move_amount
+
+		if text_label.position.x <= 0 - text_label.get_minimum_size().x:
+			scroll_starting = false
+			news_finished.emit()
+			text_label.position.x = get_viewport_rect().size.x
 	
 func new_news(news_key: String):
 	text_label.text = tr(news_key)
-	text_label.position.x = self.size.x
-		
+	text_label.position.x = get_viewport_rect().size.x
 	text_label.position = Vector2(news_size, text_label.position.y)
 	self.news_finished.connect(_on_news_finished.bind(news_key))
 	scroll_starting = true
