@@ -14,6 +14,7 @@ extends Node
 var time_scale: float
 # Temps de jeu écoulé en secondes
 var game_seconds: int = 0
+var yesterday: int
 
 ## CONSTANTES (pour améliorer la lisibilité et la maintenance)
 const SECONDS_PER_DAY: int = 86400 # 24 * 60 * 60
@@ -73,15 +74,22 @@ func _update_date_display() -> void:
 	# Conversion du jour de l'année en mois et jour
 	var month_day_array: Array = _day_to_month_day(day_of_current_year)
 	var current_month: int = month_day_array[0]
-	var current_day: int = month_day_array[1]
-	
+	var current_day: int
+	var another_day: bool
+	if month_day_array[1] != yesterday:
+		current_day = month_day_array[1]
+		yesterday = current_day
+		another_day = true
+	else:
+		another_day = false
 	# Calcul de l'heure et des minutes dans la journée actuelle
 	var seconds_today: int = game_seconds % SECONDS_PER_DAY
-	var current_hour: int = int(seconds_today / float(SECONDS_PER_HOUR))
-	var current_minute: int = int(seconds_today % SECONDS_PER_HOUR / float(SECONDS_PER_MINUTE))
+	var _current_hour: int = int(seconds_today / float(SECONDS_PER_HOUR))
+	var _current_minute: int = int(seconds_today % SECONDS_PER_HOUR / float(SECONDS_PER_MINUTE))
 	
-	# Émission du signal avec les composants de la date/heure
-	s_date.emit([current_year, current_month, current_day, current_hour, current_minute])
+	# Émission du signal, si changement de jour
+	if another_day:
+		s_date.emit([current_year, current_month, current_day]) #, _current_hour, _current_minute])
 
 func _day_to_month_day(doy: int) -> Array:
 	"""Convertit un jour de l'année (1-365) en un couple [mois, jour]."""

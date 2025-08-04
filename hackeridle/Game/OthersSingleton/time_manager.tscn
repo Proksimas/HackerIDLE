@@ -4,3 +4,5 @@
 
 [node name="TimeManager" type="Node"]
 script = ExtResource("1_c12c7")
+total_years = 63
+start_year = 1979

@@ -27,7 +27,7 @@ func _ready() -> void:
 	new_news(pick_random_sentence("introduction"))
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
-	#TimeManager.s_date.connect(_on_s_date)  # -> Interface
+	TimeManager.s_date.connect(_on_s_date)  
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
 	pass # Replace with function body.
@@ -67,6 +67,12 @@ func _on_news_finished(news_key):
 	
 	pass
 
+func _on_s_date(date):
+	var formatted_date_1 = "%s-%s-%s" % [date[0], date[1], date[2]]
+	if tr(formatted_date_1):
+		print("translation available: %s" % tr(formatted_date_1))
+	
+
 func change_state(current_state: String):
 	if breaking_news != null:
 		breaking_news = null
@@ -80,6 +86,7 @@ func change_state(current_state: String):
 			new_news(pick_random_sentence("random"))
 			
 #region INFAMY
+
 
 ## On gère l'infamie
 

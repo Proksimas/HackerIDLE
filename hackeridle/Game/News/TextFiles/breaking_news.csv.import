@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cgm1k0dlh2p2c"
+
+[deps]
+
+files=["res://Game/News/TextFiles/breaking_news.fr.translation", "res://Game/News/TextFiles/breaking_news.en.translation"]
+
+source_file="res://Game/News/TextFiles/breaking_news.csv"
+dest_files=["res://Game/News/TextFiles/breaking_news.fr.translation", "res://Game/News/TextFiles/breaking_news.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://2a6nq6m0kycl" path="res://Game/Skills/PassiveSkills/veteran.tres" id="6_pwon5"]
 [ext_resource type="Resource" uid="uid://jc1aphl3ijw4" path="res://Game/Skills/PassiveSkills/business_acumen.tres" id="7_84v1v"]
 
-[sub_resource type="Resource" id="Resource_40qa3"]
+[sub_resource type="Resource" id="Resource_sou04"]
 resource_local_to_scene = true
 script = ExtResource("4_kd2pb")
 cost = Array[int]([1, 3, 6])
@@ -53,7 +53,7 @@ columns = 2
 
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
-as_associated = SubResource("Resource_40qa3")
+as_associated = SubResource("Resource_sou04")
 
 [node name="SkillNode2" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 layout_mode = 2
