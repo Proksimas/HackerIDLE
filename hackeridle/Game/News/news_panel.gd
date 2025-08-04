@@ -1,4 +1,4 @@
-extends Panel
+extends PanelContainer
 
 @onready var text_label: Label = %TextLabel
 @onready var infamy_value: Label = %InfamyValue
