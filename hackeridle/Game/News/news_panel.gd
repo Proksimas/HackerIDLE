@@ -9,6 +9,7 @@ extends PanelContainer
 @onready var breaking_news_container: HBoxContainer = %BreakingNewsContainer
 @onready var news_container: PanelContainer = %NewsContainer
 @onready var news_color_rect: Panel = %NewsColorRect
+@onready var news_history_label: RichTextLabel = %NewsHistoryLabel
 
 @export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
@@ -19,6 +20,7 @@ const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 var scroll_starting: bool = false
 var news_size
 var breaking_news_cache: Array = []
+var breaking_news_passed: Array = []  #[dates]
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
@@ -27,6 +29,7 @@ var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message ass
 signal news_finished
 
 func _ready() -> void:
+	news_history_label.clear()
 	news_size = text_label_container.size.x
 	new_news(pick_random_sentence("introduction"))
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
@@ -71,6 +74,7 @@ func new_breaking_news(news_key: String):
 	else:
 		text_label_container.show()
 		breaking_news_container.hide()
+		breaking_news_passed.append(news_key)
 		new_news(news_key)
 	pass
 	
@@ -83,6 +87,7 @@ func pick_random_sentence(key: String):
 	
 func _on_news_finished(news_key):
 	self.news_finished.disconnect(_on_news_finished)
+	refresh_news_history()
 	change_state(news_key)
 	
 	pass
@@ -122,6 +127,14 @@ func change_state(current_state: String):
 		_:
 			new_news(pick_random_sentence("random"))
 			
+			
+			
+func refresh_news_history():
+	news_history_label.text = ""
+	for elmt in breaking_news_passed:
+		news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt, tr(elmt)]
+	
+	pass
 #region INFAMY
 
 
