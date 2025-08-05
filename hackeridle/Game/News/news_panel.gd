@@ -16,6 +16,8 @@ extends PanelContainer
 @export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
 
+enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM}
+
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 const BREAKING_NEWS_ICON = preload("res://Game/Graphics/breaking_news_icon_2.png")
@@ -23,10 +25,11 @@ const NEWS_PAPER_ICON = preload("res://Game/Graphics/news_paper_icon.png")
 
 var scroll_starting: bool = false
 var news_size
-var breaking_news_cache: Array = []
+var news_cache: Array = [] # [ {news_type}: news_key
+
 var breaking_news_passed: Array = []  #[dates]
-var usal_news_cache: Array = []
-var usual_news_passed: Array = []
+
+var chronological_news_passed: Array = []
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
@@ -37,7 +40,9 @@ signal news_finished
 func _ready() -> void:
 	news_history_label.clear()
 	news_size = text_label_container.size.x
-	new_news(pick_random_sentence("introduction"))
+	#display_news(pick_random_sentence("introduction"), NewsType.RANDOM)
+	new_news()
+	
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	TimeManager.s_date.connect(_on_s_date)  
@@ -49,7 +54,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if scroll_starting:
-		# Calculer le déplacement basé sur le temps écoulé (delta)
+		# Calculer le déplacement basé sur le temps écoulé (_delta)
 		var move_amount = scroll_speed_pixels_per_second * _delta
 		# Déplacer le texte vers la gauche
 		news_container.position.x -= move_amount
@@ -59,14 +64,15 @@ func _process(_delta: float) -> void:
 			news_finished.emit()
 			news_container.position.x = get_viewport_rect().size.x
 	
-func new_news(news_key: String):
+func display_news(news_key: String, type: NewsType):
 	text_label.text = tr(news_key)
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
-	self.news_finished.connect(_on_news_finished.bind(news_key))
+	self.news_finished.connect(_on_news_finished.bind(news_key, type))
 	scroll_starting = true
-	if news_key.begins_with("$"):
-		usual_news_passed.append("$" + news_key)
+	
+	#if news_key.begins_with("$"):
+		#usual_news_passed.append("$" + news_key)
 		
 	
 func new_breaking_news(news_key: String):
@@ -79,7 +85,7 @@ func new_breaking_news(news_key: String):
 		news_color_rect.add_theme_stylebox_override("panel", stylebox)
 		text_label_container.hide()
 		breaking_news_container.show()
-		new_news("")
+		#display_news("")
 		pass
 	else:
 		text_label_container.show()
@@ -94,10 +100,11 @@ func pick_random_sentence(key: String):
 	
 	return (key + "_" + str(random))
 	
-func _on_news_finished(news_key):
+func _on_news_finished(_news_key:String, _news_type: NewsType):
 	self.news_finished.disconnect(_on_news_finished)
+	print("News finished")
 	refresh_news_history()
-	change_state(news_key)
+	new_news()
 	
 	pass
 	
@@ -107,24 +114,38 @@ func _on_s_date(date):
 	var formatted_date_1: String = TimeManager.get_formatted_date_string(date)
 	var breaking_news_has_trad = tr(formatted_date_1)
 	var chronogical_news_has_trad = tr("$" + formatted_date_1)
+	
 	if breaking_news_has_trad != formatted_date_1: # il y a une traduction d'une breaking news
-		breaking_news_cache.append("breaking_news_template")
-		breaking_news_cache.append(formatted_date_1)
+		#breaking_news_cache.append("breaking_news_template")
+		
+		news_cache.append({NewsType.BREAKING: formatted_date_1})
 		
 	elif chronogical_news_has_trad != "$" + formatted_date_1:
-		usal_news_cache.append("$" + formatted_date_1)
+		news_cache.append({NewsType.CHRONOLOGICAL: "$" + formatted_date_1})
 		
-func change_state(current_state: String):
-	if !breaking_news_cache.is_empty():
-		new_breaking_news(breaking_news_cache.pop_front())
+
+
+func new_news():
+	print("nouvelle news")
+	if !news_cache.is_empty():
+		#	TODO mais traité en priorité
+		var next_news:Dictionary = news_cache.pop_front()
+		match next_news.keys()[0]:
+			NewsType.BREAKING:
+				print("breaking")
+			NewsType.CHRONOLOGICAL:
+				print("CHRONOLOGICAL")
+				display_news(next_news.values()[0], NewsType.CHRONOLOGICAL)
+				chronological_news_passed.append(next_news.values()[0])
 		return
-	elif !usal_news_cache.is_empty():
-		new_news(usal_news_cache.pop_front())
-		return
-		
-	breaking_news_container.hide()
-	text_label_container.show()
-	var splitted = current_state.split("_")[0]
+	
+	#toutes les news importantes sont passées. On lance donc une news random
+	display_news(pick_random_sentence("random"), NewsType.RANDOM)
+
+	return
+	#breaking_news_container.hide()
+	#text_label_container.show()
+	#var splitted = current_state.split("_")[0]
 	
 	var new_color = Color(0,0,0)
 	var stylebox = StyleBoxFlat.new()
@@ -132,14 +153,15 @@ func change_state(current_state: String):
 	news_color_rect.remove_theme_stylebox_override("panel")
 	news_color_rect.add_theme_stylebox_override("panel", stylebox)
 
-	match splitted:
-		"introduction":
-			new_news(pick_random_sentence("random"))
-		"random":
-			new_news(pick_random_sentence("random"))
-		_:
-			new_news(pick_random_sentence("random"))
-			
+	#match splitted:
+		#"introduction":
+			#display_news(pick_random_sentence("random"))
+		#"random":
+			#display_news(pick_random_sentence("random"))
+		#_:
+			#display_news(pick_random_sentence("random"))
+			#
+			#
 			
 var news_to_show:int = 0 
 func refresh_news_history():
@@ -147,10 +169,10 @@ func refresh_news_history():
 	match news_to_show:
 		0:
 			for elmt in breaking_news_passed:
-				news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt, tr(elmt)]
+				news_history_label.text += " [color=yellow]%s[/color]    %s\n" % [elmt, tr(elmt)]
 		1:
-			for elmt2 in usual_news_passed:
-				news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
+			for elmt2 in chronological_news_passed:
+				news_history_label.text += " [color=yellow]%s[/color]    %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
 
 
 
