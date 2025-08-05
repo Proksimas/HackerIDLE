@@ -100,7 +100,6 @@ func start_breaking_news_sequence(news_key: String):
 func _on_breaking_news_banner_finished(news_key: String):
 	# On déconnecte ce signal pour ne pas le rappeler par erreur
 	self.news_finished.disconnect(_on_breaking_news_banner_finished)
-	print("Banner News finished")
 	# Deuxième étape : affiche la news réelle
 	display_news(news_key, NewsType.BANNER)
 
@@ -140,7 +139,6 @@ func pick_random_sentence(key: String):
 	return (key + "_" + str(random))
 
 func _on_news_finished():
-	print("News finished")
 	news_finished.disconnect(_on_news_finished)
 	refresh_news_history()
 	new_news()
@@ -174,10 +172,10 @@ var news_to_show:int = 0
 func refresh_news_history():
 	news_history_label.text = ""
 	match news_to_show:
-		2:
+		1:
 			for elmt in breaking_news_passed:
 				news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt, tr(elmt)]
-		1:
+		2:
 			for elmt2 in chronological_news_passed:
 				news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
 
@@ -198,8 +196,7 @@ func _on_news_paper_icon_pressed() -> void:
 			
 	refresh_news_history()
 
-# region INFAMY
-# ... (le reste de votre code est correct)
+#region INFAMY
 
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
@@ -255,4 +252,4 @@ func _on_cheat_infamy_pressed() -> void:
 
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-5)
-# endregion
+#endregion
