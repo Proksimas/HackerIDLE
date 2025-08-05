@@ -16,7 +16,7 @@ extends PanelContainer
 @export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
 
-enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM}
+enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM, BANDEAU}
 
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
@@ -65,17 +65,40 @@ func _process(_delta: float) -> void:
 			news_container.position.x = get_viewport_rect().size.x
 	
 func display_news(news_key: String, type: NewsType):
+	print("news_key: %s    type: %s" % [news_key, type])
+	if type == NewsType.BREAKING: #On doit lancer le bandeau
+		var new_color = Color(255,0,0)
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = new_color
+		news_color_rect.remove_theme_stylebox_override("panel")
+		news_color_rect.add_theme_stylebox_override("panel", stylebox)
+		text_label_container.hide()
+		breaking_news_container.show()
+		self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BANDEAU))
+	
+	else:
+		var new_color = Color(0,0,0)
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = new_color
+		news_color_rect.remove_theme_stylebox_override("panel")
+		news_color_rect.add_theme_stylebox_override("panel", stylebox)
+		text_label_container.show()
+		breaking_news_container.hide()
+		self.news_finished.connect(_on_news_finished.bind(news_key, type))
+		
 	text_label.text = tr(news_key)
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
-	self.news_finished.connect(_on_news_finished.bind(news_key, type))
 	scroll_starting = true
 	
 	#if news_key.begins_with("$"):
 		#usual_news_passed.append("$" + news_key)
 		
 	
-func new_breaking_news(news_key: String):
+func display_breaking_news(news_key: String):
+	
+	
+	return
 	if news_key == "breaking_news_template":
 		#on défile le bandeau spéciale Breaking News
 		var new_color = Color(255,0,0)
@@ -85,7 +108,7 @@ func new_breaking_news(news_key: String):
 		news_color_rect.add_theme_stylebox_override("panel", stylebox)
 		text_label_container.hide()
 		breaking_news_container.show()
-		#display_news("")
+
 		pass
 	else:
 		text_label_container.show()
@@ -104,7 +127,11 @@ func _on_news_finished(_news_key:String, _news_type: NewsType):
 	self.news_finished.disconnect(_on_news_finished)
 	print("News finished")
 	refresh_news_history()
-	new_news()
+	if _news_type == NewsType.BANDEAU:
+		#on display la news
+		display_news(_news_key, NewsType.BANDEAU)
+	else:
+		new_news()
 	
 	pass
 	
@@ -127,16 +154,20 @@ func _on_s_date(date):
 
 func new_news():
 	print("nouvelle news")
+	
 	if !news_cache.is_empty():
 		#	TODO mais traité en priorité
 		var next_news:Dictionary = news_cache.pop_front()
 		match next_news.keys()[0]:
 			NewsType.BREAKING:
 				print("breaking")
+				display_news(next_news.values()[0], NewsType.BREAKING)
+				breaking_news_passed.append(next_news.values()[0])
 			NewsType.CHRONOLOGICAL:
 				print("CHRONOLOGICAL")
 				display_news(next_news.values()[0], NewsType.CHRONOLOGICAL)
 				chronological_news_passed.append(next_news.values()[0])
+		
 		return
 	
 	#toutes les news importantes sont passées. On lance donc une news random
@@ -165,9 +196,10 @@ func new_news():
 			
 var news_to_show:int = 0 
 func refresh_news_history():
+	
 	news_history_label.text = ""
 	match news_to_show:
-		0:
+		2:
 			for elmt in breaking_news_passed:
 				news_history_label.text += " [color=yellow]%s[/color]    %s\n" % [elmt, tr(elmt)]
 		1:
