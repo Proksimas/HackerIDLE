@@ -5,6 +5,10 @@ extends PanelContainer
 @onready var infamy_stats: Panel = %InfamyStats
 @onready var infamy_effects: GridContainer = %InfamyEffects
 @onready var treshold_name_label: Label = %TresholdNameLabel
+@onready var text_label_container: HBoxContainer = %TextLabelContainer
+@onready var breaking_news_container: HBoxContainer = %BreakingNewsContainer
+@onready var news_container: PanelContainer = %NewsContainer
+@onready var news_color_rect: Panel = %NewsColorRect
 
 @export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
@@ -14,7 +18,7 @@ const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 
 var scroll_starting: bool = false
 var news_size
-var breaking_news = null
+var breaking_news_cache: Array = []
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
@@ -22,8 +26,8 @@ var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message ass
 
 signal news_finished
 
-func _ready() -> void:	
-	news_size = text_label.size.x
+func _ready() -> void:
+	news_size = text_label_container.size.x
 	new_news(pick_random_sentence("introduction"))
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
@@ -38,20 +42,36 @@ func _process(_delta: float) -> void:
 		# Calculer le déplacement basé sur le temps écoulé (delta)
 		var move_amount = scroll_speed_pixels_per_second * _delta
 		# Déplacer le texte vers la gauche
-		text_label.position.x -= move_amount
+		news_container.position.x -= move_amount
 
-		if text_label.position.x <= 0 - text_label.get_minimum_size().x:
+		if news_container.position.x <= 0 - news_container.get_minimum_size().x:
 			scroll_starting = false
 			news_finished.emit()
-			text_label.position.x = get_viewport_rect().size.x
+			news_container.position.x = get_viewport_rect().size.x
 	
 func new_news(news_key: String):
 	text_label.text = tr(news_key)
-	text_label.position.x = get_viewport_rect().size.x
-	text_label.position = Vector2(news_size, text_label.position.y)
+	news_container.position.x = get_viewport_rect().size.x
+	news_container.position = Vector2(news_size, news_container.position.y)
 	self.news_finished.connect(_on_news_finished.bind(news_key))
 	scroll_starting = true
 	
+func new_breaking_news(news_key: String):
+	if news_key == "breaking_news_template":
+		#on défile le bandeau spéciale Breaking News
+		var new_color = Color(255,0,0)
+		var stylebox = StyleBoxFlat.new()
+		stylebox.bg_color = new_color
+		news_color_rect.remove_theme_stylebox_override("panel")
+		news_color_rect.add_theme_stylebox_override("panel", stylebox)
+		text_label_container.hide()
+		breaking_news_container.show()
+		new_news("")
+		pass
+	else:
+		text_label_container.show()
+		breaking_news_container.hide()
+		new_news(news_key)
 	pass
 	
 func pick_random_sentence(key: String):
@@ -71,20 +91,35 @@ func _on_s_date(date):
 	var formatted_date_1: String = "%s-%s-%s" % [date[0], date[1], date[2]]
 	var has_trad = tr(formatted_date_1)
 	if has_trad != formatted_date_1: # il y a une traduction
+		#Comme on regarde une clé sous forme de date, alors c'est une breaking news
 		# TODO
-		print(tr(formatted_date_1))
+		
+		#on ajoute avant le bandeau qui dire breaking News
+		breaking_news_cache.append("breaking_news_template")
+		breaking_news_cache.append(formatted_date_1)
 
 
 func change_state(current_state: String):
-	if breaking_news != null:
-		breaking_news = null
-		return breaking_news  #c'est le moment de la breaking news
+	if !breaking_news_cache.is_empty():
+		new_breaking_news(breaking_news_cache.pop_front())
+		return
 		
+	breaking_news_container.hide()
+	text_label_container.show()
 	var splitted = current_state.split("_")[0]
+	
+	var new_color = Color(0,0,0)
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = new_color
+	news_color_rect.remove_theme_stylebox_override("panel")
+	news_color_rect.add_theme_stylebox_override("panel", stylebox)
+
 	match splitted:
 		"introduction":
 			new_news(pick_random_sentence("random"))
 		"random":
+			new_news(pick_random_sentence("random"))
+		_:
 			new_news(pick_random_sentence("random"))
 			
 #region INFAMY
