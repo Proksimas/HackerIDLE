@@ -66,7 +66,7 @@ func _process(_delta: float) -> void:
 	
 func display_news(news_key: String, type: NewsType):
 	print("news_key: %s    type: %s" % [news_key, type])
-	if type == NewsType.BREAKING: #On doit lancer le bandeau
+	if type == NewsType.BREAKING or type == NewsType.BANDEAU: 
 		var new_color = Color(255,0,0)
 		var stylebox = StyleBoxFlat.new()
 		stylebox.bg_color = new_color
@@ -74,7 +74,10 @@ func display_news(news_key: String, type: NewsType):
 		news_color_rect.add_theme_stylebox_override("panel", stylebox)
 		text_label_container.hide()
 		breaking_news_container.show()
-		self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BANDEAU))
+		if type == NewsType.BREAKING :#On doit lancer le bandeau
+			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BANDEAU))
+		else: #On doit lancer la breaking enws
+			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BREAKING))
 	
 	else:
 		var new_color = Color(0,0,0)
@@ -84,37 +87,18 @@ func display_news(news_key: String, type: NewsType):
 		news_color_rect.add_theme_stylebox_override("panel", stylebox)
 		text_label_container.show()
 		breaking_news_container.hide()
-		self.news_finished.connect(_on_news_finished.bind(news_key, type))
+		if type == NewsType.BANDEAU:
+			#ça veut dire qu'on a terminé la boucle du bandeau
+			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BREAKING))
+		else:
+			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.RANDOM))
 		
 	text_label.text = tr(news_key)
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
 	scroll_starting = true
-	
-	#if news_key.begins_with("$"):
-		#usual_news_passed.append("$" + news_key)
-		
-	
-func display_breaking_news(news_key: String):
-	
-	
-	return
-	if news_key == "breaking_news_template":
-		#on défile le bandeau spéciale Breaking News
-		var new_color = Color(255,0,0)
-		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = new_color
-		news_color_rect.remove_theme_stylebox_override("panel")
-		news_color_rect.add_theme_stylebox_override("panel", stylebox)
-		text_label_container.hide()
-		breaking_news_container.show()
 
-		pass
-	else:
-		text_label_container.show()
-		breaking_news_container.hide()
-		breaking_news_passed.append(news_key)
-	pass
+		
 	
 func pick_random_sentence(key: String):
 	if !nb_of_msg.has(key):
@@ -127,12 +111,13 @@ func _on_news_finished(_news_key:String, _news_type: NewsType):
 	self.news_finished.disconnect(_on_news_finished)
 	print("News finished")
 	refresh_news_history()
+	# ATTENTION Quand on reçoit le type BANDEAU, cad que le bandeau est terminé
+	# On doit donc display la breaking news, en envoyant BANDEAU
 	if _news_type == NewsType.BANDEAU:
 		#on display la news
 		display_news(_news_key, NewsType.BANDEAU)
 	else:
 		new_news()
-	
 	pass
 	
 
