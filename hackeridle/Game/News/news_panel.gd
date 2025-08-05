@@ -64,20 +64,22 @@ func _process(_delta: float) -> void:
 			news_finished.emit()
 			news_container.position.x = get_viewport_rect().size.x
 	
-func display_news(news_key: String, type: NewsType):
-	if type == NewsType.BREAKING or type == NewsType.BANDEAU: 
-		var new_color = Color(255,0,0)
-		var stylebox = StyleBoxFlat.new()
-		stylebox.bg_color = new_color
-		news_color_rect.remove_theme_stylebox_override("panel")
-		news_color_rect.add_theme_stylebox_override("panel", stylebox)
-		text_label_container.hide()
-		breaking_news_container.show()
-		if type == NewsType.BREAKING :#On doit lancer le bandeau
-			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BANDEAU))
-		else: #On doit lancer la breaking enws
-			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BREAKING))
+func swap_panel_to_bandeau():
+	var new_color = Color(255,0,0)
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = new_color
+	news_color_rect.remove_theme_stylebox_override("panel")
+	news_color_rect.add_theme_stylebox_override("panel", stylebox)
+	text_label_container.hide()
+	breaking_news_container.show()
 	
+func display_news(news_key: String, type: NewsType):
+	if type == NewsType.BREAKING: 
+		swap_panel_to_bandeau()
+		self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BANDEAU))
+	elif type == NewsType.BANDEAU:
+		swap_panel_to_bandeau()
+		self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BREAKING))
 	else:
 		var new_color = Color(0,0,0)
 		var stylebox = StyleBoxFlat.new()
@@ -86,11 +88,7 @@ func display_news(news_key: String, type: NewsType):
 		news_color_rect.add_theme_stylebox_override("panel", stylebox)
 		text_label_container.show()
 		breaking_news_container.hide()
-		if type == NewsType.BANDEAU:
-			#ça veut dire qu'on a terminé la boucle du bandeau
-			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.BREAKING))
-		else:
-			self.news_finished.connect(_on_news_finished.bind(news_key, NewsType.RANDOM))
+		self.news_finished.connect(_on_news_finished.bind(news_key, type))
 		
 	text_label.text = tr(news_key)
 	news_container.position.x = get_viewport_rect().size.x
