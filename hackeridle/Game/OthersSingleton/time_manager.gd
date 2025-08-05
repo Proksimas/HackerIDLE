@@ -106,6 +106,18 @@ func _day_to_month_day(doy: int) -> Array:
 
 ## Fonctions de Contrôle de Session
 
+func get_formatted_date_string(date_array: Array) -> String:
+	""" formate une date qui est en style [année, mois, jour] """
+	if date_array.size() != 3:
+		push_warning("Taille du tableau de la date incorrect")
+		# Gère le cas où le tableau n'a pas la bonne taille pour éviter les erreurs.
+		return ""
+	var year = str(date_array[0])
+	var month = "%02d" % date_array[1]
+	var day = "%02d" % date_array[2]
+
+	return year + "-" + month + "-" + day
+
 func end_session() -> void:
 	"""Appelée lorsque le temps de jeu atteint la fin de la durée totale."""
 	# Arrête le traitement du processus pour éviter les calculs inutiles

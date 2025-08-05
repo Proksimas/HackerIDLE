@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b0r1suyi5gs1x"
-valid=false
+uid="uid://csspi7b2vmowc"
+path="res://.godot/imported/breaking_news_icon.png-dc64ed78ac241ad4ef2f1bd7fa9de430.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
 source_file="res://Game/Graphics/breaking_news_icon.png"
+dest_files=["res://.godot/imported/breaking_news_icon.png-dc64ed78ac241ad4ef2f1bd7fa9de430.ctex"]
 
 [params]
 

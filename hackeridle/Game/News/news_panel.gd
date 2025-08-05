@@ -18,11 +18,15 @@ extends PanelContainer
 
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
+const BREAKING_NEWS_ICON = preload("res://Game/Graphics/breaking_news_icon_2.png")
+const NEWS_PAPER_ICON = preload("res://Game/Graphics/news_paper_icon.png")
 
 var scroll_starting: bool = false
 var news_size
 var breaking_news_cache: Array = []
 var breaking_news_passed: Array = []  #[dates]
+var usal_news_cache: Array = []
+var usual_news_passed: Array = []
 
 var nb_of_msg = {"introduction": 2,   # key_de_la_traduction : nb of message associés
 				"random": 1
@@ -61,6 +65,9 @@ func new_news(news_key: String):
 	news_container.position = Vector2(news_size, news_container.position.y)
 	self.news_finished.connect(_on_news_finished.bind(news_key))
 	scroll_starting = true
+	if news_key.begins_with("$"):
+		usual_news_passed.append("$" + news_key)
+		
 	
 func new_breaking_news(news_key: String):
 	if news_key == "breaking_news_template":
@@ -78,7 +85,6 @@ func new_breaking_news(news_key: String):
 		text_label_container.show()
 		breaking_news_container.hide()
 		breaking_news_passed.append(news_key)
-		new_news(news_key)
 	pass
 	
 func pick_random_sentence(key: String):
@@ -94,22 +100,26 @@ func _on_news_finished(news_key):
 	change_state(news_key)
 	
 	pass
+	
+
 
 func _on_s_date(date):
-	var formatted_date_1: String = "%s-%s-%s" % [date[0], date[1], date[2]]
-	var has_trad = tr(formatted_date_1)
-	if has_trad != formatted_date_1: # il y a une traduction
-		#Comme on regarde une clé sous forme de date, alors c'est une breaking news
-		# TODO
-		
-		#on ajoute avant le bandeau qui dire breaking News
+	var formatted_date_1: String = TimeManager.get_formatted_date_string(date)
+	var breaking_news_has_trad = tr(formatted_date_1)
+	var chronogical_news_has_trad = tr("$" + formatted_date_1)
+	if breaking_news_has_trad != formatted_date_1: # il y a une traduction d'une breaking news
 		breaking_news_cache.append("breaking_news_template")
 		breaking_news_cache.append(formatted_date_1)
-
-
+		
+	elif chronogical_news_has_trad != "$" + formatted_date_1:
+		usal_news_cache.append("$" + formatted_date_1)
+		
 func change_state(current_state: String):
 	if !breaking_news_cache.is_empty():
 		new_breaking_news(breaking_news_cache.pop_front())
+		return
+	elif !usal_news_cache.is_empty():
+		new_news(usal_news_cache.pop_front())
 		return
 		
 	breaking_news_container.hide()
@@ -131,13 +141,38 @@ func change_state(current_state: String):
 			new_news(pick_random_sentence("random"))
 			
 			
-			
+var news_to_show:int = 0 
 func refresh_news_history():
 	news_history_label.text = ""
-	for elmt in breaking_news_passed:
-		news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt, tr(elmt)]
+	match news_to_show:
+		0:
+			for elmt in breaking_news_passed:
+				news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt, tr(elmt)]
+		1:
+			for elmt2 in usual_news_passed:
+				news_history_label.text += " [color=yellow]%s[/color]\t%s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
+
+
+
+func _on_news_paper_icon_pressed() -> void:
+	match news_to_show:
+		0: #on affiche les news classiques, e ton prépare le bouton du beaking news
+			news_history.visible = true
+			news_paper_icon.texture_normal = BREAKING_NEWS_ICON
+			news_to_show = 1
+		1:
+			news_paper_icon.flip_h = true
+			news_to_show = 2
+		2:
+			news_paper_icon.texture_normal = NEWS_PAPER_ICON
+			news_paper_icon.flip_h = false
+			news_history.visible = false
+			news_to_show = 0
 	
-	pass
+	refresh_news_history()
+	#news_history.visible = !news_history.visible
+	#news_paper_icon.fl ip_h = !news_paper_icon.flip_h
+	pass # Replace with function body.
 #region INFAMY
 
 
@@ -206,9 +241,3 @@ func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-5)
 	pass # Replace with function body.
 #endregion
-
-
-func _on_news_paper_icon_pressed() -> void:
-	news_history.visible = !news_history.visible
-	news_paper_icon.flip_h = !news_paper_icon.flip_h
-	pass # Replace with function body.

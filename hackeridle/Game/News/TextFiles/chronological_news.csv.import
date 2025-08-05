@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://dh68unt1y3gec"
+
+[deps]
+
+files=["res://Game/News/TextFiles/chronological_news.fr.translation", "res://Game/News/TextFiles/chronological_news.en.translation"]
+
+source_file="res://Game/News/TextFiles/chronological_news.csv"
+dest_files=["res://Game/News/TextFiles/chronological_news.fr.translation", "res://Game/News/TextFiles/chronological_news.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1
