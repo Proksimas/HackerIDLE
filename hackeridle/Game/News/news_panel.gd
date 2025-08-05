@@ -10,6 +10,8 @@ extends PanelContainer
 @onready var news_container: PanelContainer = %NewsContainer
 @onready var news_color_rect: Panel = %NewsColorRect
 @onready var news_history_label: RichTextLabel = %NewsHistoryLabel
+@onready var news_history: Panel = %NewsHistory
+@onready var news_paper_icon: TextureButton = %NewsPaperIcon
 
 @export var scroll_speed_pixels_per_second: float = 100.0 
 @export var scrolling_time: int = 2
@@ -37,6 +39,7 @@ func _ready() -> void:
 	TimeManager.s_date.connect(_on_s_date)  
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
+	news_history.hide()
 	pass # Replace with function body.
 
 
@@ -203,3 +206,9 @@ func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-5)
 	pass # Replace with function body.
 #endregion
+
+
+func _on_news_paper_icon_pressed() -> void:
+	news_history.visible = !news_history.visible
+	news_paper_icon.flip_h = !news_paper_icon.flip_h
+	pass # Replace with function body.
