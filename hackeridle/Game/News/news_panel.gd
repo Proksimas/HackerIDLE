@@ -65,7 +65,6 @@ func _process(_delta: float) -> void:
 			news_container.position.x = get_viewport_rect().size.x
 	
 func display_news(news_key: String, type: NewsType):
-	print("news_key: %s    type: %s" % [news_key, type])
 	if type == NewsType.BREAKING or type == NewsType.BANDEAU: 
 		var new_color = Color(255,0,0)
 		var stylebox = StyleBoxFlat.new()
@@ -109,7 +108,6 @@ func pick_random_sentence(key: String):
 	
 func _on_news_finished(_news_key:String, _news_type: NewsType):
 	self.news_finished.disconnect(_on_news_finished)
-	print("News finished")
 	refresh_news_history()
 	# ATTENTION Quand on reçoit le type BANDEAU, cad que le bandeau est terminé
 	# On doit donc display la breaking news, en envoyant BANDEAU
@@ -138,50 +136,24 @@ func _on_s_date(date):
 
 
 func new_news():
-	print("nouvelle news")
-	
 	if !news_cache.is_empty():
 		#	TODO mais traité en priorité
 		var next_news:Dictionary = news_cache.pop_front()
 		match next_news.keys()[0]:
 			NewsType.BREAKING:
-				print("breaking")
 				display_news(next_news.values()[0], NewsType.BREAKING)
 				breaking_news_passed.append(next_news.values()[0])
 			NewsType.CHRONOLOGICAL:
-				print("CHRONOLOGICAL")
 				display_news(next_news.values()[0], NewsType.CHRONOLOGICAL)
 				chronological_news_passed.append(next_news.values()[0])
 		
 		return
-	
 	#toutes les news importantes sont passées. On lance donc une news random
 	display_news(pick_random_sentence("random"), NewsType.RANDOM)
 
-	return
-	#breaking_news_container.hide()
-	#text_label_container.show()
-	#var splitted = current_state.split("_")[0]
-	
-	var new_color = Color(0,0,0)
-	var stylebox = StyleBoxFlat.new()
-	stylebox.bg_color = new_color
-	news_color_rect.remove_theme_stylebox_override("panel")
-	news_color_rect.add_theme_stylebox_override("panel", stylebox)
-
-	#match splitted:
-		#"introduction":
-			#display_news(pick_random_sentence("random"))
-		#"random":
-			#display_news(pick_random_sentence("random"))
-		#_:
-			#display_news(pick_random_sentence("random"))
-			#
-			#
 			
 var news_to_show:int = 0 
 func refresh_news_history():
-	
 	news_history_label.text = ""
 	match news_to_show:
 		2:
@@ -209,9 +181,7 @@ func _on_news_paper_icon_pressed() -> void:
 			news_to_show = 0
 	
 	refresh_news_history()
-	#news_history.visible = !news_history.visible
-	#news_paper_icon.fl ip_h = !news_paper_icon.flip_h
-	pass # Replace with function body.
+
 #region INFAMY
 
 
