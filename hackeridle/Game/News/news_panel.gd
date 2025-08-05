@@ -16,7 +16,7 @@ extends PanelContainer
 @export var scroll_speed_pixels_per_second: float = 100.0
 @export var scrolling_time: int = 2
 
-enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM}
+enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM, BANNER}
 
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
@@ -25,14 +25,14 @@ const NEWS_PAPER_ICON = preload("res://Game/Graphics/news_paper_icon.png")
 
 var scroll_starting: bool = false
 var news_size
-var news_cache: Array = [] # [ {news_type}: news_key
+var news_cache: Array = []
 
-var breaking_news_passed: Array = [] #[dates]
-
+var breaking_news_passed: Array = []
 var chronological_news_passed: Array = []
 
-var nb_of_msg = {"introduction": 2, # key_de_la_traduction : nb of message associés
-				 "random": 1
+var nb_of_msg = {"introduction": 2,
+				 "random": 1,
+				 "breaking_news_template": 1
 }
 
 signal news_finished
@@ -71,25 +71,66 @@ func swap_panel_to_bandeau(is_breaking_news: bool):
 	news_color_rect.add_theme_stylebox_override("panel", stylebox)
 	
 	if is_breaking_news:
-		text_label_container.hide()
 		breaking_news_container.show()
+		text_label_container.hide()
 	else:
-		text_label_container.show()
 		breaking_news_container.hide()
+		text_label_container.show()
 
-func display_news(news_key: String, type: NewsType):
-	# D'abord, on s'assure que le signal est déconnecté avant d'en connecter un nouveau
+
+# Première étape : lance le défilement de la banderole générique
+func start_breaking_news_sequence(news_key: String):
+	# On déconnecte tous les signaux existants pour éviter les bugs
 	if news_finished.is_connected(_on_news_finished):
 		news_finished.disconnect(_on_news_finished)
+	if news_finished.is_connected(_on_breaking_news_banner_finished):
+		news_finished.disconnect(_on_breaking_news_banner_finished)
 	
-	swap_panel_to_bandeau(type == NewsType.BREAKING)
+	swap_panel_to_bandeau(true)
+
+	# On connecte le signal à la fin du défilement du bandeau
+	self.news_finished.connect(_on_breaking_news_banner_finished.bind(news_key))
 	
-	self.news_finished.connect(_on_news_finished)
-	
-	text_label.text = tr(news_key)
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
 	scroll_starting = true
+
+
+# Gère le défilement du bandeau et lance le défilement de la news réelle
+func _on_breaking_news_banner_finished(news_key: String):
+	# On déconnecte ce signal pour ne pas le rappeler par erreur
+	self.news_finished.disconnect(_on_breaking_news_banner_finished)
+	print("Banner News finished")
+	# Deuxième étape : affiche la news réelle
+	display_news(news_key, NewsType.BANNER)
+
+
+# Gère le défilement de n'importe quelle news (breaking news ou classique)
+func display_news(news_key: String, type: NewsType):
+	if news_finished.is_connected(_on_news_finished):
+		news_finished.disconnect(_on_news_finished)
+	
+	if type == NewsType.BREAKING:
+		swap_panel_to_bandeau(true)
+		text_label.text = tr(news_key) # Texte de la news réelle
+
+	else:
+		swap_panel_to_bandeau(false)
+		text_label.text = tr(news_key)
+		if type == NewsType.CHRONOLOGICAL:
+			chronological_news_passed.append(news_key)
+		elif type == NewsType.BANNER: #alors la Banniere vient de finri, on  affiche la news
+			swap_panel_to_bandeau(true)
+			breaking_news_container.hide()
+			text_label_container.show()
+			breaking_news_passed.append(news_key)
+	# On connecte le signal pour passer à la prochaine news une fois le défilement terminé
+	self.news_finished.connect(_on_news_finished)
+
+	news_container.position.x = get_viewport_rect().size.x
+	news_container.position = Vector2(news_size, news_container.position.y)
+	scroll_starting = true
+
 
 func pick_random_sentence(key: String):
 	if not nb_of_msg.has(key):
@@ -99,8 +140,8 @@ func pick_random_sentence(key: String):
 	return (key + "_" + str(random))
 
 func _on_news_finished():
-	if news_finished.is_connected(_on_news_finished):
-		news_finished.disconnect(_on_news_finished)
+	print("News finished")
+	news_finished.disconnect(_on_news_finished)
 	refresh_news_history()
 	new_news()
 
@@ -121,12 +162,10 @@ func new_news():
 		var news_key = next_news.values()[0]
 		var news_type = next_news.keys()[0]
 		
-		display_news(news_key, news_type)
-		
 		if news_type == NewsType.BREAKING:
-			breaking_news_passed.append(news_key)
-		elif news_type == NewsType.CHRONOLOGICAL:
-			chronological_news_passed.append(news_key)
+			start_breaking_news_sequence(news_key)
+		else:
+			display_news(news_key, news_type)
 		return
 	
 	display_news(pick_random_sentence("random"), NewsType.RANDOM)
@@ -158,9 +197,9 @@ func _on_news_paper_icon_pressed() -> void:
 			news_to_show = 0
 			
 	refresh_news_history()
-	
-#region INFAMY
 
+# region INFAMY
+# ... (le reste de votre code est correct)
 
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
@@ -216,4 +255,4 @@ func _on_cheat_infamy_pressed() -> void:
 
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-5)
-#endregion
+# endregion
