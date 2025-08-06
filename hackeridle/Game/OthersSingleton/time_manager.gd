@@ -150,13 +150,5 @@ func reset(_session_minutes: float = -1.0) -> void:
 
 func _save_data() -> Dictionary:
 	"""Retourne un dictionnaire des variables importantes pour la sauvegarde et le chargement."""
-	# Vous devrez implémenter la logique de sauvegarde manuellement ici
-	# ou intégrer un système de sérialisation comme celui de `Global.get_serialisable_vars(self)`
-	# si vous en avez un.
-	
-	return {
-		"game_seconds": game_seconds,
-		"total_years": total_years,
-		"session_minutes": session_minutes,
-		"start_year": start_year
-	}
+	var all_vars = Global.get_serialisable_vars(self)
+	return all_vars

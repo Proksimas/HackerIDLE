@@ -131,5 +131,9 @@ func _load_data(data):
 	# Met à jour l'UI
 	init_interface()
 	#sauvegarde au nivau du learning
-	learning._load_data(data["learning_item_bought"])
+	print("Chargement des learning item\n%s" % data["Player"]["learning_item_bought"] )
+	learning._load_data(data["Player"]["learning_item_bought"])
+	print("Chargement du hack shop")
 	hack_shop._load_data("")
+	print("Chargement du news panel\n%s" % data["NewsPanel"])
+	news_panel._load_data(data["NewsPanel"])

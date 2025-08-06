@@ -263,3 +263,16 @@ func _on_cheat_infamy_pressed() -> void:
 func _on_cheat_infamy_2_pressed() -> void:
 	StatsManager.add_infamy(-5)
 #endregion
+
+func _save_data():
+	return {
+		"news_cache": news_cache,
+		"breaking_news_passed": breaking_news_passed,
+		"chronological_news_passed": chronological_news_passed
+	}
+
+func _load_data(content):
+	news_cache =content["news_cache"]
+	breaking_news_passed = content["breaking_news_passed"]
+	chronological_news_passed = content["chronological_news_passed"]
+	pass
