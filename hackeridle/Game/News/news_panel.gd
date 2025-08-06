@@ -12,6 +12,7 @@ extends PanelContainer
 @onready var news_history_label: RichTextLabel = %NewsHistoryLabel
 @onready var news_history: Panel = %NewsHistory
 @onready var news_paper_icon: TextureButton = %NewsPaperIcon
+@onready var warning_icon: TextureRect = %WarningIcon
 
 @export var scroll_speed_pixels_per_second: float = 100.0
 @export var scrolling_time: int = 2
@@ -24,6 +25,7 @@ const BREAKING_NEWS_ICON = preload("res://Game/Graphics/breaking_news_icon_2.png
 const NEWS_PAPER_ICON = preload("res://Game/Graphics/news_paper_icon.png")
 
 var scroll_starting: bool = false
+var has_news_to_read: bool = false
 var news_size
 var news_cache: Array = []
 
@@ -126,6 +128,9 @@ func display_news(news_key: String, type: NewsType):
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
 	scroll_starting = true
+	if type != NewsType.RANDOM:
+		has_news_to_read = true
+		warning_icon.visible = true
 	refresh_news_history()
 
 
@@ -188,7 +193,10 @@ func refresh_news_history():
 					"[color=green]%s[/color]   %s\n" % [elmt2["date"], tr(elmt2["key"])]
 				else:
 					news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
-
+	if has_news_to_read:
+		warning_icon.visible = true
+	else:
+		warning_icon.visible = false
 func _on_news_paper_icon_pressed() -> void:
 	match news_to_show:
 		0:
@@ -204,6 +212,9 @@ func _on_news_paper_icon_pressed() -> void:
 			news_history.visible = false
 			news_to_show = 0
 			
+	if has_news_to_read:
+		has_news_to_read = false
+	
 	refresh_news_history()
 
 #region INFAMY
