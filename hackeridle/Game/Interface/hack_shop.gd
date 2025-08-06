@@ -41,8 +41,11 @@ func set_shop():
 			hack_grid.add_child(new_hack_item)
 			new_hack_item.set_hacking_item(item_name)
 			
+			# CONNEXIONS DU HACK_ITEM_BUTTON
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
+			
+		
 			
 			#On colle la source
 			var source_associated = SourcesDb.get_associated_source(item_name)
@@ -70,9 +73,11 @@ func player_bought_hacking_item(item_name,  quantity):
 		if Player.knowledge_point >=  cost:
 			Player.earn_knowledge_point(-cost)
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
+			get_tree().get_root().get_node("Main/Interface").\
+				news_panel.add_achievement(item_name, TimeManager.current_date)
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem. Pas présent et pas assez de connaissance")
-			
+	
 	else:
 		cost = Calculs.total_hacking_prices(Player.hacking_item_bought[item_name], quantity)
 		if Player.knowledge_point >=  cost:

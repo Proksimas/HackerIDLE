@@ -14,6 +14,7 @@ extends Control
 @onready var gold_resource: Control = %GoldResource
 @onready var sp_resource: Control = %SPResource
 @onready var date_label: Label = %DateLabel
+@onready var news_panel: PanelContainer = %NewsPanel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

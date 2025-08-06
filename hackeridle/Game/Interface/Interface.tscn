@@ -143,6 +143,7 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+unique_name_in_owner = true
 z_index = 90
 z_as_relative = false
 custom_minimum_size = Vector2(0, 136)

@@ -23,6 +23,7 @@ const SECONDS_PER_HOUR: int = 3600 # 60 * 60
 const SECONDS_PER_MINUTE: int = 60
 const MONTH_LENGTHS: Array[int] = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
+var current_date: Array = []
 ## SIGNAUX
 # Émis à chaque mise à jour de la date, avec les composants de la date [année, mois, jour, heure, minute]
 signal s_date(date_array: Array)
@@ -89,7 +90,8 @@ func _update_date_display() -> void:
 	
 	# Émission du signal, si changement de jour
 	if another_day:
-		s_date.emit([current_year, current_month, current_day]) #, _current_hour, _current_minute])
+		current_date = [current_year, current_month, current_day]
+		s_date.emit(current_date) #, _current_hour, _current_minute])
 
 func _day_to_month_day(doy: int) -> Array:
 	"""Convertit un jour de l'année (1-365) en un couple [mois, jour]."""
@@ -105,6 +107,7 @@ func _day_to_month_day(doy: int) -> Array:
 	return [12, MONTH_LENGTHS[11]] # Retourne le 31 décembre comme valeur par défaut de sécurité
 
 ## Fonctions de Contrôle de Session
+
 
 func get_formatted_date_string(date_array: Array) -> String:
 	""" formate une date qui est en style [année, mois, jour] """
@@ -143,6 +146,7 @@ func reset(_session_minutes: float = -1.0) -> void:
 	
 	# S'assure que le processus est actif après un reset
 	set_process(true)
+	
 
 func _save_data() -> Dictionary:
 	"""Retourne un dictionnaire des variables importantes pour la sauvegarde et le chargement."""

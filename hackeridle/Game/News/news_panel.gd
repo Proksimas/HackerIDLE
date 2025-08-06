@@ -16,7 +16,7 @@ extends PanelContainer
 @export var scroll_speed_pixels_per_second: float = 100.0
 @export var scrolling_time: int = 2
 
-enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM, BANNER}
+enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM, BANNER, ACHIEVEMENT}
 
 const GENERIC = "res://Game/News/TextFiles/generic.csv"
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
@@ -126,6 +126,7 @@ func display_news(news_key: String, type: NewsType):
 	news_container.position.x = get_viewport_rect().size.x
 	news_container.position = Vector2(news_size, news_container.position.y)
 	scroll_starting = true
+	refresh_news_history()
 
 
 func pick_random_sentence(key: String):
@@ -165,16 +166,28 @@ func new_news():
 	
 	display_news(pick_random_sentence("random"), NewsType.RANDOM)
 	
+	
+func add_achievement(achievement_name, date):
+	chronological_news_passed.append({"key": "achievement_" + achievement_name,
+										"date": TimeManager.get_formatted_date_string(date)})
+	refresh_news_history()
+	
+	pass
+	
 var news_to_show:int = 0
 func refresh_news_history():
 	news_history_label.text = ""
 	match news_to_show:
 		1:
 			for elmt in breaking_news_passed:
-				news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt, tr(elmt)]
+				news_history_label.text += " [color=red]%s[/color]   %s\n" % [elmt, tr(elmt)]
 		2:
 			for elmt2 in chronological_news_passed:
-				news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
+				if elmt2 is Dictionary: #alors c'est un player achievement
+					news_history_label.text += \
+					"[color=green]%s[/color]   %s\n" % [elmt2["date"], tr(elmt2["key"])]
+				else:
+					news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
 
 func _on_news_paper_icon_pressed() -> void:
 	match news_to_show:

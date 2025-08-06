@@ -34,6 +34,8 @@ var quantity_to_buy: int
 var file_content: Array
 var source_associated: Dictionary
 # Called when the node enters the scene tree for the first time.
+
+
 func _ready() -> void:
 	hack_item_progress_bar.value = 0
 	hack_item_code_edit.add_theme_constant_override("scrollbar_v_size", 0)

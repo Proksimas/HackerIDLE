@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://c816o5jnqo54g"
+
+[deps]
+
+files=["res://Game/News/TextFiles/player_milestone.fr.translation", "res://Game/News/TextFiles/player_milestone.en.translation"]
+
+source_file="res://Game/News/TextFiles/player_milestone.csv"
+dest_files=["res://Game/News/TextFiles/player_milestone.fr.translation", "res://Game/News/TextFiles/player_milestone.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

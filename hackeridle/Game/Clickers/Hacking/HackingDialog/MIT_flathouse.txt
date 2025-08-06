@@ -15,7 +15,7 @@ SPOOF_TARGET_URL = "http://example.com/ads" # URL to replace or redirect
 REPLACEMENT_CONTENT_PATH = "/tmp/cat_memes.html" # Path to your glorious cat meme HTML
 FAKE_DNS_SERVER = "8.8.4.4" # Google's secondary DNS
 MITM_LOG_FILE = "/var/log/mitm_flathouse.log"
-CRITICAL_SERVICES = ["bankofgranny.com", "onlinepharmacy.net"] # Don't mess with these (for comedic effect)
+CRITICAL_SERVICES = ["bankofgranny.com", "onlinepharmacy.net"] # Don't mess with these
 
 # --- Library Mockups (for simulation purposes) ---
 class ArpSpoofer:
