@@ -30,10 +30,7 @@ var news_cache: Array = []
 var breaking_news_passed: Array = []
 var chronological_news_passed: Array = []
 
-var nb_of_msg = {"introduction": 2,
-				 "random": 1,
-				 "breaking_news_template": 1
-}
+var nb_of_msg = {"random": 60,}
 
 signal news_finished
 

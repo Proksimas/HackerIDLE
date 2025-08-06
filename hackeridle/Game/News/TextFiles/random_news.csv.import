@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://q767bgy7dkp"
+
+[deps]
+
+files=["res://Game/News/TextFiles/random_news.fr.translation", "res://Game/News/TextFiles/random_news.en.translation"]
+
+source_file="res://Game/News/TextFiles/random_news.csv"
+dest_files=["res://Game/News/TextFiles/random_news.fr.translation", "res://Game/News/TextFiles/random_news.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

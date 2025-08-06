@@ -2,16 +2,14 @@
 
 importer="csv_translation"
 type="Translation"
-uid="uid://bscvbn6punwiu"
+uid="uid://bq8462va7and5"
+valid=false
 
 [deps]
 
-files=["res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/generic.en.translation"]
-
 source_file="res://Game/News/TextFiles/generic.csv"
-dest_files=["res://Game/News/TextFiles/generic.fr.translation", "res://Game/News/TextFiles/generic.en.translation"]
 
 [params]
 
 compress=true
-delimiter=1
+delimiter=0
