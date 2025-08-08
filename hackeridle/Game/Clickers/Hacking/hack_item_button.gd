@@ -21,6 +21,7 @@ class_name HackItemButton
 @onready var hack_duration: Label = %HackDuration
 @onready var hack_name_edit: CodeEdit = %HackNameEdit
 @onready var main_margin_container: MarginContainer = %MainMarginContainer
+@onready var max_hack_item_level: Label = %MaxHackItemLevel
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
@@ -91,8 +92,8 @@ func set_refresh(item_cara: Dictionary = {}):
 
 	var item_level = current_hack_item_cara["level"]
 
-	hack_item_level.text = Global.number_to_string(item_level) + " / " + \
-				str(Calculs.get_next_source_level(source_associated))
+	hack_item_level.text = Global.number_to_string(item_level) 
+	max_hack_item_level.text = " / " + str(Calculs.get_next_source_level(source_associated))
 				
 				
 	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,

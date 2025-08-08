@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=17 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
@@ -19,6 +19,8 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bx3jm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbs0m"]
 bg_color = Color(0, 0, 0, 1)
@@ -107,15 +109,28 @@ theme_override_font_sizes/font_size = 16
 text = "Hack_Granny_TV(TVP_IP, duration = X)"
 script = ExtResource("4_dn8le")
 
+[node name="VSeparator" type="VSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bx3jm")
+
 [node name="HackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 30)
+custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_font_sizes/font_size = 13
-text = "1 / 20"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0.745098, 0.588235, 0.152941, 1)
+theme_override_font_sizes/font_size = 16
+text = "1000"
+horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="MaxHackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 19
+text = "1000"
 
 [node name="HackItemInfo" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -167,7 +182,9 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.823529, 0.65098, 0.168627, 1)
 theme_override_font_sizes/font_size = 15
+text = "XXX"
 
 [node name="GoldIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("3_0sjxu")]
 layout_mode = 2
@@ -260,7 +277,8 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_8mqma")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(85, 50)
 layout_mode = 2
-theme_override_constants/outline_size = 14
+theme_override_colors/font_color = Color(0.760784, 0.337255, 0.407843, 1)
+theme_override_constants/outline_size = 6
 text = "Source"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2"]
