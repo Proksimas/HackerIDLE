@@ -4,3 +4,4 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
+force_new_game = true
