@@ -23,4 +23,5 @@ func events_initialisation():
 		var new_event = EVENT.duplicate()
 		new_event.event_setup(id, event_data["choix"][0]["effets"],
 								event_data["choix"][1]["effets"])
-		
+		events_pool[id] = new_event
+	
