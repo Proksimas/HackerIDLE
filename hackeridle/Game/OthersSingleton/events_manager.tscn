@@ -4,3 +4,4 @@
 
 [node name="EventsManager" type="Node"]
 script = ExtResource("1_i1wl0")
+nb_of_event = 1

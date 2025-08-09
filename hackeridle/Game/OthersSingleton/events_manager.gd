@@ -26,9 +26,9 @@ func events_initialisation():
 		events_pool[id] = new_event
 	
 func get_random_event():
-	var rand = randi_range(0, nb_of_event)
-	var event = events_pool[rand].duplicate()
+	var rand = randi_range(1, nb_of_event)
+	var event = events_pool[rand]
 	
 	return event
 	
-	pass
+	
