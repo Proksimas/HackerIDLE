@@ -23,13 +23,13 @@ func set_resource_box(type_of_icon: String):
 	match type_of_icon:
 		"BRAIN":
 			icon = BRAIN_ICON.instantiate()
-			resource_name.text = tr("$Knowledge")
+			resource_name.text = tr("$knowledge")
 		"GOLD":
 			icon = GOLD_ICON.instantiate()
-			resource_name.text = tr("$Gold")
+			resource_name.text = tr("$gold")
 		"SP":
 			icon = TROPHY_ICON.instantiate()
-			resource_name.text = tr("$SkillPoint")
+			resource_name.text = tr("$skillPoint")
 	
 	self.add_child(icon)
 	icon.set_anchors_preset(4)

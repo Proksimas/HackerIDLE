@@ -52,7 +52,7 @@ custom_minimum_size = Vector2(225, 130)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton"]
+[node name="ChoiceAContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.207692
@@ -61,19 +61,19 @@ anchor_bottom = 1.00769
 grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="BulletPoint5" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint5" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="BulletPoint6" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint6" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 size_flags_vertical = 0
 
@@ -98,7 +98,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(225, 130)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
+[node name="ChoiceBContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.207692
@@ -107,16 +107,16 @@ anchor_bottom = 1.00769
 grow_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="BulletPoint" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 
-[node name="BulletPoint2" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint2" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 
-[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 
-[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/VBoxContainer" instance=ExtResource("2_emvse")]
+[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
 layout_mode = 2
 
 [node name="ChoiceBName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
