@@ -12,8 +12,10 @@ extends Panel
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-
 	event_ui_setup()
+	#Au bout de x seconde l'event se termine et un choix est fait au hasard
+	get_tree().create_timer(20).timeout.connect(_on_timout)
+	
 	pass # Replace with function body.
 
 
@@ -55,10 +57,21 @@ func _on_choice_pressed(choice: String, modifiers: Dictionary):
 		choice_a_button.pressed.disconnect(_on_choice_pressed)
 	if choice_b_button.pressed.is_connected(_on_choice_pressed):
 		choice_b_button.pressed.disconnect(_on_choice_pressed)
-	print(modifiers)
+	#Apply les modifications, puis remove le bouton
+	
+	
+	self.queue_free()
 		
 	pass
 
+func _on_timout():
+	""" On supprime l'event apres x secondes """
+	var rand = randi_range(0, 1)
+	if rand == 0:
+		choice_a_button.pressed
+	else:
+		choice_b_button.pressed
+	self.queue_free()
 func _clear_choices_container():
 	for elmt in choice_a_container.get_children():
 		elmt.queue_free()
