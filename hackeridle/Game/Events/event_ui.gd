@@ -18,6 +18,7 @@ func _ready() -> void:
 	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
+	Global.center(self)
 	pass # Replace with function body.
 
 
@@ -64,17 +65,27 @@ func event_ui_setup():
 		choice_b_container.add_child(new_bullet2)
 		new_bullet2.set_bullet_point(choice_text)
 		
-	choice_a_button.pressed.connect(self._on_choice_pressed.bind("choice_a", event.event_choice_1["effects"]))
-	choice_b_button.pressed.connect(self._on_choice_pressed.bind("choice_b", event.event_choice_2["effects"]))
+	choice_a_button.pressed.connect(self._on_choice_pressed.bind("choice_a", event.event_choice_1["effects"], event.event_id))
+	choice_b_button.pressed.connect(self._on_choice_pressed.bind("choice_b", event.event_choice_2["effects"], event.event_id))
 	
-func _on_choice_pressed(_choice: String, _modifiers: Dictionary):
+func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
 	if choice_a_button.pressed.is_connected(_on_choice_pressed):
 		choice_a_button.pressed.disconnect(_on_choice_pressed)
 	if choice_b_button.pressed.is_connected(_on_choice_pressed):
 		choice_b_button.pressed.disconnect(_on_choice_pressed)
 	#Apply les modifications, puis remove le bouton
-	
+	# TODO
+	for stat_name in _modifiers:
+		match stat_name:
+			"infamy":
+				StatsManager.add_infamy(_modifiers["infamy"])
+			"xp_click_flat": 
+				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
+										StatsManager.Stats.BRAIN_XP,
+										StatsManager.ModifierType.FLAT,
+										_modifiers[stat_name],
+										"event_{id}".format({"id":event_id }))
 	
 	self.queue_free()
 		

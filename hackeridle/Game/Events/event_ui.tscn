@@ -51,6 +51,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(225, 130)
 layout_mode = 2
 size_flags_horizontal = 3
+focus_mode = 0
 
 [node name="ChoiceAContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton"]
 layout_mode = 1
@@ -97,6 +98,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_ayirv")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(225, 130)
 layout_mode = 2
+focus_mode = 0
 
 [node name="ChoiceBContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
 layout_mode = 1

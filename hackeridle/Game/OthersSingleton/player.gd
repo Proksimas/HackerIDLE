@@ -16,7 +16,7 @@ var brain_level: int = 1:
 
 var brain_xp_next: float = 0
 var base_xp: float = 200
-var xp_factor: float = 1.75
+var xp_factor: float = 1.5
 
 var learning_item_bought: Dictionary = {}
 var learning_item_statut: Dictionary = {}
