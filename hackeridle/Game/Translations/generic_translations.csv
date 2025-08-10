@@ -5,7 +5,9 @@ $Cost;Coût;Cost
 $Salary;Salaire;Salary
 $Bonus;Bonus;Bonus
 $Effects;Effets;Effects
-$Knowledge;Connaissance;Knowledge
-$Gold;Argent;Money
-$SkillPoint;Compétence;Skill
-$WaitingHacked;Cliquez pour hacker...;Click to hack...
+$knowledge;Connaissance;Knowledge
+$gold;Argent;Money
+$skillPoint;Compétence;Skill
+$WaitingHacked;En attente du hack...;Waiting for the hack...
+$xp_click_flat;Xp supplémentaire par click;Additional xp per click
+$nothing;Rien;Nothing

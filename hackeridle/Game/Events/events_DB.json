@@ -1,0 +1,41 @@
+[
+  {
+    "id": "event_1",
+    "titre_id": "event_1_titre",
+    "description_id": "event_1_desc",
+    "choix": [
+      {
+        "texte_id": "event_1_choix1",
+        "effets": {
+          "infamy": 5,
+          "xp_click_flat": 1
+        }
+      },
+      {
+        "texte_id": "event_1_choix2",
+        "effets": {}
+      }
+    ]
+  },
+  {
+    "id": "event_2",
+    "titre_id": "event_2_titre",
+    "description_id": "event_2_desc",
+    "choix": [
+      {
+        "texte_id": "event_2_choix1",
+        "effets": {
+          "infamy": 5,
+          "xp_click_flat": 1
+        }
+      },
+      {
+        "texte_id": "event_2_choix2",
+        "effets": {
+          "infamy": 2,
+          "moral": -1
+        }
+      }
+    ]
+  }
+]

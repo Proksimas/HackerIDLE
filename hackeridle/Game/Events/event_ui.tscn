@@ -1,0 +1,130 @@
+[gd_scene load_steps=4 format=3 uid="uid://x8mtlt4d6yne"]
+
+[ext_resource type="Script" path="res://Game/Events/event_ui.gd" id="1_w6c1c"]
+[ext_resource type="PackedScene" uid="uid://cwtklmgj62l4b" path="res://Game/Interface/Specials/bullet_point.tscn" id="2_emvse"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ayirv"]
+
+[node name="EventUI" type="Panel"]
+custom_minimum_size = Vector2(350, 200)
+anchors_preset = -1
+anchor_right = 0.867949
+anchor_bottom = 0.331274
+offset_right = -0.0900269
+offset_bottom = 0.631989
+script = ExtResource("1_w6c1c")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NameOfEventLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "NameOf event"
+horizontal_alignment = 1
+
+[node name="EventDescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+text = "Ici nous avons la description de l'event. Il faut compter 3 lignes pour etre large, meme si ça rentre peut etre en 2"
+
+[node name="HBoxContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ChoiceAButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 130)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+
+[node name="ChoiceAContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.207692
+anchor_right = 1.0
+anchor_bottom = 1.00769
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="BulletPoint5" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="BulletPoint6" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="ChoiceAName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 185.0
+offset_right = 307.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "Aider la pauvre "
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ayirv")
+
+[node name="ChoiceBButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(225, 130)
+layout_mode = 2
+focus_mode = 0
+
+[node name="ChoiceBContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.207692
+anchor_right = 1.0
+anchor_bottom = 1.00769
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BulletPoint" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+
+[node name="BulletPoint2" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+
+[node name="BulletPoint3" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+
+[node name="BulletPoint4" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer" instance=ExtResource("2_emvse")]
+layout_mode = 2
+
+[node name="ChoiceBName" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_right = 499.0
+offset_bottom = 23.0
+text = "Aider la pauvre "
+horizontal_alignment = 1
