@@ -13,10 +13,7 @@
       },
       {
         "texte_id": "event_1_choix2",
-        "effets": {
-          "infamy": 2,
-          "moral": -1
-        }
+        "effets": {}
       }
     ]
   },
