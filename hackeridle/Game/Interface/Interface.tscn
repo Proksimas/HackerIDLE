@@ -106,6 +106,24 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "1980 - 10 - 01"
 
+[node name="cheat_events" type="HBoxContainer" parent="Panel/VBoxContainer/Header"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="CheatEventSpinBox" type="SpinBox" parent="Panel/VBoxContainer/Header/cheat_events"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 1.0
+
+[node name="CheatEventButton" type="Button" parent="Panel/VBoxContainer/Header/cheat_events"]
+layout_mode = 2
+text = "event"
+
 [node name="Panel" type="ColorRect" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
@@ -295,6 +313,7 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
+[connection signal="pressed" from="Panel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
