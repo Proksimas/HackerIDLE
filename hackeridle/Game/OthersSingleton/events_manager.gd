@@ -31,10 +31,14 @@ func events_initialisation():
 	
 func get_random_event():
 	var rand = randi_range(1, nb_of_event)
+	if len(events_pool) < rand:
+		push_error("Scenario out of range")
 	var event = events_pool[rand]
 	
 	return event
-	
+
+func get_specific_scenario(index):
+	return events_pool[index]
 	
 func create_event_ui():
 	""" affiche un nouvel EVENT"""
@@ -42,3 +46,4 @@ func create_event_ui():
 	var new_event = EVENT_UI.instantiate()
 	if interface:
 		interface.add_child(new_event)
+	return new_event

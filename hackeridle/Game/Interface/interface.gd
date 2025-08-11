@@ -138,7 +138,10 @@ func _load_data(data):
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 
+@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
 
 func _on_button_pressed() -> void:
-	EventsManager.create_event_ui()
+	cheat_event_spin_box.apply()
+	var event_ui = EventsManager.create_event_ui()
+	event_ui.event_ui_setup(cheat_event_spin_box.value)
 	pass # Replace with function body.

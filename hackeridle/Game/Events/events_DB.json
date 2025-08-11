@@ -26,7 +26,10 @@
     "choix": [
       {
         "texte_id": "event_2_choix1",
-        "effets": {}
+        "effets": {
+          "infamy": -10,
+          "perc_from_gold": 0.1
+        }
       },
       {
         "texte_id": "event_2_choix2",
