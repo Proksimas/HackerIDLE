@@ -49,7 +49,6 @@ func event_ui_setup(scenario_specific: int = -1):
 		elif event_stat_name == "perc_from_knowledge":
 			value = Player.knowledge_point * (1 + event.event_choice_1["effects"][event_stat_name])
 			choice_text = tr("$knowledge") + ": "
-		
 		else:
 			choice_text = tr("$" + event_stat_name) + ": "
 			value = event.event_choice_1["effects"][event_stat_name]
@@ -59,6 +58,7 @@ func event_ui_setup(scenario_specific: int = -1):
 		else:
 			choice_text += "+ %s" % Global.number_to_string(value)
 		new_bullet.set_bullet_point(choice_text)
+		
 	if event.event_choice_1["effects"] == {}:
 		choice_text = tr("$nothing")
 		var new_bullet3 = BULLET_POINT.instantiate()
@@ -70,13 +70,27 @@ func event_ui_setup(scenario_specific: int = -1):
 	for event_stat_name in event.event_choice_2["effects"]:
 		var new_bullet = BULLET_POINT.instantiate()
 		choice_b_container.add_child(new_bullet)
-		choice_text = tr("$" + event_stat_name) + ": "
-		var value = event.event_choice_2["effects"][event_stat_name]
+		
+		var value: float
+		if event_stat_name == "perc_from_gold":
+			#On doit mesurer lepercentage du total
+			value = Player.gold * (1 + event.event_choice_2["effects"][event_stat_name])
+			choice_text = tr("$gold") + ": "
+		elif event_stat_name == "perc_from_knowledge":
+			value = Player.knowledge_point * (1 + event.event_choice_2["effects"][event_stat_name])
+			choice_text = tr("$knowledge") + ": "
+		else:
+			choice_text = tr("$" + event_stat_name) + ": "
+			value = event.event_choice_2["effects"][event_stat_name]
+		
+		
+		value = event.event_choice_2["effects"][event_stat_name]
 		if value < 0:
 			choice_text += "- %s" % value
 		else:
 			choice_text += "+ %s" % value
 		new_bullet.set_bullet_point(choice_text)
+		
 	if event.event_choice_2["effects"] == {}:
 		choice_text = tr("$nothing")
 		var new_bullet2 = BULLET_POINT.instantiate()
@@ -106,7 +120,12 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 										"event_{id}".format({"id":event_id }))
 										
 			"perc_from_gold":
-				pass
+				var value = Player.gold * (1 + _modifiers[stat_name])
+				Player.earn_gold(value)
+				
+			"perc_from_knowledge":
+				var value = Player.knowledge_point * (1 + _modifiers[stat_name])
+				Player.earn_knowledge_point(value)
 	
 	self.queue_free()
 		
