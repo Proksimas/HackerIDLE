@@ -6,12 +6,13 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ayirv"]
 
 [node name="EventUI" type="Panel"]
-custom_minimum_size = Vector2(350, 200)
+z_index = 1001
+custom_minimum_size = Vector2(350, 500)
 anchors_preset = -1
-anchor_right = 0.867949
-anchor_bottom = 0.331274
-offset_right = -0.0900269
-offset_bottom = 0.631989
+anchor_right = 0.867796
+anchor_bottom = 0.391236
+offset_bottom = -75.9998
+mouse_force_pass_scroll_events = false
 script = ExtResource("1_w6c1c")
 metadata/_edit_use_anchors_ = true
 
@@ -40,11 +41,12 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
+size_flags_vertical = 3
 text = "Ici nous avons la description de l'event. Il faut compter 3 lignes pour etre large, meme si ça rentre peut etre en 2"
 
 [node name="HBoxContainer" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 10
 
 [node name="ChoiceAButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true

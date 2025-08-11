@@ -137,3 +137,8 @@ func _load_data(data):
 	hack_shop._load_data("")
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
+
+
+func _on_button_pressed() -> void:
+	EventsManager.create_event_ui()
+	pass # Replace with function body.
