@@ -6,15 +6,16 @@ extends Panel
 @onready var choice_b_name: Label = %ChoiceBName
 @onready var name_of_event_label: Label = %NameOfEventLabel
 @onready var event_description_label: RichTextLabel = %EventDescriptionLabel
-@onready var choice_a_container: VBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/ChoiceAButton/ChoiceAContainer
-@onready var choice_b_container: VBoxContainer = $MarginContainer/VBoxContainer/HBoxContainer/ChoiceBButton/ChoiceBContainer
+@onready var choice_b_container: VBoxContainer = %ChoiceBContainer
+@onready var choice_a_container: VBoxContainer = %ChoiceAContainer
 
+@export var event_during_time:int 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	event_ui_setup()
 	#Au bout de x seconde l'event se termine et un choix est fait au hasard
-	get_tree().create_timer(20).timeout.connect(_on_timout)
+	get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
 	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
@@ -44,7 +45,7 @@ func event_ui_setup():
 	if event.event_choice_1["effects"] == {}:
 		choice_text = tr("$nothing")
 		var new_bullet3 = BULLET_POINT.instantiate()
-		choice_b_container.add_child(new_bullet3)
+		choice_a_container.add_child(new_bullet3)
 		new_bullet3.set_bullet_point(choice_text)
 	
 
