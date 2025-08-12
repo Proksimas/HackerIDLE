@@ -1,11 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=17 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
-[ext_resource type="Texture2D" uid="uid://bogkxrxty4xkc" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
+[ext_resource type="Texture2D" uid="uid://tf44j5d2kso0" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
 [ext_resource type="Shader" path="res://Game/Themes/VioletGlow.gdshader" id="3_hhfgy"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
-[ext_resource type="BitMap" uid="uid://pk627dldkx47" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
+[ext_resource type="BitMap" uid="uid://cp1b146sgsnyh" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
 
@@ -19,12 +19,14 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_72uyu"]
 shader = ExtResource("3_hhfgy")
-shader_parameter/outline_color = Color(0.846081, 0.111343, 0.831669, 1)
-shader_parameter/glow_color = Color(1, 0.36, 0.95, 1)
-shader_parameter/outline_size = 8.0
+shader_parameter/outline_color = Color(0.988659, 0.400082, 0.934145, 1)
+shader_parameter/glow_color = Color(0.916404, 0.00045782, 0.871647, 1)
+shader_parameter/outline_size = 10.0
 shader_parameter/glow_size = 40.0
 shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 3.0
+shader_parameter/glow_falloff = 2.635
+shader_parameter/outline_opacity = 1.0
+shader_parameter/glow_opacity = 1.0
 shader_parameter/alpha_threshold = 0.1
 shader_parameter/feather = 1.0
 shader_parameter/src_tex = ExtResource("3_d4svm")
@@ -32,6 +34,11 @@ shader_parameter/src_tex = ExtResource("3_d4svm")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e22jq"]
+
+[sub_resource type="Environment" id="Environment_xqxj0"]
+glow_enabled = true
+glow_intensity = 1.2
+glow_bloom = 0.12
 
 [node name="Learning" type="Control"]
 layout_mode = 3
@@ -142,7 +149,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ClickerARC" type="AspectRatioContainer" parent="AllContainer/BrainAndCoContainer/CenterContainer"]
 unique_name_in_owner = true
 z_index = 90
-custom_minimum_size = Vector2(400, 400)
+custom_minimum_size = Vector2(450, 450)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
@@ -238,6 +245,9 @@ metadata/_edit_use_anchors_ = true
 [node name="ItemSpawnTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 autostart = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_xqxj0")
 
 [connection signal="pressed" from="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]
 [connection signal="timeout" from="ItemSpawnTimer" to="PassiveItemsTextures" method="_on_item_spawn_timer_timeout"]

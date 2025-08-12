@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lnlvh5qskcqx"
-path="res://.godot/imported/brain_neo_copie.png-6437626d3e44f2c5236e7e9a81bd1948.ctex"
+uid="uid://c28o02tf8lc7m"
+path="res://.godot/imported/brain_neo_original.png-d2d22bcc8cf3c6afa9200277e4c616d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Brains/brain_neo_copie.png"
-dest_files=["res://.godot/imported/brain_neo_copie.png-6437626d3e44f2c5236e7e9a81bd1948.ctex"]
+source_file="res://Game/Graphics/Brains/brain_neo_original.png"
+dest_files=["res://.godot/imported/brain_neo_original.png-d2d22bcc8cf3c6afa9200277e4c616d0.ctex"]
 
 [params]
 
