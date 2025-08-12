@@ -1,10 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=16 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
-[ext_resource type="Texture2D" uid="uid://do6205tt6mtys" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
+[ext_resource type="Texture2D" uid="uid://bogkxrxty4xkc" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
+[ext_resource type="Shader" path="res://Game/Themes/VioletGlow.gdshader" id="3_hhfgy"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
-[ext_resource type="BitMap" uid="uid://blsvei5kcqki0" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
+[ext_resource type="BitMap" uid="uid://pk627dldkx47" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
 
@@ -15,6 +16,18 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72uyu"]
+shader = ExtResource("3_hhfgy")
+shader_parameter/outline_color = Color(0.846081, 0.111343, 0.831669, 1)
+shader_parameter/glow_color = Color(1, 0.36, 0.95, 1)
+shader_parameter/outline_size = 8.0
+shader_parameter/glow_size = 40.0
+shader_parameter/glow_rings = 10
+shader_parameter/glow_falloff = 3.0
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/feather = 1.0
+shader_parameter/src_tex = ExtResource("3_d4svm")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
 
@@ -134,6 +147,7 @@ layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ClickerButton" type="TextureButton" parent="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC"]
+material = SubResource("ShaderMaterial_72uyu")
 layout_mode = 2
 texture_normal = ExtResource("3_d4svm")
 texture_click_mask = ExtResource("4_meble")
@@ -212,9 +226,9 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_e22jq")
 unique_name_in_owner = true
 z_index = 50
 layout_mode = 1
-anchor_top = 0.00833333
+anchor_top = 0.00312989
 anchor_right = 1.0
-anchor_bottom = 0.8
+anchor_bottom = 0.794797
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
