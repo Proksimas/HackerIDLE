@@ -1,12 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0swth7gti7cd"]
+[gd_scene load_steps=10 format=3 uid="uid://d0swth7gti7cd"]
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skills_tree.gd" id="1_xcbpt"]
 [ext_resource type="PackedScene" uid="uid://dm748glgb0076" path="res://Game/Interface/Skills/skill_node.tscn" id="2_1d4gm"]
-[ext_resource type="Resource" uid="uid://cx1ols708544v" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.tres" id="3_2o4ne"]
+[ext_resource type="Texture2D" uid="uid://co6cvlmjk8hod" path="res://Game/Graphics/Skills/genius_stroke.png" id="3_ioyem"]
+[ext_resource type="Script" path="res://Game/Skills/ActiveSkills/genius_stroke_active_skill.gd" id="4_xw83w"]
 [ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="5_lb5wa"]
 [ext_resource type="Resource" uid="uid://clo8in4xdbtxg" path="res://Game/Skills/PassiveSkills/click_worth.tres" id="5_onmtj"]
 [ext_resource type="Resource" uid="uid://2a6nq6m0kycl" path="res://Game/Skills/PassiveSkills/veteran.tres" id="6_pwon5"]
 [ext_resource type="Resource" uid="uid://jc1aphl3ijw4" path="res://Game/Skills/PassiveSkills/business_acumen.tres" id="7_84v1v"]
+
+[sub_resource type="Resource" id="Resource_1ainj"]
+resource_local_to_scene = true
+script = ExtResource("4_xw83w")
+cost = Array[int]([1, 3, 5])
+as_cd = 300.0
+as_during_time = 30.0
+as_texture = ExtResource("3_ioyem")
+as_name = "genius_stroke"
+data_bonus_1 = [100.0, 200.0, 400.0]
+data_bonus_2 = []
 
 [node name="SkillsTree" type="Control"]
 layout_mode = 3
@@ -42,7 +54,7 @@ columns = 2
 [node name="SkillNode" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-as_associated = ExtResource("3_2o4ne")
+as_associated = SubResource("Resource_1ainj")
 
 [node name="SkillNode2" parent="MarginContainer/VBoxContainer/SkillsGrid" instance=ExtResource("2_1d4gm")]
 custom_minimum_size = Vector2(100, 100)
