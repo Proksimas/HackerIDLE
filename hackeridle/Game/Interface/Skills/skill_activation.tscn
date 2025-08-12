@@ -4,10 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_huenf"]
 
 [node name="SkillActivation" type="Control"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
-anchor_right = 0.0925926
-anchor_bottom = 0.0520833
+anchor_right = 0.169492
+anchor_bottom = 0.0782473
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_t3l6p")

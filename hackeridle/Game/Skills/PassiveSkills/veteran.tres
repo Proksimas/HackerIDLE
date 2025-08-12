@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://2a6nq6m0kycl"]
 
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/veteran.gd" id="1_1p00l"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_dvdr3"]
+[ext_resource type="Texture2D" uid="uid://c6psogypwvrcv" path="res://Game/Graphics/Skills/veteran.png" id="1_1p2hb"]
 
 [resource]
 script = ExtResource("1_1p00l")
 cost = Array[int]([1, 1, 2, 3, 3])
-ps_texture = ExtResource("1_dvdr3")
+ps_texture = ExtResource("1_1p2hb")
 ps_name = "veteran"
 data_bonus_1 = [10.0, 20.0, 30.0, 40.0, 50.0]
 data_bonus_2 = []
