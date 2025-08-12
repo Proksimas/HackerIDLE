@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://00374b5os4fw"
-valid=false
+uid="uid://d2uch6k6ovm8y"
+path="res://.godot/imported/brain_neo_mono.png-5918a58ead692a806e478207ad80fe5b.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Game/Graphics/App_icons/reward_neo.png"
+source_file="res://Game/Graphics/Brains/brain_neo_mono.png"
+dest_files=["res://.godot/imported/brain_neo_mono.png-5918a58ead692a806e478207ad80fe5b.ctex"]
 
 [params]
 

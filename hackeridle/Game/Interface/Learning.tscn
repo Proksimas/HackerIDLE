@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
-[ext_resource type="Texture2D" uid="uid://c8i1u7d8k4ann" path="res://Game/Graphics/Brains/brain_1.png" id="2_b7jv8"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
-[ext_resource type="BitMap" uid="uid://ud40kw60g3ab" path="res://Game/Graphics/Brains/brain_1_mono.bmp" id="3_b22bg"]
+[ext_resource type="Texture2D" uid="uid://do6205tt6mtys" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
+[ext_resource type="BitMap" uid="uid://blsvei5kcqki0" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
 
@@ -135,8 +135,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ClickerButton" type="TextureButton" parent="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC"]
 layout_mode = 2
-texture_normal = ExtResource("2_b7jv8")
-texture_click_mask = ExtResource("3_b22bg")
+texture_normal = ExtResource("3_d4svm")
+texture_click_mask = ExtResource("4_meble")
 ignore_texture_size = true
 stretch_mode = 0
 
