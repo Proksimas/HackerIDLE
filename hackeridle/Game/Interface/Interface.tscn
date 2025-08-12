@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=28 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c2hwsvrfib350" path="res://Game/Graphics/App_icons/dark_shop.png" id="3_aake5"]
 [ext_resource type="Texture2D" uid="uid://i7bysdm7n1xl" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-1.png" id="3_ih8ku"]
 [ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
+[ext_resource type="Texture2D" uid="uid://dcml7ju2rkjw" path="res://Game/Graphics/Background/background_with_no_text.png" id="5_025re"]
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
 [ext_resource type="Texture2D" uid="uid://e1n7cb7f1hyo" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-3.png" id="5_pkx54"]
 [ext_resource type="Texture2D" uid="uid://ber8s0ydnwqry" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-4.png" id="6_bin0a"]
@@ -17,9 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="17_blev6"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
-[ext_resource type="Texture2D" uid="uid://dhs1tkit0jlp2" path="res://Game/Graphics/UIs/TrophyIcons_46_t.PNG" id="17_yc3nt"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
+[ext_resource type="Texture2D" uid="uid://d1o443kr3dgbm" path="res://Game/Graphics/App_icons/reward.png" id="22_uuy4w"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
@@ -27,6 +28,9 @@ bg_color = Color(0, 0.501961, 0.501961, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwjif"]
 bg_color = Color(0.0588235, 0.262745, 0.262745, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b0oii"]
+texture = ExtResource("5_025re")
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_qjpct"]
 frames = 8
@@ -180,6 +184,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_b0oii")
 current_tab = 0
 tabs_visible = false
 
@@ -285,7 +290,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_vertical = 8
-texture_normal = ExtResource("17_yc3nt")
+texture_normal = ExtResource("22_uuy4w")
 ignore_texture_size = true
 stretch_mode = 0
 
