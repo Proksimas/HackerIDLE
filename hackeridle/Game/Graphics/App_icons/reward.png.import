@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://00374b5os4fw"
-valid=false
+uid="uid://d1o443kr3dgbm"
+path="res://.godot/imported/reward.png-f146ca9175e77591f127dbf969e93a43.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://Game/Graphics/App_icons/reward_neo.png"
+source_file="res://Game/Graphics/App_icons/reward.png"
+dest_files=["res://.godot/imported/reward.png-f146ca9175e77591f127dbf969e93a43.ctex"]
 
 [params]
 

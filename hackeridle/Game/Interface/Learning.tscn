@@ -21,7 +21,7 @@
 shader = ExtResource("3_hhfgy")
 shader_parameter/outline_color = Color(0.988659, 0.400082, 0.934145, 1)
 shader_parameter/glow_color = Color(0.916404, 0.00045782, 0.871647, 1)
-shader_parameter/outline_size = 10.0
+shader_parameter/outline_size = 15.31
 shader_parameter/glow_size = 40.0
 shader_parameter/glow_rings = 10
 shader_parameter/glow_falloff = 2.635
