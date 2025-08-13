@@ -1,62 +1,32 @@
-[gd_scene load_steps=28 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=22 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
-[ext_resource type="Texture2D" uid="uid://qjvaldkeh84t" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-0.png" id="2_p6wh3"]
-[ext_resource type="Texture2D" uid="uid://btsh1antf1vus" path="res://Game/Graphics/App_icons/shopping_cart.png" id="2_u0lvw"]
-[ext_resource type="Texture2D" uid="uid://c2hwsvrfib350" path="res://Game/Graphics/App_icons/dark_shop.png" id="3_aake5"]
-[ext_resource type="Texture2D" uid="uid://i7bysdm7n1xl" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-1.png" id="3_ih8ku"]
-[ext_resource type="Texture2D" uid="uid://06y6sx5gym38" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-2.png" id="4_xhi7v"]
-[ext_resource type="Texture2D" uid="uid://dcml7ju2rkjw" path="res://Game/Graphics/Background/background_with_no_text.png" id="5_025re"]
+[ext_resource type="Texture2D" uid="uid://dcolyainyspca" path="res://Game/Graphics/Background/background_vignette.png" id="3_shfcr"]
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
-[ext_resource type="Texture2D" uid="uid://e1n7cb7f1hyo" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-3.png" id="5_pkx54"]
-[ext_resource type="Texture2D" uid="uid://ber8s0ydnwqry" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-4.png" id="6_bin0a"]
-[ext_resource type="Texture2D" uid="uid://b1iqfrbgyraf2" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-5.png" id="7_5377l"]
-[ext_resource type="Texture2D" uid="uid://cijat4sqsk5mx" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-6.png" id="8_dni6j"]
-[ext_resource type="Texture2D" uid="uid://rkrcm4e2dr5b" path="res://Game/Graphics/App_icons/IE_128/1f9aaee199e94969e87c43b9c8423839mEe1eqnFu0zm3krm-7.png" id="9_0m815"]
+[ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
+[ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
+[ext_resource type="Texture2D" uid="uid://djtk08urqtotn" path="res://Game/Graphics/App_icons/Neos/shop_neo.png" id="13_kelah"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
+[ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="17_blev6"]
+[ext_resource type="Texture2D" uid="uid://crs7hqdh7nhj1" path="res://Game/Graphics/App_icons/Neos/hack_neo.png" id="15_ndmnp"]
+[ext_resource type="Texture2D" uid="uid://dxqe605g1ocdu" path="res://Game/Graphics/App_icons/Neos/reward_neo.png" id="16_3unxi"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
-[ext_resource type="Texture2D" uid="uid://d1o443kr3dgbm" path="res://Game/Graphics/App_icons/reward.png" id="22_uuy4w"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kypw6"]
-bg_color = Color(0, 0.501961, 0.501961, 1)
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uhhg"]
+texture = ExtResource("3_shfcr")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwjif"]
-bg_color = Color(0.0588235, 0.262745, 0.262745, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l738w"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b0oii"]
-texture = ExtResource("5_025re")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o38y2"]
 
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_qjpct"]
-frames = 8
-speed_scale = 3.0
-frame_0/texture = ExtResource("2_p6wh3")
-frame_1/texture = ExtResource("3_ih8ku")
-frame_1/duration = 1.0
-frame_2/texture = ExtResource("4_xhi7v")
-frame_2/duration = 1.0
-frame_3/texture = ExtResource("5_pkx54")
-frame_3/duration = 1.0
-frame_4/texture = ExtResource("6_bin0a")
-frame_4/duration = 1.0
-frame_5/texture = ExtResource("7_5377l")
-frame_5/duration = 1.0
-frame_6/texture = ExtResource("8_dni6j")
-frame_6/duration = 1.0
-frame_7/texture = ExtResource("9_0m815")
-frame_7/duration = 1.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxe1h"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_856t7"]
-bg_color = Color(0.745098, 0.745098, 0.745098, 0.67451)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xlcnt"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -76,7 +46,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_kypw6")
+theme_override_styles/panel = SubResource("StyleBoxTexture_2uhhg")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
@@ -91,7 +61,7 @@ alignment = 1
 [node name="Header" type="Panel" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qwjif")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_l738w")
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/Header"]
 layout_mode = 1
@@ -131,7 +101,7 @@ text = "event"
 [node name="Panel" type="ColorRect" parent="Panel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
-color = Color(0.0588235, 0.262745, 0.262745, 1)
+color = Color(1, 1, 1, 0)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel"]
 layout_mode = 1
@@ -184,7 +154,7 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_b0oii")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
 current_tab = 0
 tabs_visible = false
 
@@ -218,6 +188,7 @@ metadata/_tab_index = 4
 [node name="RessourcesMargin" type="PanelContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_kxe1h")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
 layout_mode = 2
@@ -232,13 +203,29 @@ alignment = 1
 [node name="AspectRatioContainer4" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
 layout_mode = 2
 size_flags_vertical = 8
+stretch_mode = 3
 
-[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4"]
+[node name="Box" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4"]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 2
+texture = ExtResource("11_maons")
+expand_mode = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4/Box"]
+layout_mode = 2
+offset_left = 35.0
+offset_right = 35.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4/Box/AspectRatioContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-texture_normal = ExtResource("17_blev6")
+texture_normal = ExtResource("12_rkk1i")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -246,11 +233,31 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
-custom_minimum_size = Vector2(75, 75)
+[node name="Box2" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_maons")
+expand_mode = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Box2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Box2/AspectRatioContainer"]
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 size_flags_horizontal = 6
-texture_normal = ExtResource("2_u0lvw")
+texture_normal = ExtResource("13_kelah")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -258,12 +265,32 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer"]
+[node name="Box3" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_maons")
+expand_mode = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Box3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Box3/AspectRatioContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 75)
+custom_minimum_size = Vector2(55, 55)
 layout_mode = 2
 size_flags_horizontal = 6
-texture_normal = SubResource("AnimatedTexture_qjpct")
+texture_normal = ExtResource("14_0s201")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -271,43 +298,70 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3"]
-custom_minimum_size = Vector2(75, 75)
+[node name="Box4" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3"]
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-size_flags_horizontal = 6
-texture_normal = ExtResource("3_aake5")
-ignore_texture_size = true
-stretch_mode = 0
+texture = ExtResource("11_maons")
+expand_mode = 1
 
-[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
-layout_mode = 2
-
-[node name="SkillsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5"]
-custom_minimum_size = Vector2(75, 75)
-layout_mode = 2
-size_flags_vertical = 8
-texture_normal = ExtResource("22_uuy4w")
-ignore_texture_size = true
-stretch_mode = 0
-
-[node name="Tail" type="Panel" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="ColorRect" type="Panel" parent="Panel/VBoxContainer/Tail"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/Box4"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -1.0
-offset_right = 75.0
-offset_bottom = 1.0
+offset_left = -27.5
+offset_top = -27.5
+offset_right = 27.5
+offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_856t7")
+
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/Box4/AspectRatioContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+size_flags_horizontal = 6
+texture_normal = ExtResource("15_ndmnp")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Box5" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture = ExtResource("11_maons")
+expand_mode = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/Box5"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SkillsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/Box5/AspectRatioContainer"]
+custom_minimum_size = Vector2(50, 55)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("16_3unxi")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Tail" type="Panel" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_xlcnt")
 
 [node name="SecondTimer" type="Timer" parent="."]
 unique_name_in_owner = true
@@ -315,9 +369,9 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="pressed" from="Panel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Shopping" to="." method="_on_shopping_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/DarkShop" to="." method="_on_dark_shop_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/SkillsButton" to="." method="_on_skills_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4/Box/AspectRatioContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Box2/AspectRatioContainer/Shopping" to="." method="_on_shopping_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Box3/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/Box4/AspectRatioContainer/DarkShop" to="." method="_on_dark_shop_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/Box5/AspectRatioContainer/SkillsButton" to="." method="_on_skills_button_pressed"]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]

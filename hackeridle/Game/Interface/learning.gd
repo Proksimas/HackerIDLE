@@ -9,6 +9,7 @@ extends Control
 @onready var knowledge_per_second: Label = %KnowledgePerSecond
 @onready var passive_items_textures: Control = %PassiveItemsTextures
 @onready var all_container: VBoxContainer = $AllContainer
+@onready var clicker_button: TextureButton = %ClickerButton
 
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
@@ -23,6 +24,7 @@ var clicker_arc_original_size
 var passives_knowledge:float = 0
 
 func _ready() -> void:
+	brain_xp_bar.value = 0
 	SkillsManager.as_learned.connect(add_skill_activation)
 	_clear()
 	clicker_arc_original_size = clicker_arc.custom_minimum_size

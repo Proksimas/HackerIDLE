@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=21 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
@@ -14,6 +14,22 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lk2jh"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iikjs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oy8le"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ef5fm"]
+texture = SubResource("AtlasTexture_oy8le")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+modulate_color = Color(0.901961, 0.52549, 0.976471, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wajp"]
+bg_color = Color(0.878431, 0.423529, 0.972549, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
 
@@ -85,6 +101,8 @@ unique_name_in_owner = true
 z_index = 50
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
+theme_override_font_sizes/font_size = 24
 text = "Level 1"
 horizontal_alignment = 1
 
@@ -104,10 +122,14 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
 
 [node name="BrainXpBar" type="ProgressBar" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_iikjs")
 custom_minimum_size = Vector2(150, 25)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/background = SubResource("StyleBoxTexture_ef5fm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4wajp")
 step = 1.0
+value = 30.0
 show_percentage = false
 
 [node name="VSeparator2" type="VSeparator" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
@@ -129,6 +151,8 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
+theme_override_font_sizes/font_size = 24
 text = "10000 /s"
 
 [node name="BrainIcon" parent="AllContainer/Control/LevelContainer/HBoxContainer2" instance=ExtResource("2_fecvy")]
@@ -154,6 +178,7 @@ layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="ClickerButton" type="TextureButton" parent="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC"]
+unique_name_in_owner = true
 material = SubResource("ShaderMaterial_72uyu")
 layout_mode = 2
 texture_normal = ExtResource("3_d4svm")
