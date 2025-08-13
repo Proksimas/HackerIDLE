@@ -1,24 +1,20 @@
-[gd_scene load_steps=38 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=28 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
 [ext_resource type="Texture2D" uid="uid://dcolyainyspca" path="res://Game/Graphics/Background/background_vignette.png" id="3_shfcr"]
 [ext_resource type="Script" path="res://Game/Interface/fps_label.gd" id="4_a3l6n"]
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
-[ext_resource type="Material" uid="uid://dgkjwnfmky14f" path="res://Game/Themes/BoxNeonMaterial.tres" id="11_h6bfm"]
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
 [ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
-[ext_resource type="Shader" path="res://Game/Themes/HaloGlow.gdshader" id="13_jpq4j"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="Texture2D" uid="uid://nb6rgvdmscor" path="res://Game/Graphics/App_icons/Neos/shop_neo_2.png" id="15_8y3be"]
-[ext_resource type="Texture2D" uid="uid://b5sspr71vv7gc" path="res://Game/Graphics/App_icons/Neos/shop_neo_a.png" id="15_gqj5e"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
 [ext_resource type="Texture2D" uid="uid://cjplt6o7p6jyg" path="res://Game/Graphics/App_icons/Neos/hack_neo_2.png" id="16_itgnm"]
 [ext_resource type="Texture2D" uid="uid://cev7q0ann1vmd" path="res://Game/Graphics/App_icons/Neos/shop_neo_b.png" id="17_eqm88"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
-[ext_resource type="Texture2D" uid="uid://bgtpdsw6stj17" path="res://Game/Graphics/App_icons/Neos/reward_neo_a.png" id="20_k5lpt"]
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="Texture2D" uid="uid://ch6fj5cbtg562" path="res://Game/Graphics/App_icons/Neos/reward_neo_b.png" id="22_00nrt"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
@@ -35,267 +31,9 @@ texture = ExtResource("3_shfcr")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pmxu"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s16jd"]
-shader = ExtResource("13_jpq4j")
-shader_parameter/outline_color = Color(1, 0.858824, 0, 1)
-shader_parameter/glow_color = Color(1, 0.858824, 0, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("15_gqj5e")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ydtpw"]
-shader = ExtResource("13_jpq4j")
-shader_parameter/outline_color = Color(0.188235, 0.933333, 0.454902, 1)
-shader_parameter/glow_color = Color(0.188235, 0.933333, 0.454902, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("17_eqm88")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8m1jw"]
-shader = ExtResource("13_jpq4j")
-shader_parameter/outline_color = Color(0.82, 0.28, 1, 1)
-shader_parameter/glow_color = Color(1, 0.36, 0.95, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("14_0s201")
-
-[sub_resource type="Shader" id="Shader_jyxjt"]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-// La même texture que ton bouton
-uniform sampler2D src_tex : source_color;
-
-// --- Couleurs
-uniform vec4 outline_color : source_color = vec4(0.82, 0.28, 1.0, 1.0); // violet
-uniform vec4 glow_color    : source_color = vec4(1.00, 0.36, 0.95, 1.0); // halo
-
-// --- Tailles (px)
-uniform float outline_size = 8.0;   // épaisseur du liseré
-uniform float glow_size    = 40.0;  // largeur totale du halo externe
-uniform int   glow_rings   = 10;    // nb d’anneaux pour un dégradé propre
-uniform float glow_falloff = 2.8;   // décroissance (plus grand = chute rapide)
-
-// --- Opacités
-uniform float outline_opacity = 1.0; // alpha du liseré
-uniform float glow_opacity    = 0.6; // alpha max du halo (dégradé jusqu’à 0)
-
-// --- Détection alpha / douceur bord
-uniform float alpha_threshold = 0.1;
-uniform float feather = 1.0;
-
-const int DIRS = 16;
-
-float atex(vec2 uv) { return texture(src_tex, uv).a; }
-
-float dilate(vec2 uv, float radius_px, vec2 tex_sz) {
-    vec2 step_uv = radius_px / tex_sz;
-    float occ = 0.0;
-    for (int i = 0; i < DIRS; i++) {
-        float ang = 6.2831853 * float(i) / float(DIRS);
-        vec2 dir = vec2(cos(ang), sin(ang));
-        occ = max(occ, atex(uv + dir * step_uv));
-    }
-    return occ;
-}
-
-void fragment() {
-    vec4 base = texture(src_tex, UV);
-
-    vec2 tex_sz = vec2(textureSize(src_tex, 0));
-    float soft  = feather / max(tex_sz.x, tex_sz.y);
-
-    // Masque du sprite (avec bords adoucis)
-    float mask = smoothstep(alpha_threshold, alpha_threshold + soft, base.a);
-
-    // --------- OUTLINE (extérieur seulement) ---------
-    float occ_outline = smoothstep(alpha_threshold, alpha_threshold + soft,
-                                   dilate(UV, outline_size, tex_sz));
-    float outline_only = clamp(occ_outline - mask, 0.0, 1.0);
-
-    // --------- HALO EXTERNE en dégradé de TRANSPARENCE ---------
-    float glow_accum = 0.0;
-    float prev = occ_outline;
-    for (int r = 1; r <= glow_rings; r++) {
-        float t = float(r) / float(glow_rings);              // 0→1
-        float radius = outline_size + t * glow_size;
-        float curr = smoothstep(alpha_threshold, alpha_threshold + soft,
-                                dilate(UV, radius, tex_sz));
-        float shell = clamp(curr - prev, 0.0, 1.0);          // anneau extérieur
-        float w = exp(-glow_falloff * t);                    // poids (déclin)
-        glow_accum += shell * w;                             // [0..1]
-        prev = curr;
-    }
-    glow_accum = clamp(glow_accum, 0.0, 1.0);
-
-    // Alpha du halo (dégradé vers 0 en s’éloignant)
-    float halo_alpha = glow_accum * glow_opacity;
-
-    // --------- COMPOSITION ---------
-    // Couleur du sprite
-    vec3 rgb = base.rgb;
-
-    // Teinte du liseré (couleur visible + alpha propre)
-    rgb = mix(rgb, outline_color.rgb, outline_only * outline_color.a);
-
-    // Teinte du halo (couleur proportionnelle à son alpha)
-    rgb = mix(rgb, glow_color.rgb, halo_alpha);
-
-    // Alpha final = sprite + liseré + halo (dégradé). On clamp à 1.
-    float out_a = clamp(mask + outline_only * outline_opacity + halo_alpha, 0.0, 1.0);
-
-    COLOR = vec4(rgb, out_a);
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ajvfd"]
-shader = SubResource("Shader_jyxjt")
-shader_parameter/outline_color = Color(0.270588, 0.952941, 0.333333, 1)
-shader_parameter/glow_color = Color(0.270588, 0.952941, 0.333333, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("16_itgnm")
-
-[sub_resource type="Shader" id="Shader_ec2a0"]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-// La même texture que ton bouton
-uniform sampler2D src_tex : source_color;
-
-// --- Couleurs
-uniform vec4 outline_color : source_color = vec4(0.82, 0.28, 1.0, 1.0); // violet
-uniform vec4 glow_color    : source_color = vec4(1.00, 0.36, 0.95, 1.0); // halo
-
-// --- Tailles (px)
-uniform float outline_size = 8.0;   // épaisseur du liseré
-uniform float glow_size    = 40.0;  // largeur totale du halo externe
-uniform int   glow_rings   = 10;    // nb d’anneaux pour un dégradé propre
-uniform float glow_falloff = 2.8;   // décroissance (plus grand = chute rapide)
-
-// --- Opacités
-uniform float outline_opacity = 1.0; // alpha du liseré
-uniform float glow_opacity    = 0.6; // alpha max du halo (dégradé jusqu’à 0)
-
-// --- Détection alpha / douceur bord
-uniform float alpha_threshold = 0.1;
-uniform float feather = 1.0;
-
-const int DIRS = 16;
-
-float atex(vec2 uv) { return texture(src_tex, uv).a; }
-
-float dilate(vec2 uv, float radius_px, vec2 tex_sz) {
-    vec2 step_uv = radius_px / tex_sz;
-    float occ = 0.0;
-    for (int i = 0; i < DIRS; i++) {
-        float ang = 6.2831853 * float(i) / float(DIRS);
-        vec2 dir = vec2(cos(ang), sin(ang));
-        occ = max(occ, atex(uv + dir * step_uv));
-    }
-    return occ;
-}
-
-void fragment() {
-    vec4 base = texture(src_tex, UV);
-
-    vec2 tex_sz = vec2(textureSize(src_tex, 0));
-    float soft  = feather / max(tex_sz.x, tex_sz.y);
-
-    // Masque du sprite (avec bords adoucis)
-    float mask = smoothstep(alpha_threshold, alpha_threshold + soft, base.a);
-
-    // --------- OUTLINE (extérieur seulement) ---------
-    float occ_outline = smoothstep(alpha_threshold, alpha_threshold + soft,
-                                   dilate(UV, outline_size, tex_sz));
-    float outline_only = clamp(occ_outline - mask, 0.0, 1.0);
-
-    // --------- HALO EXTERNE en dégradé de TRANSPARENCE ---------
-    float glow_accum = 0.0;
-    float prev = occ_outline;
-    for (int r = 1; r <= glow_rings; r++) {
-        float t = float(r) / float(glow_rings);              // 0→1
-        float radius = outline_size + t * glow_size;
-        float curr = smoothstep(alpha_threshold, alpha_threshold + soft,
-                                dilate(UV, radius, tex_sz));
-        float shell = clamp(curr - prev, 0.0, 1.0);          // anneau extérieur
-        float w = exp(-glow_falloff * t);                    // poids (déclin)
-        glow_accum += shell * w;                             // [0..1]
-        prev = curr;
-    }
-    glow_accum = clamp(glow_accum, 0.0, 1.0);
-
-    // Alpha du halo (dégradé vers 0 en s’éloignant)
-    float halo_alpha = glow_accum * glow_opacity;
-
-    // --------- COMPOSITION ---------
-    // Couleur du sprite
-    vec3 rgb = base.rgb;
-
-    // Teinte du liseré (couleur visible + alpha propre)
-    rgb = mix(rgb, outline_color.rgb, outline_only * outline_color.a);
-
-    // Teinte du halo (couleur proportionnelle à son alpha)
-    rgb = mix(rgb, glow_color.rgb, halo_alpha);
-
-    // Alpha final = sprite + liseré + halo (dégradé). On clamp à 1.
-    float out_a = clamp(mask + outline_only * outline_opacity + halo_alpha, 0.0, 1.0);
-
-    COLOR = vec4(rgb, out_a);
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_alsjk"]
-shader = SubResource("Shader_ec2a0")
-shader_parameter/outline_color = Color(1, 0.858824, 0, 1)
-shader_parameter/glow_color = Color(1, 0.858824, 0, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("20_k5lpt")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6pvip"]
-shader = SubResource("Shader_jyxjt")
-shader_parameter/outline_color = Color(0.188235, 0.592157, 0.933333, 1)
-shader_parameter/glow_color = Color(0.188235, 0.592157, 0.933333, 1)
-shader_parameter/outline_size = 0.0
-shader_parameter/glow_size = 30.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.8
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.38
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("22_00nrt")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xlcnt"]
 
@@ -481,7 +219,6 @@ size_flags_vertical = 8
 stretch_mode = 3
 
 [node name="Box" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer4"]
-material = ExtResource("11_h6bfm")
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -511,7 +248,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Box2" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
-material = ExtResource("11_h6bfm")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -532,7 +268,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2/Box2/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_s16jd")
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -553,7 +288,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Box3" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer"]
-material = ExtResource("11_h6bfm")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -575,7 +309,6 @@ grow_vertical = 2
 
 [node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer/Box3/AspectRatioContainer"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_8m1jw")
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -589,7 +322,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Box4" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3"]
-material = ExtResource("11_h6bfm")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -610,7 +342,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer3/Box4/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_ajvfd")
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -623,7 +354,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Box5" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5"]
-material = ExtResource("11_h6bfm")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -644,7 +374,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SkillsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer5/Box5/AspectRatioContainer"]
-material = SubResource("ShaderMaterial_alsjk")
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 4
