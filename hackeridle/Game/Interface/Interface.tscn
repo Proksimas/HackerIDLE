@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=38 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
 [ext_resource type="Texture2D" uid="uid://dcolyainyspca" path="res://Game/Graphics/Background/background_vignette.png" id="3_shfcr"]
+[ext_resource type="Script" path="res://Game/Interface/fps_label.gd" id="4_a3l6n"]
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
 [ext_resource type="Material" uid="uid://dgkjwnfmky14f" path="res://Game/Themes/BoxNeonMaterial.tres" id="11_h6bfm"]
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
@@ -358,6 +359,10 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
+
+[node name="FpsLabel" type="Label" parent="Panel/VBoxContainer/Header/cheat_events"]
+layout_mode = 2
+script = ExtResource("4_a3l6n")
 
 [node name="CheatEventSpinBox" type="SpinBox" parent="Panel/VBoxContainer/Header/cheat_events"]
 unique_name_in_owner = true
