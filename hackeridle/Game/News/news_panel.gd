@@ -61,7 +61,7 @@ func _process(_delta: float) -> void:
 			news_container.position.x = get_viewport_rect().size.x
 
 func swap_panel_to_bandeau(is_breaking_news: bool):
-	var new_color = Color(0, 0, 0)
+	var new_color = Color(0.71, 0.231, 0.741)
 	if is_breaking_news:
 		new_color = Color(255, 0, 0)
 	

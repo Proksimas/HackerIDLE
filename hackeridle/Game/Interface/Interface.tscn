@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=23 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -25,11 +25,12 @@ texture = ExtResource("3_shfcr")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o38y2"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxe1h"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n7pr"]
+bg_color = Color(0.0784314, 0.176471, 0.290196, 0.486275)
+border_color = Color(0.517647, 0.113725, 0.392157, 1)
+border_blend = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pmxu"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xlcnt"]
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -81,6 +82,7 @@ theme_override_constants/margin_bottom = 3
 [node name="DateLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
 text = "1980 - 10 - 01"
 
 [node name="cheat_events" type="HBoxContainer" parent="Panel/VBoxContainer/Header"]
@@ -193,14 +195,15 @@ layout_mode = 2
 metadata/_tab_index = 4
 
 [node name="RessourcesMargin" type="PanelContainer" parent="Panel/VBoxContainer"]
+custom_minimum_size = Vector2(0, 125)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_kxe1h")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7n7pr")
 
 [node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_vertical = 4
 theme_override_constants/separation = 10
 alignment = 1
 
@@ -364,11 +367,6 @@ size_flags_vertical = 4
 texture_normal = ExtResource("21_apx4o")
 ignore_texture_size = true
 stretch_mode = 0
-
-[node name="Tail" type="Panel" parent="Panel/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_xlcnt")
 
 [node name="SecondTimer" type="Timer" parent="."]
 unique_name_in_owner = true

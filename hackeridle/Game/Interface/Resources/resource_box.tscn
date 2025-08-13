@@ -1,6 +1,13 @@
-[gd_scene load_steps=14 format=4 uid="uid://bb6s3xpmdjhrx"]
+[gd_scene load_steps=15 format=4 uid="uid://bb6s3xpmdjhrx"]
 
 [ext_resource type="Script" path="res://Game/Interface/Resources/resource_box.gd" id="1_g2raf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2fgd"]
+bg_color = Color(0.709804, 0.231373, 0.741176, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="Image" id="Image_k37yg"]
 data = {
@@ -841,7 +848,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g2raf")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -849,7 +856,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0.501961, 0.501961, 1)
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2fgd")
 
 [node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
 layout_mode = 1
