@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dgkjwnfmky14f"]
+
+[ext_resource type="Shader" path="res://Game/Themes/HaloGlow.gdshader" id="1_qf7or"]
+[ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="2_55p88"]
+
+[resource]
+shader = ExtResource("1_qf7or")
+shader_parameter/outline_color = Color(0.231373, 0.901961, 1, 1)
+shader_parameter/glow_color = Color(0.231373, 0.894118, 1, 1)
+shader_parameter/outline_size = 8.0
+shader_parameter/glow_size = 500.0
+shader_parameter/glow_rings = 500
+shader_parameter/glow_falloff = 30.0
+shader_parameter/outline_opacity = 1.0
+shader_parameter/glow_opacity = 0.6
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/feather = 1.0
+shader_parameter/src_tex = ExtResource("2_55p88")
