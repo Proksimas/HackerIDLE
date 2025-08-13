@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=24 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -6,12 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
 [ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
+[ext_resource type="Shader" path="res://Game/Themes/HaloGlow.gdshader" id="13_jpq4j"]
 [ext_resource type="Texture2D" uid="uid://djtk08urqtotn" path="res://Game/Graphics/App_icons/Neos/shop_neo.png" id="13_kelah"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
-[ext_resource type="Texture2D" uid="uid://crs7hqdh7nhj1" path="res://Game/Graphics/App_icons/Neos/hack_neo.png" id="15_ndmnp"]
 [ext_resource type="Texture2D" uid="uid://dxqe605g1ocdu" path="res://Game/Graphics/App_icons/Neos/reward_neo.png" id="16_3unxi"]
+[ext_resource type="Texture2D" uid="uid://cjplt6o7p6jyg" path="res://Game/Graphics/App_icons/Neos/hack_neo_2.png" id="16_itgnm"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
@@ -25,6 +26,20 @@ texture = ExtResource("3_shfcr")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o38y2"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kxe1h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylsn2"]
+shader = ExtResource("13_jpq4j")
+shader_parameter/outline_color = Color(0.231373, 0.901961, 1, 1)
+shader_parameter/glow_color = Color(3.08037e-06, 0.672161, 0.87565, 1)
+shader_parameter/outline_size = 8.0
+shader_parameter/glow_size = 500.0
+shader_parameter/glow_rings = 500
+shader_parameter/glow_falloff = 30.0
+shader_parameter/outline_opacity = 1.0
+shader_parameter/glow_opacity = 0.6
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/feather = 1.0
+shader_parameter/src_tex = ExtResource("11_maons")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xlcnt"]
 
@@ -234,6 +249,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Box2" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/HBoxContainer/NavgationGrid/AspectRatioContainer2"]
+material = SubResource("ShaderMaterial_ylsn2")
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -322,7 +338,7 @@ grow_vertical = 2
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 6
-texture_normal = ExtResource("15_ndmnp")
+texture_normal = ExtResource("16_itgnm")
 ignore_texture_size = true
 stretch_mode = 0
 
