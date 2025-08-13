@@ -23,7 +23,16 @@ var button_cliked: bool = false
 var clicker_arc_original_size
 var passives_knowledge:float = 0
 
+# VARIATION DU BRAIN GLOW
+var min_outline_size:float = 10
+var max_outline_size:float = 20
+var min_glow_size:float = 30
+var max_glow_size:float = 50
+var min_glow_fallof: float = 2
+var max_glow_fallof: float = 3
+
 func _ready() -> void:
+	start_random_tween()
 	brain_xp_bar.value = 0
 	SkillsManager.as_learned.connect(add_skill_activation)
 	_clear()
@@ -85,6 +94,33 @@ func _process(_delta: float) -> void:
 						clicker_arc_original_size, 1).from(clicker_arc.custom_minimum_size)
 		button_cliked = false
 		
+
+var current_tween: Tween
+func start_random_tween():
+	# Arrête le Tween précédent s'il existe
+	if current_tween and current_tween.is_valid():
+		current_tween.kill()
+
+	# Créer un nouveau Tween
+	current_tween = create_tween()
+	var shader_material = clicker_button.material
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	# Définir la durée de la prochaine transition aléatoire
+	var duration = rng.randf_range(1.0, 3.0) # Par exemple, une durée entre 1 et 3 secondes
+
+	# Générer de nouvelles valeurs aléatoires pour chaque propriété
+	var new_outline_size = rng.randf_range(min_outline_size, max_outline_size)
+	var new_glow_size = rng.randf_range(min_glow_size, max_glow_size)
+	var new_glow_fallof = rng.randf_range(min_glow_fallof, max_glow_fallof)
+	# Animer chaque propriété du shader vers sa nouvelle valeur aléatoire
+	current_tween.tween_property(shader_material,"shader_parameter/outline_size", new_outline_size, duration)
+	current_tween.tween_property(shader_material, "shader_parameter/glow_size", new_glow_size, duration)
+	current_tween.tween_property(shader_material, "shader_parameter/glow_falloff", new_glow_fallof, duration)
+
+	# Appeler cette fonction à nouveau lorsque toutes les animations sont terminées
+	current_tween.finished.connect(start_random_tween)
 
 func _load_data(content):
 	# content = dictionnaire des learning_item_bought
