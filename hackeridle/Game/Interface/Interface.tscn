@@ -215,13 +215,9 @@ visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="RessourcesMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
+[node name="RessourcesMargin" type="PanelContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
 layout_mode = 2
