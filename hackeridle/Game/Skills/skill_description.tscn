@@ -1,0 +1,98 @@
+[gd_scene load_steps=4 format=3 uid="uid://cuok3efix0n33"]
+
+[ext_resource type="Script" path="res://Game/Skills/skill_description.gd" id="1_wtii6"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="2_tpucq"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_u2qmi"]
+
+[node name="SkillDescription" type="Panel"]
+anchors_preset = -1
+anchor_right = 0.759322
+anchor_bottom = 0.400626
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wtii6")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_u2qmi")
+
+[node name="SkillLevel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Niveau X"
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Ici est toute la description du skill"
+
+[node name="BuySkillButton" type="Button" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 75)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BuySkillButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/BuySkillButton/VBoxContainer"]
+layout_mode = 2
+text = "$Buy
+"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/BuySkillButton/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="CostSPLabel" type="Label" parent="MarginContainer/VBoxContainer/BuySkillButton/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "X"
+
+[node name="TrophyIcon" parent="MarginContainer/VBoxContainer/BuySkillButton/VBoxContainer/HBoxContainer" instance=ExtResource("2_tpucq")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ToUnlockedPanel" type="ColorRect" parent="MarginContainer/VBoxContainer/BuySkillButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.784314)
