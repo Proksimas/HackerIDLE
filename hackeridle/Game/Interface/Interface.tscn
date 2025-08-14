@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=25 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://cjplt6o7p6jyg" path="res://Game/Graphics/App_icons/Neos/hack_neo_2.png" id="16_itgnm"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
+[ext_resource type="Texture2D" uid="uid://c2cvbr4m23sb2" path="res://Game/Graphics/warning.png" id="18_kh4aw"]
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
@@ -311,6 +312,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="dark_shopBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
@@ -337,6 +339,23 @@ size_flags_horizontal = 6
 texture_normal = ExtResource("16_itgnm")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="DarkShopWarningIcon" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.733333
+anchor_top = -0.025
+anchor_right = 0.954797
+anchor_bottom = 0.361638
+offset_right = 5.06831
+offset_bottom = -3.93102
+grow_horizontal = 0
+rotation = 0.174533
+texture = ExtResource("18_kh4aw")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="AspectRatioContainer5" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2

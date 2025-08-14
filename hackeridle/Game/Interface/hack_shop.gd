@@ -44,7 +44,11 @@ func set_shop():
 			# CONNEXIONS DU HACK_ITEM_BUTTON
 			new_hack_item.buy_item_button.pressed.connect(_on_hack_item_button_pressed.bind(new_hack_item))
 			new_hack_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_hack_item))
-			
+			new_hack_item.s_hack_lauch.connect(\
+				get_tree().get_root().get_node("Main/Interface")._on_s_wait_too_long.bind(false)
+			)
+			new_hack_item.s_wait_too_long.connect(\
+				get_tree().get_root().get_node("Main/Interface")._on_s_wait_too_long.bind(true))
 		
 			
 			#On colle la source

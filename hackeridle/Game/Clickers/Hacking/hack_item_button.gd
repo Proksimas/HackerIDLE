@@ -34,8 +34,12 @@ var first_cost = INF
 var quantity_to_buy: int
 var file_content: Array
 var source_associated: Dictionary
+var waiting_to_long_send: bool = false
 # Called when the node enters the scene tree for the first time.
 
+signal s_wait_too_long
+signal s_hack_finished
+signal s_hack_lauch
 
 func _ready() -> void:
 	hack_item_progress_bar.value = 0
@@ -55,11 +59,13 @@ func _process(delta: float) -> void:
 		if time_process >= StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"]):
 			time_finished()
 
-	#on automatise si on a la sorce
-	#elif not progress_activated and source_associated["level"] > 0:
-			#lauch_wait_time()
 	else:
 		progress_value_label.text = str(perc) + " %"
+		
+		if waiting_to_long_send == false:
+		#si on est non activé pendant x seconds, on alerte le joueur
+			get_tree().create_timer(1).timeout.connect(_on_wait_too_long_timeout)
+			waiting_to_long_send = true
 
 	
 func set_hacking_item(item_name):
@@ -169,13 +175,14 @@ func lauch_wait_time():
 	#On lance dans le rich_label l'effet machine à écrire
 	#on a deja préparé le contenu du bouton lors du chargement
 	hack_item_code_edit.start_typewriter_effect({"delay": StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])})
-
+	s_hack_lauch.emit()
 	pass
 
 
 func time_finished() -> void:
 	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
 	progress_activated = false
+	waiting_to_long_send = false
 	hack_item_progress_bar.value = 0
 	hack_item_texture.disabled = false
 	
@@ -187,7 +194,8 @@ func time_finished() -> void:
 	if source_associated["level"] > 0:
 		lauch_wait_time()
 	
-	pass # Replace with function body.
+	s_hack_finished.emit()
+
 
 func statut_updated():
 	"""met à jour le statut de l'item"""
@@ -281,3 +289,7 @@ func _on_draw() -> void:
 func _on_s_infamy_effect_added():
 	set_refresh()
 	
+
+
+func _on_wait_too_long_timeout():
+	s_wait_too_long.emit()
