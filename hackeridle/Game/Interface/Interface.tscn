@@ -27,7 +27,7 @@ texture = ExtResource("3_shfcr")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o38y2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7n7pr"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mfkbu"]
 bg_color = Color(0.0784314, 0.176471, 0.290196, 0.486275)
 border_color = Color(0.517647, 0.113725, 0.392157, 1)
 border_blend = true
@@ -200,7 +200,7 @@ metadata/_tab_index = 4
 custom_minimum_size = Vector2(0, 125)
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7n7pr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mfkbu")
 
 [node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
 unique_name_in_owner = true
