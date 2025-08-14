@@ -22,6 +22,7 @@ class_name HackItemButton
 @onready var hack_name_edit: CodeEdit = %HackNameEdit
 @onready var main_margin_container: MarginContainer = %MainMarginContainer
 @onready var max_hack_item_level: Label = %MaxHackItemLevel
+@onready var cost_label: Label = %CostLabel
 
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
@@ -212,6 +213,7 @@ func statut_updated():
 		to_unlocked_panel.show()
 		first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
 		brain_cost.text = Global.number_to_string(first_cost)
+		cost_label.text = tr("$Cost") + ": " 
 		pass
 		
 	elif Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'locked':

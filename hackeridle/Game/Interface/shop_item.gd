@@ -13,6 +13,7 @@ class_name ShopItem
 @onready var gold_cost: Label = %GoldCost
 @onready var learning_item_info: HBoxContainer = %LearningItemInfo
 @onready var gain_knowledge_label: Label = %GainKnowledgeLabel
+@onready var cost_label: Label = %CostLabel
 
 var current_item_cara: Dictionary
 var x_buy: int
@@ -103,6 +104,7 @@ func statut_updated():
 		to_unlocked_panel.show()
 		first_cost = Calculs.total_learning_prices(current_item_cara, 1)
 		gold_cost.text = Global.number_to_string(first_cost)
+		cost_label.text = tr('$Cost') + ": "
 		pass
 		
 	elif Player.learning_item_statut[current_item_cara["item_name"]] == 'locked':

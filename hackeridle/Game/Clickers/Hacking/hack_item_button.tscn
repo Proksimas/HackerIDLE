@@ -322,7 +322,6 @@ text = "Hack"
 
 [node name="HackDuration" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HBoxContainer2/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(1, 0.4, 1, 1)
@@ -330,7 +329,6 @@ text = "10 s"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -353,12 +351,18 @@ grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ToUnlockedPanel/UnlockedButton"]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.00152
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CostLabel" type="Label" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cout:"
 
 [node name="BrainCost" type="Label" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer"]
 unique_name_in_owner = true

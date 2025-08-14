@@ -841,12 +841,12 @@ base_font = SubResource("FontFile_1ij63")
 [node name="ResourceBox" type="Control"]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 3
-anchor_right = 0.277778
+anchor_right = 0.267609
 anchor_bottom = 0.03125
-offset_right = -5.99982
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_g2raf")
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="Panel" parent="."]
 show_behind_parent = true

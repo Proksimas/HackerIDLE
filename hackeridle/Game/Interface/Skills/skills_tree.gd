@@ -6,6 +6,7 @@ extends Control
 @onready var cost_sp_label: Label = %CostSPLabel
 @onready var skills_info: VBoxContainer = %SkillsInfo
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
+@onready var cost_title: Label = %CostTitle
 
 
 var cache_skill_name: String
@@ -122,6 +123,7 @@ func unlocked_buy_skill_button():
 	else:
 		buy_skill_button.disabled = true
 		to_unlocked_panel.show()
+	cost_title.text = tr("$Cost")
 	cost_sp_label.text = str(cache_skill_cost)
 
 
