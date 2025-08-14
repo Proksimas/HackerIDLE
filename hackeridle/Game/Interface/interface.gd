@@ -5,7 +5,7 @@ extends Control
 @onready var hack_shop: Control = %HackShop
 @onready var shop: Control = %Shop
 @onready var main_tab: TabContainer = %MainTab
-@onready var navigator: TextureButton = %Navigator
+@onready var navigator: TextureRect = %Navigator
 @onready var settings: Control = %Settings
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
@@ -59,12 +59,12 @@ func app_button_pressed(button_name:String):
 		"skills":
 			skills_tree.show()
 	
-	for child in navgation_grid.get_children():
-		var node_box = child.get_child(0)
-		if node_box.name == button_name + "Box":
-			node_box.texture = ICON_BORDER_MEDIUM_PRESSED
-		else:
-			node_box.texture = ICON_BORDER_MEDIUM
+	#for child in navgation_grid.get_children():
+		#var node_box = child.get_child(0)
+		#if node_box.name == button_name + "Box":
+			#node_box.texture_normal = ICON_BORDER_MEDIUM_PRESSED
+		#else:
+			#node_box.texture_normal = ICON_BORDER_MEDIUM
 
 func refresh_specially_resources():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
