@@ -62,7 +62,7 @@ func _process(delta: float) -> void:
 	else:
 		progress_value_label.text = str(perc) + " %"
 		
-		if waiting_to_long_send == false:
+		if unlocked_button.disabled == false and waiting_to_long_send == false:
 		#si on est non activé pendant x seconds, on alerte le joueur
 			get_tree().create_timer(1).timeout.connect(_on_wait_too_long_timeout)
 			waiting_to_long_send = true
