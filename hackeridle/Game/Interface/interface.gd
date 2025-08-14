@@ -9,6 +9,7 @@ extends Control
 @onready var settings: Control = %Settings
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
+@onready var navgation_grid: HBoxContainer = %NavgationGrid
 
 @onready var knowledge_resource: Control = %KnowledgeResource
 @onready var gold_resource: Control = %GoldResource
@@ -16,6 +17,8 @@ extends Control
 @onready var date_label: Label = %DateLabel
 @onready var news_panel: PanelContainer = %NewsPanel
 
+const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
+const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_tab.current_tab = 0
@@ -40,19 +43,28 @@ func init_interface():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
 	sp_resource.refresh_value(int(Player.skill_point))
-	
 	_on_s_brain_clicked(0,0)
 	
 	
-
-func _on_shopping_pressed() -> void:
-	shop.show()
-	pass # Replace with function body.
-
-
-func _on_navigator_pressed() -> void:
-	learning.show()
-	pass # Replace with function body.
+func app_button_pressed(button_name:String):
+	match button_name:
+		"settings":
+			settings.show()
+		"shopping":
+			shop.show()
+		"navigator":
+			learning.show()
+		"dark_shop":
+			hack_shop.show()
+		"skills":
+			skills_tree.show()
+	
+	for child in navgation_grid.get_children():
+		var node_box = child.get_child(0)
+		if node_box.name == button_name + "Box":
+			node_box.texture = ICON_BORDER_MEDIUM_PRESSED
+		else:
+			node_box.texture = ICON_BORDER_MEDIUM
 
 func refresh_specially_resources():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
@@ -95,24 +107,7 @@ func _on_s_brain_clicked(_brain_xp, knowledge):
 	
 	learning.knowledge_per_second.text = Global.number_to_string(total) + " /s"
 	#et_tree().create_timer(1.0).timeout.connect(_on_sum_timer)
-	
-#func _on_sum_timer():
-	#"""On force pour la réinitialisation à zero"""
-	#Player.earn_knowledge_point(0)
-	
-func _on_dark_shop_pressed() -> void:
-	hack_shop.show()
-	pass # Replace with function body.
 
-
-func _on_settings_button_pressed() -> void:
-	settings.show()
-	pass # Replace with function body.
-
-
-func _on_skills_button_pressed() -> void:
-	skills_tree.show()
-	pass # Replace with function body.
 
 func _on_second_timer_timeout() -> void:
 	_on_s_brain_clicked(0, 0)

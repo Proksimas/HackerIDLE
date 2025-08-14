@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=24 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="Texture2D" uid="uid://nb6rgvdmscor" path="res://Game/Graphics/App_icons/Neos/shop_neo_2.png" id="15_8y3be"]
 [ext_resource type="PackedScene" uid="uid://b7ubmp8sthntc" path="res://Game/Interface/HackShop.tscn" id="15_kr5ho"]
+[ext_resource type="Texture2D" uid="uid://di2nklgwdkjnr" path="res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png" id="15_ped3a"]
 [ext_resource type="Texture2D" uid="uid://cjplt6o7p6jyg" path="res://Game/Graphics/App_icons/Neos/hack_neo_2.png" id="16_itgnm"]
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
@@ -201,6 +202,7 @@ size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7n7pr")
 
 [node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -212,13 +214,13 @@ layout_mode = 2
 size_flags_vertical = 8
 stretch_mode = 3
 
-[node name="Box" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
+[node name="settingsBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture = ExtResource("11_maons")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/Box"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox"]
 layout_mode = 2
 offset_left = 35.0
 offset_right = 35.0
@@ -227,7 +229,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/Box/AspectRatioContainer"]
+[node name="SettingsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox/AspectRatioContainer"]
 material = SubResource("ShaderMaterial_8pmxu")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -241,13 +243,13 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Box2" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2"]
+[node name="shoppingBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/Box2"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -261,7 +263,7 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/Box2/AspectRatioContainer"]
+[node name="Shopping" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -274,13 +276,13 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Box3" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer"]
+[node name="navigatorBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
-texture = ExtResource("11_maons")
+texture = ExtResource("15_ped3a")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/Box3"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -294,7 +296,7 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/Box3/AspectRatioContainer"]
+[node name="Navigator" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -308,13 +310,13 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Box4" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3"]
+[node name="dark_shopBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/Box4"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -328,7 +330,7 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/Box4/AspectRatioContainer"]
+[node name="DarkShop" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -340,13 +342,13 @@ stretch_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Box5" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
+[node name="skillsBox" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture = ExtResource("11_maons")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/Box5"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -360,7 +362,7 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SkillsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/Box5/AspectRatioContainer"]
+[node name="SkillsButton" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 4
@@ -374,9 +376,9 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="pressed" from="Panel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/Box/AspectRatioContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/Box2/AspectRatioContainer/Shopping" to="." method="_on_shopping_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/Box3/AspectRatioContainer/Navigator" to="." method="_on_navigator_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/Box4/AspectRatioContainer/DarkShop" to="." method="_on_dark_shop_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/Box5/AspectRatioContainer/SkillsButton" to="." method="_on_skills_button_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox/AspectRatioContainer/SettingsButton" to="." method="app_button_pressed" binds= ["settings"]]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox/AspectRatioContainer/Shopping" to="." method="app_button_pressed" binds= ["shopping"]]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox/AspectRatioContainer/Navigator" to="." method="app_button_pressed" binds= ["navigator"]]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox/AspectRatioContainer/DarkShop" to="." method="app_button_pressed" binds= ["dark_shop"]]
+[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox/AspectRatioContainer/SkillsButton" to="." method="app_button_pressed" binds= ["skills"]]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]
