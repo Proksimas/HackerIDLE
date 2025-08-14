@@ -122,12 +122,10 @@ func _on_s_date(array):
 @onready var dark_shop_warning_icon: TextureRect = %DarkShopWarningIcon
 func _on_s_wait_too_long(is_wainting):
 	"""On reçoit le signal des hacl_buttons, indiquant qu'ils sont dispo pour le joueur"""
-	print(is_wainting)
 	if is_wainting:
 		dark_shop_warning_icon.visible = true
 	else:
 		dark_shop_warning_icon.visible = false
-	print("so long")
 
 
 func _load_data(data):
