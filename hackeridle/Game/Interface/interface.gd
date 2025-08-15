@@ -166,4 +166,8 @@ func _on_button_pressed() -> void:
 	var event_ui = EventsManager.create_event_ui()
 	main_tab.add_child(event_ui)
 	event_ui.event_ui_setup(cheat_event_spin_box.value)
+	event_ui.s_event_finished.connect(_on_s_event_finished)
 	pass # Replace with function body.
+
+func _on_s_event_finished():
+	learning.show()

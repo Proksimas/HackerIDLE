@@ -8,20 +8,30 @@ extends Panel
 @onready var event_description_label: RichTextLabel = %EventDescriptionLabel
 @onready var choice_b_container: VBoxContainer = %ChoiceBContainer
 @onready var choice_a_container: VBoxContainer = %ChoiceAContainer
+@onready var time_progress_bar: ProgressBar = %TimeProgressBar
 
 @export var event_during_time:int 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
-# Called when the node enters the scene tree for the first time.
+
+var time_process: float = 0
+
+signal s_event_finished()
 func _ready() -> void:
 	# event_ui_setup() --> pour choisir un évenement
 	#Au bout de x seconde l'event se termine et un choix est fait au hasard
 	get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
+	time_progress_bar.max_value = event_during_time
+	time_progress_bar.min_value = 0
+	time_progress_bar.value = event_during_time
 	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
 	#Global.center(self)
 	pass # Replace with function body.
 
+func _process(delta: float) -> void:
+	time_process += delta
+	time_progress_bar.value = event_during_time - time_process
 
 func event_ui_setup(scenario_specific: int = -1):
 	self.show()
@@ -128,17 +138,19 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 				var value = Player.knowledge_point * (1 + _modifiers[stat_name])
 				Player.earn_knowledge_point(value)
 	
+	s_event_finished.emit()
 	self.queue_free()
 		
 	pass
 
-func _on_timout():
+func _on_timout(event_id):
 	""" On supprime l'event apres x secondes """
 	var rand = randi_range(0, 1)
 	if rand == 0:
 		choice_a_button.pressed
 	else:
 		choice_b_button.pressed
+	s_event_finished.emit()
 	self.queue_free()
 	
 func _on_disabled_button_timout():
