@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://cm3anxcysmylc"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop.gd" id="1_x4y7u"]
+[ext_resource type="StyleBox" uid="uid://svnn6ol3x4r2" path="res://Game/Themes/BlueNightStyleBox.tres" id="2_p8gw0"]
 [ext_resource type="PackedScene" uid="uid://b7vmw6dhf4lw0" path="res://Game/Interface/shop_item.tscn" id="2_re0i5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bg3al"]
 
 [node name="Shop" type="Control"]
 layout_mode = 3
@@ -21,7 +20,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_bg3al")
+theme_override_styles/panel = ExtResource("2_p8gw0")
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]

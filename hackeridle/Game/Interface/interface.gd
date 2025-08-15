@@ -65,16 +65,19 @@ func app_button_pressed(button_name:String):
 			new_style_box.texture = FULL_CITY
 		"shopping":
 			shop.show()
-			new_style_box.texture = PONT
+			#new_style_box.texture = PONT
+			new_style_box.texture = BACKGROUND
 		"navigator":
 			learning.show()
 			new_style_box.texture = BACKGROUND
 		"dark_shop":
 			hack_shop.show()
-			new_style_box.texture = GALERIES
+			#new_style_box.texture = GALERIES
+			new_style_box.texture = BACKGROUND
 		"skills":
 			skills_tree.show()
-			new_style_box.texture = OPALINE
+			#new_style_box.texture = OPALINE
+			new_style_box.texture = BACKGROUND
 	
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 	
