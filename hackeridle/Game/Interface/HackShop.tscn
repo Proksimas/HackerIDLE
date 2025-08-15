@@ -4,10 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://d0altvtk67lo8" path="res://Game/Clickers/Hacking/hack_item_button.tscn" id="2_djb87"]
 [ext_resource type="PackedScene" uid="uid://bwsgn0o1qb68m" path="res://Game/Clickers/Hacking/Source.tscn" id="3_j6a1s"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1b1r"]
-bg_color = Color(0.0784314, 0.176471, 0.290196, 0.486275)
-border_color = Color(0.517647, 0.113725, 0.392157, 1)
-border_blend = true
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jehmg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dudvx"]
 bg_color = Color(0.113725, 0.0745098, 0.0901961, 1)
@@ -30,7 +27,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1b1r")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_jehmg")
 
 [node name="HackingItems" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

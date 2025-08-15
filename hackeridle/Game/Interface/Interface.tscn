@@ -44,7 +44,8 @@ grow_vertical = 2
 theme = ExtResource("1_lxm1j")
 script = ExtResource("1_81dom")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="InterfacePanel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -54,7 +55,7 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_2uhhg")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InterfacePanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,12 +65,12 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Header" type="Panel" parent="Panel/VBoxContainer"]
+[node name="Header" type="Panel" parent="InterfacePanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_l738w")
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/Header"]
+[node name="MarginContainer" type="MarginContainer" parent="InterfacePanel/VBoxContainer/Header"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -81,13 +82,13 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 3
 
-[node name="DateLabel" type="Label" parent="Panel/VBoxContainer/Header/MarginContainer"]
+[node name="DateLabel" type="Label" parent="InterfacePanel/VBoxContainer/Header/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
 text = "1980 - 10 - 01"
 
-[node name="cheat_events" type="HBoxContainer" parent="Panel/VBoxContainer/Header"]
+[node name="cheat_events" type="HBoxContainer" parent="InterfacePanel/VBoxContainer/Header"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -96,25 +97,25 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="FpsLabel" type="Label" parent="Panel/VBoxContainer/Header/cheat_events"]
+[node name="FpsLabel" type="Label" parent="InterfacePanel/VBoxContainer/Header/cheat_events"]
 layout_mode = 2
 script = ExtResource("4_a3l6n")
 
-[node name="CheatEventSpinBox" type="SpinBox" parent="Panel/VBoxContainer/Header/cheat_events"]
+[node name="CheatEventSpinBox" type="SpinBox" parent="InterfacePanel/VBoxContainer/Header/cheat_events"]
 unique_name_in_owner = true
 layout_mode = 2
 value = 1.0
 
-[node name="CheatEventButton" type="Button" parent="Panel/VBoxContainer/Header/cheat_events"]
+[node name="CheatEventButton" type="Button" parent="InterfacePanel/VBoxContainer/Header/cheat_events"]
 layout_mode = 2
 text = "event"
 
-[node name="Panel" type="ColorRect" parent="Panel/VBoxContainer"]
+[node name="Panel" type="ColorRect" parent="InterfacePanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 color = Color(1, 1, 1, 0)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InterfacePanel/VBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -128,24 +129,24 @@ offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/Panel/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="KnowledgeResource" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="KnowledgeResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GoldResource" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="GoldResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SPResource" parent="Panel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="SPResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="NewsPanel" parent="Panel/VBoxContainer" instance=ExtResource("17_f7arf")]
+[node name="NewsPanel" parent="InterfacePanel/VBoxContainer" instance=ExtResource("17_f7arf")]
 unique_name_in_owner = true
 z_index = 90
 z_as_relative = false
@@ -154,12 +155,12 @@ layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 
-[node name="MainTabMargin" type="MarginContainer" parent="Panel/VBoxContainer"]
+[node name="MainTabMargin" type="MarginContainer" parent="InterfacePanel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="MainTab" type="TabContainer" parent="Panel/VBoxContainer/MainTabMargin"]
+[node name="MainTab" type="TabContainer" parent="InterfacePanel/VBoxContainer/MainTabMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -169,40 +170,40 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
 current_tab = 0
 tabs_visible = false
 
-[node name="Learning" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
+[node name="Learning" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HackShop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
+[node name="HackShop" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 
-[node name="Shop" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("13_ojfgi")]
+[node name="Shop" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("13_ojfgi")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="SkillsTree" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("22_tr0fy")]
+[node name="SkillsTree" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("22_tr0fy")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Settings" parent="Panel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
+[node name="Settings" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
-[node name="RessourcesMargin" type="PanelContainer" parent="Panel/VBoxContainer"]
+[node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 125)
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_mfkbu")
 
-[node name="NavgationGrid" type="HBoxContainer" parent="Panel/VBoxContainer/RessourcesMargin"]
+[node name="NavgationGrid" type="HBoxContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -210,12 +211,12 @@ size_flags_vertical = 4
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer4" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_vertical = 8
 stretch_mode = 3
 
-[node name="settingsBox" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
+[node name="settingsBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -223,7 +224,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox"]
 layout_mode = 2
 offset_left = 35.0
 offset_right = 35.0
@@ -232,7 +233,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="SettingsButton" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox/AspectRatioContainer"]
+[node name="SettingsButton" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox/AspectRatioContainer"]
 material = SubResource("ShaderMaterial_8pmxu")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -241,11 +242,11 @@ size_flags_vertical = 4
 texture = ExtResource("12_rkk1i")
 expand_mode = 1
 
-[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer2" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="shoppingBox" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2"]
+[node name="shoppingBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -253,7 +254,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -267,7 +268,7 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Shopping" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox/AspectRatioContainer"]
+[node name="Shopping" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -275,11 +276,11 @@ size_flags_vertical = 4
 texture = ExtResource("15_8y3be")
 expand_mode = 1
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="navigatorBox" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer"]
+[node name="navigatorBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -288,7 +289,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -302,7 +303,7 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Navigator" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox/AspectRatioContainer"]
+[node name="Navigator" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -311,11 +312,11 @@ size_flags_vertical = 4
 texture = ExtResource("14_0s201")
 expand_mode = 1
 
-[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer3" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="dark_shopBox" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3"]
+[node name="dark_shopBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -324,7 +325,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -338,14 +339,14 @@ offset_bottom = 27.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="DarkShop" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox/AspectRatioContainer"]
+[node name="DarkShop" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 size_flags_horizontal = 6
 texture = ExtResource("16_itgnm")
 expand_mode = 1
 
-[node name="DarkShopWarningIcon" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
+[node name="DarkShopWarningIcon" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -362,11 +363,11 @@ texture = ExtResource("18_kh4aw")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="skillsBox" type="TextureButton" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
+[node name="skillsBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -374,7 +375,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -388,7 +389,7 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SkillsButton" type="TextureRect" parent="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox/AspectRatioContainer"]
+[node name="SkillsButton" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 4
@@ -400,10 +401,10 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[connection signal="pressed" from="Panel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox" to="." method="app_button_pressed" binds= ["settings"]]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox" to="." method="app_button_pressed" binds= ["shopping"]]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox" to="." method="app_button_pressed" binds= ["navigator"]]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox" to="." method="app_button_pressed" binds= ["dark_shop"]]
-[connection signal="pressed" from="Panel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox" to="." method="app_button_pressed" binds= ["skills"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox" to="." method="app_button_pressed" binds= ["settings"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox" to="." method="app_button_pressed" binds= ["shopping"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox" to="." method="app_button_pressed" binds= ["navigator"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox" to="." method="app_button_pressed" binds= ["dark_shop"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox" to="." method="app_button_pressed" binds= ["skills"]]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]

@@ -10,6 +10,7 @@ extends Control
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
 @onready var navgation_grid: HBoxContainer = %NavgationGrid
+@onready var interface_panel: Panel = %InterfacePanel
 
 @onready var knowledge_resource: Control = %KnowledgeResource
 @onready var gold_resource: Control = %GoldResource
@@ -20,6 +21,14 @@ extends Control
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
+
+#Background textures
+const BACKGROUND = preload("res://Game/Graphics/Background/background_vignette.png")
+const ARGON = preload("res://Game/Graphics/Background/Crypte Argon/argon.png")
+const FULL_CITY = preload("res://Game/Graphics/Background/FullCity.png")
+const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.png")
+const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
+const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_tab.current_tab = 0
@@ -48,17 +57,26 @@ func init_interface():
 	
 	
 func app_button_pressed(button_name:String):
+	var new_style_box = StyleBoxTexture.new()
+	
 	match button_name:
 		"settings":
 			settings.show()
+			new_style_box.texture = FULL_CITY
 		"shopping":
 			shop.show()
+			new_style_box.texture = PONT
 		"navigator":
 			learning.show()
+			new_style_box.texture = BACKGROUND
 		"dark_shop":
 			hack_shop.show()
+			new_style_box.texture = GALERIES
 		"skills":
 			skills_tree.show()
+			new_style_box.texture = OPALINE
+	
+	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 	
 	#for child in navgation_grid.get_children():
 		#var node_box = child.get_child(0)
