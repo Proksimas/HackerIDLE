@@ -11,6 +11,8 @@ extends Control
 @onready var second_timer: Timer = %SecondTimer
 @onready var navgation_grid: HBoxContainer = %NavgationGrid
 @onready var interface_panel: Panel = %InterfacePanel
+#@onready var event_ui: Panel = %EventUI
+#@onready var event_container: Container = %EventContainer
 
 @onready var knowledge_resource: Control = %KnowledgeResource
 @onready var gold_resource: Control = %GoldResource
@@ -80,13 +82,6 @@ func app_button_pressed(button_name:String):
 			new_style_box.texture = BACKGROUND
 	
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
-	
-	#for child in navgation_grid.get_children():
-		#var node_box = child.get_child(0)
-		#if node_box.name == button_name + "Box":
-			#node_box.texture_normal = ICON_BORDER_MEDIUM_PRESSED
-		#else:
-			#node_box.texture_normal = ICON_BORDER_MEDIUM
 
 func refresh_specially_resources():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
@@ -165,7 +160,10 @@ func _load_data(data):
 @onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
 
 func _on_button_pressed() -> void:
+	"""On reçoit un evennement"""
+	
 	cheat_event_spin_box.apply()
 	var event_ui = EventsManager.create_event_ui()
+	main_tab.add_child(event_ui)
 	event_ui.event_ui_setup(cheat_event_spin_box.value)
 	pass # Replace with function body.

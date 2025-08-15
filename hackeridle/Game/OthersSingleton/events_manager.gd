@@ -42,8 +42,10 @@ func get_specific_scenario(index):
 	
 func create_event_ui():
 	""" affiche un nouvel EVENT"""
-	var interface =  get_tree().get_root().get_node("Main/Interface")
+	#var interface =  get_tree().get_root().get_node("Main/Interface")
 	var new_event = EVENT_UI.instantiate()
-	if interface:
-		interface.add_child(new_event)
+	#if interface:
+		#interface.event_container.add_child(new_event)
+	#else:
+		#push_error("Pas d'interface de trouvée")
 	return new_event

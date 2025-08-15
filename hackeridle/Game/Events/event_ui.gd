@@ -19,11 +19,12 @@ func _ready() -> void:
 	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
-	Global.center(self)
+	#Global.center(self)
 	pass # Replace with function body.
 
 
 func event_ui_setup(scenario_specific: int = -1):
+	self.show()
 	_clear_choices_container()
 	var event:Event 
 	if scenario_specific <= 0:

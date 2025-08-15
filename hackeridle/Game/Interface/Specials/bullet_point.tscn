@@ -18,7 +18,7 @@ layout_mode = 2
 [node name="TextureRect" type="ColorRect" parent="AspectRatioContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.219608, 0.996078, 0.996078, 1)
 
 [node name="TextLabel" type="Label" parent="."]
 unique_name_in_owner = true
