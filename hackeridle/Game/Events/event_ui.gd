@@ -139,11 +139,11 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 				Player.earn_knowledge_point(value)
 	
 	s_event_finished.emit()
-	self.queue_free()
+	#self.queue_free()
 		
 	pass
 
-func _on_timout(event_id):
+func _on_timout():
 	""" On supprime l'event apres x secondes """
 	var rand = randi_range(0, 1)
 	if rand == 0:
@@ -151,7 +151,7 @@ func _on_timout(event_id):
 	else:
 		choice_b_button.pressed
 	s_event_finished.emit()
-	self.queue_free()
+	#self.queue_free()
 	
 func _on_disabled_button_timout():
 	choice_a_button.disabled = false
