@@ -34,9 +34,9 @@
       {
         "texte_id": "event_2_choix2",
         "effets": {
-          "infamy": 12,
-          "health": 1,
-          "xp_click_flat": 14
+          "infamy": 10,
+          "perc_from_knowledge": 0.1
+          
         }
       }
     ]

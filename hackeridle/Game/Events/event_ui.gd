@@ -44,81 +44,144 @@ func event_ui_setup(scenario_specific: int = -1):
 		
 	name_of_event_label.text = tr(event.event_titre_id)
 	event_description_label.text = tr(event.event_description_id)
+	var choices_name_lst = [choice_a_name, choice_b_name]
+	var choices_id = [event.event_choice_1, event.event_choice_2]
+	var choices_container =[choice_a_container, choice_b_container]
+	var choices_buttons = [choice_a_button, choice_b_button]
+	var choices_str = ["choix_a", "choix_b"]
+	
 	
 	
 	var choice_text: String
-	choice_a_name.text = tr(event.event_choice_1["texte_id"])
-	for event_stat_name in event.event_choice_1["effects"]:
-		var new_bullet = BULLET_POINT.instantiate()
-		choice_a_container.add_child(new_bullet)
-		
-		var value: float
-		if event_stat_name == "perc_from_gold":
-			#On doit mesurer lepercentage du total
-			value = Player.gold * (1 + event.event_choice_1["effects"][event_stat_name])
-			choice_text = tr("$gold") + ": "
-		elif event_stat_name == "perc_from_knowledge":
-			value = Player.knowledge_point * (1 + event.event_choice_1["effects"][event_stat_name])
-			choice_text = tr("$knowledge") + ": "
-		else:
-			choice_text = tr("$" + event_stat_name) + ": "
-			value = event.event_choice_1["effects"][event_stat_name]
-			
-		if value < 0:
-			choice_text += "- %s" % Global.number_to_string(abs(value))
-		else:
-			choice_text += "+ %s" % Global.number_to_string(value)
-		new_bullet.set_bullet_point(choice_text)
-		
-	if event.event_choice_1["effects"] == {}:
-		choice_text = tr("$nothing")
-		var new_bullet3 = BULLET_POINT.instantiate()
-		choice_a_container.add_child(new_bullet3)
-		new_bullet3.set_bullet_point(choice_text)
-	
+	var index = 0
+	for choice_name in choices_name_lst:
+		choice_name.text = tr(choices_id[index]["texte_id"])
 
-	choice_b_name.text = tr(event.event_choice_2["texte_id"])
-	for event_stat_name in event.event_choice_2["effects"]:
-		var new_bullet = BULLET_POINT.instantiate()
-		choice_b_container.add_child(new_bullet)
+		if choices_id[index]["effects"] == {}:
+			choice_text = tr("$nothing")
+			var new_bullet3 = BULLET_POINT.instantiate()
+			choices_container[index].add_child(new_bullet3)
+			new_bullet3.set_bullet_point(choice_text)
 		
-		var value: float
-		if event_stat_name == "perc_from_gold":
-			#On doit mesurer lepercentage du total
-			value = Player.gold * (1 + event.event_choice_2["effects"][event_stat_name])
-			choice_text = tr("$gold") + ": "
-		elif event_stat_name == "perc_from_knowledge":
-			value = Player.knowledge_point * (1 + event.event_choice_2["effects"][event_stat_name])
-			choice_text = tr("$knowledge") + ": "
 		else:
-			choice_text = tr("$" + event_stat_name) + ": "
-			value = event.event_choice_2["effects"][event_stat_name]
+			for event_effect_name in choices_id[index]["effects"]:
+				var new_bullet = BULLET_POINT.instantiate()
+				choices_container[index].add_child(new_bullet)
+				print("event_stat_name: %s" % event_effect_name)
+				
+					
+				var effect_value = choices_id[index]["effects"][event_effect_name]
+				print('effect: %s' % effect_value)
+				var value: float
+				
+				if event_effect_name == "perc_from_gold":
+					#On doit mesurer lepercentage du total
+					value = Player.gold * (1 + effect_value)
+					choice_text = tr("$gold") + ": "
+				elif event_effect_name == "perc_from_knowledge":
+					value = Player.knowledge_point * (1 + effect_value)
+					choice_text = tr("$knowledge") + ": "
+				else:
+					choice_text = tr("$" + event_effect_name) + ": "
+					
+					
+				if effect_value < 0:
+					choice_text += "- %s" % Global.number_to_string(abs(effect_value))
+				else:
+					choice_text += "+ %s" % Global.number_to_string(effect_value)
+				
+				new_bullet.set_bullet_point(choice_text)
 		
-		
-		value = event.event_choice_2["effects"][event_stat_name]
-		if value < 0:
-			choice_text += "- %s" % value
-		else:
-			choice_text += "+ %s" % value
-		new_bullet.set_bullet_point(choice_text)
-		
-	if event.event_choice_2["effects"] == {}:
-		choice_text = tr("$nothing")
-		var new_bullet2 = BULLET_POINT.instantiate()
-		choice_b_container.add_child(new_bullet2)
-		new_bullet2.set_bullet_point(choice_text)
-		
-	choice_a_button.pressed.connect(self._on_choice_pressed.bind("choice_a", event.event_choice_1["effects"], event.event_id))
-	choice_b_button.pressed.connect(self._on_choice_pressed.bind("choice_b", event.event_choice_2["effects"], event.event_id))
+		choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
+			choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
+
+		index += 1
 	
+	return
+	#choice_a_name.text = tr(event.event_choice_1["texte_id"])
+	#for event_stat_name in event.event_choice_1["effects"]:
+		#var new_bullet = BULLET_POINT.instantiate()
+		#choice_a_container.add_child(new_bullet)
+		#
+		#var value: float
+		#if event_stat_name == "perc_from_gold":
+			##On doit mesurer lepercentage du total
+			#value = Player.gold * (1 + event.event_choice_1["effects"][event_stat_name])
+			#choice_text = tr("$gold") + ": "
+		#elif event_stat_name == "perc_from_knowledge":
+			#value = Player.knowledge_point * (1 + event.event_choice_1["effects"][event_stat_name])
+			#choice_text = tr("$knowledge") + ": "
+		#else:
+			#choice_text = tr("$" + event_stat_name) + ": "
+			#value = event.event_choice_1["effects"][event_stat_name]
+			#
+		#if value < 0:
+			#choice_text += "- %s" % Global.number_to_string(abs(value))
+		#else:
+			#choice_text += "+ %s" % Global.number_to_string(value)
+		#new_bullet.set_bullet_point(choice_text)
+		#
+	#if event.event_choice_1["effects"] == {}:
+		#choice_text = tr("$nothing")
+		#var new_bullet3 = BULLET_POINT.instantiate()
+		#choice_a_container.add_child(new_bullet3)
+		#new_bullet3.set_bullet_point(choice_text)
+	#
+#
+	#choice_b_name.text = tr(event.event_choice_2["texte_id"])
+	#for event_stat_name in event.event_choice_2["effects"]:
+		#var new_bullet = BULLET_POINT.instantiate()
+		#choice_b_container.add_child(new_bullet)
+		#
+		#var value: float
+		#if event_stat_name == "perc_from_gold":
+			##On doit mesurer lepercentage du total
+			#value = Player.gold * (1 + event.event_choice_2["effects"][event_stat_name])
+			#choice_text = tr("$gold") + ": "
+		#elif event_stat_name == "perc_from_knowledge":
+			#value = Player.knowledge_point * (1 + event.event_choice_2["effects"][event_stat_name])
+			#choice_text = tr("$knowledge") + ": "
+		#else:
+			#choice_text = tr("$" + event_stat_name) + ": "
+			#value = event.event_choice_2["effects"][event_stat_name]
+		#
+		#
+		#value = event.event_choice_2["effects"][event_stat_name]
+		#if value < 0:
+			#choice_text += "- %s" % value
+		#else:
+			#choice_text += "+ %s" % value
+		#new_bullet.set_bullet_point(choice_text)
+		#
+	#if event.event_choice_2["effects"] == {}:
+		#choice_text = tr("$nothing")
+		#var new_bullet2 = BULLET_POINT.instantiate()
+		#choice_b_container.add_child(new_bullet2)
+		#new_bullet2.set_bullet_point(choice_text)
+		#
+	#choice_a_button.pressed.connect(self._on_choice_pressed.bind("choice_a", event.event_choice_1["effects"], event.event_id))
+	#choice_b_button.pressed.connect(self._on_choice_pressed.bind("choice_b", event.event_choice_2["effects"], event.event_id))
+	#
 func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
+	print("modifiers: %s "% _modifiers)
+	print("event_id: %s" % event_id)
 	if choice_a_button.pressed.is_connected(_on_choice_pressed):
 		choice_a_button.pressed.disconnect(_on_choice_pressed)
 	if choice_b_button.pressed.is_connected(_on_choice_pressed):
 		choice_b_button.pressed.disconnect(_on_choice_pressed)
-	#Apply les modifications, puis remove le bouton
+		
+	apply_modifiers(_modifiers, event_id)
+	s_event_finished.emit()
+	#self.queue_free()
+		
+
+func apply_modifiers(_modifiers: Dictionary, event_id):
+	"""On aplpique les modificateurs et ajoute les différentes Stats
+	perc_from_stat: donne un gain à cette stat, selon % total de cette stat
+	"""
 	# TODO
+	
 	for stat_name in _modifiers:
 		match stat_name:
 			"infamy":
@@ -128,7 +191,7 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 										StatsManager.Stats.BRAIN_XP,
 										StatsManager.ModifierType.FLAT,
 										_modifiers[stat_name],
-										"event_{id}".format({"id":event_id }))
+										event_id)
 										
 			"perc_from_gold":
 				var value = Player.gold * (1 + _modifiers[stat_name])
@@ -138,10 +201,7 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 				var value = Player.knowledge_point * (1 + _modifiers[stat_name])
 				Player.earn_knowledge_point(value)
 	
-	s_event_finished.emit()
-	#self.queue_free()
-		
-	pass
+	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
 func _on_timout():
 	""" On supprime l'event apres x secondes """
