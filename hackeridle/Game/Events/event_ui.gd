@@ -50,8 +50,6 @@ func event_ui_setup(scenario_specific: int = -1):
 	var choices_buttons = [choice_a_button, choice_b_button]
 	var choices_str = ["choix_a", "choix_b"]
 	
-	
-	
 	var choice_text: String
 	var index = 0
 	for choice_name in choices_name_lst:
@@ -67,10 +65,7 @@ func event_ui_setup(scenario_specific: int = -1):
 			for event_effect_name in choices_id[index]["effects"]:
 				var new_bullet = BULLET_POINT.instantiate()
 				choices_container[index].add_child(new_bullet)
-
-					
 				var effect_value = choices_id[index]["effects"][event_effect_name]
-
 				var value: float
 				
 				if event_effect_name == "perc_from_gold":
@@ -82,8 +77,7 @@ func event_ui_setup(scenario_specific: int = -1):
 					choice_text = tr("$knowledge") + ": "
 				else:
 					choice_text = tr("$" + event_effect_name) + ": "
-					
-					
+		
 				if effect_value < 0:
 					choice_text += "- %s" % Global.number_to_string(abs(effect_value))
 				else:
@@ -93,7 +87,6 @@ func event_ui_setup(scenario_specific: int = -1):
 		
 		choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
 			choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
-
 		index += 1
 	
 	return
