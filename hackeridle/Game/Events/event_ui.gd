@@ -67,11 +67,10 @@ func event_ui_setup(scenario_specific: int = -1):
 			for event_effect_name in choices_id[index]["effects"]:
 				var new_bullet = BULLET_POINT.instantiate()
 				choices_container[index].add_child(new_bullet)
-				print("event_stat_name: %s" % event_effect_name)
-				
+
 					
 				var effect_value = choices_id[index]["effects"][event_effect_name]
-				print('effect: %s' % effect_value)
+
 				var value: float
 				
 				if event_effect_name == "perc_from_gold":
@@ -164,8 +163,7 @@ func event_ui_setup(scenario_specific: int = -1):
 	#
 func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
-	print("modifiers: %s "% _modifiers)
-	print("event_id: %s" % event_id)
+
 	if choice_a_button.pressed.is_connected(_on_choice_pressed):
 		choice_a_button.pressed.disconnect(_on_choice_pressed)
 	if choice_b_button.pressed.is_connected(_on_choice_pressed):
