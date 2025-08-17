@@ -47,8 +47,6 @@ func _ready() -> void:
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
 	news_history.hide()
-	pass
-
 
 func _process(_delta: float) -> void:
 	if scroll_starting:

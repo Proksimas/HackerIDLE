@@ -35,7 +35,9 @@
         "texte_id": "event_2_choix2",
         "effets": {
           "infamy": 10,
-          "perc_from_knowledge": 0.1
+          "perc_from_knowledge": 0.1,
+          "perc_from_brain_xp": 0.25
+
           
         }
       }

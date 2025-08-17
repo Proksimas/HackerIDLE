@@ -68,20 +68,27 @@ func event_ui_setup(scenario_specific: int = -1):
 				var effect_value = choices_id[index]["effects"][event_effect_name]
 				var value: float
 				
+				# ATTENTION Ne pas oublier de changer au niveau du click du boutton
+				# pour les gains
 				if event_effect_name == "perc_from_gold":
 					#On doit mesurer lepercentage du total
-					value = Player.gold * (1 + effect_value)
+					value = Player.gold * effect_value
 					choice_text = tr("$gold") + ": "
 				elif event_effect_name == "perc_from_knowledge":
-					value = Player.knowledge_point * (1 + effect_value)
+					value = Player.knowledge_point * effect_value
 					choice_text = tr("$knowledge") + ": "
+				elif event_effect_name == "perc_from_brain_xp":
+					#donne x% de l'exp qu'il faut pouir le prochain level
+					value = Player.brain_xp_next * effect_value
+					choice_text = tr("$brain_xp") + ": "
 				else:
+					value = effect_value
 					choice_text = tr("$" + event_effect_name) + ": "
 		
 				if effect_value < 0:
-					choice_text += "- %s" % Global.number_to_string(abs(effect_value))
+					choice_text += "- %s" % Global.number_to_string(abs(value))
 				else:
-					choice_text += "+ %s" % Global.number_to_string(effect_value)
+					choice_text += "+ %s" % Global.number_to_string(value)
 				
 				new_bullet.set_bullet_point(choice_text)
 		
@@ -173,6 +180,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 	"""
 	# TODO
 	
+	# ATTENTION Ne pas oublier de changer au niveau de l'affichage de l'ui 
 	for stat_name in _modifiers:
 		match stat_name:
 			"infamy":
@@ -183,14 +191,17 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 										StatsManager.ModifierType.FLAT,
 										_modifiers[stat_name],
 										event_id)
-										
 			"perc_from_gold":
-				var value = Player.gold * (1 + _modifiers[stat_name])
+				var value = Player.gold * _modifiers[stat_name]
 				Player.earn_gold(value)
-				
 			"perc_from_knowledge":
-				var value = Player.knowledge_point * (1 + _modifiers[stat_name])
+				var value = Player.knowledge_point * _modifiers[stat_name]
 				Player.earn_knowledge_point(value)
+			"perc_from_brain_xp":
+				var value = Player.brain_xp_next * _modifiers[stat_name]
+				Player.earn_brain_xp(value)
+				print(value)
+			
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
