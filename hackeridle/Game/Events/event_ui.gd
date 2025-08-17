@@ -72,10 +72,10 @@ func event_ui_setup(scenario_specific: int = -1):
 				# pour les gains
 				if event_effect_name == "perc_from_gold":
 					#On doit mesurer lepercentage du total
-					value = get_tot_gold() * effect_value
+					value = Calculs.get_tot_gold() * effect_value
 					choice_text = tr("$gold") + ": "
 				elif event_effect_name == "perc_from_knowledge":
-					value = get_tot_knowledge() * effect_value
+					value = Calculs.get_tot_knowledge() * effect_value
 					choice_text = tr("$knowledge") + ": "
 				elif event_effect_name == "perc_from_brain_xp":
 					#donne x% de l'exp qu'il faut pouir le prochain level
@@ -136,10 +136,10 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 				
 				
 			"perc_from_gold":
-				var value = get_tot_gold() * _modifiers[stat_name]
+				var value = Calculs.get_tot_gold() * _modifiers[stat_name]
 				Player.earn_gold(value)
 			"perc_from_knowledge":
-				var value = get_tot_knowledge() * _modifiers[stat_name]
+				var value = Calculs.get_tot_knowledge() * _modifiers[stat_name]
 				Player.earn_knowledge_point(value)
 			"perc_from_brain_xp":
 				var value = Player.brain_xp_next * _modifiers[stat_name]
@@ -149,30 +149,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
-func get_tot_gold() -> float:
-	"""On recupere toute la gold que le joueur genère.
-	Pour le moment on prend que les hacks et leurs modificateurs totaux"""
-	
-	var gold_from_hacks: float = 0
-	gold_from_hacks = get_tree().get_root().get_node("Main/Interface").\
-											hack_shop.get_total_gold_from_hacks()
-	return gold_from_hacks
-	pass
-	
-func get_tot_knowledge() -> float:
-	"""Calcul le hain tot de knowlmedge issu des shop_item + le gain par click 
-	sur le cerveau"""
-	
-	var tot_knowledge: float = 0
-	# from click
-	var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
-	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
-	tot_knowledge  += StatsManager.calcul_global_stat(StatsManager.Stats.KNOWLEDGE, knowledge_point_to_gain)
-	# from passif
-	var knowledge_from_shop_item = get_tree().get_root().get_node("Main/Interface").\
-											shop.get_tot_knowledge_from_shop_items()
-	tot_knowledge += knowledge_from_shop_item
-	return tot_knowledge
+
 
 func _on_timout():
 	""" On supprime l'event apres x secondes """

@@ -102,3 +102,28 @@ func get_next_source_level(source_cara):
 		var linear_calcul = c * ((level+1) * r)
 		return linear_calcul 
 		
+
+func get_tot_gold() -> float:
+	"""On recupere toute la gold que le joueur genère.
+	Pour le moment on prend que les hacks et leurs modificateurs totaux"""
+	
+	var gold_from_hacks: float = 0
+	gold_from_hacks = get_tree().get_root().get_node("Main/Interface").\
+											hack_shop.get_total_gold_from_hacks()
+	return gold_from_hacks
+	pass
+	
+func get_tot_knowledge() -> float:
+	"""Calcul le hain tot de knowlmedge issu des shop_item + le gain par click 
+	sur le cerveau"""
+	
+	var tot_knowledge: float = 0
+	# from click
+	var knowledge_point_to_gain = StatsManager.current_stat_calcul(\
+	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
+	tot_knowledge  += StatsManager.calcul_global_stat(StatsManager.Stats.KNOWLEDGE, knowledge_point_to_gain)
+	# from passif
+	var knowledge_from_shop_item = get_tree().get_root().get_node("Main/Interface").\
+											shop.get_tot_knowledge_from_shop_items()
+	tot_knowledge += knowledge_from_shop_item
+	return tot_knowledge
