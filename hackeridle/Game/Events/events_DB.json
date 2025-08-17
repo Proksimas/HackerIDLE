@@ -58,9 +58,9 @@
       {
         "texte_id": "event_3_choix2",
         "effets": {
-          "perc_from_gold": 0.8,
+          "perc_from_gold": 10,
           "infamy": 15,
-          "perc_from_knowledge": 0.8
+          "perc_from_knowledge": 50
         }
       }
     ]

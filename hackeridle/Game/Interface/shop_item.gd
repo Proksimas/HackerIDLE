@@ -109,3 +109,10 @@ func statut_updated():
 		
 	elif Player.learning_item_statut[current_item_cara["item_name"]] == 'locked':
 		self.hide()
+		
+func get_knowledge_from_passif() -> float:
+	var knowledge_gain:float = 0
+	if !Player.learning_item_statut[current_item_cara["item_name"]] == 'unlocked':
+		return knowledge_gain
+	knowledge_gain = Calculs.passif_learning_gain(current_item_cara)
+	return knowledge_gain

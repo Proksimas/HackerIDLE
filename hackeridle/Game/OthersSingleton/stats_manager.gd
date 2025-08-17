@@ -148,7 +148,9 @@ func calcul_global_stat(stat_name: Stats, earning) -> float:
 			ModifierType.FLAT:
 				flat += modifier["value"]
 	
+
 	var calcul = ((base + earning) * (1 + perc)) + flat
+
 	return calcul
 	
 func calcul_hack_stat(stat_name: Stats, earning) -> float:
@@ -293,20 +295,6 @@ func add_infamy_effects():
 			self.add_modifier(TargetModifier.HACK, Stats.JAIL,
 				ModifierType.PERCENTAGE, 0.25, "infamy_" + INFAMY_NAMES.get(_infamy_threshold))
 	s_infamy_effect_added.emit()
-	
-	
-func get_infamy_translation() -> String:
-	var _translation: String
-
-	return "plop"
-	#return tr(player_skill['as_name'] + "_desc").\
-			#format(
-				#{"as_during_time": player_skill["as_during_time"],
-				#"as_name": player_skill["as_name"],
-				#"cost": player_skill["cost"],
-				#"data_bonus_1": data_bonus_1,
-				#"data_bonus_2": data_bonus_2
-				#})
 	
 #endregion
 

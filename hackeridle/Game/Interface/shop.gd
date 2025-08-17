@@ -71,8 +71,14 @@ func player_bought_learning_item(item_name,  quantity):
 
 func learning_items_statut_updated():
 	get_tree().call_group("g_shop_item", "statut_updated")
-	
 	pass
+	
+func get_tot_knowledge_from_shop_items():
+	var tot_knowledge: float = 0
+	for shop_item in shop_grid.get_children():
+		tot_knowledge += shop_item.get_knowledge_from_passif()
+	
+	return tot_knowledge
 
 func _draw() -> void:
 	#ATTENTION peut engendrer des bugs si le player n'est pas initialisé avec son inventaire
