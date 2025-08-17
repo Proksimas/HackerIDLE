@@ -200,7 +200,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 			"perc_from_brain_xp":
 				var value = Player.brain_xp_next * _modifiers[stat_name]
 				Player.earn_brain_xp(value)
-				print(value)
+				
 			
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
