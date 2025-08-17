@@ -191,6 +191,14 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 										StatsManager.ModifierType.FLAT,
 										_modifiers[stat_name],
 										event_id)
+			"knowledge_click_bonus":
+				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
+										StatsManager.Stats.KNOWLEDGE,
+										StatsManager.ModifierType.BASE,
+										_modifiers[stat_name],
+										event_id)
+				
+				
 			"perc_from_gold":
 				var value = Player.gold * _modifiers[stat_name]
 				Player.earn_gold(value)

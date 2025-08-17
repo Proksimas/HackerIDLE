@@ -51,14 +51,16 @@
       {
         "texte_id": "event_3_choix1",
         "effets": {
-          "infamy": 4,
-          "xp_click_flat": -1
+          "infamy": -15,
+          "knowledge_click_bonus": 5
         }
       },
       {
         "texte_id": "event_3_choix2",
         "effets": {
-          "moral": 15
+          "perc_from_gold": 0.8,
+          "infamy": 15,
+          "perc_from_knowledge": 0.8
         }
       }
     ]
