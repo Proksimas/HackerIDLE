@@ -72,7 +72,7 @@ func event_ui_setup(scenario_specific: int = -1):
 				# pour les gains
 				if event_effect_name == "perc_from_gold":
 					#On doit mesurer lepercentage du total
-					value = Player.gold * effect_value
+					value = get_tot_gold() * effect_value
 					choice_text = tr("$gold") + ": "
 				elif event_effect_name == "perc_from_knowledge":
 					value = Player.knowledge_point * effect_value
@@ -97,70 +97,6 @@ func event_ui_setup(scenario_specific: int = -1):
 		index += 1
 	
 	return
-	#choice_a_name.text = tr(event.event_choice_1["texte_id"])
-	#for event_stat_name in event.event_choice_1["effects"]:
-		#var new_bullet = BULLET_POINT.instantiate()
-		#choice_a_container.add_child(new_bullet)
-		#
-		#var value: float
-		#if event_stat_name == "perc_from_gold":
-			##On doit mesurer lepercentage du total
-			#value = Player.gold * (1 + event.event_choice_1["effects"][event_stat_name])
-			#choice_text = tr("$gold") + ": "
-		#elif event_stat_name == "perc_from_knowledge":
-			#value = Player.knowledge_point * (1 + event.event_choice_1["effects"][event_stat_name])
-			#choice_text = tr("$knowledge") + ": "
-		#else:
-			#choice_text = tr("$" + event_stat_name) + ": "
-			#value = event.event_choice_1["effects"][event_stat_name]
-			#
-		#if value < 0:
-			#choice_text += "- %s" % Global.number_to_string(abs(value))
-		#else:
-			#choice_text += "+ %s" % Global.number_to_string(value)
-		#new_bullet.set_bullet_point(choice_text)
-		#
-	#if event.event_choice_1["effects"] == {}:
-		#choice_text = tr("$nothing")
-		#var new_bullet3 = BULLET_POINT.instantiate()
-		#choice_a_container.add_child(new_bullet3)
-		#new_bullet3.set_bullet_point(choice_text)
-	#
-#
-	#choice_b_name.text = tr(event.event_choice_2["texte_id"])
-	#for event_stat_name in event.event_choice_2["effects"]:
-		#var new_bullet = BULLET_POINT.instantiate()
-		#choice_b_container.add_child(new_bullet)
-		#
-		#var value: float
-		#if event_stat_name == "perc_from_gold":
-			##On doit mesurer lepercentage du total
-			#value = Player.gold * (1 + event.event_choice_2["effects"][event_stat_name])
-			#choice_text = tr("$gold") + ": "
-		#elif event_stat_name == "perc_from_knowledge":
-			#value = Player.knowledge_point * (1 + event.event_choice_2["effects"][event_stat_name])
-			#choice_text = tr("$knowledge") + ": "
-		#else:
-			#choice_text = tr("$" + event_stat_name) + ": "
-			#value = event.event_choice_2["effects"][event_stat_name]
-		#
-		#
-		#value = event.event_choice_2["effects"][event_stat_name]
-		#if value < 0:
-			#choice_text += "- %s" % value
-		#else:
-			#choice_text += "+ %s" % value
-		#new_bullet.set_bullet_point(choice_text)
-		#
-	#if event.event_choice_2["effects"] == {}:
-		#choice_text = tr("$nothing")
-		#var new_bullet2 = BULLET_POINT.instantiate()
-		#choice_b_container.add_child(new_bullet2)
-		#new_bullet2.set_bullet_point(choice_text)
-		#
-	#choice_a_button.pressed.connect(self._on_choice_pressed.bind("choice_a", event.event_choice_1["effects"], event.event_id))
-	#choice_b_button.pressed.connect(self._on_choice_pressed.bind("choice_b", event.event_choice_2["effects"], event.event_id))
-	#
 func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
 
@@ -200,7 +136,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 				
 				
 			"perc_from_gold":
-				var value = Player.gold * _modifiers[stat_name]
+				var value = get_tot_gold() * _modifiers[stat_name]
 				Player.earn_gold(value)
 			"perc_from_knowledge":
 				var value = Player.knowledge_point * _modifiers[stat_name]
@@ -212,6 +148,17 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 			
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
+
+func get_tot_gold() -> float:
+	"""On recupere toute la gold que le joueur genère.
+	Pour le moment on prend que les hacks et leurs modificateurs totaux"""
+	
+	var gold_from_hacks: float = 0
+	gold_from_hacks = get_tree().get_root().get_node("Main/Interface").\
+											hack_shop.get_total_gold_from_hacks()
+	print(gold_from_hacks)
+	return gold_from_hacks
+	pass
 
 func _on_timout():
 	""" On supprime l'event apres x secondes """

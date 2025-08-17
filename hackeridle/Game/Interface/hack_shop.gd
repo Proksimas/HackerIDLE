@@ -102,7 +102,13 @@ func player_bought_hacking_item(item_name,  quantity):
 
 func hack_items_statut_updated():
 	get_tree().call_group("g_hack_item_button", "statut_updated")
-
+	
+func get_total_gold_from_hacks() -> float:
+	var gold_tot: float = 0
+	for hack_item in hack_grid.get_children():
+		gold_tot += hack_item.get_gold_from_hack()
+			
+	return gold_tot
 func _on_x_button_pressed(button_name: String):
 	'''définit le *X d achat possible'''
 	match button_name.trim_suffix("Button"):

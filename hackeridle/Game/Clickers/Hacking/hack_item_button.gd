@@ -181,7 +181,7 @@ func lauch_wait_time():
 
 
 func time_finished() -> void:
-	"""On lance le timer de la progression bar. A sa fin, on a le gain de la gold"""
+	"""Le hack est fini. On récupere le gain en gold"""
 	progress_activated = false
 	waiting_to_long_send = false
 	hack_item_progress_bar.value = 0
@@ -246,7 +246,12 @@ func source_upgraded(source_cara):
 	if source_cara["level"] > 0:
 		lauch_wait_time()
 	
-
+func get_gold_from_hack() -> float:
+	if !Player.hacking_item_statut[current_hack_item_cara["item_name"]] == 'unlocked':
+		return 0
+	var gold_from_item = Calculs.gain_gold(current_hack_item_cara["item_name"])
+	var final_hack_gold = StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD, gold_from_item)
+	return int(final_hack_gold)
 
 func _draw() -> void:
 	if source_associated["level"] > 0 :
