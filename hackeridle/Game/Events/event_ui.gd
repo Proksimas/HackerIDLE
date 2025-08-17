@@ -156,7 +156,6 @@ func get_tot_gold() -> float:
 	var gold_from_hacks: float = 0
 	gold_from_hacks = get_tree().get_root().get_node("Main/Interface").\
 											hack_shop.get_total_gold_from_hacks()
-	print(gold_from_hacks)
 	return gold_from_hacks
 	pass
 
