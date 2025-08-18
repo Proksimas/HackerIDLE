@@ -5,8 +5,8 @@
 
 [resource]
 script = ExtResource("1_1p00l")
-cost = Array[int]([1, 1, 2, 3, 3])
+cost = Array[int]([1, 1, 2, 2, 3, 3])
 ps_texture = ExtResource("1_1p2hb")
 ps_name = "veteran"
-data_bonus_1 = [10.0, 20.0, 30.0, 40.0, 50.0]
+data_bonus_1 = [20.0, 30.0, 50.0, 70.0, 100.0, 130.0]
 data_bonus_2 = []
