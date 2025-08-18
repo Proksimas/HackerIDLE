@@ -39,11 +39,11 @@
 
             "item_name": "privilege_escalation_opaline",
             "texture_path": "res://icon.svg",
-            "cost": 1000000,
+            "cost": 500000,
             "cost_factor": 1.3,
             "gain": 50000,
             "gain_factor":1.4,
-            "delay": 300,
+            "delay": 180,
             "formule_type":"polymoniale"
         }
 

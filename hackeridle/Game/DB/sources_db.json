@@ -28,6 +28,16 @@
             "affectation": "MIT_flathouse",
             "formule_type":"linear",
             "effects": {}
+        },
+        
+        {
+            "source_name": "Guigui",
+            "texture_path": "res://Game/Graphics/Sources/fanfan.png",
+            "up_level": 35,
+            "up_factor": 1,
+            "affectation": "privilege_escalation_opaline",
+            "formule_type":"linear",
+            "effects": {}
         }
 
 

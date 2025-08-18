@@ -1,0 +1,332 @@
+hack_name:Privilege_Escalation(MAC, duration = 
+
+import time
+import random
+import math
+from typing import Dict, Any, Optional, List, Tuple
+
+
+import subterranea_telemetry as tele        # water-cooling & pump sensors (read-only)
+import pump_pianola as pianola              # safe micro-jitter composer for pumps (bounded)
+import mural_scope as mscope                # bioluminescent mural photometry & lock
+import lumen_decoder as ldecode             # Manchester-like demodulation (toy)
+import algae_health_guard as ahg            # guardrails for algae well-being
+import subterranea_camera as scamera        # forgotten L-2 CCTV (grainy but loyal)
+import voxel_audit as vaudit                # Voxel edit-counter / checksum mirror (RO)
+import energy_ledger as eledger             # grey-energy micro-ledger (RO)
+import rat_archivist as rattie              # politely judgmental archivist rat (easter egg)
+import vault_seal as vseal                  # closes side-channels with a formal flourish
+
+
+# --- Constants & Parameters ----------------------------------------------------------------
+ZONE = "Subterranea"
+LEVELS = ["L-1", "L-2", "L-3"]
+PRIMARY_LEVEL = "L-2"
+
+MAX_DELTA_C = 0.5           # °C — conservative thermal nudge ceiling
+MAX_FLOW_JITTER_PCT = 2.0   # %  — conservative flow jitter ceiling
+DEFAULT_DELTA_C = 0.42      # °C — cozy, modem-esque warmth
+DEFAULT_FLOW_JITTER = 1.6   # %  — just enough to sparkle
+
+BITRATE_BPS = 42            # good things come in Douglas’ numbers
+LOCK_TARGET_SNR_DB = 24.0   # photometry SNR needed to maintain mural lock
+LOCK_GRACE_SEC = 20         # seconds of grace for initial shimmer lock
+CAPTURE_WINDOW_SEC = 18     # capture window for one audit batch
+
+SESSION_TAG = f"hydrolumen-{int(time.time())}"
+AUDIT_FIELDS = ["batch_crc", "edits_seen", "ledger_drift_kWh", "entropy_hint"]
+# -------------------------------------------------------------------------------------------
+
+
+# --- Errors --------------------------------------------------------------------------------
+class HydroLumenError(Exception):
+    """Base class for HydroLumen mishaps."""
+
+
+class SafetyGuardError(HydroLumenError):
+    """Raised when algae or hydraulic safety rails decline our antics."""
+
+
+class PhotometryLockError(HydroLumenError):
+    """Raised when the mural cannot be visually locked at safe SNR."""
+
+
+class DemodulationError(HydroLumenError):
+    """Raised when frames refuse to synchronize or checksums sulk."""
+
+
+class RatJudgementError(HydroLumenError):
+    """Raised if the archivist rat judges us unworthy (rude, but fair)."""
+# -------------------------------------------------------------------------------------------
+
+
+# --- Utility Logging -----------------------------------------------------------------------
+def log(msg: str) -> None:
+    print(f"[{time.time():.3f}] {msg}")
+
+
+def hr() -> None:
+    print("-" * 78)
+# -------------------------------------------------------------------------------------------
+
+
+# --- Capability Checks & Guardrails --------------------------------------------------------
+def verify_read_only_context(level: str) -> None:
+    """
+    Ensure we are attached to read-only telemetry paths. If anything looks writable,
+    we loudly refuse and put on high-visibility safety vests.
+    """
+    log(f"Attaching to coolant.telemetry@{ZONE} {level} (read-only check)…")
+    caps = tele.capabilities(level)
+    if not caps.get("read_only", False):
+        raise SafetyGuardError("Telemetry path is not read-only. Aborting for ethics and algae.")
+    log("Capabilities: read_only ✓ | write ✗ | purge ✗ | drama ✓")
+    hr()
+
+
+def preflight_safety(level: str) -> Dict[str, Any]:
+    """
+    Query algae health, hydraulic stability, and mural comfort before any sparkle happens.
+    """
+    log("Running algae & hydraulic preflight…")
+    bio = ahg.health_snapshot(level)
+    hyd = tele.hydraulic_snapshot(level)
+    mural = mscope.comfort_level(level)
+    log(f"Algae mood: {bio['mood']} | temp={bio['temp_c']:.2f}°C | glow={bio['baseline_glow']:.1f}")
+    log(f"Hydraulics: flow={hyd['flow_lpm']:.1f} L/min | jitter={hyd['jitter_pct']:.2f}% | temp={hyd['coolant_c']:.2f}°C")
+    log(f"Mural comfort: {mural['comfort_tag']} | tolerance=ΔT±{mural['delta_c_tol']:.2f}°C, flow±{mural['flow_pct_tol']:.1f}%")
+    if bio["mood"] in ("sulking", "molting") or hyd["jitter_pct"] > (MAX_FLOW_JITTER_PCT / 2):
+        raise SafetyGuardError("Preflight declined: algae need a lofi playlist and the pumps a nap.")
+    hr()
+    return {"bio": bio, "hyd": hyd, "mural": mural}
+
+
+def enforce_guardrails(level: str, delta_c: float, flow_jitter_pct: float) -> None:
+    """
+    Instantiate guardrails that will soft-fail our sequence if we exceed safe bounds.
+    """
+    log("Installing safety guardrails (algae + hydraulics)…")
+    ok = ahg.arm_guardrails(
+        level,
+        max_delta_c=min(delta_c, MAX_DELTA_C),
+        max_flow_jitter_pct=min(flow_jitter_pct, MAX_FLOW_JITTER_PCT),
+        mode="gentle",
+        auto_revert=True,
+        confetti_on_revert=True  # Because celebrations matter.
+    )
+    if not ok:
+        raise SafetyGuardError("Could not arm guardrails. Someone replaced fuses with jellybeans.")
+    log("Guardrails armed ✓ — if we misbehave, we get a confetti lecture, not a tragedy.")
+    hr()
+# -------------------------------------------------------------------------------------------
+
+
+# --- Side-Channel Lifecycle ---------------------------------------------------------------
+def open_side_channel(level: str, delta_c: float, flow_jitter_pct: float) -> Dict[str, Any]:
+    """
+    Compose a safe micro-jitter ‘score’ and prime the pumps (no write to data planes).
+    """
+    log(f"Composing pump micro-jitters (ΔT={delta_c:.2f}°C, flow jitter={flow_jitter_pct:.1f}%)…")
+    score_id = pianola.compose(
+        level,
+        delta_c=delta_c,
+        flow_jitter_pct=flow_jitter_pct,
+        bitrate_bps=BITRATE_BPS,
+        pattern="manchester_like",
+        jitter_style="sleepy-drum-and-bass"
+    )
+    if not score_id:
+        raise HydroLumenError("Pianola refused to compose. The metronome union demands snacks.")
+    ok = pianola.prime(level, score_id=score_id, warmup_sec=3)
+    if not ok:
+        raise HydroLumenError("Prime failed. A wrench fell in love with a turbine and eloped.")
+    log(f"Side-channel primed (score_id={score_id}). Warmth rising… like tea done right.")
+    hr()
+    return {"score_id": score_id, "params": {"delta_c": delta_c, "flow_jitter_pct": flow_jitter_pct}}
+
+
+def acquire_mural_lock(level: str) -> Dict[str, Any]:
+    """
+    Point the forgotten L-2 camera at a mural patch and lock photometry to the shimmer.
+    """
+    log("Summoning the forgotten L-2 camera…")
+    cam_id = scamera.claim(level=level, requester=SESSION_TAG, lens="dusty-vintage")
+    if not cam_id:
+        raise PhotometryLockError("Camera refused. Possibly shy; possibly unionized.")
+    log(f"Camera online (cam_id={cam_id}). Setting exposure to ‘glowstick academic’…")
+    scamera.configure(cam_id, exposure="auto-but-not-reckless", fps=17, gain="polite")
+    log("Scanning mural patch for lockable luminance signature…")
+    lock = mscope.lock(level, target_snr_db=LOCK_TARGET_SNR_DB, grace_seconds=LOCK_GRACE_SEC)
+    log(f"Mural lock: {lock['locked']} | SNR={lock['snr_db']:.1f} dB | patch_id={lock['patch_id']}")
+    if not lock["locked"]:
+        raise PhotometryLockError("Could not lock mural at safe SNR. The walls are shy today.")
+    hr()
+    return {"cam_id": cam_id, "patch_id": lock["patch_id"], "snr_db": lock["snr_db"]}
+
+
+def capture_and_demodulate(level: str, cam_id: str, patch_id: str) -> Dict[str, Any]:
+    """
+    Capture a small window of glow, then demodulate it into toy audit facts.
+    """
+    log(f"Capturing luminance window ({CAPTURE_WINDOW_SEC}s)… do not spook the murals.")
+    stream = scamera.capture_glow(cam_id, patch_id=patch_id, duration_sec=CAPTURE_WINDOW_SEC)
+    log(f"Frames: {len(stream['frames'])} | dropped={stream['dropped']} | avg_lux={stream['avg_lux']:.1f}")
+    log("Synchronizing Manchester-like frames (this may tickle)…")
+    sync = ldecode.sync(stream, scheme="manchester_like")
+    if not sync["locked"]:
+        raise DemodulationError("Frames refused to sync. Perhaps we’re clapping on the wrong beat.")
+    log(f"Sync: locked ✓ | bitrate={sync['bitrate_bps']} bps | phase={sync['phase_hint']}")
+    payload = ldecode.demodulate(sync, want_fields=AUDIT_FIELDS, crc="toy_crc32")
+    if not payload.get("ok", False):
+        raise DemodulationError(f"Demod failed: {payload.get('reason','no reasons, just vibes')}")
+    hr()
+    return payload
+
+
+def cross_check_with_voxel_mirrors(level: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Cross-checks demodulated crumbs against Voxel’s public read-only mirrors.
+    """
+    log("Cross-checking against Voxel’s audit mirrors (read-only)…")
+    mirror = vaudit.sample(level, horizon_sec=60)
+    drift = eledger.grey_drift(level, window_sec=120)
+    result = {
+        "batch_crc_match": (payload.get("batch_crc") == mirror.get("batch_crc")),
+        "expected_edits_max": mirror.get("edits_expected_max", 0),
+        "edits_seen": payload.get("edits_seen", -1),
+        "ledger_drift_local_kWh": payload.get("ledger_drift_kWh", 0.0),
+        "ledger_drift_global_kWh": drift.get("kwh_drift", 0.0),
+        "entropy_hint": payload.get("entropy_hint", 0.0),
+    }
+    log(f"CRC match: {result['batch_crc_match']} | edits: {result['edits_seen']} (≤ {result['expected_edits_max']})")
+    log(f"Grey-energy drift: local={result['ledger_drift_local_kWh']:+.2f} kWh | global={result['ledger_drift_global_kWh']:+.2f} kWh")
+    log(f"Entropy hint: {result['entropy_hint']:.3f} (higher = more jazz in the data)")
+    hr()
+    return result
+
+
+def polite_rat_review(level: str, score: Dict[str, Any]) -> None:
+    """
+    Request a five-star rating from the archivist rat for our discretion.
+    The rat is discerning but fair… most days.
+    """
+    log("Submitting discretion report to the Archivist Rat…")
+    rating = rattie.review(
+        level=level,
+        noise_signature="hydraulic-whisper",
+        algae_mood_bonus=+1.0,
+        charisma=random.uniform(0.1, 0.9)
+    )
+    log(f"Rat verdict: {rating['stars']}★ | note: {rating['note']}")
+    if rating["stars"] < 3:
+        raise RatJudgementError("The rat squinted and said ‘mid’. We must be more subtle.")
+    hr()
+
+
+def close_side_channel(level: str, score_id: str, cam_id: str) -> None:
+    """
+    Cleanly stop the micro-jitters, restore parameters, and bow out.
+    """
+    log("Gently stopping pump micro-jitters…")
+    pianola.stop(level, score_id=score_id, cool_down_sec=2)
+    log("Releasing the camera (wipe the lens with a sleeve, respectfully)…")
+    scamera.release(cam_id)
+    log("Sealing the side-channel with a velvet stamp…")
+    vseal.seal(level, seal_style="lacquered-bat")
+    hr()
+# -------------------------------------------------------------------------------------------
+
+
+# --- Fancy Status & Pretty Prints ----------------------------------------------------------
+def pretty_summary(level: str,
+                   payload: Dict[str, Any],
+                   checks: Dict[str, Any]) -> None:
+    """
+    Prints a summary block that your idle game can surface as a reward panel.
+    """
+    print("\n=== HydroLumen Whisper — Audit Summary ===")
+    print(f"Level: {level} | Session: {SESSION_TAG}")
+    print(f"Batch CRC: {payload.get('batch_crc')} | Mirror match: {checks['batch_crc_match']}")
+    print(f"Edits seen: {payload.get('edits_seen')} (expected ≤ {checks['expected_edits_max']})")
+    print(f"Grey-energy drift (local/global): {checks['ledger_drift_local_kWh']:+.2f} / {checks['ledger_drift_global_kWh']:+.2f} kWh")
+    print(f"Entropy hint: {checks['entropy_hint']:.3f} (0=boring, 1=oceans of jazz)")
+    print("Loot: Ledger Fragment ✓ | Grey-Energy Voucher ✓ | Voxel Reputation ± (consult the rat)")
+    print("Note: Attempts to alter ballots get auto-redesigned in Comic Sans. Justice remains a font.\n")
+
+
+def tiny_flavor_line() -> None:
+    """
+    Adds a single, silly context sentence for flavor.
+    """
+    print("Context: the bioluminescent murals blink like a 56k modem practicing yoga; somewhere, a rat archivist leaves a 5★ review.\n")
+# -------------------------------------------------------------------------------------------
+
+
+# --- Orchestration -------------------------------------------------------------------------
+def run_hydrolumen_whisper(level: str = PRIMARY_LEVEL,
+                           delta_c: float = DEFAULT_DELTA_C,
+                           flow_jitter_pct: float = DEFAULT_FLOW_JITTER) -> None:
+    """
+    Full orchestration: preflight → guardrails → compose → lock → capture → decode
+    → cross-check → rat review → tidy exit.
+    """
+    log("=== HydroLumen Whisper (game simulation) — START ===")
+    verify_read_only_context(level)
+    preflight_safety(level)
+    enforce_guardrails(level, delta_c, flow_jitter_pct)
+
+    channel = open_side_channel(level, delta_c, flow_jitter_pct)
+    lock = acquire_mural_lock(level)
+
+    # Soft-start the micro-jitters only after we’re locked and comfy.
+    log("Starting micro-jitter playback (keep it polite)…")
+    pianola.play(level, score_id=channel["score_id"], soft_start=True)
+
+    # Let it breathe a moment for the murals to vibe with the rhythm.
+    time.sleep(1.2 + random.random() * 0.6)
+
+    # Capture & decode
+    payload = capture_and_demodulate(level, lock["cam_id"], lock["patch_id"])
+
+    # For extra authenticity, fold in a read-only mirror glance:
+    checks = cross_check_with_voxel_mirrors(level, payload)
+
+    # Politely ask the Archivist Rat for notes
+    polite_rat_review(level, checks)
+
+    # Stop, clean, seal
+    close_side_channel(level, channel["score_id"], lock["cam_id"])
+
+    # Player-facing goodies
+    pretty_summary(level, payload, checks)
+    tiny_flavor_line()
+
+    log("=== END — Side-channel closed. Algae emit a smug, minty glow. ===")
+
+
+# --- Entry Point ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    try:
+        # For drama, we randomly pick a level weight toward L-2 (the classic).
+        level_choice = random.choices(LEVELS, weights=[2, 5, 3], k=1)[0]
+        # Add a tiny variance to feel organic but remain within safe ceilings.
+        delta = min(MAX_DELTA_C, DEFAULT_DELTA_C + random.uniform(-0.05, 0.05))
+        jitter = min(MAX_FLOW_JITTER_PCT, DEFAULT_FLOW_JITTER + random.uniform(-0.2, 0.2))
+
+        run_hydrolumen_whisper(level=level_choice, delta_c=delta, flow_jitter_pct=jitter)
+
+    except SafetyGuardError as e:
+        print(f"[{time.time():.3f}] SAFETY: {e} — Rerouting to ‘rave-pink fail mode’ (non-destructive).")
+    except PhotometryLockError as e:
+        print(f"[{time.time():.3f}] LOCK: {e} — Murals remain mysterious; try a calmer tempo.")
+    except DemodulationError as e:
+        print(f"[{time.time():.3f}] DEMOD: {e} — Frames sulk; recommend tea and a fresh sync.")
+    except RatJudgementError as e:
+        print(f"[{time.time():.3f}] RAT: {e} — Bring cheese. Aged. Preferably with a tiny bow tie.")
+    except Exception as e:
+        print(f"[{time.time():.3f}] WHOOPS: {e} — Consult ‘Hydraulics for Poets’, annotated edition.")
+    finally:
+        # A little reassurance that nothing real was touched.
+        print("Footnote: All actions were simulated, read-only, and algae-approved. No ballots, servers, or murals were harmed.")
+
+"Hack successfull !"
