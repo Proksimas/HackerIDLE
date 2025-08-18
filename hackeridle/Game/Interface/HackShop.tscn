@@ -1,9 +1,20 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7ubmp8sthntc"]
+[gd_scene load_steps=11 format=3 uid="uid://b7ubmp8sthntc"]
 
 [ext_resource type="Script" path="res://Game/Interface/hack_shop.gd" id="1_wmrks"]
 [ext_resource type="PackedScene" uid="uid://d0altvtk67lo8" path="res://Game/Clickers/Hacking/hack_item_button.tscn" id="2_djb87"]
 [ext_resource type="StyleBox" uid="uid://svnn6ol3x4r2" path="res://Game/Themes/BlueNightStyleBox.tres" id="2_xsxq4"]
+[ext_resource type="Texture2D" uid="uid://c1uvmdhmtxae1" path="res://Game/Graphics/Common_icons/button_3.png" id="3_7njhh"]
 [ext_resource type="PackedScene" uid="uid://bwsgn0o1qb68m" path="res://Game/Clickers/Hacking/Source.tscn" id="3_j6a1s"]
+[ext_resource type="Texture2D" uid="uid://cfw5hhcs08adw" path="res://Game/Graphics/Common_icons/button_1.png" id="4_72b0i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hm5hg"]
+texture = ExtResource("3_7njhh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_phh44"]
+texture = ExtResource("3_7njhh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2epcf"]
+texture = ExtResource("4_72b0i")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dudvx"]
 bg_color = Color(0.113725, 0.0745098, 0.0901961, 1)
@@ -39,26 +50,65 @@ metadata/_edit_use_anchors_ = true
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_constants/separation = 15
 
 [node name="X1Button" type="Button" parent="MarginContainer/HackingItems/ButtonsContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_hover_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_focus_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_styles/focus = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_phh44")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2epcf")
 text = "x 1"
 
 [node name="X10Button" type="Button" parent="MarginContainer/HackingItems/ButtonsContainer"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_focus_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_styles/focus = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_phh44")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2epcf")
 text = "x 10"
 
 [node name="X100Button" type="Button" parent="MarginContainer/HackingItems/ButtonsContainer"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_focus_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_styles/focus = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_phh44")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2epcf")
 text = "x 100"
 
 [node name="XMaxButton" type="Button" parent="MarginContainer/HackingItems/ButtonsContainer"]
-custom_minimum_size = Vector2(50, 30)
+custom_minimum_size = Vector2(75, 50)
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_focus_color = Color(0, 0.227451, 0.294118, 1)
+theme_override_colors/font_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_styles/focus = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hm5hg")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_phh44")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2epcf")
 text = "Max"
 
 [node name="HackGrid" type="GridContainer" parent="MarginContainer/HackingItems"]
