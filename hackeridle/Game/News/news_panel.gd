@@ -35,6 +35,7 @@ var chronological_news_passed: Array = []
 var nb_of_msg = {"random": 60,}
 
 signal news_finished
+signal show_infamy
 
 func _ready() -> void:
 	news_history_label.clear()
@@ -42,7 +43,7 @@ func _ready() -> void:
 	new_news()
 	
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
-	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
+	#StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	TimeManager.s_date.connect(_on_s_date)
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
@@ -221,46 +222,47 @@ func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
 
 func _on_infamy_icon_pressed() -> void:
-	infamy_stats.visible = not infamy_stats.visible
+	show_infamy.emit()
+	#infamy_stats.visible = not infamy_stats.visible
 
-func draw_infamy_stats():
-	for effect in infamy_effects.get_children():
-		effect.queue_free()
-	
-	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
-	var _hack_modifiers = StatsManager.hack_modifiers
-	var _translations: Array = []
-	
-	for stat: StatsManager.Stats in _hack_modifiers:
-		if _hack_modifiers[stat].is_empty():
-			continue
-		
-		var hack_dicts = _hack_modifiers[stat]
-		var value: float
-		var has_value: bool = false
-		for dict in hack_dicts:
-			if dict["source"].begins_with("infamy_"):
-				value = dict["value"] * 100
-				has_value = true
-		
-		if not has_value:
-			push_warning("Pas de valeur trouvée, pas normal ")
-			return
-		
-		var value_str: String
-		if value > 0:
-			value_str = "+%s" % str(value)
-		elif value < 0:
-			value_str = "-%s" % str(abs(value))
-		else:
-			value_str = ""
-		
-		_translations.append(tr("hack_" + StatsManager.STATS_NAMES.get(stat)).format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str}))
-	
-	for trad in _translations:
-		var bullet_label = BULLET_POINT.instantiate()
-		infamy_effects.add_child(bullet_label)
-		bullet_label.set_bullet_point(trad)
+#func draw_infamy_stats():
+	#for effect in infamy_effects.get_children():
+		#effect.queue_free()
+	#
+	#treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
+	#var _hack_modifiers = StatsManager.hack_modifiers
+	#var _translations: Array = []
+	#
+	#for stat: StatsManager.Stats in _hack_modifiers:
+		#if _hack_modifiers[stat].is_empty():
+			#continue
+		#
+		#var hack_dicts = _hack_modifiers[stat]
+		#var value: float
+		#var has_value: bool = false
+		#for dict in hack_dicts:
+			#if dict["source"].begins_with("infamy_"):
+				#value = dict["value"] * 100
+				#has_value = true
+		#
+		#if not has_value:
+			#push_warning("Pas de valeur trouvée, pas normal ")
+			#return
+		#
+		#var value_str: String
+		#if value > 0:
+			#value_str = "+%s" % str(value)
+		#elif value < 0:
+			#value_str = "-%s" % str(abs(value))
+		#else:
+			#value_str = ""
+		#
+		#_translations.append(tr("hack_" + StatsManager.STATS_NAMES.get(stat)).format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str}))
+	#
+	#for trad in _translations:
+		#var bullet_label = BULLET_POINT.instantiate()
+		#infamy_effects.add_child(bullet_label)
+		#bullet_label.set_bullet_point(trad)
 
 func _draw():
 	infamy_value.text = str(StatsManager.infamy["current_value"])

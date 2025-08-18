@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://c2cvbr4m23sb2" path="res://Game/Graphics/warning.png" id="18_kh4aw"]
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
-[ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Settings.tscn" id="24_vhcrq"]
+[ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Infos.tscn" id="24_vhcrq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uhhg"]
 texture = ExtResource("3_shfcr")
@@ -167,7 +167,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
-current_tab = 4
+current_tab = 3
 tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
@@ -188,12 +188,12 @@ metadata/_tab_index = 2
 
 [node name="SkillsTree" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("22_tr0fy")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="Settings" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
+[node name="Infos" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -216,7 +216,7 @@ layout_mode = 2
 size_flags_vertical = 8
 stretch_mode = 3
 
-[node name="settingsBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
+[node name="infosBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -224,7 +224,7 @@ texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/infosBox"]
 layout_mode = 2
 offset_left = 35.0
 offset_right = 35.0
@@ -233,7 +233,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="SettingsButton" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox/AspectRatioContainer"]
+[node name="Infos" type="TextureRect" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/infosBox/AspectRatioContainer"]
 material = SubResource("ShaderMaterial_8pmxu")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -402,7 +402,7 @@ wait_time = 0.5
 autostart = true
 
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/settingsBox" to="." method="app_button_pressed" binds= ["settings"]]
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/infosBox" to="." method="app_button_pressed" binds= ["infos"]]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox" to="." method="app_button_pressed" binds= ["shopping"]]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox" to="." method="app_button_pressed" binds= ["navigator"]]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox" to="." method="app_button_pressed" binds= ["dark_shop"]]

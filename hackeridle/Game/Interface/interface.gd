@@ -6,7 +6,8 @@ extends Control
 @onready var shop: Control = %Shop
 @onready var main_tab: TabContainer = %MainTab
 @onready var navigator: TextureRect = %Navigator
-@onready var settings: Control = %Settings
+@onready var infos: Control = %Infos
+
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
 @onready var navgation_grid: HBoxContainer = %NavgationGrid
@@ -44,7 +45,9 @@ func connexions() -> void:
 	Player.s_earn_sp.connect(_on_earn_sp)
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
 	Player.s_earn_brain_level.connect(_on_earn_brain_level)
+	
 	shop.item_bought.connect(learning._on_shop_item_bought)
+	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
 	TimeManager.s_date.connect(_on_s_date)
 
 func init_interface():
@@ -62,8 +65,8 @@ func app_button_pressed(button_name:String):
 	var new_style_box = StyleBoxTexture.new()
 	
 	match button_name:
-		"settings":
-			settings.show()
+		"infos":
+			infos.show()
 			new_style_box.texture = FULL_CITY
 		"shopping":
 			shop.show()

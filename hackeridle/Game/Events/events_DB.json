@@ -8,7 +8,7 @@
         "texte_id": "event_1_choix1",
         "effets": {
           "infamy": 20,
-          "xp_click_flat": 1
+          "xp_click_flat": 2
         }
       },
       {
@@ -51,7 +51,7 @@
       {
         "texte_id": "event_3_choix1",
         "effets": {
-          "infamy": -15,
+          "infamy": -5,
           "knowledge_click_bonus": 5
         }
       },
