@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=27 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://b8u3dxtdeew80" path="res://Game/News/news_panel.tscn" id="17_f7arf"]
 [ext_resource type="PackedScene" uid="uid://c8l4i0pf65qbq" path="res://Game/Interface/Learning.tscn" id="18_1i2w4"]
 [ext_resource type="Texture2D" uid="uid://c2cvbr4m23sb2" path="res://Game/Graphics/warning.png" id="18_kh4aw"]
+[ext_resource type="PackedScene" uid="uid://tu8hq8jwd4f" path="res://Game/Interface/Introduction/introduction.tscn" id="21_0ej0m"]
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Infos.tscn" id="24_vhcrq"]
@@ -204,6 +205,7 @@ metadata/_tab_index = 4
 
 [node name="Jail" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("12_3tt48")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/VBoxContainer"]
@@ -409,6 +411,10 @@ expand_mode = 1
 unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
+
+[node name="Introduction" parent="." instance=ExtResource("21_0ej0m")]
+layout_mode = 0
+anchors_preset = 0
 
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/JailButton" to="." method="_on_jail_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
