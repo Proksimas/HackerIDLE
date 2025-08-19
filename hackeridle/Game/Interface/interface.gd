@@ -7,6 +7,7 @@ extends Control
 @onready var main_tab: TabContainer = %MainTab
 @onready var navigator: TextureRect = %Navigator
 @onready var infos: Control = %Infos
+@onready var jail: Control = %Jail
 
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
@@ -28,10 +29,11 @@ const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/i
 #Background textures
 const BACKGROUND = preload("res://Game/Graphics/Background/background_vignette.png")
 const ARGON = preload("res://Game/Graphics/Background/Crypte Argon/argon.png")
-const FULL_CITY = preload("res://Game/Graphics/Background/FullCity.png")
+const FULL_CITY = preload("res://Game/Graphics/Background/FullCity/FullCity.png")
 const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.png")
 const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
+const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_tab.current_tab = 0
@@ -83,6 +85,10 @@ func app_button_pressed(button_name:String):
 			skills_tree.show()
 			#new_style_box.texture = OPALINE
 			new_style_box.texture = BACKGROUND
+		"jail":
+			jail.show()
+			new_style_box.texture = JAIL
+			jail.enter_jail()
 	
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 
@@ -164,7 +170,9 @@ func _load_data(data):
 
 func _on_button_pressed() -> void:
 	"""On reçoit un evennement"""
+	app_button_pressed("jail")
 	
+	return
 	cheat_event_spin_box.apply()
 	var event_ui = EventsManager.create_event_ui()
 	main_tab.add_child(event_ui)

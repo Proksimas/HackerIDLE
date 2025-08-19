@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bpk2src2dexvm"
-path="res://.godot/imported/ChatGPT Image 19 août 2025, 10_31_28.png-7e220bffc12d1022084c00279de088ec.ctex"
+uid="uid://cd0xomk8m13wt"
+path="res://.godot/imported/jail_1.png-fd9bd333dc1280c614ffe9de439fecb5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/Jail/ChatGPT Image 19 août 2025, 10_31_28.png"
-dest_files=["res://.godot/imported/ChatGPT Image 19 août 2025, 10_31_28.png-7e220bffc12d1022084c00279de088ec.ctex"]
+source_file="res://Game/Graphics/Background/Jail/jail_1.png"
+dest_files=["res://.godot/imported/jail_1.png-fd9bd333dc1280c614ffe9de439fecb5.ctex"]
 
 [params]
 

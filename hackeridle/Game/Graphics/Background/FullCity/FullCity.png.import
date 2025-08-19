@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://e0dnalhtkk8p"
-path="res://.godot/imported/FullCity.png-af14b1215fa8b02e83ab2eeac72cdfb0.ctex"
+path="res://.godot/imported/FullCity.png-8aa4c04630431af529e6d41a33e919ba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/FullCity.png"
-dest_files=["res://.godot/imported/FullCity.png-af14b1215fa8b02e83ab2eeac72cdfb0.ctex"]
+source_file="res://Game/Graphics/Background/FullCity/FullCity.png"
+dest_files=["res://.godot/imported/FullCity.png-8aa4c04630431af529e6d41a33e919ba.ctex"]
 
 [params]
 
