@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Game/Interface/fps_label.gd" id="4_a3l6n"]
 [ext_resource type="PackedScene" uid="uid://bb6s3xpmdjhrx" path="res://Game/Interface/Resources/resource_box.tscn" id="5_ajfm1"]
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
+[ext_resource type="PackedScene" uid="uid://ba13ofw3e3xsi" path="res://Game/Interface/jail.tscn" id="12_3tt48"]
 [ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
@@ -196,6 +197,10 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 4
+
+[node name="Jail" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("12_3tt48")]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/VBoxContainer"]
 custom_minimum_size = Vector2(0, 125)

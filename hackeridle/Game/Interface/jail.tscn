@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba13ofw3e3xsi"]
+
+[ext_resource type="Script" path="res://Game/Interface/jail.gd" id="1_silsr"]
+
+[node name="Jail" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_silsr")
+metadata/_tab_index = 5

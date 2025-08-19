@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2mbo4ktp3o4t"
-path="res://.godot/imported/background_novasec.png-c979778514103da5a9041267de4b07f8.ctex"
+uid="uid://cqoofishv15ve"
+path="res://.godot/imported/FullCity_2.png-8074cc14f1efb1dc3c14b96ff01002c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/background_novasec.png"
-dest_files=["res://.godot/imported/background_novasec.png-c979778514103da5a9041267de4b07f8.ctex"]
+source_file="res://Game/Graphics/Background/FullCity_2.png"
+dest_files=["res://.godot/imported/FullCity_2.png-8074cc14f1efb1dc3c14b96ff01002c9.ctex"]
 
 [params]
 
