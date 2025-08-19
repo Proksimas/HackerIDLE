@@ -170,9 +170,6 @@ func _load_data(data):
 
 func _on_button_pressed() -> void:
 	"""On reçoit un evennement"""
-	app_button_pressed("jail")
-	
-	return
 	cheat_event_spin_box.apply()
 	var event_ui = EventsManager.create_event_ui()
 	main_tab.add_child(event_ui)
@@ -185,3 +182,8 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.queue_free()
 	learning.show()
 	
+
+
+func _on_jail_button_pressed() -> void:
+	app_button_pressed("jail")
+	pass # Replace with function body.

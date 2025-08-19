@@ -98,6 +98,10 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
+[node name="JailButton" type="Button" parent="InterfacePanel/VBoxContainer/Header/cheat_events"]
+layout_mode = 2
+text = "JAIL"
+
 [node name="FpsLabel" type="Label" parent="InterfacePanel/VBoxContainer/Header/cheat_events"]
 layout_mode = 2
 script = ExtResource("4_a3l6n")
@@ -406,6 +410,7 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
+[connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/JailButton" to="." method="_on_jail_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/infosBox" to="." method="app_button_pressed" binds= ["infos"]]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox" to="." method="app_button_pressed" binds= ["shopping"]]
