@@ -13,7 +13,7 @@
         {
             "source_name": "BanBan",
             "texture_path": "res://Game/Graphics/Sources/banban.png",
-            "up_level": 30,
+            "up_level": 25,
             "up_factor":1,
             "affectation": "wifi_ephad",
             "formule_type":"linear",
@@ -23,7 +23,7 @@
          {
             "source_name": "FanFan",
             "texture_path": "res://Game/Graphics/Sources/fanfan.png",
-            "up_level": 35,
+            "up_level": 25,
             "up_factor": 1,
             "affectation": "MIT_flathouse",
             "formule_type":"linear",
@@ -31,11 +31,21 @@
         },
         
         {
-            "source_name": "Guigui",
+            "source_name": "Jojo",
             "texture_path": "res://Game/Graphics/Sources/fanfan.png",
-            "up_level": 35,
+            "up_level": 25,
             "up_factor": 1,
             "affectation": "privilege_escalation_opaline",
+            "formule_type":"linear",
+            "effects": {}
+        },
+        
+        {
+            "source_name": "Rex",
+            "texture_path": "res://Game/Graphics/Sources/fanfan.png",
+            "up_level": 25,
+            "up_factor": 1,
+            "affectation": "dns_exfiltration",
             "formule_type":"linear",
             "effects": {}
         }
