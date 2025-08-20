@@ -6,16 +6,24 @@ extends Control
 @onready var infamy_effects: GridContainer = %InfamyEffects
 @onready var treshold_name_label: Label = %TresholdNameLabel
 @onready var treshold_infamy_label: Label = %TresholdInfamyLabel
+@onready var settings_button: Button = %SettingsButton
+@onready var settings_panel: Panel = %SettingsPanel
+@onready var country_container: HBoxContainer = %CountryContainer
 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
+	
+	for country in country_container.get_children():
+		country.pressed.connect(_on_language_button_pressed.bind(country.name))
 
 	pass # Replace with function body.
 
@@ -58,6 +66,9 @@ func draw_infamy_stats():
 		var bullet_label = BULLET_POINT.instantiate()
 		infamy_effects.add_child(bullet_label)
 		bullet_label.set_bullet_point(trad)
+		
+		
+
 
 func _on_s_add_infamy(_infamy_value):
 	infamy_value.text = str(_infamy_value)
@@ -69,3 +80,17 @@ func _on_new_game_button_pressed() -> void:
 
 func _draw() -> void:
 	draw_infamy_stats()
+	settings_button.text = tr("$Settings")
+	settings_panel.hide()
+
+
+func _on_settings_button_pressed() -> void:
+	
+	settings_panel.visible = !settings_panel.visible
+	pass # Replace with function body.
+
+
+func _on_language_button_pressed(language: String) -> void:
+	var country_name:String = language.trim_suffix("Button")
+	TranslationServer.set_locale(country_name)
+	pass # Replace with function body.

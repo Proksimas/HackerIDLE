@@ -3,6 +3,7 @@ extends Node
 
 @export var force_new_game: bool = false
 const INTERFACE = preload("res://Game/Interface/Interface.tscn")
+const TRANSLATION_KEYS = ["fr", "en"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,9 +17,19 @@ func _ready() -> void:
 		####### CHARGEMENT ###############
 		self.call_thread_safe('load_game')
 		
-	#$Interface._on_navigator_pressed()
+	 # Récupère le code de la langue (par exemple, "en", "fr", "de")
+	set_starting_language()
 
 	pass # Replace with function body.
+	
+func set_starting_language():
+	var user_locale:String = OS.get_locale()
+	var splited = user_locale.get_slice("_", 0)
+	if TRANSLATION_KEYS.has(splited):
+		TranslationServer.set_locale(splited)
+	else:
+		TranslationServer.set_locale("en")
+	
 
 func load_game():
 	fill_player_stats()
