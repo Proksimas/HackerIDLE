@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddcfrcxo5komp"]
+
+[ext_resource type="Script" path="res://Game/Interface/Scenarios/scenarios_manager.gd" id="1_3s33g"]
+
+[node name="ScenariosManager" type="Node"]
+script = ExtResource("1_3s33g")

@@ -21,14 +21,13 @@ var set_locale_on_ready: String = ""
 
 signal s_scenario_finished
 signal s_last_before_finished
-
+signal s_current_index(index)
 func _ready() -> void:
 	
 	if !OS.has_feature("editor"):
 		skip_button.hide()
 	
 	self.hide()
-	self.finished.connect(_on_finished)
 	var style_box = self.get_theme_stylebox("panel")
 	style_box.modulate_color = "000000"
 	set_process(false)
@@ -85,8 +84,9 @@ func _advance() -> void:
 	
 
 func _show_current() -> void:
+	s_current_index.emit(_i)
 	if _i >= keys.size(): 
-		finished.emit()
+		s_scenario_finished.emit()
 		return
 	if _i == count - 1:
 		s_last_before_finished.emit()
@@ -98,16 +98,7 @@ func _show_current() -> void:
 	text_label.visible_characters = 0
 	_typing = true
 
-func _on_finished():
-	var new_tween:Tween = get_tree().create_tween()
-	var style_box = self.get_theme_stylebox("panel")
-	new_tween.tween_property(style_box, "modulate_color", Color(1, 1, 1), 8)
-	new_tween.finished.connect(self._on_tween_finished)
-	new_tween.play()
 
-func  _on_tween_finished():
-	self.show()
-	s_scenario_finished.emit()
 
 
 func _on_skip_button_pressed() -> void:

@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://586lbad7xryh"]
+[gd_scene load_steps=3 format=3 uid="uid://586lbad7xryh"]
 
 [ext_resource type="Script" path="res://Game/main.gd" id="1_2eeu2"]
+[ext_resource type="PackedScene" uid="uid://ddcfrcxo5komp" path="res://Game/Interface/Scenarios/scenarios_manager.tscn" id="2_a5pxo"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
 force_new_game = true
+
+[node name="ScenariosManager" parent="." instance=ExtResource("2_a5pxo")]
+unique_name_in_owner = true

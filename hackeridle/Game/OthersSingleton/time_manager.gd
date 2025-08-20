@@ -3,7 +3,7 @@ extends Node
 
 
 # Durée totale de la simulation en années
-@export var total_years: int = 62
+@export var total_years: int = 64
 # Durée réelle d'une session de jeu en minutes
 @export var session_minutes: float = 52.0
 # Année de départ dans la simulation
@@ -27,7 +27,7 @@ var current_date: Array = []
 ## SIGNAUX
 # Émis à chaque mise à jour de la date, avec les composants de la date [année, mois, jour, heure, minute]
 signal s_date(date_array: Array)
-
+signal s_session_finished()
 ## Initialisation et Boucle Principale
 
 func _ready() -> void:
@@ -125,9 +125,10 @@ func end_session() -> void:
 	"""Appelée lorsque le temps de jeu atteint la fin de la durée totale."""
 	# Arrête le traitement du processus pour éviter les calculs inutiles
 	set_process(false)
+	s_session_finished.emit()
 	
-	print("SESSION TERMINÉE")
 	# TODO: Implémente ici la logique de fin de session (ex: écran de score, options de rebirth, etc.)
+	# -> Envoyé au Main
 	pass
 
 func reset(_session_minutes: float = -1.0) -> void:

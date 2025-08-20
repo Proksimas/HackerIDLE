@@ -1,13 +1,16 @@
 extends Node
 
+@onready var scenarios_manager: Node = %ScenariosManager
 
 @export var force_new_game: bool = false
 const INTERFACE = preload("res://Game/Interface/Interface.tscn")
-const SCENARIO = preload("res://Game/Interface/Introduction/Scenario.tscn")
+
 const TRANSLATION_KEYS = ["fr", "en"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	
 	if !OS.has_feature("editor"):
 		force_new_game = false
 	
@@ -41,19 +44,7 @@ func load_game():
 func new_game():
 	fill_player_stats()
 	var interface = load_interface()
-	call_deferred_thread_group("launch_introduction", interface)
-
-
-func launch_introduction(interface):
-	var introduction = SCENARIO.instantiate()
-	introduction.count = 12 #nombre de phrases dans l'introduction
-	introduction.key_prefix = "introduction_"
-	self.add_child(introduction)
-	introduction.s_scenario_finished.connect(_on_s_introduction_finished.bind(introduction))
-	introduction.s_last_before_finished.connect(_on_s_last_before_finished.bind(interface))
-	introduction.launch()
-	
-	
+	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
 func load_interface():
 	if self.has_node("Interface"):
@@ -65,16 +56,6 @@ func load_interface():
 	
 	return interface
 	
-	
-func _on_s_last_before_finished(interface):
-	"""Utilisé pour le jeu pdt l'intro"""
-	interface.inits_shops()
-	
-func _on_s_introduction_finished(introduction_node):
-	introduction_node.hide()
-	self.get_node("Interface").show()
-	TimeManager.reset()
-	introduction_node.queue_free()
 
 func _on_s_data_loaded(interface):
 	#On doit voir comment éventuellement charger le jeu de manière asynchrone pdt
@@ -82,7 +63,6 @@ func _on_s_data_loaded(interface):
 	interface.show()
 	#await get_tree().create_timer(0.01).timeout
 	#interface.call_deferred("inits_shops")
-	
 	
 
 func fill_player_stats():

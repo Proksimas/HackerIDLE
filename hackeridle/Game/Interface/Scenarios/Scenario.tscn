@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://tu8hq8jwd4f"]
 
 [ext_resource type="Texture2D" uid="uid://mci7bvjle8fq" path="res://Game/Graphics/Background/FullCity/FullCity_shadow.png" id="1_d5ya2"]
-[ext_resource type="Script" path="res://Game/Interface/Introduction/scenario.gd" id="2_2phq6"]
+[ext_resource type="Script" path="res://Game/Interface/Scenarios/scenario.gd" id="2_2phq6"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xclkj"]
 texture = ExtResource("1_d5ya2")

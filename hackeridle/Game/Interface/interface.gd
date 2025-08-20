@@ -207,3 +207,8 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.hide()
 	_event_ui.queue_free()
 	app_button_pressed("learning")
+
+
+func _on_finish_button_pressed() -> void:
+	TimeManager.game_seconds += 62* TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
+	pass # Replace with function body.
