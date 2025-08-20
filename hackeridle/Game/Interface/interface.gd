@@ -38,7 +38,6 @@ const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_val
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 
-signal s_interface_initialized
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_tab.current_tab = 0
@@ -62,7 +61,7 @@ func connexions() -> void:
 func buttons_connexion() -> void:
 	infos_box.pressed.connect(app_button_pressed.bind("infos"))
 	shopping_box.pressed.connect(app_button_pressed.bind("shopping"))
-	navigator_box.pressed.connect(app_button_pressed.bind("navigator"))
+	navigator_box.pressed.connect(app_button_pressed.bind("learning"))
 	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
 	skills_box.pressed.connect(app_button_pressed.bind("skills"))
 	
@@ -76,10 +75,14 @@ func init_interface():
 	gold_resource.refresh_value(int(Player.gold))
 	sp_resource.refresh_value(int(Player.skill_point))
 	_on_s_brain_clicked(0,0)
-	s_interface_initialized.emit() #-> est recupérée dans Introduction
+
 	self.hide()
 	
-	
+func inits_shops():
+	"""Fonction qui va init les shops pendant un chargement"""
+	print_debug("Shops initialised")
+	hack_shop.set_shop()
+	shop.set_shop()
 	
 func app_button_pressed(button_name:String):
 	var new_style_box = StyleBoxTexture.new()
@@ -92,7 +95,7 @@ func app_button_pressed(button_name:String):
 			shop.show()
 			#new_style_box.texture = PONT
 			new_style_box.texture = BACKGROUND
-		"navigator":
+		"learning":
 			learning.show()
 			new_style_box.texture = BACKGROUND
 		"dark_shop":
@@ -203,5 +206,4 @@ func _on_jail_button_pressed() -> void:
 func _on_s_event_finished(_event_ui):
 	_event_ui.hide()
 	_event_ui.queue_free()
-	learning.show()
-	
+	app_button_pressed("learning")

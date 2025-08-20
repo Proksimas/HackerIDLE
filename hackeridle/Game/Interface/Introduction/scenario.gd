@@ -20,6 +20,7 @@ var _current_text: String = ""
 var set_locale_on_ready: String = "" 
 
 signal s_scenario_finished
+signal s_last_before_finished
 
 func _ready() -> void:
 	
@@ -87,6 +88,8 @@ func _show_current() -> void:
 	if _i >= keys.size(): 
 		finished.emit()
 		return
+	if _i == count - 1:
+		s_last_before_finished.emit()
 	var key := keys[_i]
 	_current_text = tr(key)        # <-- récupère le texte via la clé
 	text_label.text = _current_text

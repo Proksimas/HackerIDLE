@@ -34,24 +34,26 @@ func set_starting_language():
 
 func load_game():
 	fill_player_stats()
-	load_interface()
-	OS.delay_msec(100)
+	var interface = load_interface()
+	Save.s_data_loaded.connect(_on_s_data_loaded.bind(interface))
 	Save.load_data()
-
+	
 func new_game():
 	fill_player_stats()
-	OS.delay_msec(100)
-	load_interface()
-	call_deferred_thread_group("launch_introduction")
+	var interface = load_interface()
+	call_deferred_thread_group("launch_introduction", interface)
 
 
-func launch_introduction():
+func launch_introduction(interface):
 	var introduction = SCENARIO.instantiate()
 	introduction.count = 12 #nombre de phrases dans l'introduction
 	introduction.key_prefix = "introduction_"
 	self.add_child(introduction)
 	introduction.s_scenario_finished.connect(_on_s_introduction_finished.bind(introduction))
+	introduction.s_last_before_finished.connect(_on_s_last_before_finished.bind(interface))
 	introduction.launch()
+	
+	
 
 func load_interface():
 	if self.has_node("Interface"):
@@ -61,8 +63,12 @@ func load_interface():
 	var interface = INTERFACE.instantiate()
 	self.add_child(interface)
 	
-	return true
+	return interface
 	
+	
+func _on_s_last_before_finished(interface):
+	"""Utilisé pour le jeu pdt l'intro"""
+	interface.inits_shops()
 	
 func _on_s_introduction_finished(introduction_node):
 	introduction_node.hide()
@@ -70,6 +76,13 @@ func _on_s_introduction_finished(introduction_node):
 	TimeManager.reset()
 	introduction_node.queue_free()
 
+func _on_s_data_loaded(interface):
+	#On doit voir comment éventuellement charger le jeu de manière asynchrone pdt
+	# un chargement
+	interface.show()
+	#await get_tree().create_timer(0.01).timeout
+	#interface.call_deferred("inits_shops")
+	
 	
 
 func fill_player_stats():

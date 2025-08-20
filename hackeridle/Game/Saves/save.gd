@@ -5,7 +5,7 @@ var user_path = "user://"
 var editor_path = "res://Game/Saves/Data/"
 var save_file_name = "save.save"
 # Called when the node enters the scene tree for the first time.
-
+signal s_data_loaded
 func _ready() -> void:
 
 	pass # Replace with function body.
@@ -47,8 +47,9 @@ func load_data():
 	stats_manager_load_data(data["StatsManager"])
 	time_manager_load_data(data["TimeManager"])
 	#CHargement au niveau de l'interface
-	await get_tree().get_root().get_node("Main/Interface")._load_data(data)
-	
+	var interface =  get_tree().get_root().get_node("Main/Interface")
+	interface._load_data(data)
+	s_data_loaded.emit()
 	
 	pass
 
