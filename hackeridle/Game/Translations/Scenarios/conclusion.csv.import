@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://cyiwt66ih5w1v"
+
+[deps]
+
+files=["res://Game/Translations/Scenarios/conclusion.fr.translation", "res://Game/Translations/Scenarios/conclusion.en.translation"]
+
+source_file="res://Game/Translations/Scenarios/conclusion.csv"
+dest_files=["res://Game/Translations/Scenarios/conclusion.fr.translation", "res://Game/Translations/Scenarios/conclusion.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1
