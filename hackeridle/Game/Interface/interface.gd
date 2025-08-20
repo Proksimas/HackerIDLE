@@ -1,5 +1,6 @@
 extends Control
 
+@onready var introduction: IntroTypewriterLocalized = %Introduction
 
 @onready var learning: Control = %Learning
 @onready var hack_shop: Control = %HackShop
@@ -22,6 +23,10 @@ extends Control
 @onready var date_label: Label = %DateLabel
 @onready var news_panel: PanelContainer = %NewsPanel
 @onready var navigator_box: TextureButton = %navigatorBox
+@onready var infos_box: TextureButton = %infosBox
+@onready var shopping_box: TextureButton = %shoppingBox
+@onready var dark_shop_box: TextureButton = %dark_shopBox
+@onready var skills_box: TextureButton = %skillsBox
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
@@ -34,6 +39,8 @@ const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.pn
 const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
+
+signal s_interface_initialized
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	main_tab.current_tab = 0
@@ -48,9 +55,19 @@ func connexions() -> void:
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
 	Player.s_earn_brain_level.connect(_on_earn_brain_level)
 	
+	buttons_connexion()
 	shop.item_bought.connect(learning._on_shop_item_bought)
 	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
 	TimeManager.s_date.connect(_on_s_date)
+	introduction.s_introduction_finished.connect(_on_s_introduction_finished)
+
+func buttons_connexion() -> void:
+	infos_box.pressed.connect(app_button_pressed.bind("infos"))
+	shopping_box.pressed.connect(app_button_pressed.bind("shopping"))
+	navigator_box.pressed.connect(app_button_pressed.bind("navigator"))
+	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
+	skills_box.pressed.connect(app_button_pressed.bind("skills"))
+	
 
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
@@ -61,6 +78,9 @@ func init_interface():
 	gold_resource.refresh_value(int(Player.gold))
 	sp_resource.refresh_value(int(Player.skill_point))
 	_on_s_brain_clicked(0,0)
+	s_interface_initialized.emit() #-> est recupérée dans Introduction
+	interface_panel.hide()
+	
 	
 	
 func app_button_pressed(button_name:String):
@@ -177,13 +197,16 @@ func _on_button_pressed() -> void:
 	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
 	pass # Replace with function body.
 
+func _on_jail_button_pressed() -> void:
+	app_button_pressed("jail")
+	pass # Replace with function body.
+
+
 func _on_s_event_finished(_event_ui):
 	_event_ui.hide()
 	_event_ui.queue_free()
 	learning.show()
 	
-
-
-func _on_jail_button_pressed() -> void:
-	app_button_pressed("jail")
-	pass # Replace with function body.
+func _on_s_introduction_finished():
+	introduction.hide()
+	interface_panel.show()

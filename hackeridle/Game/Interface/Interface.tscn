@@ -228,6 +228,7 @@ size_flags_vertical = 8
 stretch_mode = 3
 
 [node name="infosBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -258,6 +259,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="shoppingBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -379,6 +381,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="skillsBox" type="TextureButton" parent="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
@@ -413,14 +416,11 @@ wait_time = 0.5
 autostart = true
 
 [node name="Introduction" parent="." instance=ExtResource("21_0ej0m")]
-layout_mode = 0
-anchors_preset = 0
+unique_name_in_owner = true
+layout_mode = 1
+offset_top = 0.0
+offset_bottom = 0.0
 
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/JailButton" to="." method="_on_jail_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/VBoxContainer/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer4/infosBox" to="." method="app_button_pressed" binds= ["infos"]]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer2/shoppingBox" to="." method="app_button_pressed" binds= ["shopping"]]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer/navigatorBox" to="." method="app_button_pressed" binds= ["navigator"]]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox" to="." method="app_button_pressed" binds= ["dark_shop"]]
-[connection signal="pressed" from="InterfacePanel/VBoxContainer/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox" to="." method="app_button_pressed" binds= ["skills"]]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]

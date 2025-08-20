@@ -29,9 +29,19 @@ grow_vertical = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
-mouse_filter = 0
 text = "jlkjlkDLMZSKDZSLKLMSKCMSLKDCMLSQKDSLMKSLMKSM DKZLDK DZLSMKDZLK LMKLZSKLKDZ"
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="SkipButton" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 274.0
+offset_top = 1084.0
+offset_right = 347.0
+offset_bottom = 1138.0
+text = "SKIP
+"
+
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="SkipButton" to="." method="_on_skip_button_pressed"]

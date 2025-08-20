@@ -30,7 +30,8 @@ func new_game():
 	fill_player_stats()
 	OS.delay_msec(100)
 	load_interface()
-	TimeManager.reset()
+	
+	#TimeManager.reset() --> deplacé vers Interface apres introduction
 
 func load_interface():
 	if self.has_node("Interface"):
@@ -40,6 +41,7 @@ func load_interface():
 	var interface = INTERFACE.instantiate()
 	self.add_child(interface)
 	return true
+	
 
 func fill_player_stats():
 	"""On initialise les stats du joueur. OBLIGATOIRE """

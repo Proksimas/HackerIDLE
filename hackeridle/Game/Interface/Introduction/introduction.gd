@@ -9,6 +9,7 @@ signal finished  # émis quand toutes les lignes sont affichées
 @export var count: int = 12                     # Nombre de lignes si auto-génération
 @export var chars_per_sec: float = 45.0          # Vitesse de "machine à écrire"
 @export var set_locale_on_ready: String = ""     # "fr" ou "en" si tu veux forcer la langue
+@onready var skip_button: Button = %SkipButton
 
 @onready var label: Label = %TextLabel
 
@@ -18,13 +19,45 @@ var _acc: float = 0.0
 var _visible: int = 0
 var _current_text: String = ""
 
+signal s_introduction_finished
+
 func _ready() -> void:
+	
+	if !OS.has_feature("editor"):
+		skip_button.hide()
+	
+	self.hide()
+	self.finished.connect(_on_finished)
+	self.get_parent().s_interface_initialized.connect(_on_interface_initialized)
+	var style_box = self.get_theme_stylebox("panel")
+	style_box.modulate_color = "000000"
+	set_process(false)
+	
+	#var new_tween = get_tree().create_tween()
+	#var style_box = self.get_theme_stylebox("panel")
+	#style_box.modulate_color = "000000"
+	#
+	#self.finished.connect(_on_finished)
+	#if set_locale_on_ready != "":
+		#TranslationServer.set_locale(set_locale_on_ready)
+	#if keys.is_empty():
+		#for n in count:
+			#keys.append("%s%d" % [key_prefix, n + 1])
+	#set_process(true)
+	#_show_current()
+	pass
+	
+func launch():
+	var style_box = self.get_theme_stylebox("panel")
+	style_box.modulate_color = "000000"
+	
 	if set_locale_on_ready != "":
 		TranslationServer.set_locale(set_locale_on_ready)
 	if keys.is_empty():
 		for n in count:
 			keys.append("%s%d" % [key_prefix, n + 1])
 	set_process(true)
+	self.show()
 	_show_current()
 
 func _process(delta: float) -> void:
@@ -61,9 +94,10 @@ func _advance() -> void:
 		# Sinon on passe à la ligne suivante
 		_i += 1
 		_show_current()
+	
 
 func _show_current() -> void:
-	if _i >= keys.size():
+	if _i >= keys.size(): 
 		finished.emit()
 		return
 	var key := keys[_i]
@@ -73,3 +107,24 @@ func _show_current() -> void:
 	_visible = 0
 	label.visible_characters = 0
 	_typing = true
+
+func _on_finished():
+	var new_tween:Tween = get_tree().create_tween()
+	var style_box = self.get_theme_stylebox("panel")
+	new_tween.tween_property(style_box, "modulate_color", Color(1, 1, 1), 8)
+	new_tween.finished.connect(self._on_tween_finished)
+	new_tween.play()
+
+func  _on_tween_finished():
+	self.show()
+	s_introduction_finished.emit()
+
+
+func _on_interface_initialized():
+	launch()
+	
+
+
+func _on_skip_button_pressed() -> void:
+	s_introduction_finished.emit()
+	pass # Replace with function body.
