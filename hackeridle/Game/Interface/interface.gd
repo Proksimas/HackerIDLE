@@ -1,7 +1,5 @@
 extends Control
 
-@onready var introduction: IntroTypewriterLocalized = %Introduction
-
 @onready var learning: Control = %Learning
 @onready var hack_shop: Control = %HackShop
 @onready var shop: Control = %Shop
@@ -59,7 +57,7 @@ func connexions() -> void:
 	shop.item_bought.connect(learning._on_shop_item_bought)
 	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
 	TimeManager.s_date.connect(_on_s_date)
-	introduction.s_introduction_finished.connect(_on_s_introduction_finished)
+	
 
 func buttons_connexion() -> void:
 	infos_box.pressed.connect(app_button_pressed.bind("infos"))
@@ -79,7 +77,7 @@ func init_interface():
 	sp_resource.refresh_value(int(Player.skill_point))
 	_on_s_brain_clicked(0,0)
 	s_interface_initialized.emit() #-> est recupérée dans Introduction
-	interface_panel.hide()
+	self.hide()
 	
 	
 	
@@ -207,6 +205,3 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.queue_free()
 	learning.show()
 	
-func _on_s_introduction_finished():
-	introduction.hide()
-	interface_panel.show()

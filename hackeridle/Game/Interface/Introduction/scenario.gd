@@ -1,6 +1,6 @@
 # File: IntroTypewriterLocalized.gd (Godot 4.3)
 extends Control
-class_name IntroTypewriterLocalized
+class_name ScenarioTypewriter
 
 signal finished  # émis quand toutes les lignes sont affichées
 
@@ -8,18 +8,18 @@ signal finished  # émis quand toutes les lignes sont affichées
 @export var key_prefix: String = "introduction_" # Utilisé si keys est vide
 @export var count: int = 12                     # Nombre de lignes si auto-génération
 @export var chars_per_sec: float = 45.0          # Vitesse de "machine à écrire"
-@export var set_locale_on_ready: String = ""     # "fr" ou "en" si tu veux forcer la langue
 @onready var skip_button: Button = %SkipButton
 
-@onready var label: Label = %TextLabel
+@onready var text_label: Label = %TextLabel
 
 var _i: int = 0
 var _typing: bool = false
 var _acc: float = 0.0
 var _visible: int = 0
 var _current_text: String = ""
+var set_locale_on_ready: String = "" 
 
-signal s_introduction_finished
+signal s_scenario_finished
 
 func _ready() -> void:
 	
@@ -28,23 +28,10 @@ func _ready() -> void:
 	
 	self.hide()
 	self.finished.connect(_on_finished)
-	self.get_parent().s_interface_initialized.connect(_on_interface_initialized)
 	var style_box = self.get_theme_stylebox("panel")
 	style_box.modulate_color = "000000"
 	set_process(false)
 	
-	#var new_tween = get_tree().create_tween()
-	#var style_box = self.get_theme_stylebox("panel")
-	#style_box.modulate_color = "000000"
-	#
-	#self.finished.connect(_on_finished)
-	#if set_locale_on_ready != "":
-		#TranslationServer.set_locale(set_locale_on_ready)
-	#if keys.is_empty():
-		#for n in count:
-			#keys.append("%s%d" % [key_prefix, n + 1])
-	#set_process(true)
-	#_show_current()
 	pass
 	
 func launch():
@@ -67,7 +54,7 @@ func _process(delta: float) -> void:
 	var target := int(_acc)
 	if target > _visible:
 		_visible = target
-		label.visible_characters = min(_visible, _current_text.length())
+		text_label.visible_characters = min(_visible, _current_text.length())
 		if _visible >= _current_text.length():
 			_typing = false  # ligne terminée
 
@@ -89,7 +76,7 @@ func _advance() -> void:
 	if _typing:
 		# Si on tap pendant l'écriture : on termine instantanément la ligne
 		_typing = false
-		label.visible_characters = -1
+		text_label.visible_characters = -1
 	else:
 		# Sinon on passe à la ligne suivante
 		_i += 1
@@ -102,10 +89,10 @@ func _show_current() -> void:
 		return
 	var key := keys[_i]
 	_current_text = tr(key)        # <-- récupère le texte via la clé
-	label.text = _current_text
+	text_label.text = _current_text
 	_acc = 0.0
 	_visible = 0
-	label.visible_characters = 0
+	text_label.visible_characters = 0
 	_typing = true
 
 func _on_finished():
@@ -117,14 +104,9 @@ func _on_finished():
 
 func  _on_tween_finished():
 	self.show()
-	s_introduction_finished.emit()
-
-
-func _on_interface_initialized():
-	launch()
-	
+	s_scenario_finished.emit()
 
 
 func _on_skip_button_pressed() -> void:
-	s_introduction_finished.emit()
+	s_scenario_finished.emit()
 	pass # Replace with function body.

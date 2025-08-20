@@ -3,6 +3,7 @@ extends Node
 
 @export var force_new_game: bool = false
 const INTERFACE = preload("res://Game/Interface/Interface.tscn")
+const SCENARIO = preload("res://Game/Interface/Introduction/Scenario.tscn")
 const TRANSLATION_KEYS = ["fr", "en"]
 
 # Called when the node enters the scene tree for the first time.
@@ -41,8 +42,16 @@ func new_game():
 	fill_player_stats()
 	OS.delay_msec(100)
 	load_interface()
-	
-	#TimeManager.reset() --> deplacé vers Interface apres introduction
+	call_deferred_thread_group("launch_introduction")
+
+
+func launch_introduction():
+	var introduction = SCENARIO.instantiate()
+	introduction.count = 12 #nombre de phrases dans l'introduction
+	introduction.key_prefix = "introduction_"
+	self.add_child(introduction)
+	introduction.s_scenario_finished.connect(_on_s_introduction_finished.bind(introduction))
+	introduction.launch()
 
 func load_interface():
 	if self.has_node("Interface"):
@@ -51,7 +60,16 @@ func load_interface():
 	
 	var interface = INTERFACE.instantiate()
 	self.add_child(interface)
+	
 	return true
+	
+	
+func _on_s_introduction_finished(introduction_node):
+	introduction_node.hide()
+	self.get_node("Interface").show()
+	TimeManager.reset()
+	introduction_node.queue_free()
+
 	
 
 func fill_player_stats():
