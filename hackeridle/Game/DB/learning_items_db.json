@@ -45,7 +45,7 @@
         },
                  {
             "item_name": "deep_dream",
-            "texture_path": "res://Game/Graphics/LearningItems/MOOC.png",
+            "texture_path": "res://Game/Graphics/LearningItems/deep_dream_2.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 5000000,
             "cost_factor": 1.25,
