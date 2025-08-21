@@ -134,7 +134,6 @@ func end_session() -> void:
 	
 func adjust_session_minutes() -> void:
 	"""L'ajustement depend du nombre de rebirth"""
-	print("nb_of_rebirth: %s" % Player.nb_of_rebirth)
 	match Player.nb_of_rebirth:
 		1:
 			session_minutes =  session_minutes * 2
@@ -145,7 +144,7 @@ func adjust_session_minutes() -> void:
 		_: 
 			session_minutes =  session_minutes
 			
-	print("Session time: %s" % TimeManager.session_minutes)
+
 	
 func reset(_session_minutes: float = -1.0) -> void:
 	"""
