@@ -58,6 +58,20 @@
             "delay": 300,
             "formule_type":"polymoniale"
         }
+        ,
+
+        {
+
+            "item_name": "APT_mirador",
+            "texture_path": "res://icon.svg",
+            "cost": 100000000,
+            "cost_factor": 1.4,
+            "gain": 1500000,
+            "gain_factor":1.2,
+            "delay": 600,
+            "formule_type":"polymoniale"
+        }
+
 
 
     ]

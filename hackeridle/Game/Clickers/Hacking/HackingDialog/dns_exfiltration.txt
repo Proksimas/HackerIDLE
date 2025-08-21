@@ -329,4 +329,4 @@ if __name__ == "__main__":
         # A little reassurance that nothing real was touched.
         print("Footnote: All actions were simulated, read-only, and algae-approved. No ballots, servers, or murals were harmed.")
 
-"Hack successfull !"
+"Hack successfull ! Why did we do that again?"

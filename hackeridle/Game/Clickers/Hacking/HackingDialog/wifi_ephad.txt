@@ -35,4 +35,4 @@ def hack_nursing_home_wifi(network_id, target_device_mac):
     deauthenticate_bingo_machine(target_device_mac)
     inject_bingo_payload(ap_to_exploit, target_device_mac)
 
-Hack successful! Bingo night just got a lot more interesting.
+"Hack successful! Bingo night just got a lot more interesting."

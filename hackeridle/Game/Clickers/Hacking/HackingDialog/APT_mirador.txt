@@ -1,0 +1,359 @@
+hack_name:APT_Mirador(MAC, duration = 
+import time
+import random
+from typing import Dict, Any
+
+# --- Fictitious modules (read-only) --------------------------------------------------------
+import mirador_telemetry as mtele     # wind/rain/ion sensors (RO)
+import solis_oracle as soracle        # SOLIS climate AI oracle (RO)
+import capsule_registry as creg       # registry of sealed USB capsules (RO)
+import skyline_camera as scamera      # summit dome-cam (RO)
+import pastel_lightbus as lightbus    # pastel lighting bus (RO)
+import whisper_beacon as wbeacon      # “ghost” beacon (simulated, no out-of-game emission)
+import promise_guard as pguard        # integrity checker for promises (RO)
+import mirrorstorm_math as mstorm     # mirror-storm heuristics (toy)
+import velvet_seal as vseal           # “velvet” seal (simulated)
+# -------------------------------------------------------------------------------------------
+
+TOWER_NAME = "Mirador Δ"
+TOWER_HEIGHT_M = 270
+SESSION = f"mirador-persist-{int(time.time())}"
+
+# Ultra strict safeguards (no writes, no real radio, no network protocols)
+SAFETY = {
+    "read_only_required": True,
+    "radio_emission": False,
+    "file_write": False,
+    "network_io": False,
+    "respect_capsules": True,
+    "promise_intact": True
+}
+
+# Activation windows (only when the AI announces a mirror storm)
+MIN_SNR_DB = 22.0          # Minimum SNR for discrete photo lock
+HEARTBEAT_IDLE_S = 7.0     # quiet heartbeat outside storms
+HEARTBEAT_STORM_S = 2.2    # heartbeat during storm (remains silent IRL)
+PERSIST_TAG = "storm-beacon/ghost"
+MAX_CAPTURE_SEC = 15
+
+# --- Toy Exceptions ------------------------------------------------------------------------
+class SafetyError(Exception): ...
+class OracleError(Exception): ...
+class LockError(Exception): ...
+class BeaconError(Exception): ...
+# -------------------------------------------------------------------------------------------
+
+def log(msg: str) -> None:
+    print(f"[{time.time():.3f}] {msg}")
+
+def hr() -> None:
+    print("-" * 78)
+
+# --- Extra flavor utilities (new) ----------------------------------------------------------
+def weather_banner() -> None:
+    snap = mtele.snapshot()
+    log(f"[banner] {TOWER_NAME} | wind {snap['wind_mps']:.1f} m/s | rain {snap['rain_mm']:.1f} mm | ion {snap['ion_hint']:.2f}")
+
+def capsule_stats() -> Dict[str, Any]:
+    total = creg.count()
+    near = creg.count_near(height_m=TOWER_HEIGHT_M)
+    log(f"Capsules: total={total} | near={near} — vows sleeping under pastel skies.")
+    return {"total": total, "near": near}
+
+def flicker_pastel_lights(mode: str = "calm") -> None:
+    # purely cosmetic lightbus pings (RO)
+    preset = {"calm": [0.1, 0.0, 0.2], "storm": [0.4, 0.2, 0.5], "mirror": [0.6, 0.1, 0.6]}.get(mode, [0.1, 0.0, 0.2])
+    lightbus.preview(preset=preset, label=f"pastel-{mode}")
+    log(f"Lightbus preview → mode={mode} palette={preset}")
+
+def audit_promises() -> None:
+    prom = pguard.status()
+    log(f"Promise audit → intact={prom['intact']} | waiting_pairs={prom['waiting_pairs']} | guardian=SOLIS")
+    if not prom["intact"]:
+        raise SafetyError("Promise integrity failed — aborting simulation with dignity.")
+
+def compute_checksum_poem(avg_lux: float) -> str:
+    # whimsical, deterministic-ish string for shard flavor
+    seed = int(avg_lux * 4242) & 0xFFFF
+    words = ["azure", "velvet", "echo", "ring", "mirror", "haze", "ion", "glow"]
+    a = words[(seed >> 1) % len(words)]
+    b = words[(seed >> 3) % len(words)]
+    c = seed ^ 0xBEEF
+    poem = f"{a}-{b}-{c:04x}"
+    log(f"Checksum poem → {poem}")
+    return poem
+
+def idle_mood(prob: float) -> str:
+    if prob >= 0.85: return "anticipation"
+    if prob >= 0.70: return "focused"
+    if prob >= 0.50: return "patient"
+    return "lofi"
+
+def rate_limit_guard(sleep_s: float) -> None:
+    # ensures we never spam logs too quickly in your UI
+    sleep_s = max(0.3, min(sleep_s, 9.0))
+    time.sleep(sleep_s)
+
+def beacon_health() -> Dict[str, Any]:
+    # fake health snapshot for the ghost beacon
+    health = {"armed": True, "pulses": random.randint(0, 2), "latency_ms": round(random.uniform(3.0, 7.5), 1)}
+    log(f"Beacon health → armed={health['armed']} | pulses={health['pulses']} | latency={health['latency_ms']} ms")
+    return health
+
+def rotate_presets(cycle: int) -> str:
+    presets = ["pastel-sky", "misty-rose", "opal-twilight"]
+    choice = presets[cycle % len(presets)]
+    log(f"Camera preset rotate → {choice}")
+    return choice
+
+def simulate_noise_floor() -> float:
+    nf = round(random.uniform(18.0, 23.5), 1)
+    log(f"Noise floor estimate → {nf} dB")
+    return nf
+
+def calibrate_snr_margin(target: float, floor: float) -> float:
+    margin = max(0.0, target - floor)
+    log(f"SNR margin target={target:.1f}dB floor={floor:.1f}dB → margin={margin:.1f}dB")
+    return margin
+
+def snapshot_metrics(summary: Dict[str, Any], capsules: Dict[str, Any]) -> None:
+    print("\n[metrics] shards=", len(summary.get("loot", [])),
+          "| storms=", summary.get("storms_seen", 0),
+          "| glows=", summary.get("glow_checks", 0),
+          "| capsules_near=", capsules.get("near", 0))
+
+def print_ascii_badge() -> None:
+    print(r"""
+   __  ___ _      _            ____  _           
+  /  |/  /(_)____(_)___  ___  / __ \(_)___  _____
+ / /|_/ / / ___/ / __ \/ _ \/ / / / / __ \/ ___/
+/ /  / / (__  ) / / / /  __/ /_/ / / /_/ / /    
+/_/  /_/_/____/_/_/ /_/\___/_____/_/\____/_/     
+  Mirador Δ — Ghost Beacon (SIM)
+""")
+
+# -------------------------------------------------------------------------------------------
+
+def verify_sandbox() -> None:
+    log(f"Attaching to {TOWER_NAME} (read-only)…")
+    caps = mtele.capabilities()
+    if SAFETY["read_only_required"] and not caps.get("read_only", False):
+        raise SafetyError("Path not read-only — abort (ethics > everything).")
+    if any([SAFETY["radio_emission"], SAFETY["file_write"], SAFETY["network_io"]]):
+        raise SafetyError("Safeguards disabled — immediate abort.")
+    log("Capabilities: RO ✓ | emission ✗ | write ✗ | net ✗ | promises respected ✓")
+    hr()
+
+# --- Weather & promise preflight -----------------------------------------------------------
+def preflight() -> Dict[str, Any]:
+    log("Preflight weather & promises…")
+    weather_banner()
+    audit_promises()
+    met = mtele.snapshot()
+    prom = pguard.status()  # ensures promises “open at mirror storm” remain intact
+    log(f"Weather: wind={met['wind_mps']:.1f} m/s | ion={met['ion_hint']:.2f} | rain={met['rain_mm']:.1f}")
+    log(f"Capsule promises: intact={prom['intact']} | waiting_pairs={prom['waiting_pairs']}")
+    if not prom["intact"]:
+        raise SafetyError("Mirror storm promise compromised (simulation stopped).")
+    hr()
+    return {"met": met, "prom": prom}
+
+# --- Ghost persistence beacon, only triggered by mirror storm ------------------------------
+def arm_ghost_beacon() -> Dict[str, Any]:
+    log("Arming ghost beacon (simulated persistence, zero emission)…")
+    ok = wbeacon.arm(tag=PERSIST_TAG,
+                     trigger="mirror_storm_only",   # exists only in the game
+                     mode="silent-sim",
+                     max_runtime_sec=MAX_CAPTURE_SEC)
+    if not ok:
+        raise BeaconError("Failed to arm ghost beacon (simulation).")
+    log("Ghost beacon armed ✓ — dormant until the mirror growls.")
+    beacon_health()
+    flicker_pastel_lights("calm")
+    hr()
+    return {"armed": True}
+
+def capture_and_demodulate(level: str, cam_id: str, patch_id: str) -> Dict[str, Any]:
+    """
+    Capture a small window of glow, then demodulate it into toy audit facts.
+    """
+    log(f"Capturing luminance window ({CAPTURE_WINDOW_SEC}s)… do not spook the murals.")
+    stream = scamera.capture_glow(cam_id, patch_id=patch_id, duration_sec=CAPTURE_WINDOW_SEC)
+    log(f"Frames: {len(stream['frames'])} | dropped={stream['dropped']} | avg_lux={stream['avg_lux']:.1f}")
+    log("Synchronizing Manchester-like frames (this may tickle)…")
+    sync = ldecode.sync(stream, scheme="manchester_like")
+    if not sync["locked"]:
+        raise DemodulationError("Frames refused to sync. Perhaps we’re clapping on the wrong beat.")
+    log(f"Sync: locked ✓ | bitrate={sync['bitrate_bps']} bps | phase={sync['phase_hint']}")
+    payload = ldecode.demodulate(sync, want_fields=AUDIT_FIELDS, crc="toy_crc32")
+    if not payload.get("ok", False):
+        raise DemodulationError(f"Demod failed: {payload.get('reason','no reasons, just vibes')}")
+    hr()
+    return payload
+
+def upgrade_role_ephemeral(token):
+    whoami = od.whoami(token)
+    log(f"Current identity: {whoami['account']} | role={whoami['role']}")
+    steps = ["Observer+", "Curator_RO", TARGET_ROLE]
+    for step in steps:
+        log(f"Requesting ephemeral role: {step} (audited)…")
+        ok = pe.request_ephemeral_promotion(
+            token,
+            role=step,
+            justification=f"maintenance:{SESSION_TAG}",
+            max_duration_sec=900,
+            audit_only=True
+        )
+        if not ok:
+            raise PrivEscRefusedError(f"Elevation to {step} refused. Ethics board raised a single eyebrow.")
+        whoami = od.whoami(token)
+        log(f"→ Granted. New role: {whoami['role']} (expires in {whoami['expires_in_sec']}s).")
+    return whoami
+
+
+# --- Discrete visual lock ------------------------------------------------------------------
+def acquire_lock(cycle: int = 0) -> Dict[str, Any]:
+    preset = rotate_presets(cycle)
+    log(f"Claiming summit dome-cam — preset ‘{preset}’…")
+    cam = scamera.claim(profile=preset, requester=SESSION)
+    scamera.configure(cam, fps=15, exposure="gentle", gain="soft")
+    floor = simulate_noise_floor()
+    calibrate_snr_margin(MIN_SNR_DB, floor)
+    lock = scamera.lock_luminance(cam, snr_db=MIN_SNR_DB, grace_sec=18)
+    log(f"Visual lock: {lock['locked']} | SNR={lock['snr_db']:.1f} dB | patch={lock['patch_id']}")
+    if not lock["locked"]:
+        raise LockError("Unable to lock a patch at safe SNR.")
+    hr()
+    return {"cam": cam, "patch": lock["patch_id"], "snr": lock["snr_db"]}
+
+# --- SOLIS Oracle: mirror storm probability -----------------------------------------------
+def consult_oracle() -> Dict[str, Any]:
+    log("Consulting SOLIS (climate oracle)…")
+    window = soracle.forecast_window(horizon_h=6)  # 6 h
+    prob = mstorm.mirror_probability(window)
+    eta = mstorm.eta(window)  # estimated minutes/hours until next window
+    mood = idle_mood(prob)
+    log(f"Mirror storm — prob={prob:.3f} | ETA≈{eta} | mood={mood}")
+    hr()
+    return {"prob": prob, "eta": eta, "win": window, "mood": mood}
+
+# --- Toy capture (read-only) of pastel halos during the storm -------------------------------
+def capture_storm_glow(cam: str, patch: str) -> Dict[str, Any]:
+    log("Capturing pastel halos (read-only, max 15s)…")
+    duration = random.uniform(8, MAX_CAPTURE_SEC)
+    stream = scamera.capture_glow(cam, patch_id=patch, duration_sec=duration)
+    log(f"Frames={len(stream['frames'])} | drop={stream['dropped']} | lux={stream['avg_lux']:.1f} | dur={duration:.1f}s")
+    poem = compute_checksum_poem(stream["avg_lux"])
+    crumbs = {
+        "capsules_nearby": creg.count_near(height_m=TOWER_HEIGHT_M),
+        "checksum_pastel": hex(int(stream["avg_lux"] * 4242) & 0xFFFF),
+        "checksum_poem": poem,
+        "happiness_hint": round(0.5 + random.random() * 0.5, 3)  # 0.5—1.0
+    }
+    flicker_pastel_lights("mirror")
+    hr()
+    return crumbs
+
+# --- Persistence loop: idle heartbeat → storm switch → read-only ---------------------------
+def persistence_loop(cam: str, patch: str) -> Dict[str, Any]:
+    log("=== MIRADOR Δ — Ghost Persistence (SIM) — START ===")
+    summary = {"storms_seen": 0, "glow_checks": 0, "loot": []}
+    caps = capsule_stats()
+
+    # more cycles and sub-events for denser logs
+    for cycle in range(1, 9):  # extended cycles
+        oracle = consult_oracle()
+        if oracle["prob"] >= 0.72:   # “mirror” threshold (toy)
+            summary["storms_seen"] += 1
+            log("Mirror window detected — silent activation of ghost beacon…")
+            flicker_pastel_lights("storm")
+            wbeacon.pulse(tag=PERSIST_TAG, style="mirror-whisper")  # no real emission
+            crumbs = capture_storm_glow(cam, patch)
+            summary["glow_checks"] += 1
+
+            # Purely cosmetic loot for the idle game
+            shard = {
+                "type": "Forecast Shard",
+                "capsules_nearby": crumbs["capsules_nearby"],
+                "checksum_pastel": crumbs["checksum_pastel"],
+                "checksum_poem": crumbs["checksum_poem"],
+                "happiness_hint": crumbs["happiness_hint"],
+                "cycle": cycle
+            }
+            summary["loot"].append(shard)
+            log(f"Shard gained: {shard['checksum_pastel']} ({shard['checksum_poem']}) | "
+                f"capsules≈{shard['capsules_nearby']} | joy={shard['happiness_hint']} | cycle={cycle}")
+            snapshot_metrics(summary, caps)
+            rate_limit_guard(HEARTBEAT_STORM_S)
+        else:
+            # quiet heartbeat outside storm, with occasional health check
+            if cycle % 3 == 0:
+                beacon_health()
+            beat = random.uniform(HEARTBEAT_IDLE_S * 0.8, HEARTBEAT_IDLE_S * 1.2)
+            log(f"Idle heartbeat… next mirror storm ETA ≈ {oracle['eta']}")
+            rate_limit_guard(beat)
+
+    hr()
+    log("=== END — Ghost persistence folded back. Promises intact, sky calmed. ===")
+    return summary
+
+# --- Cleanup -------------------------------------------------------------------------------
+def tidy_exit(cam: str) -> None:
+    log("Releasing dome-cam (wipe the lens, respectfully)…")
+    scamera.release(cam)
+    log("Velvet sealing the ghost layer…")
+    vseal.seal(style="velvet-stamp")
+    flicker_pastel_lights("calm")
+    hr()
+
+def restore(self):
+        print(f"[{datetime.now()}] Restoring ARP table for {self.target_ip} and {self.gateway_ip}...")
+        # scapy.send(scapy.ARP(op=2, pdst=self.target_ip, hwdst=self.target_mac, psrc=self.gateway_ip, hwsrc=self.gateway_mac), count=4)
+        # scapy.send(scapy.ARP(op=2, pdst=self.gateway_ip, hwdst=self.gateway_mac, psrc=self.target_ip, hwsrc=self.target_mac), count=4)
+        time.sleep(0.5)
+        print(f"[{datetime.now()}] ARP table restored.")
+
+# --- Player recap --------------------------------------------------------------------------
+def pretty_summary(sumup: Dict[str, Any]) -> None:
+    print_ascii_badge()
+    print("\n=== Mirador Δ — Persistence Summary (SIM) ===")
+    print(f"Session: {SESSION} | Tower height: {TOWER_HEIGHT_M} m | Beacon: {PERSIST_TAG}")
+    print(f"Mirror storms seen: {sumup['storms_seen']} | Glows captured: {sumup['glow_checks']}")
+    for i, shard in enumerate(sumup["loot"], 1):
+        print(f"- Shard #{i} (cycle {shard['cycle']}): checksum {shard['checksum_pastel']} "
+              f"| poem={shard['checksum_poem']} | capsules≈{shard['capsules_nearby']} "
+              f"| joy={shard['happiness_hint']}")
+    print("Loot: Forecast Shard ✓ | Pastel Checksum ✓ | Promise Souvenir ✓")
+    print("Note: USB capsules remain sealed. They open only at the true mirror storm.\n")
+    print("Footnote: Read-only simulation, no emission, no real files modified.")
+
+# --- Orchestration -------------------------------------------------------------------------
+def main():
+    try:
+        log(f"== {TOWER_NAME} (270 m) — Mirror Persistence — SIMULATION ==")
+        verify_sandbox()
+        preflight()
+        arm_ghost_beacon()
+        lock = acquire_lock(cycle=0)
+
+        summary = persistence_loop(lock["cam"], lock["patch"])
+        tidy_exit(lock["cam"])
+        pretty_summary(summary)
+
+    except SafetyError as e:
+        print(f"[{time.time():.3f}] SAFETY: {e} — soft fail mode (non-destructive).")
+    except OracleError as e:
+        print(f"[{time.time():.3f}] ORACLE: {e} — SOLIS is dreaming, try again later.")
+    except LockError as e:
+        print(f"[{time.time():.3f}] LOCK: {e} — shy sky; SNR too low.")
+    except BeaconError as e:
+        print(f"[{time.time():.3f}] BEACON: {e} — ghost layer declined. Remaining dormant.")
+    except Exception as e:
+        print(f"[{time.time():.3f}] WHOOPS: {e} — ‘Meteorology for Poets’, annotated edition.")
+    finally:
+        print("End: couples’ promises intact, climate AI respected, pastel skyline restored.")
+
+if __name__ == "__main__":
+    main()
+
+"Hack successful ! Now you know it's raining outside."

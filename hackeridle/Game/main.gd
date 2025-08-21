@@ -111,8 +111,8 @@ func fill_player_stats(_rebirthing: bool = false):
 		Player.nb_of_rebirth = 0
 		
 	else: # ICI POUR CHEAT 
-		Player.gold = 1000000000
-		Player.knowledge_point = 100000000
+		Player.gold = 100000000000
+		Player.knowledge_point = 10000000000
 		Player.brain_level = 1
 		Player.skill_point = 42
 		Player.brain_xp = 0

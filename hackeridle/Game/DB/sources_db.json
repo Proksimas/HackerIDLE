@@ -49,6 +49,16 @@
             "formule_type":"linear",
             "effects": {}
         }
+        ,
+        {
+            "source_name": "Stella",
+            "texture_path": "res://Game/Graphics/Sources/fanfan.png",
+            "up_level": 25,
+            "up_factor": 1,
+            "affectation": "APT_mirador",
+            "formule_type":"linear",
+            "effects": {}
+        }
 
 
     ]
