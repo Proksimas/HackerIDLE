@@ -4,5 +4,4 @@
 
 [node name="TimeManager" type="Node"]
 script = ExtResource("1_c12c7")
-session_minutes = 10.0
 start_year = 1979

@@ -18,6 +18,7 @@ var _acc: float = 0.0
 var _visible: int = 0
 var _current_text: String = ""
 var set_locale_on_ready: String = "" 
+var scenario_paused: bool = false
 
 signal s_scenario_finished
 signal s_last_before_finished
@@ -63,7 +64,7 @@ func _process(delta: float) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 		# Tap écran / clic souris pour avancer
 
-	if event is InputEventScreenTouch and event.pressed:
+	if event is InputEventScreenTouch and event.pressed :
 		_advance()
 	elif event is InputEventMouseButton and \
 	event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -73,6 +74,8 @@ func _on_gui_input(event: InputEvent) -> void:
 
 
 func _advance() -> void:
+	if scenario_paused:
+		return
 	if _typing:
 		# Si on tap pendant l'écriture : on termine instantanément la ligne
 		_typing = false

@@ -210,5 +210,5 @@ func _on_s_event_finished(_event_ui):
 
 
 func _on_finish_button_pressed() -> void:
-	TimeManager.game_seconds += 62* TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
+	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
 	pass # Replace with function body.
