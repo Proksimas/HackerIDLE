@@ -17,7 +17,6 @@ func _ready() -> void:
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 
 func set_shop():
-	
 	var item_present: Dictionary
 	for shop_item:ShopItem in shop_grid.get_children():
 		item_present[shop_item.current_item_cara["item_name"]] = shop_item

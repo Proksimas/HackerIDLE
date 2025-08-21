@@ -81,7 +81,9 @@ func init_interface():
 func inits_shops():
 	"""Fonction qui va init les shops pendant un chargement"""
 	print_debug("Shops initialised")
+	hack_shop._clear()
 	hack_shop.set_shop()
+	shop._clear()
 	shop.set_shop()
 	
 func app_button_pressed(button_name:String):

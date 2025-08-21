@@ -17,6 +17,7 @@ var brain_level: int = 1:
 var brain_xp_next: float = 0
 var base_xp: float = 200
 var xp_factor: float = 1.5
+var nb_of_rebirth: int = 0
 
 var learning_item_bought: Dictionary = {}
 var learning_item_statut: Dictionary = {}
@@ -43,11 +44,15 @@ func _ready() -> void:
 func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
+	_init_sources()
 	brain_xp_next = get_brain_xp(brain_level -1)
 	
 func _init_skills_owned():
 	skills_owned = {"active" : [],
 					"passive": [] }
+
+func _init_sources():
+	sources_item_bought.clear()
 					
 func _check_level_up():
 	if brain_xp >= brain_xp_next:

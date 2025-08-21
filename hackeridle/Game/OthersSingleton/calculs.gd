@@ -78,6 +78,8 @@ func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
 		
 		push_warning("L'item n'est pas présent !")
+		#peut se passer en cas de reirth
+		return
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
 	if item["formule_type"] == "polymoniale":

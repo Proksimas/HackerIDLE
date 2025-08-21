@@ -46,6 +46,31 @@ func new_game():
 	var interface = load_interface()
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
+func rebirth():
+	"""on ne garde que:
+		l'experience, niveau du cerveau, skills
+		"""
+	print_debug("rebirth")
+	Player.nb_of_rebirth += 1
+	var save_stats_for_rebirth = {"skills_owned": Player.skills_owned,
+									"brain_xp": Player.brain_xp,
+									"brain_level": Player.brain_level,
+									"skill_point": Player.skill_point,
+									"nb_of_rebirth": Player.nb_of_rebirth}
+	
+	fill_player_stats()
+	Player.skills_owned = save_stats_for_rebirth["skills_owned"]
+	Player.brain_xp = save_stats_for_rebirth["brain_xp"]
+	Player.brain_level = save_stats_for_rebirth["brain_level"]
+	Player.skill_point = save_stats_for_rebirth["skill_point"]
+	Player.nb_of_rebirth = save_stats_for_rebirth["nb_of_rebirth"]
+	var interface = load_interface()
+	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
+
+
+	
+	pass
+
 func load_interface():
 	if self.has_node("Interface"):
 		self.get_node('Interface').name = "OldInterface"
@@ -65,14 +90,14 @@ func _on_s_data_loaded(interface):
 	#interface.call_deferred("inits_shops")
 	
 
-func fill_player_stats():
+func fill_player_stats(_rebirthing: bool = false):
 	"""On initialise les stats du joueur. OBLIGATOIRE """
 	#tous les dictionnaires sont à mettre à vide
 	for prop in Player.get_property_list():
 		var p_name  : String = prop.name
 		var usage : int    = int(prop.usage)
 		var type : int = int(prop.type)
-		if (usage == PROPERTY_USAGE_SCRIPT_VARIABLE and type == TYPE_DICTIONARY ):
+		if (usage == PROPERTY_USAGE_SCRIPT_VARIABLE and type == TYPE_DICTIONARY):
 			Player.set(p_name, {})
 	
 	#cas où l'on veut PAS tricher
@@ -82,6 +107,7 @@ func fill_player_stats():
 		Player.brain_level = 1
 		Player.skill_point = 0
 		Player.brain_xp = 0
+		Player.nb_of_rebirth = 0
 		
 	else: # ICI POUR CHEAT 
 		Player.gold = 1000000000
@@ -89,6 +115,7 @@ func fill_player_stats():
 		Player.brain_level = 1
 		Player.skill_point = 42
 		Player.brain_xp = 0
+		Player.nb_of_rebirth = 0
 	
 	#Initialisation de toutes les DB et singletons
 	HackingItemsDb.init_hacking_items_db()

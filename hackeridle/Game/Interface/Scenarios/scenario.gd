@@ -2,8 +2,6 @@
 extends Control
 class_name ScenarioTypewriter
 
-signal finished  # émis quand toutes les lignes sont affichées
-
 @export var keys: PackedStringArray = []         # Laisse vide pour auto-générer
 @export var key_prefix: String = "introduction_" # Utilisé si keys est vide
 @export var count: int = 12                     # Nombre de lignes si auto-génération
@@ -23,6 +21,7 @@ var scenario_paused: bool = false
 signal s_scenario_finished
 signal s_last_before_finished
 signal s_current_index(index)
+signal s_force_skip
 func _ready() -> void:
 	
 	if !OS.has_feature("editor"):
@@ -105,5 +104,5 @@ func _show_current() -> void:
 
 
 func _on_skip_button_pressed() -> void:
-	s_scenario_finished.emit()
+	s_force_skip.emit()
 	pass # Replace with function body.

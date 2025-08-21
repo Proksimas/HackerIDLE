@@ -18,7 +18,6 @@ func _ready() -> void:
 
 func set_shop():
 	"""Comprend l'initialisation et le rafraichissement si l'item est deja présent"""
-
 	_clear_sources()
 	source_panel.hide()
 	hack_grid.show()

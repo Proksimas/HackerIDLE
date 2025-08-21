@@ -124,26 +124,37 @@ func get_formatted_date_string(date_array: Array) -> String:
 func end_session() -> void:
 	"""Appelée lorsque le temps de jeu atteint la fin de la durée totale."""
 	# Arrête le traitement du processus pour éviter les calculs inutiles
+	print_debug("End Session")
 	set_process(false)
 	s_session_finished.emit()
 	
 	# TODO: Implémente ici la logique de fin de session (ex: écran de score, options de rebirth, etc.)
 	# -> Envoyé au Main
 	pass
-
+	
+func adjust_session_minutes() -> void:
+	"""L'ajustement depend du nombre de rebirth"""
+	print("nb_of_rebirth: %s" % Player.nb_of_rebirth)
+	match Player.nb_of_rebirth:
+		1:
+			session_minutes =  session_minutes * 2
+		2:
+			session_minutes =  session_minutes * 2
+		3:
+			session_minutes =  session_minutes * 1.44
+		_: 
+			session_minutes =  session_minutes
+			
+	print("Session time: %s" % TimeManager.session_minutes)
+	
 func reset(_session_minutes: float = -1.0) -> void:
 	"""
 	Réinitialise le temps de jeu à zéro.
 	Si `_session_minutes` est fourni et > 0, la durée de session est mise à jour et la `time_scale` recalculée.
 	"""
-	if _session_minutes > 0:
-		session_minutes = _session_minutes
-		# Si la durée de session change, il faut recalculer la `time_scale`
-		_ready() # Appel `_ready()` pour re-calculer `time_scale` avec la nouvelle `session_minutes`
-	else:
-		# Si la durée ne change pas, juste réinitialiser les secondes et mettre à jour l'affichage
-		game_seconds = 0
-		_update_date_display()
+	game_seconds = 0
+	_ready()
+	_update_date_display()
 	
 	# S'assure que le processus est actif après un reset
 	set_process(true)

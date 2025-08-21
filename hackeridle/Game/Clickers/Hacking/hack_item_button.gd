@@ -244,6 +244,7 @@ func source_upgraded(source_cara):
 	current_hack_item_cara["delay"] = snapped((current_hack_item_cara["delay"] * 0.9), 0.01)
 	
 	if source_cara["level"] > 0:
+
 		lauch_wait_time()
 	
 func get_gold_from_hack() -> float:
