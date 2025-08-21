@@ -75,6 +75,8 @@ func _on_s_session_finished():
 	var conclusion = SCENARIO.instantiate()
 	conclusion.name = "conclusion"
 	conclusion.count = 32 #nombre de phrases dans la conclusion
+	conclusion.string_formated = {"robot_force_cyber": Global.number_to_string(Player.robots_cyber_force),
+									"player_force_cyber": Global.number_to_string(Player.cyber_force)}
 	var stylebox = StyleBoxTexture.new()
 	stylebox.texture = BLOOD_AND_FIRE
 	stylebox.modulate_color = "000000"
@@ -89,7 +91,8 @@ func _on_s_session_finished():
 	conclusion.launch()
 	
 func _on_s_current_index(index, stylebox, conclusion):
-	if index == 11: #on envoit le tween
+	if index == 13: #on envoit le tween
+		#on affiche le fond d'écran devasté
 		conclusion.scenario_paused = true
 		var new_tween:Tween = get_tree().create_tween()
 		new_tween.tween_property(stylebox, "modulate_color", Color(1, 1, 1), 8)

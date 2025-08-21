@@ -30,9 +30,9 @@ grow_vertical = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 50)
 layout_mode = 2
-theme_override_font_sizes/font_size = 20
 text = "jlkjlkDLMZSKDZSLKLMSKCMSLKDCMLSQKDSLMKSLMKSM DKZLDK DZLSMKDZLK LMKLZSKLKDZ"
 horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="SkipButton" type="Button" parent="."]

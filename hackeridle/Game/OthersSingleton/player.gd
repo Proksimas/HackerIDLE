@@ -3,6 +3,8 @@ extends Node
 var knowledge_point: float
 var gold: float
 var brain_xp: float
+var cyber_force: float
+var robots_cyber_force: = 1000000 
 		
 var skill_point: int:
 	set(value):
@@ -14,6 +16,7 @@ var brain_level: int = 1:
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
 
+		
 var brain_xp_next: float = 0
 var base_xp: float = 200
 var xp_factor: float = 1.5
@@ -37,6 +40,7 @@ signal s_earn_brain_xp(number)
 signal s_earn_sp(number)
 signal s_earn_brain_level(number)
 signal s_brain_clicked(brain_xp, knowledge)
+signal s_gain_cyber_force(number)
 
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
@@ -88,6 +92,12 @@ func earn_brain_xp(earning):
 		brain_xp += clamp(earning, 0, INF)
 	brain_xp = snapped(brain_xp, 0.1)
 	s_earn_brain_xp.emit(brain_xp)
+	
+func earn_cyber_force(earning):
+	self.cyber_force += earning
+	cyber_force = clamp(cyber_force, 0, INF)
+	s_gain_cyber_force.emit(cyber_force)
+	
 	
 func level_up():
 	skill_point += 1

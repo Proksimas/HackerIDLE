@@ -7,7 +7,6 @@ class_name ScenarioTypewriter
 @export var count: int = 12                     # Nombre de lignes si auto-génération
 @export var chars_per_sec: float = 45.0          # Vitesse de "machine à écrire"
 @onready var skip_button: Button = %SkipButton
-
 @onready var text_label: Label = %TextLabel
 
 var _i: int = 0
@@ -17,6 +16,7 @@ var _visible: int = 0
 var _current_text: String = ""
 var set_locale_on_ready: String = "" 
 var scenario_paused: bool = false
+var string_formated: Dictionary #Si on a besoin de forcer des .format sur les traduction
 
 signal s_scenario_finished
 signal s_last_before_finished
@@ -93,8 +93,8 @@ func _show_current() -> void:
 	if _i == count - 1:
 		s_last_before_finished.emit()
 	var key := keys[_i]
-	_current_text = tr(key)        # <-- récupère le texte via la clé
-	text_label.text = _current_text
+	_current_text = tr(key)     # <-- récupère le texte via la clé
+	text_label.text = _current_text.format(string_formated)
 	_acc = 0.0
 	_visible = 0
 	text_label.visible_characters = 0
