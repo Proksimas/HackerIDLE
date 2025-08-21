@@ -55,8 +55,8 @@
         },
 
          {
-            "item_name": "voxel_neural_link",
-            "texture_path": "res://Game/Graphics/LearningItems/MOOC.png",
+            "item_name": "casque_ar",
+            "texture_path": "res://Game/Graphics/LearningItems/casque_ar.png",
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 31415926 ,
             "cost_factor": 1.314,
