@@ -34,7 +34,7 @@ var time_process:float
 var first_cost = INF
 var quantity_to_buy: int
 var file_content: Array
-var source_associated: Dictionary
+#var source_associated: Dictionary
 var waiting_to_long_send: bool = false
 # Called when the node enters the scene tree for the first time.
 
@@ -90,6 +90,7 @@ func set_hacking_item(item_name):
 func set_refresh(item_cara: Dictionary = {}):
 	"""On met à jour les stats du current_item. EN PRINCIPE le current_item vaut à présent l'item qui 
 	est dans l'inventaire du joueur. Donc si vide, on ignore"""
+	
 	if !item_cara.is_empty():
 		current_hack_item_cara = item_cara
 	if !Player.hacking_item_bought.has(current_hack_item_cara["item_name"]) or \
@@ -100,7 +101,7 @@ func set_refresh(item_cara: Dictionary = {}):
 	var item_level = current_hack_item_cara["level"]
 
 	hack_item_level.text = Global.number_to_string(item_level) 
-	max_hack_item_level.text = " / " + str(Calculs.get_next_source_level(source_associated))
+	max_hack_item_level.text = " / " + str(Calculs.get_next_source_level(Player.get_associated_source(current_hack_item_cara["item_name"])))
 				
 				
 	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,
@@ -192,7 +193,7 @@ func time_finished() -> void:
 	var gold_from_item = Calculs.gain_gold(current_hack_item_cara["item_name"])
 	var final_hack_gold = StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD, gold_from_item)
 	Player.earn_gold(final_hack_gold)
-	if source_associated["level"] > 0:
+	if Player.get_associated_source(current_hack_item_cara["item_name"])["level"] > 0:
 		lauch_wait_time()
 	
 	s_hack_finished.emit()
@@ -226,15 +227,15 @@ func upgrading_source():
 	var _max = 100 # on sécurise le up avec un max
 	
 	for loop in range(_max):
-		if not source_associated:
+		if not Player.get_associated_source(current_hack_item_cara["item_name"]):
 			return
-		var cost_level_to_reach = Calculs.get_next_source_level(source_associated)
+		var cost_level_to_reach = Calculs.get_next_source_level(Player.get_associated_source(current_hack_item_cara["item_name"]))
 		if current_hack_item_cara["level"] < cost_level_to_reach:
 			break
 			
 		else:  # la source est upgrade. Voir les effetcs et le level
 
-			source_upgraded(source_associated)
+			source_upgraded(Player.get_associated_source(current_hack_item_cara["item_name"]))
 	
 func source_upgraded(source_cara):
 	"""On augmente la source de 1 niveau"""
@@ -255,7 +256,7 @@ func get_gold_from_hack() -> float:
 	return int(final_hack_gold)
 
 func _draw() -> void:
-	if source_associated["level"] > 0 :
+	if Player.get_associated_source(current_hack_item_cara["item_name"])["level"] > 0:
 		lauch_wait_time()
 	
 

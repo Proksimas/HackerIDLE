@@ -65,6 +65,7 @@ func rebirth():
 	Player.skill_point = save_stats_for_rebirth["skill_point"]
 	Player.nb_of_rebirth = save_stats_for_rebirth["nb_of_rebirth"]
 	var interface = load_interface()
+	#var interface = get_tree().get_root().get_node("Main/Interface")
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
 
