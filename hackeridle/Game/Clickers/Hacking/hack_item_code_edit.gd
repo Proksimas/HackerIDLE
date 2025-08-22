@@ -4,8 +4,6 @@ func _ready() -> void:
 	python()
 
 
-
-
 func edit_text(is_empty: bool, content):
 	var _text: String
 	var first_line: String = content[0]

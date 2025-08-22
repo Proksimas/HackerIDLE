@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=12 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_0sjxu"]
 [ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="4_7kjjd"]
-[ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_code_edit.gd" id="4_dn8le"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_pubii"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_riche_label.gd" id="5_k0tnd"]
 
@@ -115,7 +114,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(350, 75)
 layout_mode = 2
 
-[node name="HackNameEdit" type="CodeEdit" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
+[node name="HackNameEdit" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
@@ -123,7 +122,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 16
 text = "Hack_Granny_TV(TVP_IP, duration = X)"
-script = ExtResource("4_dn8le")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
 layout_mode = 2
@@ -202,7 +200,7 @@ text = "1000"
 horizontal_alignment = 2
 
 [node name="UpgradeContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 
 [node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]

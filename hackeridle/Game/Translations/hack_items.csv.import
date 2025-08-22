@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://b1r667rpb21uy"
+
+[deps]
+
+files=["res://Game/Translations/hack_items.fr.translation", "res://Game/Translations/hack_items.en.translation"]
+
+source_file="res://Game/Translations/hack_items.csv"
+dest_files=["res://Game/Translations/hack_items.fr.translation", "res://Game/Translations/hack_items.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

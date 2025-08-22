@@ -4,33 +4,29 @@ class_name HackItemButton
 
 @onready var hack_item_progress_bar: ProgressBar = %HackItemProgressBar
 @onready var buy_item_button: Button = %BuyItemButton
-@onready var buy_title: Label = %BuyTitle
-@onready var nbof_buy: Label = %NbofBuy
 @onready var hack_item_price_label: Label = %HackItemPriceLabel
-@onready var hack_item_cd: Label = %HackItemCD
 @onready var hack_item_level: Label = %HackItemLevel
 @onready var gold_gain: Label = %GoldGain
-@onready var hack_item_texture: Button = %HackItemTexture
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var unlocked_button: Button = %UnlockedButton
 @onready var brain_cost: Label = %BrainCost
 @onready var hack_item_info: HBoxContainer = %HackItemInfo
-@onready var source_button: Button = %SourceButton
 @onready var hack_item_code_edit: RichTextLabel = %HackItemCodeEdit
 @onready var progress_value_label: Label = %ProgressValueLabel
 @onready var hack_duration: Label = %HackDuration
-@onready var hack_name_edit: CodeEdit = %HackNameEdit
+@onready var hack_name_edit: Label = %HackNameEdit
 @onready var main_margin_container: MarginContainer = %MainMarginContainer
 @onready var max_hack_item_level: Label = %MaxHackItemLevel
 @onready var cost_label: Label = %CostLabel
 @onready var duration_label: Label = %DurationLabel
-@onready var duration_value: Label = %DurationValue
 @onready var gold_label: Label = %GoldLabel
 @onready var level_hack_label: Label = %LevelHackLabel
 @onready var cost_hack_label: Label = %CostHackLabel
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
+const NUMER_COLOR = Color("#FF66FF")
+
 var x_buy
 var current_hack_item_cara = {}
 var progress_activated: bool = false
@@ -83,7 +79,6 @@ func set_hacking_item(item_name):
 	gold_label.text = tr("$Gain") + ": "
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
-	hack_item_texture.disabled = true
 	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
 	#set_hacking_item_by_player_info()
 	x_buy = 1
@@ -116,13 +111,14 @@ func set_refresh(item_cara: Dictionary = {}):
 	
 	duration_label.text = tr("$Duration") + ": "
 	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
-	if current_hack_item_cara["level"] > 0 and not progress_activated:
-		hack_item_texture.disabled = false
+
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
 	var content =[file_content[0], StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])]
-	hack_name_edit.edit_text(true, content)
+
+	
+	hack_name_edit.text = tr(current_hack_item_cara["item_name"] + "_hack_name")
 	hack_item_code_edit.text = tr("$WaitingHacked")
 	
 	hack_item_code_edit._prepare_script_for_display(file_content)
@@ -164,7 +160,6 @@ func x_can_be_buy(_x_buy):
 	
 	cost_hack_label.text = tr("$Upgrade") + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
-	nbof_buy.text = "X " + str(quantity_to_buy)
 	
 	#Puis on met à jour le prix de l'item
 	
@@ -179,7 +174,6 @@ func lauch_wait_time():
 	hack_item_progress_bar.min_value = 0
 	hack_item_progress_bar.step = 0.01
 	
-	hack_item_texture.disabled = true
 	progress_activated = true
 	
 	#On lance dans le rich_label l'effet machine à écrire
@@ -194,7 +188,7 @@ func time_finished() -> void:
 	progress_activated = false
 	waiting_to_long_send = false
 	hack_item_progress_bar.value = 0
-	hack_item_texture.disabled = false
+
 	
 	#Gain de l'or
 	# TODO modificateurs sur lz gain de gold du hack spécifique
@@ -267,18 +261,6 @@ func _draw() -> void:
 	if Player.get_associated_source(current_hack_item_cara["item_name"])["level"] > 0:
 		lauch_wait_time()
 	
-
-func _on_hack_item_texture_pressed() -> void:
-	lauch_wait_time()
-	pass # Replace with function body.
-
-
-func _on_buy_item_button_pressed() -> void:
-	"""le signal est aussi récupéré ailleurs"""
-	#var particle = CLICK_BRAIN_PARTICLES.instantiate()
-	#particle.position = hack_item_texture.position + (hack_item_texture.size / 2)
-	#self.add_child(particle)
-	pass # Replace with function body.
 
 
 func _load_data():
