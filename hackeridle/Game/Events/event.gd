@@ -29,10 +29,3 @@ func event_setup(_id, _choice_1_effects, _choice_2_effects) -> void:
 	event_choice_2["texte_id"] = "event_{id}_choix2".format({"id": _id})
 	event_choice_2["effects"] = _choice_2_effects
 	
-
-func apply_effects(effects: Array):
-	var stat_of_effect: String
-	#for effect in effects:
-		#stat_of_effect = effect
-		#match effect:
-			

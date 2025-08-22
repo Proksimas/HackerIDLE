@@ -149,15 +149,13 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
-
-
 func _on_timout():
 	""" On supprime l'event apres x secondes """
 	var rand = randi_range(0, 1)
 	if rand == 0:
-		choice_a_button.pressed
+		choice_a_button.pressed.emit()
 	else:
-		choice_b_button.pressed
+		choice_b_button.pressed.emit()
 	s_event_finished.emit()
 	#self.queue_free()
 	

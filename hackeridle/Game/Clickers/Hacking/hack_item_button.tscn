@@ -1,10 +1,10 @@
 [gd_scene load_steps=17 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
-[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_0sjxu"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_0sjxu"]
 [ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="4_7kjjd"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_code_edit.gd" id="4_dn8le"]
-[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_pubii"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_pubii"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_riche_label.gd" id="5_k0tnd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pcgk5"]
@@ -329,6 +329,7 @@ text = "10 s"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

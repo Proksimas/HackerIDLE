@@ -113,7 +113,7 @@ func get_tot_gold() -> float:
 	gold_from_hacks = get_tree().get_root().get_node("Main/Interface").\
 											hack_shop.get_total_gold_from_hacks()
 	return gold_from_hacks
-	pass
+	
 	
 func get_tot_knowledge() -> float:
 	"""Calcul le hain tot de knowlmedge issu des shop_item + le gain par click 
