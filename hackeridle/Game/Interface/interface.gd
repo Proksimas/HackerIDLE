@@ -25,6 +25,7 @@ extends Control
 @onready var shopping_box: TextureButton = %shoppingBox
 @onready var dark_shop_box: TextureButton = %dark_shopBox
 @onready var skills_box: TextureButton = %skillsBox
+@onready var main_zone: VBoxContainer = %MainZone
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
@@ -40,6 +41,14 @@ const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#Pour la safe zone
+	#var safe_area = DisplayServer.get_display_safe_area()
+	#print("Safe area: ", safe_area)
+	#main_zone.offset_left = safe_area.position.x
+	#main_zone.offset_top = safe_area.position.y
+	#main_zone.offset_right = -(DisplayServer.screen_get_size().x - (safe_area.position.x + safe_area.size.x))
+	#main_zone.offset_bottom = -(DisplayServer.screen_get_size().y - (safe_area.position.y + safe_area.size.y))
+	#Global.apply_safe_area_to_ui(main_zone)  # -> active la safe zone
 	main_tab.current_tab = 0
 	connexions()
 	init_interface()
@@ -65,6 +74,7 @@ func buttons_connexion() -> void:
 	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
 	skills_box.pressed.connect(app_button_pressed.bind("skills"))
 	
+
 
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
@@ -93,6 +103,7 @@ func app_button_pressed(button_name:String):
 		"infos":
 			infos.show()
 			new_style_box.texture = FULL_CITY
+			infos.settings_panel.hide()
 		"shopping":
 			shop.show()
 			#new_style_box.texture = PONT
@@ -176,21 +187,6 @@ func _on_s_wait_too_long(is_wainting):
 	else:
 		dark_shop_warning_icon.visible = false
 
-
-func _load_data(data):
-	"""Manage les chargement dans l'interface"""
-	# Met à jour l'UI
-	init_interface()
-	#sauvegarde au nivau du learning
-	print("Chargement des learning item\n%s" % data["Player"]["learning_item_bought"] )
-	learning._load_data(data["Player"]["learning_item_bought"])
-	print("Chargement du hack shop")
-	hack_shop._load_data("")
-	print("Chargement du news panel\n%s" % data["NewsPanel"])
-	news_panel._load_data(data["NewsPanel"])
-
-@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
-
 func _on_button_pressed() -> void:
 	"""On reçoit un evennement"""
 	cheat_event_spin_box.apply()
@@ -214,3 +210,20 @@ func _on_s_event_finished(_event_ui):
 func _on_finish_button_pressed() -> void:
 	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
 	pass # Replace with function body.
+
+
+
+func _load_data(data):
+	"""Manage les chargement dans l'interface"""
+	# Met à jour l'UI
+	init_interface()
+	#sauvegarde au nivau du learning
+	print("Chargement des learning item\n%s" % data["Player"]["learning_item_bought"] )
+	learning._load_data(data["Player"]["learning_item_bought"])
+	print("Chargement du hack shop")
+	hack_shop._load_data("")
+	print("Chargement du news panel\n%s" % data["NewsPanel"])
+	news_panel._load_data(data["NewsPanel"])
+	infos._load_data(data["Infos"])
+
+@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox

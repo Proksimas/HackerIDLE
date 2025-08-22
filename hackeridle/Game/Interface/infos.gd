@@ -10,13 +10,17 @@ extends Control
 @onready var settings_panel: Panel = %SettingsPanel
 @onready var country_container: HBoxContainer = %CountryContainer
 
+
+@onready var safe_zone_label: Label = %SafeZoneLabel
+@onready var safe_zone_check_box: CheckBox = %SafeZoneCheckBox
+
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	settings_panel.hide()
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 
@@ -81,7 +85,7 @@ func _on_new_game_button_pressed() -> void:
 func _draw() -> void:
 	draw_infamy_stats()
 	settings_button.text = tr("$Settings")
-	settings_panel.hide()
+	
 
 
 func _on_settings_button_pressed() -> void:
@@ -95,3 +99,27 @@ func _on_language_button_pressed(language: String) -> void:
 	TranslationServer.set_locale(country_name)
 
 	pass # Replace with function body.
+
+
+func _on_safe_zone_check_box_pressed() -> void:
+	var interface = get_tree().get_root().get_node("Main/Interface")
+	if safe_zone_check_box.button_pressed:
+		Global.apply_safe_area_to_ui(interface.main_zone, true)
+	else:
+		Global.apply_safe_area_to_ui(interface.main_zone, false)
+	pass # Replace with function body.
+
+
+func _save_data():
+	var dict = {"language": TranslationServer.get_locale(),
+				"safe_area_enable": safe_zone_check_box.button_pressed}
+	
+	return dict
+
+func _load_data(content: Dictionary):
+	TranslationServer.set_locale(content["language"])
+	var interface = get_tree().get_root().get_node("Main/Interface")
+	if content["safe_area_enable"]:
+		Global.apply_safe_area_to_ui(interface.main_zone, true)
+	else:
+		Global.apply_safe_area_to_ui(interface.main_zone, false)

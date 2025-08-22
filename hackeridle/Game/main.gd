@@ -10,7 +10,6 @@ const TRANSLATION_KEYS = ["fr", "en"]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 
-	
 	if !OS.has_feature("editor"):
 		force_new_game = false
 	

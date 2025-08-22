@@ -20,7 +20,8 @@ func save_game():
 	content[TimeManager.name] = TimeManager._save_data()
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
-	content["Settings"] = {"language": TranslationServer.get_locale()}
+	
+	{"language": TranslationServer.get_locale()}
 	save_the_data(content)
 	print(content)
 	
@@ -47,8 +48,8 @@ func load_data():
 	player_load_data(data["Player"])
 	stats_manager_load_data(data["StatsManager"])
 	time_manager_load_data(data["TimeManager"])
-	settings_load_data(data["Settings"])
-	#CHargement au niveau de l'interface
+	
+	#CHargement au niveau de l'interface et de ses sous noeuds
 	var interface =  get_tree().get_root().get_node("Main/Interface")
 	interface._load_data(data)
 	s_data_loaded.emit()
@@ -106,11 +107,7 @@ func time_manager_load_data(content: Dictionary) -> void:
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
 			TimeManager.set(p_name, content[p_name])
 	
-func settings_load_data(content: Dictionary) -> void:
-	print("Chargement des settings:")
-	print(content)
-	TranslationServer.set_locale(content["language"])
-	
+
 func get_save_path():
 	"""renvoie le path user ou editeur"""
 	var save_path

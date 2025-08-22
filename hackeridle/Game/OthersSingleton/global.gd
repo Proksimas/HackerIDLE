@@ -92,3 +92,23 @@ func parse_all_files_in_directory(directory_path: String) -> Array:
 		file_name = dir.get_next()
 	dir.list_dir_end()
 	return files_found
+
+func apply_safe_area_to_ui(control: Control, enable: bool = true):
+	
+	var safe_area = DisplayServer.get_display_safe_area()
+	var screen_size = DisplayServer.screen_get_size()
+
+	control.anchor_left = 0
+	control.anchor_top = 0
+	control.anchor_right = 1
+	control.anchor_bottom = 1
+	if enable:
+		control.offset_left   = safe_area.position.x
+		control.offset_top    = safe_area.position.y
+		control.offset_right  = -(screen_size.x - (safe_area.position.x + safe_area.size.x))
+		control.offset_bottom = -(screen_size.y - (safe_area.position.y + safe_area.size.y))
+	else:
+		control.offset_left   = 0
+		control.offset_top    = 0
+		control.offset_right  = 0
+		control.offset_bottom = 0
