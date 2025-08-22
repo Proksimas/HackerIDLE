@@ -183,6 +183,7 @@ tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
 [node name="HackShop" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]

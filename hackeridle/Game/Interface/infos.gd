@@ -22,6 +22,8 @@ const LEARNIN_BRAIN_HALO_MATERIAL = preload("res://Game/Themes/LearninBrainHaloM
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#match_performance_profile(get_performance_profile()) 
+	
 	settings_panel.hide()
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
 	StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
@@ -90,6 +92,42 @@ func _draw() -> void:
 	
 
 
+################### SETTINGS ############################
+
+func match_performance_profile(performance: String):
+	print("Performance: %s" % performance)
+	match performance: 
+		"LOW":
+			enable_brain_halo(false)
+		_:
+			enable_brain_halo(true)
+			
+	
+
+func get_performance_profile() -> String:
+	var cpu_name = OS.get_processor_name().to_lower()
+	var cores = OS.get_processor_count()
+
+	# Cas simple par nombre de coeurs
+	if cores <= 4:
+		return "LOW"
+	elif cores <= 8:
+		return "MEDIUM"
+	else:
+		return "HIGH"
+
+	# (Optionnel) Ajustement par nom du CPU
+	if "snapdragon 8" in cpu_name or "apple a1" in cpu_name or "m1" in cpu_name:
+		return "HIGH"
+	elif "snapdragon 6" in cpu_name or "mediatek dimensity 800" in cpu_name:
+		return "MEDIUM"
+	elif "snapdragon 4" in cpu_name or "mediatek helio" in cpu_name:
+		return "LOW"
+
+	# fallback
+	return "MEDIUM"
+
+
 func _on_settings_button_pressed() -> void:
 	
 	settings_panel.visible = !settings_panel.visible
@@ -121,7 +159,9 @@ func enable_brain_halo(enable: bool = true):
 	var clicker: TextureButton = learning.clicker_button
 	if enable:
 		clicker.material = LEARNIN_BRAIN_HALO_MATERIAL.duplicate()
+		brain_halo_check_box.button_pressed = true
 	else:
+		brain_halo_check_box.button_pressed = false
 		clicker.material = null
 		
 
