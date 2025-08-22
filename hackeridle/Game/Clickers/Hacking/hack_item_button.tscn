@@ -71,10 +71,10 @@ corner_radius_top_left = 5
 corner_radius_bottom_left = 5
 
 [node name="HackItemButton" type="Control" groups=["g_hack_item_button"]]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 3
 anchor_right = 1.0
-anchor_bottom = 0.259781
+anchor_bottom = 0.189358
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -134,6 +134,7 @@ text = "Temps"
 [node name="HackDuration" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.4, 1, 1)
 text = "100"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
@@ -161,8 +162,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="VSeparator" type="VSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_fndce")
 
@@ -248,9 +248,6 @@ alignment_horizontal = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
-layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
 layout_mode = 2
