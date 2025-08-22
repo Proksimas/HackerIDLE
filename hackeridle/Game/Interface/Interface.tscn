@@ -138,20 +138,21 @@ offset_bottom = 15.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer"]
+[node name="ResourcesContainer" type="HBoxContainer" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="KnowledgeResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="KnowledgeResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="GoldResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="GoldResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SPResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/HBoxContainer" instance=ExtResource("5_ajfm1")]
+[node name="SPResource" parent="InterfacePanel/VBoxContainer/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
@@ -181,7 +182,6 @@ tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="HackShop" parent="InterfacePanel/VBoxContainer/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]

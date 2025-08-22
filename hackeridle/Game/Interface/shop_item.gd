@@ -21,6 +21,7 @@ var first_cost = INF
 var quantity_to_buy: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	level_label.text = tr("$Level")
 	pass # Replace with function body.
 
 func set_item(item_name):
@@ -116,3 +117,6 @@ func get_knowledge_from_passif() -> float:
 		return knowledge_gain
 	knowledge_gain = Calculs.passif_learning_gain(current_item_cara)
 	return knowledge_gain
+	
+func _draw() -> void:
+	level_label.text = tr("$Level")

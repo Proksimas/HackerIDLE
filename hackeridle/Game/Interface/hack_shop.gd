@@ -3,9 +3,11 @@ extends Control
 @onready var buttons_container: HBoxContainer = %ButtonsContainer
 @onready var hack_grid: GridContainer = %HackGrid
 @onready var source_panel: Panel = %SourcePanel
+@onready var x_1_button: Button = %X1Button
 
 const HACK_ITEM_BUTTON = preload("res://Game/Clickers/Hacking/hack_item_button.tscn")
 const SOURCE = preload("res://Game/Clickers/Hacking/Source.tscn")
+
 
 var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
@@ -124,7 +126,15 @@ func _on_x_button_pressed(button_name: String):
 func _draw() -> void:
 	set_shop()
 	hack_items_statut_updated()
-	%X1Button.pressed.emit()
+	#x_1_button.tog = true
+	#x_1_button._pressed
+	x_1_button.pressed.emit()
+	#x_1_button.toggle_mode = false
+	#print(x_1_button.button_pressed)
+	#x_1_button.set_pressed_no_signal(true)
+
+	
+	
 
 func _on_hack_item_button_pressed(hack_item: HackItemButton):
 	"""On a appuyé pour acheter l'item"""

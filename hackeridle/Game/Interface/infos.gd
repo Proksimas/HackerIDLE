@@ -93,4 +93,5 @@ func _on_settings_button_pressed() -> void:
 func _on_language_button_pressed(language: String) -> void:
 	var country_name:String = language.trim_suffix("Button")
 	TranslationServer.set_locale(country_name)
+
 	pass # Replace with function body.

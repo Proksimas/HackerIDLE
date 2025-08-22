@@ -22,7 +22,6 @@ func _ready() -> void:
 		self.call_thread_safe('load_game')
 		
 	 # Récupère le code de la langue (par exemple, "en", "fr", "de")
-	set_starting_language()
 
 	pass # Replace with function body.
 	
@@ -34,7 +33,6 @@ func set_starting_language():
 	else:
 		TranslationServer.set_locale("en")
 	
-
 func load_game():
 	fill_player_stats()
 	var interface = load_interface()
@@ -42,6 +40,7 @@ func load_game():
 	Save.load_data()
 	
 func new_game():
+	set_starting_language() # le chargement prend ce qui est save
 	fill_player_stats()
 	var interface = load_interface()
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)

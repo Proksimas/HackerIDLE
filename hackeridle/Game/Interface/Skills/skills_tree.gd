@@ -34,7 +34,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
 	if skill_type == "active_skill":
-		skill_name_label.text = tr(skills_cara['as_name'])
+		skill_name_label.text = tr("$" + skills_cara['as_name'])
 		var desc: String
 		#Il faut mettre ç jour le niveau du skill si le player a deja le skill
 		if Player.get_skill(skill_name, "active") != null:
@@ -52,7 +52,7 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		unlocked_buy_skill_button()
 		
 	else: #passive skill
-		skill_name_label.text = tr(skills_cara['ps_name'])
+		skill_name_label.text = tr("$" + skills_cara['ps_name'])
 		var desc
 		if Player.get_skill(skill_name, "passive") != null:
 			desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "passive"), "ps_name")
@@ -77,7 +77,7 @@ func is_max_level(skill_cara, skill_type)-> bool:
 				if as_skill.as_name == skill_name:
 					skill_cara = as_skill
 			if skill_cara.as_level >= len(skill_cara.cost):
-				skill_name_label.text = tr(skill_name)
+				skill_name_label.text = tr("$" + skill_name)
 				var desc
 				if Player.get_skill(skill_name, "active") != null:
 					desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "active"), "as_name")
@@ -96,7 +96,7 @@ func is_max_level(skill_cara, skill_type)-> bool:
 				if ps_skill.ps_name == skill_cara["ps_name"]:
 					skill_cara = ps_skill
 			if skill_cara.ps_level >= len(skill_cara.cost):
-				skill_name_label.text = tr(skill_cara['ps_name'])
+				skill_name_label.text = tr("$" + skill_cara['ps_name'])
 				var desc
 				if Player.get_skill(skill_name, "passive") != null:
 					desc = SkillsManager.get_skill_translation(Player.get_skill_cara(skill_name, "passive"), "ps_name")

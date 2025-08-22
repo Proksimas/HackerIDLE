@@ -13,6 +13,8 @@ extends PanelContainer
 @onready var news_history: Panel = %NewsHistory
 @onready var news_paper_icon: TextureButton = %NewsPaperIcon
 @onready var warning_icon: TextureRect = %WarningIcon
+@onready var pulsar_title: Label = %PulsarTitle
+@onready var pulsar_logan_label: Label = %PulsarLoganLabel
 
 @export var scroll_speed_pixels_per_second: float = 100.0
 @export var scrolling_time: int = 2
@@ -48,6 +50,8 @@ func _ready() -> void:
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	infamy_stats.hide()
 	news_history.hide()
+	pulsar_title.text = tr("$PulsarTitle")
+	pulsar_logan_label.text = tr("$PulsarLogan")
 
 func _process(_delta: float) -> void:
 	if scroll_starting:
@@ -223,51 +227,13 @@ func _on_s_add_infamy(_infamy_value):
 
 func _on_infamy_icon_pressed() -> void:
 	show_infamy.emit()
-	#infamy_stats.visible = not infamy_stats.visible
-
-#func draw_infamy_stats():
-	#for effect in infamy_effects.get_children():
-		#effect.queue_free()
-	#
-	#treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
-	#var _hack_modifiers = StatsManager.hack_modifiers
-	#var _translations: Array = []
-	#
-	#for stat: StatsManager.Stats in _hack_modifiers:
-		#if _hack_modifiers[stat].is_empty():
-			#continue
-		#
-		#var hack_dicts = _hack_modifiers[stat]
-		#var value: float
-		#var has_value: bool = false
-		#for dict in hack_dicts:
-			#if dict["source"].begins_with("infamy_"):
-				#value = dict["value"] * 100
-				#has_value = true
-		#
-		#if not has_value:
-			#push_warning("Pas de valeur trouvée, pas normal ")
-			#return
-		#
-		#var value_str: String
-		#if value > 0:
-			#value_str = "+%s" % str(value)
-		#elif value < 0:
-			#value_str = "-%s" % str(abs(value))
-		#else:
-			#value_str = ""
-		#
-		#_translations.append(tr("hack_" + StatsManager.STATS_NAMES.get(stat)).format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str}))
-	#
-	#for trad in _translations:
-		#var bullet_label = BULLET_POINT.instantiate()
-		#infamy_effects.add_child(bullet_label)
-		#bullet_label.set_bullet_point(trad)
 
 func _draw():
 	infamy_value.text = str(StatsManager.infamy["current_value"])
 	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
-
+	pulsar_title.text = tr("$PulsarTitle")
+	pulsar_logan_label.text = tr("$PulsarLogan")
+	
 func _on_cheat_infamy_pressed() -> void:
 	StatsManager.add_infamy(5)
 
