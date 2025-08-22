@@ -10,11 +10,11 @@ extends Control
 @onready var settings_panel: Panel = %SettingsPanel
 @onready var country_container: HBoxContainer = %CountryContainer
 @onready var brain_halo_label: Label = %BrainHaloLabel
-@onready var brain_halo_check_box: CheckBox = %BrainHaloCheckBox
+@onready var brain_halo_check_box: CheckButton = %BrainHaloCheckBox
 
 
 @onready var safe_zone_label: Label = %SafeZoneLabel
-@onready var safe_zone_check_box: CheckBox = %SafeZoneCheckBox
+@onready var safe_zone_check_box: CheckButton = %SafeZoneCheckBox
 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 const LEARNIN_BRAIN_HALO_MATERIAL = preload("res://Game/Themes/LearninBrainHaloMaterial.tres")
