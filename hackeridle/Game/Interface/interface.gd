@@ -17,7 +17,9 @@ extends Control
 
 @onready var knowledge_resource: Control = %KnowledgeResource
 @onready var gold_resource: Control = %GoldResource
-@onready var sp_resource: Control = %SPResource
+@onready var cyber_force_resource: ResourceBox = %CyberForceResource
+
+
 @onready var date_label: Label = %DateLabel
 @onready var news_panel: PanelContainer = %NewsPanel
 @onready var navigator_box: TextureButton = %navigatorBox
@@ -41,14 +43,6 @@ const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#Pour la safe zone
-	#var safe_area = DisplayServer.get_display_safe_area()
-	#print("Safe area: ", safe_area)
-	#main_zone.offset_left = safe_area.position.x
-	#main_zone.offset_top = safe_area.position.y
-	#main_zone.offset_right = -(DisplayServer.screen_get_size().x - (safe_area.position.x + safe_area.size.x))
-	#main_zone.offset_bottom = -(DisplayServer.screen_get_size().y - (safe_area.position.y + safe_area.size.y))
-	#Global.apply_safe_area_to_ui(main_zone)  # -> active la safe zone
 	main_tab.current_tab = 0
 	connexions()
 	init_interface()
@@ -57,9 +51,10 @@ func connexions() -> void:
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	Player.s_earn_gold.connect(_on_earn_gold)
-	Player.s_earn_sp.connect(_on_earn_sp)
+	#Player.s_earn_sp.connect(_on_earn_sp)
 	Player.s_earn_brain_xp.connect(_on_earn_brain_xp)
 	Player.s_earn_brain_level.connect(_on_earn_brain_level)
+	Player.s_earn_cyber_force.connect(_on_earn_cyber_force)
 	
 	buttons_connexion()
 	shop.item_bought.connect(learning._on_shop_item_bought)
@@ -79,11 +74,19 @@ func buttons_connexion() -> void:
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
 	gold_resource.set_resource_box("GOLD")
-	sp_resource.set_resource_box("SP")
-	
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
-	sp_resource.refresh_value(int(Player.skill_point))
+	
+	#sp_resource.set_resource_box("SP")
+	#sp_resource.refresh_value(int(Player.skill_point))
+	
+	if Player.nb_of_rebirth > 0:
+		cyber_force_resource.show()
+		cyber_force_resource.set_resource_box("CF")
+		cyber_force_resource.refresh_value(Player.cyber_force)
+	else:cyber_force_resource.hide()
+		
+		
 	_on_s_brain_clicked(0,0)
 
 	self.hide()
@@ -129,7 +132,8 @@ func app_button_pressed(button_name:String):
 func refresh_specially_resources():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
-	sp_resource.refresh_value(int(Player.skill_point))
+	#sp_resource.refresh_value(int(Player.skill_point))
+	cyber_force_resource.refresh_value(Player.cyber_force)
 	
 
 	
@@ -141,13 +145,15 @@ func _on_earn_gold(point):
 	gold_resource.refresh_value(int(point))
 	get_tree().call_group("g_shop_item", "gold_refresh_shop_item")
 	
-func _on_earn_sp(point):
-	sp_resource.refresh_value(int(point))
+#func _on_earn_sp(point):
+	#sp_resource.refresh_value(int(point))
 	
 func _on_earn_brain_xp(_point):
 	learning.refresh_brain_xp_bar()
 func _on_earn_brain_level(point):
 	learning.current_brain_level.text = tr("$Level") + " " + str(point) 
+func _on_earn_cyber_force(point):
+	cyber_force_resource.refresh_value(point)
 	
 
 var _recent_clicks: Array = []  # Stocke des paires [timestamp, valeur]

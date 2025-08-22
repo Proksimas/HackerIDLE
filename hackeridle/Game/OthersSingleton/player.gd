@@ -39,8 +39,9 @@ signal s_gold_to_earn(number)
 signal s_earn_brain_xp(number)
 signal s_earn_sp(number)
 signal s_earn_brain_level(number)
+signal s_earn_cyber_force(number)
 signal s_brain_clicked(brain_xp, knowledge)
-signal s_gain_cyber_force(number)
+
 
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
@@ -96,7 +97,7 @@ func earn_brain_xp(earning):
 func earn_cyber_force(earning):
 	self.cyber_force += earning
 	cyber_force = clamp(cyber_force, 0, INF)
-	s_gain_cyber_force.emit(cyber_force)
+	s_earn_cyber_force.emit(cyber_force)
 	
 	
 func level_up():

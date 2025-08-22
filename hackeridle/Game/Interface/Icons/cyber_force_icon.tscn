@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf1uu8ngf7m51"]
+
+[ext_resource type="Texture2D" uid="uid://blqrxd3np7jwl" path="res://Game/Graphics/Common_icons/cyber_force.png" id="1_e8dc7"]
+
+[node name="cyber_force_icon" type="AspectRatioContainer"]
+anchors_preset = -1
+anchor_right = 0.0555556
+anchor_bottom = 0.03125
+size_flags_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_e8dc7")
+expand_mode = 1

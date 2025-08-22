@@ -142,6 +142,7 @@ grow_vertical = 2
 [node name="ResourcesContainer" type="HBoxContainer" parent="InterfacePanel/MainZone/Panel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="KnowledgeResource" parent="InterfacePanel/MainZone/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
@@ -153,7 +154,7 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SPResource" parent="InterfacePanel/MainZone/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
+[node name="CyberForceResource" parent="InterfacePanel/MainZone/Panel/VBoxContainer/ResourcesContainer" instance=ExtResource("5_ajfm1")]
 unique_name_in_owner = true
 layout_mode = 2
 
