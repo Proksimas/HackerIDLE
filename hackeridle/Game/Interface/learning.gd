@@ -101,6 +101,8 @@ func start_random_tween():
 	if current_tween and current_tween.is_valid():
 		current_tween.kill()
 
+	if clicker_button.material == null:
+		return
 	# Créer un nouveau Tween
 	current_tween = create_tween()
 	var shader_material = clicker_button.material

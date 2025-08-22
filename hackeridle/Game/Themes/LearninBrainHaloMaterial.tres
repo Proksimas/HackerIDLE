@@ -1,0 +1,18 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bptf626bujvmp"]
+
+[ext_resource type="Shader" path="res://Game/Themes/BrainHalo.gdshader" id="1_67kft"]
+[ext_resource type="Texture2D" uid="uid://tf44j5d2kso0" path="res://Game/Graphics/Brains/brain_neo.png" id="2_ay35s"]
+
+[resource]
+shader = ExtResource("1_67kft")
+shader_parameter/outline_color = Color(0.988659, 0.400082, 0.934145, 1)
+shader_parameter/glow_color = Color(0.916404, 0.00045782, 0.871647, 1)
+shader_parameter/outline_size = 10.0
+shader_parameter/glow_size = 40.0
+shader_parameter/glow_rings = 10
+shader_parameter/glow_falloff = 2.6
+shader_parameter/outline_opacity = 1.0
+shader_parameter/glow_opacity = 1.0
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/feather = 1.0
+shader_parameter/src_tex = ExtResource("2_ay35s")

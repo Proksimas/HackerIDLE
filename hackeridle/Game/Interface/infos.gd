@@ -9,13 +9,15 @@ extends Control
 @onready var settings_button: Button = %SettingsButton
 @onready var settings_panel: Panel = %SettingsPanel
 @onready var country_container: HBoxContainer = %CountryContainer
+@onready var brain_halo_label: Label = %BrainHaloLabel
+@onready var brain_halo_check_box: CheckBox = %BrainHaloCheckBox
 
 
 @onready var safe_zone_label: Label = %SafeZoneLabel
 @onready var safe_zone_check_box: CheckBox = %SafeZoneCheckBox
 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
-
+const LEARNIN_BRAIN_HALO_MATERIAL = preload("res://Game/Themes/LearninBrainHaloMaterial.tres")
 
 
 # Called when the node enters the scene tree for the first time.
@@ -110,16 +112,29 @@ func _on_safe_zone_check_box_pressed() -> void:
 	pass # Replace with function body.
 
 
+func _on_brain_halo_check_box_pressed() -> void:
+	enable_brain_halo(brain_halo_check_box.button_pressed)
+	
+	pass # Replace with function body.
+func enable_brain_halo(enable: bool = true):
+	var learning = get_tree().get_root().get_node("Main/Interface").learning
+	var clicker: TextureButton = learning.clicker_button
+	if enable:
+		clicker.material = LEARNIN_BRAIN_HALO_MATERIAL.duplicate()
+	else:
+		clicker.material = null
+		
+
 func _save_data():
 	var dict = {"language": TranslationServer.get_locale(),
-				"safe_area_enable": safe_zone_check_box.button_pressed}
+				"safe_area_enable": safe_zone_check_box.button_pressed,
+				"brain_halo_enable": brain_halo_check_box.button_pressed}
 	
 	return dict
 
 func _load_data(content: Dictionary):
 	TranslationServer.set_locale(content["language"])
 	var interface = get_tree().get_root().get_node("Main/Interface")
-	if content["safe_area_enable"]:
-		Global.apply_safe_area_to_ui(interface.main_zone, true)
-	else:
-		Global.apply_safe_area_to_ui(interface.main_zone, false)
+	Global.apply_safe_area_to_ui(interface.main_zone, content["safe_area_enable"])
+	enable_brain_halo(content["brain_halo_enable"])
+		

@@ -1,9 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=20 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_fecvy"]
 [ext_resource type="Texture2D" uid="uid://tf44j5d2kso0" path="res://Game/Graphics/Brains/brain_neo.png" id="3_d4svm"]
-[ext_resource type="Shader" path="res://Game/Themes/HaloGlow.gdshader" id="3_hhfgy"]
+[ext_resource type="Material" uid="uid://bptf626bujvmp" path="res://Game/Themes/LearninBrainHaloMaterial.tres" id="3_opijn"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="BitMap" uid="uid://cp1b146sgsnyh" path="res://Game/Graphics/Brains/brain_neo_mono.bmp" id="4_meble"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
@@ -32,20 +32,6 @@ draw_center = false
 bg_color = Color(0.878431, 0.423529, 0.972549, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_72uyu"]
-shader = ExtResource("3_hhfgy")
-shader_parameter/outline_color = Color(0.988659, 0.400082, 0.934145, 1)
-shader_parameter/glow_color = Color(0.916404, 0.00045782, 0.871647, 1)
-shader_parameter/outline_size = 10.0
-shader_parameter/glow_size = 40.0
-shader_parameter/glow_rings = 10
-shader_parameter/glow_falloff = 2.6
-shader_parameter/outline_opacity = 1.0
-shader_parameter/glow_opacity = 1.0
-shader_parameter/alpha_threshold = 0.1
-shader_parameter/feather = 1.0
-shader_parameter/src_tex = ExtResource("3_d4svm")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rul6f"]
 
@@ -179,7 +165,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="ClickerButton" type="TextureButton" parent="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC"]
 unique_name_in_owner = true
-material = SubResource("ShaderMaterial_72uyu")
+material = ExtResource("3_opijn")
 layout_mode = 2
 texture_normal = ExtResource("3_d4svm")
 texture_click_mask = ExtResource("4_meble")
