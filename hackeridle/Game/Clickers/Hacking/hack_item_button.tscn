@@ -129,10 +129,12 @@ script = ExtResource("4_dn8le")
 layout_mode = 2
 
 [node name="DurationLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Temps"
 
-[node name="DurationValue" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
+[node name="HackDuration" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "100"
 
@@ -144,6 +146,7 @@ size_flags_vertical = 4
 alignment = 2
 
 [node name="GoldLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "$Gain"
 
@@ -174,6 +177,7 @@ size_flags_vertical = 0
 layout_mode = 2
 
 [node name="LevelHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/lEVELContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "$Level"
@@ -202,6 +206,7 @@ custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "$Upgrade"
 

@@ -23,7 +23,11 @@ class_name HackItemButton
 @onready var main_margin_container: MarginContainer = %MainMarginContainer
 @onready var max_hack_item_level: Label = %MaxHackItemLevel
 @onready var cost_label: Label = %CostLabel
-
+@onready var duration_label: Label = %DurationLabel
+@onready var duration_value: Label = %DurationValue
+@onready var gold_label: Label = %GoldLabel
+@onready var level_hack_label: Label = %LevelHackLabel
+@onready var cost_hack_label: Label = %CostHackLabel
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
@@ -76,6 +80,7 @@ func set_hacking_item(item_name):
 	var _item_level = current_hack_item_cara["level"]
 
 	#le gain de abse correspond à ce qu'il y a dans la db
+	gold_label.text = tr("$Gain") + ": "
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
 	hack_item_texture.disabled = true
@@ -84,6 +89,7 @@ func set_hacking_item(item_name):
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
+	duration_label.text = tr("$Duration") + ": "
 	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 
@@ -97,9 +103,10 @@ func set_refresh(item_cara: Dictionary = {}):
 	!Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
 		return
 	
+	
 
 	var item_level = current_hack_item_cara["level"]
-
+	level_hack_label.text = tr("Level") + ": "
 	hack_item_level.text = Global.number_to_string(item_level) 
 	max_hack_item_level.text = " / " + str(Calculs.get_next_source_level(Player.get_associated_source(current_hack_item_cara["item_name"])))
 				
@@ -107,7 +114,7 @@ func set_refresh(item_cara: Dictionary = {}):
 	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,
 					Calculs.gain_gold(current_hack_item_cara["item_name"])))
 	
-	
+	duration_label.text = tr("$Duration") + ": "
 	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 	if current_hack_item_cara["level"] > 0 and not progress_activated:
 		hack_item_texture.disabled = false
@@ -155,6 +162,7 @@ func x_can_be_buy(_x_buy):
 		
 	# on tente de maj le prix ici
 	
+	cost_hack_label.text = tr("$Upgrade") + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
 	nbof_buy.text = "X " + str(quantity_to_buy)
 	
