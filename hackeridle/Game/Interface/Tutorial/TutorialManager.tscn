@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://gid0a4m0gc0d"]
+
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_manager.gd" id="1_xf2tf"]
+
+[node name="TutorialManager" type="Node"]
+script = ExtResource("1_xf2tf")

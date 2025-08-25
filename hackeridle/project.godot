@@ -28,6 +28,7 @@ StatsManager="*res://Game/OthersSingleton/stats_manager.tscn"
 Save="*res://Game/Saves/Save.tscn"
 TimeManager="*res://Game/OthersSingleton/time_manager.tscn"
 EventsManager="*res://Game/OthersSingleton/events_manager.tscn"
+TutorialManager="*res://Game/Interface/Tutorial/TutorialManager.tscn"
 
 [display]
 
