@@ -182,8 +182,10 @@ func _on_second_timer_timeout() -> void:
 
 func _on_s_date(array):
 	# array[year, month, day, hour, minute]
-	
 	date_label.text = str(array[0]) +  " - " + str(array[1]) + " - " + str(array[2])
+	#on calcul la probabilité d'aller en prison. On considière qu'on a une chance
+	#par mois d'aller en prison, donc proba prison / 31
+
 	
 @onready var dark_shop_warning_icon: TextureRect = %DarkShopWarningIcon
 func _on_s_wait_too_long(is_wainting):

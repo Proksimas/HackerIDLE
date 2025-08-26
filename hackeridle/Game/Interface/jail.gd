@@ -31,6 +31,7 @@ func enter_jail():
 	
 	TimeManager.game_seconds += years_in_jail *\
 		TimeManager.SECONDS_PER_DAY * TimeManager.DAYS_PER_YEAR
+	#on réinitialise l'infamy à 0
 	StatsManager.add_infamy(0-StatsManager.infamy["current_value"])
 	
 	# ICI ON AVAIT UN CODE QUI FIT ATTENDRE LE JOUEUR

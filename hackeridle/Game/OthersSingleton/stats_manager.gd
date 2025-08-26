@@ -171,7 +171,7 @@ func calcul_hack_stat(stat_name: Stats, earning) -> float:
 	var calcul = ((base + earning) * (1 + perc)) + flat
 	return calcul
 	
-func  get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
+func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 	var modifier_dict: Dictionary
 	match target_modifier:
 		TargetModifier.GLOBAL:
