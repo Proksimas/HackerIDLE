@@ -20,7 +20,7 @@ enum ValidationType {
 @export var validation_type: ValidationType
 
 # Paramètres pour ValidationType.INPUT
-@export var input_action: String = "ui_accept"         # Ex: "ui_accept", "jump"
+#@export var input_action: String = "ui_accept"         # Ex: "ui_accept", "jump"
 
 # Paramètres pour ValidationType.SCORE
 @export var required_score_value: int = 0              # Valeur à atteindre

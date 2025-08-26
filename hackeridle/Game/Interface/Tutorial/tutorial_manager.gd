@@ -37,6 +37,9 @@ func start_tutorial():
 
 func show_current_step():
 	set_process_input(false)
+	if current_step_index > 0:
+		disconnect_step_signals(tutorial_steps[current_step_index - 1])
+	
 	if current_step_index >= tutorial_steps.size():
 		# Toutes les étapes sont terminées
 		complete_tutorial()
@@ -70,9 +73,19 @@ func connect_step_signals(step: TutorialStep):
 			set_process_input(true)
 		TutorialStep.ValidationType.SCORE:
 			# Assurez-vous d'avoir un nœud qui émet un signal de mise à jour du score
-			var score_manager = get_node_or_null("/root/ScoreManager")
-			if is_instance_valid(score_manager):
-				score_manager.connect("score_updated", Callable(self, "_on_score_updated"))
+			match step.score_variable_name:
+				"knowledge":
+					if !Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
+						Player.s_earn_knowledge_point.connect(self._on_point_receive)
+				"gold":
+					if !Player.s_earn_gold.is_connected(self._on_point_receive):
+						Player.s_earn_gold.connect(self._on_point_receive)
+				"brain_level":
+					if !Player.s_earn_brain_level.is_connected(self._on_point_receive):
+						Player.s_earn_brain_level.connect(self._on_point_receive)
+						
+						
+					
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node) and not target_node.is_connected(step.target_signal_name, Callable(self, "go_to_next_step")):
@@ -82,6 +95,11 @@ func connect_step_signals(step: TutorialStep):
 			# peut sonder la condition ou un autre script peut appeler go_to_next_step()
 			pass
 
+func _on_point_receive(point_receive):
+	var current_step = tutorial_steps[current_step_index]
+	print("on reçoit: %s %s" % [point_receive, point_receive.score_variable_name])
+	if point_receive >= current_step.required_score_value:
+		go_to_next_step()
 
 
 func disconnect_step_signals(step: TutorialStep):
@@ -89,9 +107,19 @@ func disconnect_step_signals(step: TutorialStep):
 		TutorialStep.ValidationType.INPUT:
 			set_process_input(false)
 		TutorialStep.ValidationType.SCORE:
-			var score_manager = get_node_or_null("/root/ScoreManager")
-			if is_instance_valid(score_manager) and score_manager.is_connected("score_updated", Callable(self, "_on_score_updated")):
-				score_manager.disconnect("score_updated", Callable(self, "_on_score_updated"))
+			match step.score_variable_name:
+				"knowledge":
+					if Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
+						Player.s_earn_knowledge_point.disconnect(self._on_point_receive)
+				"gold":
+					if Player.s_earn_gold.is_connected(self._on_point_receive):
+						Player.s_earn_gold.disconnect(self._on_point_receive)
+				"brain_level":
+					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
+						Player.s_earn_brain_level.disconnect(self._on_point_receive)
+
+					
+
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node) and target_node.is_connected(step.target_signal_name, Callable(self, "go_to_next_step")):
@@ -100,17 +128,11 @@ func disconnect_step_signals(step: TutorialStep):
 				
 
 func _input(event: InputEvent):
+	"""Gere le cas où on a cliqué sur l'écran pour passer"""
 	var current_step = tutorial_steps[current_step_index]
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		print("event")
-	
 		if current_step.validation_type == TutorialStep.ValidationType.INPUT:
 			go_to_next_step()
-
-func _on_score_updated(variable_name: String, value: int):
-	var current_step = tutorial_steps[current_step_index]
-	if current_step.validation_type == TutorialStep.ValidationType.SCORE and current_step.score_variable_name == variable_name and value >= current_step.required_score_value:
-		go_to_next_step()
 
 func go_to_next_step():
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
