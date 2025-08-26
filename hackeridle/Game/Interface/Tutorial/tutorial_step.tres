@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ckjaedpu5pm81"]
+
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_eum6d"]
+
+[resource]
+script = ExtResource("1_eum6d")

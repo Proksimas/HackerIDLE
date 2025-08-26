@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://gid0a4m0gc0d"]
+[gd_scene load_steps=3 format=3 uid="uid://gid0a4m0gc0d"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_manager.gd" id="1_xf2tf"]
+[ext_resource type="Resource" uid="uid://c3l8jn6qtn864" path="res://Game/Interface/Tutorial/TutorialSteps/tuto_step_1.tres" id="2_mfqdl"]
 
 [node name="TutorialManager" type="Node"]
 script = ExtResource("1_xf2tf")
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+unique_name_in_owner = true
+resources = [PackedStringArray("tuto_step_a_1"), [ExtResource("2_mfqdl")]]

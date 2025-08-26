@@ -36,10 +36,8 @@ func _on_s_last_before_finished(interface, introduction):
 	
 func _on_introduction_tween_finished(introduction_node):
 	introduction_node.hide()
-	get_tree().get_root().get_node("Main/Interface").show()
-	TimeManager.adjust_session_minutes()
-	TimeManager.reset()
 	introduction_node.queue_free()
+	get_parent().introduction_finished() #On dit au main que l'intro est terminée.
 
 
 func _on_s_skip_introduction_(introduction, interface):

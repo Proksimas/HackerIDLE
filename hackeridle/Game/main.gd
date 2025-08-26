@@ -3,6 +3,7 @@ extends Node
 @onready var scenarios_manager: Node = %ScenariosManager
 
 @export var force_new_game: bool = false
+@export var active_tutorial: bool = false
 const INTERFACE = preload("res://Game/Interface/Interface.tscn")
 
 const TRANSLATION_KEYS = ["fr", "en"]
@@ -43,6 +44,14 @@ func new_game():
 	fill_player_stats()
 	var interface = load_interface()
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
+	
+	
+func introduction_finished():
+	"""L'introduction est terminée. L'interface a été chargée"""
+	get_node("Interface").show()
+	TimeManager.adjust_session_minutes()
+	TimeManager.reset()
+	TutorialManager.start_tutorial()
 
 func rebirth():
 	"""on ne garde que:
