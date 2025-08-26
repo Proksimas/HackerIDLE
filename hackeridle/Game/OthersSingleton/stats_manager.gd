@@ -115,7 +115,8 @@ func get_modifier_by_source_name(target_modifier:TargetModifier, stat_name: Stat
 			
 func current_stat_calcul(target_modifier:TargetModifier, stat_name: Stats) -> float:
 	"""Renvoie la valeur de la stat demandée, après calcul de tous les modificateurs
-	agissant spécifiquement sur cette stat selon le modificateur demandé"""
+	ATTENTION: Ne marche pas pour le % en prison, ces derniers etant uniquement un cumul
+	des pourcentage"""
 	var modifier_dict = get_accurate_modifier(target_modifier)
 
 	var perc = 0.0
@@ -181,6 +182,15 @@ func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 		TargetModifier.HACK:
 			modifier_dict = hack_modifiers
 	return modifier_dict
+	
+func get_jail_perc() -> float:
+	"""renvoi la chance d'aller en prison. On va juste additionner les percentages
+	car on doit avoir uniquement des perc"""
+	var tot_perc:float = 0.0
+	for value in hack_modifiers[Stats.JAIL]:
+		tot_perc += value["value"]
+	return tot_perc
+	
 func _show_stats_modifiers(stat_name: Stats):
 	var for_global_modifiers = { "percentage": [],
 		"base": [],
@@ -231,7 +241,7 @@ func add_infamy(_earning: float):
 	if infamy["current_value"] == 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
-		print_debug("infamy >= 100")
+
 		return
 		
 	if old_treshold != new_treshold:

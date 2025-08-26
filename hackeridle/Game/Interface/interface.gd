@@ -183,9 +183,18 @@ func _on_second_timer_timeout() -> void:
 func _on_s_date(array):
 	# array[year, month, day, hour, minute]
 	date_label.text = str(array[0]) +  " - " + str(array[1]) + " - " + str(array[2])
-	#on calcul la probabilité d'aller en prison. On considière qu'on a une chance
-	#par mois d'aller en prison, donc proba prison / 31
 
+	var jail_proba = (StatsManager.get_jail_perc() * 100)
+	if jail_proba == 0: 
+		return
+	jail_proba = jail_proba / 31.0
+	randomize()
+	var rng = randf_range(0, 100)
+	if jail_proba >  rng:
+		app_button_pressed("jail")
+		
+	#print(StatsManager.hack_modifiers)
+	#StatsManager._show_stats_modifiers(StatsManager.Stats.JAIL)
 	
 @onready var dark_shop_warning_icon: TextureRect = %DarkShopWarningIcon
 func _on_s_wait_too_long(is_wainting):
