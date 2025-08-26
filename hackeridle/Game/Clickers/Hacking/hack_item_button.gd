@@ -158,7 +158,8 @@ func x_can_be_buy(_x_buy):
 		
 	# on tente de maj le prix ici
 	
-	cost_hack_label.text = tr("$Upgrade") + ": "
+	cost_hack_label.text = tr("$Cost") + ": +" + str(_x_buy)
+	#cost_hack_label.text = "+ " + str(_x_buy) + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
 	
 	#Puis on met à jour le prix de l'item

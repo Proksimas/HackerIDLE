@@ -22,7 +22,7 @@ var years_in_jail: int = 0
 
 func enter_jail():
 	self.show()
-
+	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
 	is_in_jail = true
 
 	years_in_jail = randi_range(min_year_in_jail, max_year_i_jail)
@@ -31,7 +31,17 @@ func enter_jail():
 	
 	TimeManager.game_seconds += years_in_jail *\
 		TimeManager.SECONDS_PER_DAY * TimeManager.DAYS_PER_YEAR
+	#on réinitialise l'infamy à 0
 	StatsManager.add_infamy(0-StatsManager.infamy["current_value"])
+	# on met le jeu en pause juste pour que le joueur ne clic pas ailleurs sas faire exprès
+	# mais le node actuel ne doit pas!
+	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
+	get_tree().paused = true
+	await get_tree().create_timer(5).timeout
+	get_tree().paused = false
+	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
+	
+	
 	
 	# ICI ON AVAIT UN CODE QUI FIT ATTENDRE LE JOUEUR
 	#var wait_time_in_jail = randf_range(min_time_in_jail, max_time_in_jail)

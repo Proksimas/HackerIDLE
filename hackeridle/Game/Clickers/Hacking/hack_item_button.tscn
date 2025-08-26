@@ -208,9 +208,8 @@ layout_mode = 2
 
 [node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
-text = "$Upgrade"
+text = "$Cost + X"
 
 [node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]
 unique_name_in_owner = true
@@ -238,6 +237,7 @@ theme_override_constants/separation = 12
 theme_override_styles/separator = SubResource("StyleBoxEmpty_0g4bk")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
