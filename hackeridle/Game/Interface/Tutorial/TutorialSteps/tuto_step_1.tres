@@ -6,14 +6,10 @@
 script = ExtResource("1_lw5p0")
 text_translation_key = "tuto_step_1"
 pos = Vector2(150, 300)
-pause_game = true
-validation_type = 1
+pause_game = false
+validation_type = 0
 input_action = ""
 required_score_value = 10
 score_variable_name = "knowledge"
-target_node_path = NodePath("")
 target_signal_name = ""
 custom_check_function = ""
-custom_check_target = NodePath("")
-on_step_start_function = ""
-on_step_end_function = ""

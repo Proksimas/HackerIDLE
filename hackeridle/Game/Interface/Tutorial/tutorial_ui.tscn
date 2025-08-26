@@ -6,21 +6,21 @@
 bg_color = Color(0, 0, 0.203922, 1)
 
 [node name="TutorialUI" type="PanelContainer"]
+process_mode = 3
 z_index = 300
 anchors_preset = -1
-anchor_right = 0.608475
-anchor_bottom = 0.0179969
-offset_bottom = 52.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.508475
+anchor_bottom = 0.0782473
 script = ExtResource("1_h3atr")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextLabel" type="Label" parent="."]
 unique_name_in_owner = true
+process_mode = 3
 custom_minimum_size = Vector2(300, 100)
 layout_mode = 2
 size_flags_vertical = 1
+mouse_force_pass_scroll_events = false
 theme_override_styles/normal = SubResource("StyleBoxFlat_1a1ga")
 text = "Je suis un text quiemlfc;
 et là 
@@ -28,3 +28,5 @@ je suis vertic"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

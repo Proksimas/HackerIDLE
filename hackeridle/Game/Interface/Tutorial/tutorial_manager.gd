@@ -14,11 +14,12 @@ var current_step_index: int = 0
 var game_paused_by_tutorial: bool = false
 
 var tutorial_finished: bool = false
-
+var current_tutorial_ui: TutorialUI
 
 signal tutorial_completed
 
 func _ready():
+	set_process_input(false)
 	var tutorial_steps_name = resource_preloader.get_resource_list()
 	for tutorial_name in tutorial_steps_name:
 		tutorial_steps.append(resource_preloader.get_resource(tutorial_name))
@@ -30,10 +31,12 @@ func start_tutorial():
 		print("Aucune étape de tutoriel n'est définie.")
 		return
 
+	
 	current_step_index = 0
 	show_current_step()
 
 func show_current_step():
+	set_process_input(false)
 	if current_step_index >= tutorial_steps.size():
 		# Toutes les étapes sont terminées
 		complete_tutorial()
@@ -41,21 +44,11 @@ func show_current_step():
 
 	var current_step = tutorial_steps[current_step_index]
 
-	## --- Étape 1 : Gérer la logique de l'étape précédente ---
-	#if current_step_index > 0:
-		#var previous_step = tutorial_steps[current_step_index - 1]
-		#disconnect_step_signals(previous_step)
-		#
-		## Appelle la fonction de fin d'étape si elle est définie
-		#if not previous_step.on_step_end_function.is_empty():
-			#call_function_on_node(previous_step.on_step_end_function, previous_step.custom_check_target)
-			#
-			
-
 
 	var new_ui =  TUTORIAL_UI.instantiate()
 	self.add_child(new_ui)
 	new_ui.set_tutorial_ui(current_step.text_translation_key, current_step.pos)
+	current_tutorial_ui = new_ui
 	# Reste à connecter le signal de finished
 
 	# --- Étape 3 : Gérer la pause du jeu ---
@@ -66,18 +59,14 @@ func show_current_step():
 		get_tree().paused = false
 		game_paused_by_tutorial = false
 
-
-	return
-	# --- Étape 4 : Écouter les événements de validation ---
+	
 	connect_step_signals(current_step)
 
-	# --- Étape 5 : Appeler la fonction de début d'étape si elle est définie ---
-	if not current_step.on_step_start_function.is_empty():
-		call_function_on_node(current_step.on_step_start_function, current_step.custom_check_target)
 
 func connect_step_signals(step: TutorialStep):
 	match step.validation_type:
-		TutorialStep.ValidationType.INPUT:
+		TutorialStep.ValidationType.INPUT: #input = next_step
+			#tutorial_ui.tutorial_step_finished()
 			set_process_input(true)
 		TutorialStep.ValidationType.SCORE:
 			# Assurez-vous d'avoir un nœud qui émet un signal de mise à jour du score
@@ -92,6 +81,8 @@ func connect_step_signals(step: TutorialStep):
 			# Ici, la validation sera manuelle. Par exemple, une fonction _process()
 			# peut sonder la condition ou un autre script peut appeler go_to_next_step()
 			pass
+
+
 
 func disconnect_step_signals(step: TutorialStep):
 	match step.validation_type:
@@ -110,8 +101,11 @@ func disconnect_step_signals(step: TutorialStep):
 
 func _input(event: InputEvent):
 	var current_step = tutorial_steps[current_step_index]
-	if current_step.validation_type == TutorialStep.ValidationType.INPUT and event.is_action_pressed(current_step.input_action):
-		go_to_next_step()
+	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		print("event")
+	
+		if current_step.validation_type == TutorialStep.ValidationType.INPUT:
+			go_to_next_step()
 
 func _on_score_updated(variable_name: String, value: int):
 	var current_step = tutorial_steps[current_step_index]
@@ -119,6 +113,7 @@ func _on_score_updated(variable_name: String, value: int):
 		go_to_next_step()
 
 func go_to_next_step():
+	current_tutorial_ui.call_deferred("tutorial_step_finished")
 	print("Étape ", current_step_index, " terminée.")
 	current_step_index += 1
 	show_current_step()

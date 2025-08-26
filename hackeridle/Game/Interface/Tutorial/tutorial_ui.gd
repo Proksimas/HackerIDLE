@@ -1,6 +1,9 @@
 extends PanelContainer
+class_name TutorialUI
+
 
 @onready var text_label: Label = %TextLabel
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,5 +17,6 @@ func set_tutorial_ui(_text: String, _pos: Vector2):
 	
 	
 func tutorial_step_finished():
-	
+	self.hide()
+	self.queue_free()
 	pass
