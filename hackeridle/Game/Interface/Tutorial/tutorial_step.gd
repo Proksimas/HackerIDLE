@@ -30,3 +30,21 @@ enum ValidationType {
 
 # Paramètres pour ValidationType.CUSTOM_CHECK
 @export var custom_check_function: String = ""         # Nom de la fonction à appeler pour la validation
+
+@export_category("Arrows")
+@export var no_arrow: bool = true
+@export var center_down: bool = false
+@export var right_down: bool = false
+@export var left_down: bool = false
+
+func get_show_arrows() -> String:
+	if no_arrow:
+		return "no_arrow"
+	elif center_down:
+		return "center_down"
+	elif right_down:
+		return "right_down"
+	elif left_down:
+		return "left_down"
+	else:
+		return "error_arrows"

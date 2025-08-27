@@ -49,7 +49,7 @@ func show_current_step():
 
 	var new_ui =  TUTORIAL_UI.instantiate()
 	self.add_child(new_ui)
-	new_ui.set_tutorial_ui(current_step.text_translation_key, current_step.pos)
+	new_ui.set_tutorial_ui(current_step.text_translation_key, current_step.pos, current_step.get_show_arrows())
 	current_tutorial_ui = new_ui
 	# Reste à connecter le signal de finished
 

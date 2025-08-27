@@ -5,10 +5,14 @@
 [resource]
 script = ExtResource("1_pfems")
 text_translation_key = "tutorial_step_1"
-pos = Vector2(115, 335)
+pos = Vector2(150, 335)
 pause_game = false
 validation_type = 1
 required_score_value = 10
 score_variable_name = "knowledge"
 target_signal_name = ""
 custom_check_function = ""
+no_arrow = true
+center_down = false
+right_down = false
+left_down = false
