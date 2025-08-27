@@ -20,16 +20,21 @@ enum ValidationType {
 # --- Section Validation (pour le TutorialManager) ---
 @export var validation_type: ValidationType
 
-# Paramètres pour ValidationType.INPUT
-#@export var input_action: String = "ui_accept"         # Ex: "ui_accept", "jump"
 
+@export_category("SCORE")
 # Paramètres pour ValidationType.SCORE
 @export var required_score_value: int = 0              # Valeur à atteindre
 @export var score_variable_name: String = ""           # Nom de la variable à surveiller (ex: "gold", "experience")
 
+@export_category("SIGNAL")
 @export var target_node_path: String = ""
 @export var target_signal_name: String = ""            # Nom du signal à écouter (ex: "jumped", "enemy_killed")
 
+@export_category("GROUP")
+@export var group_call_name: String = ""    #nom du groupe a appeler
+@export var group_call_signal: String = ""  # signal qu'on connecte au groupe, pour attendre sa reception
+
+@export_category("CUSTOM")
 # Paramètres pour ValidationType.CUSTOM_CHECK
 @export var custom_check_function: String = ""         # Nom de la fonction à appeler pour la validation
 
@@ -42,8 +47,9 @@ enum ValidationType {
 @export var right_up: bool = false
 @export var left_up: bool = false
 
-@export_category("Commentaire")
+@export_category("COMMENTAIRE")
 @export var commentaire: String
+
 func get_show_arrows() -> String:
 	if no_arrow:
 		return "no_arrow"

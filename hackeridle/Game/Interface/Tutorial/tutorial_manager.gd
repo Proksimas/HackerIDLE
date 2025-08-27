@@ -82,8 +82,6 @@ func connect_step_signals(step: TutorialStep):
 					if !Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.connect(self._on_point_receive)
 						
-						
-					
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node):
@@ -94,6 +92,13 @@ func connect_step_signals(step: TutorialStep):
 			else:
 				push_error("Le target_node n'est pas valide. Vérifier le chemin absolu")
 				
+		TutorialStep.ValidationType.GROUP:
+			#On connecte le signal des membres du groupe, et on attend de voir leur émission
+			var nodes_in_group = get_tree().get_nodes_in_group(step.group_call_name)
+			for node in nodes_in_group:
+				if !node.is_connected(step.group_call_signal, go_to_next_step):
+					node.connect(step.group_call_signal, go_to_next_step)
+					
 		TutorialStep.ValidationType.CUSTOM_CHECK:
 			# Ici, la validation sera manuelle. Par exemple, une fonction _process()
 			# peut sonder la condition ou un autre script peut appeler go_to_next_step()
@@ -122,14 +127,12 @@ func disconnect_step_signals(step: TutorialStep):
 					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.disconnect(self._on_point_receive)
 
-					
-
+				
 		TutorialStep.ValidationType.SIGNAL:
-			var target_node = get_node_or_null(step.target_node_path)
-			if is_instance_valid(target_node) and target_node.is_connected(step.target_signal_name, Callable(self, "go_to_next_step")):
-				target_node.disconnect(step.target_signal_name, Callable(self, "go_to_next_step"))
-				
-				
+			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
+			if is_instance_valid(target_node):
+				if !target_node.is_connected(step.target_signal_name, go_to_next_step):
+					target_node.disconnect(step.target_signal_name, go_to_next_step)
 
 func _input(event: InputEvent):
 	"""Gere le cas où on a cliqué sur l'écran pour passer"""
