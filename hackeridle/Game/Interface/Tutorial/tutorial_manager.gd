@@ -127,7 +127,6 @@ func disconnect_step_signals(step: TutorialStep):
 
 func _input(event: InputEvent):
 	"""Gere le cas où on a cliqué sur l'écran pour passer"""
-	print(event)
 	var current_step = tutorial_steps[current_step_index]
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
 		if current_step.validation_type == TutorialStep.ValidationType.INPUT:

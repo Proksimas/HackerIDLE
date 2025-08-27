@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_pfems")
 text_translation_key = "tutorial_step_1"
-pos = Vector2(150, 300)
+pos = Vector2(115, 335)
 pause_game = false
 validation_type = 1
 required_score_value = 10

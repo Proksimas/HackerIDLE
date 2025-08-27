@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dijdj41avboq8"]
+[gd_scene load_steps=4 format=3 uid="uid://dijdj41avboq8"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_ui.gd" id="1_h3atr"]
+[ext_resource type="Texture2D" uid="uid://bxmc11a71jdm2" path="res://Game/Graphics/Common_icons/arrow.png" id="2_cp6r7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1a1ga"]
 bg_color = Color(0, 0, 0.203922, 1)
@@ -37,5 +38,64 @@ text = "Je suis un text quiemlfc FJEKLFDJERZKLJ ELEJKD JE DZELJ ZELKDJZ QLJ"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="Arrows" type="Control" parent="TextLabel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ArrowCenterDown" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = 0.96
+anchor_right = 0.56
+anchor_bottom = 1.52
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ArrowRightDown" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.94
+anchor_top = 1.12
+anchor_right = 1.12385
+anchor_bottom = 1.17657
+offset_right = -25.5391
+offset_bottom = 50.3432
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -0.785398
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ArrowLeftDown" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.0341421
+anchor_top = 0.8
+anchor_right = -0.0341421
+anchor_bottom = 1.53539
+offset_left = 5.65686
+offset_right = 53.6569
+offset_bottom = -17.5391
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 0.785398
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [connection signal="gui_input" from="." to="." method="_on_gui_input"]

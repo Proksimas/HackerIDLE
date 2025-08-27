@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_ku5v2")
 text_translation_key = "tutorial_step_2"
-pos = null
+pos = Vector2(115, 80)
 pause_game = true
 validation_type = 0
 required_score_value = 0
