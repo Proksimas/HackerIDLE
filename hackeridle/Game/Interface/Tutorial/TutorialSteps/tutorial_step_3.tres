@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://dqdkjx6m1axun"]
+
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_26gpb"]
+
+[resource]
+script = ExtResource("1_26gpb")
+text_translation_key = "tutorial_step_3"
+pos = null
+pause_game = false
+validation_type = 1
+required_score_value = 100
+score_variable_name = "knowledge"
+target_signal_name = ""
+custom_check_function = ""

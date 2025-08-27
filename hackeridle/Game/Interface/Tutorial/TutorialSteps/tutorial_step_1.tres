@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://c3l8jn6qtn864"]
 
-[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_lw5p0"]
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_pfems"]
 
 [resource]
-script = ExtResource("1_lw5p0")
-text_translation_key = "tuto_step_1"
+script = ExtResource("1_pfems")
+text_translation_key = "tutorial_step_1"
 pos = Vector2(150, 300)
 pause_game = false
 validation_type = 1

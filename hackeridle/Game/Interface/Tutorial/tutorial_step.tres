@@ -1,6 +1,14 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ckjaedpu5pm81"]
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://ckjaedpu5pm81"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_eum6d"]
 
 [resource]
 script = ExtResource("1_eum6d")
+text_translation_key = ""
+pos = null
+pause_game = false
+validation_type = 0
+required_score_value = 0
+score_variable_name = ""
+target_signal_name = ""
+custom_check_function = ""

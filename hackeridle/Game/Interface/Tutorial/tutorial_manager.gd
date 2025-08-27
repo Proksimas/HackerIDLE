@@ -36,7 +36,6 @@ func start_tutorial():
 	show_current_step()
 
 func show_current_step():
-	set_process_input(false)
 	if current_step_index > 0:
 		disconnect_step_signals(tutorial_steps[current_step_index - 1])
 	
@@ -69,7 +68,6 @@ func show_current_step():
 func connect_step_signals(step: TutorialStep):
 	match step.validation_type:
 		TutorialStep.ValidationType.INPUT: #input = next_step
-			#tutorial_ui.tutorial_step_finished()
 			set_process_input(true)
 		TutorialStep.ValidationType.SCORE:
 			# Assurez-vous d'avoir un nœud qui émet un signal de mise à jour du score
@@ -129,6 +127,7 @@ func disconnect_step_signals(step: TutorialStep):
 
 func _input(event: InputEvent):
 	"""Gere le cas où on a cliqué sur l'écran pour passer"""
+	print(event)
 	var current_step = tutorial_steps[current_step_index]
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
 		if current_step.validation_type == TutorialStep.ValidationType.INPUT:
