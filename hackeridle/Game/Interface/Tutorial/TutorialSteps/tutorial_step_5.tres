@@ -5,13 +5,15 @@
 [resource]
 script = ExtResource("1_s1m4b")
 text_translation_key = "tutorial_step_5"
-pos = Vector2(150, 580)
+pos = Vector2(150, 550)
 pause_game = false
 validation_type = 2
 required_score_value = 0
 score_variable_name = ""
 target_node_path = "Player"
 target_signal_name = "s_add_hacking_item"
+group_call_name = ""
+group_call_signal = ""
 custom_check_function = ""
 no_arrow = false
 center_down = false
