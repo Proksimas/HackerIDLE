@@ -43,6 +43,7 @@ signal s_earn_cyber_force(number)
 signal s_brain_clicked(brain_xp, knowledge)
 
 signal s_add_hacking_item()
+signal s_add_learning_item()
 
 
 func _ready() -> void:
@@ -122,7 +123,7 @@ func get_brain_xp(level_asked):
 	return round(base_xp * pow(xp_factor, level_asked))
 	
 func add_learning_item(item_cara:Dictionary):
-
+	s_add_learning_item.emit()
 	var dict_to_store = item_cara.duplicate()
 	#on oublie de mettre le niveau à jour
 	dict_to_store["level"] = 1
