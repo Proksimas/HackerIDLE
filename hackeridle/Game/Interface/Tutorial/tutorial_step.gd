@@ -8,6 +8,7 @@ enum ValidationType {
 	INPUT,       # Validation par une touche ou un clic
 	SCORE,       # Validation par un nombre de points (ex: or, XP)
 	SIGNAL,      # Validation par l'émission d'un signal (ex: saut, ennemi vaincu)
+	GROUP,       # On reçoit le signal d'un groupe
 	CUSTOM_CHECK # Validation via une fonction personnalisée (pour plus de flexibilité)
 }
 
@@ -37,7 +38,12 @@ enum ValidationType {
 @export var center_down: bool = false
 @export var right_down: bool = false
 @export var left_down: bool = false
+@export var center_up: bool = false
+@export var right_up: bool = false
+@export var left_up: bool = false
 
+@export_category("Commentaire")
+@export var commentaire: String
 func get_show_arrows() -> String:
 	if no_arrow:
 		return "no_arrow"
@@ -47,5 +53,11 @@ func get_show_arrows() -> String:
 		return "right_down"
 	elif left_down:
 		return "left_down"
+	elif center_up:
+		return "center_up"
+	elif right_up:
+		return "right_up"
+	elif left_up:
+		return "left_up"
 	else:
 		return "error_arrows"

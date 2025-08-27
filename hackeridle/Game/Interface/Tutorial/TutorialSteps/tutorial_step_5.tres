@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://di5h8dif8f1pu"]
+
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_s1m4b"]
+
+[resource]
+script = ExtResource("1_s1m4b")
+text_translation_key = "tutorial_step_5"
+pos = Vector2(150, 580)
+pause_game = false
+validation_type = 2
+required_score_value = 0
+score_variable_name = ""
+target_node_path = "Player"
+target_signal_name = "s_add_hacking_item"
+custom_check_function = ""
+no_arrow = false
+center_down = false
+right_down = false
+left_down = false
+center_up = true
+right_up = false
+left_up = false
+commentaire = ""

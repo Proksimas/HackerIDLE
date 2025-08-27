@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://gid0a4m0gc0d"]
+[gd_scene load_steps=7 format=3 uid="uid://gid0a4m0gc0d"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_manager.gd" id="1_xf2tf"]
 [ext_resource type="Resource" uid="uid://c3l8jn6qtn864" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_1.tres" id="2_mfqdl"]
 [ext_resource type="Resource" uid="uid://c1ll58gss7n4g" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_2.tres" id="3_1v3sf"]
 [ext_resource type="Resource" uid="uid://dqdkjx6m1axun" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_3.tres" id="4_vlhin"]
 [ext_resource type="Resource" uid="uid://dmmxmf0o380op" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_4.tres" id="5_f7p7o"]
+[ext_resource type="Resource" uid="uid://di5h8dif8f1pu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_5.tres" id="6_rakjh"]
 
 [node name="TutorialManager" type="Node"]
 process_mode = 3
@@ -12,4 +13,4 @@ script = ExtResource("1_xf2tf")
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 unique_name_in_owner = true
-resources = [PackedStringArray("tutorial_step_1", "tutorial_step_2", "tutorial_step_3", "tutorial_step_4"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_vlhin"), ExtResource("5_f7p7o")]]
+resources = [PackedStringArray("tutorial_step_1", "tutorial_step_2", "tutorial_step_3", "tutorial_step_4", "tutorial_step_5"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_vlhin"), ExtResource("5_f7p7o"), ExtResource("6_rakjh")]]

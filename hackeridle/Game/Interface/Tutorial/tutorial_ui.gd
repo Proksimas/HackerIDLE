@@ -7,6 +7,9 @@ class_name TutorialUI
 @onready var arrow_center_down: TextureRect = %ArrowCenterDown
 @onready var arrow_right_down: TextureRect = %ArrowRightDown
 @onready var arrow_left_down: TextureRect = %ArrowLeftDown
+@onready var arrow_center_up: TextureRect = %ArrowCenterUp
+@onready var arrow_right_up: TextureRect = %ArrowRightUp
+@onready var arrow_left_up: TextureRect = %ArrowLeftUp
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +32,12 @@ func set_tutorial_ui(_text: String, _pos: Vector2, arrow_show: String = "no_arro
 			arrow_right_down.show()
 		"left_down":
 			arrow_left_down.show()
+		"center_up":
+			arrow_center_up.show()
+		"right_up":
+			arrow_right_up.show()
+		"left_up":
+			arrow_left_up.show()
 	
 func hide_arrows():
 	for arrow in arrows.get_children():

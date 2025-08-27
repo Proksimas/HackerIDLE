@@ -42,6 +42,8 @@ signal s_earn_brain_level(number)
 signal s_earn_cyber_force(number)
 signal s_brain_clicked(brain_xp, knowledge)
 
+signal s_add_hacking_item()
+
 
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
@@ -159,7 +161,7 @@ func change_learning_property_value(item_name: String, property: String, value):
 	learning_item_bought[item_name][property] = value
 
 func add_hacking_item(item_cara: Dictionary):
-
+	s_add_hacking_item.emit()
 	var dict_to_store = item_cara.duplicate()
 	#dict_to_store['level'] = 1
 
@@ -176,7 +178,7 @@ func add_hacking_item(item_cara: Dictionary):
 			if items_name.size() > pos + 1:
 				var next_item_name = items_name[pos + 1]
 				Player.hacking_item_statut[next_item_name] = "to_unlocked"
-		
+	
 func add_source(source_cara: Dictionary):
 	var dict_to_store = source_cara.duplicate()
 	sources_item_bought[source_cara['source_name']] = dict_to_store

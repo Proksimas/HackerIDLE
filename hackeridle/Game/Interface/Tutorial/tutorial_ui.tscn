@@ -62,6 +62,20 @@ texture = ExtResource("2_cp6r7")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="ArrowCenterUp" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.44
+anchor_top = -0.4
+anchor_right = 0.546667
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+flip_v = true
+metadata/_edit_use_anchors_ = true
+
 [node name="ArrowRightDown" type="TextureRect" parent="TextLabel/Arrows"]
 unique_name_in_owner = true
 layout_mode = 1
@@ -75,6 +89,23 @@ offset_bottom = 34.3431
 grow_horizontal = 2
 grow_vertical = 0
 rotation = -0.785398
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ArrowRightUp" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.03333
+anchor_top = 0.16
+anchor_right = 1.20304
+anchor_bottom = 0.21657
+offset_right = -18.9117
+offset_bottom = 34.3431
+grow_horizontal = 2
+grow_vertical = 0
+rotation = -2.53073
 texture = ExtResource("2_cp6r7")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
@@ -93,6 +124,24 @@ offset_bottom = -10.9117
 grow_horizontal = 2
 grow_vertical = 0
 rotation = 0.785398
+texture = ExtResource("2_cp6r7")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ArrowLeftUp" type="TextureRect" parent="TextLabel/Arrows"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0478105
+anchor_top = -0.04
+anchor_right = 0.0478105
+anchor_bottom = 0.46912
+offset_left = 5.65686
+offset_right = 37.6569
+offset_bottom = -10.9117
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 2.53073
 texture = ExtResource("2_cp6r7")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
