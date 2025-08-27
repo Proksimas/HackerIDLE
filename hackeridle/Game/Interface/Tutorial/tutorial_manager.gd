@@ -154,6 +154,7 @@ func _input(event: InputEvent):
 func go_to_next_step():
 	if current_step_index > 0:
 		disconnect_step_signals(tutorial_steps[current_step_index - 1])
+		
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
 	print("Étape ", current_step_index + 1, " terminée.")
 	current_step_index += 1

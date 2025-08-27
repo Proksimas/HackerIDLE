@@ -1,15 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://gid0a4m0gc0d"]
+[gd_scene load_steps=12 format=3 uid="uid://gid0a4m0gc0d"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_manager.gd" id="1_xf2tf"]
-[ext_resource type="Resource" uid="uid://c3l8jn6qtn864" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_1.tres" id="2_mfqdl"]
-[ext_resource type="Resource" uid="uid://c1ll58gss7n4g" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_2.tres" id="3_1v3sf"]
-[ext_resource type="Resource" uid="uid://dqdkjx6m1axun" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_3.tres" id="4_vlhin"]
-[ext_resource type="Resource" uid="uid://dmmxmf0o380op" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_4.tres" id="5_f7p7o"]
-[ext_resource type="Resource" uid="uid://di5h8dif8f1pu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_5.tres" id="6_rakjh"]
-[ext_resource type="Resource" uid="uid://buhuqtlojh5u1" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_6.tres" id="7_1i0kx"]
-[ext_resource type="Resource" uid="uid://bsucvgg0c6hn5" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_7.tres" id="8_ho5wf"]
-[ext_resource type="Resource" uid="uid://bljsp3swhhjsu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_8.tres" id="9_8lucd"]
-[ext_resource type="Resource" uid="uid://cw46qmn4ab0ye" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_9.tres" id="10_levm2"]
+[ext_resource type="Resource" uid="uid://c3l8jn6qtn864" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_01.tres" id="2_mfqdl"]
+[ext_resource type="Resource" uid="uid://c1ll58gss7n4g" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_02.tres" id="3_1v3sf"]
+[ext_resource type="Resource" uid="uid://b1xfb45jvv2wr" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_10.tres" id="3_3r0li"]
+[ext_resource type="Resource" uid="uid://dqdkjx6m1axun" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_03.tres" id="4_eyy0t"]
+[ext_resource type="Resource" uid="uid://dmmxmf0o380op" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_04.tres" id="5_5vg1s"]
+[ext_resource type="Resource" uid="uid://di5h8dif8f1pu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_05.tres" id="6_4mvj1"]
+[ext_resource type="Resource" uid="uid://buhuqtlojh5u1" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_06.tres" id="7_balct"]
+[ext_resource type="Resource" uid="uid://bsucvgg0c6hn5" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_07.tres" id="8_w5c3r"]
+[ext_resource type="Resource" uid="uid://bljsp3swhhjsu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_08.tres" id="9_gi6di"]
+[ext_resource type="Resource" uid="uid://cw46qmn4ab0ye" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_09.tres" id="10_4ywjc"]
 
 [node name="TutorialManager" type="Node"]
 process_mode = 3
@@ -17,7 +18,7 @@ script = ExtResource("1_xf2tf")
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 unique_name_in_owner = true
-resources = [PackedStringArray("tutorial_step_1", "tutorial_step_2", "tutorial_step_3", "tutorial_step_4", "tutorial_step_5", "tutorial_step_6", "tutorial_step_7", "tutorial_step_8", "tutorial_step_9"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_vlhin"), ExtResource("5_f7p7o"), ExtResource("6_rakjh"), ExtResource("7_1i0kx"), ExtResource("8_ho5wf"), ExtResource("9_8lucd"), ExtResource("10_levm2")]]
+resources = [PackedStringArray("tutorial_step_01", "tutorial_step_02", "tutorial_step_03", "tutorial_step_04", "tutorial_step_05", "tutorial_step_06", "tutorial_step_07", "tutorial_step_08", "tutorial_step_09", "tutorial_step_10"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_eyy0t"), ExtResource("5_5vg1s"), ExtResource("6_4mvj1"), ExtResource("7_balct"), ExtResource("8_w5c3r"), ExtResource("9_gi6di"), ExtResource("10_4ywjc"), ExtResource("3_3r0li")]]
 
 [node name="DelayInput" type="Timer" parent="."]
 unique_name_in_owner = true
