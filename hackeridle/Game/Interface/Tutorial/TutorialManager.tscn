@@ -18,3 +18,8 @@ script = ExtResource("1_xf2tf")
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 unique_name_in_owner = true
 resources = [PackedStringArray("tutorial_step_1", "tutorial_step_2", "tutorial_step_3", "tutorial_step_4", "tutorial_step_5", "tutorial_step_6", "tutorial_step_7", "tutorial_step_8", "tutorial_step_9"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_vlhin"), ExtResource("5_f7p7o"), ExtResource("6_rakjh"), ExtResource("7_1i0kx"), ExtResource("8_ho5wf"), ExtResource("9_8lucd"), ExtResource("10_levm2")]]
+
+[node name="DelayInput" type="Timer" parent="."]
+unique_name_in_owner = true
+
+[connection signal="timeout" from="DelayInput" to="." method="_on_delay_input_timeout"]

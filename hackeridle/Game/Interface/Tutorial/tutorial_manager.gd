@@ -6,6 +6,8 @@ extends Node
 
 
 @onready var resource_preloader: ResourcePreloader = %ResourcePreloader
+@onready var delay_input: Timer = %DelayInput
+
 
 const TUTORIAL_UI = preload("res://Game/Interface/Tutorial/tutorial_ui.tscn")
 
@@ -15,6 +17,7 @@ var game_paused_by_tutorial: bool = false
 
 var tutorial_finished: bool = false
 var current_tutorial_ui: TutorialUI
+var input_paused: bool = false
 
 signal tutorial_completed
 
@@ -45,8 +48,7 @@ func show_current_step():
 		return
 
 	var current_step = tutorial_steps[current_step_index]
-
-
+	
 	var new_ui =  TUTORIAL_UI.instantiate()
 	self.add_child(new_ui)
 	new_ui.set_tutorial_ui(current_step.text_translation_key, current_step.pos, current_step.get_show_arrows())
@@ -94,10 +96,10 @@ func connect_step_signals(step: TutorialStep):
 				
 		TutorialStep.ValidationType.GROUP:
 			#On connecte le signal des membres du groupe, et on attend de voir leur émission
-			var nodes_in_group = get_tree().get_nodes_in_group(step.group_call_name)
-			for node in nodes_in_group:
-				if !node.is_connected(step.group_call_signal, go_to_next_step):
-					node.connect(step.group_call_signal, go_to_next_step)
+			var node = get_tree().get_nodes_in_group(step.group_call_name)[0]
+
+			if !node.is_connected(step.group_call_signal, go_to_next_step):
+				node.connect(step.group_call_signal, go_to_next_step)
 					
 		TutorialStep.ValidationType.CUSTOM_CHECK:
 			# Ici, la validation sera manuelle. Par exemple, une fonction _process()
@@ -136,15 +138,21 @@ func disconnect_step_signals(step: TutorialStep):
 
 func _input(event: InputEvent):
 	"""Gere le cas où on a cliqué sur l'écran pour passer"""
+	if input_paused: #on se permet de mettre un delay entre les inputs
+		return
 	var current_step = tutorial_steps[current_step_index]
+	
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
+		print("Input reçu")
 		if current_step.validation_type == TutorialStep.ValidationType.INPUT:
 			go_to_next_step()
 
 func go_to_next_step():
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
-	print("Étape ", current_step_index, " terminée.")
+	print("Étape ", current_step_index + 1, " terminée.")
 	current_step_index += 1
+	input_paused = true
+	delay_input.start()
 	show_current_step()
 
 func complete_tutorial():
@@ -154,9 +162,14 @@ func complete_tutorial():
 	emit_signal("tutorial_completed")
 	print("Tutoriel terminé !")
 
-func call_function_on_node(function_name: String, target_path: NodePath):
-	var target_node = get_node_or_null(target_path)
-	if is_instance_valid(target_node) and target_node.has_method(function_name):
-		target_node.call(function_name)
-	else:
-		push_error("Erreur: Impossible d'appeler la fonction '", function_name, "' sur le nœud '", target_path, "'.")
+
+func short_pause():
+	self.process_mode = Node.PROCESS_MODE_DISABLED
+	await get_tree().create_timer(1).timeout
+	self.process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+
+func _on_delay_input_timeout() -> void:
+	input_paused = false
+	pass # Replace with function body.
