@@ -26,6 +26,7 @@ enum ValidationType {
 @export var required_score_value: int = 0              # Valeur à atteindre
 @export var score_variable_name: String = ""           # Nom de la variable à surveiller (ex: "gold", "experience")
 
+@export var target_node_path: String = ""
 @export var target_signal_name: String = ""            # Nom du signal à écouter (ex: "jumped", "enemy_killed")
 
 # Paramètres pour ValidationType.CUSTOM_CHECK

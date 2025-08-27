@@ -85,9 +85,15 @@ func connect_step_signals(step: TutorialStep):
 						
 					
 		TutorialStep.ValidationType.SIGNAL:
-			var target_node = get_node_or_null(step.target_node_path)
-			if is_instance_valid(target_node) and not target_node.is_connected(step.target_signal_name, Callable(self, "go_to_next_step")):
-				target_node.connect(step.target_signal_name, Callable(self, "go_to_next_step"))
+			var target_node = get_tree().get_root().get_node_or_null("Main/" + step.target_node_path)
+			if is_instance_valid(target_node):
+				if !target_node.is_connected(step.target_signal_name, go_to_next_step):
+					target_node.connect(step.target_signal_name, go_to_next_step)
+				else:
+					push_error("Probleme de connexion")
+			else:
+				push_error("Le target_node n'est pas valide. Vérifier le chemin absolu")
+				
 		TutorialStep.ValidationType.CUSTOM_CHECK:
 			# Ici, la validation sera manuelle. Par exemple, une fonction _process()
 			# peut sonder la condition ou un autre script peut appeler go_to_next_step()
