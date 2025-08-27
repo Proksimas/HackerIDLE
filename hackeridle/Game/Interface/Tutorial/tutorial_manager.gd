@@ -86,6 +86,7 @@ func connect_step_signals(step: TutorialStep):
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node):
 				if !target_node.is_connected(step.target_signal_name, go_to_next_step):
+					print("connexion de %s" % step.target_node_path)
 					target_node.connect(step.target_signal_name, go_to_next_step)
 				else:
 					push_error("Probleme de connexion")
@@ -120,12 +121,18 @@ func disconnect_step_signals(step: TutorialStep):
 				"knowledge":
 					if Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
 						Player.s_earn_knowledge_point.disconnect(self._on_point_receive)
+					else:
+						push_error("Probleme de deconnexion")
 				"gold":
 					if Player.s_earn_gold.is_connected(self._on_point_receive):
 						Player.s_earn_gold.disconnect(self._on_point_receive)
+					else:
+						push_error("Probleme de deconnexion")
 				"brain_level":
 					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.disconnect(self._on_point_receive)
+					else:
+						push_error("Probleme de deconnexion")
 
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
@@ -153,7 +160,7 @@ func _input(event: InputEvent):
 
 func go_to_next_step():
 	if current_step_index > 0:
-		disconnect_step_signals(tutorial_steps[current_step_index - 1])
+		disconnect_step_signals(tutorial_steps[current_step_index])
 		
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
 	print("Étape ", current_step_index + 1, " terminée.")
