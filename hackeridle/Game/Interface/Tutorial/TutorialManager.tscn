@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://gid0a4m0gc0d"]
+[gd_scene load_steps=18 format=3 uid="uid://gid0a4m0gc0d"]
 
 [ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_manager.gd" id="1_xf2tf"]
 [ext_resource type="Resource" uid="uid://c3l8jn6qtn864" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_01.tres" id="2_mfqdl"]
@@ -11,6 +11,12 @@
 [ext_resource type="Resource" uid="uid://bsucvgg0c6hn5" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_07.tres" id="8_w5c3r"]
 [ext_resource type="Resource" uid="uid://bljsp3swhhjsu" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_08.tres" id="9_gi6di"]
 [ext_resource type="Resource" uid="uid://cw46qmn4ab0ye" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_09.tres" id="10_4ywjc"]
+[ext_resource type="Resource" uid="uid://bvtsm3b05p05y" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_11.tres" id="12_d8are"]
+[ext_resource type="Resource" uid="uid://bgolgsefjc1lm" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_12.tres" id="13_64y11"]
+[ext_resource type="Resource" uid="uid://j45ld5ol7ycq" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_13.tres" id="14_j0uo1"]
+[ext_resource type="Resource" uid="uid://dwxhunwq68sct" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_14.tres" id="15_1cofj"]
+[ext_resource type="Resource" uid="uid://i4h5y4mtad7u" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_15.tres" id="16_u3g8x"]
+[ext_resource type="Resource" uid="uid://q01ma3a7235r" path="res://Game/Interface/Tutorial/TutorialSteps/tutorial_step_16.tres" id="17_5imxc"]
 
 [node name="TutorialManager" type="Node"]
 process_mode = 3
@@ -18,7 +24,7 @@ script = ExtResource("1_xf2tf")
 
 [node name="ResourcePreloader" type="ResourcePreloader" parent="."]
 unique_name_in_owner = true
-resources = [PackedStringArray("tutorial_step_01", "tutorial_step_02", "tutorial_step_03", "tutorial_step_04", "tutorial_step_05", "tutorial_step_06", "tutorial_step_07", "tutorial_step_08", "tutorial_step_09", "tutorial_step_10"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_eyy0t"), ExtResource("5_5vg1s"), ExtResource("6_4mvj1"), ExtResource("7_balct"), ExtResource("8_w5c3r"), ExtResource("9_gi6di"), ExtResource("10_4ywjc"), ExtResource("3_3r0li")]]
+resources = [PackedStringArray("tutorial_step_01", "tutorial_step_02", "tutorial_step_03", "tutorial_step_04", "tutorial_step_05", "tutorial_step_06", "tutorial_step_07", "tutorial_step_08", "tutorial_step_09", "tutorial_step_10", "tutorial_step_11", "tutorial_step_12", "tutorial_step_13", "tutorial_step_14", "tutorial_step_15", "tutorial_step_16"), [ExtResource("2_mfqdl"), ExtResource("3_1v3sf"), ExtResource("4_eyy0t"), ExtResource("5_5vg1s"), ExtResource("6_4mvj1"), ExtResource("7_balct"), ExtResource("8_w5c3r"), ExtResource("9_gi6di"), ExtResource("10_4ywjc"), ExtResource("3_3r0li"), ExtResource("12_d8are"), ExtResource("13_64y11"), ExtResource("14_j0uo1"), ExtResource("15_1cofj"), ExtResource("16_u3g8x"), ExtResource("17_5imxc")]]
 
 [node name="DelayInput" type="Timer" parent="."]
 unique_name_in_owner = true

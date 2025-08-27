@@ -7,7 +7,7 @@
             "cost_factor": 1.2,
             "gain": 30,
             "gain_factor":1.40,
-            "delay": 15,
+            "delay": 3,
             "formule_type":"polymoniale"
         },
 

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://dwxhunwq68sct"]
+
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_jh3mo"]
+
+[resource]
+script = ExtResource("1_jh3mo")
+text_translation_key = "tutorial_step_14"
+pos = Vector2(250, 1024)
+pause_game = false
+validation_type = 2
+required_score_value = 0
+score_variable_name = ""
+target_node_path = "Main/Interface/InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer3/dark_shopBox"
+target_signal_name = "pressed"
+group_call_name = ""
+group_call_signal = ""
+custom_check_function = ""
+no_arrow = false
+center_down = true
+right_down = false
+left_down = false
+center_up = false
+right_up = false
+left_up = false
+commentaire = ""

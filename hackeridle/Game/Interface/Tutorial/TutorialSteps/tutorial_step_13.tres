@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://bgolgsefjc1lm"]
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://j45ld5ol7ycq"]
 
-[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_ypbtp"]
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_bs4vu"]
 
 [resource]
-script = ExtResource("1_ypbtp")
-text_translation_key = "tutorial_step_12"
+script = ExtResource("1_bs4vu")
+text_translation_key = "tutorial_step_13"
 pos = Vector2(150, 600)
 pause_game = false
 validation_type = 0
