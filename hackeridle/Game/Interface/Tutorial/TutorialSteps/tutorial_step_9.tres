@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource("1_iyt6v")
-text_translation_key = "tutorial_step_7"
+text_translation_key = "tutorial_step_9"
 pos = Vector2(150, 550)
 pause_game = false
-validation_type = 0
-required_score_value = 0
-score_variable_name = ""
+validation_type = 1
+required_score_value = 200
+score_variable_name = "gold"
 target_node_path = ""
 target_signal_name = ""
 group_call_name = ""

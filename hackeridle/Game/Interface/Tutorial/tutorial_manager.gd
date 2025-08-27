@@ -39,9 +39,7 @@ func start_tutorial():
 	show_current_step()
 
 func show_current_step():
-	if current_step_index > 0:
-		disconnect_step_signals(tutorial_steps[current_step_index - 1])
-	
+
 	if current_step_index >= tutorial_steps.size():
 		# Toutes les étapes sont terminées
 		complete_tutorial()
@@ -129,12 +127,18 @@ func disconnect_step_signals(step: TutorialStep):
 					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.disconnect(self._on_point_receive)
 
-				
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node):
-				if !target_node.is_connected(step.target_signal_name, go_to_next_step):
+				if target_node.is_connected(step.target_signal_name, go_to_next_step):
 					target_node.disconnect(step.target_signal_name, go_to_next_step)
+					
+		TutorialStep.ValidationType.GROUP:
+			#On connecte le signal des membres du groupe, et on attend de voir leur émission
+			var node = get_tree().get_nodes_in_group(step.group_call_name)[0]
+
+			if node.is_connected(step.group_call_signal, go_to_next_step):
+				node.disconnect(step.group_call_signal, go_to_next_step)
 
 func _input(event: InputEvent):
 	"""Gere le cas où on a cliqué sur l'écran pour passer"""
@@ -148,6 +152,8 @@ func _input(event: InputEvent):
 			go_to_next_step()
 
 func go_to_next_step():
+	if current_step_index > 0:
+		disconnect_step_signals(tutorial_steps[current_step_index - 1])
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
 	print("Étape ", current_step_index + 1, " terminée.")
 	current_step_index += 1

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_addij")
-text_translation_key = "tutorial_step_9"
+text_translation_key = "tutorial_step_7"
 pos = Vector2(150, 550)
 pause_game = false
 validation_type = 0
