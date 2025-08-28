@@ -38,10 +38,10 @@ func number_to_string(number) -> String:
 	elif number >= pow(10, 3) and number < pow(10, 6):
 		return str(snapped((number/ pow(10, 3)), 0.1)) + " K" 
 	elif number >= pow(10, 6) and number < pow(10, 9):
-		return str(snapped((number/ pow(10, 6)), 0.1)) + " M"   #" Millions"
+		return str(snapped((number/ pow(10, 6)), 0.01)) + " M"   #" Millions"
 		
 	elif number >= pow(10, 9):
-		return str(snapped((number/ pow(10, 9)), 0.1)) + " Md"#" Milliards"
+		return str(snapped((number/ pow(10, 9)), 0.01)) + " Md"#" Milliards"
 	else:
 		push_error("Probleme dans le calcul")
 		return str(number)

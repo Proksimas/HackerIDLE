@@ -46,6 +46,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="HackingItems" type="VBoxContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2
