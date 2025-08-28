@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_ngyaj")
-pos = Vector2(250, 1024)
+pos = Vector2(200, 1030)
 pause_game = false
 validation_type = 2
 required_score_value = 0
