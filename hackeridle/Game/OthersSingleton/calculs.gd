@@ -76,9 +76,7 @@ func passif_learning_gain(item_cara) -> float:
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
-		
 		push_warning("L'item n'est pas présent !")
-		#peut se passer en cas de reirth
 		return
 	
 	var item = Player.hacking_item_bought[hacking_item_name]
@@ -87,6 +85,27 @@ func gain_gold(hacking_item_name):
 	else:
 		return round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
 	
+func next_gain_gold(hacking_item_name, level_gain)-> float:
+	"""On anticipe le gain en gold de l'item si il est amélioré de x level"""
+	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
+		push_warning("L'item n'est pas présent !")
+		return 0
+	var item = Player.hacking_item_bought[hacking_item_name].duplicate()
+
+	var gain_init: float = 0
+	#On copie les formule du gain_gold
+	if item["formule_type"] == "polymoniale":
+		gain_init = round(item["gain"] * pow(item["level"],item["gain_factor"]))
+	else:
+		gain_init = round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
+		
+	var next_gain: float = 0
+	item["level"] += level_gain
+	if item["formule_type"] == "polymoniale":
+		next_gain = round(item["gain"] * pow(item["level"],item["gain_factor"]))
+	else:
+		next_gain = round(item["gain"] * pow(1 + item["gain_factor"], item["level"] -1))
+	return next_gain - gain_init
 
 func get_next_source_level(source_cara):
 	if source_cara == null:

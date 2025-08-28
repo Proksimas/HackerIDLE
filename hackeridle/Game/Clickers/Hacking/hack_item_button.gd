@@ -77,6 +77,7 @@ func set_hacking_item(item_name):
 
 	#le gain de abse correspond à ce qu'il y a dans la db
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
+	next_gold_gain_label.text = "+ 0"
 
 	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
 	#set_hacking_item_by_player_info()
@@ -107,7 +108,8 @@ func set_refresh(item_cara: Dictionary = {}):
 				
 	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,
 					Calculs.gain_gold(current_hack_item_cara["item_name"])))
-	
+					
+		
 	duration_label.text = tr("$Duration") + ": "
 	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 
@@ -160,6 +162,8 @@ func x_can_be_buy(_x_buy):
 	cost_hack_label.text = tr("$Upgr") + ". "
 	#cost_hack_label.text = "+ " + str(_x_buy) + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
+	next_gold_gain_label.text = "+ " + Global.number_to_string(\
+		Calculs.next_gain_gold(current_hack_item_cara["item_name"],quantity_to_buy))
 	
 	#Puis on met à jour le prix de l'item
 	
