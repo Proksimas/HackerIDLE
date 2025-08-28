@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=12 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_0sjxu"]
@@ -19,8 +19,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_fndce"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
 bg_color = Color(0.0295387, 0.0869147, 0.0593716, 1)
@@ -47,8 +45,6 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 shadow_size = 10
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0g4bk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbs0m"]
 bg_color = Color(0, 0, 0, 1)
@@ -114,17 +110,59 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header"]
-custom_minimum_size = Vector2(390, 75)
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="lEVELContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
 layout_mode = 2
 
-[node name="HackNameEdit" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
+[node name="Panel" type="PanelContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_pcgk5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer/Panel"]
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="LevelHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "$Lv."
+
+[node name="HackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.917647, 0.364706, 0.917647, 1)
+theme_override_font_sizes/font_size = 16
+text = "$Lv."
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MaxHackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer/Panel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_font_sizes/font_size = 19
+text = "$Lv."
+horizontal_alignment = 2
+
+[node name="HackNameEdit" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/lEVELContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_horizontal = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0, 1, 0.6, 1)
 theme_override_font_sizes/font_size = 16
-text = "Hack_Granny_TV(TVP_IP, duration = X)"
+text = "HDMI HACK"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
 layout_mode = 2
@@ -147,11 +185,6 @@ size_flags_horizontal = 10
 size_flags_vertical = 4
 alignment = 2
 
-[node name="GoldLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "$Gain"
-
 [node name="GoldGain" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -164,102 +197,73 @@ text = "XXXxxx"
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="VSeparator" type="VSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(30, 0)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_fndce")
-
-[node name="ResourcesInfoContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-
-[node name="lEVELContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer"]
-layout_mode = 2
-
-[node name="LevelHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/lEVELContainer"]
+[node name="NextGoldGainLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
-text = "$Level"
-
-[node name="HackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/lEVELContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.745098, 0.588235, 0.152941, 1)
+theme_override_colors/font_color = Color(0.0705882, 1, 0.627451, 1)
 theme_override_font_sizes/font_size = 16
-text = "1000"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="MaxHackItemLevel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/lEVELContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 0)
-layout_mode = 2
-theme_override_font_sizes/font_size = 19
-text = "1000"
+text = "+ x"
 horizontal_alignment = 2
 
-[node name="UpgradeContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-
-[node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]
+[node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "$Cost + X"
-
-[node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer"]
-unique_name_in_owner = true
+custom_minimum_size = Vector2(175, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme_override_styles/focus = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_vyn0f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
 
-[node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton"]
+[node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = -1
+anchor_left = 0.0666667
+anchor_right = 0.973333
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="VSeparator" type="VSeparator" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container"]
-layout_mode = 2
-theme_override_constants/separation = 12
-theme_override_styles/separator = SubResource("StyleBoxEmpty_0g4bk")
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container/AspectRatioContainer"]
+[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/AspectRatioContainer"]
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("3_a1ahn")
 expand_mode = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container"]
+[node name="UpgradeContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/UpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.6, 1)
+text = "$Upgr"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment = 2
 
-[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container/HBoxContainer"]
+[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
 theme_override_font_sizes/font_size = 15
 text = "3900K"
 
-[node name="BrainIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
+[node name="BrainIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
 layout_mode = 2
 size_flags_horizontal = 10
 alignment_horizontal = 2
@@ -372,5 +376,5 @@ size_flags_horizontal = 4
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]
-[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/Header/ResourcesInfoContainer/UpgradeContainer/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
+[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
 [connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]

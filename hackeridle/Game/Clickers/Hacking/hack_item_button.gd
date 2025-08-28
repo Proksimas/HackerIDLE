@@ -19,9 +19,9 @@ class_name HackItemButton
 @onready var max_hack_item_level: Label = %MaxHackItemLevel
 @onready var cost_label: Label = %CostLabel
 @onready var duration_label: Label = %DurationLabel
-@onready var gold_label: Label = %GoldLabel
 @onready var level_hack_label: Label = %LevelHackLabel
 @onready var cost_hack_label: Label = %CostHackLabel
+@onready var next_gold_gain_label: Label = %NextGoldGainLabel
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
@@ -76,7 +76,6 @@ func set_hacking_item(item_name):
 	var _item_level = current_hack_item_cara["level"]
 
 	#le gain de abse correspond à ce qu'il y a dans la db
-	gold_label.text = tr("$Gain") + ": "
 	gold_gain.text = Global.number_to_string((current_hack_item_cara["cost"]))
 
 	first_cost = Calculs.total_learning_prices(current_hack_item_cara, 1)
@@ -101,7 +100,7 @@ func set_refresh(item_cara: Dictionary = {}):
 	
 
 	var item_level = current_hack_item_cara["level"]
-	level_hack_label.text = tr("Level") + ": "
+	level_hack_label.text = tr("$Lv") + ". "
 	hack_item_level.text = Global.number_to_string(item_level) 
 	max_hack_item_level.text = " / " + str(Calculs.get_next_source_level(Player.get_associated_source(current_hack_item_cara["item_name"])))
 				
@@ -158,7 +157,7 @@ func x_can_be_buy(_x_buy):
 		
 	# on tente de maj le prix ici
 	
-	cost_hack_label.text = tr("$Cost") + ": +" + str(_x_buy)
+	cost_hack_label.text = tr("$Upgr") + ". "
 	#cost_hack_label.text = "+ " + str(_x_buy) + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
 	
