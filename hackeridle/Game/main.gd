@@ -52,7 +52,7 @@ func introduction_finished():
 	get_node("Interface").show()
 	TimeManager.adjust_session_minutes()
 	TimeManager.reset()
-	if !OS.has_feature("editor"):
+	if !OS.has_feature("editor") or Player.nb_of_rebirth == 0:
 		TutorialManager.start_tutorial()
 	elif active_tutorial:
 		TutorialManager.start_tutorial()
