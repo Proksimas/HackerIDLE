@@ -43,6 +43,7 @@ func new_game():
 	set_starting_language() # le chargement prend ce qui est save
 	fill_player_stats()
 	var interface = load_interface()
+	TutorialManager.reset_tutorial()
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 	
 	
@@ -51,7 +52,10 @@ func introduction_finished():
 	get_node("Interface").show()
 	TimeManager.adjust_session_minutes()
 	TimeManager.reset()
-	TutorialManager.start_tutorial()
+	if !OS.has_feature("editor"):
+		TutorialManager.start_tutorial()
+	elif active_tutorial:
+		TutorialManager.start_tutorial()
 
 func rebirth():
 	"""on ne garde que:

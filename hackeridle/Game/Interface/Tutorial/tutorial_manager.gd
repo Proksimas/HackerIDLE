@@ -34,8 +34,7 @@ func _ready():
 func start_tutorial():
 	if tutorial_steps.is_empty():
 		print("Aucune étape de tutoriel n'est définie.")
-		return
-
+		return 
 	
 	current_step_index = 0
 	show_current_step()
@@ -137,7 +136,7 @@ func disconnect_step_signals(step: TutorialStep):
 				"gold":
 					if Player.s_earn_gold.is_connected(self._on_point_receive):
 						Player.s_earn_gold.disconnect(self._on_point_receive)
-
+						
 				"brain_level":
 					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.disconnect(self._on_point_receive)
@@ -163,7 +162,6 @@ func _input(event: InputEvent):
 	var current_step = tutorial_steps[current_step_index]
 	
 	if event is InputEventMouseButton or event is InputEventScreenTouch:
-		print("Input reçu")
 		if current_step.validation_type == TutorialStep.ValidationType.INPUT:
 			go_to_next_step()
 
@@ -184,12 +182,12 @@ func complete_tutorial():
 		get_tree().paused = false
 	emit_signal("tutorial_completed")
 	print("Tutoriel terminé !")
-
-
-func short_pause():
-	self.process_mode = Node.PROCESS_MODE_DISABLED
-	await get_tree().create_timer(1).timeout
-	self.process_mode = Node.PROCESS_MODE_ALWAYS
+	
+func reset_tutorial():
+	if current_tutorial_ui != null:
+		current_tutorial_ui.hide()
+		current_tutorial_ui.call_deferred("queue_free")
+	current_step_index = 0
 
 
 

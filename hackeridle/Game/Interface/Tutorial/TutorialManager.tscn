@@ -38,5 +38,6 @@ resources = [PackedStringArray("tutorial_step_01", "tutorial_step_02", "tutorial
 
 [node name="DelayInput" type="Timer" parent="."]
 unique_name_in_owner = true
+wait_time = 2.0
 
 [connection signal="timeout" from="DelayInput" to="." method="_on_delay_input_timeout"]
