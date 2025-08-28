@@ -13,7 +13,6 @@ enum ValidationType {
 }
 
 # --- Section Affichage (pour l'UI) ---
-@export var text_translation_key: String = ""          # Clé de traduction pour le texte principal
 @export var pos: Vector2 = DisplayServer.window_get_size() / 2
 @export var pause_game: bool = false                    # Met en pause le jeu quand cette étape est active
 
@@ -49,6 +48,10 @@ enum ValidationType {
 
 @export_category("COMMENTAIRE")
 @export var commentaire: String
+
+ # Clé de traduction pour le texte principal. est attribuée dans TutorialManager
+var text_translation_key: String = ""         
+
 
 func get_show_arrows() -> String:
 	if no_arrow:

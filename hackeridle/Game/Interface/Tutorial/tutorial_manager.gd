@@ -25,7 +25,9 @@ func _ready():
 	set_process_input(false)
 	var tutorial_steps_name = resource_preloader.get_resource_list()
 	for tutorial_name in tutorial_steps_name:
-		tutorial_steps.append(resource_preloader.get_resource(tutorial_name))
+		var res:TutorialStep = resource_preloader.get_resource(tutorial_name)
+		res.text_translation_key =  tutorial_name 
+		tutorial_steps.append(res)
 		
 	
 
@@ -46,6 +48,8 @@ func show_current_step():
 		return
 
 	var current_step = tutorial_steps[current_step_index]
+	print(current_step.text_translation_key)
+	
 	
 	var new_ui =  TUTORIAL_UI.instantiate()
 	self.add_child(new_ui)
@@ -73,13 +77,22 @@ func connect_step_signals(step: TutorialStep):
 			# Assurez-vous d'avoir un nœud qui émet un signal de mise à jour du score
 			match step.score_variable_name:
 				"knowledge":
-					if !Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
+					if Player.knowledge_point >= step.required_score_value:
+						go_to_next_step()
+						
+					elif !Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
 						Player.s_earn_knowledge_point.connect(self._on_point_receive)
+						
 				"gold":
-					if !Player.s_earn_gold.is_connected(self._on_point_receive):
+					if Player.gold >= step.required_score_value:
+						go_to_next_step()
+					elif !Player.s_earn_gold.is_connected(self._on_point_receive):
 						Player.s_earn_gold.connect(self._on_point_receive)
+						
 				"brain_level":
-					if !Player.s_earn_brain_level.is_connected(self._on_point_receive):
+					if Player.brain_level >= step.required_score_value:
+						go_to_next_step()
+					elif !Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.connect(self._on_point_receive)
 						
 		TutorialStep.ValidationType.SIGNAL:
@@ -121,18 +134,14 @@ func disconnect_step_signals(step: TutorialStep):
 				"knowledge":
 					if Player.s_earn_knowledge_point.is_connected(self._on_point_receive):
 						Player.s_earn_knowledge_point.disconnect(self._on_point_receive)
-					else:
-						push_error("Probleme de deconnexion")
 				"gold":
 					if Player.s_earn_gold.is_connected(self._on_point_receive):
 						Player.s_earn_gold.disconnect(self._on_point_receive)
-					else:
-						push_error("Probleme de deconnexion")
+
 				"brain_level":
 					if Player.s_earn_brain_level.is_connected(self._on_point_receive):
 						Player.s_earn_brain_level.disconnect(self._on_point_receive)
-					else:
-						push_error("Probleme de deconnexion")
+
 
 		TutorialStep.ValidationType.SIGNAL:
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)

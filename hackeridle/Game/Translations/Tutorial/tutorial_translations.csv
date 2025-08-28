@@ -1,13 +1,13 @@
 key;fr;en
-tutorial_step_1;Commencez par accroître votre connaissance en cliquant sur le cerveau.;Start by increasing your knowledge by clicking on the brain.
-tutorial_step_2;En haut, vous voyez les ressources que vous cumulez. (Cliquer n’importe où pour passer);At the top, you see the resources you are accumulating. (Click anywhere to continue)
-tutorial_step_3;Cliquez sur le cerveau jusqu’à avoir 100 points de connaissances.;Click on the brain until you have 100 knowledge points.
-tutorial_step_4;Allez dans l’onglet des Hacks.;Go to the Hacks tab.
-tutorial_step_5;Débloquez votre premier hack!;Unlock your first hack!
-tutorial_step_6;Pour lancer le hack, cliquez sur la zone.;To launch the hack, click on the area.
-tutorial_step_7;Le hack prend un certain temps.;The hack takes a certain amount of time.
-tutorial_step_8;Lorsque le hack est fini vous gagnez de l’or !;When the hack is finished, you earn gold!
-tutorial_step_9;Lancez des hacks jusqu’à avoir 200 d’or.;Launch hacks until you have 200 gold.
+tutorial_step_01;Commencez par accroître votre connaissance en cliquant sur le cerveau.;Start by increasing your knowledge by clicking on the brain.
+tutorial_step_02;En haut, vous voyez les ressources que vous cumulez. (Cliquer n’importe où pour passer);At the top, you see the resources you are accumulating. (Click anywhere to continue)
+tutorial_step_03;Cliquez sur le cerveau jusqu’à avoir 100 points de connaissances.;Click on the brain until you have 100 knowledge points.
+tutorial_step_04;Allez dans l’onglet des Hacks.;Go to the Hacks tab.
+tutorial_step_05;Débloquez votre premier hack!;Unlock your first hack!
+tutorial_step_06;Pour lancer le hack, cliquez sur la zone.;To launch the hack, click on the area.
+tutorial_step_07;Le hack prend un certain temps.;The hack takes a certain amount of time.
+tutorial_step_08;Lorsque le hack est fini vous gagnez de l’or !;When the hack is finished, you earn gold!
+tutorial_step_09;Lancez des hacks jusqu’à avoir 200 d’or.;Launch hacks until you have 200 gold.
 tutorial_step_10;Allez dans l’onglet de la boutique.;Go to the shop tab.
 tutorial_step_11;Débloquez votre premier objet d'apprentissage.;Unlock your first learning item.
 tutorial_step_12;Ces objets vous donnent de la connaissance passive.;These items give you passive knowledge.
@@ -16,8 +16,11 @@ tutorial_step_14;Revenez dans la boutique des hacks.;Return to the hack shop.
 tutorial_step_15;Comme les objets d’apprentissage, vos hacks ont un niveau.;Like learning items, your hacks have a level.
 tutorial_step_16;Dépensez de la connaissance pour augmenter le niveau de vos hacks, et ainsi gagner encore plus d’argent!;Spend knowledge to increase the level of your hacks, and thus earn even more money!
 tutorial_step_17;Revenez sur le cerveau.;Return to the brain.
-tutorial_step_18;Chaque clic sur le cerveau vous donne de la connaissance correspondant à son niveau, mais aussi de l’expérience. Atteignez le niveau 2.;Each click on the brain gives you knowledge corresponding to its level, but also experience. Reach level 2.
-tutorial_step_19;À chaque niveau, vous augmentez le gain de connaissance par clic, mais vous avez aussi un point de compétence. Cliquez sur l’arbre de compétences.;At each level, you increase the knowledge gained per click, but you also have a skill point. Click on the skill tree.
-tutorial_step_20;Ici, vous pouvez dépenser vos points dans des compétences. Certaines sont passives, d’autres actives que vous pourrez utiliser sur l’onglet du cerveau.;Here, you can spend your points on skills. Some are passive, others are active that you can use on the brain tab.
-tutorial_step_21;Cliquez ici pour voir les news.;Click here to see the news.
-tutorial_step_22;Les news sont un bon moyen de voir l’évolution de la ville et ce qui s’y passe.;The news are a good way to see the evolution of the city and what is happening in it.
+tutorial_step_18;Chaque clic sur le cerveau vous donne de la connaissance, correspondant à son niveau, mais aussi de l’expérience.;Each click on the brain gives you knowledge, corresponding to its level, but also experience.
+tutorial_step_19;Atteignez le niveau 2.;Reach level 2.
+tutorial_step_20;À chaque niveau, vous augmentez le gain de connaissance par clic, mais vous gagnez aussi un point de compétence.;At each level, you increase the knowledge gained per click, but you also gain a skill point.
+tutorial_step_21;Cliquez sur l’arbre de compétences.;Click on the skill tree.
+tutorial_step_22;Ici, vous pouvez dépenser vos points dans des compétences. Certaines sont passives et d’autres sont actives.;Here, you can spend your points on skills. Some are passive and others are active.
+tutorial_step_23;Cliquez ici pour voir les news.;Click here to see the news.
+tutorial_step_24;Les news sont un bon moyen de voir l’évolution de la ville et ce qui s’y passe.;The news are a good way to see the evolution of the city and what is happening in it.
+tutorial_step_100;Le tutoriel est terminé !;The tutorial is complete!

@@ -1,14 +1,14 @@
-[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://c3l8jn6qtn864"]
+[gd_resource type="Resource" script_class="TutorialStep" load_steps=2 format=3 uid="uid://cr1lmfcof1ni7"]
 
-[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_pfems"]
+[ext_resource type="Script" path="res://Game/Interface/Tutorial/tutorial_step.gd" id="1_exxmh"]
 
 [resource]
-script = ExtResource("1_pfems")
+script = ExtResource("1_exxmh")
 pos = Vector2(150, 335)
 pause_game = false
-validation_type = 1
-required_score_value = 10
-score_variable_name = "knowledge"
+validation_type = 0
+required_score_value = 0
+score_variable_name = ""
 target_node_path = ""
 target_signal_name = ""
 group_call_name = ""
