@@ -31,20 +31,84 @@ func load_txt(path: String) -> Array:
 	file.close()
 	return lines
 
+#region NUMBER TO STIRNG REGION
+
+const EN_SUFFIXES: PackedStringArray = [
+	"", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" # ~1e33
+]
 
 func number_to_string(number) -> String:
-	if number < 1000:
+	var is_negative = number < 0.0
+	var num = absf(float(number))
+
+	# Petits nombres : comportement inchangé
+	if num < 1000.0:
 		return str(number)
-	elif number >= pow(10, 3) and number < pow(10, 6):
-		return str(snapped((number/ pow(10, 3)), 0.1)) + " K" 
-	elif number >= pow(10, 6) and number < pow(10, 9):
-		return str(snapped((number/ pow(10, 6)), 0.01)) + " M"   #" Millions"
-		
-	elif number >= pow(10, 9):
-		return str(snapped((number/ pow(10, 9)), 0.01)) + " Md"#" Milliards"
+
+	var sign = ""
+	if is_negative:
+		sign = "-"
+
+	# Ordre en milliers (10^3)
+	var exp3 = int(floor(log(num) / log(1000.0)))
+
+	# Au-delà des suffixes connus -> notation scientifique
+	if exp3 >= EN_SUFFIXES.size():
+		return sign + _to_scientific(num, 2)
+
+	var idx = max(1, exp3)
+	var scaled = num / pow(1000.0, float(idx))
+	var dec = _decimals_for(scaled, 2)
+
+	# Arrondi lisible
+	var rounded = _round_to_decimals(scaled, dec)
+
+	# Cas limite : 999.95 -> 1000.0, promotion au suffixe suivant
+	if rounded >= 1000.0:
+		idx += 1
+		if idx >= EN_SUFFIXES.size():
+			return sign + _to_scientific(num, 2)
+		rounded /= 1000.0
+		dec = _decimals_for(rounded, 2)
+
+	var s = _to_string_trim(rounded, dec)
+	return sign + s + " " + EN_SUFFIXES[idx]
+
+
+# ---------- Helpers ----------
+
+func _decimals_for(v: float, max_dec: int) -> int:
+	if v >= 100.0:
+		return 0
+	elif v >= 10.0:
+		return min(1, max_dec)
 	else:
-		push_error("Probleme dans le calcul")
-		return str(number)
+		return max_dec
+
+func _round_to_decimals(x: float, decimals: int) -> float:
+	if decimals <= 0:
+		return floor(x + 0.5)
+	var factor = pow(10.0, decimals)
+	return floor(x * factor + 0.5) / factor
+
+func _to_string_trim(x: float, decimals: int) -> String:
+	var y = _round_to_decimals(x, decimals)
+	var s = str(y)
+	if decimals > 0 and s.find(".") != -1:
+		while s.ends_with("0"):
+			s = s.substr(0, s.length() - 1)
+		if s.ends_with("."):
+			s = s.substr(0, s.length() - 1)
+	return s
+
+func _to_scientific(x: float, decimals: int = 2) -> String:
+	if x == 0.0:
+		return "0"
+	var exp10 = int(floor(log(x) / log(10.0)))
+	var mant = x / pow(10.0, float(exp10))
+	var mant_str = _to_string_trim(_round_to_decimals(mant, decimals), decimals)
+	return mant_str + "e" + str(exp10)
+#endregion
 
 func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	"""Renvoie la position de la target pour qu'elle soit au centre"""
