@@ -62,10 +62,13 @@ func event_ui_setup(scenario_specific: int = -1):
 			new_bullet3.set_bullet_point(choice_text)
 		
 		else:
-			for event_effect_name in choices_id[index]["effects"]:
+			for event_effect_name:String in choices_id[index]["effects"]:
 				var new_bullet = BULLET_POINT.instantiate()
 				choices_container[index].add_child(new_bullet)
 				var effect_value = choices_id[index]["effects"][event_effect_name]
+				var is_perc: bool = false
+				if event_effect_name.ends_with("_perc"):
+					is_perc = true
 				var value: float
 				
 				# ATTENTION Ne pas oublier de changer au niveau du click du boutton
@@ -84,6 +87,8 @@ func event_ui_setup(scenario_specific: int = -1):
 					
 				else:
 					value = effect_value
+					if is_perc:
+						value *= 100
 					choice_text = tr("$" + event_effect_name) + ": "
 		
 				if effect_value < 0:
@@ -91,6 +96,8 @@ func event_ui_setup(scenario_specific: int = -1):
 				else:
 					choice_text += "+ %s" % Global.number_to_string(value)
 				
+				if is_perc:
+					choice_text += " %"
 				new_bullet.set_bullet_point(choice_text)
 		
 		choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
@@ -147,6 +154,18 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 										StatsManager.Stats.KNOWLEDGE,
 										StatsManager.ModifierType.PERCENTAGE,
 										_modifiers[stat_name],
+										event_id)
+			"hack_time_perc":
+				StatsManager.add_modifier(StatsManager.TargetModifier.HACK,
+										StatsManager.Stats.TIME,
+										StatsManager.ModifierType.PERCENTAGE, 
+										_modifiers[stat_name], 
+										event_id)
+			"hack_gold_perc":
+				StatsManager.add_modifier(StatsManager.TargetModifier.HACK,
+										StatsManager.Stats.GOLD,
+										StatsManager.ModifierType.PERCENTAGE, 
+										_modifiers[stat_name], 
 										event_id)
 				
 				
