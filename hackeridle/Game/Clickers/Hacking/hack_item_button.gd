@@ -171,8 +171,12 @@ func x_can_be_buy(_x_buy):
 	cost_hack_label.text = tr("$Upgr") + ". "
 	#cost_hack_label.text = "+ " + str(_x_buy) + ": "
 	hack_item_price_label.text = Global.number_to_string(item_price)
-	next_gold_gain_label.text = "+ " + Global.number_to_string(\
-		Calculs.next_gain_gold(current_hack_item_cara["item_name"],quantity_to_buy))
+	
+	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
+		next_gold_gain_label.text = "+ " + Global.number_to_string(\
+			Calculs.next_gain_gold(current_hack_item_cara["item_name"],quantity_to_buy))
+	else:
+		next_gold_gain_label.text = ""
 	
 	#Puis on met à jour le prix de l'item
 	
