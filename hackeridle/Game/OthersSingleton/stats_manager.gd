@@ -6,20 +6,21 @@ extends Node
 #
 ################################################################################
 
-enum Stats{GOLD, KNOWLEDGE, BRAIN_XP, TIME, JAIL}
+enum Stats{GOLD, KNOWLEDGE, BRAIN_XP, TIME, JAIL, DECREASE_INFAMY}
 enum ModifierType {PERCENTAGE, FLAT, BASE}
 #FLAT = sans augmentation de pourcentage: Surement très peu utilisé
 #BASE = subit l'augmentation de pourcentage
 #PERCENTAGE: 1 = 100%; 0,5 = 50% etc
 enum Infamy{INNOCENT, REPORT, USP, USA, TARGETED, PUBLIC_ENEMY, NULL}
-enum TargetModifier{GLOBAL, BRAIN_CLICK, HACK}
+enum TargetModifier{GLOBAL, BRAIN_CLICK, HACK, DECREASE_INFAMY}
 
 const STATS_NAMES = {
 	Stats.GOLD: "gold",
 	Stats.KNOWLEDGE: "knowledge",
 	Stats.BRAIN_XP: "brain_xp",
 	Stats.TIME: "time",
-	Stats.JAIL: "jail"
+	Stats.JAIL: "jail",
+	Stats.DECREASE_INFAMY: 'decrease_infamy'
 }
 const INFAMY_NAMES = {
 	Infamy.INNOCENT: "innocent",
@@ -35,6 +36,7 @@ const INFAMY_NAMES = {
 var global_modifiers: Dictionary = {}    #tous les modificateurs des stats
 var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 var hack_modifiers: Dictionary = {}
+var decrease_infamy_modifiers: Dictionary = {} #pour la perte d'infamy dans le temps
 
 var infamy: Dictionary
 var infamy_threshold = [10,25,40,60,90,99]
@@ -42,31 +44,34 @@ var infamy_threshold = [10,25,40,60,90,99]
 signal s_go_to_jail()
 signal s_add_infamy(infamy_value)
 signal s_infamy_effect_added()
-func _ready() -> void:
-	_init()
-	
+
+
 func _init(new_game:bool = true) -> void:
 	"""On initialise. Mettre les stats à calculer
 	Si new_game == true, on ajoute les premieres valeurs de abse"""
 	global_modifiers = {}    #tous les modificateurs des stats
 	brain_click_modifiers = {}
 	hack_modifiers = {}
+	decrease_infamy_modifiers = {}
 	for stat in Stats.values():
 		global_modifiers[stat] = []
 		brain_click_modifiers[stat] = []
 		hack_modifiers[stat] = []
+		decrease_infamy_modifiers[stat] = []
 
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, Player.brain_level, "birth")
+		self.add_modifier(TargetModifier.DECREASE_INFAMY, Stats.DECREASE_INFAMY, ModifierType.BASE, 0.01, "birth")
+
 	_init_infamy()
 	
 	
 func _init_infamy():
 	infamy.clear()
-	infamy["min"] = 0 # doit jamais dépasser 90
-	infamy["max"] = 100 # Ne devrait jamais depasser 100
-	infamy["current_value"] = 0 # clamp entre min et max
+	infamy["min"] = 0.0 # doit jamais dépasser 90
+	infamy["max"] = 100.0 # Ne devrait jamais depasser 100
+	infamy["current_value"] = 0.0 # clamp entre min et max
 	add_infamy_effects() #on prend le premier effet
 		
 
@@ -96,6 +101,12 @@ func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 				push_error("la stat %s n'existe pas pour les modification" % stat_name)
 				return
 			hack_modifiers[stat_name].append(new_modifier)
+		TargetModifier.DECREASE_INFAMY:
+			if !decrease_infamy_modifiers.has(stat_name):
+				push_error("la stat %s n'existe pas pour les modification" % stat_name)
+				return
+			decrease_infamy_modifiers[stat_name].append(new_modifier)
+			
 				
 func remove_modifier(target_modifier:TargetModifier, stat_name: Stats, modifier_to_remove: Dictionary ):
 	var modifier_dict = get_accurate_modifier(target_modifier)
@@ -173,6 +184,7 @@ func calcul_hack_stat(stat_name: Stats, earning) -> float:
 	return calcul
 	
 func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
+	"""Renvoie juste le target_modifier"""
 	var modifier_dict: Dictionary
 	match target_modifier:
 		TargetModifier.GLOBAL:
@@ -181,6 +193,8 @@ func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 			modifier_dict = brain_click_modifiers
 		TargetModifier.HACK:
 			modifier_dict = hack_modifiers
+		TargetModifier.DECREASE_INFAMY:
+			modifier_dict = decrease_infamy_modifiers
 	return modifier_dict
 	
 func get_jail_perc() -> float:
@@ -234,11 +248,11 @@ func add_min_infay(_earning: int):
 
 func add_infamy(_earning: float):
 	var old_treshold = get_infamy_treshold()
-	var earning = round(_earning)
-	infamy["current_value"] = clamp(infamy["current_value"] + earning, infamy["min"], infamy["max"])
+	var earning = _earning
+	infamy["current_value"] = clamp(snapped(infamy["current_value"] + earning, 0.01), infamy["min"], infamy["max"])
 	s_add_infamy.emit(infamy["current_value"])
 	var new_treshold = get_infamy_treshold()
-	if infamy["current_value"] == 100:
+	if infamy["current_value"] >= 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
 

@@ -43,6 +43,9 @@ func enter_jail():
 	
 	
 	
+
+	
+	
 	# ICI ON AVAIT UN CODE QUI FIT ATTENDRE LE JOUEUR
 	#var wait_time_in_jail = randf_range(min_time_in_jail, max_time_in_jail)
 	#var years_in_jail = randi_range(min_year_in_jail, max_year_i_jail)

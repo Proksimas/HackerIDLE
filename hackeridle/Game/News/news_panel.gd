@@ -223,7 +223,7 @@ func _on_news_paper_icon_pressed() -> void:
 #region INFAMY
 
 func _on_s_add_infamy(_infamy_value):
-	infamy_value.text = str(_infamy_value)
+	infamy_value.text = str(floor(_infamy_value))
 
 func _on_infamy_icon_pressed() -> void:
 	show_infamy.emit()

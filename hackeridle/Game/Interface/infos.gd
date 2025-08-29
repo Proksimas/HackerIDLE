@@ -79,7 +79,7 @@ func draw_infamy_stats():
 
 
 func _on_s_add_infamy(_infamy_value):
-	infamy_value.text = str(_infamy_value)
+	infamy_value.text = str(floor(_infamy_value)) #l'affichage est arrondi au supérieur
 	
 func _on_new_game_button_pressed() -> void:
 	var main = get_tree().get_root().get_node("Main")
