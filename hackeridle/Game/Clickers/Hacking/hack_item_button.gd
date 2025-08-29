@@ -154,8 +154,16 @@ func x_can_be_buy(_x_buy):
 	item_price = Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy)
 	if Player.knowledge_point  < item_price:
 		buy_item_button.disabled = true
+		cost_hack_label.add_theme_color_override("font_color", Color(1,0,0))
+		buy_item_button.get_child(0).modulate = Color(1, 1, 1, 0.5)
+		#hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 0.5)
+		#hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 0.5))
 	else:
 		buy_item_button.disabled = false
+		cost_hack_label.add_theme_color_override("font_color",Color(0, 1, 0.6))
+		#hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 1)
+		buy_item_button.get_child(0).modulate = Color(1, 1, 1, 1)
+		#hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 1))
 		
 	# on tente de maj le prix ici
 	

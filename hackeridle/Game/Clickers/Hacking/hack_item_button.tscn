@@ -21,7 +21,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
-bg_color = Color(0.0295387, 0.0869147, 0.0593716, 1)
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
@@ -34,12 +34,13 @@ corner_radius_bottom_left = 10
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyn0f"]
-bg_color = Color(0.831373, 0.427451, 0.0392157, 1)
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
 border_width_left = 2
 border_width_top = 1
 border_width_right = 2
 border_width_bottom = 1
-border_color = Color(0.494118, 0.180392, 0.129412, 1)
+border_color = Color(1, 0, 0, 1)
+border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -217,6 +218,7 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_vyn0f")
 theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
+disabled = true
 
 [node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton"]
 layout_mode = 1
