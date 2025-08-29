@@ -19,6 +19,8 @@ extends Control
 @onready var gold_resource: Control = %GoldResource
 @onready var cyber_force_resource: ResourceBox = %CyberForceResource
 
+@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
+@onready var cheat_events: HBoxContainer = %cheat_events
 
 @onready var date_label: Label = %DateLabel
 @onready var news_panel: PanelContainer = %NewsPanel
@@ -43,6 +45,9 @@ const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if !OS.has_feature("editor"):
+		cheat_events.hide()
+	
 	main_tab.current_tab = 0
 	connexions()
 	init_interface()
@@ -248,5 +253,3 @@ func _load_data(data):
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 	infos._load_data(data["Infos"])
-
-@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox

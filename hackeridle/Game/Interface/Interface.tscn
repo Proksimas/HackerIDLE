@@ -91,6 +91,7 @@ theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
 text = "1980 - 10 - 01"
 
 [node name="cheat_events" type="HBoxContainer" parent="InterfacePanel/MainZone/Header"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0

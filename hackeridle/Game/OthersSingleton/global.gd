@@ -100,6 +100,7 @@ func _to_string_trim(x: float, decimals: int) -> String:
 		if s.ends_with("."):
 			s = s.substr(0, s.length() - 1)
 	return s
+	
 
 func _to_scientific(x: float, decimals: int = 2) -> String:
 	if x == 0.0:
