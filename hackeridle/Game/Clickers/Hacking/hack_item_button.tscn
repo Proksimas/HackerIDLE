@@ -378,5 +378,4 @@ size_flags_horizontal = 4
 
 [connection signal="draw" from="." to="." method="_on_draw"]
 [connection signal="hidden" from="." to="." method="_on_hidden"]
-[connection signal="pressed" from="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton" to="." method="_on_buy_item_button_pressed"]
 [connection signal="gui_input" from="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer3/HackItemCodeEdit" to="." method="_on_hack_item_code_edit_gui_input"]

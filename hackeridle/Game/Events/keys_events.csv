@@ -3,4 +3,5 @@ $xp_click_flat;Xp supplémentaire par click;Additional xp per click
 $brain_xp;Xp de connaissance;Xp knowledge
 $knowledge_click_bonus;Connaissance supplémentaire par click;
 $hack_time_perc;Temps des hacks;
-$hack_gold_perc;Coût des hacks;
+$hack_gold_perc;Gain des hacks;
+$hack_cost_perc;Coût des haks;

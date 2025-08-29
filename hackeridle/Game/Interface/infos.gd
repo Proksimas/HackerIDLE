@@ -79,7 +79,10 @@ func draw_infamy_stats():
 
 
 func _on_s_add_infamy(_infamy_value):
-	infamy_value.text = str(floor(_infamy_value)) #l'affichage est arrondi au supérieur
+	if _infamy_value >= 99 and _infamy_value < 100:
+		infamy_value.text = "99"
+	else:
+		infamy_value.text = str(ceil(_infamy_value)) #l'affichage est arrondi au supérieur
 	
 func _on_new_game_button_pressed() -> void:
 	var main = get_tree().get_root().get_node("Main")

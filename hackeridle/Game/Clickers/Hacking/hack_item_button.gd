@@ -108,8 +108,7 @@ func set_refresh(item_cara: Dictionary = {}):
 				
 	gold_gain.text = Global.number_to_string(StatsManager.calcul_hack_stat(StatsManager.Stats.GOLD,
 					Calculs.gain_gold(current_hack_item_cara["item_name"])))
-					
-		
+
 	duration_label.text = tr("$Duration") + ": "
 	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
 
@@ -151,7 +150,9 @@ func x_can_be_buy(_x_buy):
 	else:
 		quantity_to_buy = x_buy
 		
-	item_price = Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy)
+	#item_price = Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy)
+	item_price = StatsManager.calcul_hack_stat(StatsManager.Stats.COST,Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy))
+		
 	if Player.knowledge_point  < item_price:
 		buy_item_button.disabled = true
 		cost_hack_label.add_theme_color_override("font_color", Color(1,0,0))
@@ -226,8 +227,10 @@ func statut_updated():
 		self.show()
 		main_margin_container.hide()
 		to_unlocked_panel.show()
-		first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
-		brain_cost.text = Global.number_to_string(first_cost)
+		first_cost = StatsManager.calcul_hack_stat(StatsManager.Stats.COST,Calculs.total_hacking_prices(current_hack_item_cara, 1))
+		#first_cost = Calculs.total_hacking_prices(current_hack_item_cara, 1)
+		brain_cost.text =  Global.number_to_string(first_cost)
+		
 		cost_label.text = tr("$Cost") + ": " 
 		pass
 		

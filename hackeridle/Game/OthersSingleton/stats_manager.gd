@@ -6,7 +6,7 @@ extends Node
 #
 ################################################################################
 
-enum Stats{GOLD, KNOWLEDGE, BRAIN_XP, TIME, JAIL, DECREASE_INFAMY}
+enum Stats{GOLD, KNOWLEDGE, BRAIN_XP, TIME, JAIL, DECREASE_INFAMY, COST}
 enum ModifierType {PERCENTAGE, FLAT, BASE}
 #FLAT = sans augmentation de pourcentage: Surement très peu utilisé
 #BASE = subit l'augmentation de pourcentage
@@ -20,7 +20,8 @@ const STATS_NAMES = {
 	Stats.BRAIN_XP: "brain_xp",
 	Stats.TIME: "time",
 	Stats.JAIL: "jail",
-	Stats.DECREASE_INFAMY: 'decrease_infamy'
+	Stats.DECREASE_INFAMY: 'decrease_infamy',
+	Stats.COST: "cost"
 }
 const INFAMY_NAMES = {
 	Infamy.INNOCENT: "innocent",

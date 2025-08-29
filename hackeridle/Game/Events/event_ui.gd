@@ -167,6 +167,12 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 										StatsManager.ModifierType.PERCENTAGE, 
 										_modifiers[stat_name], 
 										event_id)
+			"hack_cost_perc":
+				StatsManager.add_modifier(StatsManager.TargetModifier.HACK,
+										StatsManager.Stats.COST,
+										StatsManager.ModifierType.PERCENTAGE, 
+										_modifiers[stat_name], 
+										event_id)
 				
 				
 			"perc_from_gold":

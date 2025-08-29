@@ -223,7 +223,11 @@ func _on_news_paper_icon_pressed() -> void:
 #region INFAMY
 
 func _on_s_add_infamy(_infamy_value):
-	infamy_value.text = str(floor(_infamy_value))
+	if _infamy_value >= 99 and _infamy_value < 100:
+		infamy_value.text = "99"
+	else:
+		infamy_value.text = str(ceil(_infamy_value)) #l'affichage est arrondi au supérieur
+	
 
 func _on_infamy_icon_pressed() -> void:
 	show_infamy.emit()
