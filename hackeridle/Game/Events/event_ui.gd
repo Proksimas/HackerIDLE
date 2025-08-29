@@ -104,7 +104,10 @@ func event_ui_setup(scenario_specific: int = -1):
 			choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
 		index += 1
 	
+	#On met le jeu en pause
+	get_tree().paused = true
 	return
+	
 func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
 
@@ -114,6 +117,7 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 		choice_b_button.pressed.disconnect(_on_choice_pressed)
 		
 	apply_modifiers(_modifiers, event_id)
+	get_tree().paused = false
 	s_event_finished.emit()
 	#self.queue_free()
 		
@@ -196,8 +200,9 @@ func _on_timout():
 		choice_a_button.pressed.emit()
 	else:
 		choice_b_button.pressed.emit()
+	get_tree().paused = false
 	s_event_finished.emit()
-	#self.queue_free()
+	
 	
 func _on_disabled_button_timout():
 	choice_a_button.disabled = false
