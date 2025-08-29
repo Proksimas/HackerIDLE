@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://wy62jiunydmx"
+
+[deps]
+
+files=["res://Game/Events/keys_events.fr.translation", "res://Game/Events/keys_events.en.translation"]
+
+source_file="res://Game/Events/keys_events.csv"
+dest_files=["res://Game/Events/keys_events.fr.translation", "res://Game/Events/keys_events.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

@@ -1,0 +1,2048 @@
+[
+  {
+    "id": "event_1",
+    "titre_id": "event_1_titre",
+    "description_id": "event_1_desc",
+    "choix": [
+      {
+        "texte_id": "event_1_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 3,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_1_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_2",
+    "titre_id": "event_2_titre",
+    "description_id": "event_2_desc",
+    "choix": [
+      {
+        "texte_id": "event_2_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 4,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_2_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_3",
+    "titre_id": "event_3_titre",
+    "description_id": "event_3_desc",
+    "choix": [
+      {
+        "texte_id": "event_3_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 1,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_3_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_4",
+    "titre_id": "event_4_titre",
+    "description_id": "event_4_desc",
+    "choix": [
+      {
+        "texte_id": "event_4_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 3,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_4_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_5",
+    "titre_id": "event_5_titre",
+    "description_id": "event_5_desc",
+    "choix": [
+      {
+        "texte_id": "event_5_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 3,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_5_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_6",
+    "titre_id": "event_6_titre",
+    "description_id": "event_6_desc",
+    "choix": [
+      {
+        "texte_id": "event_6_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 4,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_6_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_7",
+    "titre_id": "event_7_titre",
+    "description_id": "event_7_desc",
+    "choix": [
+      {
+        "texte_id": "event_7_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 4,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_7_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_8",
+    "titre_id": "event_8_titre",
+    "description_id": "event_8_desc",
+    "choix": [
+      {
+        "texte_id": "event_8_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 2,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_8_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_9",
+    "titre_id": "event_9_titre",
+    "description_id": "event_9_desc",
+    "choix": [
+      {
+        "texte_id": "event_9_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 1,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_9_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_10",
+    "titre_id": "event_10_titre",
+    "description_id": "event_10_desc",
+    "choix": [
+      {
+        "texte_id": "event_10_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_10_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_11",
+    "titre_id": "event_11_titre",
+    "description_id": "event_11_desc",
+    "choix": [
+      {
+        "texte_id": "event_11_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 3,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_11_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_12",
+    "titre_id": "event_12_titre",
+    "description_id": "event_12_desc",
+    "choix": [
+      {
+        "texte_id": "event_12_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 5,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_12_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_13",
+    "titre_id": "event_13_titre",
+    "description_id": "event_13_desc",
+    "choix": [
+      {
+        "texte_id": "event_13_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 2,
+          "infamy": 7
+        }
+      },
+      {
+        "texte_id": "event_13_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_14",
+    "titre_id": "event_14_titre",
+    "description_id": "event_14_desc",
+    "choix": [
+      {
+        "texte_id": "event_14_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 5,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_14_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_15",
+    "titre_id": "event_15_titre",
+    "description_id": "event_15_desc",
+    "choix": [
+      {
+        "texte_id": "event_15_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 3,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_15_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_16",
+    "titre_id": "event_16_titre",
+    "description_id": "event_16_desc",
+    "choix": [
+      {
+        "texte_id": "event_16_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 3,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_16_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_17",
+    "titre_id": "event_17_titre",
+    "description_id": "event_17_desc",
+    "choix": [
+      {
+        "texte_id": "event_17_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 4,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_17_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_18",
+    "titre_id": "event_18_titre",
+    "description_id": "event_18_desc",
+    "choix": [
+      {
+        "texte_id": "event_18_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 1,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_18_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_19",
+    "titre_id": "event_19_titre",
+    "description_id": "event_19_desc",
+    "choix": [
+      {
+        "texte_id": "event_19_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 4,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_19_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_20",
+    "titre_id": "event_20_titre",
+    "description_id": "event_20_desc",
+    "choix": [
+      {
+        "texte_id": "event_20_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 5,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_20_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_21",
+    "titre_id": "event_21_titre",
+    "description_id": "event_21_desc",
+    "choix": [
+      {
+        "texte_id": "event_21_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 1,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_21_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_22",
+    "titre_id": "event_22_titre",
+    "description_id": "event_22_desc",
+    "choix": [
+      {
+        "texte_id": "event_22_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 1,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_22_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_23",
+    "titre_id": "event_23_titre",
+    "description_id": "event_23_desc",
+    "choix": [
+      {
+        "texte_id": "event_23_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 5,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_23_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_24",
+    "titre_id": "event_24_titre",
+    "description_id": "event_24_desc",
+    "choix": [
+      {
+        "texte_id": "event_24_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 2,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_24_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_25",
+    "titre_id": "event_25_titre",
+    "description_id": "event_25_desc",
+    "choix": [
+      {
+        "texte_id": "event_25_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 1,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_25_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_26",
+    "titre_id": "event_26_titre",
+    "description_id": "event_26_desc",
+    "choix": [
+      {
+        "texte_id": "event_26_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 5,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_26_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_27",
+    "titre_id": "event_27_titre",
+    "description_id": "event_27_desc",
+    "choix": [
+      {
+        "texte_id": "event_27_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 4,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_27_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_28",
+    "titre_id": "event_28_titre",
+    "description_id": "event_28_desc",
+    "choix": [
+      {
+        "texte_id": "event_28_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 5,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_28_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_29",
+    "titre_id": "event_29_titre",
+    "description_id": "event_29_desc",
+    "choix": [
+      {
+        "texte_id": "event_29_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 1,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_29_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_30",
+    "titre_id": "event_30_titre",
+    "description_id": "event_30_desc",
+    "choix": [
+      {
+        "texte_id": "event_30_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 1,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_30_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_31",
+    "titre_id": "event_31_titre",
+    "description_id": "event_31_desc",
+    "choix": [
+      {
+        "texte_id": "event_31_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 5,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_31_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_32",
+    "titre_id": "event_32_titre",
+    "description_id": "event_32_desc",
+    "choix": [
+      {
+        "texte_id": "event_32_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 1,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_32_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_33",
+    "titre_id": "event_33_titre",
+    "description_id": "event_33_desc",
+    "choix": [
+      {
+        "texte_id": "event_33_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 2,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_33_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_34",
+    "titre_id": "event_34_titre",
+    "description_id": "event_34_desc",
+    "choix": [
+      {
+        "texte_id": "event_34_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 2,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_34_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_35",
+    "titre_id": "event_35_titre",
+    "description_id": "event_35_desc",
+    "choix": [
+      {
+        "texte_id": "event_35_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 1,
+          "infamy": 7
+        }
+      },
+      {
+        "texte_id": "event_35_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_36",
+    "titre_id": "event_36_titre",
+    "description_id": "event_36_desc",
+    "choix": [
+      {
+        "texte_id": "event_36_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 1,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_36_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_37",
+    "titre_id": "event_37_titre",
+    "description_id": "event_37_desc",
+    "choix": [
+      {
+        "texte_id": "event_37_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_37_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_38",
+    "titre_id": "event_38_titre",
+    "description_id": "event_38_desc",
+    "choix": [
+      {
+        "texte_id": "event_38_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 2,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_38_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_39",
+    "titre_id": "event_39_titre",
+    "description_id": "event_39_desc",
+    "choix": [
+      {
+        "texte_id": "event_39_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 1,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_39_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_40",
+    "titre_id": "event_40_titre",
+    "description_id": "event_40_desc",
+    "choix": [
+      {
+        "texte_id": "event_40_choix1",
+        "effets": {
+          "xp_click_flat": 6,
+          "knowledge_click_bonus": 1,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_40_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_41",
+    "titre_id": "event_41_titre",
+    "description_id": "event_41_desc",
+    "choix": [
+      {
+        "texte_id": "event_41_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 4,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_41_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_42",
+    "titre_id": "event_42_titre",
+    "description_id": "event_42_desc",
+    "choix": [
+      {
+        "texte_id": "event_42_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 1,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_42_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_43",
+    "titre_id": "event_43_titre",
+    "description_id": "event_43_desc",
+    "choix": [
+      {
+        "texte_id": "event_43_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 5,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_43_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_44",
+    "titre_id": "event_44_titre",
+    "description_id": "event_44_desc",
+    "choix": [
+      {
+        "texte_id": "event_44_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 1,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_44_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_45",
+    "titre_id": "event_45_titre",
+    "description_id": "event_45_desc",
+    "choix": [
+      {
+        "texte_id": "event_45_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_45_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_46",
+    "titre_id": "event_46_titre",
+    "description_id": "event_46_desc",
+    "choix": [
+      {
+        "texte_id": "event_46_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 1,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_46_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_47",
+    "titre_id": "event_47_titre",
+    "description_id": "event_47_desc",
+    "choix": [
+      {
+        "texte_id": "event_47_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 2,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_47_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_48",
+    "titre_id": "event_48_titre",
+    "description_id": "event_48_desc",
+    "choix": [
+      {
+        "texte_id": "event_48_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 3,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_48_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_49",
+    "titre_id": "event_49_titre",
+    "description_id": "event_49_desc",
+    "choix": [
+      {
+        "texte_id": "event_49_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 5,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_49_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_50",
+    "titre_id": "event_50_titre",
+    "description_id": "event_50_desc",
+    "choix": [
+      {
+        "texte_id": "event_50_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_50_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_51",
+    "titre_id": "event_51_titre",
+    "description_id": "event_51_desc",
+    "choix": [
+      {
+        "texte_id": "event_51_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 2,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_51_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_52",
+    "titre_id": "event_52_titre",
+    "description_id": "event_52_desc",
+    "choix": [
+      {
+        "texte_id": "event_52_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 3,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_52_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_53",
+    "titre_id": "event_53_titre",
+    "description_id": "event_53_desc",
+    "choix": [
+      {
+        "texte_id": "event_53_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 1,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_53_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_54",
+    "titre_id": "event_54_titre",
+    "description_id": "event_54_desc",
+    "choix": [
+      {
+        "texte_id": "event_54_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 4,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_54_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_55",
+    "titre_id": "event_55_titre",
+    "description_id": "event_55_desc",
+    "choix": [
+      {
+        "texte_id": "event_55_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 5,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_55_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_56",
+    "titre_id": "event_56_titre",
+    "description_id": "event_56_desc",
+    "choix": [
+      {
+        "texte_id": "event_56_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 3,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_56_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_57",
+    "titre_id": "event_57_titre",
+    "description_id": "event_57_desc",
+    "choix": [
+      {
+        "texte_id": "event_57_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 1,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_57_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_58",
+    "titre_id": "event_58_titre",
+    "description_id": "event_58_desc",
+    "choix": [
+      {
+        "texte_id": "event_58_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 5,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_58_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_59",
+    "titre_id": "event_59_titre",
+    "description_id": "event_59_desc",
+    "choix": [
+      {
+        "texte_id": "event_59_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 5,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_59_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_60",
+    "titre_id": "event_60_titre",
+    "description_id": "event_60_desc",
+    "choix": [
+      {
+        "texte_id": "event_60_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 5,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_60_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_61",
+    "titre_id": "event_61_titre",
+    "description_id": "event_61_desc",
+    "choix": [
+      {
+        "texte_id": "event_61_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 4,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_61_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_62",
+    "titre_id": "event_62_titre",
+    "description_id": "event_62_desc",
+    "choix": [
+      {
+        "texte_id": "event_62_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 4,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_62_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_63",
+    "titre_id": "event_63_titre",
+    "description_id": "event_63_desc",
+    "choix": [
+      {
+        "texte_id": "event_63_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 1,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_63_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_64",
+    "titre_id": "event_64_titre",
+    "description_id": "event_64_desc",
+    "choix": [
+      {
+        "texte_id": "event_64_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 4,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_64_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_65",
+    "titre_id": "event_65_titre",
+    "description_id": "event_65_desc",
+    "choix": [
+      {
+        "texte_id": "event_65_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 5,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_65_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_66",
+    "titre_id": "event_66_titre",
+    "description_id": "event_66_desc",
+    "choix": [
+      {
+        "texte_id": "event_66_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 5,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_66_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_67",
+    "titre_id": "event_67_titre",
+    "description_id": "event_67_desc",
+    "choix": [
+      {
+        "texte_id": "event_67_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 1,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_67_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_68",
+    "titre_id": "event_68_titre",
+    "description_id": "event_68_desc",
+    "choix": [
+      {
+        "texte_id": "event_68_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 4,
+          "infamy": 13
+        }
+      },
+      {
+        "texte_id": "event_68_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -10
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_69",
+    "titre_id": "event_69_titre",
+    "description_id": "event_69_desc",
+    "choix": [
+      {
+        "texte_id": "event_69_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 2,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_69_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_70",
+    "titre_id": "event_70_titre",
+    "description_id": "event_70_desc",
+    "choix": [
+      {
+        "texte_id": "event_70_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 2,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_70_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_71",
+    "titre_id": "event_71_titre",
+    "description_id": "event_71_desc",
+    "choix": [
+      {
+        "texte_id": "event_71_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 1,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_71_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_72",
+    "titre_id": "event_72_titre",
+    "description_id": "event_72_desc",
+    "choix": [
+      {
+        "texte_id": "event_72_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 1,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_72_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_73",
+    "titre_id": "event_73_titre",
+    "description_id": "event_73_desc",
+    "choix": [
+      {
+        "texte_id": "event_73_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 3,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_73_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -7
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_74",
+    "titre_id": "event_74_titre",
+    "description_id": "event_74_desc",
+    "choix": [
+      {
+        "texte_id": "event_74_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 5,
+          "infamy": 14
+        }
+      },
+      {
+        "texte_id": "event_74_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_75",
+    "titre_id": "event_75_titre",
+    "description_id": "event_75_desc",
+    "choix": [
+      {
+        "texte_id": "event_75_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 2,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_75_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_76",
+    "titre_id": "event_76_titre",
+    "description_id": "event_76_desc",
+    "choix": [
+      {
+        "texte_id": "event_76_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 4,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_76_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -8
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_77",
+    "titre_id": "event_77_titre",
+    "description_id": "event_77_desc",
+    "choix": [
+      {
+        "texte_id": "event_77_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 2,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_77_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_78",
+    "titre_id": "event_78_titre",
+    "description_id": "event_78_desc",
+    "choix": [
+      {
+        "texte_id": "event_78_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 5,
+          "infamy": 8
+        }
+      },
+      {
+        "texte_id": "event_78_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_79",
+    "titre_id": "event_79_titre",
+    "description_id": "event_79_desc",
+    "choix": [
+      {
+        "texte_id": "event_79_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 2,
+          "infamy": 6
+        }
+      },
+      {
+        "texte_id": "event_79_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_80",
+    "titre_id": "event_80_titre",
+    "description_id": "event_80_desc",
+    "choix": [
+      {
+        "texte_id": "event_80_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 5,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_80_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_81",
+    "titre_id": "event_81_titre",
+    "description_id": "event_81_desc",
+    "choix": [
+      {
+        "texte_id": "event_81_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 2,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_81_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_82",
+    "titre_id": "event_82_titre",
+    "description_id": "event_82_desc",
+    "choix": [
+      {
+        "texte_id": "event_82_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 2,
+          "infamy": 11
+        }
+      },
+      {
+        "texte_id": "event_82_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_83",
+    "titre_id": "event_83_titre",
+    "description_id": "event_83_desc",
+    "choix": [
+      {
+        "texte_id": "event_83_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 1,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_83_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_84",
+    "titre_id": "event_84_titre",
+    "description_id": "event_84_desc",
+    "choix": [
+      {
+        "texte_id": "event_84_choix1",
+        "effets": {
+          "xp_click_flat": 3,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_84_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_85",
+    "titre_id": "event_85_titre",
+    "description_id": "event_85_desc",
+    "choix": [
+      {
+        "texte_id": "event_85_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 5,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_85_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -9
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_86",
+    "titre_id": "event_86_titre",
+    "description_id": "event_86_desc",
+    "choix": [
+      {
+        "texte_id": "event_86_choix1",
+        "effets": {
+          "xp_click_flat": 9,
+          "knowledge_click_bonus": 1,
+          "infamy": 5
+        }
+      },
+      {
+        "texte_id": "event_86_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -6
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_87",
+    "titre_id": "event_87_titre",
+    "description_id": "event_87_desc",
+    "choix": [
+      {
+        "texte_id": "event_87_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 5,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_87_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_88",
+    "titre_id": "event_88_titre",
+    "description_id": "event_88_desc",
+    "choix": [
+      {
+        "texte_id": "event_88_choix1",
+        "effets": {
+          "xp_click_flat": 7,
+          "knowledge_click_bonus": 4,
+          "infamy": 15
+        }
+      },
+      {
+        "texte_id": "event_88_choix2",
+        "effets": {
+          "xp_click_flat": 3,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_89",
+    "titre_id": "event_89_titre",
+    "description_id": "event_89_desc",
+    "choix": [
+      {
+        "texte_id": "event_89_choix1",
+        "effets": {
+          "xp_click_flat": 10,
+          "knowledge_click_bonus": 4,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_89_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_90",
+    "titre_id": "event_90_titre",
+    "description_id": "event_90_desc",
+    "choix": [
+      {
+        "texte_id": "event_90_choix1",
+        "effets": {
+          "xp_click_flat": 8,
+          "knowledge_click_bonus": 5,
+          "infamy": 9
+        }
+      },
+      {
+        "texte_id": "event_90_choix2",
+        "effets": {
+          "xp_click_flat": 0,
+          "infamy": -3
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_91",
+    "titre_id": "event_91_titre",
+    "description_id": "event_91_desc",
+    "choix": [
+      {
+        "texte_id": "event_91_choix1",
+        "effets": {
+          "xp_click_flat": 5,
+          "knowledge_click_bonus": 1,
+          "infamy": 7
+        }
+      },
+      {
+        "texte_id": "event_91_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -5
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_92",
+    "titre_id": "event_92_titre",
+    "description_id": "event_92_desc",
+    "choix": [
+      {
+        "texte_id": "event_92_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 4,
+          "infamy": 12
+        }
+      },
+      {
+        "texte_id": "event_92_choix2",
+        "effets": {
+          "xp_click_flat": 1,
+          "infamy": -4
+        }
+      }
+    ]
+  },
+  {
+    "id": "event_93",
+    "titre_id": "event_93_titre",
+    "description_id": "event_93_desc",
+    "choix": [
+      {
+        "texte_id": "event_93_choix1",
+        "effets": {
+          "xp_click_flat": 4,
+          "knowledge_click_bonus": 2,
+          "infamy": 10
+        }
+      },
+      {
+        "texte_id": "event_93_choix2",
+        "effets": {
+          "xp_click_flat": 2,
+          "infamy": -7
+        }
+      }
+    ]
+  }
+]

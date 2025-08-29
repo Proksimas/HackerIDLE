@@ -81,6 +81,7 @@ func event_ui_setup(scenario_specific: int = -1):
 					#donne x% de l'exp qu'il faut pouir le prochain level
 					value = Player.brain_xp_next * effect_value
 					choice_text = tr("$brain_xp") + ": "
+					
 				else:
 					value = effect_value
 					choice_text = tr("$" + event_effect_name) + ": "
@@ -121,16 +122,30 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 		match stat_name:
 			"infamy":
 				StatsManager.add_infamy(_modifiers["infamy"])
+				
 			"xp_click_flat": 
 				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
 										StatsManager.Stats.BRAIN_XP,
 										StatsManager.ModifierType.FLAT,
 										_modifiers[stat_name],
 										event_id)
+			"xp_click_perc":
+				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
+										StatsManager.Stats.BRAIN_XP,
+										StatsManager.ModifierType.PERCENTAGE,
+										_modifiers[stat_name],
+										event_id)
+										
 			"knowledge_click_bonus":
 				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
 										StatsManager.Stats.KNOWLEDGE,
 										StatsManager.ModifierType.BASE,
+										_modifiers[stat_name],
+										event_id)
+			"knowledge_click_perc":
+				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
+										StatsManager.Stats.KNOWLEDGE,
+										StatsManager.ModifierType.PERCENTAGE,
 										_modifiers[stat_name],
 										event_id)
 				

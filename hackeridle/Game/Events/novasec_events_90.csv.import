@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bubjrvwob2v5h"
+
+[deps]
+
+files=["res://Game/Events/novasec_events_90.fr.translation", "res://Game/Events/novasec_events_90.en.translation"]
+
+source_file="res://Game/Events/novasec_events_90.csv"
+dest_files=["res://Game/Events/novasec_events_90.fr.translation", "res://Game/Events/novasec_events_90.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

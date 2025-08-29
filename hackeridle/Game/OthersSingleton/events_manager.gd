@@ -4,7 +4,7 @@ extends Node
 
 
 const EVENT_UI = preload("res://Game/Events/event_ui.tscn")
-const EVENTS_DB_PATH = "res://Game/Events/events_DB.json"
+const EVENTS_DB_PATH = "res://Game/Events/events_with_effects.json" #"res://Game/Events/events_DB.json"
 const EVENT = preload("res://Game/Events/event.tres")
 
 
