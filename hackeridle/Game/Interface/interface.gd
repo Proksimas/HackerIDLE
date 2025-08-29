@@ -230,6 +230,7 @@ func _on_jail_button_pressed() -> void:
 
 
 func _on_s_event_finished(_event_ui):
+	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
 	_event_ui.hide()
 	_event_ui.queue_free()
 	app_button_pressed("learning")

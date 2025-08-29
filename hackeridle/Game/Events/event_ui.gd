@@ -32,7 +32,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time_process += delta
 	time_progress_bar.value = event_during_time - time_process
-
+	
 func event_ui_setup(scenario_specific: int = -1):
 	self.show()
 	_clear_choices_container()
