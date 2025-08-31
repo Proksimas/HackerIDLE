@@ -12,7 +12,7 @@ enum ModifierType {PERCENTAGE, FLAT, BASE}
 #BASE = subit l'augmentation de pourcentage
 #PERCENTAGE: 1 = 100%; 0,5 = 50% etc
 enum Infamy{INNOCENT, REPORT, USP, USA, TARGETED, PUBLIC_ENEMY, NULL}
-enum TargetModifier{GLOBAL, BRAIN_CLICK, HACK, DECREASE_INFAMY}
+enum TargetModifier{GLOBAL, BRAIN_CLICK, HACK, DECREASE_INFAMY, LEARNING_ITEM}
 
 const STATS_NAMES = {
 	Stats.GOLD: "gold",
@@ -37,6 +37,7 @@ const INFAMY_NAMES = {
 var global_modifiers: Dictionary = {}    #tous les modificateurs des stats
 var brain_click_modifiers: Dictionary = {} #gain ç chaque click sur le cerveau
 var hack_modifiers: Dictionary = {}
+var learning_items_modifiers: Dictionary = {}
 var decrease_infamy_modifiers: Dictionary = {} #pour la perte d'infamy dans le temps
 
 var infamy: Dictionary
@@ -53,12 +54,14 @@ func _init(new_game:bool = true) -> void:
 	global_modifiers = {}    #tous les modificateurs des stats
 	brain_click_modifiers = {}
 	hack_modifiers = {}
+	learning_items_modifiers = {}
 	decrease_infamy_modifiers = {}
 	for stat in Stats.values():
 		global_modifiers[stat] = []
 		brain_click_modifiers[stat] = []
 		hack_modifiers[stat] = []
 		decrease_infamy_modifiers[stat] = []
+		learning_items_modifiers[stat] = []
 
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
@@ -102,6 +105,11 @@ func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 				push_error("la stat %s n'existe pas pour les modification" % stat_name)
 				return
 			hack_modifiers[stat_name].append(new_modifier)
+		TargetModifier.LEARNING_ITEM:
+			if !learning_items_modifiers.has(stat_name):
+				push_error("La stat %s n'existe pas pour les modifications" % stat_name)
+				return
+			learning_items_modifiers[stat_name].append(new_modifier)
 		TargetModifier.DECREASE_INFAMY:
 			if !decrease_infamy_modifiers.has(stat_name):
 				push_error("la stat %s n'existe pas pour les modification" % stat_name)
@@ -184,6 +192,24 @@ func calcul_hack_stat(stat_name: Stats, earning) -> float:
 	var calcul = ((base + earning) * (1 + perc)) + flat
 	return calcul
 	
+func calcul_learning_items_stat(stat_name: Stats, earning) -> float:
+	"""Renvoie UNIQUEMENT pour les learning_tems, le earning modifié avec les paramètres 
+	agissant sur le hack selon la stat choisie"""
+	var perc = 0.0
+	var flat = 0
+	var base = 0
+	for modifier in learning_items_modifiers[stat_name]:
+		match modifier["type"]:
+			ModifierType.BASE:
+				base += modifier["value"]
+			ModifierType.PERCENTAGE:
+				perc += modifier["value"]
+			ModifierType.FLAT:
+				flat += modifier["value"]
+	
+	var calcul = ((base + earning) * (1 + perc)) + flat
+	return calcul
+	
 func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 	"""Renvoie juste le target_modifier"""
 	var modifier_dict: Dictionary
@@ -194,6 +220,8 @@ func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 			modifier_dict = brain_click_modifiers
 		TargetModifier.HACK:
 			modifier_dict = hack_modifiers
+		TargetModifier.LEARNING_ITEM:
+			modifier_dict = learning_items_modifiers
 		TargetModifier.DECREASE_INFAMY:
 			modifier_dict = decrease_infamy_modifiers
 	return modifier_dict
