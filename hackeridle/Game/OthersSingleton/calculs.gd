@@ -43,8 +43,6 @@ func total_learning_prices(current_item_cara, quantity):
 	#ATTENTION on est dans une forme exponentielle simple POUR LE MOMENT  
 	calcul = (c * pow(r,n-1)) * ( (pow(r,k) -1 ) / (r -1) )
 	
-	#TODO GERER LE CAS OU L ITEM EST AU NIVEAU 0
-	
 	return round(calcul)
 	
 

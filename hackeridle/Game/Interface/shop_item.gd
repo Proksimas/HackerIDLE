@@ -78,7 +78,10 @@ func x_can_be_buy(_x_buy):
 	else:
 		quantity_to_buy = x_buy
 		
-	item_price = Calculs.total_learning_prices(current_item_cara, quantity_to_buy)
+	item_price = StatsManager.calcul_learning_items_stat(StatsManager.Stats.COST,
+	Calculs.total_learning_prices(current_item_cara, quantity_to_buy))
+	
+	#item_price = Calculs.total_learning_prices(current_item_cara, quantity_to_buy)
 	if Player.gold  < item_price:
 		self.disabled = true
 	else:
@@ -103,7 +106,9 @@ func statut_updated():
 		self.show()
 		learning_item_info.hide()
 		to_unlocked_panel.show()
-		first_cost = Calculs.total_learning_prices(current_item_cara, 1)
+		first_cost = StatsManager.calcul_learning_items_stat(StatsManager.Stats.COST,
+					Calculs.total_learning_prices(current_item_cara, 1))
+		#first_cost = Calculs.total_learning_prices(current_item_cara, 1)
 		gold_cost.text = Global.number_to_string(first_cost)
 		cost_label.text = tr('$Cost') + ": "
 		pass

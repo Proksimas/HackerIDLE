@@ -44,7 +44,9 @@ func player_bought_learning_item(item_name,  quantity):
 	if not Player.has_learning_item(item_name):
 		#on regarde le cout de l'item à l'unité
 		var item_cara = LearningItemsDB.get_item_cara(item_name)
-		cost = Calculs.total_learning_prices(item_cara, 1)
+		cost =  StatsManager.calcul_learning_items_stat(StatsManager.Stats.COST,
+					 Calculs.total_learning_prices(item_cara, 1))
+		#cost = Calculs.total_learning_prices(item_cara, 1)
 		
 		if Player.gold >=  cost:
 			Player.earn_gold(-cost)
@@ -53,7 +55,9 @@ func player_bought_learning_item(item_name,  quantity):
 			push_warning("On ne devrait pas pouvoir acheter litem, pas assez d'or")
 			
 	else:
-		cost = Calculs.total_learning_prices(Player.learning_item_bought[item_name], quantity)
+		#cost = Calculs.total_learning_prices(Player.learning_item_bought[item_name], quantity)
+		cost =  StatsManager.calcul_learning_items_stat(StatsManager.Stats.COST,
+			Calculs.total_learning_prices(Player.learning_item_bought[item_name], quantity))
 		if Player.gold >=  cost:
 			Player.earn_gold(-cost)
 			Player.learning_item_level_up(item_name, quantity)

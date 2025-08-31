@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_r5rc6"]
-[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="4_1kn6s"]
-[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="4_wlvil"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_1kn6s"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_wlvil"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
 
