@@ -4,6 +4,7 @@ extends Node
 
 @export var force_new_game: bool = false
 @export var active_tutorial: bool = false
+@export var has_full_stats: bool = true
 const INTERFACE = preload("res://Game/Interface/Interface.tscn")
 
 const TRANSLATION_KEYS = ["fr", "en"]
@@ -122,13 +123,21 @@ func fill_player_stats(_rebirthing: bool = false):
 		Player.nb_of_rebirth = 0
 		
 	else: # ICI POUR CHEAT 
-		Player.gold = 100000000000
-		Player.knowledge_point = 10000000000
-		Player.brain_level = 1
-		Player.skill_point = 42
-		Player.brain_xp = 0
-		Player.nb_of_rebirth = 0
-	
+		if has_full_stats:
+			Player.gold = 100000000000
+			Player.knowledge_point = 10000000000
+			Player.brain_level = 1
+			Player.skill_point = 42
+			Player.brain_xp = 0
+			Player.nb_of_rebirth = 0
+		else:
+			Player.gold = 1000
+			Player.knowledge_point = 1000
+			Player.brain_level = 1
+			Player.skill_point = 4
+			Player.brain_xp = 0
+			Player.nb_of_rebirth = 0
+			
 	#Initialisation de toutes les DB et singletons
 	HackingItemsDb.init_hacking_items_db()
 	HackingItemsDb.init_for_player()

@@ -65,12 +65,17 @@ func total_hacking_prices(current_item_cara, quantity):
 	
 func passif_learning_gain(item_cara) -> float:
 	"""Le gain passif selon le delais de l'item, son niveau et son gain de base par seconde"""
-	
+	var gain: float
 	if item_cara["formule_type"] == "polymoniale":
-		return snapped(item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"]), 0.1)
+		gain = item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"])
+		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
+		return snapped(gain, 0.1)
+		
 	
 	else:
-		return snapped(item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1),0.1)
+		gain =item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1)
+		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
+		return snapped(gain,0.1)
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 

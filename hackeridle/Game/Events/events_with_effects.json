@@ -7,6 +7,7 @@
       {
         "texte_id": "event_1_choix1",
         "effets": {
+          "learning_items_knowledge_perc": 1,
           "xp_click_flat": 4,
           "knowledge_click_bonus": 3,
           "infamy": 6

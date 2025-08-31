@@ -9,6 +9,10 @@ class_name PassifLearningItem
 var shop_item_cara_db: Dictionary
 var gain_learning: float = 0.0
 
+###### IMPORTANT ############
+# Bien qu'on ne visualise plus son visuel dans la scene, on incremente tout 
+# de même cet item lorsqu'on achete. C'est lui qui gere le gain
+#
 
 var time = 0
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +24,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	time += delta
 	if gain_learning > 0 and time >= 1:
+		
+		#Le gain calculé avec l'équation dans le passif_learning_gain
+		#var gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain_learning)
+		#set_refresh(shop_item_cara_db)
+		
 		Player.earn_knowledge_point(gain_learning)
 		time = 0
 	pass

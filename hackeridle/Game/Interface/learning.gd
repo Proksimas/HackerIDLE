@@ -77,7 +77,7 @@ func get_all_passives_knowledge():
 		value += passive_clicker.gain_learning
 	return value
 
-			
+
 
 func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()

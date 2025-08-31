@@ -164,6 +164,7 @@ func _on_earn_cyber_force(point):
 var _recent_clicks: Array = []  # Stocke des paires [timestamp, valeur]
 var _window_ms := 1100  # taille de la fenêtre mobile
 var _sum_earning:float = 0
+
 func _on_s_brain_clicked(knowledge, _brain_xp):
 	"""chaque Connaissance acquise via le click du cerveau.
 	Nous additionnons avec le gain par seconde des items passifs"""
@@ -174,6 +175,8 @@ func _on_s_brain_clicked(knowledge, _brain_xp):
 	_sum_earning = 0
 	for e in _recent_clicks:
 		_sum_earning += e[1]
+		
+	#learning.passives_knowledge = learning.get_all_passives_knowledge()
 	var total = _sum_earning + learning.passives_knowledge 
 	
 	learning.knowledge_per_second.text = Global.number_to_string(total) + " /s"

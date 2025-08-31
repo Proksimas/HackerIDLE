@@ -5,3 +5,5 @@ $knowledge_click_bonus;Connaissance supplémentaire par click;
 $hack_time_perc;Temps des hacks;
 $hack_gold_perc;Gain des hacks;
 $hack_cost_perc;Coût des haks;
+$learning_items_cost_perc;Coût des items passifs;
+$learning_items_knowledge_perc;Connaissance supplémentaire des items passifs;
