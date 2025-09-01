@@ -15,6 +15,23 @@ func _ready() -> void:
 	_clear()
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
+		
+var time = 0
+var gain_learning_items: float = 0
+func _process(delta: float) -> void:
+	time += delta
+	
+	if time >= 1:
+		gain_learning_items = get_tot_knowledge_from_shop_items()
+		#Le gain calculé avec l'équation dans le passif_learning_gain
+		#var gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain_learning)
+		#set_refresh(shop_item_cara_db)
+		
+		Player.earn_knowledge_point(gain_learning_items)
+		time = 0
+	pass
+	
+	
 
 func set_shop():
 	var item_present: Dictionary

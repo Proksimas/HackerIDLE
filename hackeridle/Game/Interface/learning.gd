@@ -65,10 +65,12 @@ func _on_shop_item_bought(item_name):# <-Interface
 			return
 			
 	#si on est là, c'est que l'item n'est pas encore existant
-	var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
-	passif_clickers.add_child(new_passif_item)
-	new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
-	passives_knowledge = get_all_passives_knowledge()
+	# -> Allons gérer ça au niveau du shop
+	
+	#var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+	#passif_clickers.add_child(new_passif_item)
+	#new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
+	#passives_knowledge = get_all_passives_knowledge()
 	
 	
 func get_all_passives_knowledge():
@@ -130,10 +132,12 @@ func _draw():
 
 func _load_data(content):
 	# content = dictionnaire des learning_item_bought
-	"""Doit instaurer tous les items passifs"""
-	for passif_item in content:
-		var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
-		passif_clickers.add_child(new_passif_item)
-		new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
-	refresh_brain_xp_bar()
+
+	return
+	# PLus besoin 
+	#for passif_item in content:
+		#var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
+		#passif_clickers.add_child(new_passif_item)
+		#new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
+	#refresh_brain_xp_bar()
 	pass
