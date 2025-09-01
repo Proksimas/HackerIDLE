@@ -8,15 +8,15 @@ const EVENTS_DB_PATH = "res://Game/Events/events_with_effects.json" #"res://Game
 const EVENT = preload("res://Game/Events/event.tres")
 
 
-var events_pool: Dictionary = {} # event_id = Event: Resource
-var events_pool_passed: Dictionary = {} # event_id = Event: Resource
+var events_pool: Dictionary = {} # Tous les events inti: event_id = Event: Resource
+var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
 
-func _ready() -> void:
-	events_initialisation()
+#func _ready() -> void:
+	#events_initialisation()
 
 func events_initialisation():
 	events_pool.clear()
-	events_pool_passed.clear()
+	
 	var file = FileAccess.open(EVENTS_DB_PATH, FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()
@@ -29,6 +29,9 @@ func events_initialisation():
 								event_data["choix"][1]["effets"])
 		events_pool[id] = new_event
 	
+	next_events = create_unique_list(events_pool.size())
+
+	
 func get_random_event():
 	var rand = randi_range(1, nb_of_event)
 	if len(events_pool) < rand:
@@ -36,6 +39,17 @@ func get_random_event():
 	var event = events_pool[rand]
 	
 	return event
+	
+func get_pseudo_random_evet():
+	"""On prend le premier élement de la liste pseudo aléatoire en le supprimant"""
+	return events_pool[next_events.pop_front()]
+	
+func create_unique_list(x: int) -> Array:
+	var unique_list = []
+	for i in range(x + 1):
+		unique_list.append(i)
+	unique_list.shuffle()
+	return unique_list
 
 func get_specific_scenario(index):
 	return events_pool[index]
@@ -49,3 +63,15 @@ func create_event_ui():
 	#else:
 		#push_error("Pas d'interface de trouvée")
 	return new_event
+
+func _save_data() -> Dictionary:
+	"""Retourne un dictionnaire des variables importantes pour la sauvegarde et le chargement."""
+	var dict = {"next_events": next_events}
+	return dict
+
+func _load_data(data):
+	"""Manage les chargement des events"""
+	#on reinitialise la db
+	events_initialisation()
+	# et IMPORTANT on force de reprendre les events passés
+	next_events = data["next_events"]

@@ -147,3 +147,4 @@ func fill_player_stats(_rebirthing: bool = false):
 	SourcesDb.init_sources_db()
 	Player._init()
 	StatsManager._init()
+	EventsManager.events_initialisation()
