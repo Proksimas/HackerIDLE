@@ -11,6 +11,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func save_game():
+	"""Fonction principale de la sauvegarde du jeu"""
 	var content = {}
 	var nodes_savable = get_tree().get_nodes_in_group("savable")
 	print("Autres nodes à sauvergarder: ", nodes_savable)
@@ -18,6 +19,7 @@ func save_game():
 	content[Player.name] = Player._save_data()
 	content[StatsManager.name] = StatsManager._save_data()
 	content[TimeManager.name] = TimeManager._save_data()
+	content[EventsManager.name] = EventsManager._save_data()
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
@@ -48,6 +50,7 @@ func load_data():
 	player_load_data(data["Player"])
 	stats_manager_load_data(data["StatsManager"])
 	time_manager_load_data(data["TimeManager"])
+	events_manager_load_data(data['EventsManager'])
 	
 	#CHargement au niveau de l'interface et de ses sous noeuds
 	var interface =  get_tree().get_root().get_node("Main/Interface")
@@ -107,6 +110,10 @@ func time_manager_load_data(content: Dictionary) -> void:
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
 			TimeManager.set(p_name, content[p_name])
 	
+func events_manager_load_data(content: Dictionary) -> void:
+	print("Chargement des events:")
+	print(content)
+	EventsManager._load_data(content)
 
 func get_save_path():
 	"""renvoie le path user ou editeur"""
