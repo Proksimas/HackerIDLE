@@ -177,7 +177,7 @@ func _on_s_brain_clicked(knowledge, _brain_xp):
 		_sum_earning += e[1]
 		
 	#learning.passives_knowledge = learning.get_all_passives_knowledge()
-	var total = _sum_earning + learning.passives_knowledge 
+	var total = _sum_earning + shop.gain_learning_items
 	
 	learning.knowledge_per_second.text = Global.number_to_string(total) + " /s"
 	#et_tree().create_timer(1.0).timeout.connect(_on_sum_timer)
