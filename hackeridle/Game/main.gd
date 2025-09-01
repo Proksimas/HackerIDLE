@@ -99,6 +99,7 @@ func _on_s_data_loaded(interface):
 	#On doit voir comment éventuellement charger le jeu de manière asynchrone pdt
 	# un chargement
 	interface.show()
+	interface.learning.refresh_brain_xp_bar()
 	#await get_tree().create_timer(0.01).timeout
 	#interface.call_deferred("inits_shops")
 	
