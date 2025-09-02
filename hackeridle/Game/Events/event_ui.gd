@@ -129,6 +129,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 	# TODO
 	
 	# ATTENTION Ne pas oublier de changer au niveau de l'affichage de l'ui 
+	# ATTENTION Tous les _modifiers correspondent aux effetcs dans Event.gd
 	for stat_name in _modifiers:
 		match stat_name:
 			"infamy":

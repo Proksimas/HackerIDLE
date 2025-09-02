@@ -8,7 +8,6 @@
         "texte_id": "event_1_choix1",
         "effets": {
           "infamy": 4,
-          "xp_click_flat": 4,
           "xp_click_perc": 0.08,
           "perc_from_brain_xp": 0.16,
           "perc_from_knowledge": 0.03
@@ -18,7 +17,6 @@
         "texte_id": "event_1_choix2",
         "effets": {
           "infamy": -6,
-          "xp_click_flat": 3,
           "xp_click_perc": 0.05,
           "perc_from_knowledge": 0.01,
           "perc_from_brain_xp": 0.07
@@ -35,7 +33,6 @@
         "texte_id": "event_2_choix1",
         "effets": {
           "infamy": -9,
-          "perc_from_gold": 0.0,
           "learning_items_cost_perc": -0.04,
           "perc_from_knowledge": 0.04
         }
@@ -61,7 +58,7 @@
       {
         "texte_id": "event_3_choix1",
         "effets": {
-          "infamy": -3,
+          "infamy": -6,
           "perc_from_gold": 0.05,
           "perc_from_knowledge": 0.06,
           "perc_from_brain_xp": 0.03
@@ -70,7 +67,7 @@
       {
         "texte_id": "event_3_choix2",
         "effets": {
-          "infamy": 7,
+          "infamy": 15,
           "perc_from_gold": 0.12,
           "hack_gold_perc": 0.1,
           "learning_items_cost_perc": -0.04,
@@ -89,20 +86,16 @@
         "texte_id": "event_4_choix1",
         "effets": {
           "infamy": -10,
-          "xp_click_flat": 1,
           "xp_click_perc": 0.02,
-          "perc_from_knowledge": 0.02,
-          "perc_from_brain_xp": 0.06
         }
       },
       {
         "texte_id": "event_4_choix2",
         "effets": {
-          "infamy": 11,
-          "xp_click_flat": 9,
-          "xp_click_perc": 0.06,
-          "perc_from_brain_xp": 0.08,
-          "perc_from_knowledge": 0.01
+          "infamy": 20,
+          "xp_click_flat": 1,
+          "perc_from_brain_xp": 0.2,
+          "perc_from_knowledge": 0.1
         }
       }
     ]
@@ -116,8 +109,7 @@
         "texte_id": "event_5_choix1",
         "effets": {
           "infamy": 5,
-          "xp_click_flat": 9,
-          "xp_click_perc": 0.06,
+          "xp_click_perc": 0.1,
           "perc_from_brain_xp": 0.09,
           "perc_from_knowledge": 0.01
         }
@@ -125,8 +117,7 @@
       {
         "texte_id": "event_5_choix2",
         "effets": {
-          "infamy": -8,
-          "xp_click_flat": 2,
+          "infamy": -10,
           "perc_from_brain_xp": 0.05,
           "xp_click_perc": 0.05
         }
@@ -152,9 +143,7 @@
           "infamy": 13,
           "perc_from_gold": 0.08,
           "hack_gold_perc": 0.1,
-          "learning_items_cost_perc": -0.06,
-          "perc_from_knowledge": 0.03,
-          "perc_from_brain_xp": 0.09
+          "learning_items_cost_perc": -0.1,
         }
       }
     ]
@@ -167,17 +156,15 @@
       {
         "texte_id": "event_7_choix1",
         "effets": {
-          "infamy": 4,
-          "xp_click_flat": 6,
+          "infamy": 8,
           "xp_click_perc": 0.04,
-          "perc_from_brain_xp": 0.1
+          "perc_from_brain_xp": 0.2
         }
       },
       {
         "texte_id": "event_7_choix2",
         "effets": {
           "infamy": -6,
-          "xp_click_flat": 2,
           "perc_from_brain_xp": 0.06,
           "xp_click_perc": 0.06
         }
@@ -192,8 +179,7 @@
       {
         "texte_id": "event_8_choix1",
         "effets": {
-          "infamy": -8,
-          "xp_click_flat": 3,
+          "infamy": -5,
           "perc_from_brain_xp": 0.1,
           "perc_from_knowledge": 0.02
         }
@@ -201,11 +187,10 @@
       {
         "texte_id": "event_8_choix2",
         "effets": {
-          "infamy": 11,
-          "xp_click_flat": 5,
+          "infamy": 15,
+          "xp_click_flat": 1,
           "xp_click_perc": 0.05,
           "perc_from_brain_xp": 0.12,
-          "perc_from_knowledge": 0.01
         }
       }
     ]
@@ -218,9 +203,6 @@
       {
         "texte_id": "event_9_choix1",
         "effets": {
-          "infamy": -9,
-          "hack_time_perc": -0.07,
-          "hack_gold_perc": 0.05,
           "perc_from_knowledge": 0.03,
           "perc_from_brain_xp": 0.09
         }
@@ -228,13 +210,11 @@
       {
         "texte_id": "event_9_choix2",
         "effets": {
-          "infamy": 7,
+          "infamy": 20,
           "hack_gold_perc": 0.21,
           "hack_time_perc": -0.15,
           "hack_cost_perc": 0.1,
-          "perc_from_knowledge": 0.03,
-          "perc_from_gold": 0.06,
-          "perc_from_brain_xp": 0.07
+
         }
       }
     ]
@@ -251,7 +231,6 @@
           "perc_from_gold": 0.06,
           "hack_gold_perc": 0.11,
           "learning_items_cost_perc": -0.06,
-          "perc_from_knowledge": 0.03
         }
       },
       {
@@ -285,7 +264,7 @@
         "texte_id": "event_11_choix2",
         "effets": {
           "infamy": -8,
-          "perc_from_gold": 0.0,
+          "perc_from_gold": 0.2,
           "perc_from_knowledge": 0.06
         }
       }
@@ -326,7 +305,6 @@
         "texte_id": "event_13_choix1",
         "effets": {
           "infamy": -5,
-          "knowledge_click_bonus": 2,
           "learning_items_cost_perc": -0.02,
           "knowledge_click_perc": 0.02,
           "perc_from_brain_xp": 0.04
@@ -336,7 +314,6 @@
         "texte_id": "event_13_choix2",
         "effets": {
           "infamy": 8,
-          "knowledge_click_bonus": 3,
           "knowledge_click_perc": 0.07,
           "learning_items_knowledge_perc": 0.13,
           "hack_time_perc": 0.04,
@@ -355,17 +332,14 @@
         "texte_id": "event_14_choix1",
         "effets": {
           "infamy": 10,
-          "xp_click_flat": 6,
-          "xp_click_perc": 0.03,
-          "perc_from_brain_xp": 0.1,
-          "perc_from_knowledge": 0.03
+          "xp_click_flat": 2,
+          "perc_from_brain_xp": 0.1
         }
       },
       {
         "texte_id": "event_14_choix2",
         "effets": {
           "infamy": -9,
-          "xp_click_flat": 1,
           "perc_from_brain_xp": 0.06,
           "perc_from_knowledge": 0.04
         }
@@ -380,11 +354,10 @@
       {
         "texte_id": "event_15_choix1",
         "effets": {
-          "infamy": 5,
+          "infamy": 10,
           "perc_from_gold": 0.08,
           "hack_gold_perc": 0.13,
           "learning_items_cost_perc": -0.04,
-          "xp_click_flat": 4,
           "perc_from_knowledge": 0.02,
           "perc_from_brain_xp": 0.05
         }

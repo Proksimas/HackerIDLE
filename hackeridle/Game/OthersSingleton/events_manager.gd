@@ -11,6 +11,7 @@ const EVENT = preload("res://Game/Events/event.tres")
 var events_pool: Dictionary = {} # Tous les events inti: event_id = Event: Resource
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
 
+
 #func _ready() -> void:
 	#events_initialisation()
 
