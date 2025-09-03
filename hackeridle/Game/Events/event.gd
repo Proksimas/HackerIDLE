@@ -32,9 +32,9 @@ var effects_cara = {
 								"weight": 5},
 					"knowledge_click_perc":  {"freq":55,
 								"weight": 18},
-					"perc_from_gold": {"freq":75,
+					"perc_from_gold": {"freq":65,
 								"weight": 5},
-					"perc_from_knowledge": {"freq":75,
+					"perc_from_knowledge": {"freq":65,
 								"weight": 5},
 					"perc_from_brain_xp": {"freq":75,
 								"weight": 5},
@@ -86,12 +86,13 @@ func create_effects():
 func get_keys():
 	var effects_cara_keys = effects_cara.keys()
 	effects_cara_keys.shuffle()
+	var nb_events = randi_range(min_keys, max_keys)
 	var keys = []
 	for key_name in effects_cara_keys:
 		var rand = randi_range(0, 100)
 		if rand <= effects_cara[key_name]["freq"]:
 			keys.append(key_name)
-			if len(keys) >= max_keys:
+			if len(keys) >= nb_events:
 				break
 	if len(keys) < 1: # si pas de chance etqu'on a vraiment rien
 		keys.append(effects_cara_keys[0])
