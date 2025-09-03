@@ -1,7 +1,9 @@
 key;fr;en
 $xp_click_flat;Xp supplémentaire par click;Additional xp per click
-$brain_xp;Xp de connaissance;Xp knowledge
-$knowledge_click_bonus;Connaissance supplémentaire par click;
+$xp_click_perc;Xp supplémentaire par clic;Xp supplémentaire par clic
+$brain_xp;Xp du cerveau;Brain Xp
+$knowledge_click_bonus;Connaissance supplémentaire par click;Additional knowledge per click
+$knowledge_click_perc;Connaissance supplémentaire par click;Additional knowledge per click
 $hack_time_perc;Temps des hacks;
 $hack_gold_perc;Gain des hacks;
 $hack_cost_perc;Coût des haks;

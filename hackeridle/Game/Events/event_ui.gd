@@ -92,7 +92,7 @@ func event_ui_setup(scenario_specific: int = -1):
 					choice_text = tr("$" + event_effect_name) + ": "
 		
 				if effect_value < 0:
-					choice_text += "- %s" % Global.number_to_string(abs(floor(value)))
+					choice_text += "- %s" % Global.number_to_string(floor(abs(value)))
 				else:
 					choice_text += "+ %s" % Global.number_to_string(floor(value))
 				

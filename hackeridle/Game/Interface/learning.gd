@@ -77,7 +77,7 @@ func get_all_passives_knowledge():
 	var value: float = 0
 	for passive_clicker:PassifLearningItem in passif_clickers.get_children():
 		value += passive_clicker.gain_learning
-	return value
+	return snapped(value, 0.1)
 
 
 

@@ -31,7 +31,7 @@ var effects_cara = {
 					"knowledge_click_bonus":  {"freq":35,
 								"weight": 5},
 					"knowledge_click_perc":  {"freq":55,
-								"weight": 15},
+								"weight": 18},
 					"perc_from_gold": {"freq":75,
 								"weight": 10},
 					"perc_from_knowledge": {"freq":75,
@@ -109,21 +109,29 @@ func build_values(keys: Array) -> Dictionary:
 		var weight:float = 0
 		weight = effects_cara[key]["weight"]
 		
-		if key.begins_with('perc'):
+		add = 0
+		if key.begins_with('perc_'):
 			add = snapped(randf_range(0, 1), 0.001)
-		elif key.ends_with('perc'):
-			add = snapped(randf_range(0, 0.5), 0.001)
+				
+		elif key.ends_with('_perc'):
+			if key == "hack_gold_perc" or key == "hack_cost_perc" or\
+			 key == "learning_items_cost_perc" or "learning_items_knowledge_perc":
+				add = snapped(randf_range(-0.4, 0.4), 0.001)
+			else:
+				add = snapped(randf_range(0, 0.5), 0.001)
+				
 		elif key == "xp_click_flat":
 			add = randi_range(0, 4)
 		elif key == "knowledge_click_bonus":
 			add = randi_range(0, 10)
 		else:
 			push_warning("key pa spris en compte")
+			
 		if points > max_effect_weight: #on limite le max. Les derniers elements auront 0
 			add = 0
 				#on diminue le add d'un pourcentage du weight actuel
 		points += add * weight
-		
+		print("key: %s   value: %s    points: %s" % [key, add, points])
 		
 		if effects.has(key):
 			effects[key] += add
