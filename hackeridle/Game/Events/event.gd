@@ -33,10 +33,10 @@ var effects_cara = {
 					"knowledge_click_perc":  {"freq":55,
 								"weight": 18},
 					"perc_from_gold": {"freq":75,
-								"weight": 10},
+								"weight": 5},
 					"perc_from_knowledge": {"freq":75,
-								"weight": 10},
-					"perc_from_brain_xp": {"freq":90,
+								"weight": 5},
+					"perc_from_brain_xp": {"freq":75,
 								"weight": 5},
 					"hack_time_perc": {"freq":35,
 								"weight": 10},
@@ -131,7 +131,7 @@ func build_values(keys: Array) -> Dictionary:
 			add = 0
 				#on diminue le add d'un pourcentage du weight actuel
 		points += add * weight
-		print("key: %s   value: %s    points: %s" % [key, add, points])
+		#print("key: %s   value: %s    points: %s" % [key, add, points])
 		
 		if effects.has(key):
 			effects[key] += add
