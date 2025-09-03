@@ -73,7 +73,14 @@ func create_effects():
 	var lst_choices_name = ["choice_a", "chocie_b"]
 	for choice_name in lst_choices_name:
 		var keys_chosen = get_keys()
-		print("%s: keys_chosen: %s" % [choice_name, keys_chosen])
+		var effects = build_values(keys_chosen)
+		
+		match choice_name:
+			"choice_a":
+				event_choice_1["effects"] = effects
+			_:
+				event_choice_2["effects"] = effects
+
 	
 	
 func get_keys():
@@ -89,3 +96,47 @@ func get_keys():
 	if len(keys) < 1: # si pas de chance etqu'on a vraiment rien
 		keys.append(effects_cara_keys[0])
 	return keys
+
+func build_values(keys: Array) -> Dictionary:
+	"""on va créer les valeurs selon les poids des clées"""
+	var effects: Dictionary = {}
+	var points = 0
+	#while points <= max_effect_weight:
+	keys.shuffle()
+	for key in  keys:
+
+		var add: float = 0
+		var weight:float = 0
+		weight = effects_cara[key]["weight"]
+		
+		if key.begins_with('perc'):
+			add = snapped(randf_range(0, 1), 0.001)
+		elif key.ends_with('perc'):
+			add = snapped(randf_range(0, 0.5), 0.001)
+		elif key == "xp_click_flat":
+			add = randi_range(0, 4)
+		elif key == "knowledge_click_bonus":
+			add = randi_range(0, 10)
+		else:
+			push_warning("key pa spris en compte")
+		if points > max_effect_weight: #on limite le max. Les derniers elements auront 0
+			add = 0
+				#on diminue le add d'un pourcentage du weight actuel
+		points += add * weight
+		
+		
+		if effects.has(key):
+			effects[key] += add
+		elif !effects.has(key) and add == 0:
+			effects.erase(key)
+		else:
+			effects[key] = add
+			
+	effects["infamy"] = floor(points)
+	#print("effets: %s " % effects)
+	#print("point: %s" % points)
+			 
+	return effects
+
+		
+	pass
