@@ -2,6 +2,7 @@ key;fr;en
 hack_gold;Vos hacks rapportent {hack_gold_value}% d'or.;Your hacks yield {hack_gold_value}% gold.
 hack_time;Vos hacks durent {hack_time_value}% de temps.;Your hacks last {hack_time_value}% time.
 hack_jail;Vous avez {hack_jail_value}% d'aller en prison.;You have {hack_jail_value}% chance of going to jail.
+hack_cost_perc;Coût des hacks;
 $innocent;Innocent;Innocent
 $report;Signalement;Report
 $usp;Surveillance préliminaire;Preliminary Surveillance

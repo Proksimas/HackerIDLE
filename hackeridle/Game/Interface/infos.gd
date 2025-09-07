@@ -57,8 +57,9 @@ func draw_infamy_stats():
 				has_value = true
 		
 		if not has_value:
-			push_warning("Pas de valeur trouvée, pas normal ")
-			return
+			#la valeur n'est pas utile pour le seuil d'infamy
+			
+			continue
 		
 		var value_str: String
 		if value > 0:
