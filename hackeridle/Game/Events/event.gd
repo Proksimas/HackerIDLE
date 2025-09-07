@@ -31,7 +31,7 @@ var effects_cara = {
 					"knowledge_click_bonus":  {"freq":35,
 								"weight": 5},
 					"knowledge_click_perc":  {"freq":55,
-								"weight": 18},
+								"weight": 30},
 					"perc_from_gold": {"freq":65,
 								"weight": 5},
 					"perc_from_knowledge": {"freq":65,
@@ -39,15 +39,15 @@ var effects_cara = {
 					"perc_from_brain_xp": {"freq":75,
 								"weight": 5},
 					"hack_time_perc": {"freq":35,
-								"weight": 10},
+								"weight": 30},
 					"hack_gold_perc": {"freq":55,
-								"weight": 10},
+								"weight": 20},
 					"hack_cost_perc": {"freq":35,
-								"weight": 10},
+								"weight": 20},
 					"learning_items_cost_perc": {"freq":55,
-								"weight": 10},
+								"weight": 20},
 					"learning_items_knowledge_perc": {"freq":35,
-								"weight": 10}
+								"weight": 20}
 							}
 
 
@@ -109,15 +109,43 @@ func build_values(keys: Array) -> Dictionary:
 		var add: float = 0
 		var weight:float = 0
 		weight = effects_cara[key]["weight"]
-		
+		var coef = 1.0 # negatif si on doit rendre l'infamy negative, et on joue sur le coef du negatif
 		add = 0
 		if key.begins_with('perc_'):
 			add = snapped(randf_range(0, 1), 0.001)
 				
 		elif key.ends_with('_perc'):
-			if key == "hack_gold_perc" or key == "hack_cost_perc" or\
-			 key == "learning_items_cost_perc" or "learning_items_knowledge_perc":
+			if key == "hack_gold_perc" or key == "learning_items_knowledge_perc":
 				add = snapped(randf_range(-0.4, 0.4), 0.001)
+				if add > 0:
+					coef = 1
+				else:
+					coef = -0.8
+					
+			elif key == "learning_items_knowledge_perc"   :
+				add = snapped(randf_range(-0.4, 0.4), 0.001)
+				#ici le poids donne de si la valeur est négative
+				if add > 0:
+					coef = 1
+				else:
+					coef = -0.8
+					
+			elif key == "hack_time_perc":
+				add = snapped(randf_range(-0.4, 0.4), 0.001)
+				#ici le poids donne de si la valeur est négative
+				if add > 0:
+					coef = -0.8
+				else:
+					coef = 1
+				
+			elif key == "learning_items_cost_perc" or key == "hack_cost_perc":
+				add = snapped(randf_range(-0.4, 0.4), 0.001)
+				#ici le poids donne de si la valeur est négative
+				if add > 0:
+					coef = -0.8
+				else:
+					coef = 1
+					
 			else:
 				add = snapped(randf_range(0, 0.5), 0.001)
 				
@@ -131,7 +159,12 @@ func build_values(keys: Array) -> Dictionary:
 		if points > max_effect_weight: #on limite le max. Les derniers elements auront 0
 			add = 0
 				#on diminue le add d'un pourcentage du weight actuel
-		points += add * weight
+		
+		#print("%s " % [tr("$" + key)])
+		#print("\tValeur: %s" % add)
+		#print("\tPoids: %s" % weight)
+		#print("\tInfamy: %s" % [abs(add * weight) * coef])
+		points += abs(add * weight) * coef
 		#print("key: %s   value: %s    points: %s" % [key, add, points])
 		
 		if effects.has(key):

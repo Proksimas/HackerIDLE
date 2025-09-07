@@ -63,8 +63,7 @@ func event_ui_setup(scenario_specific: int = -1):
 		
 		else:
 			for event_effect_name:String in choices_id[index]["effects"]:
-				var new_bullet = BULLET_POINT.instantiate()
-				choices_container[index].add_child(new_bullet)
+
 				var effect_value = choices_id[index]["effects"][event_effect_name]
 				var is_perc: bool = false
 				if event_effect_name.ends_with("_perc"):
@@ -91,19 +90,37 @@ func event_ui_setup(scenario_specific: int = -1):
 						value *= 100
 					choice_text = tr("$" + event_effect_name) + ": "
 		
-				if effect_value < 0:
-					choice_text += "- %s" % Global.number_to_string(floor(abs(value)))
+				value = floor(value)
+				
+				if value == 0:
+					continue
+				elif effect_value < 0:
+					choice_text += "- %s" % Global.number_to_string(abs(value))
 				else:
-					choice_text += "+ %s" % Global.number_to_string(floor(value))
+					choice_text += "+ %s" % Global.number_to_string((value))
 				
 				if is_perc:
 					choice_text += " %"
+					
+				var new_bullet = BULLET_POINT.instantiate()
+				choices_container[index].add_child(new_bullet)
 				new_bullet.set_bullet_point(choice_text)
 		
 		choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
 			choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
 		index += 1
-	
+		
+	if choices_container[0].get_children() == []:
+		choice_text = tr("$nothing")
+		var new_bullet3 = BULLET_POINT.instantiate()
+		choices_container[index].add_child(new_bullet3)
+		new_bullet3.set_bullet_point(choice_text)
+	elif choices_container[1].get_children() == []:
+		choice_text = tr("$nothing")
+		var new_bullet3 = BULLET_POINT.instantiate()
+		choices_container[1].add_child(new_bullet3)
+		new_bullet3.set_bullet_point(choice_text)
+		
 	#On met le jeu en pause
 	get_tree().paused = true
 	return
