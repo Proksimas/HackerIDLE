@@ -79,6 +79,7 @@ offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("1_qsk31")
 metadata/_edit_use_anchors_ = true
 
@@ -89,6 +90,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pcgk5")
 
 [node name="MainMarginContainer" type="MarginContainer" parent="NinePatchRect"]
@@ -99,6 +101,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -106,6 +109,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Header" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -114,6 +118,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="lEVELContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/VBoxContainer"]
 layout_mode = 2
@@ -274,13 +279,16 @@ alignment_horizontal = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="HackItemProgressBar" type="ProgressBar" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -300,6 +308,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ProgressValueLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/HackItemInfo/VBoxContainer/HBoxContainer/HackItemProgressBar/CenterContainer"]
 unique_name_in_owner = true
@@ -315,6 +324,7 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource("4_7kjjd")
 bbcode_enabled = true
