@@ -140,4 +140,3 @@ func _load_data(content):
 		#passif_clickers.add_child(new_passif_item)
 		#new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
 	#refresh_brain_xp_bar()
-	pass

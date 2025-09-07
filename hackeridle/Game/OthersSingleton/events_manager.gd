@@ -1,7 +1,11 @@
 extends Node
 
 @export var nb_of_event: int 
+@export var min_wait_time: int = 420
+@export var max_wait_time: int = 600
 
+
+@onready var timer_event: Timer = %TimerEvent
 
 const EVENT_UI = preload("res://Game/Events/event_ui.tscn")
 const EVENTS_DB_PATH = "res://Game/Events/events_with_infame.json" #"res://Game/Events/events_DB.json"
@@ -11,9 +15,6 @@ const EVENT = preload("res://Game/Events/event.tres")
 var events_pool: Dictionary = {} # Tous les events inti: event_id = Event: Resource
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
 
-
-#func _ready() -> void:
-	#events_initialisation()
 
 func events_initialisation():
 	events_pool.clear()
@@ -55,19 +56,42 @@ func create_unique_list(x: int) -> Array:
 func get_specific_scenario(index):
 	return events_pool[index]
 	
+func launch_timer():
+	var nbr =  randi_range(min_wait_time, max_wait_time) 
+	timer_event.paused = false
+	timer_event.start(nbr)
+
+	
 func create_event_ui():
 	""" affiche un nouvel EVENT"""
 	#var interface =  get_tree().get_root().get_node("Main/Interface")
-	var new_event = EVENT_UI.instantiate()
-	#if interface:
-		#interface.event_container.add_child(new_event)
-	#else:
-		#push_error("Pas d'interface de trouvée")
-	return new_event
+	var event_ui = EVENT_UI.instantiate()
+	var interface = Global.get_interface()
+	interface.main_tab.add_child(event_ui)
+	event_ui.event_ui_setup()
+	timer_event.paused = true
+	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
+	
+func _on_timer_event_timeout() -> void:
+	"""Quand timeout, on instaure un nouvel event"""
+	create_event_ui()
+	pass # Replace with function body.
+	
+	
+func _on_s_event_finished(_event_ui):
+	"""L'event est fini. On le supprime et on relance le timer"""
+	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
+	_event_ui.hide()
+	var interface = Global.get_interface()
+	interface.app_button_pressed("learning")
+	_event_ui.queue_free()
+	launch_timer()
+	
 
 func _save_data() -> Dictionary:
 	"""Retourne un dictionnaire des variables importantes pour la sauvegarde et le chargement."""
-	var dict = {"next_events": next_events}
+	var dict = {"next_events": next_events,
+				"time_event_left": timer_event.time_left}
 	return dict
 
 func _load_data(data):
@@ -76,3 +100,5 @@ func _load_data(data):
 	events_initialisation()
 	# et IMPORTANT on force de reprendre les events passés
 	next_events = data["next_events"]
+	timer_event.wait_time = data["time_event_left"]
+	timer_event.start(data["time_event_left"])

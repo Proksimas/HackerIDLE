@@ -177,3 +177,10 @@ func apply_safe_area_to_ui(control: Control, enable: bool = true):
 		control.offset_top    = 0
 		control.offset_right  = 0
 		control.offset_bottom = 0
+		
+func get_interface():
+	var interface = get_tree().get_root().get_node("Main/Interface")
+	if interface != null and interface.is_node_ready():
+		return interface
+	else:
+		push_error("Node interface not ready opr null")

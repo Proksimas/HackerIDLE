@@ -5,3 +5,10 @@
 [node name="EventsManager" type="Node"]
 script = ExtResource("1_i1wl0")
 nb_of_event = 93
+
+[node name="TimerEvent" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 500.0
+autostart = true
+
+[connection signal="timeout" from="TimerEvent" to="." method="_on_timer_event_timeout"]

@@ -57,6 +57,7 @@ func introduction_finished():
 		TutorialManager.start_tutorial()
 	elif active_tutorial:
 		TutorialManager.start_tutorial()
+	EventsManager.launch_timer() #On lance les events
 
 func rebirth():
 	"""on ne garde que:

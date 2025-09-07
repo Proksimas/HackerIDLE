@@ -218,18 +218,30 @@ func _on_s_wait_too_long(is_wainting):
 	else:
 		dark_shop_warning_icon.visible = false
 
+func _on_jail_button_pressed() -> void:
+	app_button_pressed("jail")
+	pass # Replace with function body.
+
+
+func _on_finish_button_pressed() -> void:
+	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
+	pass # Replace with function body.
+
+
+
 func _on_button_pressed() -> void:
 	"""On reçoit un evennement"""
+	if !OS.has_feature("editor"):
+		push_error("Fonctionnalité non disponible en cheatMode")
+		return
 	cheat_event_spin_box.apply()
-	var event_ui = EventsManager.create_event_ui()
+	var event_ui_path = load("res://Game/Events/event_ui.tscn")
+	var event_ui = event_ui_path.instantiate()
 	main_tab.add_child(event_ui)
 	event_ui.event_ui_setup(cheat_event_spin_box.value)
 	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
 	pass # Replace with function body.
 
-func _on_jail_button_pressed() -> void:
-	app_button_pressed("jail")
-	pass # Replace with function body.
 
 
 func _on_s_event_finished(_event_ui):
@@ -237,12 +249,6 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.hide()
 	_event_ui.queue_free()
 	app_button_pressed("learning")
-
-
-func _on_finish_button_pressed() -> void:
-	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
-	pass # Replace with function body.
-
 
 
 func _load_data(data):

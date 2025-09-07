@@ -146,6 +146,3 @@ func build_values(keys: Array) -> Dictionary:
 	#print("point: %s" % points)
 			 
 	return effects
-
-		
-	pass
