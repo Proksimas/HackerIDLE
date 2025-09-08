@@ -12,6 +12,8 @@ extends Control
 @onready var brain_halo_label: Label = %BrainHaloLabel
 @onready var brain_halo_check_box: CheckButton = %BrainHaloCheckBox
 @onready var brain_halo_container: HBoxContainer = %BrainHaloContainer
+@onready var modificators_label: Label = %ModificatorsLabel
+
 
 
 @onready var safe_zone_label: Label = %SafeZoneLabel
@@ -78,6 +80,10 @@ func draw_infamy_stats():
 		bullet_label.set_bullet_point(trad)
 		
 		
+func draw_modififiers():
+	
+	pass
+	
 
 
 func _on_s_add_infamy(_infamy_value):
@@ -93,7 +99,9 @@ func _on_new_game_button_pressed() -> void:
 
 func _draw() -> void:
 	draw_infamy_stats()
+	draw_modififiers()
 	settings_button.text = tr("$Settings")
+	modificators_label.text = tr("$Modifiers")
 	
 
 
