@@ -1,4 +1,5 @@
 extends Control
+
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var skill_desc_label: Label = %SkillDescLabel
 @onready var buy_skill_button: Button = %BuySkillButton
@@ -7,6 +8,7 @@ extends Control
 @onready var skills_info: VBoxContainer = %SkillsInfo
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var cost_title: Label = %CostTitle
+@onready var skill_point_value: Label = %SkillPointValue
 
 
 var cache_skill_name: String
@@ -22,6 +24,7 @@ func _ready() -> void:
 func _draw() -> void:
 	skills_info.hide()
 	to_unlocked_panel.hide()
+	skill_point_value.text = str(Player.skill_point)
 
 func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void:
 	"""Le signal emit par le SkillNode inclut le skill_type en vérifiant si il 
