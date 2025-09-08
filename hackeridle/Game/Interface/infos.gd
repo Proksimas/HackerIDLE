@@ -11,6 +11,7 @@ extends Control
 @onready var country_container: HBoxContainer = %CountryContainer
 @onready var brain_halo_label: Label = %BrainHaloLabel
 @onready var brain_halo_check_box: CheckButton = %BrainHaloCheckBox
+@onready var brain_halo_container: HBoxContainer = %BrainHaloContainer
 
 
 @onready var safe_zone_label: Label = %SafeZoneLabel
