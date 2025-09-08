@@ -181,6 +181,7 @@ func complete_tutorial():
 	if game_paused_by_tutorial:
 		get_tree().paused = false
 	emit_signal("tutorial_completed")
+	tutorial_finished = true
 	print("Tutoriel terminé !")
 	
 func reset_tutorial():
