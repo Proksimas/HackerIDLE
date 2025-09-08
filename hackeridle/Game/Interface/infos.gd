@@ -81,6 +81,9 @@ func draw_infamy_stats():
 		
 		
 func draw_modififiers():
+	var global = StatsManager.global_modifiers
+	var hack_modifiers = StatsManager.hack_modifiers
+	
 	
 	pass
 	
