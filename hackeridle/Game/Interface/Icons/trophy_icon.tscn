@@ -10,7 +10,7 @@ size_flags_horizontal = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="BrainTexture" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(30, 30)
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("1_4lo0o")
 expand_mode = 1
