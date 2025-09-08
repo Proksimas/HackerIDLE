@@ -3,8 +3,6 @@ extends Control
 class_name HackItemButton
 
 @onready var hack_item_progress_bar: ProgressBar = %HackItemProgressBar
-@onready var buy_item_button: Button = %BuyItemButton
-@onready var hack_item_price_label: Label = %HackItemPriceLabel
 @onready var hack_item_level: Label = %HackItemLevel
 @onready var gold_gain: Label = %GoldGain
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
@@ -20,8 +18,10 @@ class_name HackItemButton
 @onready var cost_label: Label = %CostLabel
 @onready var duration_label: Label = %DurationLabel
 @onready var level_hack_label: Label = %LevelHackLabel
-@onready var cost_hack_label: Label = %CostHackLabel
 @onready var next_gold_gain_label: Label = %NextGoldGainLabel
+
+@onready var buy_button: Button = %BuyButton
+
 
 const CLICK_BRAIN_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_brain_particles.tscn")
 const HACKING_DIALOG_PATH = "res://Game/Clickers/Hacking/HackingDialog/"
@@ -47,6 +47,7 @@ func _ready() -> void:
 	hack_item_code_edit.add_theme_constant_override("scrollbar_v_size", 0)
 	hack_item_code_edit.add_theme_constant_override("scrollbar_h_size", 0)
 	StatsManager.s_infamy_effect_added.connect(self._on_s_infamy_effect_added)
+	buy_button.set_up_icon('knowledge_point')
 	pass # Replace with function body.
 	
 func _process(delta: float) -> void:
@@ -153,24 +154,25 @@ func x_can_be_buy(_x_buy):
 	#item_price = Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy)
 	item_price = StatsManager.calcul_hack_stat(StatsManager.Stats.COST,Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy))
 		
-	if Player.knowledge_point  < item_price:
-		buy_item_button.disabled = true
-		cost_hack_label.add_theme_color_override("font_color", Color(1,0,0))
-		buy_item_button.get_child(0).modulate = Color(1, 1, 1, 0.5)
-		#hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 0.5)
-		#hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 0.5))
-	else:
-		buy_item_button.disabled = false
-		cost_hack_label.add_theme_color_override("font_color",Color(0, 1, 0.6))
-		#hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 1)
-		buy_item_button.get_child(0).modulate = Color(1, 1, 1, 1)
-		#hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 1))
-		
-	# on tente de maj le prix ici
-	
-	cost_hack_label.text = tr("$Upgr") + ". "
-	#cost_hack_label.text = "+ " + str(_x_buy) + ": "
-	hack_item_price_label.text = Global.number_to_string(item_price)
+	buy_button.refresh(item_price, "knowledge_point")
+	#if Player.knowledge_point  < item_price:
+		#buy_item_button.disabled = true
+		#cost_hack_label.add_theme_color_override("font_color", Color(1,0,0))
+		#buy_item_button.get_child(0).modulate = Color(1, 1, 1, 0.5)
+		##hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 0.5)
+		##hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 0.5))
+	#else:
+		#buy_item_button.disabled = false
+		#cost_hack_label.add_theme_color_override("font_color",Color(0, 1, 0.6))
+		##hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 1)
+		#buy_item_button.get_child(0).modulate = Color(1, 1, 1, 1)
+		##hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 1))
+		#
+	## on tente de maj le prix ici
+	#
+	#cost_hack_label.text = tr("$Upgr") + ". "
+	##cost_hack_label.text = "+ " + str(_x_buy) + ": "
+	#hack_item_price_label.text = Global.number_to_string(item_price)
 	
 	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
 		next_gold_gain_label.text = "+ " + Global.number_to_string(\

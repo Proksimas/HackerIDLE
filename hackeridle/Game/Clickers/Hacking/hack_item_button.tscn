@@ -1,8 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://d0altvtk67lo8"]
+[gd_scene load_steps=10 format=3 uid="uid://d0altvtk67lo8"]
 
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_button.gd" id="1_qsk31"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_0sjxu"]
-[ext_resource type="Texture2D" uid="uid://doinqjthxp344" path="res://Game/Graphics/Common_icons/upgrade_icon.png" id="3_a1ahn"]
+[ext_resource type="PackedScene" uid="uid://dxmyyq3ebdh24" path="res://Game/Interface/Specials/buy_button.tscn" id="3_j68ub"]
 [ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="4_7kjjd"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_pubii"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/hack_item_riche_label.gd" id="5_k0tnd"]
@@ -19,33 +19,6 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
-bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
-border_width_bottom = 1
-border_color = Color(0.047, 0.894, 0.553, 0.4)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyn0f"]
-bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
-border_width_bottom = 1
-border_color = Color(1, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lbs0m"]
 bg_color = Color(0, 0, 0, 1)
@@ -211,69 +184,9 @@ theme_override_font_sizes/font_size = 16
 text = "+ x"
 horizontal_alignment = 2
 
-[node name="BuyItemButton" type="Button" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(175, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme_override_styles/focus = SubResource("StyleBoxFlat_kqobc")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_vyn0f")
-theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
-theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
-disabled = true
-
-[node name="Container" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0666667
-anchor_right = 0.973333
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect" type="TextureRect" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/AspectRatioContainer"]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("3_a1ahn")
-expand_mode = 1
-
-[node name="UpgradeContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-
-[node name="CostHackLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/UpgradeContainer"]
+[node name="BuyButton" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header" instance=ExtResource("3_j68ub")]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 1, 0.6, 1)
-text = "$Upgr"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container"]
-layout_mode = 2
-size_flags_horizontal = 10
-alignment = 2
-
-[node name="HackItemPriceLabel" type="Label" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
-theme_override_font_sizes/font_size = 15
-text = "3900K"
-
-[node name="BrainIcon" parent="NinePatchRect/MainMarginContainer/VBoxContainer/Header/BuyItemButton/Container/HBoxContainer" instance=ExtResource("4_pubii")]
-layout_mode = 2
-size_flags_horizontal = 10
-alignment_horizontal = 2
 
 [node name="HackItemInfo" type="HBoxContainer" parent="NinePatchRect/MainMarginContainer/VBoxContainer"]
 unique_name_in_owner = true

@@ -2,13 +2,11 @@ extends Control
 
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var skill_desc_label: Label = %SkillDescLabel
-@onready var buy_skill_button: Button = %BuySkillButton
 @onready var skills_grid: GridContainer = %SkillsGrid
-@onready var cost_sp_label: Label = %CostSPLabel
 @onready var skills_info: VBoxContainer = %SkillsInfo
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
-@onready var cost_title: Label = %CostTitle
 @onready var skill_point_value: Label = %SkillPointValue
+@onready var buy_button: Button = %BuyButton
 
 
 var cache_skill_name: String
@@ -16,7 +14,7 @@ var cache_skill_cost: int
 var cache_skill_type: String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	buy_button.set_up_icon("skill_point")
 	for skill in skills_grid.get_children():
 		skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
 	pass # Replace with function body.
@@ -32,8 +30,8 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 	skills_info.show()
 	cache_skill_name = skill_name
 	cache_skill_type = skill_type
-	if !buy_skill_button.pressed.is_connected(_on_buy_skill_button_pressed):
-		buy_skill_button.pressed.connect(_on_buy_skill_button_pressed)
+	if !buy_button.pressed.is_connected(_on_buy_skill_button_pressed):
+		buy_button.pressed.connect(_on_buy_skill_button_pressed)
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
 	if skill_type == "active_skill":
@@ -88,9 +86,11 @@ func is_max_level(skill_cara, skill_type)-> bool:
 					desc = SkillsManager.get_skill_translation(skill_cara, "as_name")
 				skill_desc_label.text = desc
 				
-				buy_skill_button.disabled = true
-				to_unlocked_panel.hide()
-				cost_sp_label.text = "Max"
+				buy_button.to_disable()
+				buy_button.max_label()
+				#buy_button.disabled = true
+				#to_unlocked_panel.hide()
+				
 				return true
 
 		"passive_skill":
@@ -107,9 +107,12 @@ func is_max_level(skill_cara, skill_type)-> bool:
 					desc = SkillsManager.get_skill_translation(skill_cara, "ps_name")
 				skill_desc_label.text = desc
 		
-				buy_skill_button.disabled = true
-				to_unlocked_panel.hide()
-				cost_sp_label.text = "Max"
+				buy_button.to_disable()
+				buy_button.max_label()
+		
+				#to_unlocked_panel.hide()
+
+				
 				return true
 		_:
 			push_error("Pas normal pas de type")
@@ -120,14 +123,19 @@ func is_max_level(skill_cara, skill_type)-> bool:
 	
 
 func unlocked_buy_skill_button():
-	if cache_skill_cost <= Player.skill_point:
-		buy_skill_button.disabled = false
-		to_unlocked_panel.hide()
-	else:
-		buy_skill_button.disabled = true
-		to_unlocked_panel.show()
-	cost_title.text = tr("$Cost")
-	cost_sp_label.text = str(cache_skill_cost)
+	
+	buy_button.refresh(cache_skill_cost, "skill_point")
+	#
+	#if cache_skill_cost <= Player.skill_point:
+		#buy_button.to_enable()
+		##to_unlocked_panel.hide()
+		#
+	#else:
+		#buy_button.to_disabled()
+		##to_unlocked_panel.show()
+		#
+	#cost_title.text = tr("$Cost")
+	#cost_sp_label.text = str(cache_skill_cost)
 
 
 func _on_buy_skill_button_pressed():

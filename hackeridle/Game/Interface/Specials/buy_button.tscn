@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxmyyq3ebdh24"]
+
+[ext_resource type="Script" path="res://Game/Interface/Specials/buy_button.gd" id="1_dkmgb"]
+[ext_resource type="Texture2D" uid="uid://doinqjthxp344" path="res://Game/Graphics/Common_icons/upgrade_icon.png" id="1_h3l3a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.047, 0.894, 0.553, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vyn0f"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[node name="BuyButton" type="Button"]
+custom_minimum_size = Vector2(175, 0)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_vyn0f")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
+disabled = true
+script = ExtResource("1_dkmgb")
+
+[node name="Container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0666667
+anchor_right = 0.973333
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Container"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TextureRect" type="TextureRect" parent="Container/AspectRatioContainer"]
+custom_minimum_size = Vector2(35, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_h3l3a")
+expand_mode = 1
+
+[node name="UpgradeContainer" type="HBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+
+[node name="CostLabel" type="Label" parent="Container/UpgradeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0.6, 1)
+text = "$Upgr"
+
+[node name="PriceContainer" type="HBoxContainer" parent="Container"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+alignment = 2
+
+[node name="ItemPriceLabel" type="Label" parent="Container/PriceContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
+theme_override_font_sizes/font_size = 15
+text = "3900K"
