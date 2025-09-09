@@ -9,3 +9,4 @@ $hack_gold_perc;Gain des hacks;
 $hack_cost_perc;Coût des hacks;
 $learning_items_cost_perc;Coût des items passifs;
 $learning_items_knowledge_perc;Connaissance supplémentaire des items passifs;
+$short_learning_items_knowledge_perc;Connaissance supplémentaire;

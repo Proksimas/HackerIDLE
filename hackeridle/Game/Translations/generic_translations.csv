@@ -1,5 +1,6 @@
 key;fr;en
 $Level;Niveau;Level
+$Hack;Hack;Hack
 $level;niveau;level
 $Lv;Niv;Lv
 $Upgr;Amél;Upgr
@@ -27,3 +28,4 @@ $PulsarLogan;Quand la ville se tait, le Pulsar parle;When the city is silent, th
 $Brain;Cerveau;Brain
 $Xp_per_click;Xp par click;Xp per click
 $knowledge_click_perc;Connaissance par click;Knowledge per click
+$LearningItems;Objets passifs;Passive items
