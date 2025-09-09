@@ -234,6 +234,24 @@ func get_jail_perc() -> float:
 		tot_perc += value["value"]
 	return tot_perc
 	
+func get_modifier_type_by_stats(target_modifier:TargetModifier, stat_name: Stats) -> Dictionary:
+	"""Renvoie un dictionnaire des bonus pour la stats et le target_modifier
+	ATTENTION: On fait direct un *100 pour le percentage"""
+	var modifier_dict = get_accurate_modifier(target_modifier)
+	var modifiers = {"base": 0.0,
+					"perc": 0,
+					"flat": 0.0}
+	for modifier in modifier_dict[stat_name]:
+		match modifier["type"]:
+			ModifierType.BASE:
+				modifiers["base"] += modifier["value"]
+			ModifierType.PERCENTAGE:
+				modifiers["perc"] += modifier["value"] * 100
+			ModifierType.FLAT:
+				modifiers["flat"] += modifier["value"]
+
+	return modifiers
+	
 func _show_stats_modifiers(stat_name: Stats):
 	var for_global_modifiers = { "percentage": [],
 		"base": [],

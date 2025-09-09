@@ -79,11 +79,38 @@ func draw_infamy_stats():
 		infamy_effects.add_child(bullet_label)
 		bullet_label.set_bullet_point(trad)
 		
-		
+@onready var brain_xp_title: Label = %BrainXpTitle
+@onready var brain_title: Label = %BrainTitle
+@onready var brain_knowledge_title: Label = %BrainKnowledgeTitle
+
 func draw_modififiers():
 	var global = StatsManager.global_modifiers
 	var hack_modifiers = StatsManager.hack_modifiers
 	
+	# BRAIN
+	#xp_click_flat, xp_click_perc
+	#knowledge_click_perc, knowledge_click_bonus
+	brain_title.text = tr("$Brain")
+
+	var xp_cara = StatsManager.get_modifier_type_by_stats(\
+	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
+	brain_xp_title.text = "    " + tr("$Xp_per_click") + ": " + \
+Global.number_to_string(StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP), 0.1) + \
+" ( " + Global.number_to_string(xp_cara["base"]) + " + " + Global.number_to_string(xp_cara["perc"]) + "% )"
+	
+	var knowledge_cara = StatsManager.get_modifier_type_by_stats(\
+	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
+	brain_knowledge_title.text = "    " + tr("$knowledge_click_perc") + ": " + \
+Global.number_to_string(StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE), 0.1) + \
+" ( " + Global.number_to_string(knowledge_cara["base"]) + " + " + Global.number_to_string(knowledge_cara["perc"]) + "% )"
+	
+	## HACKs
+	# hack_time_perc
+	# hack_gold_perc
+	# hack_cost_perc
+	## LEARNING ITEMS
+	# learning_items_cost_perc
+	# learning_items_knowledge_perc
 	
 	pass
 	

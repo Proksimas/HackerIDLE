@@ -37,13 +37,13 @@ const EN_SUFFIXES: PackedStringArray = [
 	"", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" # ~1e33
 ]
 
-func number_to_string(number) -> String:
+func number_to_string(number, snap: float = 1.0) -> String:
 	var is_negative = number < 0.0
 	var num = absf(float(number))
 
-	# Petits nombres : comportement inchangé
+	# Petits nombres : comportement inchangé et passage sans décimal
 	if num < 1000.0:
-		return str(number)
+		return str(snapped(number, snap))
 
 	var sign = ""
 	if is_negative:
