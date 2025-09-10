@@ -13,6 +13,13 @@ extends Panel
 @export var event_during_time:int 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
 
+const ARGON = preload("res://Game/Graphics/Background/Crypte Argon/argon.png")
+const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.png")
+const OPALINE_FROM_VALMONT = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
+const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
+const VALMONT = preload("res://Game/Graphics/Background/Valmont/valmont_1.png")
+
+var background_texture = [ARGON, GALERIES, OPALINE_FROM_VALMONT, PONT, VALMONT]
 var time_process: float = 0
 
 signal s_event_finished()
@@ -34,6 +41,7 @@ func _process(delta: float) -> void:
 	time_progress_bar.value = event_during_time - time_process
 	
 func event_ui_setup(scenario_specific: int = -1):
+	apply_background()
 	self.show()
 	_clear_choices_container()
 	var event:Event 
@@ -124,6 +132,14 @@ func event_ui_setup(scenario_specific: int = -1):
 	#On met le jeu en pause
 	get_tree().paused = true
 	return
+	
+func apply_background():
+	
+	var stylebox = StyleBoxTexture.new()
+	var rnd = randi_range(0, len(background_texture) -1)
+	stylebox.texture = background_texture[rnd]
+
+	self.add_theme_stylebox_override("panel", stylebox)
 	
 func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
