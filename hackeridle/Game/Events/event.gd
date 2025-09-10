@@ -3,7 +3,7 @@ extends Resource
 class_name Event
 
 #stat_click_mod = modifier sur le click. exemple:
-#						xp_click_flat = point d'xp à chaque click
+#						xp_click_bonus = point d'xp à chaque click
 #						gold_gain_flat = gold gagné d'un coup
 #						knowledge_gain_perc = le pourcentage d'argent qu'on gagne 
 #											par rapport à la connaissance actuelle
@@ -24,11 +24,11 @@ var min_effect_weight= 10
 # le weight est le ratio de 1 unité de la variable pour 1 unité d’infam
 # les valeurs en % devront avoir un /10 
 var effects_cara = {
-					"xp_click_flat":  {"freq":20,
+					"xp_click_base":  {"freq":20,
 								"weight": 8},
 					"xp_click_perc":  {"freq":35,
 								"weight": 20},
-					"knowledge_click_bonus":  {"freq":35,
+					"knowledge_click_base":  {"freq":35,
 								"weight": 5},
 					"knowledge_click_perc":  {"freq":55,
 								"weight": 30},
@@ -149,9 +149,9 @@ func build_values(keys: Array) -> Dictionary:
 			else:
 				add = snapped(randf_range(0, 0.5), 0.001)
 				
-		elif key == "xp_click_flat":
+		elif key == "xp_click_base":
 			add = randi_range(0, 4)
-		elif key == "knowledge_click_bonus":
+		elif key == "knowledge_click_base":
 			add = randi_range(0, 10)
 		else:
 			push_warning("key pa spris en compte")

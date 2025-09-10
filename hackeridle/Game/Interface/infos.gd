@@ -95,21 +95,21 @@ func draw_modififiers():
 	var hack_modifiers = StatsManager.hack_modifiers
 	
 	# BRAIN
-	#xp_click_flat, xp_click_perc
-	#knowledge_click_perc, knowledge_click_bonus
+	#xp_click_base, xp_click_perc
+	#knowledge_click_perc, knowledge_click_base
 	brain_title.text = tr("$Brain")
 
 	var xp_cara = StatsManager.get_modifier_type_by_stats(\
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
 	brain_xp_title.text = "    " + tr("$Xp_per_click") + ": " + \
 Global.number_to_string(StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP), 0.1) + \
-" ( " + Global.number_to_string(xp_cara["base"]) + " + " + Global.number_to_string(xp_cara["perc"]) + " % )"
+"   <---   ( " + Global.number_to_string(xp_cara["base"]) + " + " + Global.number_to_string(xp_cara["perc"]) + "% ) + " + Global.number_to_string(xp_cara["flat"])
 	
 	var knowledge_cara = StatsManager.get_modifier_type_by_stats(\
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
 	brain_knowledge_title.text = "    " + tr("$knowledge_click_perc") + ": " + \
 Global.number_to_string(StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE), 0.1) + \
-" ( " + Global.number_to_string(knowledge_cara["base"]) + " + " + Global.number_to_string(knowledge_cara["perc"]) + " % )"
+"   <---   ( " + Global.number_to_string(knowledge_cara["base"]) + " + " + Global.number_to_string(knowledge_cara["perc"]) + "% ) + " + Global.number_to_string(knowledge_cara["flat"])
 	
 	## HACKs
 	# hack_time_perc

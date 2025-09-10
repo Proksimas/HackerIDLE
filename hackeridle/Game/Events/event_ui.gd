@@ -168,10 +168,10 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 			"infamy":
 				StatsManager.add_infamy(_modifiers["infamy"])
 				
-			"xp_click_flat": 
+			"xp_click_base": 
 				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
 										StatsManager.Stats.BRAIN_XP,
-										StatsManager.ModifierType.FLAT,
+										StatsManager.ModifierType.BASE,
 										_modifiers[stat_name],
 										event_id)
 			"xp_click_perc":
@@ -181,7 +181,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 										_modifiers[stat_name],
 										event_id)
 										
-			"knowledge_click_bonus":
+			"knowledge_click_base":
 				StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK,
 										StatsManager.Stats.KNOWLEDGE,
 										StatsManager.ModifierType.BASE,
