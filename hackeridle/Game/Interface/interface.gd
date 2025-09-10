@@ -202,11 +202,12 @@ func _on_s_date(array):
 		if jail_proba >  rng:
 			app_button_pressed("jail")
 			
-	##### PROBA DE BAISSER L INFAMY
+	##### PROBA DE BAISSER L INFAMY  
 
 	var decrease_infamy = StatsManager.current_stat_calcul(StatsManager.TargetModifier.DECREASE_INFAMY,
 											StatsManager.Stats.DECREASE_INFAMY)
-	decrease_infamy = decrease_infamy 
+	if decrease_infamy <= 0:
+		return
 	if StatsManager.infamy["current_value"] > 0:
 		StatsManager.add_infamy(0 - decrease_infamy)
 	

@@ -66,7 +66,7 @@ func _init(new_game:bool = true) -> void:
 	if new_game:
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.BRAIN_XP, ModifierType.BASE, 1, "birth")
 		self.add_modifier(TargetModifier.BRAIN_CLICK, Stats.KNOWLEDGE, ModifierType.BASE, Player.brain_level, "birth")
-		self.add_modifier(TargetModifier.DECREASE_INFAMY, Stats.DECREASE_INFAMY, ModifierType.BASE, 0.01, "birth")
+		#self.add_modifier(TargetModifier.DECREASE_INFAMY, Stats.DECREASE_INFAMY, ModifierType.BASE, 0.005, "birth")
 
 	_init_infamy()
 	
@@ -296,7 +296,7 @@ func add_min_infay(_earning: int):
 func add_infamy(_earning: float):
 	var old_treshold = get_infamy_treshold()
 	var earning = _earning
-	infamy["current_value"] = clamp(snapped(infamy["current_value"] + earning, 0.01), infamy["min"], infamy["max"])
+	infamy["current_value"] = clamp(snapped(infamy["current_value"] + earning, 0.0001), infamy["min"], infamy["max"])
 	s_add_infamy.emit(infamy["current_value"])
 	var new_treshold = get_infamy_treshold()
 	if infamy["current_value"] >= 100:

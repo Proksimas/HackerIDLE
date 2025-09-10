@@ -21,6 +21,7 @@ var max_keys = 4
 var min_keys = 1
 var max_effect_weight = 30
 var min_effect_weight= 10 
+var malus_decrase_infamy: float = -0.8 # le maluse du ratio pour baisser l'infamy par rappot au poids
 # le weight est le ratio de 1 unité de la variable pour 1 unité d’infam
 # les valeurs en % devront avoir un /10 
 var effects_cara = {
@@ -120,7 +121,7 @@ func build_values(keys: Array) -> Dictionary:
 				if add > 0:
 					coef = 1
 				else:
-					coef = -0.8
+					coef = malus_decrase_infamy
 					
 			elif key == "learning_items_knowledge_perc"   :
 				add = snapped(randf_range(-0.4, 0.4), 0.001)
@@ -128,13 +129,13 @@ func build_values(keys: Array) -> Dictionary:
 				if add > 0:
 					coef = 1
 				else:
-					coef = -0.8
+					coef = malus_decrase_infamy
 					
 			elif key == "hack_time_perc":
 				add = snapped(randf_range(-0.4, 0.4), 0.001)
 				#ici le poids donne de si la valeur est négative
 				if add > 0:
-					coef = -0.8
+					coef = malus_decrase_infamy
 				else:
 					coef = 1
 				
@@ -142,7 +143,7 @@ func build_values(keys: Array) -> Dictionary:
 				add = snapped(randf_range(-0.4, 0.4), 0.001)
 				#ici le poids donne de si la valeur est négative
 				if add > 0:
-					coef = -0.8
+					coef = malus_decrase_infamy
 				else:
 					coef = 1
 					
