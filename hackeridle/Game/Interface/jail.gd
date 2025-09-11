@@ -21,8 +21,12 @@ var years_in_jail: int = 0
 
 
 func enter_jail():
+	if is_in_jail:
+		return
+		
+	print("entre dans la prison")
 	self.show()
-	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
+	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
 	is_in_jail = true
 
 	years_in_jail = randi_range(min_year_in_jail, max_year_i_jail)
@@ -35,11 +39,13 @@ func enter_jail():
 	StatsManager.add_infamy(0-StatsManager.infamy["current_value"])
 	# on met le jeu en pause juste pour que le joueur ne clic pas ailleurs sas faire exprès
 	# mais le node actuel ne doit pas!
-	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
+	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
 	get_tree().paused = true
 	await get_tree().create_timer(5).timeout
+	print("on sort de la prison")
 	get_tree().paused = false
-	self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
+	is_in_jail = false
+	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
 	
 	
 	

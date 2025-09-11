@@ -125,14 +125,7 @@ func event_ui_setup(scenario_specific: int = -1):
 		
 		choices_modifiers.append({"choice_name": choices_str[index],
 									"effects": choices_id[index]["effects"],
-									"choice_id": choices_id[index]["texte_id"]
-		}
-			
-			
-		)
-		#choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
-			#choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
-			
+									"choice_id": choices_id[index]["texte_id"]})
 		index += 1
 		
 	if choices_container[0].get_children() == []:
@@ -160,22 +153,9 @@ func apply_background():
 	
 func _on_choice_pressed(_choice: String): #_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
-	#print("_choice: %s    _modifiers: %s" % [_choice, _modifiers])
-	#if choice_a_button.pressed.is_connected(_on_choice_pressed):
-		#choice_a_button.pressed.disconnect(_on_choice_pressed)
-	#if choice_b_button.pressed.is_connected(_on_choice_pressed):
-		#choice_b_button.pressed.disconnect(_on_choice_pressed)
-		#
-	#if !confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
-		#confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
-	#elif confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
-		#confirm_button.s_pressed.disconnect(_on_confirm_button_s_pressed)
-		#confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
-	#s_event_finished.emit() -> apres la confirmation du confirm_button
-	
+
 	choice_selected = _choice
 	confirm_button.enable()
-	#self.queue_free()
 	
 func _on_confirm_button_s_pressed():
 	if choice_selected == "choice_a":
