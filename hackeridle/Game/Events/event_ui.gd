@@ -27,7 +27,7 @@ signal s_event_finished()
 func _ready() -> void:
 	# event_ui_setup() --> pour choisir un évenement
 	#Au bout de x seconde l'event se termine et un choix est fait au hasard
-	get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
+	
 	time_progress_bar.max_value = event_during_time
 	time_progress_bar.min_value = 0
 	time_progress_bar.value = event_during_time
@@ -36,13 +36,15 @@ func _ready() -> void:
 	choice_b_button.disabled = true
 	confirm_button.disabled = true
 	
+	#POur la progress_bar
+	#get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
 	#Global.center(self)
 	pass # Replace with function body.
 
-func _process(delta: float) -> void:
-	time_process += delta
-	time_progress_bar.value = event_during_time - time_process
-	
+#func _process(delta: float) -> void:
+	#time_process += delta
+	#time_progress_bar.value = event_during_time - time_process
+	#
 func event_ui_setup(scenario_specific: int = -1):
 	apply_background()
 	self.show()
