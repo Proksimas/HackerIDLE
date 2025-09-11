@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=19 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_fecvy"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="Texture2D" uid="uid://6284yqfcusgg" path="res://Game/Graphics/Brains/brain_halo.png" id="4_8oxsc"]
+[ext_resource type="BitMap" uid="uid://dnqnfdvi5n5nn" path="res://Game/Graphics/Brains/brain_halo_mono.bmp" id="4_dggt3"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
 
@@ -166,6 +167,7 @@ unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("4_8oxsc")
+texture_click_mask = ExtResource("4_dggt3")
 ignore_texture_size = true
 stretch_mode = 0
 

@@ -47,6 +47,7 @@ const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 func _ready() -> void:
 	if !OS.has_feature("editor"):
 		cheat_events.hide()
+		#cheat_events.show()
 	
 	main_tab.current_tab = 0
 	connexions()
