@@ -21,6 +21,8 @@ const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const VALMONT = preload("res://Game/Graphics/Background/Valmont/valmont_1.png")
 
 var background_texture = [ARGON, GALERIES, OPALINE_FROM_VALMONT, PONT, VALMONT]
+var choices_modifiers = []
+var choice_selected: String
 var time_process: float = 0
 
 signal s_event_finished()
@@ -35,7 +37,8 @@ func _ready() -> void:
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
 	confirm_button.disabled = true
-	
+	choice_a_button.pressed.connect(_on_choice_pressed.bind("choice_a"))
+	choice_b_button.pressed.connect(_on_choice_pressed.bind("choice_b"))
 	#POur la progress_bar
 	#get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
 	#Global.center(self)
@@ -45,6 +48,7 @@ func _ready() -> void:
 	#time_process += delta
 	#time_progress_bar.value = event_during_time - time_process
 	#
+	
 func event_ui_setup(scenario_specific: int = -1):
 	apply_background()
 	self.show()
@@ -61,7 +65,7 @@ func event_ui_setup(scenario_specific: int = -1):
 	var choices_id = [event.event_choice_1, event.event_choice_2]
 	var choices_container =[choice_a_container, choice_b_container]
 	var choices_buttons = [choice_a_button, choice_b_button]
-	var choices_str = ["choix_a", "choix_b"]
+	var choices_str = ["choice_a", "choice_b"]
 	
 	var choice_text: String
 	var index = 0
@@ -119,8 +123,16 @@ func event_ui_setup(scenario_specific: int = -1):
 				choices_container[index].add_child(new_bullet)
 				new_bullet.set_bullet_point(choice_text)
 		
-		choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
-			choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
+		choices_modifiers.append({"choice_name": choices_str[index],
+									"effects": choices_id[index]["effects"],
+									"choice_id": choices_id[index]["texte_id"]
+		}
+			
+			
+		)
+		#choices_buttons[index].pressed.connect(self._on_choice_pressed.bind(
+			#choices_str[index], choices_id[index]["effects"], choices_id[index]["texte_id"]))
+			
 		index += 1
 		
 	if choices_container[0].get_children() == []:
@@ -146,24 +158,32 @@ func apply_background():
 
 	self.add_theme_stylebox_override("panel", stylebox)
 	
-func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
+func _on_choice_pressed(_choice: String): #_choice: String, _modifiers: Dictionary, event_id):
 	""" choice = choice_a ou choice_b"""
-
-	if choice_a_button.pressed.is_connected(_on_choice_pressed):
-		choice_a_button.pressed.disconnect(_on_choice_pressed)
-	if choice_b_button.pressed.is_connected(_on_choice_pressed):
-		choice_b_button.pressed.disconnect(_on_choice_pressed)
-	if !confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
-		confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
+	#print("_choice: %s    _modifiers: %s" % [_choice, _modifiers])
+	#if choice_a_button.pressed.is_connected(_on_choice_pressed):
+		#choice_a_button.pressed.disconnect(_on_choice_pressed)
+	#if choice_b_button.pressed.is_connected(_on_choice_pressed):
+		#choice_b_button.pressed.disconnect(_on_choice_pressed)
+		#
+	#if !confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
+		#confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
+	#elif confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
+		#confirm_button.s_pressed.disconnect(_on_confirm_button_s_pressed)
+		#confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
 	#s_event_finished.emit() -> apres la confirmation du confirm_button
+	
+	choice_selected = _choice
 	confirm_button.enable()
 	#self.queue_free()
 	
-func _on_confirm_button_s_pressed(_modifiers, event_id):
-	if confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
-		confirm_button.s_pressed.disconnect(_on_confirm_button_s_pressed)
-		
-	apply_modifiers(_modifiers, event_id)
+func _on_confirm_button_s_pressed():
+	if choice_selected == "choice_a":
+		apply_modifiers(choices_modifiers[0]["effects"], choices_modifiers[0]["choice_id"])
+	elif choice_selected == "choice_b":
+		apply_modifiers(choices_modifiers[1]["effects"], choices_modifiers[1]["choice_id"])
+	else:
+		push_error("Probleme dans les choix")
 	get_tree().paused = false
 	s_event_finished.emit() 
 		
