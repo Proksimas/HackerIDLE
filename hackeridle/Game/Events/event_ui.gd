@@ -9,6 +9,7 @@ extends Panel
 @onready var choice_b_container: VBoxContainer = %ChoiceBContainer
 @onready var choice_a_container: VBoxContainer = %ChoiceAContainer
 @onready var time_progress_bar: ProgressBar = %TimeProgressBar
+@onready var confirm_button: Button = %ConfirmButton
 
 @export var event_during_time:int 
 const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
@@ -33,6 +34,8 @@ func _ready() -> void:
 	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
 	choice_a_button.disabled = true
 	choice_b_button.disabled = true
+	confirm_button.disabled = true
+	
 	#Global.center(self)
 	pass # Replace with function body.
 
@@ -148,11 +151,19 @@ func _on_choice_pressed(_choice: String, _modifiers: Dictionary, event_id):
 		choice_a_button.pressed.disconnect(_on_choice_pressed)
 	if choice_b_button.pressed.is_connected(_on_choice_pressed):
 		choice_b_button.pressed.disconnect(_on_choice_pressed)
+	if !confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
+		confirm_button.s_pressed.connect(_on_confirm_button_s_pressed.bind(_modifiers, event_id))
+	#s_event_finished.emit() -> apres la confirmation du confirm_button
+	confirm_button.enable()
+	#self.queue_free()
+	
+func _on_confirm_button_s_pressed(_modifiers, event_id):
+	if confirm_button.s_pressed.is_connected(_on_confirm_button_s_pressed):
+		confirm_button.s_pressed.disconnect(_on_confirm_button_s_pressed)
 		
 	apply_modifiers(_modifiers, event_id)
 	get_tree().paused = false
-	s_event_finished.emit()
-	#self.queue_free()
+	s_event_finished.emit() 
 		
 
 func apply_modifiers(_modifiers: Dictionary, event_id):
