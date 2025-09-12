@@ -30,7 +30,6 @@ func set_bullet_point(_text: String, has_autowrap: bool = false, _width:float = 
 		#if number_value == 0:
 		var colored_number
 		
-		print("value: %s" % number_value)
 		if number_value == 0:
 			colored_number  = "[color=white]" + number_str + "[/color]"
 		elif number_value > 0 and inverse_color == false:
