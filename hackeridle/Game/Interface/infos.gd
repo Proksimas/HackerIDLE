@@ -72,12 +72,17 @@ func draw_infamy_stats():
 		else:
 			value_str = ""
 		
-		_translations.append(tr("hack_" + StatsManager.STATS_NAMES.get(stat)).format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str}))
+
+		_translations.append([stat,tr("hack_" + StatsManager.STATS_NAMES.get(stat)).format({"hack_" + StatsManager.STATS_NAMES.get(stat) + "_value": value_str})])
 	
 	for trad in _translations:
 		var bullet_label = BULLET_POINT.instantiate()
 		infamy_effects.add_child(bullet_label)
-		bullet_label.set_bullet_point(trad)
+		print(StatsManager.STATS_NAMES.get(trad[0]))
+		if trad[0] == StatsManager.Stats.TIME or trad[0] == StatsManager.Stats.COST:
+			bullet_label.set_bullet_point(trad[1], false, 150, true)
+		else:
+			bullet_label.set_bullet_point(trad[1])
 		
 @onready var brain_xp_title: Label = %BrainXpTitle
 @onready var brain_title: Label = %BrainTitle

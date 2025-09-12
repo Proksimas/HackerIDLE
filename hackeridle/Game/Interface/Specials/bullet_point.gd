@@ -30,17 +30,24 @@ func set_bullet_point(_text: String, has_autowrap: bool = false, _width:float = 
 		#if number_value == 0:
 		var colored_number
 		
+		print("value: %s" % number_value)
 		if number_value == 0:
 			colored_number  = "[color=white]" + number_str + "[/color]"
 		elif number_value > 0 and inverse_color == false:
 			# Affiche en vert si le nombre est positif
-			colored_number  = "[color=green]" + number_str + "[/color]"
+			colored_number  = "+[color=green] " + str(abs(number_value)) + "[/color]"
+			
 		elif number_value > 0 and inverse_color == true:
-			colored_number  = "[color=red]" + number_str + "[/color]"
+			colored_number  = "+[color=red] " + str(abs(number_value)) + "[/color]"
+			
+		elif number_value < 0 and inverse_color == false:
+			colored_number  = "-[color=red] " + str(abs(number_value)) + "[/color]"
+			
 		elif number_value < 0 and inverse_color == true:
-			colored_number  = "[color=green]" + number_str + "[/color]"
+			colored_number  = "-[color=green] " + str(abs(number_value)) + "[/color]"
+
 		else:
-			colored_number  = "[color=green]" + number_str + "[/color]"
+			colored_number  = "[color=white]" + number_str + "[/color]"
 
 		# Ajoute le nombre formaté en BBCode
 	

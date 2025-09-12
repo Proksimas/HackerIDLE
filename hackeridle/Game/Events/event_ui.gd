@@ -112,9 +112,9 @@ func event_ui_setup(scenario_specific: int = -1):
 				if value == 0:
 					continue
 				elif effect_value < 0:
-					choice_text += "- %s" % Global.number_to_string(abs(value))
+					choice_text += Global.number_to_string(value)
 				else:
-					choice_text += "+ %s" % Global.number_to_string((value))
+					choice_text += Global.number_to_string(value)
 				
 				if is_perc:
 					choice_text += " %"
@@ -122,10 +122,10 @@ func event_ui_setup(scenario_specific: int = -1):
 				var new_bullet = BULLET_POINT.instantiate()
 				choices_container[index].add_child(new_bullet)
 				
-				#Les cas où on doit inverser la couleur
-				if event_effect_name == "infamy" or event_effect_name == "hack_time_perc" or \
-				 event_effect_name == "learning_items_cost_perc" or  event_effect_name == "hack_cost_perc":
+			
+				if EventsManager.malus_effects.has(event_effect_name):
 					new_bullet.set_bullet_point(choice_text, false, 150, true)
+					
 				else:
 					new_bullet.set_bullet_point(choice_text)
 		

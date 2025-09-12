@@ -40,6 +40,8 @@ var hack_modifiers: Dictionary = {}
 var learning_items_modifiers: Dictionary = {}
 var decrease_infamy_modifiers: Dictionary = {} #pour la perte d'infamy dans le temps
 
+
+
 var infamy: Dictionary
 var infamy_threshold = [10,25,40,60,90,99]
 

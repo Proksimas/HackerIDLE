@@ -11,7 +11,8 @@ const EVENT_UI = preload("res://Game/Events/event_ui.tscn")
 const EVENTS_DB_PATH = "res://Game/Events/events_with_infame.json" #"res://Game/Events/events_DB.json"
 const EVENT = preload("res://Game/Events/event.tres")
 
-
+var malus_effects = ["infamy","hack_time_perc","learning_items_cost_perc",
+					"hack_cost_perc"]
 var events_pool: Dictionary = {} # Tous les events inti: event_id = Event: Resource
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
 
