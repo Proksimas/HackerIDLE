@@ -1,12 +1,13 @@
 key;fr;en
-$xp_click_flat;Xp supplémentaire par click;Additional xp per click
-$xp_click_perc;Xp supplémentaire par clic;Xp supplémentaire par clic
+$xp_click_flat;Xp par click;xp per click
+$xp_click_perc;Xp par clic;Xp per click
 $brain_xp;Xp du cerveau;Brain Xp
-$knowledge_click_bonus;Connaissance supplémentaire par click;Additional knowledge per click
-$knowledge_click_perc;Connaissance supplémentaire par click;Additional knowledge per click
+$xp_click_base;Xp par clic;Xp per click
+$knowledge_click_bonus;Connaissance par click;Knowledge per click
+$knowledge_click_perc;Connaissance par click;Knowledge per click
 $hack_time_perc;Temps des hacks;
 $hack_gold_perc;Gain des hacks;
 $hack_cost_perc;Coût des hacks;
 $learning_items_cost_perc;Coût des items passifs;
-$learning_items_knowledge_perc;Connaissance supplémentaire des items passifs;
+$learning_items_knowledge_perc;Connaissance des items passifs;
 $short_learning_items_knowledge_perc;Connaissance supplémentaire;

@@ -68,7 +68,7 @@ func draw_infamy_stats():
 		if value > 0:
 			value_str = "%s" % str(value)
 		elif value < 0:
-			value_str = "%s" % str(abs(value))
+			value_str = "%s" % str(value)
 		else:
 			value_str = ""
 		
@@ -81,6 +81,7 @@ func draw_infamy_stats():
 		if trad[0] == StatsManager.Stats.TIME or trad[0] == StatsManager.Stats.COST or\
 		trad[0] == StatsManager.Stats.JAIL:
 			bullet_label.set_bullet_point(trad[1], false, 150, true)
+				
 		else:
 			bullet_label.set_bullet_point(trad[1])
 		
