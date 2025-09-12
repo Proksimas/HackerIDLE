@@ -125,3 +125,6 @@ func get_knowledge_from_passif() -> float:
 	
 func _draw() -> void:
 	level_label.text = tr("$Level")
+
+
+		

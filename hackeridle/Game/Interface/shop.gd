@@ -6,7 +6,7 @@ extends Control
 
 const SHOP_ITEM = preload("res://Game/Interface/shop_item.tscn")
 
-
+var first_for_session: bool = false
 var x_upgrade_value: int
 
 signal item_bought(name)
@@ -36,7 +36,8 @@ func _process(delta: float) -> void:
 func set_shop():
 	var item_present: Dictionary
 	for shop_item:ShopItem in shop_grid.get_children():
-		item_present[shop_item.current_item_cara["item_name"]] = shop_item
+		if !shop_item.current_item_cara.is_empty():
+			item_present[shop_item.current_item_cara["item_name"]] = shop_item
 
 	for item_name in LearningItemsDB.learning_items_db:
 		
@@ -46,6 +47,7 @@ func set_shop():
 		elif item_present.has(item_name) and !Player.has_learning_item(item_name):
 			continue
 			
+
 		else:
 			var new_learning_item:ShopItem = SHOP_ITEM.instantiate()
 			shop_grid.add_child(new_learning_item)
@@ -53,7 +55,8 @@ func set_shop():
 			
 			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
 			new_learning_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_learning_item))
-		
+			
+			
 func player_bought_learning_item(item_name,  quantity):
 	
 	var cost = 0
@@ -105,6 +108,14 @@ func _draw() -> void:
 	set_shop()
 	learning_items_statut_updated()
 	%X1Button.pressed.emit()
+	
+	if !first_for_session:
+		for shop_item in shop_grid.get_children():
+			var shop_item_name = shop_item.current_item_cara["item_name"]
+			if Player.has_learning_item(shop_item_name):
+				shop_item.set_refresh(Player.learning_item_bought[shop_item.current_item_cara["item_name"]])
+		first_for_session = true
+
 
 func _clear():
 	for item in shop_grid.get_children():
@@ -135,3 +146,4 @@ func _on_x_button_pressed(button_name: String):
 			x_upgrade_value = -1  
  
 	get_tree().call_group("g_shop_item", "x_can_be_buy", x_upgrade_value)
+	##

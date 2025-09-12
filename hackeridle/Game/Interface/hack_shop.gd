@@ -26,7 +26,6 @@ func set_shop():
 	var item_present: Dictionary
 	for hack_item:HackItemButton in hack_grid.get_children():
 		if !hack_item.current_hack_item_cara.is_empty():
-			
 			item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
 
 	for item_name in HackingItemsDb.hacking_items_db:
