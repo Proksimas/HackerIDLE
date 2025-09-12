@@ -4,10 +4,8 @@
 
 [node name="BulletPoint" type="HBoxContainer"]
 anchors_preset = -1
-anchor_right = 0.216949
-anchor_bottom = 0.0179969
-offset_right = -28.0
-offset_bottom = 52.0
+anchor_right = 0.542373
+anchor_bottom = 0.0234742
 size_flags_horizontal = 3
 script = ExtResource("1_64ml4")
 metadata/_edit_use_anchors_ = true
@@ -20,9 +18,12 @@ custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 color = Color(0.219608, 0.996078, 0.996078, 1)
 
-[node name="TextLabel" type="Label" parent="."]
+[node name="TextLabel" type="RichTextLabel" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 2
+bbcode_enabled = true
 text = "+ x % au clic kjlkjkl ljkkl  lkjklkj "
 autowrap_mode = 2

@@ -121,7 +121,13 @@ func event_ui_setup(scenario_specific: int = -1):
 					
 				var new_bullet = BULLET_POINT.instantiate()
 				choices_container[index].add_child(new_bullet)
-				new_bullet.set_bullet_point(choice_text)
+				
+				#Les cas où on doit inverser la couleur
+				if event_effect_name == "infamy" or event_effect_name == "hack_time_perc" or \
+				 event_effect_name == "learning_items_cost_perc" or  event_effect_name == "hack_cost_perc":
+					new_bullet.set_bullet_point(choice_text, false, 150, true)
+				else:
+					new_bullet.set_bullet_point(choice_text)
 		
 		choices_modifiers.append({"choice_name": choices_str[index],
 									"effects": choices_id[index]["effects"],
