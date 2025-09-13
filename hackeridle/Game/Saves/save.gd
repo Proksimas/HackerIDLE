@@ -25,7 +25,9 @@ func save_game():
 	
 	{"language": TranslationServer.get_locale()}
 	save_the_data(content)
-	print(content)
+	for key in content:
+		print("%s: %s" % [key, content[key]])
+	#print(content)
 	
 func save_the_data(content):
 	var save_path = get_save_path()
@@ -112,6 +114,8 @@ func time_manager_load_data(content: Dictionary) -> void:
 	
 func events_manager_load_data(content: Dictionary) -> void:
 	print("Chargement des events:")
+	#for key in content:
+		#print("%s: %s" % [key, content[key]])
 	print(content)
 	EventsManager._load_data(content)
 

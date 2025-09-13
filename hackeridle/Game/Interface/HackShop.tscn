@@ -19,7 +19,7 @@ texture = ExtResource("4_72b0i")
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dudvx"]
 bg_color = Color(0.113725, 0.0745098, 0.0901961, 1)
 
-[node name="HackShop" type="Control" groups=["g_hack_shop_item"]]
+[node name="HackShop" type="Control" groups=["g_hack_shop_item", "savable"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
