@@ -8,7 +8,7 @@ extends Control
 const HACK_ITEM_BUTTON = preload("res://Game/Clickers/Hacking/hack_item_button.tscn")
 const SOURCE = preload("res://Game/Clickers/Hacking/Source.tscn")
 
-
+signal s_set_shop_finished()
 var x_upgrade_value: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,6 +25,8 @@ func set_shop():
 	hack_grid.show()
 	var item_present: Dictionary
 	for hack_item:HackItemButton in hack_grid.get_children():
+		if hack_item.is_queued_for_deletion():
+			continue
 		if !hack_item.current_hack_item_cara.is_empty():
 			item_present[hack_item.current_hack_item_cara["item_name"]] = hack_item
 
@@ -62,7 +64,7 @@ func set_shop():
 			#new_hack_item.source_button.pressed.connect(_on_source_button_pressed.bind(source_associated))
 			
 			new_hack_item.hide()
-			
+	s_set_shop_finished.emit()
 
 				
 func player_bought_hacking_item(item_name,  quantity):
@@ -169,15 +171,42 @@ func _clear():
 	for child in hack_grid.get_children():
 		child.queue_free()
 		
+		
+func _save_data() -> Dictionary:
+	var dict_hack_buttons: Dictionary = {}
+	for hack_button: HackItemButton in hack_grid.get_children():
+		if hack_button.time_process > 0:
+			dict_hack_buttons[hack_button.current_hack_item_cara["item_name"]] = \
+				{"time_process" = hack_button.time_process}
+		
+	return dict_hack_buttons
+	
+
 func _load_data(_data):
 	_clear()
 	#on force le set_shop meme si on a pas encore ouvert l'ui
 	var items_cache = Player.hacking_item_bought.duplicate()
 	Player.hacking_item_bought.clear()
-	
 	var items_cara = []
 	for item in items_cache:
 		Player.add_hacking_item(items_cache[item])
 		items_cara.append(items_cache[item])
+	self.s_set_shop_finished.connect(_on_s_set_shop_finished.bind(_data))
 	set_shop()
+	
+	#Puis on lance les timer des hack qui etaient deja en cours
+	# Faut attendre le current_hack_item_ qui ne soit plus vide...
+
 	pass
+
+func _on_s_set_shop_finished(_data):
+	self.s_set_shop_finished.disconnect(_on_s_set_shop_finished)
+	for hack_item_button:HackItemButton in hack_grid.get_children():
+		if hack_item_button.is_queued_for_deletion():
+			continue
+		var hack_item_name = hack_item_button.current_hack_item_cara["item_name"]
+		if !_data.has(hack_item_name):
+			continue
+			
+		hack_item_button.lauch_wait_time()
+		hack_item_button.time_process =  _data[hack_item_name]["time_process"]

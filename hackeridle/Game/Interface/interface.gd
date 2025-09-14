@@ -261,7 +261,7 @@ func _load_data(data):
 	print("Chargement des learning item\n%s" % data["Player"]["learning_item_bought"] )
 	learning._load_data(data["Player"]["learning_item_bought"])
 	print("Chargement du hack shop")
-	hack_shop._load_data("")
+	hack_shop._load_data(data["HackShop"])
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 	infos._load_data(data["Infos"])
