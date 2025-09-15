@@ -64,7 +64,6 @@ func connexions() -> void:
 	
 	buttons_connexion()
 	shop.item_bought.connect(learning._on_shop_item_bought)
-	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
 	TimeManager.s_date.connect(_on_s_date)
 	
 

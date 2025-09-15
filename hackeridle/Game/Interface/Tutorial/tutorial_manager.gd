@@ -180,7 +180,7 @@ func complete_tutorial():
 	#tutorial_ui.hide_step()
 	if game_paused_by_tutorial:
 		get_tree().paused = false
-	emit_signal("tutorial_completed")
+	tutorial_completed.emit()
 	tutorial_finished = true
 	print("Tutoriel terminé !")
 	

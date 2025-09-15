@@ -2,9 +2,6 @@ extends PanelContainer
 
 @onready var text_label: Label = %TextLabel
 @onready var infamy_value: Label = %InfamyValue
-@onready var infamy_stats: Panel = %InfamyStats
-@onready var infamy_effects: GridContainer = %InfamyEffects
-@onready var treshold_name_label: Label = %TresholdNameLabel
 @onready var text_label_container: HBoxContainer = %TextLabelContainer
 @onready var breaking_news_container: HBoxContainer = %BreakingNewsContainer
 @onready var news_container: PanelContainer = %NewsContainer
@@ -48,7 +45,6 @@ func _ready() -> void:
 	#StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	TimeManager.s_date.connect(_on_s_date)
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
-	infamy_stats.hide()
 	news_history.hide()
 	pulsar_title.text = tr("$PulsarTitle")
 	pulsar_logan_label.text = tr("$PulsarLogan")
@@ -234,7 +230,6 @@ func _on_infamy_icon_pressed() -> void:
 
 func _draw():
 	infamy_value.text = str(StatsManager.infamy["current_value"])
-	treshold_name_label.text = tr("$" + StatsManager.INFAMY_NAMES.get(StatsManager.get_infamy_treshold()))
 	pulsar_title.text = tr("$PulsarTitle")
 	pulsar_logan_label.text = tr("$PulsarLogan")
 	

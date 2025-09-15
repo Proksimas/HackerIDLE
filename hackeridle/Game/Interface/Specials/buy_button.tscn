@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxmyyq3ebdh24"]
+[gd_scene load_steps=4 format=3 uid="uid://dxmyyq3ebdh24"]
 
 [ext_resource type="Script" path="res://Game/Interface/Specials/buy_button.gd" id="1_dkmgb"]
-[ext_resource type="Texture2D" uid="uid://doinqjthxp344" path="res://Game/Graphics/Common_icons/upgrade_icon.png" id="1_h3l3a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
 bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
@@ -54,18 +53,6 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 2
 metadata/_edit_use_anchors_ = true
-
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Container"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="TextureRect" type="TextureRect" parent="Container/AspectRatioContainer"]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("1_h3l3a")
-expand_mode = 1
 
 [node name="UpgradeContainer" type="HBoxContainer" parent="Container"]
 custom_minimum_size = Vector2(0, 45)

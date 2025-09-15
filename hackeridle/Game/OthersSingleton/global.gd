@@ -45,16 +45,16 @@ func number_to_string(number, snap: float = 1.0) -> String:
 	if num < 1000.0:
 		return str(snapped(number, snap))
 
-	var sign = ""
+	var _sign = ""
 	if is_negative:
-		sign = "-"
+		_sign = "-"
 
 	# Ordre en milliers (10^3)
 	var exp3 = int(floor(log(num) / log(1000.0)))
 
 	# Au-delà des suffixes connus -> notation scientifique
 	if exp3 >= EN_SUFFIXES.size():
-		return sign + _to_scientific(num, 2)
+		return _sign + _to_scientific(num, 2)
 
 	var idx = max(1, exp3)
 	var scaled = num / pow(1000.0, float(idx))
@@ -67,12 +67,12 @@ func number_to_string(number, snap: float = 1.0) -> String:
 	if rounded >= 1000.0:
 		idx += 1
 		if idx >= EN_SUFFIXES.size():
-			return sign + _to_scientific(num, 2)
+			return _sign + _to_scientific(num, 2)
 		rounded /= 1000.0
 		dec = _decimals_for(rounded, 2)
 
 	var s = _to_string_trim(rounded, dec)
-	return sign + s + " " + EN_SUFFIXES[idx]
+	return _sign + s + " " + EN_SUFFIXES[idx]
 
 
 # ---------- Helpers ----------

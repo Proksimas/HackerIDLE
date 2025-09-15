@@ -116,7 +116,7 @@ func set_refresh(item_cara: Dictionary = {}):
 	x_can_be_buy(x_buy)
 	
 	#Mise à jour de l'ui de code
-	var content =[file_content[0], StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])]
+	var _content =[file_content[0], StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])]
 
 	
 	hack_name_edit.text = tr(current_hack_item_cara["item_name"] + "_hack_name")

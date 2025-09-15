@@ -64,7 +64,7 @@ func event_ui_setup(scenario_specific: int = -1):
 	var choices_name_lst = [choice_a_name, choice_b_name]
 	var choices_id = [event.event_choice_1, event.event_choice_2]
 	var choices_container =[choice_a_container, choice_b_container]
-	var choices_buttons = [choice_a_button, choice_b_button]
+	var _choices_buttons = [choice_a_button, choice_b_button]
 	var choices_str = ["choice_a", "choice_b"]
 	
 	var choice_text: String

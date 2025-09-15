@@ -130,7 +130,7 @@ func start_random_tween():
 func _draw():
 	current_brain_level.text = tr("$Level") + ": " + str(Player.brain_level)
 
-func _load_data(content):
+func _load_data(_content):
 	# content = dictionnaire des learning_item_bought
 
 	return
