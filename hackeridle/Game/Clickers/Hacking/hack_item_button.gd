@@ -86,7 +86,7 @@ func set_hacking_item(item_name):
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
 	duration_label.text = tr("$Duration") + ": "
-	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
+	hack_duration.text = str(snapped(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"]),0.1)) + " s"
 	file_content = Global.load_txt(HACKING_DIALOG_PATH + current_hack_item_cara["item_name"] + ".txt")
 
 func set_refresh(item_cara: Dictionary = {}):
@@ -111,7 +111,7 @@ func set_refresh(item_cara: Dictionary = {}):
 					Calculs.gain_gold(current_hack_item_cara["item_name"])))
 
 	duration_label.text = tr("$Duration") + ": "
-	hack_duration.text = str(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])) + " s"
+	hack_duration.text = str(snapped(StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"]), 0.1)) + " s"
 
 	x_can_be_buy(x_buy)
 	
