@@ -101,6 +101,12 @@ func event_ui_setup(scenario_specific: int = -1):
 					value = Player.brain_xp_next * effect_value
 					choice_text = tr("$brain_xp") + ": "
 					
+				elif event_effect_name== "xp_click_base":
+					#doit ajuster la valeur selon l'xp du joueur
+					print("xp par click avant: %s" % value)
+					value = floor(Player.brain_xp_next * (value/100))
+					print("xp par click apres: %s" % value)
+					choice_text = tr("$" + event_effect_name) + ": "
 				else:
 					value = effect_value
 					if is_perc:

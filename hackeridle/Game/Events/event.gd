@@ -151,7 +151,8 @@ func build_values(keys: Array) -> Dictionary:
 				add = snapped(randf_range(0, 0.5), 0.001)
 				
 		elif key == "xp_click_base":
-			add = randi_range(0, 4)
+			#prendre un % selon le next_xp , et tu baisses la weight en conséquence
+			add = randi_range(0, 4) # -> devrai etre considérer comme un % deu Player.brain_xp_next lors de l'event
 		elif key == "knowledge_click_base":
 			add = randi_range(0, 10)
 		else:
