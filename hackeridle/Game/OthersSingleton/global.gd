@@ -157,6 +157,12 @@ func parse_all_files_in_directory(directory_path: String) -> Array:
 		file_name = dir.get_next()
 	dir.list_dir_end()
 	return files_found
+	
+func factorial_iterative(n):
+	var result = 1
+	for i in range(1, n + 1):
+		result *= i
+	return result
 
 func apply_safe_area_to_ui(control: Control, enable: bool = true):
 	

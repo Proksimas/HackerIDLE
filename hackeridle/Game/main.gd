@@ -63,8 +63,9 @@ func rebirth():
 	"""on ne garde que:
 		l'experience, niveau du cerveau, skills
 		"""
-	print_debug("rebirth")
 	Player.nb_of_rebirth += 1
+	
+
 	var save_stats_for_rebirth = {"skills_owned": Player.skills_owned,
 									"brain_xp": Player.brain_xp,
 									"brain_level": Player.brain_level,
@@ -81,6 +82,11 @@ func rebirth():
 	#var interface = get_tree().get_root().get_node("Main/Interface")
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
+	#On ajoute le nombre de rebirth à l'exp de maniere factorielle
+	var exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
+	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP, \
+								StatsManager.ModifierType.BASE, exp, "rebirth")
+	
 
 	
 	pass
