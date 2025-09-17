@@ -113,7 +113,7 @@ func build_values(keys: Array) -> Dictionary:
 		var coef = 1.0 # negatif si on doit rendre l'infamy negative, et on joue sur le coef du negatif
 		add = 0
 		if key.begins_with('perc_'):
-			add = snapped(randf_range(0, 1), 0.001)
+			add = snapped(randf_range(0.1, 0.8), 0.001)
 				
 		elif key.ends_with('_perc'):
 			if key == "hack_gold_perc" or key == "learning_items_knowledge_perc":

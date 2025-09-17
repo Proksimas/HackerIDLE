@@ -62,8 +62,8 @@ func _init_skills_owned():
 func _init_sources():
 	sources_item_bought.clear()
 					
-func _check_level_up():
-	if brain_xp >= brain_xp_next:
+func _check_level_up(_earning):
+	if brain_xp + _earning >= brain_xp_next:
 		level_up()
 		return true
 	else: 
@@ -89,7 +89,7 @@ func earn_gold(earning):
 	
 func earn_brain_xp(earning):
 	#on ne peut pas retirer du brain xp
-	if _check_level_up():
+	if _check_level_up(earning):
 		brain_xp += earning - brain_xp
 		brain_xp = clamp(brain_xp, 0, INF)
 	else:
