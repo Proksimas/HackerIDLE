@@ -73,7 +73,6 @@ func rebirth():
 									"nb_of_rebirth": Player.nb_of_rebirth}
 	
 	fill_player_stats()
-	Player.skills_owned = save_stats_for_rebirth["skills_owned"]
 	Player.brain_xp = save_stats_for_rebirth["brain_xp"]
 	Player.brain_level = save_stats_for_rebirth["brain_level"]
 	Player.skill_point = save_stats_for_rebirth["skill_point"]
@@ -86,8 +85,16 @@ func rebirth():
 	var exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP, \
 								StatsManager.ModifierType.BASE, exp, "rebirth")
+								
 	
+	Player.skills_owned = save_stats_for_rebirth["skills_owned"]
+	
+	#Puis on detache les passives pour les rattacher.
+	for skill:PassiveSkill in Player.skills_owned["passive"]:
+		skill.detach(Player)
 
+	for skill:PassiveSkill in Player.skills_owned["passive"]:
+		skill.attach(Player, skill.ps_level)
 	
 	pass
 
