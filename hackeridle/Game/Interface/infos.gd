@@ -36,6 +36,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func draw_infamy_stats():
+	_on_s_add_infamy(StatsManager.infamy["current_value"])
 	for effect in infamy_effects.get_children():
 		effect.queue_free()
 	

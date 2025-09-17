@@ -135,7 +135,6 @@ func event_ui_setup(scenario_specific: int = -1):
 									"choice_id": choices_id[index]["texte_id"]})
 		index += 1
 		
-
 	#On met le jeu en pause
 	get_tree().paused = true
 	
