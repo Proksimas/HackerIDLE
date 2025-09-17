@@ -66,6 +66,8 @@ func connexions() -> void:
 	shop.item_bought.connect(learning._on_shop_item_bought)
 	TimeManager.s_date.connect(_on_s_date)
 	
+	StatsManager.s_go_to_jail.connect(app_button_pressed.bind('jail'))
+	
 
 func buttons_connexion() -> void:
 	infos_box.pressed.connect(app_button_pressed.bind("infos"))
@@ -128,6 +130,8 @@ func app_button_pressed(button_name:String):
 			#new_style_box.texture = OPALINE
 			new_style_box.texture = BACKGROUND
 		"jail":
+			if jail.is_in_jail:
+				return
 			jail.show()
 			new_style_box.texture = JAIL
 			jail.enter_jail()
@@ -195,7 +199,7 @@ func _on_s_date(array):
 	
 	####### PROBA DE RENTRER EN PRISON #####
 	var jail_proba = (StatsManager.get_jail_perc() * 100)
-	if !jail_proba == 0: 
+	if !jail_proba == 0 and jail.is_in_jail == false: 
 		jail_proba = jail_proba / 31.0
 		randomize()
 		var rng = randf_range(0, 100)
@@ -249,7 +253,8 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
 	_event_ui.hide()
 	_event_ui.queue_free()
-	app_button_pressed("learning")
+	if !jail.is_in_jail:
+		app_button_pressed("learning")
 
 
 func _load_data(data):

@@ -33,9 +33,11 @@ func _ready() -> void:
 	time_progress_bar.max_value = event_during_time
 	time_progress_bar.min_value = 0
 	time_progress_bar.value = event_during_time
-	get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
-	choice_a_button.disabled = true
-	choice_b_button.disabled = true
+	#get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
+	#choice_a_button.disabled = true
+	#choice_b_button.disabled = true
+	choice_a_button.disabled = false
+	choice_b_button.disabled = false
 	confirm_button.disabled = true
 	choice_a_button.pressed.connect(_on_choice_pressed.bind("choice_a"))
 	choice_b_button.pressed.connect(_on_choice_pressed.bind("choice_b"))
@@ -100,13 +102,6 @@ func event_ui_setup(scenario_specific: int = -1):
 					#donne x% de l'exp qu'il faut pouir le prochain level
 					value = Player.brain_xp_next * effect_value
 					choice_text = tr("$brain_xp") + ": "
-					
-				elif event_effect_name== "xp_click_base":
-					#doit ajuster la valeur selon l'xp du joueur
-					print("xp par click avant: %s" % value)
-					value = floor(Player.brain_xp_next * (value/100))
-					print("xp par click apres: %s" % value)
-					choice_text = tr("$" + event_effect_name) + ": "
 				else:
 					value = effect_value
 					if is_perc:
@@ -140,20 +135,10 @@ func event_ui_setup(scenario_specific: int = -1):
 									"choice_id": choices_id[index]["texte_id"]})
 		index += 1
 		
-	if choices_container[0].get_children() == []:
-		choice_text = tr("$nothing")
-		var new_bullet3 = BULLET_POINT.instantiate()
-		choices_container[index].add_child(new_bullet3)
-		new_bullet3.set_bullet_point(choice_text)
-	elif choices_container[1].get_children() == []:
-		choice_text = tr("$nothing")
-		var new_bullet3 = BULLET_POINT.instantiate()
-		choices_container[1].add_child(new_bullet3)
-		new_bullet3.set_bullet_point(choice_text)
-		
+
 	#On met le jeu en pause
 	get_tree().paused = true
-	return
+	
 	
 func apply_background():
 	

@@ -84,7 +84,7 @@ func _on_s_event_finished(_event_ui):
 	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
 	_event_ui.hide()
 	var interface = Global.get_interface()
-	interface.app_button_pressed("learning")
+	#interface.app_button_pressed("learning")
 	_event_ui.queue_free()
 	launch_timer()
 	

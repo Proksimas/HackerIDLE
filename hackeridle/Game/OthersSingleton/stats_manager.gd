@@ -298,13 +298,12 @@ func add_min_infay(_earning: int):
 func add_infamy(_earning: float):
 	var old_treshold = get_infamy_treshold()
 	var earning = _earning
-	infamy["current_value"] = clamp(snapped(infamy["current_value"] + earning, 0.0001), infamy["min"], infamy["max"])
+	infamy["current_value"] = clamp(snapped(infamy["current_value"] + earning, 0.0001), infamy["min"],INF)
 	s_add_infamy.emit(infamy["current_value"])
 	var new_treshold = get_infamy_treshold()
 	if infamy["current_value"] >= 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
-
 		return
 		
 	if old_treshold != new_treshold:
@@ -331,10 +330,10 @@ func get_infamy_treshold() -> Infamy:
 		return Infamy.USA
 	elif current_infamy < infamy_threshold[4]:
 		return Infamy.TARGETED
-	elif current_infamy < infamy_threshold[5]:
-		return Infamy.PUBLIC_ENEMY
 	else:
-		return Infamy.NULL
+		return Infamy.PUBLIC_ENEMY
+	#else:
+		#return Infamy.NULL
 
 func add_infamy_effects():
 	""" On ajoute l'effet lié à l'INFAMIE dans les stats"""
