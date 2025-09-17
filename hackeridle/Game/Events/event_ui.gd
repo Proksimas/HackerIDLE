@@ -134,16 +134,16 @@ func event_ui_setup(scenario_specific: int = -1):
 									"choice_id": choices_id[index]["texte_id"]})
 		index += 1
 		
-	if choices_container[0].get_children() == []:
-		choice_text = tr("$nothing")
-		var new_bullet3 = BULLET_POINT.instantiate()
-		choices_container[index].add_child(new_bullet3)
-		new_bullet3.set_bullet_point(choice_text)
-	elif choices_container[1].get_children() == []:
-		choice_text = tr("$nothing")
-		var new_bullet3 = BULLET_POINT.instantiate()
-		choices_container[1].add_child(new_bullet3)
-		new_bullet3.set_bullet_point(choice_text)
+	#if choices_container[0].get_children() == []:
+		#choice_text = tr("$nothing")
+		#var new_bullet3 = BULLET_POINT.instantiate()
+		#choices_container[index].add_child(new_bullet3)
+		#new_bullet3.set_bullet_point(choice_text)
+	#elif choices_container[1].get_children() == []:
+		#choice_text = tr("$nothing")
+		#var new_bullet3 = BULLET_POINT.instantiate()
+		#choices_container[1].add_child(new_bullet3)
+		#new_bullet3.set_bullet_point(choice_text)
 		
 	#On met le jeu en pause
 	get_tree().paused = true
