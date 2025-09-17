@@ -1,5 +1,4 @@
 extends Control
-@onready var jail_timer: Timer = %JailTimer
 
 #le temps réel pour le joueur en prison
 var min_time_in_jail: float = 5 #en MIN
@@ -41,14 +40,15 @@ func enter_jail():
 	# mais le node actuel ne doit pas!
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
 	
-	get_tree().paused = true
-	jail_timer.start()
+	#get_tree().paused = true
+	#jail_timer.start()
+	is_in_jail = false
 
 
 	
 
-func _on_jail_timer_timeout() -> void:
-	get_tree().paused = false
-	is_in_jail = false
-	print("on sort de la prison")
-	pass # Replace with function body.
+#func _on_jail_timer_timeout() -> void:
+	#get_tree().paused = false
+	#is_in_jail = false
+	#print("on sort de la prison")
+	#pass # Replace with function body.

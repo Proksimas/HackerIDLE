@@ -178,7 +178,8 @@ func calcul_global_stat(stat_name: Stats, earning) -> float:
 	
 func calcul_hack_stat(stat_name: Stats, earning) -> float:
 	"""Renvoie UNIQUEMENT pour les hack, le earning modifié avec les paramètres 
-	agissant sur le hack selon la stat choisie"""
+	agissant sur le hack selon la stat choisie.
+	ATTENTION, il ne faut pas que la valeur soit négative"""
 	var perc = 0.0
 	var flat = 0
 	var base = 0
@@ -190,13 +191,19 @@ func calcul_hack_stat(stat_name: Stats, earning) -> float:
 				perc += modifier["value"]
 			ModifierType.FLAT:
 				flat += modifier["value"]
+	#on cap à - 95%
+	var earning_capped = earning * 0.05
 	
 	var calcul = ((base + earning) * (1 + perc)) + flat
-	return calcul
+	if calcul <= earning_capped:
+		return earning_capped
+	else:
+		return calcul
 	
 func calcul_learning_items_stat(stat_name: Stats, earning) -> float:
 	"""Renvoie UNIQUEMENT pour les learning_tems, le earning modifié avec les paramètres 
-	agissant sur le hack selon la stat choisie"""
+	agissant sur le hack selon la stat choisie
+	ATTENTION, la valeur ne peut pas etre negative"""
 	var perc = 0.0
 	var flat = 0
 	var base = 0
@@ -208,9 +215,13 @@ func calcul_learning_items_stat(stat_name: Stats, earning) -> float:
 				perc += modifier["value"]
 			ModifierType.FLAT:
 				flat += modifier["value"]
-	
+	#on cap à - 95%
+	var earning_capped = earning * 0.05
 	var calcul = ((base + earning) * (1 + perc)) + flat
-	return calcul
+	if calcul <= earning_capped:
+		return earning_capped
+	else:
+		return calcul
 	
 func get_accurate_modifier(target_modifier: TargetModifier) -> Dictionary:
 	"""Renvoie juste le target_modifier"""
