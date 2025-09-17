@@ -244,10 +244,9 @@ func brain_clicked():
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE)
 	var brain_xp_to_gain = StatsManager.current_stat_calcul(\
 	StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP)
-	
 	#StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP)
-	Player.earn_knowledge_point(knowledge_point_to_gain)
-	Player.earn_brain_xp(brain_xp_to_gain)
+	Player.earn_knowledge_point(knowledge_point_to_gain * StatsManager.bonus_from_clicking['current_bonus'])
+	Player.earn_brain_xp(brain_xp_to_gain * StatsManager.bonus_from_clicking['current_bonus'])
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
 
 func _save_data():

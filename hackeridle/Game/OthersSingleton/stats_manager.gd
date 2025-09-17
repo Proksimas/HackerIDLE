@@ -40,7 +40,7 @@ var hack_modifiers: Dictionary = {}
 var learning_items_modifiers: Dictionary = {}
 var decrease_infamy_modifiers: Dictionary = {} #pour la perte d'infamy dans le temps
 
-
+var bonus_from_clicking = {} #on stack la dedans les bonus liés au click
 
 var infamy: Dictionary
 var infamy_threshold = [10,25,40,60,90,99]
@@ -58,6 +58,7 @@ func _init(new_game:bool = true) -> void:
 	hack_modifiers = {}
 	learning_items_modifiers = {}
 	decrease_infamy_modifiers = {}
+	bonus_from_clicking = {}
 	for stat in Stats.values():
 		global_modifiers[stat] = []
 		brain_click_modifiers[stat] = []
@@ -71,6 +72,7 @@ func _init(new_game:bool = true) -> void:
 		#self.add_modifier(TargetModifier.DECREASE_INFAMY, Stats.DECREASE_INFAMY, ModifierType.BASE, 0.005, "birth")
 
 	_init_infamy()
+	bonus_clicking()
 	
 	
 func _init_infamy():
@@ -79,7 +81,12 @@ func _init_infamy():
 	infamy["max"] = 100.0 # Ne devrait jamais depasser 100
 	infamy["current_value"] = 0.0 # clamp entre min et max
 	add_infamy_effects() #on prend le premier effet
-		
+
+func bonus_clicking():
+	bonus_from_clicking.clear()
+	bonus_from_clicking["min"] = 1.0
+	bonus_from_clicking["max"] = 2.0
+	bonus_from_clicking["current_bonus"] = 0.0
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 	modifier_type: ModifierType, value: float, source: String = ""):

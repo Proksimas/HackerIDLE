@@ -31,6 +31,8 @@ var max_glow_size:float = 50
 var min_glow_fallof: float = 2
 var max_glow_fallof: float = 3
 
+signal s_direct_player_brain_clicked
+
 func _ready() -> void:
 	start_random_tween()
 	brain_xp_bar.value = 0
@@ -63,14 +65,6 @@ func _on_shop_item_bought(item_name):# <-Interface
 			child.set_refresh(Player.learning_item_bought[item_name])
 			passives_knowledge = get_all_passives_knowledge()
 			return
-			
-	#si on est là, c'est que l'item n'est pas encore existant
-	# -> Allons gérer ça au niveau du shop
-	
-	#var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
-	#passif_clickers.add_child(new_passif_item)
-	#new_passif_item.set_item(LearningItemsDB.get_item_cara(item_name))
-	#passives_knowledge = get_all_passives_knowledge()
 	
 	
 func get_all_passives_knowledge():
@@ -80,14 +74,29 @@ func get_all_passives_knowledge():
 	return snapped(value, 0.1)
 
 
-
 func _on_clicker_button_pressed() -> void:
 	var click_particle = CLICK_PARTICLES.instantiate()
 	clicker_arc.add_child(click_particle)
 	click_particle.global_position = get_global_mouse_position()
 	Player.brain_clicked()
+	direct_player_brain_clicked()
 	button_cliked = true
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale
+	
+var _window_ms := 1100  # taille de la fenêtre mobile
+var max_from_click = 15 #on atteind le * 2 quand on a ce nombre de click dans 
+var _recent_clicks: Array = []  # Stocke les click du joueur
+
+func direct_player_brain_clicked():
+	"""Ici on n'a QUE les click du PLayer sur le cerveau"""
+	var now:= Time.get_ticks_msec()
+	_recent_clicks.append([now])
+	_recent_clicks = _recent_clicks.filter(func(e): return now - e[0] <= _window_ms)
+	var max = StatsManager.bonus_from_clicking["max"]
+	var min = StatsManager.bonus_from_clicking["min"]
+	var coef = (max - min) / max_from_click 
+	StatsManager.bonus_from_clicking["current_bonus"] = snapped((len(_recent_clicks) * coef) + min, 0.01 )
+
 	
 func _process(_delta: float) -> void:
 	if button_cliked:
