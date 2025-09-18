@@ -322,7 +322,7 @@ func add_infamy(_earning: float):
 	if infamy["current_value"] >= 100:
 		#DIRECT EN PRISON TODO
 		s_go_to_jail.emit()
-		return
+		#return
 		
 	if old_treshold != new_treshold:
 		for stat in hack_modifiers:

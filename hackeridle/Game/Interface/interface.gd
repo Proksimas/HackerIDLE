@@ -201,7 +201,8 @@ func _on_s_date(array):
 		randomize()
 		var rng = randf_range(0, 100)
 		if jail_proba >  rng:
-			app_button_pressed("jail")
+			StatsManager.s_go_to_jail.emit()
+			#app_button_pressed("jail")
 			
 	##### PROBA DE BAISSER L INFAMY  
 
@@ -221,7 +222,8 @@ func _on_s_wait_too_long(is_wainting):
 		dark_shop_warning_icon.visible = false
 
 func _on_jail_button_pressed() -> void:
-	app_button_pressed("jail")
+	StatsManager.s_go_to_jail.emit()
+	#app_button_pressed("jail")
 	pass # Replace with function body.
 
 

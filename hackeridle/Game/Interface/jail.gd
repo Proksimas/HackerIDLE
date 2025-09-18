@@ -20,9 +20,9 @@ var years_in_jail: int = 0
 
 
 func enter_jail():
-	#if is_in_jail:
-		#return
-		#
+	if is_in_jail:
+		return
+		
 	print("entre dans la prison")
 	self.show()
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
