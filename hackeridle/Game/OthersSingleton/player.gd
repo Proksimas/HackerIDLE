@@ -78,6 +78,7 @@ func earn_knowledge_point(earning):
 	knowledge_point = clamp(knowledge_point, 0, INF)
 	s_knowledge_to_earn.emit(earning)
 	s_earn_knowledge_point.emit(knowledge_point)
+	#print("knowledge_earn: %s" % earning)
 	
 func earn_gold(earning):
 	"""Le earning est l'argent qu'on va gagner. Il faut y ajouter les bonus globaux"""
@@ -96,6 +97,7 @@ func earn_brain_xp(earning):
 		brain_xp += clamp(earning, 0, INF)
 	brain_xp = snapped(brain_xp, 0.1)
 	s_earn_brain_xp.emit(brain_xp)
+	#print("xp_earned: %s" % earning)
 	
 func earn_cyber_force(earning):
 	self.cyber_force += earning
@@ -248,6 +250,8 @@ func brain_clicked():
 	Player.earn_knowledge_point(knowledge_point_to_gain * StatsManager.bonus_from_clicking['current_bonus'])
 	Player.earn_brain_xp(brain_xp_to_gain * StatsManager.bonus_from_clicking['current_bonus'])
 	s_brain_clicked.emit(knowledge_point_to_gain, brain_xp_to_gain)
+	
+	
 
 func _save_data():
 	var all_vars = Global.get_serialisable_vars(self)
