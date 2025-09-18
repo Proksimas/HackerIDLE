@@ -10,6 +10,8 @@ extends Control
 @onready var passive_items_textures: Control = %PassiveItemsTextures
 @onready var all_container: VBoxContainer = $AllContainer
 @onready var clicker_button: TextureButton = %ClickerButton
+@onready var bonus_click_multiplicator_label: Label = %BonusClickMultiplicatorLabel
+@onready var bonus_click_multiplator_timer: Timer = %BonusClickMultiplatorTimer
 
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
@@ -86,19 +88,17 @@ func _on_clicker_button_pressed() -> void:
 var _window_ms := 1100  # taille de la fenêtre mobile
 var max_from_click = 15 #on atteind le * 2 quand on a ce nombre de click dans 
 var _recent_clicks: Array = []  # Stocke les click du joueur
-
+var max = StatsManager.bonus_from_clicking["max"]
+var min = StatsManager.bonus_from_clicking["min"]
 func direct_player_brain_clicked():
 	"""Ici on n'a QUE les click du PLayer sur le cerveau"""
 	var now:= Time.get_ticks_msec()
 	_recent_clicks.append([now])
 	_recent_clicks = _recent_clicks.filter(func(e): return now - e[0] <= _window_ms)
-	var max = StatsManager.bonus_from_clicking["max"]
-	var min = StatsManager.bonus_from_clicking["min"]
-	var coef = (max - min) / max_from_click 
-	StatsManager.bonus_from_clicking["current_bonus"] = snapped((len(_recent_clicks) * coef) + min, 0.01 )
 
 	
 func _process(_delta: float) -> void:
+
 	if button_cliked:
 		var tween = get_tree().create_tween()
 		tween.tween_property(clicker_arc, "custom_minimum_size", 
@@ -140,12 +140,13 @@ func _draw():
 	current_brain_level.text = tr("$Level") + ": " + str(Player.brain_level)
 
 func _load_data(_content):
-	# content = dictionnaire des learning_item_bought
-
 	return
-	# PLus besoin 
-	#for passif_item in content:
-		#var new_passif_item = PASSIF_LEARNING_ITEM.instantiate()
-		#passif_clickers.add_child(new_passif_item)
-		#new_passif_item.set_item(LearningItemsDB.get_item_cara(passif_item))
-	#refresh_brain_xp_bar()
+
+func _on_bonus_click_multiplator_timer_timeout() -> void:
+	var coef = (max - min) / max_from_click 
+	StatsManager.bonus_from_clicking["current_bonus"] = snapped((len(_recent_clicks) * coef) + min, 0.01 )
+	#print(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))
+	bonus_click_multiplicator_label.text = "x " + \
+			str(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))
+	_recent_clicks.clear()
+	pass # Replace with function body.

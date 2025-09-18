@@ -144,6 +144,15 @@ text = "10000 /s"
 layout_mode = 2
 size_flags_horizontal = 4
 
+[node name="BonusClickMultiplicatorLabel" type="Label" parent="AllContainer/Control/LevelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 0.54902)
+theme_override_font_sizes/font_size = 27
+text = "x 1.2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BrainAndCoContainer" type="VBoxContainer" parent="AllContainer"]
 z_index = 90
 layout_mode = 2
@@ -260,5 +269,11 @@ autostart = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_xqxj0")
 
+[node name="BonusClickMultiplatorTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 1.11
+autostart = true
+
 [connection signal="pressed" from="AllContainer/BrainAndCoContainer/CenterContainer/ClickerARC/ClickerButton" to="." method="_on_clicker_button_pressed"]
 [connection signal="timeout" from="ItemSpawnTimer" to="PassiveItemsTextures" method="_on_item_spawn_timer_timeout"]
+[connection signal="timeout" from="BonusClickMultiplatorTimer" to="." method="_on_bonus_click_multiplator_timer_timeout"]
