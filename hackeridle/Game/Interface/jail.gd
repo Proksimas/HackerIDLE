@@ -15,6 +15,7 @@ var is_in_jail: bool = false
 @onready var in_jail_label: Label = %InJailLabel
 @onready var purge_title: Label = %PurgeTitle
 @onready var purge_years: Label = %PurgeYears
+@onready var jail_timer: Timer = %JailTimer
 
 var years_in_jail: int = 0
 
@@ -22,7 +23,6 @@ var years_in_jail: int = 0
 func enter_jail():
 	if is_in_jail:
 		return
-		
 	print("entre dans la prison")
 	self.show()
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
@@ -40,15 +40,14 @@ func enter_jail():
 	# mais le node actuel ne doit pas!
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
 	
-	#get_tree().paused = true
-	#jail_timer.start()
-	is_in_jail = false
+	get_tree().paused = true
+	jail_timer.start()
 
 
 	
 
-#func _on_jail_timer_timeout() -> void:
-	#get_tree().paused = false
-	#is_in_jail = false
-	#print("on sort de la prison")
-	#pass # Replace with function body.
+func _on_jail_timer_timeout() -> void:
+	get_tree().paused = false
+	is_in_jail = false
+	print("on sort de la prison")
+	pass # Replace with function body.

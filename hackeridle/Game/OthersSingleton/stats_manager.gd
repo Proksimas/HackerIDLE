@@ -199,7 +199,7 @@ func calcul_hack_stat(stat_name: Stats, earning) -> float:
 			ModifierType.FLAT:
 				flat += modifier["value"]
 	#on cap à - 95%
-	var earning_capped = earning * 0.05
+	var earning_capped = earning * 0.1
 	
 	var calcul = ((base + earning) * (1 + perc)) + flat
 	if calcul <= earning_capped:
@@ -223,7 +223,7 @@ func calcul_learning_items_stat(stat_name: Stats, earning) -> float:
 			ModifierType.FLAT:
 				flat += modifier["value"]
 	#on cap à - 95%
-	var earning_capped = earning * 0.05
+	var earning_capped = earning * 0.1
 	var calcul = ((base + earning) * (1 + perc)) + flat
 	if calcul <= earning_capped:
 		return earning_capped

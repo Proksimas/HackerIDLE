@@ -160,7 +160,10 @@ func _on_confirm_button_s_pressed():
 		apply_modifiers(choices_modifiers[1]["effects"], choices_modifiers[1]["choice_id"])
 	else:
 		push_error("Probleme dans les choix")
-	get_tree().paused = false
+		
+	var interface = Global.get_interface()
+	if !interface.jail.is_in_jail:
+		get_tree().paused = false
 	s_event_finished.emit() 
 		
 
@@ -255,7 +258,9 @@ func _on_timout():
 		choice_a_button.pressed.emit()
 	else:
 		choice_b_button.pressed.emit()
-	get_tree().paused = false
+	var interface = Global.get_interface()
+	if !interface.jail.is_in_jail:
+		get_tree().paused = false
 	s_event_finished.emit()
 	
 	
