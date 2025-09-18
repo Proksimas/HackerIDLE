@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://budmgol3ue37c"]
+
+[ext_resource type="Script" path="res://Game/Interface/Specials/floating_text.gd" id="1_cuggy"]
+
+[node name="FloatingText" type="Node2D"]
+z_index = 1000
+script = ExtResource("1_cuggy")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+offset_right = 40.0
+offset_bottom = 23.0
+text = "kljhklh"

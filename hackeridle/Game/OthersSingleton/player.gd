@@ -41,6 +41,7 @@ signal s_earn_sp(number)
 signal s_earn_brain_level(number)
 signal s_earn_cyber_force(number)
 signal s_brain_clicked(knowledge, brain_xp)
+signal s_brain_xp_to_earn(number)
 
 signal s_add_hacking_item()
 signal s_add_learning_item()
@@ -96,6 +97,7 @@ func earn_brain_xp(earning):
 	else:
 		brain_xp += clamp(earning, 0, INF)
 	brain_xp = snapped(brain_xp, 0.1)
+	s_brain_xp_to_earn.emit(earning)
 	s_earn_brain_xp.emit(brain_xp)
 	#print("xp_earned: %s" % earning)
 	

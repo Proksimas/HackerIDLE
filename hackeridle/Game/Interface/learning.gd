@@ -18,7 +18,9 @@ extends Control
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
-
+const FLOATING_TEXT = preload("res://Game/Interface/Specials/floating_text.tscn")
+const VIOLET_NEON = Color(0.878, 0.424, 0.973)
+const BLUE_NEON =  Color(0.22, 0.996, 0.996)
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
@@ -36,6 +38,7 @@ var max_glow_fallof: float = 3
 signal s_direct_player_brain_clicked
 
 func _ready() -> void:
+	Player.s_brain_xp_to_earn.connect(_on_s_brain_xp_to_earn)
 	start_random_tween()
 	brain_xp_bar.value = 0
 	SkillsManager.as_learned.connect(add_skill_activation)
@@ -95,6 +98,7 @@ func direct_player_brain_clicked():
 	var now:= Time.get_ticks_msec()
 	_recent_clicks.append([now])
 	_recent_clicks = _recent_clicks.filter(func(e): return now - e[0] <= _window_ms)
+	
 
 	
 func _process(_delta: float) -> void:
@@ -150,3 +154,9 @@ func _on_bonus_click_multiplator_timer_timeout() -> void:
 			str(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))
 	_recent_clicks.clear()
 	pass # Replace with function body.
+
+func _on_s_brain_xp_to_earn(xp_from_click):
+	#var new_xp_label = FLOATING_TEXT.instantiate()
+	#self.add_child(new_xp_label)
+	#new_xp_label.setup("+ " + str(snapped(xp_from_click,0.1)), brain_xp_bar.global_position, BLUE_NEON)
+	pass
