@@ -89,7 +89,7 @@ func _on_clicker_button_pressed() -> void:
 	clicker_arc.custom_minimum_size = clicker_arc.custom_minimum_size + clicker_scale
 	
 var _window_ms := 1100  # taille de la fenêtre mobile
-var max_from_click = 15 #on atteind le * 2 quand on a ce nombre de click dans 
+var max_from_click = 14 #on atteind le * 2 quand on a ce nombre de click dans 
 var _recent_clicks: Array = []  # Stocke les click du joueur
 var max = StatsManager.bonus_from_clicking["max"]
 var min = StatsManager.bonus_from_clicking["min"]
