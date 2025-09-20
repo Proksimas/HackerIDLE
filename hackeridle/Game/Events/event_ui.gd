@@ -164,6 +164,8 @@ func _on_confirm_button_s_pressed():
 	var interface = Global.get_interface()
 	if !interface.jail.is_in_jail:
 		get_tree().paused = false
+	else:
+		interface.app_button_pressed('jail')
 	s_event_finished.emit() 
 		
 
@@ -261,6 +263,8 @@ func _on_timout():
 	var interface = Global.get_interface()
 	if !interface.jail.is_in_jail:
 		get_tree().paused = false
+	else:
+		interface.app_button_pressed('jail')
 	s_event_finished.emit()
 	
 	
