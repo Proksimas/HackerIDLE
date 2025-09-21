@@ -40,6 +40,7 @@ func enter_jail():
 	# mais le node actuel ne doit pas!
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_ALWAYS)
 	
+	# ATTENTION En cas de bug avec la prison, on peut arreter de mettre le jeu en pause.
 	get_tree().paused = true
 	jail_timer.start()
 
