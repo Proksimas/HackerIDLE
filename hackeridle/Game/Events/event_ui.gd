@@ -42,7 +42,6 @@ func _ready() -> void:
 	choice_a_button.pressed.connect(_on_choice_pressed.bind("choice_a"))
 	choice_b_button.pressed.connect(_on_choice_pressed.bind("choice_b"))
 	#POur la progress_bar
-	#get_tree().create_timer(event_during_time).timeout.connect(_on_timout)
 	#Global.center(self)
 	pass # Replace with function body.
 
@@ -154,6 +153,10 @@ func _on_choice_pressed(_choice: String): #_choice: String, _modifiers: Dictiona
 	confirm_button.enable()
 	
 func _on_confirm_button_s_pressed():
+	
+	get_tree().paused = false
+	s_event_finished.emit() 
+	
 	if choice_selected == "choice_a":
 		apply_modifiers(choices_modifiers[0]["effects"], choices_modifiers[0]["choice_id"])
 	elif choice_selected == "choice_b":
@@ -162,11 +165,10 @@ func _on_confirm_button_s_pressed():
 		push_error("Probleme dans les choix")
 		
 	var interface = Global.get_interface()
-	if !interface.jail.is_in_jail:
-		get_tree().paused = false
-	else:
-		interface.app_button_pressed('jail')
-	s_event_finished.emit() 
+	#if !interface.jail.is_in_jail:
+		#get_tree().paused = false
+	#else:
+
 		
 
 func apply_modifiers(_modifiers: Dictionary, event_id):
@@ -253,19 +255,6 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 	
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
-func _on_timout():
-	""" On supprime l'event apres x secondes """
-	var rand = randi_range(0, 1)
-	if rand == 0:
-		choice_a_button.pressed.emit()
-	else:
-		choice_b_button.pressed.emit()
-	var interface = Global.get_interface()
-	if !interface.jail.is_in_jail:
-		get_tree().paused = false
-	else:
-		interface.app_button_pressed('jail')
-	s_event_finished.emit()
 	
 	
 func _on_disabled_button_timout():

@@ -239,21 +239,10 @@ func _on_button_pressed() -> void:
 		push_error("Fonctionnalité non disponible en cheatMode")
 		return
 	cheat_event_spin_box.apply()
-	var event_ui_path = load("res://Game/Events/event_ui.tscn")
-	var event_ui = event_ui_path.instantiate()
-	main_tab.add_child(event_ui)
-	event_ui.event_ui_setup(cheat_event_spin_box.value)
-	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
+
+	EventsManager.create_event_ui(cheat_event_spin_box.value)
+
 	pass # Replace with function body.
-
-
-
-func _on_s_event_finished(_event_ui):
-	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
-	_event_ui.hide()
-	_event_ui.queue_free()
-	if !jail.is_in_jail:
-		app_button_pressed("learning")
 
 
 func _load_data(data):

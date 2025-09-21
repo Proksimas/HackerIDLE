@@ -2,7 +2,7 @@ extends Node
 
 @export var nb_of_event: int 
 @export var min_wait_time: int = 420
-@export var max_wait_time: int = 600
+@export var max_wait_time: int = 540
 
 
 @onready var timer_event: Timer = %TimerEvent
@@ -63,13 +63,13 @@ func launch_timer():
 	timer_event.start(nbr)
 
 	
-func create_event_ui():
+func create_event_ui(scenario_specific: int = -1):
 	""" affiche un nouvel EVENT"""
-	#var interface =  get_tree().get_root().get_node("Main/Interface")
 	var event_ui = EVENT_UI.instantiate()
 	var interface = Global.get_interface()
+	
 	interface.main_tab.add_child(event_ui)
-	event_ui.event_ui_setup()
+	event_ui.event_ui_setup(scenario_specific)
 	timer_event.paused = true
 	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
 	
@@ -81,13 +81,16 @@ func _on_timer_event_timeout() -> void:
 	
 func _on_s_event_finished(_event_ui):
 	"""L'event est fini. On le supprime et on relance le timer"""
+
 	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
 	_event_ui.hide()
-	var interface = Global.get_interface()
-	#interface.app_button_pressed("learning")
 	_event_ui.queue_free()
 	launch_timer()
 	
+	var interface = Global.get_interface()
+	interface.app_button_pressed("learning")
+	#if interface.jail.is_in_jail:
+		
 
 func _save_data() -> Dictionary:
 	"""Retourne un dictionnaire des variables importantes pour la sauvegarde et le chargement."""
