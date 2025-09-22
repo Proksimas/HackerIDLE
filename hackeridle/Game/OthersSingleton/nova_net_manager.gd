@@ -1,11 +1,12 @@
 extends Node
 
 # --- Paramètres ajustables pour l'achat des bots---
-var base_cost := 1000.0      # coût en connaissance du premier bot
+var base_cost := 100000.0      # coût en connaissance du premier bot
 var alpha := 0.15          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
-var k := 5.0               # puissance de l’or investi (rendement décroissant)
+var k := 5.0               # puissance de l’or investi (rendement décroissant). Impacte grandement sur l'investissement
+var knowledge_required_factor
 var next_bot_kwoledge_acquired: float = 0
 var gold_to_invest: int = 100 # Investissement du joueur par click
 # ---------------------------------------------------------------------------
@@ -59,10 +60,28 @@ func get_bot_cost(n: int) -> float:
 # --- Calcule la connaissance gagnée par clic en fonction de l’or investi ---
 func knowledge_per_click(or_investi: float) -> float:
 	"""Il y a un coef k qui evite un snowball si l'or investi est bien trop important"""
-	return snapped(base_click + k * log(1 + or_investi), 1)
+	#return snapped(michaelis_menten(or_investi), 1)
+	return snapped(lineaire_and_log(or_investi), 1)
+	#return snapped(base_click + k * log(1 + or_investi), 1)
 
 func nb_click_required(or_investi) -> int:
 	return ceil(get_bot_cost(Player.bots) / knowledge_per_click(or_investi))
+
+func michaelis_menten(or_investi):
+	"""algo renforçant le gain à bas coût pour ensuite etre tres loga"""
+	var B := 1.0
+	var Vmax := get_bot_cost(Player.bots) * 0.35   # plafond d'appoint = connaissance max par click
+	var Km := Vmax * 0.75   # point de demi-saturation
+	#print("Plafond d'appoint: %s   Demi saturation à : %s" % [Vmax, Km])
+	return B + Vmax * (or_investi / (Km + or_investi))
+
+func lineaire_and_log(or_investi):
+	"""algo lineaire avec une legere log"""
+	var B := 1.0
+	var p := 0.45
+	var k := 4.0
+	return B + p * or_investi + k * log(1.0 + or_investi)
+
 
 func click(or_investi: float) -> void:
 

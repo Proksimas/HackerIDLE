@@ -3,11 +3,11 @@ extends Control
 @onready var click_bot: Button = %ClickBot
 @onready var next_bot_price_value: Label = %NextBotPriceValue
 @onready var gold_per_click_title: Label = %GoldPerClickTitle
-@onready var gold_per_click_value: Label = %GoldPerClickValue
 @onready var nb_of_click_title: Label = %NbOfClickTitle
 @onready var nb_of_click_value: Label = %NbOfClickValue
 @onready var knowledge_per_click_title: Label = %KnowledgePerClickTitle
 @onready var knowledge_per_click_value: Label = %KnowledgePerClickValue
+@onready var gold_invest_box: SpinBox = %GoldInvestBox
 
 
 # Called when the node enters the scene tree for the first time.
@@ -24,7 +24,6 @@ func connexions():
 
 func refresh():
 	next_bot_price_value.text = Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
-	gold_per_click_value.text = Global.number_to_string(NovaNetManager.gold_to_invest)
 	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_required(NovaNetManager.gold_to_invest))
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
@@ -42,3 +41,9 @@ func _on_s_bot_bought():
 
 func _on_s_bot_knowledge_gain(knowledge_gain):
 	refresh()
+
+
+func _on_gold_invest_box_value_changed(value: int) -> void:
+	NovaNetManager.gold_to_invest = value
+	refresh()
+	pass # Replace with function body.

@@ -54,10 +54,13 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Or investi par click"
 
-[node name="GoldPerClickValue" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="GoldInvestBox" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "x"
+max_value = 0.0
+rounded = true
+allow_greater = true
+alignment = 1
 
 [node name="GoldIcon" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_wum2w")]
 layout_mode = 2
@@ -88,3 +91,4 @@ layout_mode = 2
 text = "x"
 
 [connection signal="pressed" from="ClickBot" to="." method="_on_click_bot_pressed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]
