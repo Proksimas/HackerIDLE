@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq5d747v4kt3w"]
+[gd_scene load_steps=4 format=3 uid="uid://cq5d747v4kt3w"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/nova_net.gd" id="1_bohbv"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_d8v8k"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_wum2w"]
 
 [node name="NovaNet" type="Control"]
 layout_mode = 3
@@ -10,3 +12,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_bohbv")
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickBot" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+anchor_left = 0.0677966
+anchor_top = 0.162754
+anchor_right = 0.194915
+anchor_bottom = 0.187011
+offset_top = 1.52588e-05
+text = "Click Bot"
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 0.325424
+anchor_bottom = 0.100156
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NextBotPriceTitle" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Prix du bot: "
+
+[node name="NextBotPriceValue" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+
+[node name="BrainIcon" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_d8v8k")]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="GoldPerClickTitle" type="Label" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Or investi par click"
+
+[node name="GoldPerClickValue" type="Label" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+
+[node name="GoldIcon" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_wum2w")]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="NbOfClickTitle" type="Label" parent="VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clic necessaires:"
+
+[node name="NbOfClickValue" type="Label" parent="VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+
+[connection signal="pressed" from="ClickBot" to="." method="_on_click_bot_pressed"]

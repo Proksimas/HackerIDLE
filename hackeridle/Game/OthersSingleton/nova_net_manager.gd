@@ -6,6 +6,8 @@ var alpha := 0.15          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
 var k := 5.0               # puissance de l’or investi (rendement décroissant)
+var next_bot_kwoledge_acquired: float = 0
+var gold_per_click: int = 0 # Investissement du joueur par click
 # ---------------------------------------------------------------------------
 
 var coef_farming_xp = 1
@@ -16,7 +18,8 @@ var active_tasks = {
 	"research": 0,
 	"sales_task": 0
 }
-
+signal s_bot_bought()
+signal s_bot_knowledge_gain(number)
 
 func _process(delta: float) -> void:
 	
@@ -51,29 +54,41 @@ func update_sales_task(delta):
 
 # --- Calcule le coût en connaissance du prochain bot ---
 func get_bot_cost(n: int) -> float:
-	return base_cost * pow(1 + alpha * n, beta)
+	return snapped(base_cost * pow(1 + alpha * n, beta), 1)
 
 # --- Calcule la connaissance gagnée par clic en fonction de l’or investi ---
 func knowledge_per_click(or_investi: float) -> float:
-	return base_click + k * log(1 + or_investi)
+	return snapped(base_click + k * log(1 + or_investi), 1)
 
-# --- Simule un clic du joueur ---
+func nb_click_required(or_investi) -> int:
+	return ceil(get_bot_cost(Player.bots) / knowledge_per_click(or_investi))
+
 func click(or_investi: float) -> void:
 
 	if Player.gold < or_investi:
 		print("Pas assez d’or pour investir ", or_investi)
 		return
 	Player.gold -= or_investi
-	var gain := knowledge_per_click(or_investi)
-	Player.knowledge_point += gain
-	print("Clic ! +" , gain, " connaissance (total=", Player.knowledge_point, ")")
+	var knowledge_gain := knowledge_per_click(or_investi)
+	if Player.knowledge_point < knowledge_gain:
+		print("Pas assez de knowledge pour investir ", knowledge_gain)
+		return
+	
+	next_bot_kwoledge_acquired += knowledge_gain
+	Player.knowledge_point -= knowledge_gain
+	s_bot_knowledge_gain.emit(knowledge_gain)
+	check_buy_bot()
+	print("Clic ! + %s connaissance (total=%s/%s)" % \
+		[knowledge_gain, next_bot_kwoledge_acquired, nb_click_required(gold_per_click)])
+
+
+func check_buy_bot():
+	"""On check si on peut acheter le bot, cad si toute la connaissance acquise est suffisante"""
+	if next_bot_kwoledge_acquired >= get_bot_cost(Player.bots):
+		buy_bot()
 
 # --- Achat d’un bot si assez de connaissance ---
 func buy_bot() -> void:
-	var cost := get_bot_cost(Player.bots)
-	if Player.knowledge_poin >= cost:
-		Player.knowledge_poin -= cost
-		Player.bots += 1
-		print("Bot acheté ! Nombre total de bots =", Player.bots)
-	else:
-		print("Pas assez de connaissance (", Player.knowledge_poin, "/", cost, ")")
+	Player.bots += 1
+	next_bot_kwoledge_acquired = 0
+	s_bot_bought.emit()
