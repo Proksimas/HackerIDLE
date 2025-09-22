@@ -1,10 +1,5 @@
 extends Node
 
-## Le TutorialManager est un singleton.
-## Ajoutez-le à l'AutoLoad pour y accéder facilement depuis n'importe quel script.
-
-
-
 @onready var resource_preloader: ResourcePreloader = %ResourcePreloader
 @onready var delay_input: Timer = %DelayInput
 
