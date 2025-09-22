@@ -1,6 +1,5 @@
 extends Control
 
-@onready var click_bot: Button = %ClickBot
 @onready var next_bot_price_value: Label = %NextBotPriceValue
 @onready var gold_per_click_title: Label = %GoldPerClickTitle
 @onready var nb_of_click_title: Label = %NbOfClickTitle
@@ -8,6 +7,8 @@ extends Control
 @onready var knowledge_per_click_title: Label = %KnowledgePerClickTitle
 @onready var knowledge_per_click_value: Label = %KnowledgePerClickValue
 @onready var gold_invest_box: SpinBox = %GoldInvestBox
+@onready var clicker_arc: AspectRatioContainer = %ClickerARC
+@onready var clicker_bot_button: TextureButton = %ClickerBotButton
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +29,6 @@ func refresh():
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
 func _on_click_bot_pressed() -> void:
-	
 	NovaNetManager.click(NovaNetManager.gold_to_invest)
 	pass # Replace with function body.
 

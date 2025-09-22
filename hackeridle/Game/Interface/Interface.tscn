@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=27 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
 [ext_resource type="PackedScene" uid="uid://ba13ofw3e3xsi" path="res://Game/Interface/jail.tscn" id="12_3tt48"]
 [ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
+[ext_resource type="PackedScene" uid="uid://cq5d747v4kt3w" path="res://Game/Interface/NovaNet/NovaNet.tscn" id="13_my728"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="Texture2D" uid="uid://nb6rgvdmscor" path="res://Game/Graphics/App_icons/Neos/shop_neo_2.png" id="15_8y3be"]
@@ -180,7 +181,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
-current_tab = 4
+current_tab = 6
 tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
@@ -207,6 +208,7 @@ metadata/_tab_index = 3
 
 [node name="Infos" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -214,6 +216,10 @@ metadata/_tab_index = 4
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="NovaNet" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("13_my728")]
+layout_mode = 2
+metadata/_tab_index = 6
 
 [node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/MainZone"]
 custom_minimum_size = Vector2(0, 125)

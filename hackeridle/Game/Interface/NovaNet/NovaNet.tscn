@@ -1,8 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq5d747v4kt3w"]
+[gd_scene load_steps=8 format=3 uid="uid://cq5d747v4kt3w"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/nova_net.gd" id="1_bohbv"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_d8v8k"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_wum2w"]
+[ext_resource type="Texture2D" uid="uid://ci1iuld5c4kto" path="res://Game/Graphics/Common_icons/bot_full.png" id="4_65fmw"]
+[ext_resource type="Texture2D" uid="uid://dbksensd5xpko" path="res://Game/Graphics/Common_icons/bot_neo_smiling.png" id="5_p114n"]
+[ext_resource type="BitMap" uid="uid://5uko2lu4k1po" path="res://Game/Graphics/Common_icons/bot_full_mono.bmp" id="6_324lu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dq24p"]
 
 [node name="NovaNet" type="Control"]
 layout_mode = 3
@@ -14,47 +19,47 @@ grow_vertical = 2
 script = ExtResource("1_bohbv")
 metadata/_edit_use_anchors_ = true
 
-[node name="ClickBot" type="Button" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-anchor_left = 0.0677966
-anchor_top = 0.162754
-anchor_right = 0.194915
-anchor_bottom = 0.187011
-offset_top = 1.52588e-05
-text = "Click Bot"
-metadata/_edit_use_anchors_ = true
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_dq24p")
+tab_alignment = 1
+current_tab = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-anchor_right = 0.325424
-anchor_bottom = 0.100156
-metadata/_edit_use_anchors_ = true
+[node name="Bots" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Bots"]
 layout_mode = 2
 
-[node name="NextBotPriceTitle" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="NextBotPriceTitle" type="Label" parent="TabContainer/Bots/HBoxContainer"]
 layout_mode = 2
 text = "Prix du bot: "
 
-[node name="NextBotPriceValue" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="NextBotPriceValue" type="Label" parent="TabContainer/Bots/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x"
 
-[node name="BrainIcon" parent="VBoxContainer/HBoxContainer" instance=ExtResource("2_d8v8k")]
+[node name="BrainIcon" parent="TabContainer/Bots/HBoxContainer" instance=ExtResource("2_d8v8k")]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="TabContainer/Bots"]
 layout_mode = 2
 
-[node name="GoldPerClickTitle" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="GoldPerClickTitle" type="Label" parent="TabContainer/Bots/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Or investi par click"
 
-[node name="GoldInvestBox" type="SpinBox" parent="VBoxContainer/HBoxContainer2"]
+[node name="GoldInvestBox" type="SpinBox" parent="TabContainer/Bots/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 0.0
@@ -62,33 +67,55 @@ rounded = true
 allow_greater = true
 alignment = 1
 
-[node name="GoldIcon" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_wum2w")]
+[node name="GoldIcon" parent="TabContainer/Bots/HBoxContainer2" instance=ExtResource("3_wum2w")]
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="TabContainer/Bots"]
 layout_mode = 2
 
-[node name="KnowledgePerClickTitle" type="Label" parent="VBoxContainer/HBoxContainer4"]
+[node name="KnowledgePerClickTitle" type="Label" parent="TabContainer/Bots/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Knowledge par click"
 
-[node name="KnowledgePerClickValue" type="Label" parent="VBoxContainer/HBoxContainer4"]
+[node name="KnowledgePerClickValue" type="Label" parent="TabContainer/Bots/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="TabContainer/Bots"]
 layout_mode = 2
 
-[node name="NbOfClickTitle" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="NbOfClickTitle" type="Label" parent="TabContainer/Bots/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clic necessaires:"
 
-[node name="NbOfClickValue" type="Label" parent="VBoxContainer/HBoxContainer3"]
+[node name="NbOfClickValue" type="Label" parent="TabContainer/Bots/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x"
 
-[connection signal="pressed" from="ClickBot" to="." method="_on_click_bot_pressed"]
-[connection signal="value_changed" from="VBoxContainer/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]
+[node name="CenterContainer" type="CenterContainer" parent="TabContainer/Bots"]
+layout_mode = 2
+size_flags_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerARC" type="AspectRatioContainer" parent="TabContainer/Bots/CenterContainer"]
+unique_name_in_owner = true
+z_index = 90
+custom_minimum_size = Vector2(450, 450)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerBotButton" type="TextureButton" parent="TabContainer/Bots/CenterContainer/ClickerARC"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("4_65fmw")
+texture_pressed = ExtResource("5_p114n")
+texture_click_mask = ExtResource("6_324lu")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="value_changed" from="TabContainer/Bots/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]
+[connection signal="pressed" from="TabContainer/Bots/CenterContainer/ClickerARC/ClickerBotButton" to="." method="_on_click_bot_pressed"]
