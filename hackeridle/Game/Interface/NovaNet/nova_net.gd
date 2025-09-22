@@ -6,6 +6,8 @@ extends Control
 @onready var gold_per_click_value: Label = %GoldPerClickValue
 @onready var nb_of_click_title: Label = %NbOfClickTitle
 @onready var nb_of_click_value: Label = %NbOfClickValue
+@onready var knowledge_per_click_title: Label = %KnowledgePerClickTitle
+@onready var knowledge_per_click_value: Label = %KnowledgePerClickValue
 
 
 # Called when the node enters the scene tree for the first time.
@@ -22,13 +24,13 @@ func connexions():
 
 func refresh():
 	next_bot_price_value.text = Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
-	gold_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_per_click))
-	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_required(NovaNetManager.gold_per_click))
-	
+	gold_per_click_value.text = Global.number_to_string(NovaNetManager.gold_to_invest)
+	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_required(NovaNetManager.gold_to_invest))
+	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
 func _on_click_bot_pressed() -> void:
 	
-	NovaNetManager.click(NovaNetManager.gold_per_click)
+	NovaNetManager.click(NovaNetManager.gold_to_invest)
 	pass # Replace with function body.
 
 

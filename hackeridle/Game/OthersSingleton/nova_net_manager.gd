@@ -1,13 +1,13 @@
 extends Node
 
 # --- Paramètres ajustables pour l'achat des bots---
-var base_cost := 20.0      # coût en connaissance du premier bot
+var base_cost := 1000.0      # coût en connaissance du premier bot
 var alpha := 0.15          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
 var k := 5.0               # puissance de l’or investi (rendement décroissant)
 var next_bot_kwoledge_acquired: float = 0
-var gold_per_click: int = 0 # Investissement du joueur par click
+var gold_to_invest: int = 100 # Investissement du joueur par click
 # ---------------------------------------------------------------------------
 
 var coef_farming_xp = 1
@@ -58,6 +58,7 @@ func get_bot_cost(n: int) -> float:
 
 # --- Calcule la connaissance gagnée par clic en fonction de l’or investi ---
 func knowledge_per_click(or_investi: float) -> float:
+	"""Il y a un coef k qui evite un snowball si l'or investi est bien trop important"""
 	return snapped(base_click + k * log(1 + or_investi), 1)
 
 func nb_click_required(or_investi) -> int:
@@ -78,8 +79,8 @@ func click(or_investi: float) -> void:
 	Player.knowledge_point -= knowledge_gain
 	s_bot_knowledge_gain.emit(knowledge_gain)
 	check_buy_bot()
-	print("Clic ! + %s connaissance (total=%s/%s)" % \
-		[knowledge_gain, next_bot_kwoledge_acquired, nb_click_required(gold_per_click)])
+	print("Clic ! + %s connaissance (total = %s/%s)" % \
+		[knowledge_gain, next_bot_kwoledge_acquired, get_bot_cost(Player.bots)])
 
 
 func check_buy_bot():

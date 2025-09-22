@@ -62,6 +62,18 @@ text = "x"
 [node name="GoldIcon" parent="VBoxContainer/HBoxContainer2" instance=ExtResource("3_wum2w")]
 layout_mode = 2
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="KnowledgePerClickTitle" type="Label" parent="VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Knowledge par click"
+
+[node name="KnowledgePerClickValue" type="Label" parent="VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
