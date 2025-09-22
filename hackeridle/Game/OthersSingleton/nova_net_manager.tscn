@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnjj3xxe105ie"]
+
+[ext_resource type="Script" path="res://Game/OthersSingleton/nova_net_manager.gd" id="1_w2yv3"]
+
+[node name="NovaNetManager" type="Node"]
+script = ExtResource("1_w2yv3")
