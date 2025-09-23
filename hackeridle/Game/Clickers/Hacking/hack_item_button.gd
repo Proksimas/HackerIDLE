@@ -192,17 +192,18 @@ func change_hack_time():
 		return
 	
 	var max_time = StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])
-	print("max_time: %s    time_process: %s    max_progress_bar: %s" % [max_time, time_process, hack_item_progress_bar.max_value])
+	#print("max_time: %s    time_process: %s    max_progress_bar: %s" % [max_time, time_process, hack_item_progress_bar.max_value])
 	
 	if time_process > hack_item_progress_bar.max_value: # Alors le hack est déjà terminé !
-		print("time_finished")
+		#print("time_finished")
 		time_finished()
 		hack_item_code_edit._on_typing_animation_finished()
 	else:
-		print("on change les valeurs")
+#		print("on change les valeurs")
 		hack_item_progress_bar.max_value = max_time
 		hack_item_progress_bar.value = time_process
-		# il reste à changer le scrypting
+		# ATTENTION leger "bug", le tween qui fait l'écriture lui continue ou s'arretera avant.
+		#Un bon moyen est de changer son scale mais compliqué et pas forcement utile.
 	
 
 func time_finished() -> void:
