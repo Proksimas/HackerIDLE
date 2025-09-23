@@ -155,24 +155,6 @@ func x_can_be_buy(_x_buy):
 	item_price = StatsManager.calcul_hack_stat(StatsManager.Stats.COST,Calculs.total_hacking_prices(current_hack_item_cara, quantity_to_buy))
 		
 	buy_button.refresh(item_price, "knowledge_point")
-	#if Player.knowledge_point  < item_price:
-		#buy_item_button.disabled = true
-		#cost_hack_label.add_theme_color_override("font_color", Color(1,0,0))
-		#buy_item_button.get_child(0).modulate = Color(1, 1, 1, 0.5)
-		##hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 0.5)
-		##hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 0.5))
-	#else:
-		#buy_item_button.disabled = false
-		#cost_hack_label.add_theme_color_override("font_color",Color(0, 1, 0.6))
-		##hack_item_price_label.get_parent().modulate = Color(1, 1, 1, 1)
-		#buy_item_button.get_child(0).modulate = Color(1, 1, 1, 1)
-		##hack_item_price_label.add_theme_color_override("font_color", Color(0.847, 0.431, 0.325, 1))
-		#
-	## on tente de maj le prix ici
-	#
-	#cost_hack_label.text = tr("$Upgr") + ". "
-	##cost_hack_label.text = "+ " + str(_x_buy) + ": "
-	#hack_item_price_label.text = Global.number_to_string(item_price)
 	
 	if Player.hacking_item_statut[current_hack_item_cara["item_name"]] == "unlocked":
 		next_gold_gain_label.text = "+ " + Global.number_to_string(\
@@ -183,12 +165,12 @@ func x_can_be_buy(_x_buy):
 	#Puis on met à jour le prix de l'item
 	
 	
-func lauch_wait_time():
+func lauch_wait_time(over_time: float = 0):
 	"""Lancement du hack"""
 	if progress_activated == true:
 		return
 	hack_item_progress_bar.rounded =false
-	time_process = 0
+	time_process = 0 + over_time
 	hack_item_progress_bar.max_value = StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])
 	hack_item_progress_bar.min_value = 0
 	hack_item_progress_bar.step = 0.01
@@ -201,6 +183,27 @@ func lauch_wait_time():
 	s_hack_lauch.emit()
 	pass
 
+func change_hack_time():
+	"""On a changé le temps du hack. Il faut par conséquent le désactiver, et le relancer"""
+	
+	if current_hack_item_cara.is_empty():
+		return
+	if progress_activated == false: #alors le hack n'est pas lancé, pas de probleme
+		return
+	
+	var max_time = StatsManager.calcul_hack_stat(StatsManager.Stats.TIME, current_hack_item_cara["delay"])
+	print("max_time: %s    time_process: %s    max_progress_bar: %s" % [max_time, time_process, hack_item_progress_bar.max_value])
+	
+	if time_process > hack_item_progress_bar.max_value: # Alors le hack est déjà terminé !
+		print("time_finished")
+		time_finished()
+		hack_item_code_edit._on_typing_animation_finished()
+	else:
+		print("on change les valeurs")
+		hack_item_progress_bar.max_value = max_time
+		hack_item_progress_bar.value = time_process
+		# il reste à changer le scrypting
+	
 
 func time_finished() -> void:
 	"""Le hack est fini. On récupere le gain en gold"""

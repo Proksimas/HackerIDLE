@@ -114,6 +114,9 @@ func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
 				push_error("la stat %s n'existe pas pour les modification" % stat_name)
 				return
 			hack_modifiers[stat_name].append(new_modifier)
+			if stat_name == Stats.TIME:
+				#Il faut mettre à jour les temps de hack
+				get_tree().call_group("g_hack_item_button", "change_hack_time")
 		TargetModifier.LEARNING_ITEM:
 			if !learning_items_modifiers.has(stat_name):
 				push_error("La stat %s n'existe pas pour les modifications" % stat_name)
