@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cq5d747v4kt3w"]
+[gd_scene load_steps=10 format=3 uid="uid://cq5d747v4kt3w"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/nova_net.gd" id="1_bohbv"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots.gd" id="2_6fskv"]
@@ -9,6 +9,8 @@
 [ext_resource type="BitMap" uid="uid://5uko2lu4k1po" path="res://Game/Graphics/Common_icons/bot_full_mono.bmp" id="6_324lu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dq24p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m5mc"]
 
 [node name="NovaNet" type="Control"]
 layout_mode = 3
@@ -55,50 +57,6 @@ text = "x"
 [node name="BrainIcon" parent="NovaNetTab/Bots/HBoxContainer" instance=ExtResource("2_d8v8k")]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="VBoxContainer" parent="NovaNetTab/Bots"]
-layout_mode = 2
-
-[node name="GoldPerClickTitle" type="Label" parent="NovaNetTab/Bots/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "% Or investi par click"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="NovaNetTab/Bots/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="GoldInvestBox" type="HSlider" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_vertical = 4
-step = 10.0
-value = 10.0
-rounded = true
-tick_count = 11
-
-[node name="GoldInvestLabel" type="Label" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="GoldIcon" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer" instance=ExtResource("3_wum2w")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="NovaNetTab/Bots"]
-layout_mode = 2
-
-[node name="KnowledgePerClickTitle" type="Label" parent="NovaNetTab/Bots/HBoxContainer4"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Knowledge par click"
-
-[node name="KnowledgePerClickValue" type="Label" parent="NovaNetTab/Bots/HBoxContainer4"]
-unique_name_in_owner = true
-layout_mode = 2
-
 [node name="HBoxContainer3" type="HBoxContainer" parent="NovaNetTab/Bots"]
 layout_mode = 2
 
@@ -111,6 +69,64 @@ text = "Clic restants:"
 unique_name_in_owner = true
 layout_mode = 2
 text = "x"
+
+[node name="HSeparator" type="HSeparator" parent="NovaNetTab/Bots"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6m5mc")
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="NovaNetTab/Bots"]
+layout_mode = 2
+
+[node name="GoldPerClickTitle" type="Label" parent="NovaNetTab/Bots/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "% Or investi par click"
+
+[node name="GoldInvestBox" type="HSlider" parent="NovaNetTab/Bots/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 10.0
+value = 10.0
+rounded = true
+tick_count = 11
+
+[node name="HBoxContainer2" type="GridContainer" parent="NovaNetTab/Bots/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 50
+columns = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="GoldInvestLabel" type="Label" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="GoldIcon" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2/HBoxContainer" instance=ExtResource("3_wum2w")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="KnowledgePerClickValue" type="Label" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BrainIcon" parent="NovaNetTab/Bots/HBoxContainer2/HBoxContainer2/HBoxContainer2" instance=ExtResource("2_d8v8k")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="CenterContainer" type="CenterContainer" parent="NovaNetTab/Bots"]
 layout_mode = 2
@@ -138,6 +154,6 @@ stretch_mode = 0
 unique_name_in_owner = true
 autostart = true
 
-[connection signal="value_changed" from="NovaNetTab/Bots/HBoxContainer2/HBoxContainer/GoldInvestBox" to="NovaNetTab/Bots" method="_on_gold_invest_box_value_changed"]
+[connection signal="value_changed" from="NovaNetTab/Bots/HBoxContainer2/GoldInvestBox" to="NovaNetTab/Bots" method="_on_gold_invest_box_value_changed"]
 [connection signal="pressed" from="NovaNetTab/Bots/CenterContainer/ClickerARC/ClickerBotButton" to="NovaNetTab/Bots" method="_on_click_bot_pressed"]
 [connection signal="timeout" from="NovaNetTab/Bots/RefreshTimer" to="NovaNetTab/Bots" method="_on_refresh_timer_timeout"]

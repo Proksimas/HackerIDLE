@@ -4,7 +4,6 @@ extends VBoxContainer
 @onready var gold_per_click_title: Label = %GoldPerClickTitle
 @onready var nb_of_click_title: Label = %NbOfClickTitle
 @onready var nb_of_click_value: Label = %NbOfClickValue
-@onready var knowledge_per_click_title: Label = %KnowledgePerClickTitle
 @onready var knowledge_per_click_value: Label = %KnowledgePerClickValue
 @onready var gold_invest_label: Label = %GoldInvestLabel
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
@@ -16,9 +15,6 @@ extends VBoxContainer
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connexions()
-	
-	Player.gold = 100000000
-	Player.knowledge_point = 100000000
 	pass # Replace with function body.
 
 func connexions():
@@ -28,8 +24,8 @@ func connexions():
 func refresh():
 	next_bot_price_value.text = Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
 	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_to_invest))
-	gold_invest_label.text = Global.number_to_string(NovaNetManager.gold_to_invest)
-	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
+	gold_invest_label.text = " - " + Global.number_to_string(NovaNetManager.gold_to_invest)
+	knowledge_per_click_value.text = " + " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
 func _on_click_bot_pressed() -> void:
 	NovaNetManager.click(NovaNetManager.gold_to_invest)

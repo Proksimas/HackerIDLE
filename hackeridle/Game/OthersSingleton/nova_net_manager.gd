@@ -90,8 +90,8 @@ func click(or_investi: float) -> void:
 	Player.earn_knowledge_point(0 - knowledge_gain)
 	s_bot_knowledge_gain.emit(knowledge_gain)
 	check_buy_bot()
-	print("Clic ! + %s connaissance (total = %s/%s)" % \
-		[knowledge_gain, next_bot_kwoledge_acquired, get_bot_cost(Player.bots)])
+	#print("Clic ! + %s connaissance (total = %s/%s)" % \
+	#	[knowledge_gain, next_bot_kwoledge_acquired, get_bot_cost(Player.bots)])
 
 
 func check_buy_bot():
