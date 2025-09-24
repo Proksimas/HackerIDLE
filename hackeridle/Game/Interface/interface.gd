@@ -7,6 +7,7 @@ extends Control
 @onready var navigator: TextureRect = %Navigator
 @onready var infos: Control = %Infos
 @onready var jail: Control = %Jail
+@onready var novanet: Control = $InterfacePanel/MainZone/MainTabMargin/MainTab/NovaNet
 
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
@@ -32,6 +33,7 @@ extends Control
 @onready var main_zone: VBoxContainer = %MainZone
 @onready var more_button_box: TextureButton = %MoreButtonBox
 @onready var more_button_container: VFlowContainer = %MoreButtonContainer
+@onready var nova_net_box: TextureButton = %NovaNetBox
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
@@ -44,6 +46,7 @@ const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.pn
 const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
+const NOVANET= preload("res://Game/Graphics/Background/Novanet/NovaNet_bg.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -77,9 +80,9 @@ func buttons_connexion() -> void:
 	navigator_box.pressed.connect(app_button_pressed.bind("learning"))
 	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
 	skills_box.pressed.connect(app_button_pressed.bind("skills"))
-	more_button_box.pressed.connect(_on_more_button_box)
-	
+	nova_net_box.pressed.connect(app_button_pressed.bind("novanet"))
 
+	more_button_box.pressed.connect(_on_more_button_box)
 
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
@@ -139,7 +142,10 @@ func app_button_pressed(button_name:String):
 			jail.show()
 			new_style_box.texture = JAIL
 			jail.enter_jail()
-	
+		"novanet":
+			novanet.show()
+			new_style_box.texture = NOVANET
+			
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 
 func refresh_specially_resources():

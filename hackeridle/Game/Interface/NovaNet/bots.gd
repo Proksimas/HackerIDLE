@@ -46,8 +46,9 @@ func _on_s_bot_bought():
 func _on_s_bot_knowledge_gain(knowledge_gain):
 	refresh()
 
-
+var old_value: int
 func _on_gold_invest_box_value_changed(value: int) -> void:
+	old_value = value
 	var perc_invest = Player.gold * (float(value)/100)
 	NovaNetManager.gold_to_invest = perc_invest
 	refresh()

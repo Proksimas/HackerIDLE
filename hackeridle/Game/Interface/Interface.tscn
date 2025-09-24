@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=30 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
 [ext_resource type="Texture2D" uid="uid://biqjg0uay257r" path="res://Game/Graphics/App_icons/Neos/menu_barre_green.png" id="22_uxqoi"]
+[ext_resource type="Texture2D" uid="uid://bl1kvx4t7tyb5" path="res://Game/Graphics/App_icons/Neos/NovaNet/novanet.png" id="23_kfq7a"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Infos.tscn" id="24_vhcrq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uhhg"]
@@ -185,12 +186,11 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
-current_tab = 6
+current_tab = 0
 tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="HackShop" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
@@ -222,6 +222,7 @@ visible = false
 layout_mode = 2
 
 [node name="NovaNet" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("13_my728")]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 6
 
@@ -470,6 +471,40 @@ custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("21_apx4o")
+expand_mode = 1
+
+[node name="AspectRatioContainer6" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NovaNetBox" type="TextureButton" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_8umkd")
+texture_focused = ExtResource("15_ped3a")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6/NovaNetBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NovaNetButton" type="TextureRect" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6/NovaNetBox/AspectRatioContainer"]
+custom_minimum_size = Vector2(90, 125)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("23_kfq7a")
 expand_mode = 1
 
 [node name="SecondTimer" type="Timer" parent="."]
