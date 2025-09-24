@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://10caeetrm65n"]
+
+[ext_resource type="Texture2D" uid="uid://dxfdl5pmcmp27" path="res://Game/Graphics/Common_icons/bot_head.png" id="1_dnxq4"]
+
+[node name="BotIcon" type="AspectRatioContainer"]
+anchors_preset = -1
+anchor_right = 0.0508475
+anchor_bottom = 0.0234742
+size_flags_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="BotTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_dnxq4")
+expand_mode = 1
