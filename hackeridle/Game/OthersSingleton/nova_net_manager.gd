@@ -19,7 +19,8 @@ var active_tasks = {
 	"research": 0,
 	"sales_task": 0
 }
-signal s_bot_bought()
+signal s_bot_bought() #indique qu'on  acheté 1 bot
+signal s_bots_bought()  #indique qu'on  acheté des bots, indépendamment de leur nombre
 signal s_bot_knowledge_gain(number)
 
 func _process(delta: float) -> void:
@@ -98,12 +99,15 @@ func check_buy_bot():
 	"""On check si on peut acheter le bot, cad si toute la connaissance acquise est suffisante"""
 	 #on part du principe que le joueur n'achetera jamais plus de 1000 bots d'un coup
 	#pour éviter de faire un while
+	var bots_bought:bool = false
 	for loop in range(1000):
 		if next_bot_kwoledge_acquired >= get_bot_cost(Player.bots):
 			buy_bot()
+			bots_bought = true
 		else:
 			break
-
+	if bots_bought:
+		s_bots_bought.emit()
 # --- Achat d’un bot si assez de connaissance ---
 func buy_bot() -> void:
 	next_bot_kwoledge_acquired =  next_bot_kwoledge_acquired - get_bot_cost(Player.bots)

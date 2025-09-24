@@ -13,8 +13,8 @@ extends VBoxContainer
 var containers_data: Array = []
 
 func _ready() -> void:
+	NovaNetManager.s_bots_bought.connect(_on_s_bots_bought)
 	var containers = [farming_xp_container, exploit_research_container]
-
 	for container: BoxContainer in containers:
 		var data := {"slider": null, "value_label": null}
 
@@ -76,3 +76,6 @@ func _update_value_labels() -> void:
 		var label: Label = data.get("value_label", null)
 		if label != null:
 			label.text = str(int(data["slider"].value))
+
+func _on_s_bots_bought():
+	_update_sliders_max()
