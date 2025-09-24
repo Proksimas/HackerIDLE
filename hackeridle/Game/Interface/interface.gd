@@ -30,10 +30,12 @@ extends Control
 @onready var dark_shop_box: TextureButton = %dark_shopBox
 @onready var skills_box: TextureButton = %skillsBox
 @onready var main_zone: VBoxContainer = %MainZone
+@onready var more_button_box: TextureButton = %MoreButtonBox
+@onready var more_button_container: VFlowContainer = %MoreButtonContainer
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
-
+const ICON_BORDER_MEDIUM_GREEN = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_green.png")
 #Background textures
 const BACKGROUND = preload("res://Game/Graphics/Background/background_vignette.png")
 const ARGON = preload("res://Game/Graphics/Background/Crypte Argon/argon.png")
@@ -75,6 +77,7 @@ func buttons_connexion() -> void:
 	navigator_box.pressed.connect(app_button_pressed.bind("learning"))
 	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
 	skills_box.pressed.connect(app_button_pressed.bind("skills"))
+	more_button_box.pressed.connect(_on_more_button_box)
 	
 
 
@@ -83,6 +86,7 @@ func init_interface():
 	gold_resource.set_resource_box("GOLD")
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
+	more_button_container.hide()
 	
 	#sp_resource.set_resource_box("SP")
 	#sp_resource.refresh_value(int(Player.skill_point))
@@ -226,6 +230,8 @@ func _on_jail_button_pressed() -> void:
 	#app_button_pressed("jail")
 	pass # Replace with function body.
 
+func _on_more_button_box():
+	more_button_container.visible = !more_button_container.visible
 
 func _on_finish_button_pressed() -> void:
 	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
@@ -257,3 +263,13 @@ func _load_data(data):
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 	infos._load_data(data["Infos"])
+
+
+func _on_more_button_container_draw() -> void:
+	more_button_box.texture_normal = ICON_BORDER_MEDIUM_GREEN
+	pass # Replace with function body.
+
+
+func _on_more_button_container_hidden() -> void:
+	more_button_box.texture_normal = ICON_BORDER_MEDIUM
+	pass # Replace with function body.
