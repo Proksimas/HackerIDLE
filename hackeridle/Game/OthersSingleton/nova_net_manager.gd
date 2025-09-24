@@ -66,21 +66,13 @@ func knowledge_per_click(or_investi: float) -> float:
 
 func nb_click_required(or_investi) -> int:
 	return ceil(get_bot_cost(Player.bots) / knowledge_per_click(or_investi))
+	
+func nb_click_left(or_investi) ->int:
+	"""Nombre de click restant par rapport à la connaissance accumulée"""
+	var knowledge_left = get_bot_cost(Player.bots) - next_bot_kwoledge_acquired
+	var click_left = ceil(knowledge_left / knowledge_per_click(or_investi))
+	return click_left
 
-func michaelis_menten(or_investi):
-	"""algo renforçant le gain à bas coût pour ensuite etre tres loga"""
-	var B := 1.0
-	var Vmax := get_bot_cost(Player.bots) * 0.35   # plafond d'appoint = connaissance max par click
-	var Km := Vmax * 0.75   # point de demi-saturation
-	#print("Plafond d'appoint: %s   Demi saturation à : %s" % [Vmax, Km])
-	return B + Vmax * (or_investi / (Km + or_investi))
-
-func lineaire_and_log(or_investi):
-	"""algo lineaire avec une legere log"""
-	var B := 1.0
-	var p := 0.45
-	var k := 4.0
-	return B + p * or_investi + k * log(1.0 + or_investi)
 
 
 func click(or_investi: float) -> void:
@@ -112,3 +104,20 @@ func buy_bot() -> void:
 	Player.bots += 1
 	next_bot_kwoledge_acquired = 0
 	s_bot_bought.emit()
+
+
+
+func michaelis_menten(or_investi):
+	"""algo renforçant le gain à bas coût pour ensuite etre tres loga"""
+	var B := 1.0
+	var Vmax := get_bot_cost(Player.bots) * 0.35   # plafond d'appoint = connaissance max par click
+	var Km := Vmax * 0.75   # point de demi-saturation
+	#print("Plafond d'appoint: %s   Demi saturation à : %s" % [Vmax, Km])
+	return B + Vmax * (or_investi / (Km + or_investi))
+
+func lineaire_and_log(or_investi):
+	"""algo lineaire avec une legere log"""
+	var B := 1.0
+	var p := 0.45
+	var k := 4.0
+	return B + p * or_investi + k * log(1.0 + or_investi)

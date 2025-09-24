@@ -88,7 +88,7 @@ layout_mode = 2
 [node name="NbOfClickTitle" type="Label" parent="TabContainer/Bots/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Clic necessaires:"
+text = "Clic restants:"
 
 [node name="NbOfClickValue" type="Label" parent="TabContainer/Bots/HBoxContainer3"]
 unique_name_in_owner = true

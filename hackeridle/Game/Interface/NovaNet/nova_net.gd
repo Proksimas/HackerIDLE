@@ -15,8 +15,8 @@ extends Control
 func _ready() -> void:
 	connexions()
 	
-	Player.gold = 1000
-	Player.knowledge_point = 1000 
+	Player.gold = 100000000
+	Player.knowledge_point = 100000000
 	pass # Replace with function body.
 
 func connexions():
@@ -25,7 +25,8 @@ func connexions():
 
 func refresh():
 	next_bot_price_value.text = Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
-	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_required(NovaNetManager.gold_to_invest))
+	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_to_invest))
+							
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
 func _on_click_bot_pressed() -> void:
