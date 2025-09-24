@@ -40,7 +40,17 @@ func _on_slider_changed(changed_value: float, slider: HSlider) -> void:
 	var sum := 0
 	for data in containers_data:
 		sum += int(data["slider"].value)
-
+	
+		##On affecte les bots
+		#match data["value_label"].name:
+			#"FarmingXpBotsValue":
+				#NovaNetManager.active_tasks["farming_xp"] = sum
+			#"ExploitResearchBotsValue":
+				#NovaNetManager.active_tasks["research"] = sum
+			#_:
+				#push_warning("Pas de bot affecté")
+			#
+	
 	# Si on dépasse le total → on réduit le slider courant
 	if sum > total_bots:
 		var overflow := sum - total_bots
@@ -76,6 +86,16 @@ func _update_value_labels() -> void:
 		var label: Label = data.get("value_label", null)
 		if label != null:
 			label.text = str(int(data["slider"].value))
+			#On affecte les bots
+			match data["value_label"].name:
+				"FarmingXpBotsValue":
+					NovaNetManager.active_tasks["farming_xp"] = data["slider"].value
+				"ExploitResearchBotsValue":
+					NovaNetManager.active_tasks["research"] = data["slider"].value
+				_:
+					push_warning("Pas de bot affecté")
+	
+	print(NovaNetManager.active_tasks)
 
 func _on_s_bots_bought():
 	_update_sliders_max()
