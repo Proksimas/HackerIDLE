@@ -80,7 +80,6 @@ func click(or_investi: float) -> void:
 	if Player.gold < or_investi:
 		print("Pas assez d’or pour investir ", or_investi)
 		return
-	Player.earn_gold(0 - or_investi)
 	var knowledge_gain := knowledge_per_click(or_investi)
 	if Player.knowledge_point < knowledge_gain:
 		print("Pas assez de knowledge pour investir ", knowledge_gain)
@@ -88,6 +87,7 @@ func click(or_investi: float) -> void:
 	
 	next_bot_kwoledge_acquired += knowledge_gain
 	Player.earn_knowledge_point(0 - knowledge_gain)
+	Player.earn_gold(0 - or_investi)
 	s_bot_knowledge_gain.emit(knowledge_gain)
 	check_buy_bot()
 	#print("Clic ! + %s connaissance (total = %s/%s)" % \
@@ -96,13 +96,18 @@ func click(or_investi: float) -> void:
 
 func check_buy_bot():
 	"""On check si on peut acheter le bot, cad si toute la connaissance acquise est suffisante"""
-	if next_bot_kwoledge_acquired >= get_bot_cost(Player.bots):
-		buy_bot()
+	 #on part du principe que le joueur n'achetera jamais plus de 1000 bots d'un coup
+	#pour éviter de faire un while
+	for loop in range(1000):
+		if next_bot_kwoledge_acquired >= get_bot_cost(Player.bots):
+			buy_bot()
+		else:
+			break
 
 # --- Achat d’un bot si assez de connaissance ---
 func buy_bot() -> void:
+	next_bot_kwoledge_acquired =  next_bot_kwoledge_acquired - get_bot_cost(Player.bots)
 	Player.bots += 1
-	next_bot_kwoledge_acquired = 0
 	s_bot_bought.emit()
 
 
