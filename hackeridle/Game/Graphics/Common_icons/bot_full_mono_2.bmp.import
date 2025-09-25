@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://d5y7ixo672cf"
+path="res://.godot/imported/bot_full_mono_2.bmp-6d4ce1a3a2858cde5988973176f29c61.res"
+
+[deps]
+
+source_file="res://Game/Graphics/Common_icons/bot_full_mono_2.bmp"
+dest_files=["res://.godot/imported/bot_full_mono_2.bmp-6d4ce1a3a2858cde5988973176f29c61.res"]
+
+[params]
+
+create_from=0
+threshold=0.0

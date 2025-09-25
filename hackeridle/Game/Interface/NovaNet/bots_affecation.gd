@@ -40,8 +40,8 @@ func _ready() -> void:
 				data["slider"].value_changed.connect(_on_slider_changed.bind(data["slider"]))
 
 	## init des max et labels au démarrage
-	#_update_sliders_max()
-	#_update_value_labels()
+	_update_sliders_max()
+	_update_value_labels()
 
 
 func _on_slider_changed(changed_value: float, slider: HSlider) -> void:
