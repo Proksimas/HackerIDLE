@@ -9,8 +9,15 @@ var k := 5.0               # puissance de l’or investi (rendement décroissant
 var knowledge_required_factor
 var next_bot_kwoledge_acquired: float = 0
 var gold_to_invest: int = 100 # Investissement du joueur par click
-# ---------------------------------------------------------------------------
+# ------------- ¨Paramètres pour les SALES ---------------------------------------------
 
+var gold_invest_in_sales: float= 0 # correspond à l'argent que le joueur investi.
+var _R: float = 0.02              # TODO revenu moyen par bot / s -> doit etre un % de gold_invest_in_sales
+var sigma_base: float = 0.20       # volatilité globale
+var mean_rev: float = 0.10         # retour à la moyenne (0..1)
+var _v: float = 0.0                        # état de volatilité
+var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
+# ------------- ¨Paramètres pour le farming XP---------------------------------------------
 var coef_farming_xp = 1
 
 # Nombres de bots affectés aux taches
@@ -52,10 +59,51 @@ func update_research_task(_delta):
 	if bots > 0:
 		pass
 		
+#region Sales
+var sales_time = 0
 func update_sales_task(_delta):
+	sales_time += _delta
 	var bots = active_tasks["sales_task"]
-	if bots > 0:
+	if bots > 0 and sales_time >= 1:
+			# volatilite reduite par diversification
+		var sigma_eff := sigma_base / sqrt(float(max(1, bots)))
+
+		# bruit normal ~ N(0,1)
+		var eps :=  _randn()
+
+		# dynamique mean-reverting
+		_v = (1.0 - mean_rev) * _v + sigma_eff * eps
+		_v = clampf(_v, -clamp_abs, clamp_abs)
+
+		 # marche autour de 1, jamais negatif
+		var _M := maxf(0.0, 1.0 + _v)
+		
+		#
+		var gain := int(float(bots) * _R * gold_invest_in_sales * _M)
+		
+		print("gain: %s" % gain)
+		sales_time = 0
 		pass
+
+# Box-Muller pour N(0,1)
+func _randn() -> float:
+	var u1 := clampf(randf(), 1e-6, 1.0)
+	var u2 := randf()
+	return sqrt(-2.0 * log(u1)) * cos(2.0 * PI * u2)
+	
+func expected_income_per_sec() -> float:
+	# espérance ≈ bots * _R (car E[M]≈1)
+	return float(active_tasks["sales_task"]) * _R * gold_invest_in_sales
+
+func current_income_per_sec_estimate() -> float:
+	# estimation instantanée avec le M courant
+	var M := maxf(0.0, 1.0 + _v)
+	return float(active_tasks["sales_task"]) * _R * gold_invest_in_sales * M
+	
+
+#endregion
+
+
 
 
 # --- Calcule le coût en connaissance du prochain bot ---
