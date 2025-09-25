@@ -13,7 +13,7 @@ var gold_to_invest: int = 100 # Investissement du joueur par click
 
 var gold_invest_in_sales: float= 0 # correspond à l'argent que le joueur investi.
 var _R: float = 0.02              # TODO revenu moyen par bot / s -> doit etre un % de gold_invest_in_sales
-var sigma_base: float = 0.20       # volatilité globale
+var sigma_base: float = 0.30       # volatilité globale
 var mean_rev: float = 0.10         # retour à la moyenne (0..1)
 var _v: float = 0.0                        # état de volatilité
 var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
@@ -29,7 +29,7 @@ var active_tasks = {
 signal s_bot_bought() #indique qu'on  acheté 1 bot
 signal s_bots_bought()  #indique qu'on  acheté des bots, indépendamment de leur nombre
 signal s_bot_knowledge_gain(number)
-
+signal s_gain_sales(number)
 func _process(delta: float) -> void:
 	
 	update_farming_task(delta)
@@ -80,7 +80,9 @@ func update_sales_task(_delta):
 		
 		#
 		var gain := int(float(bots) * _R * gold_invest_in_sales * _M)
+		# 	TODO EARN
 		
+		s_gain_sales.emit(gain)
 		print("gain: %s" % gain)
 		sales_time = 0
 		pass

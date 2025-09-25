@@ -1,10 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7t37oj03w1c1"]
+[gd_scene load_steps=9 format=3 uid="uid://c7t37oj03w1c1"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots_affecation.gd" id="1_13n51"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="2_162po"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/farming_xp_grid_container.gd" id="3_6wr8q"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_3w75c"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/sales_grid_container.gd" id="4_b7uai"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/market_graph.gd" id="6_u02b7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4j2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.047, 0.894, 0.553, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
 
 [node name="BotsAffecation" type="VBoxContainer"]
 anchors_preset = 15
@@ -74,7 +90,7 @@ scrollable = false
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-text = "X"
+text = "XL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -159,27 +175,33 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="SalesGridContainer" type="GridContainer" parent="."]
+[node name="SalesGridContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 2
+theme_override_constants/separation = 15
+script = ExtResource("4_b7uai")
 
-[node name="SalesLabel" type="Label" parent="SalesGridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer"]
+layout_mode = 2
+
+[node name="SalesLabel" type="Label" parent="SalesGridContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Sales
 "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SalesGridContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SalesGridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
+theme_override_constants/separation = 15
 
-[node name="SalesContainer" type="HBoxContainer" parent="SalesGridContainer/VBoxContainer"]
+[node name="SalesContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 
-[node name="SalesSlider" type="HSlider" parent="SalesGridContainer/VBoxContainer/SalesContainer"]
+[node name="SalesSlider" type="HSlider" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
@@ -187,14 +209,52 @@ size_flags_horizontal = 6
 size_flags_vertical = 4
 rounded = true
 
-[node name="SalesBotsValue" type="Label" parent="SalesGridContainer/VBoxContainer/SalesContainer"]
+[node name="SalesBotsValue" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 0
 text = "X"
 
-[node name="BotIcon" parent="SalesGridContainer/VBoxContainer/SalesContainer" instance=ExtResource("2_162po")]
+[node name="BotIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 4
 
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "10%: "
+
+[node name="GoldInvestLabel" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "189.28Q"
+
+[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_3w75c")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InvestButton" type="Button" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
+text = "Investir"
+
+[node name="MarketGraph" type="Control" parent="SalesGridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_u02b7")
+
 [connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
+[connection signal="pressed" from="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]
