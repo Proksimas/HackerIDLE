@@ -9,3 +9,8 @@ extends Control
 func _load_data(content):
 	bots_affecation._load_data(content)
 	
+
+
+func _on_draw() -> void:
+	bots.show()
+	pass # Replace with function body.

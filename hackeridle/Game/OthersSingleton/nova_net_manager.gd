@@ -38,10 +38,14 @@ func update_farming_task(delta):
 	farming_time += delta
 	var bots = active_tasks["farming_xp"]
 	if bots > 0 and farming_time >= 1:
-		var xp = bots * coef_farming_xp
+		var xp = gain_farming_xp()
 		Player.earn_brain_xp(xp)
 		farming_time = 0
 		pass
+
+func gain_farming_xp() -> int:
+	var bots = active_tasks["farming_xp"]
+	return bots * coef_farming_xp
 
 func update_research_task(delta):
 	var bots = active_tasks["research"]

@@ -2,13 +2,14 @@ extends VBoxContainer
 @onready var farming_xp_label: Label = %FarmingXpLabel
 @onready var farming_xp_slider: HSlider = %FarmingXpSlider
 @onready var farming_xp_bots_value: Label = %FarmingXpBotsValue
-
 @onready var exploit_research_label: Label = %ExploitResearchLabel
 @onready var exploit_research_slider: HSlider = %ExploitResearchSlider
 @onready var exploit_research_bots_value: Label = %ExploitResearchBotsValue
+@onready var farming_xp_container: HBoxContainer = %FarmingXpContainer
+@onready var exploit_research_container: HBoxContainer = %ExploitResearchContainer
+@onready var nbr_of_bots_value: Label = %NbrOfBotsValue
 
-@onready var farming_xp_container: HBoxContainer = $HBoxContainer2/FarmingXpContainer
-@onready var exploit_research_container: HBoxContainer = $HBoxContainer3/ExploitResearchContainer
+@onready var farming_xp_grid_container: GridContainer = %FarmingXpGridContainer
 
 var containers_data: Array = []
 var containers: Array = []
@@ -61,7 +62,11 @@ func _on_slider_changed(changed_value: float, slider: HSlider) -> void:
 	# Recalcule les bornes max et les labels
 	_update_sliders_max()
 	_update_value_labels()
-
+	refresh_sub_container()
+	
+func refresh_sub_container():
+	# ATTENTION peut créer des problemes de performances? A surveiller 
+	farming_xp_grid_container.refresh()
 
 func _update_sliders_max() -> void:
 	var total_bots := Player.bots
@@ -84,6 +89,8 @@ func _update_sliders_max() -> void:
 
 
 func _update_value_labels() -> void:
+	nbr_of_bots_value.text = Global.number_to_string(Player.bots)
+	
 	for data in containers_data:
 		var label: Label = data.get("value_label", null)
 		if label != null:
@@ -99,6 +106,8 @@ func _update_value_slider() -> void:
 
 func _on_s_bots_bought():
 	_update_sliders_max()
+	_update_value_labels()
+	
 
 func _load_data(content):
 	"""On ajuste certaines valeurs d'ui en prenant les valeurs du player.

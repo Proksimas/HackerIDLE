@@ -9,7 +9,6 @@ extends VBoxContainer
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
 @onready var clicker_bot_button: TextureButton = %ClickerBotButton
 @onready var gold_invest_box: HSlider = %GoldInvestBox
-@onready var nbr_of_bots_value: Label = %NbrOfBotsValue
 
 
 
@@ -27,7 +26,8 @@ func refresh():
 	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_to_invest))
 	gold_invest_label.text = " - " + Global.number_to_string(NovaNetManager.gold_to_invest)
 	knowledge_per_click_value.text = " + " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
-	nbr_of_bots_value.text = Global.number_to_string(Player.bots)
+	
+	
 func _on_click_bot_pressed() -> void:
 	NovaNetManager.click(NovaNetManager.gold_to_invest)
 	_on_gold_invest_box_value_changed(gold_invest_box.value)
