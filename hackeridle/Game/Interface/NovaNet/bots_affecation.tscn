@@ -255,6 +255,7 @@ custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_u02b7")
+show_y_axis = false
 
 [connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
 [connection signal="pressed" from="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]
