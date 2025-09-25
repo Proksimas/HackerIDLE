@@ -160,11 +160,11 @@ func _draw_y_axis_labels(mn: float, mx: float, plot_rect: Rect2) -> void:
 		var label := ""
 		# On affiche M (le facteur de gain), ex: ×1.03
 		var m_val := v  # v est la valeur M à cette hauteur
-		label = "+ " + Global.number_to_string(m_val)
+		label = "+ " + Global.number_to_string(m_val, 1, true)
 
 		
 		var text_size := f.get_string_size(label, fs)
-		var tx := ax_right - float(axis_tick_len) - 4.0 - text_size.x
+		var tx := ax_right - float(axis_tick_len) + 4.0 - text_size.x
 		var ty := y_abs + fs * 0.35
 		draw_string(f, Vector2(tx, ty), label, HORIZONTAL_ALIGNMENT_LEFT, -1.0, fs, baseline_color)
 

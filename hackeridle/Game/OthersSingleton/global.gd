@@ -37,7 +37,7 @@ const EN_SUFFIXES: PackedStringArray = [
 	"", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" # ~1e33
 ]
 
-func number_to_string(number, snap: float = 1.0) -> String:
+func number_to_string(number, snap: float = 1.0, snap_big_value: bool = false) -> String:
 	var is_negative = number < 0.0
 	var num = absf(float(number))
 
@@ -62,6 +62,8 @@ func number_to_string(number, snap: float = 1.0) -> String:
 
 	# Arrondi lisible
 	var rounded = _round_to_decimals(scaled, dec)
+	if snap_big_value:
+		return _sign + str(round(rounded)) + " " + EN_SUFFIXES[idx]
 
 	# Cas limite : 999.95 -> 1000.0, promotion au suffixe suivant
 	if rounded >= 1000.0:

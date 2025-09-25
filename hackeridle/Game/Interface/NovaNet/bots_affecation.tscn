@@ -223,23 +223,8 @@ size_flags_vertical = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 2
-text = "10%: "
-
-[node name="GoldInvestLabel" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-text = "189.28Q"
-
-[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_3w75c")]
-layout_mode = 2
-size_flags_horizontal = 8
-
 [node name="InvestButton" type="Button" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 35)
+custom_minimum_size = Vector2(200, 35)
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 3
@@ -247,7 +232,35 @@ size_flags_stretch_ratio = 0.0
 focus_mode = 0
 theme_override_styles/pressed = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
-text = "Investir"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InvestTitle" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$Invest"
+
+[node name="GoldInvestLabel" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "189.28Q"
+
+[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer" instance=ExtResource("4_3w75c")]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="MarketGraph" type="Control" parent="SalesGridContainer"]
 unique_name_in_owner = true
@@ -255,7 +268,7 @@ custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("6_u02b7")
-show_y_axis = false
+baseline_color = Color(1, 1, 1, 0.443137)
 
 [connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
 [connection signal="pressed" from="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]

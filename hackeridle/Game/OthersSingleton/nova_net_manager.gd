@@ -12,7 +12,8 @@ var gold_to_invest: int = 100 # Investissement du joueur par click
 # ------------- ¨Paramètres pour les SALES ---------------------------------------------
 
 var gold_invest_in_sales: float= 0 # correspond à l'argent que le joueur investi.
-var _R: float = 0.02              # TODO revenu moyen par bot / s -> doit etre un % de gold_invest_in_sales
+var gold_to_invest_perc: float = 0.10 # le joueur doit investir x% de son argent max
+var _R: float = 0.02 / 600  # revenu moyen par bot / s -> doit etre un % de gold_invest_in_sales
 var sigma_base: float = 0.30       # volatilité globale
 var mean_rev: float = 0.10         # retour à la moyenne (0..1)
 var _v: float = 0.0                        # état de volatilité
@@ -83,7 +84,7 @@ func update_sales_task(_delta):
 		# 	TODO EARN
 		
 		s_gain_sales.emit(gain)
-		print("gain: %s" % gain)
+		print("gain: %s" % Global.number_to_string(gain))
 		sales_time = 0
 		pass
 

@@ -11,6 +11,7 @@ extends VBoxContainer
 @onready var sales_container: HBoxContainer = %SalesContainer
 @onready var sales_slider: HSlider = %SalesSlider
 @onready var sales_bots_value: Label = %SalesBotsValue
+@onready var invest_title: Label = %InvestTitle
 
 
 @onready var farming_xp_grid_container: GridContainer = %FarmingXpGridContainer
@@ -99,7 +100,6 @@ func _update_sliders_max() -> void:
 
 func _update_value_labels() -> void:
 	nbr_of_bots_value.text = Global.number_to_string(Player.bots)
-	
 	for data in containers_data:
 		var label: Label = data.get("value_label", null)
 		if label != null:
