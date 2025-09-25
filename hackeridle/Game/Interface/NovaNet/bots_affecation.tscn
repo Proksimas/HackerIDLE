@@ -116,23 +116,28 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Gain"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="."]
+[node name="ExploitResearchGrid" type="GridContainer" parent="."]
 layout_mode = 2
+columns = 2
 
-[node name="ExploitResearchLabel" type="Label" parent="HBoxContainer3"]
+[node name="ExploitResearchLabel" type="Label" parent="ExploitResearchGrid"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
 text = "Recherche d'exploits
 "
 
-[node name="ExploitResearchContainer" type="HBoxContainer" parent="HBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExploitResearchGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExploitResearchContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 alignment = 1
 
-[node name="ExploitResearchSlider" type="HSlider" parent="HBoxContainer3/ExploitResearchContainer"]
+[node name="ExploitResearchSlider" type="HSlider" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
@@ -141,14 +146,14 @@ size_flags_vertical = 4
 rounded = true
 scrollable = false
 
-[node name="ExploitResearchBotsValue" type="Label" parent="HBoxContainer3/ExploitResearchContainer"]
+[node name="ExploitResearchBotsValue" type="Label" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 text = "X"
 metadata/_edit_use_anchors_ = true
 
-[node name="BotIcon" parent="HBoxContainer3/ExploitResearchContainer" instance=ExtResource("2_162po")]
+[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
