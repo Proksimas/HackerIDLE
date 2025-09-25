@@ -84,7 +84,8 @@ func update_sales_task(_delta):
 		# 	TODO EARN
 		
 		s_gain_sales.emit(gain)
-		print("gain: %s" % Global.number_to_string(gain))
+		#print("gain: %s" % Global.number_to_string(gain))
+		Player.earn_gold(gain)
 		sales_time = 0
 		pass
 
