@@ -8,14 +8,21 @@ extends VBoxContainer
 @onready var farming_xp_container: HBoxContainer = %FarmingXpContainer
 @onready var exploit_research_container: HBoxContainer = %ExploitResearchContainer
 @onready var nbr_of_bots_value: Label = %NbrOfBotsValue
+@onready var sales_container: HBoxContainer = %SalesContainer
+@onready var sales_slider: HSlider = %SalesSlider
+@onready var sales_bots_value: Label = %SalesBotsValue
+
 
 @onready var farming_xp_grid_container: GridContainer = %FarmingXpGridContainer
+@onready var exploit_research_grid: GridContainer = %ExploitResearchGrid
+@onready var sales_grid_container: GridContainer = %SalesGridContainer
 
 var containers_data: Array = []
 var containers: Array = []
 func _ready() -> void:
 	NovaNetManager.s_bots_bought.connect(_on_s_bots_bought)
-	containers = [farming_xp_container, exploit_research_container]
+	# ATTENTION Ne pas oublier de remplir le container
+	containers = [farming_xp_container, exploit_research_container, sales_container]
 	for container: BoxContainer in containers:
 		var data := {"slider": null, "value_name": null, "value_label": null}
 
@@ -29,6 +36,8 @@ func _ready() -> void:
 						data["value_name"] = "farming_xp"
 					"ExploitResearchBotsValue":
 						data["value_name"] = "research"
+					"SalesBotsValue":
+						data["value_name"] = "sales_task"
 					_:
 						push_warning("Pas de bot affecté")
 				
@@ -45,7 +54,7 @@ func _ready() -> void:
 	_update_value_labels()
 
 
-func _on_slider_changed(changed_value: float, slider: HSlider) -> void:
+func _on_slider_changed(_changed_value: float, slider: HSlider) -> void:
 	var total_bots := Player.bots
 	var sum := 0
 	for data in containers_data:

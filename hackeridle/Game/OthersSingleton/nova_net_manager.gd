@@ -47,12 +47,12 @@ func gain_farming_xp() -> int:
 	var bots = active_tasks["farming_xp"]
 	return bots * coef_farming_xp
 
-func update_research_task(delta):
+func update_research_task(_delta):
 	var bots = active_tasks["research"]
 	if bots > 0:
 		pass
 		
-func update_sales_task(delta):
+func update_sales_task(_delta):
 	var bots = active_tasks["sales_task"]
 	if bots > 0:
 		pass
@@ -122,18 +122,18 @@ func buy_bot() -> void:
 
 func michaelis_menten(or_investi):
 	"""algo renforçant le gain à bas coût pour ensuite etre tres loga"""
-	var B := 1.0
-	var Vmax := get_bot_cost(Player.bots) * 0.35   # plafond d'appoint = connaissance max par click
-	var Km := Vmax * 0.75   # point de demi-saturation
+	var _B := 1.0
+	var _Vmax := get_bot_cost(Player.bots) * 0.35   # plafond d'appoint = connaissance max par click
+	var _Km := _Vmax * 0.75   # point de demi-saturation
 	#print("Plafond d'appoint: %s   Demi saturation à : %s" % [Vmax, Km])
-	return B + Vmax * (or_investi / (Km + or_investi))
+	return _B + _Vmax * (or_investi / (_Km + or_investi))
 
 func lineaire_and_log(or_investi):
 	"""algo lineaire avec une legere log"""
-	var B := 1.0
-	var p := 0.45
-	var k := 4.0
-	return B + p * or_investi + k * log(1.0 + or_investi)
+	var _B := 1.0
+	var _p := 0.45
+	var _k := 4.0
+	return _B + _p * or_investi + _k * log(1.0 + or_investi)
 
 
 func _save_data():

@@ -24,7 +24,7 @@ func save_game():
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
-	{"language": TranslationServer.get_locale()}
+	content["language"] = TranslationServer.get_locale()
 	save_the_data(content)
 	for key in content:
 		print("%s: %s" % [key, content[key]])

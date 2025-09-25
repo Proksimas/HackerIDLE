@@ -117,6 +117,7 @@ layout_mode = 2
 text = "Gain"
 
 [node name="ExploitResearchGrid" type="GridContainer" parent="."]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 2
 
@@ -154,6 +155,44 @@ text = "X"
 metadata/_edit_use_anchors_ = true
 
 [node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="SalesGridContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 2
+
+[node name="SalesLabel" type="Label" parent="SalesGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Sales
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SalesGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="SalesContainer" type="HBoxContainer" parent="SalesGridContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SalesSlider" type="HSlider" parent="SalesGridContainer/VBoxContainer/SalesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+rounded = true
+
+[node name="SalesBotsValue" type="Label" parent="SalesGridContainer/VBoxContainer/SalesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="BotIcon" parent="SalesGridContainer/VBoxContainer/SalesContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

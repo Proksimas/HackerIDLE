@@ -82,9 +82,9 @@ func rebirth():
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
 	#On ajoute le nombre de rebirth à l'exp de maniere factorielle
-	var exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
+	var _exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP, \
-								StatsManager.ModifierType.BASE, exp, "rebirth")
+								StatsManager.ModifierType.BASE, _exp, "rebirth")
 								
 	
 	Player.skills_owned = save_stats_for_rebirth["skills_owned"]

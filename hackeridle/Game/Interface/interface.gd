@@ -252,7 +252,7 @@ func _on_button_pressed() -> void:
 		return
 	cheat_event_spin_box.apply()
 
-	EventsManager.create_event_ui(cheat_event_spin_box.value)
+	EventsManager.create_event_ui(int(cheat_event_spin_box.value))
 
 	pass # Replace with function body.
 

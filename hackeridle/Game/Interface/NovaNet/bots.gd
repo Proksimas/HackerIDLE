@@ -30,7 +30,7 @@ func refresh():
 	
 func _on_click_bot_pressed() -> void:
 	NovaNetManager.click(NovaNetManager.gold_to_invest)
-	_on_gold_invest_box_value_changed(gold_invest_box.value)
+	_on_gold_invest_box_value_changed(int(gold_invest_box.value))
 	pass # Replace with function body.
 
 
@@ -40,18 +40,18 @@ func _draw() -> void:
 func _on_s_bot_bought():
 	refresh()
 
-func _on_s_bot_knowledge_gain(knowledge_gain):
+func _on_s_bot_knowledge_gain(_knowledge_gain):
 	refresh()
 
 var old_value: int
 func _on_gold_invest_box_value_changed(value: int) -> void:
 	old_value = value
-	var perc_invest = Player.gold * (float(value)/100)
+	var perc_invest = ceil(Player.gold * (float(value)/100))
 	NovaNetManager.gold_to_invest = perc_invest
 	refresh()
 	pass # Replace with function body.
 
 
 func _on_refresh_timer_timeout() -> void:
-	_on_gold_invest_box_value_changed(gold_invest_box.value)
+	_on_gold_invest_box_value_changed(int(gold_invest_box.value))
 	pass # Replace with function body.

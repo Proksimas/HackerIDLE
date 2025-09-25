@@ -155,8 +155,8 @@ func _on_bonus_click_multiplator_timer_timeout() -> void:
 	_recent_clicks.clear()
 	pass # Replace with function body.
 
-func _on_s_brain_xp_to_earn(xp_from_click):
+func _on_s_brain_xp_to_earn(_xp_from_click):
 	#var new_xp_label = FLOATING_TEXT.instantiate()
 	#self.add_child(new_xp_label)
-	#new_xp_label.setup("+ " + str(snapped(xp_from_click,0.1)), brain_xp_bar.global_position, BLUE_NEON)
+	#new_xp_label.setup("+ " + str(snapped(_xp_from_click,0.1)), brain_xp_bar.global_position, BLUE_NEON)
 	pass
