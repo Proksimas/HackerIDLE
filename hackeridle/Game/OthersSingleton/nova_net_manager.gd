@@ -130,3 +130,8 @@ func lineaire_and_log(or_investi):
 	var p := 0.45
 	var k := 4.0
 	return B + p * or_investi + k * log(1.0 + or_investi)
+
+
+func _save_data():
+	var all_vars = Global.get_serialisable_vars(self)
+	return all_vars

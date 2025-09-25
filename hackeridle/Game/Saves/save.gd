@@ -20,6 +20,7 @@ func save_game():
 	content[StatsManager.name] = StatsManager._save_data()
 	content[TimeManager.name] = TimeManager._save_data()
 	content[EventsManager.name] = EventsManager._save_data()
+	content[NovaNetManager.name] = NovaNetManager._save_data()
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
@@ -53,6 +54,7 @@ func load_data():
 	stats_manager_load_data(data["StatsManager"])
 	time_manager_load_data(data["TimeManager"])
 	events_manager_load_data(data['EventsManager'])
+	novanet_manager_load_data(data['NovaNetManager'])
 	
 	#CHargement au niveau de l'interface et de ses sous noeuds
 	var interface =  get_tree().get_root().get_node("Main/Interface")
@@ -118,6 +120,22 @@ func events_manager_load_data(content: Dictionary) -> void:
 		#print("%s: %s" % [key, content[key]])
 	print(content)
 	EventsManager._load_data(content)
+	
+func novanet_manager_load_data(content: Dictionary) -> void:
+	print("Chargement du NovaNet:")
+	#for key in content:
+		#print("%s: %s" % [key, content[key]])
+	print(content)
+	for prop in NovaNetManager.get_property_list():
+		var p_name  : String = prop.name
+		var usage : int    = int(prop.usage)
+
+		# 2.  On ne touche qu’aux variables déclarées dans le script,
+		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
+		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
+			NovaNetManager.set(p_name, content[p_name])
+	
+	#NovaNetManager._load_data(content)
 
 func get_save_path():
 	"""renvoie le path user ou editeur"""

@@ -269,6 +269,7 @@ func _load_data(data):
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 	infos._load_data(data["Infos"])
+	novanet._load_data(data["NovaNetManager"])
 
 
 func _on_more_button_container_draw() -> void:
