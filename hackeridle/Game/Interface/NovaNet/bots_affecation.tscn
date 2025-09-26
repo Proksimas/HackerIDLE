@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7t37oj03w1c1"]
+[gd_scene load_steps=11 format=3 uid="uid://c7t37oj03w1c1"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots_affecation.gd" id="1_13n51"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="2_162po"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/farming_xp_grid_container.gd" id="3_6wr8q"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_3w75c"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/sales_grid_container.gd" id="4_b7uai"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/exploit_research_grid.gd" id="4_jnkbo"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/market_graph.gd" id="6_u02b7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4j2"]
@@ -150,6 +151,7 @@ text = "Gain"
 unique_name_in_owner = true
 layout_mode = 2
 columns = 2
+script = ExtResource("4_jnkbo")
 
 [node name="ExploitResearchLabel" type="Label" parent="ExploitResearchGrid"]
 unique_name_in_owner = true
