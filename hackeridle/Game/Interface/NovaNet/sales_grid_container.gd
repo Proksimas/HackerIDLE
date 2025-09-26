@@ -6,6 +6,7 @@ extends VBoxContainer
 @onready var sales_bots_value: Label = %SalesBotsValue
 @onready var gold_invest_label: Label = %GoldInvestLabel
 @onready var invest_title: Label = %InvestTitle
+@onready var invest_button: Button = %InvestButton
 
 @onready var market_graph: MarketGraph = %MarketGraph
 
@@ -13,6 +14,7 @@ extends VBoxContainer
 func _ready() -> void:
 	Player.s_gold_to_earn.connect(_on_s_gold_to_earn)
 	NovaNetManager.s_gain_sales.connect(s_on_s_gain_sales)
+	refresh()
 	pass # Replace with function body.
 
 
@@ -21,6 +23,10 @@ func refresh():
 	var to_invest = NovaNetManager.gold_to_invest_perc * Player.gold
 	gold_invest_label.text = Global.number_to_string(to_invest)
 	invest_title.text = tr("$Invest") + ": " 
+	if NovaNetManager.active_tasks["sales_task"] > 0:
+		invest_button.disabled = false
+	else:
+		invest_button.disabled = true
 
 func _on_draw() -> void:
 	refresh()
