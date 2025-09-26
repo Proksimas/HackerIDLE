@@ -136,7 +136,7 @@ func fill_player_stats(_rebirthing: bool = false):
 		Player.skill_point = 0
 		Player.brain_xp = 0
 		Player.nb_of_rebirth = 0
-		Player.bot = 0
+		Player.bots = 0
 		Player.exploit = 0
 		
 	else: # ICI POUR CHEAT 
