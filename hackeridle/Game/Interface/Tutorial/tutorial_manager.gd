@@ -114,7 +114,7 @@ func connect_step_signals(step: TutorialStep):
 
 func _on_point_receive(point_receive):
 	var current_step = tutorial_steps[current_step_index]
-	print("on reçoit: %s %s" % [point_receive, current_step.score_variable_name])
+	#print("on reçoit: %s %s" % [point_receive, current_step.score_variable_name])
 	if point_receive >= current_step.required_score_value:
 		go_to_next_step()
 

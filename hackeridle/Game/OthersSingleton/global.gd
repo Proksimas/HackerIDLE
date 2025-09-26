@@ -20,7 +20,7 @@ func load_json(path: String) -> Dictionary:
 func load_txt(path: String) -> Array:
 	var lines = []
 	if not FileAccess.file_exists(path):
-		print("Erreur: Le fichier TXT n'existe pas.")
+		print("Erreur: Le fichier TXT '%s' n'existe pas." % path)
 		return []
 		
 	var file := FileAccess.open(path, FileAccess.READ)
