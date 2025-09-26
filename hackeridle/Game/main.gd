@@ -136,8 +136,6 @@ func fill_player_stats(_rebirthing: bool = false):
 		Player.skill_point = 0
 		Player.brain_xp = 0
 		Player.nb_of_rebirth = 0
-		Player.bot = 0
-		Player.exploit = 0
 		
 	else: # ICI POUR CHEAT 
 		if has_full_stats:
@@ -147,8 +145,6 @@ func fill_player_stats(_rebirthing: bool = false):
 			Player.skill_point = 42
 			Player.brain_xp = 0
 			Player.nb_of_rebirth = 0
-			Player.bots = 0
-			Player.exploit = 0
 		else:
 			Player.gold = 1000
 			Player.knowledge_point = 1000
@@ -156,8 +152,6 @@ func fill_player_stats(_rebirthing: bool = false):
 			Player.skill_point = 4
 			Player.brain_xp = 0
 			Player.nb_of_rebirth = 0
-			Player.bots = 0
-			Player.exploit = 0
 			
 	#Initialisation de toutes les DB et singletons
 	HackingItemsDb.init_hacking_items_db()

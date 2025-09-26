@@ -16,15 +16,6 @@ var brain_level: int = 1:
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
 
-var bots: int = 0:
-	set(value):
-		bots = clamp(value, 0, INF)
-		s_earn_bots.emit(bots)
-		
-var exploit: int = 0:
-	set(value):
-		exploit = clamp(value, 0, INF)
-		s_earn_exploit.emit(exploit)
 		
 var brain_xp_next: float = 0
 var base_xp: float = 210
@@ -51,8 +42,6 @@ signal s_earn_brain_level(number)
 signal s_earn_cyber_force(number)
 signal s_brain_clicked(knowledge, brain_xp)
 signal s_brain_xp_to_earn(number)
-signal s_earn_bots(number)
-signal s_earn_exploit(number)
 
 signal s_add_hacking_item()
 signal s_add_learning_item()
