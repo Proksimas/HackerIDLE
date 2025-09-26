@@ -222,6 +222,7 @@ visible = false
 layout_mode = 2
 
 [node name="NovaNet" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("13_my728")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 6

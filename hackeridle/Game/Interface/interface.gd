@@ -7,7 +7,8 @@ extends Control
 @onready var navigator: TextureRect = %Navigator
 @onready var infos: Control = %Infos
 @onready var jail: Control = %Jail
-@onready var novanet: Control = $InterfacePanel/MainZone/MainTabMargin/MainTab/NovaNet
+@onready var novanet: Control = %NovaNet
+
 
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
