@@ -19,6 +19,7 @@ func _ready() -> void:
 
 
 func refresh():
+	sales_label.text = tr("$Sales")
 	sales_bots_value.text = str(NovaNetManager.active_tasks["sales_task"])
 	var to_invest = NovaNetManager.gold_to_invest_perc * Player.gold
 	gold_invest_label.text = Global.number_to_string(to_invest)
