@@ -14,6 +14,7 @@ var cache_skill_cost: int
 var cache_skill_type: String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	buy_button.set_up_icon("skill_point")
 	for skill in skills_grid.get_children():
 		skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)

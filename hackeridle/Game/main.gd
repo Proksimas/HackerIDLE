@@ -82,9 +82,9 @@ func rebirth():
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)
 
 	#On ajoute le nombre de rebirth à l'exp de maniere factorielle
-	var exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
+	var _exp = Global.factorial_iterative(Player.nb_of_rebirth + 1)
 	StatsManager.add_modifier(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP, \
-								StatsManager.ModifierType.BASE, exp, "rebirth")
+								StatsManager.ModifierType.BASE, _exp, "rebirth")
 								
 	
 	Player.skills_owned = save_stats_for_rebirth["skills_owned"]
@@ -133,25 +133,37 @@ func fill_player_stats(_rebirthing: bool = false):
 		Player.gold = 0
 		Player.knowledge_point = 0
 		Player.brain_level = 1
-		Player.skill_point = 0
 		Player.brain_xp = 0
+		Player.skill_point = 0
+		Player.exploit_xp = 0
+		Player.exploit_level = 0
+		Player.exploit_point = 0
 		Player.nb_of_rebirth = 0
+		Player.bots = 0
 		
 	else: # ICI POUR CHEAT 
 		if has_full_stats:
 			Player.gold = 100000000000
 			Player.knowledge_point = 10000000000
 			Player.brain_level = 1
-			Player.skill_point = 42
 			Player.brain_xp = 0
+			Player.skill_point = 42
+			Player.exploit_xp = 0
+			Player.exploit_level = 0
+			Player.exploit_point = 0
 			Player.nb_of_rebirth = 0
+			Player.bots = 0
 		else:
 			Player.gold = 1000
 			Player.knowledge_point = 1000
 			Player.brain_level = 1
-			Player.skill_point = 4
 			Player.brain_xp = 0
+			Player.skill_point = 4
+			Player.exploit_xp = 0
+			Player.exploit_level = 0
+			Player.exploit_point = 0
 			Player.nb_of_rebirth = 0
+			Player.bots = 0
 			
 	#Initialisation de toutes les DB et singletons
 	HackingItemsDb.init_hacking_items_db()

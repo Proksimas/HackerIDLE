@@ -7,6 +7,8 @@ extends Control
 @onready var navigator: TextureRect = %Navigator
 @onready var infos: Control = %Infos
 @onready var jail: Control = %Jail
+@onready var novanet: Control = %NovaNet
+
 
 @onready var skills_tree: Control = %SkillsTree
 @onready var second_timer: Timer = %SecondTimer
@@ -30,10 +32,13 @@ extends Control
 @onready var dark_shop_box: TextureButton = %dark_shopBox
 @onready var skills_box: TextureButton = %skillsBox
 @onready var main_zone: VBoxContainer = %MainZone
+@onready var more_button_box: TextureButton = %MoreButtonBox
+@onready var more_button_container: VFlowContainer = %MoreButtonContainer
+@onready var nova_net_box: TextureButton = %NovaNetBox
 
 const ICON_BORDER_MEDIUM = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium.png")
 const ICON_BORDER_MEDIUM_PRESSED = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_pressed.png")
-
+const ICON_BORDER_MEDIUM_GREEN = preload("res://Game/Graphics/App_icons/Neos/icon_border_medium_green.png")
 #Background textures
 const BACKGROUND = preload("res://Game/Graphics/Background/background_vignette.png")
 const ARGON = preload("res://Game/Graphics/Background/Crypte Argon/argon.png")
@@ -42,6 +47,7 @@ const GALERIES = preload("res://Game/Graphics/Background/Galeries/galeries_01.pn
 const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_valmont.png")
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
+const NOVANET= preload("res://Game/Graphics/Background/Novanet/NovaNet_bg.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -75,14 +81,16 @@ func buttons_connexion() -> void:
 	navigator_box.pressed.connect(app_button_pressed.bind("learning"))
 	dark_shop_box.pressed.connect(app_button_pressed.bind("dark_shop"))
 	skills_box.pressed.connect(app_button_pressed.bind("skills"))
-	
+	nova_net_box.pressed.connect(app_button_pressed.bind("novanet"))
 
+	more_button_box.pressed.connect(_on_more_button_box)
 
 func init_interface():
 	knowledge_resource.set_resource_box("BRAIN")
 	gold_resource.set_resource_box("GOLD")
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
+	more_button_container.hide()
 	
 	#sp_resource.set_resource_box("SP")
 	#sp_resource.refresh_value(int(Player.skill_point))
@@ -135,7 +143,10 @@ func app_button_pressed(button_name:String):
 			jail.show()
 			new_style_box.texture = JAIL
 			jail.enter_jail()
-	
+		"novanet":
+			novanet.show()
+			new_style_box.texture = NOVANET
+			
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 
 func refresh_specially_resources():
@@ -226,6 +237,8 @@ func _on_jail_button_pressed() -> void:
 	#app_button_pressed("jail")
 	pass # Replace with function body.
 
+func _on_more_button_box():
+	more_button_container.visible = !more_button_container.visible
 
 func _on_finish_button_pressed() -> void:
 	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
@@ -240,7 +253,7 @@ func _on_button_pressed() -> void:
 		return
 	cheat_event_spin_box.apply()
 
-	EventsManager.create_event_ui(cheat_event_spin_box.value)
+	EventsManager.create_event_ui(int(cheat_event_spin_box.value))
 
 	pass # Replace with function body.
 
@@ -257,3 +270,14 @@ func _load_data(data):
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
 	infos._load_data(data["Infos"])
+	novanet._load_data(data["NovaNetManager"])
+
+
+func _on_more_button_container_draw() -> void:
+	more_button_box.texture_normal = ICON_BORDER_MEDIUM_GREEN
+	pass # Replace with function body.
+
+
+func _on_more_button_container_hidden() -> void:
+	more_button_box.texture_normal = ICON_BORDER_MEDIUM
+	pass # Replace with function body.

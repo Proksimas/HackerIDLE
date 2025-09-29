@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=30 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="11_maons"]
 [ext_resource type="PackedScene" uid="uid://ba13ofw3e3xsi" path="res://Game/Interface/jail.tscn" id="12_3tt48"]
 [ext_resource type="Texture2D" uid="uid://d4iploh4b8l4q" path="res://Game/Graphics/App_icons/Neos/smiley_neo.png" id="12_rkk1i"]
+[ext_resource type="PackedScene" uid="uid://cq5d747v4kt3w" path="res://Game/Interface/NovaNet/NovaNet.tscn" id="13_my728"]
 [ext_resource type="PackedScene" uid="uid://cm3anxcysmylc" path="res://Game/Interface/Shop.tscn" id="13_ojfgi"]
 [ext_resource type="Texture2D" uid="uid://bw01nqekykvlc" path="res://Game/Graphics/App_icons/Neos/brain_neo_icon.png" id="14_0s201"]
 [ext_resource type="Texture2D" uid="uid://nb6rgvdmscor" path="res://Game/Graphics/App_icons/Neos/shop_neo_2.png" id="15_8y3be"]
@@ -19,6 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://c2cvbr4m23sb2" path="res://Game/Graphics/warning.png" id="18_kh4aw"]
 [ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="21_apx4o"]
 [ext_resource type="PackedScene" uid="uid://d0swth7gti7cd" path="res://Game/Interface/Skills/SkillsTree.tscn" id="22_tr0fy"]
+[ext_resource type="Texture2D" uid="uid://biqjg0uay257r" path="res://Game/Graphics/App_icons/Neos/menu_barre_green.png" id="22_uxqoi"]
+[ext_resource type="Texture2D" uid="uid://bl1kvx4t7tyb5" path="res://Game/Graphics/App_icons/Neos/NovaNet/novanet.png" id="23_kfq7a"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Infos.tscn" id="24_vhcrq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uhhg"]
@@ -34,6 +37,9 @@ border_color = Color(0.517647, 0.113725, 0.392157, 1)
 border_blend = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8pmxu"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8umkd"]
+load_path = "res://.godot/imported/icon_border_medium.png-e6383f91e8ca45e17c55144ef0c444c1.ctex"
 
 [node name="Interface" type="Control"]
 layout_mode = 3
@@ -180,12 +186,11 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 3.85
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_o38y2")
-current_tab = 4
+current_tab = 0
 tabs_visible = false
 
 [node name="Learning" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("18_1i2w4")]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="HackShop" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("15_kr5ho")]
@@ -207,6 +212,7 @@ metadata/_tab_index = 3
 
 [node name="Infos" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("24_vhcrq")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 4
 
@@ -214,6 +220,12 @@ metadata/_tab_index = 4
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
+
+[node name="NovaNet" parent="InterfacePanel/MainZone/MainTabMargin/MainTab" instance=ExtResource("13_my728")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+metadata/_tab_index = 6
 
 [node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/MainZone"]
 custom_minimum_size = Vector2(0, 125)
@@ -383,20 +395,65 @@ texture = ExtResource("18_kh4aw")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid"]
+[node name="AspectRatioContainer6" type="AspectRatioContainer" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="skillsBox" type="TextureButton" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer5"]
+[node name="MoreButtonBox" type="TextureButton" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer6"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 texture_normal = ExtResource("11_maons")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer6/MoreButtonBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MoreButton" type="TextureRect" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer6/MoreButtonBox/AspectRatioContainer"]
+custom_minimum_size = Vector2(100, 125)
+layout_mode = 2
+texture = ExtResource("22_uxqoi")
+expand_mode = 1
+
+[node name="MoreButtonContainer" type="VFlowContainer" parent="InterfacePanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.813559
+anchor_top = 0.600939
+anchor_right = 0.983051
+anchor_bottom = 0.898279
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AspectRatioContainer5" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="skillsBox" type="TextureButton" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer5"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_8umkd")
 texture_focused = ExtResource("15_ped3a")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer5/skillsBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -410,11 +467,45 @@ offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SkillsButton" type="TextureRect" parent="InterfacePanel/MainZone/RessourcesMargin/NavgationGrid/AspectRatioContainer5/skillsBox/AspectRatioContainer"]
+[node name="SkillsButton" type="TextureRect" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer5/skillsBox/AspectRatioContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("21_apx4o")
+expand_mode = 1
+
+[node name="AspectRatioContainer6" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NovaNetBox" type="TextureButton" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+texture_normal = SubResource("CompressedTexture2D_8umkd")
+texture_focused = ExtResource("15_ped3a")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6/NovaNetBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NovaNetButton" type="TextureRect" parent="InterfacePanel/MoreButtonContainer/AspectRatioContainer6/NovaNetBox/AspectRatioContainer"]
+custom_minimum_size = Vector2(90, 125)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("23_kfq7a")
 expand_mode = 1
 
 [node name="SecondTimer" type="Timer" parent="."]
@@ -425,4 +516,6 @@ autostart = true
 [connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/FinishButton" to="." method="_on_finish_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/JailButton" to="." method="_on_jail_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/CheatEventButton" to="." method="_on_button_pressed"]
+[connection signal="draw" from="InterfacePanel/MoreButtonContainer" to="." method="_on_more_button_container_draw"]
+[connection signal="hidden" from="InterfacePanel/MoreButtonContainer" to="." method="_on_more_button_container_hidden"]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]

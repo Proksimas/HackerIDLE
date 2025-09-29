@@ -20,7 +20,7 @@ func load_json(path: String) -> Dictionary:
 func load_txt(path: String) -> Array:
 	var lines = []
 	if not FileAccess.file_exists(path):
-		print("Erreur: Le fichier TXT n'existe pas.")
+		print("Erreur: Le fichier TXT '%s' n'existe pas." % path)
 		return []
 		
 	var file := FileAccess.open(path, FileAccess.READ)
@@ -37,7 +37,7 @@ const EN_SUFFIXES: PackedStringArray = [
 	"", "K", "M", "B", "T", "Qa", "Qi", "Sx", "Sp", "Oc", "No", "Dc" # ~1e33
 ]
 
-func number_to_string(number, snap: float = 1.0) -> String:
+func number_to_string(number, snap: float = 1.0, snap_big_value: bool = false) -> String:
 	var is_negative = number < 0.0
 	var num = absf(float(number))
 
@@ -62,6 +62,8 @@ func number_to_string(number, snap: float = 1.0) -> String:
 
 	# Arrondi lisible
 	var rounded = _round_to_decimals(scaled, dec)
+	if snap_big_value:
+		return _sign + str(round(rounded)) + " " + EN_SUFFIXES[idx]
 
 	# Cas limite : 999.95 -> 1000.0, promotion au suffixe suivant
 	if rounded >= 1000.0:
@@ -110,6 +112,23 @@ func _to_scientific(x: float, decimals: int = 2) -> String:
 	var mant_str = _to_string_trim(_round_to_decimals(mant, decimals), decimals)
 	return mant_str + "e" + str(exp10)
 #endregion
+
+func convertir_secondes(secondes: int) -> String:
+	var s = secondes
+	var h = s / 3600
+	s %= 3600  
+	var m = s / 60
+	s %= 60   
+	var chaine_temps = ""   
+	if h > 0:
+		chaine_temps += str(h) + "h"    
+	if m > 0 or h > 0: # Affiche les minutes si h > 0 ou si m > 0
+		chaine_temps += str(m) + "min"       
+	chaine_temps += str(s) + "s"   
+	return chaine_temps
+
+
+
 
 func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	"""Renvoie la position de la target pour qu'elle soit au centre"""

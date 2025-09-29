@@ -3,6 +3,7 @@ extends Node
 var knowledge_point: float
 var gold: float
 var brain_xp: float
+var exploit_xp: float
 var cyber_force: float
 var robots_cyber_force: = 1000000 
 		
@@ -16,10 +17,31 @@ var brain_level: int = 1:
 		brain_level = clamp(value, 0, INF)
 		s_earn_brain_level.emit(brain_level)
 
+var bots: int = 0:
+	set(value):
+		bots = clamp(value, 0, INF)
+		s_earn_bots.emit(bots)
+		
+var exploit_point: int = 0:
+	set(value):
+		exploit_point = clamp(value, 0, INF)
+		s_earn_exploit_point.emit(exploit_point)
+
+#COmme pour le brain_level, correspond à la "courbe" pour avoir le futur exploit_point
+var exploit_level: int = 0:
+	set(value):
+		exploit_level = clamp(value, 0, INF)
+		s_earn_exploit_level.emit(exploit_level)
 		
 var brain_xp_next: float = 0
 var base_xp: float = 210
 var xp_factor: float = 1.6
+
+
+var exploit_xp_next: float = 0
+var base_exploit_xp: float = 1000
+var exploit_xp_factor: float = 1.5
+
 var nb_of_rebirth: int = 0
 
 var learning_item_bought: Dictionary = {}
@@ -42,6 +64,10 @@ signal s_earn_brain_level(number)
 signal s_earn_cyber_force(number)
 signal s_brain_clicked(knowledge, brain_xp)
 signal s_brain_xp_to_earn(number)
+signal s_earn_bots(number)
+signal s_earn_exploit_level(number)
+signal s_earn_exploit_point(number)
+signal s_earn_exploit_xp(number)
 
 signal s_add_hacking_item()
 signal s_add_learning_item()
@@ -49,12 +75,14 @@ signal s_add_learning_item()
 
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
+	exploit_xp_next = get_exploit_xp(exploit_level)
 	
 func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
 	_init_sources()
 	brain_xp_next = get_brain_xp(brain_level -1)
+	exploit_xp_next = get_exploit_xp(exploit_level)
 	
 func _init_skills_owned():
 	skills_owned = {"active" : [],
@@ -68,6 +96,13 @@ func _check_level_up(_earning):
 		level_up()
 		return true
 	else: 
+		return false
+		
+func _check_exploit_level_up(_earning):
+	if exploit_xp + _earning >= exploit_xp_next:
+		exploit_level_up()
+		return true
+	else:
 		return false
 
 #region functions de gains
@@ -101,6 +136,15 @@ func earn_brain_xp(earning):
 	s_earn_brain_xp.emit(brain_xp)
 	#print("xp_earned: %s" % earning)
 	
+func earn_exploit_xp(earning):
+	if _check_exploit_level_up(earning):
+		exploit_xp += earning - exploit_xp
+		exploit_xp = clamp(exploit_xp, 0, INF)
+	else:
+		exploit_xp += clamp(earning, 0, INF)
+	exploit_xp = snapped(exploit_xp, 0.1)
+	s_earn_exploit_xp.emit(exploit_xp)
+	
 func earn_cyber_force(earning):
 	self.cyber_force += earning
 	cyber_force = clamp(cyber_force, 0, INF)
@@ -120,11 +164,19 @@ func level_up():
 						StatsManager.Stats.KNOWLEDGE, 
 						StatsManager.ModifierType.BASE, Player.brain_level, "birth")
 	
+func exploit_level_up():
+	exploit_point += 1
+	exploit_level += 1
+	exploit_xp_next = get_exploit_xp(exploit_level)
 #endregion
 	
 func get_brain_xp(level_asked):
 	# Base * pow(FacteurDeCroissance, level - 1)
 	return round(base_xp * pow(xp_factor, level_asked))
+	
+func get_exploit_xp(level_asked):
+		# Base * pow(FacteurDeCroissance, level - 1)
+	return round(base_exploit_xp * pow(xp_factor, level_asked))
 	
 func add_learning_item(item_cara:Dictionary):
 	s_add_learning_item.emit()

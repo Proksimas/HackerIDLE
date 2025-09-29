@@ -1,0 +1,325 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7t37oj03w1c1"]
+
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/bots_affecation.gd" id="1_13n51"]
+[ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="2_162po"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/farming_xp_grid_container.gd" id="3_6wr8q"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_3w75c"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/sales_grid_container.gd" id="4_b7uai"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/exploit_research_grid.gd" id="4_jnkbo"]
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/market_graph.gd" id="6_u02b7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4j2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.047, 0.894, 0.553, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7hs0j"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[node name="BotsAffecation" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 2
+theme_override_constants/separation = 10
+script = ExtResource("1_13n51")
+metadata/_tab_index = 1
+
+[node name="HSeparator" type="HSeparator" parent="."]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_jj4j2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="NbrOfBotsValue" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "X"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotIcon" parent="HBoxContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FarmingXpGridContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 2
+script = ExtResource("3_6wr8q")
+
+[node name="FarmingXpLabel" type="Label" parent="FarmingXpGridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Farming "
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FarmingXpGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FarmingXpContainer" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="FarmingXpSlider" type="HSlider" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+rounded = true
+scrollable = false
+
+[node name="FarmingXpBotsValue" type="Label" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "XL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BotIcon" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+
+[node name="BotIcon" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " = "
+
+[node name="XpBotsCorrespondenceLabel" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = " x xp/s"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="FarminXpGainLabel" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gain"
+
+[node name="ExploitResearchGrid" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 2
+script = ExtResource("4_jnkbo")
+
+[node name="ExploitResearchLabel" type="Label" parent="ExploitResearchGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Recherche d'exploits
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExploitResearchGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ExploitResearchContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+alignment = 1
+
+[node name="ExploitResearchSlider" type="HSlider" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+rounded = true
+scrollable = false
+
+[node name="ExploitResearchBotsValue" type="Label" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "X"
+metadata/_edit_use_anchors_ = true
+
+[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+
+[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " = "
+
+[node name="ExploitXpBotsCorrespondenceLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = " x xp/s"
+
+[node name="NextExploitLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Prochain exploit dans: X min"
+
+[node name="SalesGridContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("4_b7uai")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer"]
+layout_mode = 2
+
+[node name="SalesLabel" type="Label" parent="SalesGridContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Sales
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SalesGridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_constants/separation = 15
+
+[node name="SalesContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="SalesSlider" type="HSlider" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+rounded = true
+
+[node name="SalesBotsValue" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+text = "X"
+
+[node name="BotIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/SalesContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="InvestButton" type="Button" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_7hs0j")
+theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kqobc")
+theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InvestTitle" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$Invest"
+
+[node name="GoldInvestLabel" type="Label" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "189.28Q"
+
+[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton/HBoxContainer" instance=ExtResource("4_3w75c")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarketGraph" type="Control" parent="SalesGridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("6_u02b7")
+baseline_color = Color(1, 1, 1, 0.443137)
+
+[connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
+[connection signal="draw" from="ExploitResearchGrid" to="ExploitResearchGrid" method="_on_draw"]
+[connection signal="pressed" from="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]

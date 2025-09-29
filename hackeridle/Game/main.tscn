@@ -5,8 +5,6 @@
 
 [node name="Main" type="Node"]
 script = ExtResource("1_2eeu2")
-force_new_game = true
-has_full_stats = false
 
 [node name="ScenariosManager" parent="." instance=ExtResource("2_a5pxo")]
 unique_name_in_owner = true

@@ -164,7 +164,7 @@ func _on_confirm_button_s_pressed():
 	else:
 		push_error("Probleme dans les choix")
 		
-	var interface = Global.get_interface()
+	#var interface = Global.get_interface()
 	#if !interface.jail.is_in_jail:
 		#get_tree().paused = false
 	#else:
