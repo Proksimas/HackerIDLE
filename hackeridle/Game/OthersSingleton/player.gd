@@ -139,7 +139,7 @@ func earn_brain_xp(earning):
 func earn_exploit_xp(earning):
 	if _check_exploit_level_up(earning):
 		exploit_xp += earning - exploit_xp
-		exploit_xp = clamp(exploit_point, 0, INF)
+		exploit_xp = clamp(exploit_xp, 0, INF)
 	else:
 		exploit_xp += clamp(earning, 0, INF)
 	exploit_xp = snapped(exploit_xp, 0.1)
