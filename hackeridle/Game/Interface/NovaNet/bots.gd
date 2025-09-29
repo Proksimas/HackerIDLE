@@ -9,6 +9,7 @@ extends VBoxContainer
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
 @onready var clicker_bot_button: TextureButton = %ClickerBotButton
 @onready var gold_invest_box: HSlider = %GoldInvestBox
+@onready var knowledge_cost_label: Label = %KnowledgeCostLabel
 
 
 
@@ -22,10 +23,12 @@ func connexions():
 	NovaNetManager.s_bot_knowledge_gain.connect(_on_s_bot_knowledge_gain)
 
 func refresh():
+	gold_per_click_title.text = tr("$Invest") + " "
 	next_bot_price_value.text =  Global.number_to_string(NovaNetManager.next_bot_kwoledge_acquired) + \
 			" / " + Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
 	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_to_invest))
 	gold_invest_label.text = " - " + Global.number_to_string(NovaNetManager.gold_to_invest)
+	knowledge_cost_label.text = tr("$ToSpendAndEarn") + " "
 	knowledge_per_click_value.text = " - " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
 	
