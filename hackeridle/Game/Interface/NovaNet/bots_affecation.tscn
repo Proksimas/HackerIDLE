@@ -321,4 +321,5 @@ script = ExtResource("6_u02b7")
 baseline_color = Color(1, 1, 1, 0.443137)
 
 [connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
+[connection signal="draw" from="ExploitResearchGrid" to="ExploitResearchGrid" method="_on_draw"]
 [connection signal="pressed" from="SalesGridContainer/HBoxContainer/VBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]

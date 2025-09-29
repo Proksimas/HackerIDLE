@@ -77,6 +77,7 @@ func _on_slider_changed(_changed_value: float, slider: HSlider) -> void:
 func refresh_sub_container():
 	# ATTENTION peut créer des problemes de performances? A surveiller 
 	farming_xp_grid_container.refresh()
+	exploit_research_grid.refresh()
 
 func _update_sliders_max() -> void:
 	var total_bots := Player.bots
