@@ -141,21 +141,21 @@ func nb_click_left(or_investi) ->int:
 
 
 
-func click(or_investi: float) -> void:
+func click(or_investi: float) -> bool:
 
 	if Player.gold < or_investi:
 		print("Pas assez d’or pour investir ", or_investi)
-		return
+		return false
 	var knowledge_gain := knowledge_per_click(or_investi)
 	if Player.knowledge_point < knowledge_gain:
 		print("Pas assez de knowledge pour investir ", knowledge_gain)
-		return
-	
+		return false
 	next_bot_kwoledge_acquired += knowledge_gain
 	Player.earn_knowledge_point(0 - knowledge_gain)
 	Player.earn_gold(0 - or_investi)
 	s_bot_knowledge_gain.emit(knowledge_gain)
 	check_buy_bot()
+	return true
 	#print("Clic ! + %s connaissance (total = %s/%s)" % \
 	#	[knowledge_gain, next_bot_kwoledge_acquired, get_bot_cost(Player.bots)])
 

@@ -10,9 +10,10 @@ extends VBoxContainer
 @onready var clicker_bot_button: TextureButton = %ClickerBotButton
 @onready var gold_invest_box: HSlider = %GoldInvestBox
 @onready var knowledge_cost_label: Label = %KnowledgeCostLabel
+@onready var spam_clic_timer: Timer = %SpamClicTimer
 
-
-
+const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
+const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connexions()
@@ -31,10 +32,15 @@ func refresh():
 	knowledge_cost_label.text = tr("$ToSpendAndEarn") + " "
 	knowledge_per_click_value.text = " - " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	
-	
+
 func _on_click_bot_pressed() -> void:
-	NovaNetManager.click(NovaNetManager.gold_to_invest)
-	_on_gold_invest_box_value_changed(int(gold_invest_box.value))
+	
+	var has_click = NovaNetManager.click(NovaNetManager.gold_to_invest)
+	if has_click:
+		_on_gold_invest_box_value_changed(int(gold_invest_box.value))
+		spam_clic_timer.start()
+		clicker_bot_button.texture_normal = BOT_NEO_SMILING
+		
 	pass # Replace with function body.
 
 
@@ -58,4 +64,8 @@ func _on_gold_invest_box_value_changed(value: int) -> void:
 
 func _on_refresh_timer_timeout() -> void:
 	_on_gold_invest_box_value_changed(int(gold_invest_box.value))
+	pass # Replace with function body.
+
+func _on_spam_clic_timer_timeout() -> void:
+	clicker_bot_button.texture_normal = BOT_FULL
 	pass # Replace with function body.
