@@ -67,6 +67,7 @@ signal s_brain_xp_to_earn(number)
 signal s_earn_bots(number)
 signal s_earn_exploit_level(number)
 signal s_earn_exploit_point(number)
+signal s_earn_exploit_xp(number)
 
 signal s_add_hacking_item()
 signal s_add_learning_item()
@@ -142,7 +143,7 @@ func earn_exploit_xp(earning):
 	else:
 		exploit_xp += clamp(earning, 0, INF)
 	exploit_xp = snapped(exploit_xp, 0.1)
-	s_earn_exploit_point.emit(exploit_xp)
+	s_earn_exploit_xp.emit(exploit_xp)
 	
 func earn_cyber_force(earning):
 	self.cyber_force += earning
