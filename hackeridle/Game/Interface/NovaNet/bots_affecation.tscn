@@ -191,6 +191,36 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="HBoxContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+
+[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " = "
+
+[node name="ExploitXpBotsCorrespondenceLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = " x xp/s"
+
+[node name="NextExploitLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Prochain exploit dans: X min"
+
 [node name="SalesGridContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 2

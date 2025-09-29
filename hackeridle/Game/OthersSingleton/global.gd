@@ -113,6 +113,23 @@ func _to_scientific(x: float, decimals: int = 2) -> String:
 	return mant_str + "e" + str(exp10)
 #endregion
 
+func convertir_secondes(secondes: int) -> String:
+	var s = secondes
+	var h = s / 3600
+	s %= 3600  
+	var m = s / 60
+	s %= 60   
+	var chaine_temps = ""   
+	if h > 0:
+		chaine_temps += str(h) + "h"    
+	if m > 0 or h > 0: # Affiche les minutes si h > 0 ou si m > 0
+		chaine_temps += str(m) + "min"       
+	chaine_temps += str(s) + "s"   
+	return chaine_temps
+
+
+
+
 func get_center_pos(target_size = Vector2.ZERO) -> Vector2:
 	"""Renvoie la position de la target pour qu'elle soit au centre"""
 	var screen_size = DisplayServer.window_get_size()

@@ -20,7 +20,7 @@ var _v: float = 0.0                        # état de volatilité
 var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
 # ------------- ¨Paramètres pour le farming XP---------------------------------------------
 var coef_farming_xp = 1
-
+var coef_exploit_xp = 1
 # Nombres de bots affectés aux taches
 var active_tasks = {
 	"farming_xp": 0,
@@ -55,11 +55,20 @@ func gain_farming_xp() -> int:
 	var bots = active_tasks["farming_xp"]
 	return bots * coef_farming_xp
 
+var research_time = 0
 func update_research_task(_delta):
+	research_time += _delta
 	var bots = active_tasks["research"]
-	if bots > 0:
+	if bots > 0 and research_time >= 1:
+		var xp = gain_research()
+		Player.earn_exploit_xp(xp)
+		research_time = 0
 		pass
-		
+
+func gain_research()->float:
+	var bots = active_tasks["research"]
+	return bots * coef_exploit_xp
+	
 #region Sales
 var sales_time = 0
 func update_sales_task(_delta):
