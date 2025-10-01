@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cqsixqifhurmj"]
+
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/IamNice.gd" id="1_78j71"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_i0ssx"]
+
+[resource]
+script = ExtResource("1_78j71")
+cost = Array[int]([2, 4, 4])
+ps_texture = ExtResource("1_i0ssx")
+ps_name = "IamNice"
+data_bonus_1 = [0.15, 0.21, 0.3]
+data_bonus_2 = []
