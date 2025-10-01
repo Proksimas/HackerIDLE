@@ -15,6 +15,9 @@ var malus_effects = ["infamy","hack_time_perc","learning_items_cost_perc",
 					"hack_cost_perc"]
 var events_pool: Dictionary = {} # Tous les events inti: event_id = Event: Resource
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
+# tableau de multiplicateur du temps d'attente des events, directement en %
+# 10 = + 10%, - 10 = -10%
+var wait_time_modificators: Array = [] 
 
 
 func events_initialisation():
@@ -59,6 +62,11 @@ func get_specific_scenario(index):
 	
 func launch_timer():
 	var nbr =  randi_range(min_wait_time, max_wait_time) 
+	var multiplicators: float = 0
+	for mult in wait_time_modificators:
+		multiplicators += mult
+	if multiplicators != 0:
+		nbr = nbr * (1 + multiplicators/100)
 	timer_event.paused = false
 	timer_event.start(nbr)
 

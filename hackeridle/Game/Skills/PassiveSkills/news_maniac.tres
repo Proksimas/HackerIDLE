@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cgm71qullyy2h"]
+
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_lt8en"]
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/news_maniac.gd" id="1_vjpnb"]
+
+[resource]
+script = ExtResource("1_vjpnb")
+cost = Array[int]([3, 3, 3])
+ps_texture = ExtResource("1_lt8en")
+ps_name = "news_maniac"
+data_bonus_1 = [15, 25, 34]
+data_bonus_2 = []
