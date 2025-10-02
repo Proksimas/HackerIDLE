@@ -5,9 +5,11 @@ click_worth_desc;Chaque clic sur le cerveau est répété {data_bonus_1} fois;Ea
 business_acumen_desc;Convertit {data_bonus_1} % de la connaissance gagné en argent;Converts {data_bonus_1}% of gained knowledge into money
 IamNice_desc;Fait baisser l’infamie de {data_bonus_1} par mois;Lowers infamy by {data_bonus_1} per month
 news_maniac_desc;Augmente la fréquentation des évènements de {data_bonus_1};Increases event attendance by {data_bonus_1}
+i_want_to_click_desc;Augmente le multiplicateur de clic du joueur jusqu’à {data_bonus_1};Increases the player's click multiplier up to {data_bonus_1}
 $genius_stroke;Coup de génie;Genius stroke
 $veteran;Vétéran;Veteran
 $click_worth;Un clic en vaut deux;A click is worth two
 $business_acumen;Sens des affaires;Business acumen
 $IamNice;Promis je suis gentil;I promise I'm nice
 $news_maniac;Info maniac;News maniac
+$i_want_to_click;JE VEUX CLIQUER;I WANT TO CLICK

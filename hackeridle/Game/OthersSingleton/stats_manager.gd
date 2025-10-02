@@ -41,7 +41,7 @@ var learning_items_modifiers: Dictionary = {}
 var decrease_infamy_modifiers: Dictionary = {} #pour la perte d'infamy dans le temps
 
 var bonus_from_clicking = {} #on stack la dedans les bonus liés au click
-
+var max_base_clicking:float = 2.0
 var infamy: Dictionary
 var infamy_threshold = [10,25,40,60,90,99]
 
@@ -85,7 +85,7 @@ func _init_infamy():
 func bonus_clicking():
 	bonus_from_clicking.clear()
 	bonus_from_clicking["min"] = 1.0
-	bonus_from_clicking["max"] = 2.0
+	bonus_from_clicking["max"] = max_base_clicking
 	bonus_from_clicking["current_bonus"] = 0.0
 
 func add_modifier(target_modifier:TargetModifier, stat_name: Stats, \
