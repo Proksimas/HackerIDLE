@@ -11,6 +11,7 @@ extends VBoxContainer
 @onready var gold_invest_box: HSlider = %GoldInvestBox
 @onready var knowledge_cost_label: Label = %KnowledgeCostLabel
 @onready var spam_clic_timer: Timer = %SpamClicTimer
+@onready var ia_enabled_button: Button = %IAEnabledButton
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
 const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
@@ -18,6 +19,16 @@ const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smilin
 func _ready() -> void:
 	connexions()
 	pass # Replace with function body.
+	
+var _time = 0
+func _process(delta: float) -> void:
+	_time += delta
+	if NovaNetManager.ia_is_enable and NovaNetManager.time_ia_click != -1 and _time >= NovaNetManager.time_ia_click:
+		_on_click_bot_pressed()
+		_time = 0
+		
+	if _time >= 100:
+		_time = 0 #pour éviter un nombre quiaugmente indéfiniment
 
 func connexions():
 	NovaNetManager.s_bot_bought.connect(_on_s_bot_bought)
@@ -31,6 +42,12 @@ func refresh():
 	gold_invest_label.text = " - " + Global.number_to_string(NovaNetManager.gold_to_invest)
 	knowledge_cost_label.text = tr("$ToSpendAndEarn") + " "
 	knowledge_per_click_value.text = " - " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
+	if NovaNetManager.time_ia_click > 0:
+		ia_enabled_button.show()
+		ia_enabled_button.text = tr("$ia_enabled")
+	else:
+		ia_enabled_button.hide()
+		ia_enabled_button.text = tr("$ia_disabled")
 	
 
 func _on_click_bot_pressed() -> void:
@@ -68,4 +85,11 @@ func _on_refresh_timer_timeout() -> void:
 
 func _on_spam_clic_timer_timeout() -> void:
 	clicker_bot_button.texture_normal = BOT_FULL
+	pass # Replace with function body.
+
+
+func _on_ia_enabled_button_pressed() -> void:
+	if NovaNetManager.time_ia_click == -1:
+		push_error("On devrait pas pouvoir activer le bouton d'IA !")
+	NovaNetManager.ia_is_enable = !NovaNetManager.ia_is_enable
 	pass # Replace with function body.

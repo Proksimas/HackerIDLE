@@ -27,6 +27,8 @@ var active_tasks = {
 	"research": 0,
 	"sales_task": 0
 }
+var time_ia_click: int = -1 #si -1, alors le skill n'est pas débloqué
+var ia_is_enable: bool = false # si true, les bots sont automatisés (sous entend aussi que ia_enabled_skill == true
 signal s_bot_bought() #indique qu'on  acheté 1 bot
 signal s_bots_bought()  #indique qu'on  acheté des bots, indépendamment de leur nombre
 signal s_bot_knowledge_gain(number)
