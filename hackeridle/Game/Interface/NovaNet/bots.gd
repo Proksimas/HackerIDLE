@@ -15,6 +15,9 @@ extends VBoxContainer
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
 const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
+const RED_BUTTON_DISABLED = preload("res://Game/Themes/RedButtonDisabled.tres")
+const GREEN_BUTTON_ENABLED = preload("res://Game/Themes/GreenButtonEnabled.tres")
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	connexions()
@@ -44,11 +47,8 @@ func refresh():
 	knowledge_per_click_value.text = " - " + Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_to_invest))
 	if NovaNetManager.time_ia_click > 0:
 		ia_enabled_button.show()
-		ia_enabled_button.text = tr("$ia_enabled")
-	else:
-		ia_enabled_button.hide()
-		ia_enabled_button.text = tr("$ia_disabled")
-	
+	ia_button_box()
+
 
 func _on_click_bot_pressed() -> void:
 	
@@ -92,4 +92,17 @@ func _on_ia_enabled_button_pressed() -> void:
 	if NovaNetManager.time_ia_click == -1:
 		push_error("On devrait pas pouvoir activer le bouton d'IA !")
 	NovaNetManager.ia_is_enable = !NovaNetManager.ia_is_enable
+	ia_button_box()
 	pass # Replace with function body.
+
+func ia_button_box():
+	if NovaNetManager.ia_is_enable:
+		ia_enabled_button.text = tr("$ia_enabled")
+		var enabl_box = GREEN_BUTTON_ENABLED
+		ia_enabled_button.add_theme_stylebox_override("normal", enabl_box)
+		ia_enabled_button.add_theme_stylebox_override("hover", enabl_box)
+	else:
+		ia_enabled_button.text = tr("$ia_disabled")
+		var disab_box = RED_BUTTON_DISABLED
+		ia_enabled_button.add_theme_stylebox_override("normal", disab_box)
+		ia_enabled_button.add_theme_stylebox_override("hover", disab_box)
