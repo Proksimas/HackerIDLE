@@ -19,7 +19,7 @@ var mean_rev: float = 0.10         # retour à la moyenne (0..1)
 var _v: float = 0.0                        # état de volatilité
 var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
 # ------------- ¨Paramètres pour le farming XP---------------------------------------------
-var coef_farming_xp = 1
+var coef_farming_xp = {"base": 1}
 var coef_exploit_xp = 1
 # Nombres de bots affectés aux taches
 var active_tasks = {
@@ -55,7 +55,10 @@ func update_farming_task(delta):
 
 func gain_farming_xp() -> int:
 	var bots = active_tasks["farming_xp"]
-	return bots * coef_farming_xp
+	var sum_coef = 0
+	for coef in coef_farming_xp.values():
+		sum_coef += coef
+	return bots * sum_coef
 
 var research_time = 0
 func update_research_task(_delta):

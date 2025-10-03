@@ -13,7 +13,8 @@ var passives_skills: Dictionary = {
 	"IamNice": preload("res://Game/Skills/PassiveSkills/IamNice.tres"),
 	"news_maniac": preload("res://Game/Skills/PassiveSkills/news_maniac.tres"),
 	"i_want_to_click": preload("res://Game/Skills/PassiveSkills/i_want_to_click.tres"),
-	"ia": preload("res://Game/Skills/PassiveSkills/ia.tres")}
+	"ia": preload("res://Game/Skills/PassiveSkills/ia.tres"),
+	"i_like_bots": preload("res://Game/Skills/PassiveSkills/i_like_bots.tres")}
 
 signal as_learned(skill:ActiveSkill)
 signal ps_learned(skill:PassiveSkill)
