@@ -39,6 +39,7 @@ func load_game():
 	var interface = load_interface()
 	Save.s_data_loaded.connect(_on_s_data_loaded.bind(interface))
 	Save.load_data()
+	EventsManager.launch_timer() #On lance les events
 	
 func new_game():
 	set_starting_language() # le chargement prend ce qui est save

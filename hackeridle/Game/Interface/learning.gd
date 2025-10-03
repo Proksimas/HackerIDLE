@@ -147,6 +147,8 @@ func _load_data(_content):
 	return
 
 func _on_bonus_click_multiplator_timer_timeout() -> void:
+	max = StatsManager.bonus_from_clicking["max"]
+	min = StatsManager.bonus_from_clicking["min"]
 	var coef = (max - min) / max_from_click 
 	StatsManager.bonus_from_clicking["current_bonus"] = snapped((len(_recent_clicks) * coef) + min, 0.01 )
 	#print(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))

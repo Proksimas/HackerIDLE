@@ -222,6 +222,8 @@ func _on_s_date(array):
 	if decrease_infamy <= 0:
 		return
 	if StatsManager.infamy["current_value"] > 0:
+		#comme on est par mois, on divise par 31
+		decrease_infamy = decrease_infamy / 31
 		StatsManager.add_infamy(0 - decrease_infamy)
 	
 @onready var dark_shop_warning_icon: TextureRect = %DarkShopWarningIcon
