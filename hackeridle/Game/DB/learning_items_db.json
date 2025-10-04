@@ -6,8 +6,8 @@
             "animation_path": "res://Game/Animations/post-it.tres",
             "cost": 200,
             "cost_factor": 1.11,
-            "gain": 1.2,
-            "gain_factor":1.35,
+            "gain": 1,
+            "gain_factor":1.4,
             "formule_type":"polymoniale"
         },
 

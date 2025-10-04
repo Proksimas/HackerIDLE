@@ -14,6 +14,7 @@ class_name ShopItem
 @onready var learning_item_info: HBoxContainer = %LearningItemInfo
 @onready var gain_knowledge_label: Label = %GainKnowledgeLabel
 @onready var cost_label: Label = %CostLabel
+@onready var next_gain_label: Label = %NextGainLabel
 
 
 @onready var buy_button: Button = %BuyButton
@@ -39,6 +40,8 @@ func set_item(item_name):
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
 	buy_button.set_up_icon("gold")
+	next_gain_label.text = "+ 0"
+	
 	pass
 
 func set_refresh(item_cara: Dictionary):
@@ -52,7 +55,7 @@ func set_refresh(item_cara: Dictionary):
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
 	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
-	
+	next_gain_label.text =  "+ " + Global.number_to_string(Calculs.next_gain_knowledge(current_item_cara["item_name"], x_buy))
 
 	x_can_be_buy(x_buy)
 	#set_unlocked_button_state()
