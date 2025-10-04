@@ -21,6 +21,7 @@ anchor_bottom = 0.156495
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
+mouse_filter = 2
 script = ExtResource("1_a4nb3")
 metadata/_edit_use_anchors_ = true
 
@@ -31,6 +32,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_si0bl")
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Panel"]
@@ -40,6 +42,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="ShopItemColorRect" type="ColorRect" parent="Panel/HBoxContainer"]
@@ -47,6 +50,7 @@ custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
@@ -188,6 +192,7 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_uvdbx")
 
 [node name="Control" type="Control" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="BuyButton" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/Control" instance=ExtResource("4_p58xm")]
 unique_name_in_owner = true
@@ -197,6 +202,7 @@ anchor_bottom = 0.856
 offset_left = -227.0
 offset_right = -52.0
 size_flags_horizontal = 4
+mouse_filter = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ExploitPanel" type="ColorRect" parent="Panel/HBoxContainer"]
@@ -218,11 +224,13 @@ text = "?"
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="Panel"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="UnlockedButton" type="Button" parent="Panel/ToUnlockedPanel"]
