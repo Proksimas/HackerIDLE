@@ -1,66 +1,83 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=9 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_r5rc6"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_1kn6s"]
+[ext_resource type="PackedScene" uid="uid://dxmyyq3ebdh24" path="res://Game/Interface/Specials/buy_button.tscn" id="4_p58xm"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_wlvil"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rhnfj"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1bkx"]
-bg_color = Color(0.881796, 0.482466, 0.000684034, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_prdu3"]
-bg_color = Color(0, 0, 0, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hq43"]
-bg_color = Color(0.099986, 0.099986, 0.099986, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si0bl"]
 
 [sub_resource type="FontVariation" id="FontVariation_govgv"]
 variation_transform = Transform2D(1.1, 0, 0, 1, 0, 0)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cqc5w"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uvdbx"]
 
-[node name="ShopItem" type="Button" groups=["g_shop_item"]]
-custom_minimum_size = Vector2(0, 75)
-anchors_preset = -1
-anchor_right = 0.948148
-anchor_bottom = 0.078125
-offset_right = -6.10352e-05
+[node name="ShopItem" type="Control" groups=["g_shop_item"]]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.156495
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
-theme_override_styles/focus = SubResource("StyleBoxEmpty_rhnfj")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_v1bkx")
-theme_override_styles/hover = SubResource("StyleBoxFlat_prdu3")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_4hq43")
-theme_override_styles/normal = SubResource("StyleBoxFlat_prdu3")
 script = ExtResource("1_a4nb3")
 metadata/_edit_use_anchors_ = true
 
-[node name="LearningItemInfo" type="HBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_si0bl")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="ShopItemColorRect" type="ColorRect" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="LearningItemInfo"]
+[node name="LearningItemInfo" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect"]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo"]
 layout_mode = 2
 
-[node name="ShopTexture" type="TextureRect" parent="LearningItemInfo/AspectRatioContainer"]
+[node name="ShopTexture" type="TextureRect" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/AspectRatioContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(75, 75)
 layout_mode = 2
 texture = ExtResource("2_r5rc6")
 expand_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LearningItemInfo"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 2
+theme_override_constants/separation = 25
 
-[node name="ItemNameLabel" type="Label" parent="LearningItemInfo/VBoxContainer"]
+[node name="ItemNameLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
@@ -70,14 +87,93 @@ theme_override_fonts/font = SubResource("FontVariation_govgv")
 theme_override_font_sizes/font_size = 25
 text = "Nom"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 6
+alignment = 1
+
+[node name="LevelLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Niveau"
+
+[node name="LevelPointLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "XXX"
+horizontal_alignment = 2
+
+[node name="VBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="GoldIcon" parent="LearningItemInfo/VBoxContainer/HBoxContainer" instance=ExtResource("4_wlvil")]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="ItemPriceLabel" type="Label" parent="LearningItemInfo/VBoxContainer/HBoxContainer"]
+[node name="GainKnowledgeLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
+text = "blabla"
+horizontal_alignment = 2
+
+[node name="BrainIcon" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/HBoxContainer2/HBoxContainer" instance=ExtResource("4_1kn6s")]
+layout_mode = 2
+size_flags_horizontal = 8
+alignment_horizontal = 0
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.0705882, 1, 0.627451, 1)
+theme_override_font_sizes/font_size = 16
+text = "+ x"
+horizontal_alignment = 2
+
+[node name="ShopItem" type="Button" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/ShopItem"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/ShopItem/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "$Amélioration"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/ShopItem/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="GoldIcon" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/ShopItem/VBoxContainer/HBoxContainer3" instance=ExtResource("4_wlvil")]
+layout_mode = 2
+
+[node name="ItemPriceLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/ShopItem/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
@@ -85,65 +181,51 @@ theme_override_colors/font_color = Color(0.823529, 0.65098, 0.168627, 1)
 text = "xxxxx"
 horizontal_alignment = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="LearningItemInfo"]
+[node name="VSeparator" type="VSeparator" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_uvdbx")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
+[node name="Control" type="Control" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo"]
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 6
-alignment = 1
 
-[node name="LevelLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Niveau"
-
-[node name="LevelPointLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer"]
+[node name="BuyButton" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/Control" instance=ExtResource("4_p58xm")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-text = "XXX"
-horizontal_alignment = 2
+anchor_top = 0.232
+anchor_bottom = 0.856
+offset_left = -227.0
+offset_right = -52.0
+size_flags_horizontal = 4
+metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="LearningItemInfo/VBoxContainer2"]
+[node name="ExploitPanel" type="ColorRect" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 6
-alignment = 1
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
 
-[node name="BrainIcon" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2" instance=ExtResource("4_1kn6s")]
-custom_minimum_size = Vector2(75, 0)
-layout_mode = 2
-alignment_horizontal = 0
-
-[node name="GainKnowledgeLabel" type="Label" parent="LearningItemInfo/VBoxContainer2/HBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
-text = "+ XXX"
-
-[node name="VSeparator" type="VSeparator" parent="LearningItemInfo"]
-custom_minimum_size = Vector2(35, 0)
-layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_cqc5w")
-
-[node name="ToUnlockedPanel" type="ColorRect" parent="."]
-unique_name_in_owner = true
-visible = false
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/ExploitPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.784314)
 
-[node name="UnlockedButton" type="Button" parent="ToUnlockedPanel"]
+[node name="Label" type="Label" parent="Panel/HBoxContainer/ExploitPanel/CenterContainer"]
+layout_mode = 2
+text = "?"
+
+[node name="ToUnlockedPanel" type="ColorRect" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="UnlockedButton" type="Button" parent="Panel/ToUnlockedPanel"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 1
@@ -153,7 +235,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ToUnlockedPanel/UnlockedButton"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/ToUnlockedPanel/UnlockedButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -162,15 +244,15 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="CostLabel" type="Label" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer"]
+[node name="CostLabel" type="Label" parent="Panel/ToUnlockedPanel/UnlockedButton/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="GoldCost" type="Label" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer"]
+[node name="GoldCost" type="Label" parent="Panel/ToUnlockedPanel/UnlockedButton/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "X"
 
-[node name="GoldIcon" parent="ToUnlockedPanel/UnlockedButton/HBoxContainer" instance=ExtResource("4_wlvil")]
+[node name="GoldIcon" parent="Panel/ToUnlockedPanel/UnlockedButton/HBoxContainer" instance=ExtResource("4_wlvil")]
 layout_mode = 2

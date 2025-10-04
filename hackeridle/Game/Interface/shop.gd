@@ -53,7 +53,7 @@ func set_shop():
 			shop_grid.add_child(new_learning_item)
 			new_learning_item.set_item(item_name)
 			
-			new_learning_item.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
+			new_learning_item.buy_button.pressed.connect(_on_shop_button_pressed.bind(new_learning_item))
 			new_learning_item.unlocked_button.pressed.connect(_on_unlocked_button_pressed.bind(new_learning_item))
 			
 			

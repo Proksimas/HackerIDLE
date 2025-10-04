@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Game/Interface/shop.gd" id="1_x4y7u"]
 [ext_resource type="StyleBox" uid="uid://svnn6ol3x4r2" path="res://Game/Themes/BlueNightStyleBox.tres" id="2_p8gw0"]
-[ext_resource type="PackedScene" uid="uid://b7vmw6dhf4lw0" path="res://Game/Interface/shop_item.tscn" id="2_re0i5"]
 [ext_resource type="Texture2D" uid="uid://c1uvmdhmtxae1" path="res://Game/Graphics/Common_icons/button_3.png" id="3_uk277"]
 [ext_resource type="Texture2D" uid="uid://cfw5hhcs08adw" path="res://Game/Graphics/Common_icons/button_1.png" id="4_qfa0u"]
+[ext_resource type="PackedScene" uid="uid://b7vmw6dhf4lw0" path="res://Game/Interface/shop_item.tscn" id="5_3su5k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hm5hg"]
 texture = ExtResource("3_uk277")
@@ -114,11 +114,9 @@ text = "Max"
 [node name="ShopGrid" type="GridContainer" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 2
 theme_override_constants/v_separation = 5
 metadata/_edit_use_anchors_ = true
 
-[node name="ShopItem" parent="MarginContainer/VBoxContainer/ShopGrid" instance=ExtResource("2_re0i5")]
-layout_mode = 2
-
-[node name="ShopItem2" parent="MarginContainer/VBoxContainer/ShopGrid" instance=ExtResource("2_re0i5")]
+[node name="ShopItem" parent="MarginContainer/VBoxContainer/ShopGrid" instance=ExtResource("5_3su5k")]
 layout_mode = 2

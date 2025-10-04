@@ -1,4 +1,4 @@
-extends Button
+extends Control
 
 class_name ShopItem
 
@@ -14,6 +14,9 @@ class_name ShopItem
 @onready var learning_item_info: HBoxContainer = %LearningItemInfo
 @onready var gain_knowledge_label: Label = %GainKnowledgeLabel
 @onready var cost_label: Label = %CostLabel
+
+
+@onready var buy_button: Button = %BuyButton
 
 var current_item_cara: Dictionary
 var x_buy: int
@@ -35,6 +38,7 @@ func set_item(item_name):
 	x_buy = 1
 	x_can_be_buy(x_buy)# par défaut on affiche le prix à 1 item d'acheter
 	set_unlocked_button_state()
+	buy_button.set_up_icon("gold")
 	pass
 
 func set_refresh(item_cara: Dictionary):
@@ -83,13 +87,14 @@ func x_can_be_buy(_x_buy):
 	
 	#item_price = Calculs.total_learning_prices(current_item_cara, quantity_to_buy)
 	if Player.gold  < item_price:
-		self.disabled = true
+		buy_button.disabled = true
 	else:
-		self.disabled = false
+		buy_button.disabled = false
 		
 	# on tente de maj le prix ici
 	
-	item_price_label.text = Global.number_to_string(item_price)
+	buy_button.refresh(item_price, "gold")
+	#item_price_label.text = Global.number_to_string(item_price)
 
 		
 	
