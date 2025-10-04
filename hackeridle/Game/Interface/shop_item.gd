@@ -55,7 +55,6 @@ func set_refresh(item_cara: Dictionary):
 	var item_level = current_item_cara["level"]
 	level_point_label.text = Global.number_to_string(item_level)
 	gain_knowledge_label.text = "+" + Global.number_to_string(Calculs.passif_learning_gain(current_item_cara)) + " /s"
-	next_gain_label.text =  "+ " + Global.number_to_string(Calculs.next_gain_knowledge(current_item_cara["item_name"], x_buy))
 
 	x_can_be_buy(x_buy)
 	#set_unlocked_button_state()
@@ -87,13 +86,13 @@ func x_can_be_buy(_x_buy):
 		
 	item_price = StatsManager.calcul_learning_items_stat(StatsManager.Stats.COST,
 	Calculs.total_learning_prices(current_item_cara, quantity_to_buy))
-	
 	#item_price = Calculs.total_learning_prices(current_item_cara, quantity_to_buy)
 	if Player.gold  < item_price:
 		buy_button.disabled = true
 	else:
 		buy_button.disabled = false
-		
+		next_gain_label.text =  "+ " + Global.number_to_string(Calculs.next_gain_knowledge(current_item_cara["item_name"], quantity_to_buy))
+
 	# on tente de maj le prix ici
 	
 	buy_button.refresh(item_price, "gold")
