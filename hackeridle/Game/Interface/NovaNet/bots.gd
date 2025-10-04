@@ -13,6 +13,8 @@ extends VBoxContainer
 @onready var spam_clic_timer: Timer = %SpamClicTimer
 @onready var ia_enabled_button: Button = %IAEnabledButton
 @onready var not_enough_container: HBoxContainer = %NotEnoughContainer
+@onready var nb_of_bots_title: Label = %NbOfBotsTitle
+@onready var nb_of_bots_value: Label = %NbOfBotsValue
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
 const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
@@ -42,6 +44,9 @@ func connexions():
 	NovaNetManager.s_not_enough.connect(_on_s_not_enough)
 
 func refresh():
+	
+	nb_of_bots_title.text = tr("$NbOfBots") + ": "
+	nb_of_bots_value.text = Global.number_to_string(Player.bots)
 	gold_per_click_title.text = tr("$Invest") + " "
 	next_bot_price_value.text =  Global.number_to_string(NovaNetManager.next_bot_kwoledge_acquired) + \
 			" / " + Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
