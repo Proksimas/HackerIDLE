@@ -9,6 +9,10 @@ const CYBER_FORCE_ICON = preload("res://Game/Interface/Icons/cyber_force_icon.ts
 const GOLD_ICON = preload("res://Game/Interface/Icons/gold_icon.tscn")
 const TROPHY_ICON = preload("res://Game/Interface/Icons/trophy_icon.tscn")
 
+const YELLOW = Color(0.824, 0.651, 0.169)
+const BRAIN_COLOR = Color(0.847, 0.431, 0.325)
+const WHITE  = Color(1, 1, 1)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -28,17 +32,22 @@ func set_up_icon(_type: String):
 	price_container.add_child(node)
 	
 func refresh(item_price: float, _type: String):
+	var color: Color
 	var type_point
 	match _type:
 		"knowledge_point":
 			type_point = Player.knowledge_point 
+			color = BRAIN_COLOR
 		"gold":
 			type_point = Player.gold
+			color = YELLOW
 		"cyber_force":
 			type_point = Player.cyber_force
+			color = WHITE
 		"skill_point":
 			type_point = Player.skill_point
-			
+			color = WHITE
+	item_price_label.add_theme_color_override("font_color", color)
 	if type_point < item_price:
 		to_disable()
 	else:
