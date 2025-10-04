@@ -40,6 +40,10 @@ func _process(delta: float) -> void:
 	update_research_task(delta)
 	update_sales_task(delta)
 	
+func _init():
+	for key in active_tasks:
+		active_tasks[key] = 0
+	
 func assign_bots(task_name, number_of_bots):
 	active_tasks[task_name] = number_of_bots
 	pass
