@@ -46,6 +46,6 @@ func s_on_s_gain_sales(gain):
 	market_graph._on_market_updated(gain)
 	pass
 
-func _on_s_gold_to_earn(gold):
+func _on_s_gold_to_earn(_gold):
 	"""le joueur vient de gagner de largent"""
 	refresh()

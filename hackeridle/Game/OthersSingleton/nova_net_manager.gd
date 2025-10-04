@@ -33,6 +33,7 @@ signal s_bot_bought() #indique qu'on  acheté 1 bot
 signal s_bots_bought()  #indique qu'on  acheté des bots, indépendamment de leur nombre
 signal s_bot_knowledge_gain(number)
 signal s_gain_sales(number)
+signal s_not_enough(type)
 func _process(delta: float) -> void:
 	
 	update_farming_task(delta)
@@ -150,10 +151,12 @@ func click(or_investi: float) -> bool:
 
 	if Player.gold < or_investi:
 		print("Pas assez d’or pour investir ", or_investi)
+		s_not_enough.emit("gold")
 		return false
 	var knowledge_gain := knowledge_per_click(or_investi)
 	if Player.knowledge_point < knowledge_gain:
 		print("Pas assez de knowledge pour investir ", knowledge_gain)
+		s_not_enough.emit("knowledge")
 		return false
 	next_bot_kwoledge_acquired += knowledge_gain
 	Player.earn_knowledge_point(0 - knowledge_gain)

@@ -9,6 +9,5 @@ func attach(_caster: Node, level) -> void:
 func detach(_caster: Node)-> void:
 	"""dettache les ajouts que donne le sill"""
 	super.detach(_caster)
-	var value = 0 - data_bonus_1[ps_level - 1]
 	
 	EventsManager.wait_time_modificators.erase(self.ps_name)

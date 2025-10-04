@@ -12,11 +12,14 @@ extends VBoxContainer
 @onready var knowledge_cost_label: Label = %KnowledgeCostLabel
 @onready var spam_clic_timer: Timer = %SpamClicTimer
 @onready var ia_enabled_button: Button = %IAEnabledButton
+@onready var not_enough_container: HBoxContainer = %NotEnoughContainer
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
 const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
 const RED_BUTTON_DISABLED = preload("res://Game/Themes/RedButtonDisabled.tres")
 const GREEN_BUTTON_ENABLED = preload("res://Game/Themes/GreenButtonEnabled.tres")
+const GOLD_ICON = preload("res://Game/Interface/Icons/gold_icon.tscn")
+const BRAIN_ICON = preload("res://Game/Interface/Icons/brain_icon.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,6 +39,7 @@ func _process(delta: float) -> void:
 func connexions():
 	NovaNetManager.s_bot_bought.connect(_on_s_bot_bought)
 	NovaNetManager.s_bot_knowledge_gain.connect(_on_s_bot_knowledge_gain)
+	NovaNetManager.s_not_enough.connect(_on_s_not_enough)
 
 func refresh():
 	gold_per_click_title.text = tr("$Invest") + " "
@@ -96,6 +100,10 @@ func _on_ia_enabled_button_pressed() -> void:
 	pass # Replace with function body.
 
 func ia_button_box():
+	if NovaNetManager.time_ia_click == -1:
+		ia_enabled_button.hide()
+	else: ia_enabled_button.show()
+	
 	if NovaNetManager.ia_is_enable:
 		ia_enabled_button.text = tr("$ia_enabled")
 		var enabl_box = GREEN_BUTTON_ENABLED
@@ -106,3 +114,27 @@ func ia_button_box():
 		var disab_box = RED_BUTTON_DISABLED
 		ia_enabled_button.add_theme_stylebox_override("normal", disab_box)
 		ia_enabled_button.add_theme_stylebox_override("hover", disab_box)
+		
+var enough_in_progress: bool = false
+func _on_s_not_enough(type: String):
+	if enough_in_progress:
+		return
+	var icon
+	var label = Label.new()
+	
+	match type:
+		"knowledge":
+			icon = BRAIN_ICON.instantiate()
+		"gold":
+			icon = GOLD_ICON.instantiate()
+			
+	not_enough_container.add_child(label)
+	label.text = tr("$not_enough")
+	not_enough_container.add_child(icon)
+	not_enough_container.show()
+	enough_in_progress = true
+	await get_tree().create_timer(4).timeout
+	for elmt in not_enough_container.get_children():
+		elmt.queue_free()
+	not_enough_container.hide()
+	enough_in_progress = false
