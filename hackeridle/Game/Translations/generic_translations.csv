@@ -40,6 +40,7 @@ $NbOfBots;Nombre de bots;Number of bots
 $ToSpendAndEarn;Pour dépenser et gagner;To spend and earn
 $Exploits;Exploitations;Exploits
 $NextExploit;Prochain exploit dans;Next exploit in
+$Next;Prochain;Next
 $ia_enabled;IA activée;IA enabled
 $ia_disabled;IA désactivée;IA disabled
 $not_enough;Pas assez;Not enough

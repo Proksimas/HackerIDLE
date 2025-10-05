@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7t37oj03w1c1"]
+[gd_scene load_steps=12 format=3 uid="uid://c7t37oj03w1c1"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots_affecation.gd" id="1_13n51"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="2_162po"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_3w75c"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/sales_grid_container.gd" id="4_b7uai"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/exploit_research_grid.gd" id="4_jnkbo"]
+[ext_resource type="Texture2D" uid="uid://yrqxhvfp2sx4" path="res://Game/Graphics/Common_icons/exploit_blue.png" id="5_x7egj"]
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/market_graph.gd" id="6_u02b7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4j2"]
@@ -216,10 +217,25 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = " x xp/s"
 
-[node name="NextExploitLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+layout_mode = 2
+
+[node name="NextExploitLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Prochain exploit dans: X min"
+text = "Prochain "
+
+[node name="TextureRect" type="TextureRect" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("5_x7egj")
+expand_mode = 1
+
+[node name="NextExploitTimeLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="SalesGridContainer" type="VBoxContainer" parent="."]
 unique_name_in_owner = true

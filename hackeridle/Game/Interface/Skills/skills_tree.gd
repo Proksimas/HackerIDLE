@@ -7,6 +7,8 @@ extends Control
 @onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var skill_point_value: Label = %SkillPointValue
 @onready var buy_button: Button = %BuyButton
+@onready var exploits: Panel = %Exploits
+@onready var skills: Panel = %Skills
 
 
 var cache_skill_name: String
@@ -14,7 +16,9 @@ var cache_skill_cost: int
 var cache_skill_type: String
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
+	# ATTENTION ON HIDE POUR LE MOMENT CAR ON A SWITCH VERS LEARNING
+	exploits.hide()
+	skills.show()
 	buy_button.set_up_icon("skill_point")
 	for skill in skills_grid.get_children():
 		skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
