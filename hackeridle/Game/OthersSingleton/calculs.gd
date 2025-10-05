@@ -113,7 +113,6 @@ func next_gain_gold(hacking_item_name, level_gain)-> float:
 func next_gain_knowledge(learning_item_name, level_gain)-> float:
 	"""On anticipe le gain en kno de l'item si il est amélioré de x level"""
 	if !Player.has_learning_item(learning_item_name): # item pas présent. 
-		push_warning("L'item n'est pas présent !")
 		return 0
 	var item = Player.learning_item_bought[learning_item_name].duplicate()
 
