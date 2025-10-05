@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=20 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_fecvy"]
@@ -11,8 +11,6 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8p8n"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lk2jh"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ir0dp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_iikjs"]
 
@@ -29,6 +27,20 @@ draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wajp"]
 bg_color = Color(0.878431, 0.423529, 0.972549, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqjks"]
+bg_color = Color(0.219608, 0.996078, 0.996078, 0.2)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wylft"]
+bg_color = Color(0.219608, 0.996078, 0.996078, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_enkis"]
 
@@ -86,7 +98,7 @@ unique_name_in_owner = true
 z_index = 50
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Level 1"
 horizontal_alignment = 1
@@ -100,27 +112,31 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_lk2jh")
 z_index = 50
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 35
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
-
 [node name="BrainXpBar" type="ProgressBar" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_iikjs")
-custom_minimum_size = Vector2(150, 25)
+custom_minimum_size = Vector2(500, 25)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 6
 theme_override_styles/background = SubResource("StyleBoxTexture_ef5fm")
 theme_override_styles/fill = SubResource("StyleBoxFlat_4wajp")
 step = 1.0
 value = 30.0
 show_percentage = false
 
-[node name="VSeparator2" type="VSeparator" parent="AllContainer/Control/LevelContainer/HBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="AllContainer/Control/LevelContainer"]
+z_index = 50
 layout_mode = 2
-theme_override_constants/separation = 35
-theme_override_styles/separator = SubResource("StyleBoxEmpty_ir0dp")
+
+[node name="ExploitProgress" type="ProgressBar" parent="AllContainer/Control/LevelContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 10)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_styles/background = SubResource("StyleBoxFlat_nqjks")
+theme_override_styles/fill = SubResource("StyleBoxFlat_wylft")
+value = 70.0
+show_percentage = false
 
 [node name="HSeparator" type="HSeparator" parent="AllContainer/Control/LevelContainer"]
 z_index = 50
@@ -136,7 +152,7 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 1)
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
 theme_override_font_sizes/font_size = 24
 text = "10000 /s"
 
@@ -148,7 +164,7 @@ size_flags_horizontal = 4
 unique_name_in_owner = true
 z_index = 100
 layout_mode = 2
-theme_override_colors/font_color = Color(0.219608, 0.996078, 0.996078, 0.54902)
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 0.54902)
 theme_override_font_sizes/font_size = 27
 text = "x 1.2"
 horizontal_alignment = 1

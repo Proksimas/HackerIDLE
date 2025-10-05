@@ -20,7 +20,7 @@ const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.t
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
 const FLOATING_TEXT = preload("res://Game/Interface/Specials/floating_text.tscn")
 const VIOLET_NEON = Color(0.878, 0.424, 0.973)
-const BLUE_NEON =  Color(0.22, 0.996, 0.996)
+const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
 
 var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
@@ -141,7 +141,7 @@ func start_random_tween():
 
 
 func _draw():
-	current_brain_level.text = tr("$Level") + ": " + str(Player.brain_level)
+	current_brain_level.text = tr("$Level") + " " + str(Player.brain_level)
 
 func _load_data(_content):
 	return

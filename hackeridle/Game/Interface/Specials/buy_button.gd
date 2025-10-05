@@ -10,7 +10,7 @@ const GOLD_ICON = preload("res://Game/Interface/Icons/gold_icon.tscn")
 const TROPHY_ICON = preload("res://Game/Interface/Icons/trophy_icon.tscn")
 
 const YELLOW = Color(0.824, 0.651, 0.169)
-const BRAIN_COLOR = Color(0.847, 0.431, 0.325)
+const BRAIN_COLOR = Color(0.847, 0.431, 0.325) #d86e53
 const WHITE  = Color(1, 1, 1)
 
 # Called when the node enters the scene tree for the first time.
