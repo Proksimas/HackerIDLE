@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=11 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_r5rc6"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="4_1kn6s"]
 [ext_resource type="PackedScene" uid="uid://dxmyyq3ebdh24" path="res://Game/Interface/Specials/buy_button.tscn" id="4_p58xm"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_wlvil"]
+[ext_resource type="Script" path="res://Game/Interface/exploit_panel.gd" id="6_5ixiv"]
+[ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="6_yh0hy"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si0bl"]
 
@@ -211,6 +213,7 @@ metadata/_edit_use_anchors_ = true
 custom_minimum_size = Vector2(0, 75)
 layout_mode = 2
 color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+script = ExtResource("6_5ixiv")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer/ExploitPanel"]
 layout_mode = 1
@@ -220,9 +223,67 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Panel/HBoxContainer/ExploitPanel/CenterContainer"]
+[node name="InterrogationLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/CenterContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "?"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ExploitPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="IPKButton" type="Button" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_styles/normal = ExtResource("6_yh0hy")
+
+[node name="IPKLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPKButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+text = "Augmente la connaissance passive de l'item de x"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CostExploitLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cout x Exploit"
+
+[node name="IPCButton" type="Button" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_styles/normal = ExtResource("6_yh0hy")
+
+[node name="IPCLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+text = "Augmente la connaissance passive de l'item de x"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="Panel"]
 unique_name_in_owner = true

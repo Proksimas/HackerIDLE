@@ -124,6 +124,7 @@ func statut_updated():
 		self.hide()
 		
 func get_knowledge_from_passif() -> float:
+	"""Retourne le gain de connaissance des items passif"""
 	var knowledge_gain:float = 0
 	if !Player.learning_item_statut[current_item_cara["item_name"]] == 'unlocked':
 		return knowledge_gain

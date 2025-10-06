@@ -69,13 +69,21 @@ func passif_learning_gain(item_cara) -> float:
 	if item_cara["formule_type"] == "polymoniale":
 		gain = item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"])
 		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
-		return snapped(gain, 0.1)
+		
 		
 	
 	else:
 		gain =item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1)
 		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
-		return snapped(gain,0.1)
+		
+	# Maintenant on ajoute les bonus liés aux exploits
+	var level_ipk = item_cara["level_ipk"]
+	#on multiplie le gain * le level du gain + 1
+	print("Old passive item gain: %s" % gain)
+	gain *= level_ipk + 1
+	print("New passive item gain: %s" % gain)
+	
+	return snapped(gain,0.1)
 
 func gain_gold(hacking_item_name):
 	if !Player.has_hacking_item(hacking_item_name): # item pas présent. 
@@ -172,3 +180,7 @@ func get_tot_knowledge() -> float:
 											shop.get_tot_knowledge_from_shop_items()
 	tot_knowledge += knowledge_from_shop_item
 	return tot_knowledge
+
+func get_pi_improvement_passive_knowledge():
+	""""""
+	pass
