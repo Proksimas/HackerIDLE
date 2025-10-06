@@ -14,6 +14,7 @@ func init_learning_items_db():
 	
 	for item in items["learning_items"]:
 		var dict_item = { "item_name": item["item_name"],
+							"id": item["id"],
 							"texture_path": item["texture_path"],
 							"animation_path": item["animation_path"],
 							"level": 1,
