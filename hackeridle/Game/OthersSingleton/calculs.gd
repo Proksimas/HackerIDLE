@@ -79,10 +79,8 @@ func passif_learning_gain(item_cara) -> float:
 	# Maintenant on ajoute les bonus liés aux exploits
 	var level_ipk = item_cara["level_ipk"]
 	#on multiplie le gain * le level du gain + 1
-	print("Old passive item gain: %s" % gain)
-	gain *= level_ipk + 1
-	print("New passive item gain: %s" % gain)
-	
+	var old_gain = gain
+	gain = old_gain * pow(2, level_ipk)
 	return snapped(gain,0.1)
 
 func gain_gold(hacking_item_name):
