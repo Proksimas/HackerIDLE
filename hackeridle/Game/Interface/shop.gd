@@ -16,6 +16,8 @@ func _ready() -> void:
 	for button:Button in buttons_container.get_children():
 		button.pressed.connect(_on_x_button_pressed.bind(button.name))
 		
+	Player.s_earn_exploit_point.connect(self.learning_items_statut_updated)
+		
 var time = 0
 var gain_learning_items: float = 0
 func _process(delta: float) -> void:

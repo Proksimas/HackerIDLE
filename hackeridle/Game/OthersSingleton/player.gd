@@ -25,7 +25,7 @@ var bots: int = 0:
 var exploit_point: int = 0:
 	set(value):
 		exploit_point = clamp(value, 0, INF)
-		s_earn_exploit_point.emit(exploit_point)
+		s_earn_exploit_point.emit()
 
 #COmme pour le brain_level, correspond à la "courbe" pour avoir le futur exploit_point
 var exploit_level: int = 0:
@@ -66,7 +66,7 @@ signal s_brain_clicked(knowledge, brain_xp)
 signal s_brain_xp_to_earn(number)
 signal s_earn_bots(number)
 signal s_earn_exploit_level(number)
-signal s_earn_exploit_point(number)
+signal s_earn_exploit_point()
 signal s_earn_exploit_xp(number)
 
 signal s_add_hacking_item()

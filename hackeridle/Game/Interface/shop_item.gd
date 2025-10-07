@@ -26,6 +26,7 @@ var quantity_to_buy: int
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	level_label.text = tr("$Level")
+	
 	pass # Replace with function body.
 
 func set_item(item_name):

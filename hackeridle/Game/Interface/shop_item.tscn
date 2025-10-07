@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7vmw6dhf4lw0"]
+[gd_scene load_steps=12 format=3 uid="uid://b7vmw6dhf4lw0"]
 
 [ext_resource type="Script" path="res://Game/Interface/shop_item.gd" id="1_a4nb3"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_r5rc6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_wlvil"]
 [ext_resource type="Script" path="res://Game/Interface/exploit_panel.gd" id="6_5ixiv"]
 [ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="6_yh0hy"]
+[ext_resource type="PackedScene" uid="uid://bidg1lwunnkr3" path="res://Game/Interface/Icons/exploit_icon.tscn" id="8_dc658"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_si0bl"]
 
@@ -258,11 +259,28 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="CostExploitLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
+layout_mode = 2
+
+[node name="CostExploitLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
+size_flags_vertical = 6
 text = "Cout x Exploit"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="CostExploitValue" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="ExploitIcon" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("8_dc658")]
+layout_mode = 2
 
 [node name="IPCButton" type="Button" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer"]
 unique_name_in_owner = true
@@ -328,5 +346,6 @@ text = "X"
 [node name="GoldIcon" parent="Panel/ToUnlockedPanel/UnlockedButton/HBoxContainer" instance=ExtResource("4_wlvil")]
 layout_mode = 2
 
+[connection signal="draw" from="Panel/HBoxContainer/ExploitPanel" to="Panel/HBoxContainer/ExploitPanel" method="_on_draw"]
 [connection signal="pressed" from="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPKButton" to="Panel/HBoxContainer/ExploitPanel" method="_on_ipk_button_pressed"]
 [connection signal="pressed" from="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton" to="Panel/HBoxContainer/ExploitPanel" method="_on_ipc_button_pressed"]

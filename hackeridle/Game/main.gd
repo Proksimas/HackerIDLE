@@ -151,7 +151,7 @@ func fill_player_stats(_rebirthing: bool = false):
 			Player.skill_point = 42
 			Player.exploit_xp = 0
 			Player.exploit_level = 0
-			Player.exploit_point = 0
+			Player.exploit_point = 100
 			Player.nb_of_rebirth = 0
 			Player.bots = 0
 		else:
@@ -162,7 +162,7 @@ func fill_player_stats(_rebirthing: bool = false):
 			Player.skill_point = 4
 			Player.exploit_xp = 0
 			Player.exploit_level = 0
-			Player.exploit_point = 0
+			Player.exploit_point = 4
 			Player.nb_of_rebirth = 0
 			Player.bots = 0
 			
