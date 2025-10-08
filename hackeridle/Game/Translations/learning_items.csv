@@ -6,3 +6,4 @@ webinar;Webinaire;Webinar
 deep_dream;Deep Dream; Deep Dream
 casque_ar;Cours en VR;VR courses
 $DoubleKnowledge;Double la connaissance passive;Double passive knowledge
+$IPCAugment;Chaque clic donnera {ipc_knowledge} connaissance (niveau de l'item x {exploit_knowledge});Each click will give {ipc_knowledge} knowledge (item level x {exploit_knowledge})
