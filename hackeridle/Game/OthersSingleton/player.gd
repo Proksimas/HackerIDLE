@@ -72,6 +72,8 @@ signal s_earn_exploit_xp(number)
 signal s_add_hacking_item()
 signal s_add_learning_item()
 
+signal s_learning_item_level_up(item_name)
+
 
 func _ready() -> void:
 	brain_xp_next = get_brain_xp(brain_level -1)
@@ -203,6 +205,7 @@ pass
 ##Gagne le nombre de level donné en paramètre
 func learning_item_level_up(item_name: String, gain_of_level):
 	learning_item_bought[item_name]["level"] += gain_of_level
+	s_learning_item_level_up.emit(item_name)
 	
 	
 func has_learning_item(item_name):
