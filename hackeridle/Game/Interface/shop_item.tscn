@@ -309,19 +309,36 @@ layout_mode = 2
 size_flags_horizontal = 6
 theme_override_styles/normal = ExtResource("6_yh0hy")
 
-[node name="IPCLabel" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton"]
-unique_name_in_owner = true
+[node name="BonusPerClicContainer2" type="VBoxContainer" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -56.5
+offset_top = -28.5
+offset_right = 56.5
+offset_bottom = 28.5
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 15
-text = "Chaque clic donne X connaissance (niveau de l'item x value * nb ipc)"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
+
+[node name="BonusPerClickLabel2" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton/BonusPerClicContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Bonus par clic:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton/BonusPerClicContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="KnowledgePerClickLabel2" type="Label" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton/BonusPerClicContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "+ 0"
+
+[node name="BrainIcon" parent="Panel/HBoxContainer/ExploitPanel/HBoxContainer/IPCButton/BonusPerClicContainer2/HBoxContainer" instance=ExtResource("4_1kn6s")]
+layout_mode = 2
 
 [node name="ToUnlockedPanel" type="ColorRect" parent="Panel"]
 unique_name_in_owner = true
