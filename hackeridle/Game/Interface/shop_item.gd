@@ -16,7 +16,6 @@ class_name ShopItem
 @onready var cost_label: Label = %CostLabel
 @onready var next_gain_label: Label = %NextGainLabel
 
-
 @onready var buy_button: Button = %BuyButton
 
 var current_item_cara: Dictionary

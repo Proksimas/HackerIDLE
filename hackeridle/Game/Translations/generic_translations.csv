@@ -26,9 +26,10 @@ $Modifiers;Modificateurs;Modifiers
 $PulsarTitle;Le Pulsar de Novasec;Novasec's Pulsar
 $PulsarLogan;Quand la ville se tait, le Pulsar parle;When the city is silent, the Pulsar speaks
 $Brain;Cerveau;Brain
-$Xp_per_click;Xp par click;Xp per click
-$knowledge_click_perc;Connaissance par click;Knowledge per click
-$knowledge_click_base;Connaissance par click;Knowledge per click
+$Xp_per_click;Xp par clic;Xp per click
+$knowledge_click_perc;Connaissance par clic;Knowledge per click
+$knowledge_click_base;Connaissance par clic;Knowledge per click
+$bonus_click;Bonus par clic;Bonus per click
 $LearningItems;Objets passifs;Passive items
 $Invest;Investir;Invest
 $FarmingXp;Analyse du NovaNet;NovaNet analysis
