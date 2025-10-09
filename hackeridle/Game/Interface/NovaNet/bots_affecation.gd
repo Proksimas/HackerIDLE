@@ -14,8 +14,8 @@ extends VBoxContainer
 @onready var invest_title: Label = %InvestTitle
 
 
-@onready var farming_xp_grid_container: GridContainer = %FarmingXpGridContainer
-@onready var exploit_research_grid: GridContainer = %ExploitResearchGrid
+@onready var farming_xp_grid_container: Control = %FarmingXpGridContainer
+@onready var exploit_research_grid: Control = %ExploitResearchGrid
 @onready var sales_grid_container: VBoxContainer = %SalesGridContainer
 
 var containers_data: Array = []

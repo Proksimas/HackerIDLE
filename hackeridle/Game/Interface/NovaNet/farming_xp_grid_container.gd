@@ -1,10 +1,11 @@
-extends GridContainer
+extends Control
 
 @onready var farming_xp_slider: HSlider = %FarmingXpSlider
 @onready var farming_xp_bots_value: Label = %FarmingXpBotsValue
 @onready var xp_bots_correspondence_label: Label = %XpBotsCorrespondenceLabel
 @onready var farmin_xp_gain_label: Label = %FarminXpGainLabel
 @onready var farming_xp_label: Label = %FarmingXpLabel
+@onready var farming_xp_title: Label = %FarmingXpTitle
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,6 +14,7 @@ func _ready() -> void:
 
 func refresh():
 	farming_xp_label.text = tr("$FarmingXp")
+	farming_xp_title.text = tr("$FarmingXp")
 	farming_xp_bots_value.text = str(NovaNetManager.active_tasks["farming_xp"])
 	farmin_xp_gain_label.text = tr("$Gain") + ": " + str(NovaNetManager.gain_farming_xp()) + " xp/s"
 	
@@ -27,5 +29,5 @@ func _on_draw() -> void:
 
 
 func _on_farming_button_pressed() -> void:
-	get_parent().show()
+	self.show()
 	pass # Replace with function body.
