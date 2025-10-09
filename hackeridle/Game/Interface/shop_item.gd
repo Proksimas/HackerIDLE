@@ -15,6 +15,7 @@ class_name ShopItem
 @onready var gain_knowledge_label: Label = %GainKnowledgeLabel
 @onready var cost_label: Label = %CostLabel
 @onready var next_gain_label: Label = %NextGainLabel
+@onready var next_level_label: Label = %NextLevelLabel
 
 @onready var buy_button: Button = %BuyButton
 
@@ -91,8 +92,8 @@ func x_can_be_buy(_x_buy):
 		buy_button.disabled = true
 	else:
 		buy_button.disabled = false
-		next_gain_label.text =  "+ " + Global.number_to_string(Calculs.next_gain_knowledge(current_item_cara["item_name"], quantity_to_buy))
-
+	next_gain_label.text =  "+ " + Global.number_to_string(Calculs.next_gain_knowledge(current_item_cara["item_name"], quantity_to_buy))
+	next_level_label.text = "+ " + Global.number_to_string(quantity_to_buy)
 	# on tente de maj le prix ici
 	
 	buy_button.refresh(item_price, "gold")

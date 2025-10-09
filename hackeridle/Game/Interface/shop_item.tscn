@@ -114,6 +114,15 @@ size_flags_horizontal = 3
 text = "XXX"
 horizontal_alignment = 2
 
+[node name="NextLevelLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(0.0705882, 1, 0.627451, 1)
+theme_override_font_sizes/font_size = 16
+text = "+ x"
+horizontal_alignment = 2
+
 [node name="VBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -130,6 +139,7 @@ layout_mode = 2
 [node name="BonusPerClickLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/BonusPerClicContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "Bonus par clic:"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/BonusPerClicContainer"]
@@ -138,6 +148,7 @@ layout_mode = 2
 [node name="KnowledgePerClickLabel" type="Label" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/BonusPerClicContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_font_sizes/font_size = 18
 text = "+ 0"
 
 [node name="BrainIcon" parent="Panel/HBoxContainer/ShopItemColorRect/LearningItemInfo/VBoxContainer3/VBoxContainer2/VBoxContainer/BonusPerClicContainer/HBoxContainer" instance=ExtResource("4_1kn6s")]
@@ -224,8 +235,10 @@ unique_name_in_owner = true
 layout_mode = 2
 anchor_top = 0.232
 anchor_bottom = 0.856
-offset_left = -227.0
-offset_right = -52.0
+offset_left = -206.0
+offset_right = -31.0
+grow_horizontal = 0
+grow_vertical = 2
 size_flags_horizontal = 4
 mouse_filter = 1
 metadata/_edit_use_anchors_ = true
