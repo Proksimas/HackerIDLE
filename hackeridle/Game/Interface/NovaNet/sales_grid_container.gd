@@ -10,6 +10,8 @@ extends VBoxContainer
 @onready var total_investi_title: Label = %TotalInvestiTitle
 @onready var total_investi_label: Label = %TotalInvestiLabel
 @onready var sales_title: Label = %SalesTitle
+@onready var average_gain_label: Label = %AverageGainLabel
+@onready var average_gain_value: Label = %AverageGainValue
 
 @onready var market_graph: MarketGraph = %MarketGraph
 
@@ -29,6 +31,7 @@ func refresh():
 	gold_invest_label.text = Global.number_to_string(to_invest)
 	invest_title.text = tr("$Invest") + ": " 
 	total_investi_title.text = tr("$TotalInvesti") + ": "
+	average_gain_label.text = tr("$AverageGain") + ": "
 	total_investi_label.text = Global.number_to_string(NovaNetManager.gold_invest_in_sales)
 	if NovaNetManager.active_tasks["sales_task"] > 0:
 		invest_button.disabled = false
@@ -49,6 +52,7 @@ func _on_invest_button_pressed() -> void:
 	pass # Replace with function body.
 
 func s_on_s_gain_sales(gain):
+	average_gain_value.text = Global.number_to_string(gain) + "/s"
 	market_graph._on_market_updated(gain)
 	pass
 
