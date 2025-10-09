@@ -1,6 +1,6 @@
 key;fr;en
 genius_stroke_desc;Pendant {as_during_time}s, augmente la connaissance et l'expérience des clics de {data_bonus_1} %;For {as_during_time}s, increases knowledge and click experience by {data_bonus_1}%
-veteran_desc;Augmente l'expérience gagné de {data_bonus_1} %;Increases experience gained by {data_bonus_1}%
+veteran_desc;Augmente l'expérience gagné par clic de {data_bonus_1} %;Increases experience gained per click by {data_bonus_1}%
 click_worth_desc;Chaque clic sur le cerveau est répété {data_bonus_1} fois;Each click on the brain is repeated {data_bonus_1} times
 business_acumen_desc;Convertit {data_bonus_1} % de la connaissance gagné en argent;Converts {data_bonus_1}% of gained knowledge into money
 IamNice_desc;Fait baisser l’infamie de {data_bonus_1} par mois;Lowers infamy by {data_bonus_1} per month
