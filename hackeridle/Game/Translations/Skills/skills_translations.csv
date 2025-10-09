@@ -4,7 +4,7 @@ veteran_desc;Augmente l'expérience gagné de {data_bonus_1} %;Increases experie
 click_worth_desc;Chaque clic sur le cerveau est répété {data_bonus_1} fois;Each click on the brain is repeated {data_bonus_1} times
 business_acumen_desc;Convertit {data_bonus_1} % de la connaissance gagné en argent;Converts {data_bonus_1}% of gained knowledge into money
 IamNice_desc;Fait baisser l’infamie de {data_bonus_1} par mois;Lowers infamy by {data_bonus_1} per month
-news_maniac_desc;Augmente la fréquentation des évènements de {data_bonus_1};Increases event attendance by {data_bonus_1}
+news_maniac_desc;Augmente la fréquentation des évènements de {data_bonus_1}%;Increases event attendance by {data_bonus_1}%
 i_want_to_click_desc;Augmente le multiplicateur de clic du joueur jusqu’à {data_bonus_1};Increases the player's click multiplier up to {data_bonus_1}
 ia_desc;Active les clics automatiques dans le Novanet pour les bots toutes {data_bonus_1}s;Enables automatic clicks in Novanet for bots every {data_bonus_1}s
 i_like_bots_desc;Augmente l’expérience rapportée par bots de recherche de {data_bonus_1};Increases the experience reported by search bots from {data_bonus_1}
