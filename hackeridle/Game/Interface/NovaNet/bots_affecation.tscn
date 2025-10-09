@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7t37oj03w1c1"]
+[gd_scene load_steps=14 format=3 uid="uid://c7t37oj03w1c1"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots_affecation.gd" id="1_13n51"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="2_162po"]
@@ -10,6 +10,10 @@
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/market_graph.gd" id="6_u02b7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jj4j2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7eqrn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_188yo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kqobc"]
 bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
@@ -71,29 +75,42 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="FarmingXpGridContainer" type="GridContainer" parent="."]
-unique_name_in_owner = true
+[node name="GridsContainers" type="VBoxContainer" parent="."]
 layout_mode = 2
-columns = 2
-script = ExtResource("3_6wr8q")
+theme_override_constants/separation = 10
 
-[node name="FarmingXpLabel" type="Label" parent="FarmingXpGridContainer"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="GridsContainers"]
 layout_mode = 2
-size_flags_horizontal = 6
-text = "Farming "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="FarmingXpGridContainer"]
+[node name="FarmingButton" type="Button" parent="GridsContainers/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="FarmingXpContainer" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
+[node name="FarmingXpLabel" type="Label" parent="GridsContainers/HBoxContainer/FarmingButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+text = "Farming "
+
+[node name="FarmingXpContainer" type="HBoxContainer" parent="GridsContainers/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="FarmingXpSlider" type="HSlider" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer"]
+[node name="FarmingXpSlider" type="HSlider" parent="GridsContainers/HBoxContainer/FarmingXpContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
@@ -102,76 +119,52 @@ size_flags_vertical = 4
 rounded = true
 scrollable = false
 
-[node name="FarmingXpBotsValue" type="Label" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer"]
+[node name="FarmingXpBotsValue" type="Label" parent="GridsContainers/HBoxContainer/FarmingXpContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = "XL"
+size_flags_horizontal = 2
+text = "X"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BotIcon" parent="FarmingXpGridContainer/VBoxContainer/FarmingXpContainer" instance=ExtResource("2_162po")]
+[node name="BotIcon" parent="GridsContainers/HBoxContainer/FarmingXpContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="GridsContainers"]
 layout_mode = 2
-size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "1"
-
-[node name="BotIcon" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Label2" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = " = "
-
-[node name="XpBotsCorrespondenceLabel" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
+[node name="ExploitResearchButton" type="Button" parent="GridsContainers/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 4
-text = " x xp/s"
+size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="FarmingXpGridContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="FarminXpGainLabel" type="Label" parent="FarmingXpGridContainer/VBoxContainer/HBoxContainer2"]
+[node name="ExploitResearchLabel" type="Label" parent="GridsContainers/HBoxContainer2/ExploitResearchButton"]
 unique_name_in_owner = true
-layout_mode = 2
-text = "Gain"
-
-[node name="ExploitResearchGrid" type="GridContainer" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 2
-script = ExtResource("4_jnkbo")
-
-[node name="ExploitResearchLabel" type="Label" parent="ExploitResearchGrid"]
-unique_name_in_owner = true
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -11.5
+offset_right = 80.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 6
 text = "Recherche d'exploits
 "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExploitResearchGrid"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ExploitResearchContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+[node name="ExploitResearchContainer" type="HBoxContainer" parent="GridsContainers/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="ExploitResearchSlider" type="HSlider" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
+[node name="ExploitResearchSlider" type="HSlider" parent="GridsContainers/HBoxContainer2/ExploitResearchContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 25)
 layout_mode = 2
@@ -180,52 +173,199 @@ size_flags_vertical = 4
 rounded = true
 scrollable = false
 
-[node name="ExploitResearchBotsValue" type="Label" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer"]
+[node name="ExploitResearchBotsValue" type="Label" parent="GridsContainers/HBoxContainer2/ExploitResearchContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 text = "X"
 metadata/_edit_use_anchors_ = true
 
-[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/ExploitResearchContainer" instance=ExtResource("2_162po")]
+[node name="BotIcon" parent="GridsContainers/HBoxContainer2/ExploitResearchContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="GridsContainers"]
+layout_mode = 2
+
+[node name="SalesButton" type="Button" parent="GridsContainers/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SalesLabel" type="Label" parent="GridsContainers/HBoxContainer3/SalesButton"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+text = "Sales
+"
+
+[node name="SalesContainer" type="HBoxContainer" parent="GridsContainers/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SalesSlider" type="HSlider" parent="GridsContainers/HBoxContainer3/SalesContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 25)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+rounded = true
+scrollable = false
+
+[node name="SalesBotsValue" type="Label" parent="GridsContainers/HBoxContainer3/SalesContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+text = "X"
+
+[node name="BotIcon" parent="GridsContainers/HBoxContainer3/SalesContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="HSeparator" type="HSeparator" parent="GridsContainers"]
+custom_minimum_size = Vector2(0, 25)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_7eqrn")
+
+[node name="Container" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_188yo")
+current_tab = 1
+tabs_visible = false
+
+[node name="FarmingTab" type="Control" parent="Container"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="FarmingXpGridContainer" type="GridContainer" parent="Container/FarmingTab"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -28.5
+offset_right = 60.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+script = ExtResource("3_6wr8q")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/FarmingTab/FarmingXpGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Label" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "1"
 
-[node name="BotIcon" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
+[node name="BotIcon" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label2" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = " = "
 
-[node name="ExploitXpBotsCorrespondenceLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+[node name="XpBotsCorrespondenceLabel" type="Label" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = " x xp/s"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ExploitResearchGrid/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="NextExploitLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
+[node name="FarminXpGainLabel" type="Label" parent="Container/FarmingTab/FarmingXpGridContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Gain"
+
+[node name="ExploitResearchTab" type="Control" parent="Container"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="ExploitResearchGrid" type="GridContainer" parent="Container/ExploitResearchTab"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -28.5
+offset_right = 60.0
+offset_bottom = 28.5
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+script = ExtResource("4_jnkbo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Container/ExploitResearchTab/ExploitResearchGrid"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1"
+
+[node name="BotIcon" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer" instance=ExtResource("2_162po")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label2" type="Label" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = " = "
+
+[node name="ExploitXpBotsCorrespondenceLabel" type="Label" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = " x xp/s"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer"]
+layout_mode = 2
+
+[node name="NextExploitLabel" type="Label" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Prochain "
 
-[node name="TextureRect" type="TextureRect" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -233,72 +373,52 @@ size_flags_vertical = 4
 texture = ExtResource("5_x7egj")
 expand_mode = 1
 
-[node name="NextExploitTimeLabel" type="Label" parent="ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
+[node name="NextExploitTimeLabel" type="Label" parent="Container/ExploitResearchTab/ExploitResearchGrid/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SalesGridContainer" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
+[node name="SalesTab" type="Control" parent="Container"]
+visible = false
 layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="SalesGridContainer" type="VBoxContainer" parent="Container/SalesTab"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 0
 theme_override_constants/separation = 15
 script = ExtResource("4_b7uai")
 
-[node name="SalesLabel" type="Label" parent="SalesGridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 6
-text = "Sales
-"
-
-[node name="HBoxContainer" type="VBoxContainer" parent="SalesGridContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="Container/SalesTab/SalesGridContainer"]
 layout_mode = 2
 
-[node name="SalesContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="SalesSlider" type="HSlider" parent="SalesGridContainer/HBoxContainer/SalesContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 25)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-rounded = true
-
-[node name="SalesBotsValue" type="Label" parent="SalesGridContainer/HBoxContainer/SalesContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 0
-text = "X"
-
-[node name="BotIcon" parent="SalesGridContainer/HBoxContainer/SalesContainer" instance=ExtResource("2_162po")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-
-[node name="HBoxContainer" type="GridContainer" parent="SalesGridContainer/HBoxContainer"]
+[node name="HBoxContainer" type="GridContainer" parent="Container/SalesTab/SalesGridContainer/HBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 
-[node name="TotalInvestiTitle" type="Label" parent="SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="TotalInvestiTitle" type="Label" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Total Investi: "
 
-[node name="TotalInvestiLabel" type="Label" parent="SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
+[node name="TotalInvestiLabel" type="Label" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "XX"
 
-[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_3w75c")]
+[node name="GoldIcon" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/HBoxContainer" instance=ExtResource("4_3w75c")]
 layout_mode = 2
 
-[node name="InvestButton" type="Button" parent="SalesGridContainer/HBoxContainer/HBoxContainer"]
+[node name="InvestButton" type="Button" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 35)
 layout_mode = 2
@@ -312,7 +432,7 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_kqobc")
 theme_override_styles/normal = SubResource("StyleBoxFlat_kqobc")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -326,22 +446,22 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="InvestTitle" type="Label" parent="SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+[node name="InvestTitle" type="Label" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "$Invest"
 
-[node name="GoldInvestLabel" type="Label" parent="SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
+[node name="GoldInvestLabel" type="Label" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "189.28Q"
 
-[node name="GoldIcon" parent="SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer" instance=ExtResource("4_3w75c")]
+[node name="GoldIcon" parent="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton/HBoxContainer" instance=ExtResource("4_3w75c")]
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="MarketGraph" type="Control" parent="SalesGridContainer"]
+[node name="MarketGraph" type="Control" parent="Container/SalesTab/SalesGridContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
@@ -349,6 +469,9 @@ size_flags_vertical = 3
 script = ExtResource("6_u02b7")
 baseline_color = Color(1, 1, 1, 0.443137)
 
-[connection signal="draw" from="FarmingXpGridContainer" to="FarmingXpGridContainer" method="_on_draw"]
-[connection signal="draw" from="ExploitResearchGrid" to="ExploitResearchGrid" method="_on_draw"]
-[connection signal="pressed" from="SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton" to="SalesGridContainer" method="_on_invest_button_pressed"]
+[connection signal="pressed" from="GridsContainers/HBoxContainer/FarmingButton" to="Container/FarmingTab/FarmingXpGridContainer" method="_on_farming_button_pressed"]
+[connection signal="pressed" from="GridsContainers/HBoxContainer2/ExploitResearchButton" to="Container/ExploitResearchTab/ExploitResearchGrid" method="_on_exploit_research_button_pressed"]
+[connection signal="pressed" from="GridsContainers/HBoxContainer3/SalesButton" to="Container/SalesTab/SalesGridContainer" method="_on_sales_button_pressed"]
+[connection signal="draw" from="Container/FarmingTab/FarmingXpGridContainer" to="Container/FarmingTab/FarmingXpGridContainer" method="_on_draw"]
+[connection signal="draw" from="Container/ExploitResearchTab/ExploitResearchGrid" to="Container/ExploitResearchTab/ExploitResearchGrid" method="_on_draw"]
+[connection signal="pressed" from="Container/SalesTab/SalesGridContainer/HBoxContainer/HBoxContainer/InvestButton" to="Container/SalesTab/SalesGridContainer" method="_on_invest_button_pressed"]

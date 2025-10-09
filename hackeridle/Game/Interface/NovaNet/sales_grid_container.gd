@@ -53,3 +53,8 @@ func s_on_s_gain_sales(gain):
 func _on_s_gold_to_earn(_gold):
 	"""le joueur vient de gagner de largent"""
 	refresh()
+
+
+func _on_sales_button_pressed() -> void:
+	get_parent().show()
+	pass # Replace with function body.

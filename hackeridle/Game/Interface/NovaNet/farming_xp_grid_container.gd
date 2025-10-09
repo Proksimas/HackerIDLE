@@ -24,3 +24,8 @@ func refresh():
 func _on_draw() -> void:
 	refresh()
 	pass # Replace with function body.
+
+
+func _on_farming_button_pressed() -> void:
+	get_parent().show()
+	pass # Replace with function body.
