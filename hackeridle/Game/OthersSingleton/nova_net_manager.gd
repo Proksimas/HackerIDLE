@@ -44,6 +44,8 @@ func _init():
 		active_tasks[key] = 0
 	gold_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
+	coef_exploit_xp = 1
+	coef_farming_xp = {"base": 1}
 	
 func assign_bots(task_name, number_of_bots):
 	active_tasks[task_name] = number_of_bots
@@ -62,8 +64,8 @@ func update_farming_task(delta):
 func gain_farming_xp() -> int:
 	var bots = active_tasks["farming_xp"]
 	var sum_coef = 0
-	for coef in coef_farming_xp.values():
-		sum_coef += coef
+	for coef in coef_farming_xp:
+		sum_coef += coef_farming_xp[coef]
 	return bots * sum_coef
 
 var research_time = 0
