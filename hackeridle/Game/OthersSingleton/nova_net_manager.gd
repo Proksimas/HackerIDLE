@@ -6,7 +6,6 @@ var alpha := 0.15          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
 var k := 5.0               # puissance de l’or investi (rendement décroissant). Impacte grandement sur l'investissement
-var knowledge_required_factor
 var next_bot_kwoledge_acquired: float = 0
 var gold_to_invest: int = 100 # Investissement du joueur par click
 # ------------- ¨Paramètres pour les SALES ---------------------------------------------
@@ -43,6 +42,8 @@ func _process(delta: float) -> void:
 func _init():
 	for key in active_tasks:
 		active_tasks[key] = 0
+	gold_invest_in_sales = 0
+	next_bot_kwoledge_acquired = 0
 	
 func assign_bots(task_name, number_of_bots):
 	active_tasks[task_name] = number_of_bots

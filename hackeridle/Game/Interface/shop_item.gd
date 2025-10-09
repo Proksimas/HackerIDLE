@@ -102,6 +102,8 @@ func x_can_be_buy(_x_buy):
 	
 func statut_updated():
 	"""met à jour le statut de l'item"""
+	if current_item_cara.is_empty():
+		return
 	if Player.learning_item_statut[current_item_cara["item_name"]] == 'unlocked':
 		self.show()
 		learning_item_info.show()

@@ -95,6 +95,7 @@ func player_bought_learning_item(item_name,  quantity):
 	item_bought.emit(item_name)
 
 func learning_items_statut_updated():
+	
 	get_tree().call_group("g_shop_item", "statut_updated")
 	pass
 	

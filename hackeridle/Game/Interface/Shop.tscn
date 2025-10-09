@@ -125,7 +125,7 @@ text = "Max"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 2
-theme_override_constants/v_separation = 5
+theme_override_constants/v_separation = 10
 metadata/_edit_use_anchors_ = true
 
 [node name="ShopItem" parent="MarginContainer/ScrollContainer/VBoxContainer/ShopGrid" instance=ExtResource("5_3su5k")]
