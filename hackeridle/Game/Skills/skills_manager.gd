@@ -14,8 +14,13 @@ var passives_skills: Dictionary = {
 	"news_maniac": preload("res://Game/Skills/PassiveSkills/news_maniac.tres"),
 	"i_want_to_click": preload("res://Game/Skills/PassiveSkills/i_want_to_click.tres"),
 	"ia": preload("res://Game/Skills/PassiveSkills/ia.tres"),
-	"i_like_bots": preload("res://Game/Skills/PassiveSkills/i_like_bots.tres")}
+	"i_like_bots": preload("res://Game/Skills/PassiveSkills/i_like_bots.tres"),
+	"tax_optimization": preload("res://Game/Skills/PassiveSkills/tax_optimization.tres")}
 
+var active_timers: Dictionary = {}
+
+
+signal timer_completed(id_cible)
 signal as_learned(skill:ActiveSkill)
 signal ps_learned(skill:PassiveSkill)
 
@@ -122,6 +127,42 @@ func get_skill_translation(player_skill, type) -> String:
 					"data_bonus_2": data_bonus_2
 					})
 
+
+
+# Signal générique que le TimerManager émettra lorsqu'un timer expire.
+# Le 'id_cible' permettra à la Resource de savoir quel événement la concerne.
+
+
+## Crée un nouveau Timer et le connecte au gestionnaire.
+func create_timer(id_cible: String, duration: float, is_one_shot: bool = false) -> void:
+	# 1. Empêcher la création de timers dupliqués pour la même ID, si nécessaire
+	if active_timers.has(id_cible):
+		print_debug("Avertissement: Le timer pour ID '%s' existe déjà. Ignoré." % id_cible)
+		return
+	var new_timer = Timer.new()
+	new_timer.wait_time = duration
 	
+	new_timer.one_shot = is_one_shot
 	
-	
+	new_timer.timeout.connect(_on_generic_timer_timeout.bind(id_cible,is_one_shot ))
+	add_child(new_timer)
+	active_timers[id_cible] = new_timer
+	new_timer.start()
+
+## Méthode de gestion appelée par tous les timers
+func _on_generic_timer_timeout(id_cible: String, _is_one_shot):
+	timer_completed.emit(id_cible)
+	if !_is_one_shot:
+		return
+	var timer_node: Timer = active_timers.get(id_cible)
+	if timer_node:
+		timer_node.queue_free()
+		active_timers.erase(id_cible)
+
+## Méthode pour annuler un timer si nécessaire
+func cancel_timer(id_cible: String) -> void:
+	var timer_node: Timer = active_timers.get(id_cible)
+	if timer_node:
+		timer_node.stop()
+		timer_node.queue_free()
+		active_timers.erase(id_cible)

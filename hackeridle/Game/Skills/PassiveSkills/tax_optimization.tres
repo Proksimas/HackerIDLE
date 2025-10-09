@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c5ehexsls6lcl"]
+
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_gugei"]
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/tax_optimization.gd" id="2_rb7gb"]
+
+[resource]
+script = ExtResource("2_rb7gb")
+cost = Array[int]([3, 4, 5, 6, 7, 8])
+ps_texture = ExtResource("1_gugei")
+ps_name = "tax_optimization"
+data_bonus_1 = [0.1, 0.4, 1.0, 2.0, 4.0, 8.0]
+data_bonus_2 = []
