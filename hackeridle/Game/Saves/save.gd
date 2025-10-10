@@ -153,9 +153,23 @@ func check_has_save():
 
 func clean_save():
 	var save_path = get_save_path()
-	var file = FileAccess.open(save_path, FileAccess.WRITE)
-	file.store_var({})
-	file.close()
+	var dir = DirAccess.open(save_path)
+	if dir and dir.file_exists(save_file_name):
+		# Le fichier existe, supprimez-le
+		var erreur = dir.remove(save_file_name)
+		if erreur == OK:
+			print("Fichier de sauvegarde supprimé avec succès")
+		else:
+			# Gérer l'erreur si la suppression échoue
+				print("Erreur lors de la suppression du fichier de sauvegarde")
+	else:
+		# Le fichier n'existe pas ou le dossier n'a pas pu être ouvert
+		print("Aucun fichier de sauvegarde trouvé à supprimer ou erreur d'accès au répertoire.")
+
+	#var file = FileAccess.open(save_path, FileAccess.WRITE)
+	#file.store_var({})
+	#file.close()
+
 
 	
 func _notification(what):

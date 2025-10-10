@@ -42,6 +42,7 @@ func load_game():
 	EventsManager.launch_timer() #On lance les events
 	
 func new_game():
+	Save.clean_save()
 	set_starting_language() # le chargement prend ce qui est save
 	fill_player_stats()
 	var interface = load_interface()
