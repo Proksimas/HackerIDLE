@@ -7,3 +7,5 @@ resource_local_to_scene = true
 script = ExtResource("1_firwr")
 cost = Array[int]([])
 ps_name = ""
+data_bonus_1 = []
+data_bonus_2 = []

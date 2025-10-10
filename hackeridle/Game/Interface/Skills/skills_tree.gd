@@ -93,9 +93,7 @@ func is_max_level(skill_cara, skill_type)-> bool:
 				
 				buy_button.to_disable()
 				buy_button.max_label()
-				#buy_button.disabled = true
-				#to_unlocked_panel.hide()
-				
+
 				return true
 
 		"passive_skill":
@@ -114,10 +112,7 @@ func is_max_level(skill_cara, skill_type)-> bool:
 		
 				buy_button.to_disable()
 				buy_button.max_label()
-		
-				#to_unlocked_panel.hide()
 
-				
 				return true
 		_:
 			push_error("Pas normal pas de type")
@@ -130,17 +125,7 @@ func is_max_level(skill_cara, skill_type)-> bool:
 func unlocked_buy_skill_button():
 	
 	buy_button.refresh(cache_skill_cost, "skill_point")
-	#
-	#if cache_skill_cost <= Player.skill_point:
-		#buy_button.to_enable()
-		##to_unlocked_panel.hide()
-		#
-	#else:
-		#buy_button.to_disabled()
-		##to_unlocked_panel.show()
-		#
-	#cost_title.text = tr("$Cost")
-	#cost_sp_label.text = str(cache_skill_cost)
+
 
 
 func _on_buy_skill_button_pressed():
