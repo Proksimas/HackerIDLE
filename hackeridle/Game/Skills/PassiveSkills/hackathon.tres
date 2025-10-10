@@ -8,5 +8,5 @@ script = ExtResource("1_adivw")
 cost = Array[int]([3, 3, 5, 5])
 ps_texture = ExtResource("1_3vind")
 ps_name = "hackathon"
-data_bonus_1 = [120, 100, 80, 60]
+data_bonus_1 = [180, 160, 120, 80]
 data_bonus_2 = []
