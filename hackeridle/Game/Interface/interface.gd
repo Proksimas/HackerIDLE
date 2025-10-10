@@ -118,6 +118,8 @@ func inits_shops():
 	
 func app_button_pressed(button_name:String):
 	var new_style_box = StyleBoxTexture.new()
+	if more_button_box.texture_normal == ICON_BORDER_MEDIUM_GREEN:
+		more_button_container.visible = false
 	
 	match button_name:
 		"infos":
