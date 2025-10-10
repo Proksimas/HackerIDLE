@@ -69,9 +69,6 @@ func passif_learning_gain(item_cara) -> float:
 	if item_cara["formule_type"] == "polymoniale":
 		gain = item_cara["gain"] * pow(item_cara["level"],item_cara["gain_factor"])
 		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
-		
-		
-	
 	else:
 		gain =item_cara["gain"] * pow(1 + item_cara["gain_factor"], item_cara["level"] -1)
 		gain = StatsManager.calcul_learning_items_stat(StatsManager.Stats.KNOWLEDGE, gain)
