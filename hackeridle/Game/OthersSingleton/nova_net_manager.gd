@@ -1,7 +1,7 @@
 extends Node
 
 # --- Paramètres ajustables pour l'achat des bots---
-var base_cost := 100000.0      # coût en connaissance du premier bot
+var base_cost := 100000.0    # coût en connaissance du premier bot
 var alpha := 0.15          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
@@ -19,7 +19,7 @@ var _v: float = 0.0                        # état de volatilité
 var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
 # ------------- ¨Paramètres pour le farming XP---------------------------------------------
 var coef_farming_xp = {"base": 1}
-var coef_exploit_xp = 1
+var coef_exploit_xp: float
 # Nombres de bots affectés aux taches
 var active_tasks = {
 	"farming_xp": 0,
@@ -44,7 +44,7 @@ func _init():
 		active_tasks[key] = 0
 	gold_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
-	coef_exploit_xp = 1
+	coef_exploit_xp = 10
 	coef_farming_xp = {"base": 1}
 	
 func assign_bots(task_name, number_of_bots):
