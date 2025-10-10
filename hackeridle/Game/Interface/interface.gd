@@ -91,7 +91,9 @@ func init_interface():
 	knowledge_resource.refresh_value(int(Player.knowledge_point))
 	gold_resource.refresh_value(int(Player.gold))
 	more_button_container.hide()
-	
+	if Player.nb_of_rebirth >= 1:
+		nova_net_box.get_parent().show()
+	else:nova_net_box.get_parent().hide()
 	#sp_resource.set_resource_box("SP")
 	#sp_resource.refresh_value(int(Player.skill_point))
 	

@@ -133,14 +133,15 @@ z_index = 50
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_enkis")
 
-[node name="Exploits" type="Panel" parent="AllContainer/Control/LevelContainer"]
+[node name="ExploitsPanel" type="Panel" parent="AllContainer/Control/LevelContainer"]
+unique_name_in_owner = true
 z_index = 50
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_kj7xw")
 script = ExtResource("2_7b46d")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer/Exploits"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer/ExploitsPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -149,7 +150,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ExploitProgress" type="ProgressBar" parent="AllContainer/Control/LevelContainer/Exploits/HBoxContainer"]
+[node name="ExploitProgress" type="ProgressBar" parent="AllContainer/Control/LevelContainer/ExploitsPanel/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 10)
 layout_mode = 2
@@ -159,20 +160,20 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_wylft")
 value = 70.0
 show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer/Exploits/HBoxContainer/ExploitProgress"]
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer/ExploitsPanel/HBoxContainer/ExploitProgress"]
 layout_mode = 0
 offset_left = 311.0
 offset_top = -5.0
 offset_right = 358.0
 offset_bottom = 18.0
 
-[node name="ExploitPointValue" type="Label" parent="AllContainer/Control/LevelContainer/Exploits/HBoxContainer/ExploitProgress/HBoxContainer"]
+[node name="ExploitPointValue" type="Label" parent="AllContainer/Control/LevelContainer/ExploitsPanel/HBoxContainer/ExploitProgress/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 text = "10"
 
-[node name="TextureRect" type="TextureRect" parent="AllContainer/Control/LevelContainer/Exploits/HBoxContainer/ExploitProgress/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="AllContainer/Control/LevelContainer/ExploitsPanel/HBoxContainer/ExploitProgress/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 10

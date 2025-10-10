@@ -139,6 +139,9 @@ func earn_brain_xp(earning):
 	#print("xp_earned: %s" % earning)
 	
 func earn_exploit_xp(earning):
+	if Player.nb_of_rebirth < 1:
+		push_error("On devrait pas gagner d'exploit XP car par rebirth !")
+		return
 	if _check_exploit_level_up(earning):
 		exploit_xp += earning - exploit_xp
 		exploit_xp = clamp(exploit_xp, 0, INF)
