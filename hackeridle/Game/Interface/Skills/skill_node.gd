@@ -1,5 +1,7 @@
 extends Control
+class_name SkillNode
 @onready var skill_button: TextureButton = %SkillButton
+@onready var level_skill_label: Label = %LevelSkillLabel
 
 @export var as_associated:ActiveSkill
 @export var ps_associated:PassiveSkill
@@ -8,6 +10,8 @@ signal skill_button_pressed(skill_name:String, skill_type)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	fill_texture()
+	SkillsManager.as_learned.connect(_on_as_learned)
+	SkillsManager.ps_learned.connect(_on_ps_learned)
 	pass # Replace with function body.
 
 
@@ -32,3 +36,16 @@ func fill_texture():
 		push_error("Pas de skill associé au skillNode")
 		
 	skill_button.texture_normal = new_texture
+
+func refresh_level(_level_targeted, max_level):
+	level_skill_label.text = "%s/%s" % [_level_targeted, max_level]
+	
+func _on_as_learned(as_skill: ActiveSkill):
+	if as_associated != null and as_associated.as_name == as_skill.as_name:
+		refresh_level(as_skill.as_level, len(as_skill.cost))
+	pass
+	
+func _on_ps_learned(ps_skill: PassiveSkill):
+	if ps_associated != null and ps_associated.ps_name == ps_skill.ps_name:
+		refresh_level(ps_skill.ps_level, len(ps_skill.cost))
+	pass

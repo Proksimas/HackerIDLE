@@ -35,6 +35,7 @@ func learn_ps(skill_name: String, data = {}):
 			#mettre à jour le skill
 			ps_skill.detach(Player)
 			ps_skill.attach(Player,ps_skill.ps_level)
+			ps_learned.emit(ps_skill)
 			return
 
 	var skill:PassiveSkill = passives_skills[skill_name].duplicate()
@@ -56,6 +57,7 @@ func learn_as(skill_name: String, data = {}):
 	for as_skill:ActiveSkill in Player.skills_owned["active"]:
 		if as_skill.as_name == skill_name and as_skill.as_level < len(as_skill.cost):
 			as_skill.as_level += 1
+			as_learned.emit(as_skill)
 		return
 		
 	var skill:ActiveSkill = active_skills[skill_name].duplicate()

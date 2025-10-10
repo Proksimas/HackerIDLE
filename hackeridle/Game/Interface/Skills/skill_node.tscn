@@ -1,13 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dm748glgb0076"]
+[gd_scene load_steps=5 format=3 uid="uid://dm748glgb0076"]
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skill_node.gd" id="1_d73xw"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_ttex8"]
+[ext_resource type="Texture2D" uid="uid://chvl67e5ly0sm" path="res://Game/Graphics/Skills/Border__3_green.png" id="2_kogui"]
+[ext_resource type="Texture2D" uid="uid://bwvtftiu2lc8c" path="res://Game/Graphics/Skills/Border__3_green_full.png" id="4_7nud5"]
 
 [node name="SkillNode" type="Control"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(96, 104)
 layout_mode = 3
-anchor_right = 0.118519
-anchor_bottom = 0.0666667
+anchor_right = 0.162712
+anchor_bottom = 0.0813771
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
@@ -15,7 +17,53 @@ size_flags_vertical = 2
 script = ExtResource("1_d73xw")
 metadata/_edit_use_anchors_ = true
 
-[node name="SkillButton" type="TextureButton" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.853333
+grow_horizontal = 2
+size_flags_vertical = 3
+mouse_filter = 2
+texture = ExtResource("2_kogui")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="SkillButton" type="TextureButton" parent="TextureRect"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("1_ttex8")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+modulate = Color(0.0962047, 0.0962048, 0.0962047, 1)
+show_behind_parent = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_7nud5")
+expand_mode = 1
+
+[node name="LevelSkillLabel" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
@@ -23,9 +71,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture_normal = ExtResource("1_ttex8")
-ignore_texture_size = true
-stretch_mode = 0
-metadata/_edit_use_anchors_ = true
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 13
+text = "10/10"
+horizontal_alignment = 1
+vertical_alignment = 2
 
-[connection signal="pressed" from="SkillButton" to="." method="_on_skill_button_pressed"]
+[connection signal="pressed" from="TextureRect/SkillButton" to="." method="_on_skill_button_pressed"]

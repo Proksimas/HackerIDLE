@@ -58,6 +58,9 @@ func refresh_brain_xp_bar():
 		exploits_panel.hide()
 
 func add_skill_activation(skill_to_associated:ActiveSkill):
+	for skill in active_skills.get_children():
+		if skill.skill_associated == skill_to_associated:
+			return
 	var skill_activation = SKILL_ACTIVATION.instantiate()
 	active_skills.add_child(skill_activation)
 	skill_activation.set_skill_activation(skill_to_associated)
