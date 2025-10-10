@@ -28,7 +28,7 @@ func _draw() -> void:
 	skills_info.hide()
 	to_unlocked_panel.hide()
 	skill_point_value.text = str(Player.skill_point)
-	#refresh_skill_nodes()
+	refresh_skill_nodes()
 
 func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void:
 	"""Le signal emit par le SkillNode inclut le skill_type en vérifiant si il 
@@ -143,15 +143,26 @@ func _on_buy_skill_button_pressed():
 					#if skill.ps_associated != null and skill.ps_associated.ps_name == cache_skill_name:
 						#skill.ps_associated.ps_level += 1
 		Player.skill_point -= cache_skill_cost
-		#refresh_skill_nodes()
+		refresh_skill_nodes()
 		#Puis on ajuste le level dans l'ui du skill
 		_draw()
 	pass
 
 
-#func refresh_skill_nodes():
-	#for skill:SkillNode in skills_grid.get_children():
-		#if skill.as_associated != null:
-			#skill.refresh_level(skill.as_associated.as_level, len(skill.as_associated.cost))
-		#elif skill.ps_associated != null:
-			#skill.refresh_level(skill.ps_associated.ps_level, len(skill.ps_associated.cost))
+func refresh_skill_nodes():
+	for skill_node:SkillNode in skills_grid.get_children():
+		if skill_node.as_associated != null and len(Player.skills_owned["active"]) == 0:
+			skill_node.refresh_level(0, len(skill_node.as_associated.cost))
+			
+		elif skill_node.as_associated != null and len(Player.skills_owned["active"]) != 0:
+			for active_skill:ActiveSkill in Player.skills_owned["active"]:
+				if active_skill.as_name == skill_node.as_associated.as_name:
+					skill_node.refresh_level(active_skill.as_level, len(active_skill.cost))
+		
+		elif skill_node.ps_associated != null and len(Player.skills_owned["passive"]) == 0:
+			skill_node.refresh_level(0, len(skill_node.ps_associated.cost))
+			
+		elif skill_node.ps_associated != null and len(Player.skills_owned["passive"]) != 0:
+			for passive_skill: PassiveSkill in Player.skills_owned["passive"]:
+				if passive_skill.ps_name == skill_node.ps_associated.ps_name:
+					skill_node.refresh_level(passive_skill.ps_level, len(passive_skill.cost))
