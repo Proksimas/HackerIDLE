@@ -62,22 +62,40 @@ func introduction_finished():
 
 func rebirth():
 	"""on ne garde que:
-		l'experience, niveau du cerveau, skills
+		l'experience, niveau du cerveau, skills, exploits (xp, level et point)
+		et les points d'exploits investis dans les shop_item
 		"""
 	Player.nb_of_rebirth += 1
-	
-
 	var save_stats_for_rebirth = {"skills_owned": Player.skills_owned,
 									"brain_xp": Player.brain_xp,
 									"brain_level": Player.brain_level,
 									"skill_point": Player.skill_point,
-									"nb_of_rebirth": Player.nb_of_rebirth}
+									"nb_of_rebirth": Player.nb_of_rebirth,
+									"learning_item_bought": Player.learning_item_bought,
+									"exploit_xp": Player.exploit_xp,
+									"exploit_level": Player.exploit_level,
+									"exploit_point": Player.exploit_point}
 	
 	fill_player_stats()
 	Player.brain_xp = save_stats_for_rebirth["brain_xp"]
 	Player.brain_level = save_stats_for_rebirth["brain_level"]
 	Player.skill_point = save_stats_for_rebirth["skill_point"]
 	Player.nb_of_rebirth = save_stats_for_rebirth["nb_of_rebirth"]
+	Player.exploit_xp = save_stats_for_rebirth["exploit_xp"]
+	Player.exploit_level = save_stats_for_rebirth["exploit_level"]
+	Player.exploit_point = save_stats_for_rebirth["exploit_point"]
+	
+	#On triche un peu en changeant le level_ipk et ipc de la base de donnée
+	#Comme ça lors de l'achat il y a deja l'exploit 
+	for item_db_name in LearningItemsDB.learning_items_db:
+		for item_name in save_stats_for_rebirth["learning_item_bought"]:
+			if item_name == item_db_name:
+				LearningItemsDB.learning_items_db[item_name]["level_ipk"]= \
+					save_stats_for_rebirth["learning_item_bought"][item_name]["level_ipk"]
+				LearningItemsDB.learning_items_db[item_name]["level_ipc"]= \
+					save_stats_for_rebirth["learning_item_bought"][item_name]["level_ipc"]
+		
+		
 	var interface = load_interface()
 	#var interface = get_tree().get_root().get_node("Main/Interface")
 	scenarios_manager.call_deferred_thread_group("launch_introduction", interface)

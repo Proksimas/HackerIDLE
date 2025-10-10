@@ -25,7 +25,6 @@ func init_learning_items_db():
 							"formule_type":item["formule_type"],
 							"level_ipk": 0, #"niveau" de l'imrvemet de la connaissance passive
 							"level_ipc": 0 #'niveau de gain par click
-							
 							}
 							
 		if learning_items_db.has(item["item_name"]):
