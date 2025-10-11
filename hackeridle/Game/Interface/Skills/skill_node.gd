@@ -37,11 +37,11 @@ func refresh_level(_level_targeted, max_level):
 	
 	#on change la border si besoin
 	if _level_targeted == max_level:
-		border_texture.texture = BORDER_ORANGE
+		border_texture.texture = BORDER_GREEN
 	elif _level_targeted == 0:
 		border_texture.texture = BORDER_GREY
 	else:
-		border_texture.texture = BORDER_GREEN
+		border_texture.texture = BORDER_ORANGE
 	
 func _on_as_learned(as_skill: ActiveSkill):
 	if as_associated != null and as_associated.as_name == as_skill.as_name:

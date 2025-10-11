@@ -9,19 +9,28 @@ extends Control
 @onready var buy_button: Button = %BuyButton
 @onready var exploits: Panel = %Exploits
 @onready var skills: Panel = %Skills
+@onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
+@onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
 
 
 var cache_skill_name: String
 var cache_skill_cost: int
 var cache_skill_type: String
+var lst_skill_nodes: Array
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# ATTENTION ON HIDE POUR LE MOMENT CAR ON A SWITCH VERS LEARNING
 	exploits.hide()
 	skills.show()
 	buy_button.set_up_icon("skill_point")
-	for skill in skills_grid.get_children():
-		skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
+	#for skill in skills_grid.get_children():
+		#skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
+	var lst = offensive_skills_grid.get_children()
+	lst.append_array(defensive_skills_grid.get_children())
+	for grid: GridContainer in lst:
+		for skill in grid.get_children():
+			lst_skill_nodes.append(skill)
+			skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
 	pass # Replace with function body.
 
 func _draw() -> void:
@@ -150,7 +159,7 @@ func _on_buy_skill_button_pressed():
 
 
 func refresh_skill_nodes():
-	for skill_node:SkillNode in skills_grid.get_children():
+	for skill_node:SkillNode in lst_skill_nodes:
 		if skill_node.as_associated != null and len(Player.skills_owned["active"]) == 0:
 			skill_node.refresh_level(0, len(skill_node.as_associated.cost))
 			
