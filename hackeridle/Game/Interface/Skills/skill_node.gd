@@ -5,6 +5,11 @@ class_name SkillNode
 
 @export var as_associated:ActiveSkill
 @export var ps_associated:PassiveSkill
+@onready var border_texture: TextureRect = %BorderTexture
+
+const BORDER_ORANGE = preload("res://Game/Graphics/Skills/Border__3_orange.png")
+const BORDER_GREEN = preload("res://Game/Graphics/Skills/Border__3_green.png")
+const BORDER_GREY = preload("res://Game/Graphics/Skills/Border__3_grey.png")
 
 signal skill_button_pressed(skill_name:String, skill_type)
 # Called when the node enters the scene tree for the first time.
@@ -37,8 +42,17 @@ func fill_texture():
 		
 	skill_button.texture_normal = new_texture
 
+
 func refresh_level(_level_targeted, max_level):
 	level_skill_label.text = "%s/%s" % [_level_targeted, max_level]
+	
+	#on change la border si besoin
+	if _level_targeted == max_level:
+		border_texture.texture = BORDER_ORANGE
+	elif _level_targeted == 0:
+		border_texture.texture = BORDER_GREY
+	else:
+		border_texture.texture = BORDER_GREEN
 	
 func _on_as_learned(as_skill: ActiveSkill):
 	if as_associated != null and as_associated.as_name == as_skill.as_name:
