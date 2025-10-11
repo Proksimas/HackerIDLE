@@ -61,8 +61,6 @@ func _process(delta: float) -> void:
 
 
 func _on_gui_input(event: InputEvent) -> void:
-		# Tap écran / clic souris pour avancer
-
 	if event is InputEventScreenTouch and event.pressed :
 		_advance()
 	elif event is InputEventMouseButton and \

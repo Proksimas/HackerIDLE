@@ -1,7 +1,7 @@
 extends Control
 class_name SkillNode
-@onready var skill_button: TextureButton = %SkillButton
 @onready var level_skill_label: Label = %LevelSkillLabel
+@onready var skill_texture: TextureRect = %SkillTexture
 
 @export var as_associated:ActiveSkill
 @export var ps_associated:PassiveSkill
@@ -20,17 +20,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _on_skill_button_pressed() -> void:
-	if as_associated != null:
-		
-		skill_button_pressed.emit(as_associated.as_name, "active_skill")
-	elif ps_associated != null:
-		skill_button_pressed.emit(ps_associated.ps_name, "passive_skill")
-	else:
-		push_error("Pas de skill associé au skillNode")
-	pass # Replace with function body.
-
-
 func fill_texture():
 	var new_texture: Texture
 	if as_associated != null:
@@ -40,7 +29,7 @@ func fill_texture():
 	else:
 		push_error("Pas de skill associé au skillNode")
 		
-	skill_button.texture_normal = new_texture
+	skill_texture.texture = new_texture
 
 
 func refresh_level(_level_targeted, max_level):
@@ -63,3 +52,16 @@ func _on_ps_learned(ps_skill: PassiveSkill):
 	if ps_associated != null and ps_associated.ps_name == ps_skill.ps_name:
 		refresh_level(ps_skill.ps_level, len(ps_skill.cost))
 	pass
+
+
+func _on_border_texture_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and \
+		event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		if as_associated != null:
+			
+			skill_button_pressed.emit(as_associated.as_name, "active_skill")
+		elif ps_associated != null:
+			skill_button_pressed.emit(ps_associated.ps_name, "passive_skill")
+		else:
+			push_error("Pas de skill associé au skillNode")
+		pass # Replace with function body.
