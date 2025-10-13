@@ -11,5 +11,5 @@ ps_name = "i_like_bots"
 data_bonus_1 = [1, 2, 3]
 data_bonus_2 = []
 is_offensive_skill = false
-is_defensive_skill = false
+is_defensive_skill = true
 min_cost_invested = 10

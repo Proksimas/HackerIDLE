@@ -10,6 +10,6 @@ ps_texture = ExtResource("1_agfka")
 ps_name = "click_worth"
 data_bonus_1 = [1, 2, 3, 4]
 data_bonus_2 = []
-is_offensive_skill = false
+is_offensive_skill = true
 is_defensive_skill = false
 min_cost_invested = 1
