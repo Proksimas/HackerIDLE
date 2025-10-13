@@ -16,8 +16,6 @@ extends Control
 @onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
 @onready var defensive_points_invested_label: Label = %DefensivePointsInvestedLabel
 
-const OFFENSIVE_TEXTURE = preload("res://Game/Graphics/UIs/offensive_button_2.png")
-const SHIELD = preload("res://Game/Graphics/UIs/shield.png")
 const BLUE = Color(0.035, 0.282, 0.494)
 
 var cache_skill_name: String
