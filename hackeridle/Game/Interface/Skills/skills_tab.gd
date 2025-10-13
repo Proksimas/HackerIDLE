@@ -12,8 +12,6 @@ func _ready() -> void:
 
 
 func refresh_skills_tab():
-	offensive_points_invested_label.text = "Nombre de points investis: %s" % SkillsManager.OS_invested_points
-	#maj_invested_points()
 	refresh_progress_bar()
 
 func _get_max_skills_points(_type)-> int:

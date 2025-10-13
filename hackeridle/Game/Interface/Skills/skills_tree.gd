@@ -9,7 +9,16 @@ extends Control
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
 @onready var skills_tab: TabContainer = %SkillsTab
+@onready var offensive_skills: Control = %OffensiveSkills
+@onready var defensive_skills: Control = %DefensiveSkills
+@onready var defensive_panel_skills: Panel = %DefensivePanelSkills
+@onready var offensive_panel_skills: Panel = %OffensivePanelSkills
+@onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
+@onready var defensive_points_invested_label: Label = %DefensivePointsInvestedLabel
 
+const OFFENSIVE_TEXTURE = preload("res://Game/Graphics/UIs/offensive_button_2.png")
+const SHIELD = preload("res://Game/Graphics/UIs/shield.png")
+const BLUE = Color(0.035, 0.282, 0.494)
 
 var cache_skill_name: String
 var cache_skill_cost: int
@@ -32,7 +41,8 @@ func _ready() -> void:
 
 func _draw() -> void:
 	hide_and_show_skills_info("hide")
-
+	offensive_points_invested_label.text = str(SkillsManager.OS_invested_points)
+	defensive_points_invested_label.text = str(SkillsManager.DS_invested_points)
 	skill_point_value.text = str(Player.skill_point)
 	refresh_skill_nodes()
 
@@ -213,3 +223,35 @@ func refresh_skill_nodes():
 			for passive_skill: PassiveSkill in Player.skills_owned["passive"]:
 				if passive_skill.ps_name == skill_node.ps_associated.ps_name:
 					skill_node.refresh_level(passive_skill.ps_level, len(passive_skill.cost))
+
+
+
+func show_defensive_skill() -> void:
+	defensive_skills.show()
+	defensive_panel_skills.show()
+	offensive_panel_skills.hide()
+	
+func show_offensive_skill() -> void:
+	offensive_skills.show()
+	offensive_panel_skills.show()
+	defensive_panel_skills.hide()
+
+
+func _on_draw() -> void:
+	show_offensive_skill()
+	pass # Replace with function body.
+
+
+
+func _on_defensive_panel_skills_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			show_offensive_skill()
+	pass # Replace with function body.
+
+
+func _on_offensive_panel_skills_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			show_defensive_skill()
+	pass # Replace with function body.
