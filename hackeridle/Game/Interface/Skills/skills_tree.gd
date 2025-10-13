@@ -46,6 +46,8 @@ func _draw() -> void:
 	defensive_points_invested_label.text = str(SkillsManager.DS_invested_points)
 	skill_point_value.text = str(Player.skill_point)
 	refresh_skill_nodes()
+	get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
+	get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
 
 func hide_and_show_skills_info(_type: String):
 	match _type:
