@@ -10,6 +10,8 @@ var OS_invested_points:int = 0
 var DS_invested_points:int = 0
 
 func _ready() -> void:
+	SkillsManager.ps_learned.connect(_on_ps_learned)
+	SkillsManager.as_learned.connect(_on_as_learned)
 	pass # Replace with function body.
 
 
@@ -21,7 +23,6 @@ func refresh_skills_tab():
 
 func maj_invested_points() -> void:
 	""" met à jour les points investies dans les skill."""
-	var os_sum:int = 0
 	OS_invested_points = 0
 	DS_invested_points = 0
 	for skill:PassiveSkill in Player.skills_owned["passive"]:
@@ -43,24 +44,22 @@ func maj_invested_points() -> void:
 			
 func _get_max_skills_levels(_type)-> int:
 	"""calcul le nombre max de levels selon le type demande"""
+	var sum_offensive:int = 0
+	var sum_defensive:int = 0
+	for skill_name in SkillsManager.passives_skills:
+		var cara = SkillsManager.get_skill_cara(skill_name)
+		if cara["is_offensive_skill"]:
+			sum_offensive += len(cara['cost'])
+		elif cara["is_defensive_skill"]:
+			sum_defensive += len(cara['cost'])
+		else:
+			push_error("Skill ni offensiv ni defensif")		
 	match _type:
 		"offensive":
-			var sum_offensive:int = 0
-			var lst_skill = Player.skills_owned["active"]
-			lst_skill.append_array(Player.skills_owned["passive"])
-			for skill in lst_skill:
-				sum_offensive += len(skill.cost)
-				return sum_offensive
+			return sum_offensive
+	
 		"defensive":
-			var sum_defensive:int = 0
-			var lst_skill = Player.skills_owned["active"]
-			lst_skill.append_array(Player.skills_owned["passive"])
-			for skill in lst_skill:
-				sum_defensive += len(skill.cost)
-				return sum_defensive
-		_:
-			push_error("Probleme dans le calcul du max level")
-			return 0
+			return sum_defensive
 	return 0
 			
 			
@@ -77,3 +76,11 @@ func refresh_progress_bar():
 func _on_draw() -> void:
 	refresh_skills_tab()
 	pass # Replace with function body.
+
+func _on_ps_learned(_skill: PassiveSkill):
+	if self.visible:
+		refresh_skills_tab()
+	
+func _on_as_learned(_skill: ActiveSkill):
+	if self.visible:
+		refresh_skills_tab()
