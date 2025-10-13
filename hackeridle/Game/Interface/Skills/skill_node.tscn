@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://chvl67e5ly0sm" path="res://Game/Graphics/Skills/Border__3_green.png" id="2_kogui"]
 [ext_resource type="Texture2D" uid="uid://bwvtftiu2lc8c" path="res://Game/Graphics/Skills/Border__3_green_full.png" id="4_7nud5"]
 
-[node name="SkillNode" type="Control"]
+[node name="SkillNode" type="Control" groups=["g_skill_node"]]
 custom_minimum_size = Vector2(96, 104)
 layout_mode = 3
 anchor_right = 0.162712

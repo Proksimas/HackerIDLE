@@ -11,6 +11,9 @@ const BORDER_ORANGE = preload("res://Game/Graphics/Skills/Border__3_orange.png")
 const BORDER_GREEN = preload("res://Game/Graphics/Skills/Border__3_green.png")
 const BORDER_GREY = preload("res://Game/Graphics/Skills/Border__3_grey.png")
 
+#on gère ici si le skill peut etre cklické ou non
+var is_clickable: bool = false
+
 signal skill_button_pressed(skill_name:String, skill_type)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -42,6 +45,34 @@ func refresh_level(_level_targeted, max_level):
 		border_texture.texture = BORDER_GREY
 	else:
 		border_texture.texture = BORDER_ORANGE
+		
+func show_hide_level(_type_received, min_cost_received):
+	"""appelé via un groupe, permet de voir si selon l'investissement en offensives
+	ou defensiv skill, ce dernier peut afficher le level et etre clickable"""
+	var min_cost: int = 0
+	var skill_type: String
+	if self.as_associated != null:
+		min_cost = as_associated.min_cost_invested
+		if as_associated.is_offensive_skill:
+			skill_type = "offensive"
+		else:
+			skill_type = "defensive"
+	else:
+		min_cost = ps_associated.min_cost_invested
+		if ps_associated.is_offensive_skill:
+			skill_type = "offensive"
+		else:
+			skill_type = "defensive"
+			
+	if (skill_type == "offensive" and _type_received == "offensive") or \
+	(skill_type == "defensive" and _type_received == "defensive"):
+		if min_cost <= min_cost_received:
+			level_skill_label.show()
+			is_clickable = true
+		else:
+			level_skill_label.hide()
+			is_clickable = false
+
 	
 func _on_as_learned(as_skill: ActiveSkill):
 	if as_associated != null and as_associated.as_name == as_skill.as_name:
@@ -55,7 +86,7 @@ func _on_ps_learned(ps_skill: PassiveSkill):
 
 
 func _on_border_texture_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and \
+	if is_clickable == true and event is InputEventMouseButton and \
 		event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if as_associated != null:
 			

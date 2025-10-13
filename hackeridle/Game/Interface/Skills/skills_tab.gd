@@ -9,6 +9,9 @@ extends TabContainer
 var OS_invested_points:int = 0
 var DS_invested_points:int = 0
 
+signal s_os_invested_points(points)
+signal s_ds_invested_points(points)
+
 func _ready() -> void:
 	SkillsManager.ps_learned.connect(_on_ps_learned)
 	SkillsManager.as_learned.connect(_on_as_learned)
@@ -40,7 +43,11 @@ func maj_invested_points() -> void:
 			DS_invested_points += skill.as_level
 		else:
 			push_error("Ni offensif, ni defensif skill")
-
+	
+	#s_os_invested_points.emit(OS_invested_points)
+	#s_ds_invested_points.emit(DS_invested_points)
+	get_tree().call_group("g_skill_node", "show_hide_level", "offensive",OS_invested_points)
+	get_tree().call_group("g_skill_node", "show_hide_level", "defensive",DS_invested_points)
 			
 func _get_max_skills_levels(_type)-> int:
 	"""calcul le nombre max de levels selon le type demande"""
@@ -73,6 +80,7 @@ func refresh_progress_bar():
 	ds_progress.value = DS_invested_points
 	pass
 			
+
 func _on_draw() -> void:
 	refresh_skills_tab()
 	pass # Replace with function body.
