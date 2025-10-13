@@ -10,3 +10,6 @@ ps_texture = ExtResource("1_3vind")
 ps_name = "hackathon"
 data_bonus_1 = [180, 160, 120, 80]
 data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false
+min_cost_invested = 20

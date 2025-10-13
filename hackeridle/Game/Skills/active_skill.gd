@@ -8,6 +8,10 @@ class_name ActiveSkill
 @export var as_name: String
 @export var data_bonus_1: Array
 @export var data_bonus_2: Array
+@export var is_offensive_skill: bool = false
+@export var is_defensive_skill: bool = false
+#Pour que le skill se débloque, la quantité de point investi dans sa catégorie (offensive ou def)
+@export var min_cost_invested: int = 0
 
 var as_level = 0
 var tree
@@ -43,7 +47,8 @@ func attach(_caster: Node, level) -> void:
 		- l'ajout des stats brut
 		
 		A SURCHARGER """
-		
+	if is_defensive_skill == false and is_offensive_skill == false:
+		push_error("Attention le skill doit etrer au moins offensif ou defensif")
 	tree = _caster.get_tree()   # on récupère la référence de l'arbre
 	self.as_level = level
 	

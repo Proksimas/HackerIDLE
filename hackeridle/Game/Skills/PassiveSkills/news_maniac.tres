@@ -10,3 +10,5 @@ ps_texture = ExtResource("1_lt8en")
 ps_name = "news_maniac"
 data_bonus_1 = [15, 25, 34]
 data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false

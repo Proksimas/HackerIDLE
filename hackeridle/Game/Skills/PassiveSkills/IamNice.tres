@@ -10,3 +10,6 @@ ps_texture = ExtResource("1_i0ssx")
 ps_name = "IamNice"
 data_bonus_1 = [0.15, 0.21, 0.3]
 data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false
+min_cost_invested = 10

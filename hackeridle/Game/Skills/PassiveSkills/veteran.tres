@@ -10,3 +10,6 @@ ps_texture = ExtResource("1_1p2hb")
 ps_name = "veteran"
 data_bonus_1 = [20.0, 30.0, 50.0, 70.0, 100.0, 130.0]
 data_bonus_2 = []
+is_offensive_skill = true
+is_defensive_skill = false
+min_cost_invested = 1

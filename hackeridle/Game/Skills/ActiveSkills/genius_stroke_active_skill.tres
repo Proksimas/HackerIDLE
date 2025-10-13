@@ -13,3 +13,5 @@ as_texture = ExtResource("1_ebake")
 as_name = "genius_stroke"
 data_bonus_1 = [100.0, 200.0, 400.0]
 data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false
