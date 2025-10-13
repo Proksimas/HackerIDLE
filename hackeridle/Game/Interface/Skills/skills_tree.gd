@@ -2,12 +2,9 @@ extends Control
 
 @onready var skill_name_label: Label = %SkillNameLabel
 @onready var skill_desc_label: Label = %SkillDescLabel
-@onready var skills_grid: GridContainer = %SkillsGrid
 @onready var skills_info: VBoxContainer = %SkillsInfo
-@onready var to_unlocked_panel: ColorRect = %ToUnlockedPanel
 @onready var skill_point_value: Label = %SkillPointValue
 @onready var buy_button: Button = %BuyButton
-@onready var exploits: Panel = %Exploits
 @onready var skills: Panel = %Skills
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
@@ -21,7 +18,6 @@ var lst_skill_nodes: Array
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# ATTENTION ON HIDE POUR LE MOMENT CAR ON A SWITCH VERS LEARNING
-	exploits.hide()
 	skills.show()
 	buy_button.set_up_icon("skill_point")
 	#for skill in skills_grid.get_children():
@@ -35,15 +31,26 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _draw() -> void:
-	skills_info.hide()
-	to_unlocked_panel.hide()
+	hide_and_show_skills_info("hide")
+
 	skill_point_value.text = str(Player.skill_point)
 	refresh_skill_nodes()
+
+func hide_and_show_skills_info(_type: String):
+	match _type:
+		"show":
+			skill_name_label.visible = true
+			skill_desc_label.visible = true
+			buy_button.visible = true
+		"hide":
+			skill_name_label.visible = false
+			skill_desc_label.visible = false
+			buy_button.visible = false
 
 func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void:
 	"""Le signal emit par le SkillNode inclut le skill_type en vérifiant si il 
 	y a la ressource associée."""
-	skills_info.show()
+	hide_and_show_skills_info("show")
 	cache_skill_name = skill_name
 	cache_skill_type = skill_type
 	if !buy_button.pressed.is_connected(_on_buy_skill_button_pressed):
