@@ -16,7 +16,10 @@ extends Control
 @onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
 @onready var defensive_points_invested_label: Label = %DefensivePointsInvestedLabel
 
+const VIOLET_NEON = Color(0.878, 0.424, 0.973)
+const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
 const BLUE = Color(0.035, 0.282, 0.494)
+const RED = Color(0.384, 0.004, 0.075)
 
 var cache_skill_name: String
 var cache_skill_cost: int
@@ -226,30 +229,45 @@ func refresh_skill_nodes():
 
 func show_defensive_skill() -> void:
 	defensive_skills.show()
-	defensive_panel_skills.show()
-	offensive_panel_skills.hide()
+	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, VIOLET_NEON))
+	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, BLUE_NEON))
+
 	
 func show_offensive_skill() -> void:
 	offensive_skills.show()
-	offensive_panel_skills.show()
-	defensive_panel_skills.hide()
-
+	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, VIOLET_NEON))
+	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, BLUE_NEON))
+	
 
 func _on_draw() -> void:
 	show_offensive_skill()
 	pass # Replace with function body.
 
-
+func create_stylebox(_color_bg: Color, _color_border):
+	var stylebox = StyleBoxFlat.new()
+	stylebox.bg_color = _color_bg
+	stylebox.border_color = _color_border
+	stylebox.border_blend = true
+	stylebox.corner_radius_bottom_left = 20
+	stylebox.corner_radius_top_left = 20
+	stylebox.corner_radius_bottom_right = 20 
+	stylebox.corner_radius_top_right = 20
+	stylebox.border_width_bottom = 5
+	stylebox.border_width_left = 5
+	stylebox.border_width_right = 5
+	stylebox.border_width_top = 5
+	return stylebox
+	
 
 func _on_defensive_panel_skills_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			show_offensive_skill()
+			show_defensive_skill()
 	pass # Replace with function body.
 
 
 func _on_offensive_panel_skills_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			show_defensive_skill()
+			show_offensive_skill()
 	pass # Replace with function body.
