@@ -36,8 +36,6 @@ var max_glow_size:float = 50
 var min_glow_fallof: float = 2
 var max_glow_fallof: float = 3
 
-signal s_direct_player_brain_clicked
-
 func _ready() -> void:
 	Player.s_brain_xp_to_earn.connect(_on_s_brain_xp_to_earn)
 	start_random_tween()

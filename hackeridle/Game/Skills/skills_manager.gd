@@ -19,7 +19,8 @@ var passives_skills: Dictionary = {
 	"hackathon": preload("res://Game/Skills/PassiveSkills/hackathon.tres")}
 
 var active_timers: Dictionary = {}
-
+var OS_invested_points = 0
+var DS_invested_points = 0
 
 signal timer_completed(id_cible)
 signal as_learned(skill:ActiveSkill)
@@ -31,6 +32,7 @@ func learn_ps(skill_name: String, data = {}):
 	
 	for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 		if ps_skill.ps_name == skill_name and ps_skill.ps_level < len(ps_skill.cost):
+			
 			ps_skill.ps_level += 1
 			#mettre à jour le skill
 			ps_skill.detach(Player)

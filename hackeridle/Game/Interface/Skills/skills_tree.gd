@@ -11,6 +11,7 @@ extends Control
 @onready var skills: Panel = %Skills
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
+@onready var skills_tab: TabContainer = %SkillsTab
 
 
 var cache_skill_name: String
@@ -49,6 +50,9 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		buy_button.pressed.connect(_on_buy_skill_button_pressed)
 	
 	var skills_cara = SkillsManager.get_skill_cara(skill_name) 
+	
+
+	
 	if skill_type == "active_skill":
 		skill_name_label.text = tr("$" + skills_cara['as_name'])
 		var desc: String
@@ -65,7 +69,18 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		for as_skill:ActiveSkill in Player.skills_owned["active"]:
 			if as_skill.as_name == skill_name:
 				cache_skill_cost = as_skill['cost'][as_skill["as_level"]]
-		unlocked_buy_skill_button()
+				
+		#On affiche que les buttons des skills qu'on peut débloquer
+		if skills_cara["is_offensive_skill"]:
+			if SkillsManager.OS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide()
+			else:
+				unlocked_buy_skill_button()
+		elif skills_cara["is_defensive_skill"]:
+			if SkillsManager.DS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide() 
+			else:
+				unlocked_buy_skill_button()
 		
 	else: #passive skill
 		skill_name_label.text = tr("$" + skills_cara['ps_name'])
@@ -81,7 +96,22 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 		for ps_skill:PassiveSkill in Player.skills_owned["passive"]:
 			if ps_skill.ps_name == skill_name:
 				cache_skill_cost = ps_skill['cost'][ps_skill["ps_level"]]
-		unlocked_buy_skill_button()
+		
+		#On affiche que les buttons des skills qu'on peut débloquer
+		print("OS_invested_points: %s" % SkillsManager.OS_invested_points)
+		print("min_cost_invested: %s" % skills_cara["min_cost_invested"])
+		
+		if skills_cara["is_offensive_skill"]:
+			if SkillsManager.OS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide()
+			else:
+				unlocked_buy_skill_button()
+		elif skills_cara["is_defensive_skill"]:
+			if SkillsManager.DS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide() 
+			else:
+				unlocked_buy_skill_button()
+		
 		pass
 	pass # Replace with function body.
 	
@@ -133,27 +163,29 @@ func is_max_level(skill_cara, skill_type)-> bool:
 	
 
 func unlocked_buy_skill_button():
-	
+	buy_button.show()
 	buy_button.refresh(cache_skill_cost, "skill_point")
 
 
 
 func _on_buy_skill_button_pressed():
+	var skill_cara = SkillsManager.get_skill_cara(cache_skill_name)
 	if cache_skill_cost <= Player.skill_point:
 		match cache_skill_type:
 			"active_skill":
 				SkillsManager.learn_as(cache_skill_name)
-				#for skill:SkillNode in skills_grid.get_children():
-					#if skill.as_associated != null and skill.as_associated.as_name == cache_skill_name:
-						#skill.as_associated.as_level += 1
 			"passive_skill":
 				SkillsManager.learn_ps(cache_skill_name)
-				#for skill:SkillNode in skills_grid.get_children():
-					#if skill.ps_associated != null and skill.ps_associated.ps_name == cache_skill_name:
-						#skill.ps_associated.ps_level += 1
+				
 		Player.skill_point -= cache_skill_cost
+		if skill_cara["is_offensive_skill"]:
+			SkillsManager.OS_invested_points += cache_skill_cost
+		else: SkillsManager.DS_invested_points += cache_skill_cost
+
 		refresh_skill_nodes()
 		#Puis on ajuste le level dans l'ui du skill
+		get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
+		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
 		_draw()
 	pass
 

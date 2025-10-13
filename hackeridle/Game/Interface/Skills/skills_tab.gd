@@ -4,13 +4,8 @@ extends TabContainer
 @onready var ds_progress: TextureProgressBar = %DSProgress
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
+@onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
 
-
-var OS_invested_points:int = 0
-var DS_invested_points:int = 0
-
-signal s_os_invested_points(points)
-signal s_ds_invested_points(points)
 
 func _ready() -> void:
 	SkillsManager.ps_learned.connect(_on_ps_learned)
@@ -19,48 +14,23 @@ func _ready() -> void:
 
 
 func refresh_skills_tab():
-	maj_invested_points()
+	offensive_points_invested_label.text = "Nombre de points investis: %s" % SkillsManager.OS_invested_points
+	#maj_invested_points()
 	refresh_progress_bar()
-	#
-	
 
-func maj_invested_points() -> void:
-	""" met à jour les points investies dans les skill."""
-	OS_invested_points = 0
-	DS_invested_points = 0
-	for skill:PassiveSkill in Player.skills_owned["passive"]:
-		if skill.is_offensive_skill:
-			OS_invested_points += skill.ps_level
-		elif skill.is_defensive_skill:
-			DS_invested_points += skill.ps_level
-		else:
-			push_error("Ni offensif, ni defensif skill")
-			
-	for skill:ActiveSkill in Player.skills_owned["active"]:
-		if skill.is_offensive_skill:
-			OS_invested_points += skill.as_level
-		elif skill.is_defensive_skill:
-			DS_invested_points += skill.as_level
-		else:
-			push_error("Ni offensif, ni defensif skill")
-	
-	#s_os_invested_points.emit(OS_invested_points)
-	#s_ds_invested_points.emit(DS_invested_points)
-	get_tree().call_group("g_skill_node", "show_hide_level", "offensive",OS_invested_points)
-	get_tree().call_group("g_skill_node", "show_hide_level", "defensive",DS_invested_points)
-			
-func _get_max_skills_levels(_type)-> int:
-	"""calcul le nombre max de levels selon le type demande"""
+func _get_max_skills_points(_type)-> int:
+	"""calcul le nombre max de skills points selon le type demande"""
 	var sum_offensive:int = 0
 	var sum_defensive:int = 0
 	for skill_name in SkillsManager.passives_skills:
 		var cara = SkillsManager.get_skill_cara(skill_name)
-		if cara["is_offensive_skill"]:
-			sum_offensive += len(cara['cost'])
-		elif cara["is_defensive_skill"]:
-			sum_defensive += len(cara['cost'])
-		else:
-			push_error("Skill ni offensiv ni defensif")		
+		for cost in cara["cost"]:
+			if cara["is_offensive_skill"]:
+				sum_offensive += cost
+			elif cara["is_defensive_skill"]:
+				sum_defensive += cost
+			else:
+				push_error("Skill ni offensiv ni defensif")		
 	match _type:
 		"offensive":
 			return sum_offensive
@@ -72,12 +42,12 @@ func _get_max_skills_levels(_type)-> int:
 			
 func refresh_progress_bar():
 	os_progress.min_value = 0
-	os_progress.max_value = _get_max_skills_levels("offensive")
-	os_progress.value = OS_invested_points
+	os_progress.max_value = _get_max_skills_points("offensive")
+	os_progress.value = SkillsManager.OS_invested_points
 	
 	ds_progress.min_value = 0
-	ds_progress.max_value = _get_max_skills_levels("defensive")
-	ds_progress.value = DS_invested_points
+	ds_progress.max_value = _get_max_skills_points("defensive")
+	ds_progress.value = SkillsManager.DS_invested_points
 	pass
 			
 

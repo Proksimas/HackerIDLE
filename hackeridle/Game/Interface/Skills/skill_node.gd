@@ -12,7 +12,7 @@ const BORDER_GREEN = preload("res://Game/Graphics/Skills/Border__3_green.png")
 const BORDER_GREY = preload("res://Game/Graphics/Skills/Border__3_grey.png")
 
 #on gère ici si le skill peut etre cklické ou non
-var is_clickable: bool = false
+var is_lock: bool = false
 
 signal skill_button_pressed(skill_name:String, skill_type)
 # Called when the node enters the scene tree for the first time.
@@ -68,10 +68,10 @@ func show_hide_level(_type_received, min_cost_received):
 	(skill_type == "defensive" and _type_received == "defensive"):
 		if min_cost <= min_cost_received:
 			level_skill_label.show()
-			is_clickable = true
+			is_lock = false
 		else:
 			level_skill_label.hide()
-			is_clickable = false
+			is_lock = true
 
 	
 func _on_as_learned(as_skill: ActiveSkill):
@@ -86,7 +86,7 @@ func _on_ps_learned(ps_skill: PassiveSkill):
 
 
 func _on_border_texture_gui_input(event: InputEvent) -> void:
-	if is_clickable == true and event is InputEventMouseButton and \
+	if event is InputEventMouseButton and \
 		event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if as_associated != null:
 			
