@@ -98,9 +98,6 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 				cache_skill_cost = ps_skill['cost'][ps_skill["ps_level"]]
 		
 		#On affiche que les buttons des skills qu'on peut débloquer
-		print("OS_invested_points: %s" % SkillsManager.OS_invested_points)
-		print("min_cost_invested: %s" % skills_cara["min_cost_invested"])
-		
 		if skills_cara["is_offensive_skill"]:
 			if SkillsManager.OS_invested_points < skills_cara["min_cost_invested"]:
 				buy_button.hide()
@@ -180,9 +177,11 @@ func _on_buy_skill_button_pressed():
 		Player.skill_point -= cache_skill_cost
 		if skill_cara["is_offensive_skill"]:
 			SkillsManager.OS_invested_points += cache_skill_cost
-		else: SkillsManager.DS_invested_points += cache_skill_cost
+		else: 
+			SkillsManager.DS_invested_points += cache_skill_cost
 
 		refresh_skill_nodes()
+		skills_tab.refresh_skills_tab()
 		#Puis on ajuste le level dans l'ui du skill
 		get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
 		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)

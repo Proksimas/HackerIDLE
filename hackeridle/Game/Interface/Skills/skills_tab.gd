@@ -8,8 +8,6 @@ extends TabContainer
 
 
 func _ready() -> void:
-	SkillsManager.ps_learned.connect(_on_ps_learned)
-	SkillsManager.as_learned.connect(_on_as_learned)
 	pass # Replace with function body.
 
 
@@ -50,15 +48,9 @@ func refresh_progress_bar():
 	ds_progress.value = SkillsManager.DS_invested_points
 	pass
 			
+			
+
 
 func _on_draw() -> void:
 	refresh_skills_tab()
 	pass # Replace with function body.
-
-func _on_ps_learned(_skill: PassiveSkill):
-	if self.visible:
-		refresh_skills_tab()
-	
-func _on_as_learned(_skill: ActiveSkill):
-	if self.visible:
-		refresh_skills_tab()
