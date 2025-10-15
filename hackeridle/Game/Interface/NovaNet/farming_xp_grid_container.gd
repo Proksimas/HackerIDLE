@@ -9,6 +9,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	farming_xp_label.text = tr("$FarmingXp")
+	farming_xp_title.text = tr("$FarmingXp")
 	pass # Replace with function body.
 
 
