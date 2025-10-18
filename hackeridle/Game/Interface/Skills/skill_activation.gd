@@ -1,6 +1,7 @@
 extends Control
 @onready var skill_button: TextureButton = %SkillButton
 @onready var texture_progress_bar: TextureProgressBar = %TextureProgressBar
+@onready var skill_texture: TextureRect = %SkillTexture
 
 var skill_associated:ActiveSkill
 
@@ -15,7 +16,7 @@ func _process(_delta: float) -> void:
 func set_skill_activation(skill:ActiveSkill):
 	self.show()
 	skill_associated = skill
-	skill_button.texture_normal = skill.as_texture
+	skill_texture.texture = skill.as_texture
 	skill_associated.s_as_cd_finished.connect(_on_s_as_cd_finished)
 	skill_associated.s_as_launched.connect(_on_s_as_launched)
 	#si le timer active est actif, alors on a chargé un skill qui était deja activé dans la sauvegarde
