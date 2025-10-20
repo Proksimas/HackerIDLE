@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://jc1aphl3ijw4"]
 
-[ext_resource type="Texture2D" uid="uid://b7cabuhb2haws" path="res://Game/Graphics/Skills/business_acumen.png" id="1_60ll3"]
+[ext_resource type="Texture2D" uid="uid://cag5l3tggotcj" path="res://Game/Graphics/Skills/Passifs/business_acumen_2.png" id="1_mhd71"]
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/business_acumen.gd" id="1_xp7up"]
 
 [resource]
 script = ExtResource("1_xp7up")
 cost = Array[int]([1, 2, 3, 4, 5])
-ps_texture = ExtResource("1_60ll3")
+ps_texture = ExtResource("1_mhd71")
 ps_name = "business_acumen"
 data_bonus_1 = [1.0, 2.0, 3.0, 4.0, 5.0]
 data_bonus_2 = []
