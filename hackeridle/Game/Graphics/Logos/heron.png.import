@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tpf8aqmrlx1r"
-path="res://.godot/imported/NovaSecLogoBackground_Lentille.png-f746da6fc7e47b680753680be58dd23a.ctex"
+uid="uid://c3aq1i2s5cmww"
+path="res://.godot/imported/heron.png-4a1db10345fa6b63cefc3a86234fc476.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Logos/NovaSecLogoBackground_Lentille.png"
-dest_files=["res://.godot/imported/NovaSecLogoBackground_Lentille.png-f746da6fc7e47b680753680be58dd23a.ctex"]
+source_file="res://Game/Graphics/Logos/heron.png"
+dest_files=["res://.godot/imported/heron.png-4a1db10345fa6b63cefc3a86234fc476.ctex"]
 
 [params]
 
