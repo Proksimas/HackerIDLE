@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://dg7rxpbqhqckk"]
 
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_660hm"]
+[ext_resource type="Texture2D" uid="uid://b12smqebnne3g" path="res://Game/Graphics/Common_icons/bots_assignement.png" id="1_ghmtw"]
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/ia.gd" id="1_hw8b2"]
 
 [resource]
 script = ExtResource("1_hw8b2")
 cost = Array[int]([4, 4, 4, 4])
-ps_texture = ExtResource("1_660hm")
+ps_texture = ExtResource("1_ghmtw")
 ps_name = "ia"
 data_bonus_1 = [10, 8, 6, 3]
 data_bonus_2 = []
