@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://dkveyn7a6ha6t"]
 
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_4jxe4"]
+[ext_resource type="Texture2D" uid="uid://1ce3yvo8ni02" path="res://Game/Graphics/Skills/Passifs/i_want_click.png" id="1_fmpje"]
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/i_want_to_click.gd" id="1_r8c0c"]
 
 [resource]
 script = ExtResource("1_r8c0c")
 cost = Array[int]([2, 2, 2, 3, 3, 3, 4, 4])
-ps_texture = ExtResource("1_4jxe4")
+ps_texture = ExtResource("1_fmpje")
 ps_name = "i_want_to_click"
 data_bonus_1 = [2.5, 3.0, 3.5, 4.0, 5.0, 6.0, 8.0, 10.0]
 data_bonus_2 = []

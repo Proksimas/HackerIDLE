@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://bl7stpfxhugrl"]
 
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_3vind"]
+[ext_resource type="Texture2D" uid="uid://ejl02njlaprl" path="res://Game/Graphics/Skills/Passifs/hackathon_transp.png" id="1_4cber"]
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/hackathon.gd" id="1_adivw"]
 
 [resource]
 script = ExtResource("1_adivw")
 cost = Array[int]([3, 3, 5, 5])
-ps_texture = ExtResource("1_3vind")
+ps_texture = ExtResource("1_4cber")
 ps_name = "hackathon"
 data_bonus_1 = [180, 160, 120, 80]
 data_bonus_2 = []
