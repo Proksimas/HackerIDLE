@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://bciqtuwlb2dxk"]
 
+[ext_resource type="Texture2D" uid="uid://cw34vm4vuqsaq" path="res://Game/Graphics/Skills/Passifs/ilove_bots.png" id="1_aupv7"]
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/i_like_bots.gd" id="1_pvby0"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_rd1tv"]
 
 [resource]
 script = ExtResource("1_pvby0")
 cost = Array[int]([4, 5, 5])
-ps_texture = ExtResource("1_rd1tv")
+ps_texture = ExtResource("1_aupv7")
 ps_name = "i_like_bots"
 data_bonus_1 = [1, 2, 3]
 data_bonus_2 = []

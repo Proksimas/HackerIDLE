@@ -171,3 +171,14 @@ func cancel_timer(id_cible: String) -> void:
 		timer_node.stop()
 		timer_node.queue_free()
 		active_timers.erase(id_cible)
+		
+		
+		
+func _save_date():
+		var dict = {"OS_invested_points": OS_invested_points,
+					"DS_invested_points": DS_invested_points}
+		return dict
+		
+func _load_data(content: Dictionary):
+	OS_invested_points = content["OS_invested_points"]
+	DS_invested_points = content["DS_invested_points"]

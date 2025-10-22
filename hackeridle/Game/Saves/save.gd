@@ -21,6 +21,7 @@ func save_game():
 	content[TimeManager.name] = TimeManager._save_data()
 	content[EventsManager.name] = EventsManager._save_data()
 	content[NovaNetManager.name] = NovaNetManager._save_data()
+	content[SkillsManager.name] = SkillsManager._save_date()
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
@@ -55,6 +56,7 @@ func load_data():
 	time_manager_load_data(data["TimeManager"])
 	events_manager_load_data(data['EventsManager'])
 	novanet_manager_load_data(data['NovaNetManager'])
+	skills_manager_load_data(data['SkillsManager'])
 	
 	#CHargement au niveau de l'interface et de ses sous noeuds
 	var interface =  get_tree().get_root().get_node("Main/Interface")
@@ -136,7 +138,10 @@ func novanet_manager_load_data(content: Dictionary) -> void:
 			NovaNetManager.set(p_name, content[p_name])
 	
 	#NovaNetManager._load_data(content)
-
+func skills_manager_load_data(content: Dictionary) -> void:
+	print('chargement du skill manager')
+	print(content)
+	SkillsManager._load_data(content)
 func get_save_path():
 	"""renvoie le path user ou editeur"""
 	var save_path

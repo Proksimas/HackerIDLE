@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://Game/Skills/skills_manager.gd" id="1_scekt"]
 
-[node name="SkillsManger" type="Node"]
+[node name="SkillsManager" type="Node"]
 script = ExtResource("1_scekt")
