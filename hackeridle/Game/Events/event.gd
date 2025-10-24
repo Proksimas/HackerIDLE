@@ -19,40 +19,35 @@ var event_id: int
 # ################
 const MIN_KEYS = 1
 const MAX_KEYS = 4
-var max_effect_weight = 30
-var min_effect_weight= 10 
-var malus_decrase_infamy: float = -0.8 # le maluse du ratio pour baisser l'infamy par rappot au poids
+const MAX_EFFECT_WEIGHT = 30
+const MIN_EFFECT_WEIGHT = 10
+const MALUS_DECREASE_INFAMY = -0.8 # le maluse du ratio pour baisser l'infamy par rappot au poids
 # le weight est le ratio de 1 unité de la variable pour 1 unité d’infam
 # les valeurs en % devront avoir un /10 
+# NOUVEAU DICTIONNAIRE OPTIMISÉ (avec les paramètres pour build_values)
+# 'infamy_logic' peut être: "default", "inverted_time", "inverted_cost", "mixed"
 var effects_cara = {
-					"xp_click_base":  {"freq":20,
-								"weight": 8},
-					"xp_click_perc":  {"freq":35,
-								"weight": 20},
-					"knowledge_click_base":  {"freq":35,
-								"weight": 5},
-					"knowledge_click_perc":  {"freq":55,
-								"weight": 30},
-					"perc_from_gold": {"freq":65,
-								"weight": 5},
-					"perc_from_knowledge": {"freq":65,
-								"weight": 5},
-					"perc_from_brain_xp": {"freq":75,
-								"weight": 5},
-					"hack_time_perc": {"freq":35,
-								"weight": 30},
-					"hack_gold_perc": {"freq":55,
-								"weight": 20},
-					"hack_cost_perc": {"freq":35,
-								"weight": 20},
-					"learning_items_cost_perc": {"freq":55,
-								"weight": 20},
-					"learning_items_knowledge_perc": {"freq":35,
-								"weight": 20}
-							}
+	# --- Effets de base/pourcentage purs (Logique Fusionnée 'default') ---
 
+	"xp_click_base":        {"freq": 20, "weight": 8, "min_val": 0, "max_val": 4, "type": "int", "infamy_logic": "default"},
+	"knowledge_click_base": {"freq": 35, "weight": 5, "min_val": 0, "max_val": 10, "type": "int", "infamy_logic": "default"},
+	
+	"xp_click_perc":        {"freq": 35, "weight": 20, "min_val": 0.0, "max_val": 0.5, "type": "float", "infamy_logic": "default"},
+	"knowledge_click_perc": {"freq": 55, "weight": 30, "min_val": 0.0, "max_val": 0.5, "type": "float", "infamy_logic": "default"},
+	
+ 
+	"perc_from_gold":       {"freq": 65, "weight": 5, "min_val": 0.1, "max_val": 0.8, "type": "float", "infamy_logic": "default"},
+	"perc_from_knowledge":  {"freq": 65, "weight": 5, "min_val": 0.1, "max_val": 0.8, "type": "float", "infamy_logic": "default"},
+	"perc_from_brain_xp":   {"freq": 75, "weight": 5, "min_val": 0.1, "max_val": 0.8, "type": "float", "infamy_logic": "default"},
 
+	"hack_gold_perc":                 {"freq": 55, "weight": 20, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "default"},
+	"learning_items_knowledge_perc":  {"freq": 35, "weight": 20, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "default"},
 
+	"hack_time_perc":               {"freq": 35, "weight": 30, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "inverted_benefit"},
+	"hack_cost_perc":               {"freq": 35, "weight": 20, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "inverted_benefit"},
+	"learning_items_cost_perc":     {"freq": 55, "weight": 20, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "inverted_benefit"}
+}
+	
 func event_setup(_id: int) -> void:
 	"""On setup l'event en traduisant ses informations basiques. Puis on appelle 
 	la fonction de création des effets"""
@@ -76,8 +71,7 @@ func create_effects():
 	for choice_name in lst_choices_name:
 
 		var keys_chosen = get_keys(MIN_KEYS, MAX_KEYS)
-		var effects = build_values(keys_chosen)
-		
+		var effects = build_values(keys_chosen,MIN_EFFECT_WEIGHT, MAX_EFFECT_WEIGHT, MALUS_DECREASE_INFAMY)
 		
 		match choice_name:
 			"choice_a":
@@ -85,8 +79,6 @@ func create_effects():
 			_:
 				event_choice_2["effects"] = effects
 
-	
-# func get_keys(min_keys: int = MIN_KEYS, max_keys: int = MAX_KEYS) -> Array:
 func get_keys(min_keys: int, max_keys: int) -> Array:
 	var selected_keys = []
 	
@@ -102,86 +94,105 @@ func get_keys(min_keys: int, max_keys: int) -> Array:
 	if selected_keys.is_empty():
 		selected_keys.append(all_keys[0])
 	return selected_keys
-	
-func build_values(keys: Array) -> Dictionary:
-	"""on va créer les valeurs selon les poids des clées"""
-	var effects: Dictionary = {}
-	var points = 0
-	#while points <= max_effect_weight:
-	keys.shuffle()
-	for key in  keys:
+	# NOTE: Le dictionnaire 'effects_cara' doit être celui optimisé avec les champs min_val, max_val, type et infamy_logic.
+# max_effect_weight est la limite supérieure positive de l'infamie.
+# min_effect_weight est désormais interprété comme le COMPTE MINIMUM d'effets dans le résultat.
 
-		var add: float = 0
-		var weight:float = 0
-		weight = effects_cara[key]["weight"]
-		var coef = 1.0 # negatif si on doit rendre l'infamy negative, et on joue sur le coef du negatif
-		add = 0
-		if key.begins_with('perc_'):
-			add = snapped(randf_range(0.1, 0.8), 0.001)
-				
-		elif key.ends_with('_perc'):
-			if key == "hack_gold_perc" or key == "learning_items_knowledge_perc":
-				add = snapped(randf_range(-0.4, 0.4), 0.001)
-				if add > 0:
-					coef = 1
-				else:
-					coef = malus_decrase_infamy
-					
-			elif key == "learning_items_knowledge_perc"   :
-				add = snapped(randf_range(-0.4, 0.4), 0.001)
-				#ici le poids donne de si la valeur est négative
-				if add > 0:
-					coef = 1
-				else:
-					coef = malus_decrase_infamy
-					
-			elif key == "hack_time_perc":
-				add = snapped(randf_range(-0.4, 0.4), 0.001)
-				#ici le poids donne de si la valeur est négative
-				if add > 0:
-					coef = malus_decrase_infamy
-				else:
-					coef = 1
-				
-			elif key == "learning_items_cost_perc" or key == "hack_cost_perc":
-				add = snapped(randf_range(-0.4, 0.4), 0.001)
-				#ici le poids donne de si la valeur est négative
-				if add > 0:
-					coef = malus_decrase_infamy
-				else:
-					coef = 1
-					
+func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float, malus_decrase_infamy: float) -> Dictionary:
+	# Renommage interne du paramètre pour la clarté :
+	var min_effects_count: int = min_effect_weight
+	
+	var effects: Dictionary = {}
+	var points: float = 0.0 # Peut être négatif/nul
+	
+	keys.shuffle()
+	var keys_with_zero_value: Array = []
+ 
+	for key in keys:
+		var config = effects_cara.get(key)
+		
+		if config == null: continue
+
+		var add: float = 0.0
+		var weight: float = config.weight
+		var coef: float = 1.0
+		
+		# 1. Calcul de la valeur aléatoire (add)
+		var min_val = config.min_val
+		var max_val = config.max_val
+		
+		if config.type == "int":
+			add = float(randi_range(int(min_val), int(max_val)))
+		else:
+			add = snapped(randf_range(min_val, max_val), 0.001)
+
+		# 2. Détermination du Coefficient d'Infamie (coef)
+		match config.infamy_logic:
+			"default":
+				# Logique pour GAINS (add >= 0 est Bénéfice): Bénéfice -> Infamie Totale / Préjudice -> Anti-Infamie Réduite
+				coef = 1.0 if add >= 0.0 else malus_decrase_infamy
+
+			"inverted_benefit":
+				# Logique pour COUTS (add < 0 est Bénéfice): Préjudice -> Anti-Infamie Réduite / Bénéfice -> Infamie Totale
+				coef = malus_decrase_infamy if add >= 0.0 else -1.0
+
+			_:
+				# Logique par défaut si non reconnue
+				push_warning("Attention cas non pris en compte !")
+				coef = 1.0 if add >= 0.0 else malus_decrase_infamy
+
+		# 3. Calcul de la Contribution de l'Infamie (sans abs())
+		var potential_infamy_contribution = (add * weight) * coef
+		# 4. Gestion de la limite de poids maximum (Infamie positive)
+		# S'applique uniquement si la contribution est positive et qu'elle dépasse le max.
+		if points + potential_infamy_contribution > max_effect_weight and potential_infamy_contribution > 0:
+			add = 0.0
+			potential_infamy_contribution = 0.0
+
+		# 5. Accumulation et Enregistrement
+		points += potential_infamy_contribution
+		#print("cara: %s   valeur: %s   infamy: %s   total_inf: %s" % [key, add, potential_infamy_contribution, points])
+		if add != 0.0:
+			if effects.has(key):
+				effects[key] += add
 			else:
-				add = snapped(randf_range(0, 0.5), 0.001)
-				
-		elif key == "xp_click_base":
-			#prendre un % selon le next_xp , et tu baisses la weight en conséquence
-			add = randi_range(0, 4) # -> devrai etre considérer comme un % deu Player.brain_xp_next lors de l'event
-		elif key == "knowledge_click_base":
-			add = randi_range(0, 10)
+				effects[key] = add
 		else:
-			push_warning("key pa spris en compte")
-			
-		if points > max_effect_weight: #on limite le max. Les derniers elements auront 0
-			add = 0
-				#on diminue le add d'un pourcentage du weight actuel
+			# Si la valeur est 0, on la garde dans une liste pour le rattrapage.
+			keys_with_zero_value.append(key)
+	   
+	var effects_count = effects.size()
+	var needed_count = min_effects_count - effects_count
+	
+	if needed_count > 0:
+		keys_with_zero_value.shuffle()
+		var keys_to_fix = keys_with_zero_value.slice(0, needed_count - 1)
 		
-		#print("%s " % [tr("$" + key)])
-		#print("\tValeur: %s" % add)
-		#print("\tPoids: %s" % weight)
-		#print("\tInfamy: %s" % [abs(add * weight) * coef])
-		points += abs(add * weight) * coef
-		#print("key: %s   value: %s    points: %s" % [key, add, points])
-		
-		if effects.has(key):
-			effects[key] += add
-		elif !effects.has(key) and add == 0:
-			effects.erase(key)
-		else:
-			effects[key] = add
+		for key in keys_to_fix:
+			var config = effects_cara.get(key)
 			
-	effects["infamy"] = floor(points)
-	#print("effets: %s " % effects)
-	#print("point: %s" % points)
-			 
+			# Recalculer une valeur non nulle pour cet effet
+			var min_val = config.min_val
+			var max_val = config.max_val
+			var new_add: float = 0.0
+			
+			# S'assurer d'une valeur non nulle (en évitant la limite de 0 si elle existe)
+			if config.type == "int":
+				# Si la plage est 0-0, on force à 1. Sinon on prend le minimum > 0 ou < 0
+				if max_val == 0 and min_val == 0:
+					new_add = 1.0
+				else:
+					# On recalcule, sachant qu'on pourrait retomber sur 0.
+					# Pour garantir le non-zéro, il faudrait modifier la plage de randi_range
+					new_add = float(randi_range(int(min_val), int(max_val)))
+					if new_add == 0.0: new_add = 0.1 # On force une petite valeur si on retombe sur 0.
+			else:
+				new_add = snapped(randf_range(min_val, max_val), 0.001)
+				if new_add == 0.0: new_add = 0.001 # On force une petite valeur si on retombe sur 0.
+
+			# Mettre à jour les effets
+			effects[key] = new_add
+			
+	# L'infamie finale est le score cumulé (négatif, nul ou positif)
+	effects["infamy"] = points
 	return effects

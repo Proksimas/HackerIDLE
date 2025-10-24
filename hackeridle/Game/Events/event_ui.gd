@@ -65,7 +65,7 @@ func event_ui_setup(event: Event):
 		
 		else:
 			for event_effect_name:String in choices_id[index]["effects"]:
-
+				#print("event: %s    infamy: %s" % [event_effect_name, choices_id[index]["effects"]["infamy"]])
 				var effect_value = choices_id[index]["effects"][event_effect_name]
 				var is_perc: bool = false
 				if event_effect_name.ends_with("_perc"):
@@ -78,13 +78,18 @@ func event_ui_setup(event: Event):
 					#On doit mesurer lepercentage du total
 					value = Calculs.get_tot_gold() * effect_value
 					choice_text = tr("$gold") + ": "
+					#print("On a un perc_from_gold avec la valeur %s " % [value])
 				elif event_effect_name == "perc_from_knowledge":
 					value = Calculs.get_tot_knowledge() * effect_value
 					choice_text = tr("$knowledge") + ": "
+					#print("On a un perc_from_knowledge avec la valeur %s " % [value])
+					
 				elif event_effect_name == "perc_from_brain_xp":
 					#donne x% de l'exp qu'il faut pouir le prochain level
 					value = Player.brain_xp_next * effect_value
 					choice_text = tr("$brain_xp") + ": "
+					#print("On a un perc_from_brain_xp avec la valeur %s " % [value])
+					
 				else:
 					value = effect_value
 					if is_perc:
