@@ -5,6 +5,8 @@
 [node name="EventsManager" type="Node"]
 script = ExtResource("1_i1wl0")
 nb_of_event = 93
+min_wait_time = 5
+max_wait_time = 10
 
 [node name="TimerEvent" type="Timer" parent="."]
 unique_name_in_owner = true

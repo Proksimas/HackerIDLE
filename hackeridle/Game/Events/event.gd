@@ -53,15 +53,16 @@ var effects_cara = {
 
 
 
-func event_setup(_id, _choice_1_effects, _choice_2_effects) -> void:
+func event_setup(_id: int) -> void:
+	"""On setup l'event en traduisant ses informations basiques. Puis on appelle 
+	la fonction de création des effets"""
 	event_id = _id
 	event_titre_id = "event_{id}_titre".format({"id": _id})
 	event_description_id = "event_{id}_desc".format({"id": _id})
 	event_choice_1["texte_id"] = "event_{id}_choix1".format({"id": _id})
 	event_choice_2["texte_id"] = "event_{id}_choix2".format({"id": _id})
 	create_effects()
-	#event_choice_1["effects"] = _choice_1_effectscre
-	#event_choice_2["effects"] = _choice_2_effects
+
 	
 
 func create_effects():

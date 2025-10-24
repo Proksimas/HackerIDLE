@@ -50,16 +50,11 @@ func _ready() -> void:
 	#time_progress_bar.value = event_during_time - time_process
 	#
 	
-func event_ui_setup(scenario_specific: int = -1):
+func event_ui_setup(event: Event):  #scenario_specific: int = -1):
 	apply_background()
 	self.show()
 	_clear_choices_container()
-	var event:Event 
-	if scenario_specific <= 0:
-		event = EventsManager.get_random_event()
-	else:
-		event = EventsManager.get_specific_scenario(scenario_specific)
-		
+
 	name_of_event_label.text = tr(event.event_titre_id)
 	event_description_label.text = tr(event.event_description_id)
 	var choices_name_lst = [choice_a_name, choice_b_name]
