@@ -27,30 +27,19 @@ var time_process: float = 0
 
 signal s_event_finished()
 func _ready() -> void:
-	# event_ui_setup() --> pour choisir un évenement
-	#Au bout de x seconde l'event se termine et un choix est fait au hasard
-	
 	time_progress_bar.max_value = event_during_time
 	time_progress_bar.min_value = 0
 	time_progress_bar.value = event_during_time
-	#get_tree().create_timer(2).timeout.connect(_on_disabled_button_timout)
-	#choice_a_button.disabled = true
-	#choice_b_button.disabled = true
 	choice_a_button.disabled = false
 	choice_b_button.disabled = false
 	confirm_button.disabled = true
 	choice_a_button.pressed.connect(_on_choice_pressed.bind("choice_a"))
 	choice_b_button.pressed.connect(_on_choice_pressed.bind("choice_b"))
-	#POur la progress_bar
-	#Global.center(self)
-	pass # Replace with function body.
 
-#func _process(delta: float) -> void:
-	#time_process += delta
-	#time_progress_bar.value = event_during_time - time_process
-	#
+	pass 
+
 	
-func event_ui_setup(event: Event):  #scenario_specific: int = -1):
+func event_ui_setup(event: Event): 
 	apply_background()
 	self.show()
 	_clear_choices_container()
@@ -134,21 +123,18 @@ func event_ui_setup(event: Event):  #scenario_specific: int = -1):
 	
 	
 func apply_background():
-	
 	var stylebox = StyleBoxTexture.new()
 	var rnd = randi_range(0, len(background_texture) -1)
 	stylebox.texture = background_texture[rnd]
-
 	self.add_theme_stylebox_override("panel", stylebox)
 	
-func _on_choice_pressed(_choice: String): #_choice: String, _modifiers: Dictionary, event_id):
+func _on_choice_pressed(_choice: String):
 	""" choice = choice_a ou choice_b"""
 
 	choice_selected = _choice
 	confirm_button.enable()
 	
 func _on_confirm_button_s_pressed():
-	
 	get_tree().paused = false
 	s_event_finished.emit() 
 	
@@ -158,11 +144,6 @@ func _on_confirm_button_s_pressed():
 		apply_modifiers(choices_modifiers[1]["effects"], choices_modifiers[1]["choice_id"])
 	else:
 		push_error("Probleme dans les choix")
-		
-	#var interface = Global.get_interface()
-	#if !interface.jail.is_in_jail:
-		#get_tree().paused = false
-	#else:
 
 		
 
@@ -245,9 +226,7 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 			"perc_from_brain_xp":
 				var value = Player.brain_xp_next * _modifiers[stat_name]
 				Player.earn_brain_xp(value)
-				
-			
-	
+
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
 	

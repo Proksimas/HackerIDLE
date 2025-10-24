@@ -17,8 +17,8 @@ var event_choice_1: Dictionary
 var event_choice_2:  Dictionary
 var event_id: int
 # ################
-var max_keys = 4
-var min_keys = 1
+const MIN_KEYS = 1
+const MAX_KEYS = 4
 var max_effect_weight = 30
 var min_effect_weight= 10 
 var malus_decrase_infamy: float = -0.8 # le maluse du ratio pour baisser l'infamy par rappot au poids
@@ -74,8 +74,10 @@ func create_effects():
 	# on choisit les keys selon leurs fréquences
 	var lst_choices_name = ["choice_a", "chocie_b"]
 	for choice_name in lst_choices_name:
-		var keys_chosen = get_keys()
+
+		var keys_chosen = get_keys(MIN_KEYS, MAX_KEYS)
 		var effects = build_values(keys_chosen)
+		
 		
 		match choice_name:
 			"choice_a":
@@ -84,22 +86,23 @@ func create_effects():
 				event_choice_2["effects"] = effects
 
 	
+# func get_keys(min_keys: int = MIN_KEYS, max_keys: int = MAX_KEYS) -> Array:
+func get_keys(min_keys: int, max_keys: int) -> Array:
+	var selected_keys = []
 	
-func get_keys():
-	var effects_cara_keys = effects_cara.keys()
-	effects_cara_keys.shuffle()
-	var nb_events = randi_range(min_keys, max_keys)
-	var keys = []
-	for key_name in effects_cara_keys:
-		var rand = randi_range(0, 100)
-		if rand <= effects_cara[key_name]["freq"]:
-			keys.append(key_name)
-			if len(keys) >= nb_events:
-				break
-	if len(keys) < 1: # si pas de chance etqu'on a vraiment rien
-		keys.append(effects_cara_keys[0])
-	return keys
-
+	var nb_events_target = randi_range(min_keys, max_keys)
+	var all_keys = effects_cara.keys()
+	all_keys.shuffle()
+	for key_name in all_keys:
+		if selected_keys.size() >= nb_events_target:
+			break
+		var frequency = effects_cara[key_name].freq
+		if randi_range(1, 100) <= frequency:
+			selected_keys.append(key_name)
+	if selected_keys.is_empty():
+		selected_keys.append(all_keys[0])
+	return selected_keys
+	
 func build_values(keys: Array) -> Dictionary:
 	"""on va créer les valeurs selon les poids des clées"""
 	var effects: Dictionary = {}
