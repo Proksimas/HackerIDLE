@@ -22,13 +22,10 @@ var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb 
 # 10 = + 10%, - 10 = -10%
 var wait_time_modificators: Dictionary = {}   # {source_du_mod: value }
 
-
 func events_initialisation():
-	
 	events_passed_pool.clear()
+	next_events.clear()
 	next_events = create_unique_list(nb_of_event)
-
-	
 
 func create_unique_list(x: int) -> Array:
 	"""On initialise les futurs events, pour s'assurer que nous ayons pas de doublons.
@@ -39,8 +36,8 @@ func create_unique_list(x: int) -> Array:
 	unique_list.shuffle()
 	return unique_list
 
-	
 func launch_timer():
+	"""Lance le timer d'attente entre 2 évents"""
 	var nbr =  randi_range(min_wait_time, max_wait_time) 
 	var multiplicators: float = 0
 	for mult in wait_time_modificators.values():
@@ -63,11 +60,10 @@ func create_event(scenario_specific: int = -1):
 	return event
 	
 func create_event_and_ui(scenario_specific: int = -1):
-	""" affiche un nouvel EVENT, en créant du coup l'event"""
+	""" affiche un nouvel EVENT dans l'event_ui, en créant du coup l'event"""
 	var event_ui = EVENT_UI.instantiate()
 	var interface = Global.get_interface()
 	var event: Event = create_event(scenario_specific)
-	
 	interface.main_tab.add_child(event_ui)
 
 	event_ui.event_ui_setup(event)
