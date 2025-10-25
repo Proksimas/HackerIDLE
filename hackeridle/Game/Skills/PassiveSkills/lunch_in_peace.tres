@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b1a6rmahprvoy"]
+
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/lunch_in_peace.gd" id="1_dr310"]
+[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_yrvlr"]
+
+[resource]
+script = ExtResource("1_dr310")
+cost = Array[int]([3, 4, 5])
+ps_texture = ExtResource("1_yrvlr")
+ps_name = "lunch_in_peace"
+data_bonus_1 = [20, 30, 50]
+data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = true
+min_cost_invested = 3

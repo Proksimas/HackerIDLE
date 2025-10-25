@@ -10,6 +10,7 @@ ia_desc;Active les clics automatiques dans le Novanet pour les bots toutes {data
 i_like_bots_desc;Augmente l’expérience rapportée par bots de recherche de {data_bonus_1};Increases the experience reported by search bots from {data_bonus_1}
 tax_optimization_desc;Vous gagnez par seconde {data_bonus_1}% de votre total d’or.;You earn {data_bonus_1}% of your total gold per second
 hackathon_desc;Toutes les {data_bonus_1}s, un de vos hacks gagne un niveau gratuitement.;Every {data_bonus_1}s, one of your hacks gains a level for free.
+lunch_in_peace_desc;Les gains et malus liés aux évenements sont augmentés de {data_bonus_1}%.Event-related gains and losses are increased by {data_bonus_1}%.
 $genius_stroke;Coup de génie;Genius stroke
 $veteran;Vétéran;Veteran
 $click_worth;Un clic en vaut deux;A click is worth two
@@ -21,3 +22,4 @@ $ia;IA;IA
 $i_like_bots;Moi. Aimer. Bots;Me. Love. Bots
 $tax_optimization;Optimisation fiscale; Tax optimization
 $hackathon;Hackathon;Hackathon
+$lunch_in_peace;Déjeuner en paix;Lunch in peace

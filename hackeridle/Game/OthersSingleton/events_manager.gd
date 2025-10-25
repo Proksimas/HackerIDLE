@@ -16,8 +16,9 @@ var malus_effects = ["infamy","hack_time_perc","learning_items_cost_perc",
 					
  # Comprend les events deja PASSE Tous les events inti: event_id = Event: Resource
 var events_passed_pool: Dictionary = {}
-
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
+var malus_and_gain_multi: Dictionary = {}  #{source_du_mod: value }
+
 # tableau de multiplicateur du temps d'attente des events, directement en %
 # 10 = + 10%, - 10 = -10%
 var wait_time_modificators: Dictionary = {}   # {source_du_mod: value }
@@ -96,7 +97,8 @@ func _save_data() -> Dictionary:
 	# faudra faire un enregistrement des valeurs de l'évent si besoin 
 	var dict = {"next_events": next_events,
 				"events_passed_pool": events_passed_pool,
-				"time_event_left": timer_event.time_left}
+				"time_event_left": timer_event.time_left,
+				"malus_and_gain_multi": malus_and_gain_multi}
 	return dict
 
 func _load_data(data):
@@ -107,4 +109,5 @@ func _load_data(data):
 	next_events = data["next_events"]
 	events_passed_pool = data["events_passed_pool"]
 	timer_event.wait_time = data["time_event_left"]
+	malus_and_gain_multi = data["malus_and_gain_multi"]
 	timer_event.start(data["time_event_left"])
