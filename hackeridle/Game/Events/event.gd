@@ -193,7 +193,7 @@ func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float,
 			# Mettre à jour les effets
 			#on prend en compte les bonus
 			var multiplicators: int = 0
-			for mult in StatsManager.malus_and_gain_multi.values():
+			for mult in EventsManager.malus_and_gain_multi.values():
 				multiplicators += mult
 			var add_with_mod = new_add
 			
@@ -205,5 +205,10 @@ func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float,
 			effects[key] = add_with_mod
 			
 	# L'infamie finale est le score cumulé (négatif, nul ou positif)
-	effects["infamy"] = points
+	var sum: int = 0
+	for value in EventsManager.add_infamy_events.values():
+		sum += value
+	
+	print("old infamy: %s\new_infamy:%s" % [points,points + sum])
+	effects["infamy"] = points + sum
 	return effects

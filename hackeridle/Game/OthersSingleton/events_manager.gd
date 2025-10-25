@@ -17,8 +17,8 @@ var malus_effects = ["infamy","hack_time_perc","learning_items_cost_perc",
  # Comprend les events deja PASSE Tous les events inti: event_id = Event: Resource
 var events_passed_pool: Dictionary = {}
 var next_events: Array # sera un array dde chiffres léatoires entre 0 et le nb d'events dans le pool
-var malus_and_gain_multi: Dictionary = {}  #{source_du_mod: value }
-
+var malus_and_gain_multi: Dictionary = {}  #{source_du_mod: value en perc }
+var add_infamy_events: Dictionary = {}  #{source_du_mod: value en int }
 # tableau de multiplicateur du temps d'attente des events, directement en %
 # 10 = + 10%, - 10 = -10%
 var wait_time_modificators: Dictionary = {}   # {source_du_mod: value }
