@@ -16,7 +16,9 @@ var passives_skills: Dictionary = {
 	"ia": preload("res://Game/Skills/PassiveSkills/ia.tres"),
 	"i_like_bots": preload("res://Game/Skills/PassiveSkills/i_like_bots.tres"),
 	"tax_optimization": preload("res://Game/Skills/PassiveSkills/tax_optimization.tres"),
-	"hackathon": preload("res://Game/Skills/PassiveSkills/hackathon.tres")}
+	"hackathon": preload("res://Game/Skills/PassiveSkills/hackathon.tres"),
+	"lunch_in_peace": preload("res://Game/Skills/PassiveSkills/lunch_in_peace.tres"),
+	"newspapers_are_always_right": preload("res://Game/Skills/PassiveSkills/newspapers_are_always_right.tres")}
 
 var active_timers: Dictionary = {}
 var OS_invested_points = 0

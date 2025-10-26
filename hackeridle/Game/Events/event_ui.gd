@@ -26,6 +26,7 @@ var choice_selected: String
 var time_process: float = 0
 
 signal s_event_finished()
+signal s_event_ui_setup_finished()
 func _ready() -> void:
 	time_progress_bar.max_value = event_during_time
 	time_progress_bar.min_value = 0
@@ -35,6 +36,7 @@ func _ready() -> void:
 	confirm_button.disabled = true
 	choice_a_button.pressed.connect(_on_choice_pressed.bind("choice_a"))
 	choice_b_button.pressed.connect(_on_choice_pressed.bind("choice_b"))
+	s_event_ui_setup_finished.connect(_on_s_event_ui_setup_finished)
 
 	pass 
 
@@ -122,11 +124,9 @@ func event_ui_setup(event: Event):
 									"effects": choices_id[index]["effects"],
 									"choice_id": choices_id[index]["texte_id"]})
 		index += 1
-		
-	#On met le jeu en pause
-	get_tree().paused = true
+	s_event_ui_setup_finished.emit()
 	
-	
+
 func apply_background():
 	var stylebox = StyleBoxTexture.new()
 	var rnd = randi_range(0, len(background_texture) -1)
@@ -234,6 +234,9 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))
 
+	
+func _on_s_event_ui_setup_finished():
+	get_tree().paused = true
 	
 	
 func _on_disabled_button_timout():

@@ -48,7 +48,7 @@ var effects_cara = {
 	"learning_items_cost_perc":     {"freq": 55, "weight": 20, "min_val": -0.4, "max_val": 0.4, "type": "float", "infamy_logic": "inverted_benefit"}
 }
 	
-func event_setup(_id: int) -> void:
+func event_setup(_id: int) -> bool:
 	"""On setup l'event en traduisant ses informations basiques. Puis on appelle 
 	la fonction de création des effets"""
 	event_id = _id
@@ -57,6 +57,7 @@ func event_setup(_id: int) -> void:
 	event_choice_1["texte_id"] = "event_{id}_choix1".format({"id": _id})
 	event_choice_2["texte_id"] = "event_{id}_choix2".format({"id": _id})
 	create_effects()
+	return true
 
 	
 
@@ -154,12 +155,14 @@ func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float,
 		#print("cara: %s   valeur: %s   infamy: %s   total_inf: %s" % [key, add, potential_infamy_contribution, points])
 		if add != 0.0:
 			if effects.has(key):
-				effects[key] += add
+				effects[key] += add_multiplicators(add)
 			else:
-				effects[key] = add
+				effects[key] = add_multiplicators(add)
+				#print("key: %s   old_value: %s   new_value: %s" % [key, add, effects[key]])
 		else:
 			# Si la valeur est 0, on la garde dans une liste pour le rattrapage.
 			keys_with_zero_value.append(key)
+		
 	   
 	var effects_count = effects.size()
 	var needed_count = min_effects_count - effects_count
@@ -167,7 +170,6 @@ func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float,
 	if needed_count > 0:
 		keys_with_zero_value.shuffle()
 		var keys_to_fix = keys_with_zero_value.slice(0, needed_count - 1)
-		
 		for key in keys_to_fix:
 			var config = effects_cara.get(key)
 			
@@ -192,23 +194,28 @@ func build_values(keys: Array, min_effect_weight: int, max_effect_weight: float,
 
 			# Mettre à jour les effets
 			#on prend en compte les bonus
-			var multiplicators: int = 0
-			for mult in EventsManager.malus_and_gain_multi.values():
-				multiplicators += mult
-			var add_with_mod = new_add
-			
-			if multiplicators != 0:
-				add_with_mod = new_add * (1 + (multiplicators/100))
+
 				
-			
-			print("old_add: %s\new_add:%s" % [new_add,add_with_mod])
-			effects[key] = add_with_mod
+			effects[key] = add_multiplicators(new_add)
 			
 	# L'infamie finale est le score cumulé (négatif, nul ou positif)
 	var sum: int = 0
 	for value in EventsManager.add_infamy_events.values():
 		sum += value
 	
-	print("old infamy: %s\new_infamy:%s" % [points,points + sum])
 	effects["infamy"] = points + sum
 	return effects
+
+func add_multiplicators(value_to_change:float):
+	"""On ajoute les modificateurs sur les gains"""
+	var multiplicators: int = 0
+	for mult in EventsManager.malus_and_gain_multi.values():
+		multiplicators += mult
+	var add_with_mod: float
+	
+	if multiplicators != 0:
+		add_with_mod = value_to_change * (1.0 + (multiplicators/100.0))
+	else:
+		add_with_mod = value_to_change
+	return add_with_mod
+	
