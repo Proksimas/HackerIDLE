@@ -8,6 +8,7 @@ var base_click := 1.0      # connaissance de base par clic
 var k := 5.0               # puissance de l’or investi (rendement décroissant). Impacte grandement sur l'investissement
 var next_bot_kwoledge_acquired: float = 0
 var gold_to_invest: int = 100 # Investissement du joueur par click
+var gold_invest_in_bots: float= 0 # correspond à l'argent que le joueur a investi pour les bots
 # ------------- ¨Paramètres pour les SALES ---------------------------------------------
 
 var gold_invest_in_sales: float= 0 # correspond à l'argent que le joueur a investi.
@@ -156,10 +157,10 @@ func nb_click_left(or_investi) ->int:
 
 func click(or_investi: float) -> bool:
 
-	if Player.gold < or_investi:
-		print("Pas assez d’or pour investir ", or_investi)
-		s_not_enough.emit("gold")
-		return false
+	#if Player.gold < or_investi:
+		#print("Pas assez d’or pour investir ", or_investi)
+		#s_not_enough.emit("gold")
+		#return false
 	var knowledge_gain := knowledge_per_click(or_investi)
 	if Player.knowledge_point < knowledge_gain:
 		print("Pas assez de knowledge pour investir ", knowledge_gain)
