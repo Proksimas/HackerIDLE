@@ -21,7 +21,7 @@ var mean_rev: float = 0.10         # retour à la moyenne (0..1)
 var _v: float = 0.0                        # état de volatilité
 var clamp_abs: float = 0.5   # borne douce sur v (evite extrêmes)
 # ------------- ¨Paramètres pour le farming XP---------------------------------------------
-var coef_farming_xp = {"base": 1}
+var coef_farming_xp = {"base": 3}
 var coef_exploit_xp: float
 # Nombres de bots affectés aux taches
 var active_tasks = {
@@ -49,7 +49,7 @@ func _init():
 	knowledge_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
 	coef_exploit_xp = 10
-	coef_farming_xp = {"base": 1}
+	coef_farming_xp = {"base": 3}
 	
 func assign_bots(task_name, number_of_bots):
 	active_tasks[task_name] = number_of_bots
