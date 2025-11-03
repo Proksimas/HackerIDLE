@@ -12,8 +12,10 @@ var gold_invest_in_bots: float= 0 # correspond à l'argent que le joueur a inves
 # ------------- ¨Paramètres pour les SALES ---------------------------------------------
 
 var gold_invest_in_sales: float= 0 # correspond à l'argent que le joueur a investi.
+var knowledge_invest_in_sales: float = 0
 var gold_to_invest_perc: float = 0.10 # le joueur doit investir x% de son argent max
-var _R: float = 0.02 / 600  # revenu moyen par bot / s -> doit etre un % de gold_invest_in_sales
+var knowledge_to_invest_perc: float = 0.10
+var _R: float = 0.02 / 60  # revenu moyen par bot / s -> doit etre un % de l'investissement
 var sigma_base: float = 0.30       # volatilité globale
 var mean_rev: float = 0.10         # retour à la moyenne (0..1)
 var _v: float = 0.0                        # état de volatilité
@@ -43,7 +45,8 @@ func _process(delta: float) -> void:
 func _init():
 	for key in active_tasks:
 		active_tasks[key] = 0
-	gold_invest_in_sales = 0
+	#gold_invest_in_sales = 0
+	knowledge_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
 	coef_exploit_xp = 10
 	coef_farming_xp = {"base": 1}
@@ -103,7 +106,7 @@ func update_sales_task(_delta):
 		var _M := maxf(0.0, 1.0 + _v)
 		
 		#
-		var gain := int(float(bots) * _R * gold_invest_in_sales * _M)
+		var gain := int(float(bots) * _R * knowledge_invest_in_sales * _M)
 		# 	TODO EARN
 		
 		s_gain_sales.emit(gain)
@@ -120,12 +123,12 @@ func _randn() -> float:
 	
 func expected_income_per_sec() -> float:
 	# espérance ≈ bots * _R (car E[M]≈1)
-	return float(active_tasks["sales_task"]) * _R * gold_invest_in_sales
+	return float(active_tasks["sales_task"]) * _R * knowledge_invest_in_sales
 
 func current_income_per_sec_estimate() -> float:
 	# estimation instantanée avec le M courant
 	var M := maxf(0.0, 1.0 + _v)
-	return float(active_tasks["sales_task"]) * _R * gold_invest_in_sales * M
+	return float(active_tasks["sales_task"]) * _R * knowledge_invest_in_sales * M
 	
 
 #endregion
@@ -163,7 +166,6 @@ func click(or_investi: float) -> bool:
 		#return false
 	var knowledge_gain := knowledge_per_click(or_investi)
 	if Player.knowledge_point < knowledge_gain:
-		print("Pas assez de knowledge pour investir ", knowledge_gain)
 		s_not_enough.emit("knowledge")
 		return false
 	next_bot_kwoledge_acquired += knowledge_gain

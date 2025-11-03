@@ -4,7 +4,8 @@ extends VBoxContainer
 @onready var sales_container: HBoxContainer = %SalesContainer
 @onready var sales_slider: HSlider = %SalesSlider
 @onready var sales_bots_value: Label = %SalesBotsValue
-@onready var gold_invest_label: Label = %GoldInvestLabel
+#@onready var gold_invest_label: Label = %GoldInvestLabel
+@onready var knowledge_invest_label: Label = %KnowledgeInvestLabel
 @onready var invest_title: Label = %InvestTitle
 @onready var invest_button: Button = %InvestButton
 @onready var total_investi_title: Label = %TotalInvestiTitle
@@ -27,12 +28,12 @@ func refresh():
 	sales_label.text = tr("$Sales")
 	sales_title.text = tr("$Sales")
 	sales_bots_value.text = str(NovaNetManager.active_tasks["sales_task"])
-	var to_invest = NovaNetManager.gold_to_invest_perc * Player.gold
-	gold_invest_label.text = Global.number_to_string(to_invest)
+	var to_invest = NovaNetManager.knowledge_to_invest_perc * Player.knowledge_point
+	knowledge_invest_label.text = Global.number_to_string(to_invest)
 	invest_title.text = tr("$Invest") + ": " 
 	total_investi_title.text = tr("$TotalInvesti") + ": "
 	average_gain_label.text = tr("$AverageGain") + ": "
-	total_investi_label.text = Global.number_to_string(NovaNetManager.gold_invest_in_sales)
+	total_investi_label.text = Global.number_to_string(NovaNetManager.knowledge_invest_in_sales)
 	if NovaNetManager.active_tasks["sales_task"] > 0:
 		invest_button.disabled = false
 	else:
@@ -43,10 +44,11 @@ func _on_draw() -> void:
 	pass # Replace with function body.
 
 func _on_invest_button_pressed() -> void:
-	"""On investit une quantité d'argent"""
-	var to_invest = NovaNetManager.gold_to_invest_perc * Player.gold
-	Player.earn_gold(0 - to_invest )
-	NovaNetManager.gold_invest_in_sales += to_invest
+	"""On investit une quantité de connaissance"""
+	var to_invest = NovaNetManager.knowledge_to_invest_perc * Player.knowledge_point
+	
+	Player.earn_knowledge_point(0 - to_invest )
+	NovaNetManager.knowledge_invest_in_sales += to_invest
 	
 	refresh()
 	pass # Replace with function body.

@@ -72,7 +72,6 @@ func refresh():
 
 
 func _on_click_bot_pressed() -> void:
-	
 	var has_click = NovaNetManager.click(NovaNetManager.gold_invest_in_bots)
 	if has_click:
 		_on_gold_invest_box_value_changed(int(gold_invest_box.value))
