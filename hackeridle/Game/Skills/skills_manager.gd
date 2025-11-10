@@ -23,6 +23,7 @@ var passives_skills: Dictionary = {
 var active_timers: Dictionary = {}
 var OS_invested_points = 0
 var DS_invested_points = 0
+var NOVANETS_invested_points = 0
 
 signal timer_completed(id_cible)
 signal as_learned(skill:ActiveSkill)
@@ -178,9 +179,11 @@ func cancel_timer(id_cible: String) -> void:
 		
 func _save_date():
 		var dict = {"OS_invested_points": OS_invested_points,
-					"DS_invested_points": DS_invested_points}
+					"DS_invested_points": DS_invested_points,
+					"NOVANETS_invested_points": NOVANETS_invested_points}
 		return dict
 		
 func _load_data(content: Dictionary):
 	OS_invested_points = content["OS_invested_points"]
 	DS_invested_points = content["DS_invested_points"]
+	NOVANETS_invested_points = content["NOVANETS_invested_points"]

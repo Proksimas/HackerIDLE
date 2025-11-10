@@ -55,17 +55,22 @@ func show_hide_level(_type_received, min_cost_received):
 		min_cost = as_associated.min_cost_invested
 		if as_associated.is_offensive_skill:
 			skill_type = "offensive"
-		else:
+		elif as_associated.is_defensive_skill:
 			skill_type = "defensive"
+		elif as_associated.is_novanet_skill:
+			skill_type = "novanet"
 	else:
 		min_cost = ps_associated.min_cost_invested
 		if ps_associated.is_offensive_skill:
 			skill_type = "offensive"
-		else:
+		elif ps_associated.is_defensive_skill:
 			skill_type = "defensive"
+		elif ps_associated.is_novanet_skill:
+			skill_type = "novanet"
 			
 	if (skill_type == "offensive" and _type_received == "offensive") or \
-	(skill_type == "defensive" and _type_received == "defensive"):
+	(skill_type == "defensive" and _type_received == "defensive") or \
+	(skill_type == "novanet" and _type_received == "novanet"):
 		if min_cost <= min_cost_received:
 			level_skill_label.show()
 			is_lock = false

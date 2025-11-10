@@ -8,6 +8,7 @@ class_name PassiveSkill
 @export var data_bonus_2: Array
 @export var is_offensive_skill: bool = false
 @export var is_defensive_skill: bool = false
+@export var is_novanet_skill: bool = false
 #Pour que le skill se débloque, la quantité de point investi dans sa catégorie (offensive ou def)
 @export var min_cost_invested: int = 0
 
@@ -23,8 +24,8 @@ func attach(_caster: Node, level) -> void:
 		
 		A SURCHARGER """
 		
-	if is_defensive_skill == false and is_offensive_skill == false:
-		push_error("Attention le skill doit etrer au moins offensif ou defensif")
+	if is_defensive_skill == false and is_offensive_skill == false and is_novanet_skill == false:
+		push_error("Attention le skill doit etrer au moins offensif ou defensif ou novanet")
 	tree = _caster.get_tree()   # on récupère la référence de l'arbre
 	self.ps_level = level
 	

@@ -11,3 +11,7 @@ as_during_time = 0.0
 as_name = ""
 data_bonus_1 = []
 data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false
+is_novanet_skill = false
+min_cost_invested = 0

@@ -11,15 +11,15 @@ extends Control
 @onready var skills_tab: TabContainer = %SkillsTab
 @onready var offensive_skills: Control = %OffensiveSkills
 @onready var defensive_skills: Control = %DefensiveSkills
+@onready var novanet_skills: Control = %NovanetSkills
 @onready var defensive_panel_skills: Panel = %DefensivePanelSkills
 @onready var offensive_panel_skills: Panel = %OffensivePanelSkills
-@onready var ia_panel_skills: Panel = %IAPanelSkills
-
-@onready var ia_skills: Control = %IASkills
+@onready var novanet_panel_skills: Panel = %NovanetPanelSkills
 
 @onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
 @onready var defensive_points_invested_label: Label = %DefensivePointsInvestedLabel
-@onready var ia_points_invested_label: Label = %IAPointsInvestedLabel
+@onready var novanet_points_invested_label: Label = %NovanetPointsInvestedLabel
+
 
 const VIOLET_NEON = Color(0.878, 0.424, 0.973)
 const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
@@ -50,10 +50,13 @@ func _draw() -> void:
 	hide_and_show_skills_info("hide")
 	offensive_points_invested_label.text = str(SkillsManager.OS_invested_points)
 	defensive_points_invested_label.text = str(SkillsManager.DS_invested_points)
+	novanet_points_invested_label.text = str(SkillsManager.NOVANETS_invested_points)
 	skill_point_value.text = str(Player.skill_point)
 	refresh_skill_nodes()
 	get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
 	get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
+	get_tree().call_group("g_skill_node", "show_hide_level", "novanet",SkillsManager.NOVANETS_invested_points)
+	
 
 func hide_and_show_skills_info(_type: String):
 	match _type:
@@ -107,6 +110,11 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 				buy_button.hide() 
 			else:
 				unlocked_buy_skill_button()
+		elif skills_cara["is_novanet_skill"]:
+			if SkillsManager.NOVANETS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide() 
+			else:
+				unlocked_buy_skill_button()
 		
 	else: #passive skill
 		skill_name_label.text = tr("$" + skills_cara['ps_name'])
@@ -134,6 +142,13 @@ func _on_skill_node_skill_button_pressed(skill_name: String, skill_type) -> void
 				buy_button.hide() 
 			else:
 				unlocked_buy_skill_button()
+				
+		elif skills_cara["is_novanet_skill"]:
+			if SkillsManager.NOVANETS_invested_points < skills_cara["min_cost_invested"]:
+				buy_button.hide() 
+			else:
+				unlocked_buy_skill_button()
+		
 		
 		pass
 	pass # Replace with function body.
@@ -203,14 +218,17 @@ func _on_buy_skill_button_pressed():
 		Player.skill_point -= cache_skill_cost
 		if skill_cara["is_offensive_skill"]:
 			SkillsManager.OS_invested_points += cache_skill_cost
-		else: 
+		elif skill_cara["is_defensive_skill"]:
 			SkillsManager.DS_invested_points += cache_skill_cost
+		elif skill_cara["is_novanet_skill"]:
+			SkillsManager.NOVANETS_invested_points += cache_skill_cost
 
 		refresh_skill_nodes()
 		skills_tab.refresh_skills_tab()
 		#Puis on ajuste le level dans l'ui du skill
 		get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
 		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
+		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.NOVANETS_invested_points)
 		_draw()
 	pass
 
@@ -239,23 +257,20 @@ func show_defensive_skill() -> void:
 	defensive_skills.show()
 	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, VIOLET_NEON))
 	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, BLUE_NEON))
-	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
+	novanet_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
 	
 func show_offensive_skill() -> void:
 	offensive_skills.show()
 	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, VIOLET_NEON))
 	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, BLUE_NEON))
-	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
+	novanet_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
 	
 func show_ia_skill() -> void:
-	ia_skills.show()
-	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, VIOLET_NEON))
+	novanet_skills.show()
+	novanet_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, VIOLET_NEON))
 	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, BLUE_NEON))
 	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, BLUE_NEON))
 	
-
-	#
-
 func _on_draw() -> void:
 	show_offensive_skill()
 	pass # Replace with function body.
