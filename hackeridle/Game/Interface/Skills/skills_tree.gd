@@ -13,13 +13,19 @@ extends Control
 @onready var defensive_skills: Control = %DefensiveSkills
 @onready var defensive_panel_skills: Panel = %DefensivePanelSkills
 @onready var offensive_panel_skills: Panel = %OffensivePanelSkills
+@onready var ia_panel_skills: Panel = %IAPanelSkills
+
+@onready var ia_skills: Control = %IASkills
+
 @onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
 @onready var defensive_points_invested_label: Label = %DefensivePointsInvestedLabel
+@onready var ia_points_invested_label: Label = %IAPointsInvestedLabel
 
 const VIOLET_NEON = Color(0.878, 0.424, 0.973)
 const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
 const BLUE = Color(0.035, 0.282, 0.494)
 const RED = Color(0.384, 0.004, 0.075)
+const VIOLET = Color(0.701, 0, 0.706)
 
 var cache_skill_name: String
 var cache_skill_cost: int
@@ -233,13 +239,22 @@ func show_defensive_skill() -> void:
 	defensive_skills.show()
 	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, VIOLET_NEON))
 	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, BLUE_NEON))
-
+	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
 	
 func show_offensive_skill() -> void:
 	offensive_skills.show()
 	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, VIOLET_NEON))
 	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, BLUE_NEON))
+	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, BLUE_NEON))
 	
+func show_ia_skill() -> void:
+	ia_skills.show()
+	ia_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(VIOLET, VIOLET_NEON))
+	offensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(RED, BLUE_NEON))
+	defensive_panel_skills.add_theme_stylebox_override("panel" ,create_stylebox(BLUE, BLUE_NEON))
+	
+
+	#
 
 func _on_draw() -> void:
 	show_offensive_skill()
@@ -272,4 +287,11 @@ func _on_offensive_panel_skills_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			show_offensive_skill()
+	pass # Replace with function body.
+
+
+func _on_ia_panel_skills_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			show_ia_skill()
 	pass # Replace with function body.
