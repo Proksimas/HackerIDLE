@@ -21,8 +21,8 @@ extends Control
 @onready var gold_resource: Control = %GoldResource
 @onready var cyber_force_resource: ResourceBox = %CyberForceResource
 
-@onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
 @onready var cheat_events: HBoxContainer = %cheat_events
+@onready var cheat_panel: Panel = %CheatPanel
 
 @onready var date_label: Label = %DateLabel
 @onready var news_panel: PanelContainer = %NewsPanel
@@ -51,9 +51,10 @@ const NOVANET= preload("res://Game/Graphics/Background/Novanet/NovaNet_bg.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# CHEAT
 	if !OS.has_feature("editor"):
-		cheat_events.hide()
-		#cheat_events.show()
+		#cheat_events.hide()
+		cheat_events.show()
 	
 	main_tab.current_tab = 0
 	connexions()
@@ -94,6 +95,7 @@ func init_interface():
 	if Player.nb_of_rebirth >= 1:
 		nova_net_box.get_parent().show()
 	else:nova_net_box.get_parent().hide()
+	
 	#sp_resource.set_resource_box("SP")
 	#sp_resource.refresh_value(int(Player.skill_point))
 	
@@ -105,7 +107,8 @@ func init_interface():
 		
 		
 	_on_s_brain_clicked(0,0)
-
+	
+	cheat_panel.hide()
 	self.hide()
 	
 func inits_shops():
@@ -238,30 +241,10 @@ func _on_s_wait_too_long(is_wainting):
 	else:
 		dark_shop_warning_icon.visible = false
 
-func _on_jail_button_pressed() -> void:
-	StatsManager.s_go_to_jail.emit()
-	#app_button_pressed("jail")
-	pass # Replace with function body.
+
 
 func _on_more_button_box():
 	more_button_container.visible = !more_button_container.visible
-
-func _on_finish_button_pressed() -> void:
-	TimeManager.game_seconds += 70 * TimeManager.DAYS_PER_YEAR * TimeManager.SECONDS_PER_DAY
-	pass # Replace with function body.
-
-
-
-func _on_button_pressed() -> void:
-	"""On reçoit un evennement"""
-	if !OS.has_feature("editor"):
-		push_error("Fonctionnalité non disponible en cheatMode")
-		return
-	cheat_event_spin_box.apply()
-
-	EventsManager.create_event_and_ui(int(cheat_event_spin_box.value))
-
-	pass # Replace with function body.
 
 
 func _load_data(data):
@@ -286,4 +269,9 @@ func _on_more_button_container_draw() -> void:
 
 func _on_more_button_container_hidden() -> void:
 	more_button_box.texture_normal = ICON_BORDER_MEDIUM
+	pass # Replace with function body.
+
+
+func _on_cheat_button_pressed() -> void:
+	cheat_panel.visible = !cheat_panel.visible
 	pass # Replace with function body.
