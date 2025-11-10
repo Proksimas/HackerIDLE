@@ -8,6 +8,8 @@ extends Control
 @onready var skills: Panel = %Skills
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
+@onready var novanet_skills_grid: VBoxContainer = %NovanetSkillsGrid
+
 @onready var skills_tab: TabContainer = %SkillsTab
 @onready var offensive_skills: Control = %OffensiveSkills
 @onready var defensive_skills: Control = %DefensiveSkills
@@ -40,6 +42,7 @@ func _ready() -> void:
 		#skill.skill_button_pressed.connect(_on_skill_node_skill_button_pressed)
 	var lst = offensive_skills_grid.get_children()
 	lst.append_array(defensive_skills_grid.get_children())
+	lst.append_array(novanet_skills_grid.get_children())
 	for grid: GridContainer in lst:
 		for skill in grid.get_children():
 			lst_skill_nodes.append(skill)
