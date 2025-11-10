@@ -50,6 +50,12 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _draw() -> void:
+	#ON NE MET PAS LES COMPETENCES DU NOVANET AVANT UN REBIRTH
+	if Player.nb_of_rebirth == 0:
+		novanet_panel_skills.hide()
+	elif Player.nb_of_rebirth >= 1:
+		novanet_panel_skills.show()
+	
 	hide_and_show_skills_info("hide")
 	offensive_points_invested_label.text = str(SkillsManager.OS_invested_points)
 	defensive_points_invested_label.text = str(SkillsManager.DS_invested_points)
@@ -231,7 +237,7 @@ func _on_buy_skill_button_pressed():
 		#Puis on ajuste le level dans l'ui du skill
 		get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
 		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
-		get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.NOVANETS_invested_points)
+		get_tree().call_group("g_skill_node", "show_hide_level", "novanet",SkillsManager.NOVANETS_invested_points)
 		_draw()
 	pass
 

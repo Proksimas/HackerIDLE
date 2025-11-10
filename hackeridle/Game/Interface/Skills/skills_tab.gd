@@ -28,7 +28,7 @@ func _get_max_skills_points(_type)-> int:
 			elif cara["is_novanet_skill"]:
 				sum_novanet += cost
 			else:
-				push_error("Skill ni offensiv ni defensif")	
+				push_error("Skill ni offensiv ni defensif")
 	match _type:
 		"offensive":
 			return sum_offensive
