@@ -1,7 +1,5 @@
 extends TabContainer
 
-@onready var os_progress: TextureProgressBar = %OSProgress
-@onready var ds_progress: TextureProgressBar = %DSProgress
 @onready var offensive_skills_grid: VBoxContainer = %OffensiveSkillsGrid
 @onready var defensive_skills_grid: VBoxContainer = %DefensiveSkillsGrid
 @onready var offensive_points_invested_label: Label = %OffensivePointsInvestedLabel
@@ -37,13 +35,14 @@ func _get_max_skills_points(_type)-> int:
 			
 			
 func refresh_progress_bar():
-	os_progress.min_value = 0
-	os_progress.max_value = _get_max_skills_points("offensive")
-	os_progress.value = SkillsManager.OS_invested_points
-	
-	ds_progress.min_value = 0
-	ds_progress.max_value = _get_max_skills_points("defensive")
-	ds_progress.value = SkillsManager.DS_invested_points
+	return
+	#os_progress.min_value = 0
+	#os_progress.max_value = _get_max_skills_points("offensive")
+	#os_progress.value = SkillsManager.OS_invested_points
+	#
+	#ds_progress.min_value = 0
+	#ds_progress.max_value = _get_max_skills_points("defensive")
+	#ds_progress.value = SkillsManager.DS_invested_points
 	pass
 			
 			
