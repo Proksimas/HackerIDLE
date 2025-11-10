@@ -64,7 +64,7 @@ func _draw() -> void:
 	refresh_skill_nodes()
 	get_tree().call_group("g_skill_node", "show_hide_level", "offensive",SkillsManager.OS_invested_points)
 	get_tree().call_group("g_skill_node", "show_hide_level", "defensive",SkillsManager.DS_invested_points)
-	get_tree().call_group("g_skill_node", "show_hide_level", "novanet",SkillsManager.NOVANETS_invested_points)
+	get_tree().call_group("g_skill_node", "show_hide_level", "novanet", SkillsManager.NOVANETS_invested_points)
 	
 
 func hide_and_show_skills_info(_type: String):

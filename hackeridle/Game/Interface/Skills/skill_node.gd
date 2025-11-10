@@ -20,8 +20,14 @@ func _ready() -> void:
 	fill_texture()
 	SkillsManager.as_learned.connect(_on_as_learned)
 	SkillsManager.ps_learned.connect(_on_ps_learned)
+	init()
 	pass # Replace with function body.
 
+func init() -> void:
+	if as_associated != null:
+		refresh_level(as_associated.as_level, len(as_associated.cost))
+	else:
+		refresh_level(ps_associated.ps_level, len(ps_associated.cost))
 
 func fill_texture():
 	var new_texture: Texture

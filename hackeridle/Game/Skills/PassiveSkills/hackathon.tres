@@ -12,4 +12,5 @@ data_bonus_1 = [180, 160, 120, 80]
 data_bonus_2 = []
 is_offensive_skill = true
 is_defensive_skill = false
+is_novanet_skill = false
 min_cost_invested = 20
