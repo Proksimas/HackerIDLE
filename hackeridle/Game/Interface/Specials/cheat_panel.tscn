@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd4ge4utoly7a"]
+[gd_scene load_steps=6 format=3 uid="uid://cd4ge4utoly7a"]
 
 [ext_resource type="Script" path="res://Game/Interface/Specials/cheat_panel.gd" id="1_qnu5x"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_ws67d"]
+[ext_resource type="Script" path="res://Game/Interface/Specials/gain_button.gd" id="3_2w4w8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jyah"]
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wevkg"]
 
 [node name="CheatPanel" type="Panel"]
 z_index = 270
@@ -67,7 +71,63 @@ alignment = 1
 layout_mode = 2
 text = "event"
 
+[node name="HBoxContainer3" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+text = "Valeur du gain"
+
+[node name="GainSpinBox" type="SpinBox" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 0.0
+allow_greater = true
+allow_lesser = true
+alignment = 1
+select_all_on_focus = true
+
+[node name="GridContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BrainValue" type="Label" parent="VBoxContainer/HBoxContainer3/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+
+[node name="BrainIcon" parent="VBoxContainer/HBoxContainer3/GridContainer" instance=ExtResource("2_ws67d")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer3/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wevkg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="PlusBrainButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer" groups=["g_gain_value"]]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+
+[node name="MoinsBrainButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer" groups=["g_gain_value"]]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+value_negative = true
+
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
 autostart = true
 
 [connection signal="draw" from="." to="." method="_on_draw"]
@@ -75,4 +135,7 @@ autostart = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/FinishButton" to="." method="_on_finish_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/JailButton" to="." method="_on_jail_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/CheatEventButton" to="." method="_on_cheat_event_button_pressed"]
+[connection signal="value_changed" from="VBoxContainer/HBoxContainer3/HBoxContainer/GainSpinBox" to="." method="_on_gain_spin_box_value_changed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer/PlusBrainButton" to="." method="_on_plus_brain_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer/MoinsBrainButton" to="." method="_on_moins_brain_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
