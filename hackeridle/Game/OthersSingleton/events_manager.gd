@@ -23,6 +23,8 @@ var add_infamy_events: Dictionary = {}  #{source_du_mod: value en int }
 # 10 = + 10%, - 10 = -10%
 var wait_time_modificators: Dictionary = {}   # {source_du_mod: value }
 
+signal s_event_created()
+
 func events_initialisation():
 	events_passed_pool.clear()
 	next_events.clear()
@@ -57,7 +59,7 @@ func create_event(scenario_specific: int = -1):
 	# ce n'est pas un event spécifique
 	if scenario_specific <= 0:
 		events_passed_pool[next_events.pop_front()] = event
-
+	s_event_created.emit()
 	return event
 	
 func create_event_and_ui(scenario_specific: int = -1):

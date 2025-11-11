@@ -5,9 +5,9 @@ $brain_xp;Xp du cerveau;Brain Xp
 $xp_click_base;Xp par clic;Xp per click
 $knowledge_click_bonus;Connaissance par click;Knowledge per click
 $knowledge_click_perc;Connaissance par click;Knowledge per click
-$hack_time_perc;Temps des hacks;
-$hack_gold_perc;Gain des hacks;
-$hack_cost_perc;Coût des hacks;
-$learning_items_cost_perc;Coût des items passifs;
-$learning_items_knowledge_perc;Connaissance des items passifs;
-$short_learning_items_knowledge_perc;Connaissance supplémentaire;
+$hack_time_perc;Temps des hacks;Hacking time
+$hack_gold_perc;Gain des hacks;Hacking gain
+$hack_cost_perc;Coût des hacks;Hacking cost
+$learning_items_cost_perc;Coût des items passifs;Cost of passive items
+$learning_items_knowledge_perc;Connaissance des items passifs;Knowledge of passive items
+$short_learning_items_knowledge_perc;Connaissance supplémentaire;Additional knowledge

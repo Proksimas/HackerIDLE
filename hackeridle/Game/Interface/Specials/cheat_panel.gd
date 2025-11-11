@@ -11,6 +11,8 @@ extends Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EventsManager.s_event_created.connect(self._on_s_event_created)
+	
 	pass # Replace with function body.
 
 
@@ -61,7 +63,6 @@ func _on_jail_button_pressed() -> void:
 
 
 func _on_cheat_event_button_pressed() -> void:
-	self.hide()
 	cheat_event_spin_box.apply()
 	EventsManager.create_event_and_ui(int(cheat_event_spin_box.value))
 
@@ -75,18 +76,20 @@ func _on_gain_spin_box_value_changed(value: float) -> void:
 
 
 func _on_plus_brain_button_pressed() -> void:
-	Player.knowledge_point += cache_gain
+	Player.earn_knowledge_point(cache_gain)
 func _on_moins_brain_button_pressed() -> void:
-	Player.knowledge_point -= cache_gain
+	Player.earn_knowledge_point(0-cache_gain)
 func _on_plus_gold_button_pressed() -> void:
-	Player.gold += cache_gain
+	Player.earn_gold(cache_gain)
 func _on_moins_gold_button_pressed() -> void:
-	Player.gold -= cache_gain
+	Player.earn_gold(0-cache_gain)
 func _on_plus_sp_button_pressed() -> void:
 	Player.skill_point += cache_gain
 func _on_moins_sp_button_pressed() -> void:
 	Player.skill_point -= cache_gain
 
+func _on_s_event_created():
+	self.hide()
 
 func _on_plus_exploit_button_pressed() -> void:
 	Player.exploit_point += cache_gain

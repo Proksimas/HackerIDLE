@@ -1,8 +1,8 @@
 key;fr;en
-hdmi_hack_name;Câble HDMI ninja;
+hdmi_hack_name;Câble HDMI ninja;Ninja HDMI cable
 hdmi_hack_des;Il suffit de remplacer le câble HDMI de votre grand mère par un autre un peu plus - spécial - pour rédiriger le flux Twatch de votre Twatcher favori;
-wifi_ephad_hack_name;Hack du wifi de l'EPHAD;
-MIT_flathouse_hack_name;MITM dans la collocation;
-privilege_escalation_opaline_hack_name;Elévation de privilège chez Opaline;
-dns_exfiltration_hack_name;Exfiltration par DNS;
-APT_mirador_hack_name;APT sur Mirador DELTA;
+wifi_ephad_hack_name;Hack du wifi de l'EPHAD;nursing home's Wi-Fi hacking
+MIT_flathouse_hack_name;MITM dans la collocation;Sharehouse's MITM
+privilege_escalation_opaline_hack_name;Elévation de privilège chez Opaline;Privilege escalation at Opaline
+dns_exfiltration_hack_name;Exfiltration par DNS;DNS exfiltration
+APT_mirador_hack_name;APT sur Mirador DELTA;APT on Mirador DELTA
