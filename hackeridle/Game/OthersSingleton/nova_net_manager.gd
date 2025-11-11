@@ -1,8 +1,8 @@
 extends Node
 
 # --- Paramètres ajustables pour l'achat des bots---
-var base_cost := 100000.0    # coût en connaissance du premier bot
-var alpha := 0.15          # progression linéaire
+var base_cost := 50000.0    # coût en connaissance du premier bot
+var alpha := 0.18          # progression linéaire
 var beta := 1.3            # progression exponentielle
 var base_click := 1.0      # connaissance de base par clic
 var k := 5.0               # puissance de l’or investi (rendement décroissant). Impacte grandement sur l'investissement
@@ -153,7 +153,9 @@ func nb_click_required(or_investi) -> int:
 func nb_click_left(or_investi) ->int:
 	"""Nombre de click restant par rapport à la connaissance accumulée"""
 	var knowledge_left = get_bot_cost(Player.bots) - next_bot_kwoledge_acquired
+	
 	var click_left = ceil(knowledge_left / knowledge_per_click(or_investi))
+	#var click_left = ceil(knowledge_left / knowledge_per_click(or_investi))
 	return click_left
 
 

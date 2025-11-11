@@ -58,7 +58,7 @@ func refresh():
 	next_bot_price_value.text =  Global.number_to_string(NovaNetManager.next_bot_kwoledge_acquired) + \
 			" / " + Global.number_to_string(NovaNetManager.get_bot_cost(Player.bots))
 
-	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_to_invest))
+	nb_of_click_value.text = Global.number_to_string(NovaNetManager.nb_click_left(NovaNetManager.gold_invest_in_bots))
 	
 	invest_title.text = "$Invest"
 	gold_invest_label.text = Global.number_to_string(floor(NovaNetManager.gold_to_invest_perc * Player.gold))
