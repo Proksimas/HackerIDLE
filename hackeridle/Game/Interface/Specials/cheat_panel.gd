@@ -4,6 +4,9 @@ extends Panel
 @onready var nb_of_rebirth_spin_box: SpinBox = %NbOfRebirthSpinBox
 @onready var cheat_event_spin_box: SpinBox = %CheatEventSpinBox
 @onready var brain_value: Label = %BrainValue
+@onready var goldn_value: Label = %GoldnValue
+@onready var sp_value: Label = %SPValue
+@onready var exploit_value: Label = %ExploitValue
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,9 +31,17 @@ func _on_nb_of_rebirth_spin_box_value_changed(value: float) -> void:
 
 func _on_draw() -> void:
 	"""ON AFFICHE LES VALEURS DU JEU ATM"""
+	var interface = Global.get_interface()
 	nb_of_rebirth_spin_box.value = Player.nb_of_rebirth
 	brain_value.text = Global.number_to_string(Player.knowledge_point)
+	goldn_value.text =  Global.number_to_string(Player.gold)
+	sp_value.text = Global.number_to_string(Player.skill_point)
+	exploit_value.text = Global.number_to_string(Player.exploit_point)
 	
+	
+	if Player.nb_of_rebirth >= 1:
+		interface.nova_net_box.get_parent().show()
+	else: interface. nova_net_box.get_parent().hide()
 	pass # Replace with function body.
 
 
@@ -65,9 +76,19 @@ func _on_gain_spin_box_value_changed(value: float) -> void:
 
 func _on_plus_brain_button_pressed() -> void:
 	Player.knowledge_point += cache_gain
-	pass # Replace with function body.
-
-
 func _on_moins_brain_button_pressed() -> void:
 	Player.knowledge_point -= cache_gain
-	pass # Replace with function body.
+func _on_plus_gold_button_pressed() -> void:
+	Player.gold += cache_gain
+func _on_moins_gold_button_pressed() -> void:
+	Player.gold -= cache_gain
+func _on_plus_sp_button_pressed() -> void:
+	Player.skill_point += cache_gain
+func _on_moins_sp_button_pressed() -> void:
+	Player.skill_point -= cache_gain
+
+
+func _on_plus_exploit_button_pressed() -> void:
+	Player.exploit_point += cache_gain
+func _on_moins_exploit_button_pressed() -> void:
+	Player.exploit_point -= cache_gain

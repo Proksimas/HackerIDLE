@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cd4ge4utoly7a"]
+[gd_scene load_steps=9 format=3 uid="uid://cd4ge4utoly7a"]
 
 [ext_resource type="Script" path="res://Game/Interface/Specials/cheat_panel.gd" id="1_qnu5x"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_ws67d"]
 [ext_resource type="Script" path="res://Game/Interface/Specials/gain_button.gd" id="3_2w4w8"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_f2g1t"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/Icons/trophy_icon.tscn" id="5_j2dwb"]
+[ext_resource type="PackedScene" uid="uid://bidg1lwunnkr3" path="res://Game/Interface/Icons/exploit_icon.tscn" id="6_ie7d2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jyah"]
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
@@ -85,9 +88,7 @@ text = "Valeur du gain"
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-max_value = 0.0
 allow_greater = true
-allow_lesser = true
 alignment = 1
 select_all_on_focus = true
 
@@ -114,12 +115,112 @@ layout_mode = 2
 size_flags_horizontal = 2
 
 [node name="PlusBrainButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 text = "+ x value"
 script = ExtResource("3_2w4w8")
 
 [node name="MoinsBrainButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+value_negative = true
+
+[node name="GridContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="GoldnValue" type="Label" parent="VBoxContainer/HBoxContainer3/GridContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+
+[node name="GoldIcon" parent="VBoxContainer/HBoxContainer3/GridContainer2" instance=ExtResource("4_f2g1t")]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer3/GridContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_wevkg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/GridContainer2"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="PlusGoldButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer2/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+
+[node name="MoinsGoldButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer2/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+value_negative = true
+
+[node name="GridContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SPValue" type="Label" parent="VBoxContainer/HBoxContainer3/GridContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+
+[node name="TrophyIcon" parent="VBoxContainer/HBoxContainer3/GridContainer3" instance=ExtResource("5_j2dwb")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/GridContainer3"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="PlusSPButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer3/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+
+[node name="MoinsSPButton" type="Button" parent="VBoxContainer/HBoxContainer3/GridContainer3/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+value_negative = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="ExploitValue" type="Label" parent="VBoxContainer/HBoxContainer3/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+
+[node name="ExploitIcon" parent="VBoxContainer/HBoxContainer3/HBoxContainer2" instance=ExtResource("6_ie7d2")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PlusExploitButton" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+
+[node name="MoinsExploitButton" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 text = "+ x value"
@@ -138,4 +239,10 @@ autostart = true
 [connection signal="value_changed" from="VBoxContainer/HBoxContainer3/HBoxContainer/GainSpinBox" to="." method="_on_gain_spin_box_value_changed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer/PlusBrainButton" to="." method="_on_plus_brain_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer/HBoxContainer/MoinsBrainButton" to="." method="_on_moins_brain_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer2/HBoxContainer/PlusGoldButton" to="." method="_on_plus_gold_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer2/HBoxContainer/MoinsGoldButton" to="." method="_on_moins_gold_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer3/HBoxContainer/PlusSPButton" to="." method="_on_plus_sp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer3/HBoxContainer/MoinsSPButton" to="." method="_on_moins_sp_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer/PlusExploitButton" to="." method="_on_plus_exploit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer/MoinsExploitButton" to="." method="_on_moins_exploit_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
