@@ -61,6 +61,8 @@ func _ready() -> void:
 	init_interface()
 	
 func connexions() -> void:
+	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
+	
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
 	Player.s_earn_gold.connect(_on_earn_gold)
@@ -153,6 +155,8 @@ func app_button_pressed(button_name:String):
 		"novanet":
 			novanet.show()
 			new_style_box.texture = NOVANET
+		_:
+			push_error("Probleme dans le nom")
 			
 	interface_panel.add_theme_stylebox_override("panel", new_style_box)
 

@@ -11,6 +11,7 @@ extends Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	self.hide()
 	EventsManager.s_event_created.connect(self._on_s_event_created)
 	
 	pass # Replace with function body.
