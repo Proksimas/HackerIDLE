@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://jbxtcafbn1dq"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/stack_script.gd" id="1_ie7bq"]
+
+[resource]
+script = ExtResource("1_ie7bq")

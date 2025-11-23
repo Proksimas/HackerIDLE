@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://i3vti1c7y1wd"]
+
+[ext_resource type="Script" path="res://Game/Stacks/stack_manager.gd" id="1_2stw1"]
+
+[node name="StackManager" type="Node"]
+script = ExtResource("1_2stw1")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbu1oism6uucy"]
+
+[ext_resource type="Script" path="res://Game/Stacks/stack_fight_manager.gd" id="1_fg3s6"]
+
+[node name="StackFightManager" type="Node"]
+script = ExtResource("1_fg3s6")
