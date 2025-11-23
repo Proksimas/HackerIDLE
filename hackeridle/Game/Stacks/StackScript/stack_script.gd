@@ -12,6 +12,7 @@ enum TYPE {PENETRATION, ENCRYPTION, UTILITY}
 const TYPE_NAME = {TYPE.PENETRATION: "penetration",
 					TYPE.ENCRYPTION: "encryption",
 					TYPE.UTILITY: "utility"}
+					
 # Propriétés dynamiques pour l'état
 var time_remaining: float = 0.0 # Cooldown restant après exécution
 
