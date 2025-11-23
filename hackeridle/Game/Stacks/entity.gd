@@ -9,7 +9,6 @@ class_name Entity extends Node
 @export_range(0.0, 5.0) var penetration: float = 1.0 # Stat PEN (Attaque)
 @export_range(0.0, 5.0) var encryption: float = 1.0 # Stat CRYPT (Défense)
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
-@export_range(0.0, 0.9) var latency_multiplier: float = 0.0 # Stat LAT (Vitesse Idle)
 
 ## ----------------------------------------------------------------------------
 ## 2. GESTION DES SCRIPTS (Ressources)

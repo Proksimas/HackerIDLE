@@ -24,5 +24,5 @@ func execute(caster: Entity, target: Entity) -> void:
 # Méthode appelée après l'exécution pour gérer le cooldown
 func start_cooldown(caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement
-	var effective_cooldown = cooldown_base * (1.0 - caster.latency_multiplier)
+	var effective_cooldown = cooldown_base
 	time_remaining = max(0.1, effective_cooldown)
