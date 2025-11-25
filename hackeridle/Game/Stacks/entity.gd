@@ -23,6 +23,8 @@ var stack_script_sequence: Array[StackScript] = []
 
 signal s_entity_die(entity)
 
+
+
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.

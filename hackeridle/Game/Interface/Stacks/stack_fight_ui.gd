@@ -1,7 +1,5 @@
 extends Control
 
-const STACK_FIGHT_MANAGER = preload("res://Game/Stacks/stack_fight_manager.tscn")
-
 var hacker: Entity
 var robot_ia: Entity
 var robot_ia_2: Entity
@@ -14,7 +12,6 @@ func _ready() -> void:
 
 
 func _on_start_fight_button_pressed() -> void:
-	var fight = STACK_FIGHT_MANAGER.instantiate()
 	var arr:Array[Entity] = [robot_ia, robot_ia_2]
 	StackManager.learn_stack_script(hacker, "syn_flood")
 	StackManager.learn_stack_script(robot_ia, "syn_flood")
@@ -25,5 +22,5 @@ func _on_start_fight_button_pressed() -> void:
 	robot_ia.entity_name = "robot a"
 	robot_ia_2.save_sequence(["syn_flood"])
 	robot_ia_2.entity_name = "robot b"
-	fight.new_fight(hacker, arr)
+	StackManager.new_fight(hacker, arr)
 	pass # Replace with function body.

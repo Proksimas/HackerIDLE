@@ -1,6 +1,6 @@
 extends Node
 
-class_name StackFightManager
+class_name StackFight
 ## --	--------------------------------------------------------------------------
 ## RÉFÉRENCES ET ENUMS
 ## ----------------------------------------------------------------------------
@@ -23,10 +23,9 @@ var current_phase: CombatPhase = CombatPhase.PREPARATION
 ## INITIALISATION ET BOUCLE PRINCIPALE
 ## ----------------------------------------------------------------------------
 
-	
-func new_fight(_hacker: Entity, robots: Array[Entity]):
+func start_fight(_hacker: Entity, _robots: Array[Entity]):
 	hacker = _hacker
-	robots_ia = robots
+	robots_ia = _robots
 	transition_to(CombatPhase.ENTERING_FIGHT)
 
 func _physics_process(delta: float):
@@ -153,7 +152,9 @@ func _end_combat(victory: bool) -> void:
 		# Logique de défaite : Réinitialisation.
 		
 	# Ici, vous pourriez arrêter le jeu, changer de scène, ou retourner à l'interface principale.
-
+	# TODO phase des recompenses
+	
+	self.queue_free()
 
 func _on_hacker_died(hacker:Entity):
 	print("Le hacker est dead")

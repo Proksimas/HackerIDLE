@@ -1,15 +1,19 @@
 extends Node
 
 const stack_dir_path = "res://Game/Stacks/StackScript/"
-var stack_script_pool: Dictionary
+const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 
+var stack_script_pool: Dictionary
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	stack_script_pool.clear()
 	initialize_pool()
 	pass # Replace with function body.
 
-
+func new_fight(_hacker: Entity, robots: Array[Entity]):
+	var fight = STACK_FIGHT.instantiate()
+	self.add_child(fight)
+	fight.start_fight(_hacker, robots)
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	if stack_script_pool.has(stack_script_name): 
