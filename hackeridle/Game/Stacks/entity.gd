@@ -14,12 +14,15 @@ var entity_name: String = "default_name"
 # Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés) APRES l'apprentissage
 var available_scripts: Dictionary 
 
+#La sequence de script enregistré
+var sequence_order: Array[String]
 # La Séquence/Stack pour le cycle actuel. 
 # Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
 
 
 signal s_entity_die(entity)
+
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.
@@ -27,11 +30,19 @@ func queue_script(script_resource: StackScript) -> void:
 	var script_instance = script_resource.duplicate(true)
 	stack_script_sequence.append(script_instance)
 	
-	# NOTE: Ici, vous pourriez ajouter des vérifications (limite de taille de stack, coût en Compute, etc.)
-
-func init_sequence(scripts_name: Array[String]):
-	"""on duplique dans l'ordre du array pour init la sequence"""
+func save_sequence(scripts_name: Array[String]):
+	"""on enregitre la séquences des scripts. Ils seront init ensuite
+	au bon moment (phase de préparation du combat)"""
+	sequence_order.clear()
 	for script_name: String in scripts_name:
+		if available_scripts.has(script_name):
+			sequence_order.append(script_name)
+		else:
+			push_error("On save un script qui n'est pas dans le pool de l'entité !")
+
+func init_sequence():
+	"""on duplique dans l'ordre du array pour init la sequence selon le sequence_order"""
+	for script_name: String in sequence_order:
 		if available_scripts.has(script_name):
 			queue_script(available_scripts[script_name])
 		else:
@@ -39,12 +50,12 @@ func init_sequence(scripts_name: Array[String]):
 
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
-	print(name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
+	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
 	
 	# Exécution Script par Script
 	for script_instance: StackScript in stack_script_sequence:
 		if current_hp <= 0:
-			print(name + " a été détruit et arrête l'exécution.")
+			print(entity_name + " a été détruit et arrête l'exécution.")
 			break 
 			
 		print(" -> Exécution de: " + script_instance.stack_script_name)
@@ -59,7 +70,7 @@ func execute_sequence(targets: Array[Entity]) -> void:
 		
 	# Vider la Stack pour le prochain cycle
 	stack_script_sequence.clear()
-	print(name + " a terminé l'exécution de sa séquence.")
+	print(entity_name + " a terminé l'exécution de sa séquence.")
 
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
@@ -76,7 +87,7 @@ func take_damage(damage: float) -> void:
 
 	current_hp -= damage_after_shield
 	
-	if current_hp < 0:
+	if current_hp <= 0:
 		#Entité vaincue
 		current_hp = 0
 		s_entity_die.emit(self)

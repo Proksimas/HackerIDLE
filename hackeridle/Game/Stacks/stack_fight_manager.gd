@@ -11,6 +11,7 @@ var robots_ia: Array[Entity]
 
 # États de la machine de combat
 enum CombatPhase {
+	ENTERING_FIGHT,
 	PREPARATION,         # État Idle/Latence : Attend que les Cooldowns soient terminés.
 	HACKER_EXECUTION,    # Exécution de la séquence du joueur.
 	IA_EXECUTION,        # Exécution de la séquence du Robot IA.
@@ -18,7 +19,6 @@ enum CombatPhase {
 }
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
-
 ## ----------------------------------------------------------------------------
 ## INITIALISATION ET BOUCLE PRINCIPALE
 ## ----------------------------------------------------------------------------
@@ -27,10 +27,9 @@ var current_phase: CombatPhase = CombatPhase.PREPARATION
 func new_fight(_hacker: Entity, robots: Array[Entity]):
 	hacker = _hacker
 	robots_ia = robots
-	transition_to(CombatPhase.PREPARATION)
+	transition_to(CombatPhase.ENTERING_FIGHT)
 
 func _physics_process(delta: float):
-	# La seule phase active en boucle est la PREPARATION (Gestion du temps/Idle)
 	match current_phase:
 		CombatPhase.PREPARATION:
 			# Mise à jour des cooldowns (Latence) pour le Hacker
@@ -57,6 +56,8 @@ func transition_to(new_phase: CombatPhase) -> void:
 	current_phase = new_phase
 	
 	match current_phase:
+		CombatPhase.ENTERING_FIGHT:
+			_on_enter_entering_fight()
 		CombatPhase.PREPARATION:
 			_on_enter_preparation()
 		CombatPhase.HACKER_EXECUTION:
@@ -67,20 +68,24 @@ func transition_to(new_phase: CombatPhase) -> void:
 			_on_enter_resolution()
 
 # --- Fonctions d'Entrée dans les États ---
-
+func _on_enter_entering_fight() -> void:
+	print("PHASE: Entering fight")
+	hacker.s_entity_die.connect(_on_hacker_died)
+	for robot in robots_ia:
+		robot.s_entity_die.connect(_on_robot_died)
+	transition_to(CombatPhase.PREPARATION)
+	
 func _on_enter_preparation() -> void:
 	# L'état d'attente/idle. Le _physics_process gère le temps.
 	print("PHASE: Préparation (Attente des Cooldowns/Input du Joueur)")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
 	# Connexion des signaux
-	hacker.s_entity_die.connect(_on_hacker_died)
-	for robot in robots_ia:
-		robot.s_entity_die.connect(_on_robot_died)
-	
 	print("PV du hacker: %s" % hacker.current_hp)
-	
+	hacker.init_sequence()
 	for robot in robots_ia:
-		print("PV du  %s" % robot.current_hp)
+		print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
+		robot.init_sequence()
+	
 	transition_to(CombatPhase.HACKER_EXECUTION)
 
 
@@ -92,7 +97,8 @@ func _on_enter_hacker_execution() -> void:
 
 	# Vérification si l'IA est vaincue avant qu'elle ne puisse répliquer
 	# TODO CAR ROBOTS IA EST UNE LISTE
-	if robots_ia[0].current_hp <= 0:
+
+	if robots_ia.is_empty():
 		transition_to(CombatPhase.RESOLUTION)
 	else:
 		transition_to(CombatPhase.IA_EXECUTION)
@@ -115,7 +121,7 @@ func _on_enter_resolution() -> void:
 	print("PV du hacker: %s" % hacker.current_hp)
 	
 	for robot in robots_ia:
-		print("PV du  %s" % robot.current_hp)
+		print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
 	# Vérification de fin de combat
 	if hacker.current_hp <= 0:
 		_end_combat(false) # Défaite
@@ -124,7 +130,7 @@ func _on_enter_resolution() -> void:
 	else:
 		# Le combat continue, on revient à l'état Idle pour la prochaine séquence
 		print("Le combat n'est pas fini")
-		transition_to(CombatPhase.HACKER_EXECUTION)
+		transition_to(CombatPhase.PREPARATION)
 
 ## ----------------------------------------------------------------------------
 ## LOGIQUE IA ET FIN DE COMBAT
@@ -154,7 +160,7 @@ func _on_hacker_died(hacker:Entity):
 	_end_combat(false) # Défaite
 	
 func _on_robot_died(_robot:Entity):
-	print("robot %s est dead" % _robot.entity_name)
+	print("%s est dead" % _robot.entity_name)
 	for robot in robots_ia:
 		if robot == _robot:
 			robots_ia.erase(robot)
