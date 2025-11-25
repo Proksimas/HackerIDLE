@@ -5,13 +5,13 @@ class_name StackScript
 # Propriétés de base du Script
 @export var stack_script_name: String = "Script Inconnu"
 @export var cooldown_base: float = 5.0 # Temps de rechargement de base
-@export var type: String = "Utility" # "Attack", "Defense", "Utility"
+
 
 enum TYPE {PENETRATION, ENCRYPTION, UTILITY}
-
-const TYPE_NAME = {TYPE.PENETRATION: "penetration",
-					TYPE.ENCRYPTION: "encryption",
-					TYPE.UTILITY: "utility"}
+@export var type: TYPE = TYPE.PENETRATION
+const TYPE_NAME = {TYPE.PENETRATION: "Penetration",
+					TYPE.ENCRYPTION: "Encryption",
+					TYPE.UTILITY: "Utility"}
 					
 # Propriétés dynamiques pour l'état
 var time_remaining: float = 0.0 # Cooldown restant après exécution

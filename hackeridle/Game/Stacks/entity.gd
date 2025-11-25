@@ -14,19 +14,12 @@ class_name Entity extends Node
 ## 2. GESTION DES SCRIPTS (Ressources)
 ## ----------------------------------------------------------------------------
 
-# Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés)
-var available_scripts: Array[StackScript] = [] 
-# La Séquence/Stack pour le cycle actuel. Elle contient des INSTANCES (duplicatas) des scripts maîtres.
+# Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés) APRES l'apprentissage
+var available_scripts: Dictionary 
+
+# La Séquence/Stack pour le cycle actuel. 
+# Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
-
-var stack_script_invenory: Array[StackScript] = [] 
-## ----------------------------------------------------------------------------
-## 3. METHODES DE L'ENTITE
-## ----------------------------------------------------------------------------
-
-# Initialisation ou chargement des scripts disponibles
-func initialize_scripts(script_pool: Array[StackScript]) -> void:
-	available_scripts = script_pool.duplicate()
 
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
@@ -37,6 +30,13 @@ func queue_script(script_resource: StackScript) -> void:
 	
 	# NOTE: Ici, vous pourriez ajouter des vérifications (limite de taille de stack, coût en Compute, etc.)
 
+func init_sequence(scripts_name: Array[String]):
+	"""on duplique dans l'ordre du array pour init la sequence"""
+	for script_name: String in scripts_name:
+		if available_scripts.has(script_name):
+			queue_script(available_scripts[script_name])
+		else:
+			push_error("On init un script qui n'est pas dans le pool de l'entité !")
 
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:

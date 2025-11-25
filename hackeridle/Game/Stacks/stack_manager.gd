@@ -7,14 +7,18 @@ var stack_script_pool: Dictionary
 func _ready() -> void:
 	stack_script_pool.clear()
 	initialize_pool()
-	print(stack_script_pool)
 	pass # Replace with function body.
 
 
 
-func learn_stack_script(stack_script_name: String):
-	
-	pass
+func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
+	if stack_script_pool.has(stack_script_name): 
+		var script = stack_script_pool[stack_script_name]
+		learner.available_scripts[stack_script_name] = load(script).duplicate(true)
+		return true
+	else:
+		push_warning("Probleme dans l'apprentissage du stack script %s" % stack_script_name)
+		return false
 	
 func initialize_pool():
 	var dir = DirAccess.open(stack_dir_path)

@@ -14,5 +14,7 @@ func _ready() -> void:
 func _on_start_fight_button_pressed() -> void:
 	var fight = STACK_FIGHT_MANAGER.instantiate()
 	var arr:Array[Entity] = [robot_ia]
+	StackManager.learn_stack_script(hacker, "syn_flood")
+	StackManager.learn_stack_script(robot_ia, "syn_flood")
 	fight.new_fight(hacker, arr)
 	pass # Replace with function body.

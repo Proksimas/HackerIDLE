@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_mssvw")
-stack_script_name = "Script Inconnu"
+stack_script_name = "syn_flood"
 cooldown_base = 5.0
-type = "Utility"
+type = 0
