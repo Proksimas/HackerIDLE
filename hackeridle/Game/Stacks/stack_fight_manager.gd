@@ -1,12 +1,13 @@
 extends Node
 
-## ----------------------------------------------------------------------------
+class_name StackFightManager
+## --	--------------------------------------------------------------------------
 ## RÉFÉRENCES ET ENUMS
 ## ----------------------------------------------------------------------------
 
 # Assurez-vous que ces chemins correspondent à votre structure de scène
-@onready var hacker: Entity = $Hacker
-@onready var robot_ia: Entity = $RobotIA
+var hacker: Entity
+var robots_ia: Array[Entity]
 
 # États de la machine de combat
 enum CombatPhase {
@@ -22,9 +23,10 @@ var current_phase: CombatPhase = CombatPhase.PREPARATION
 ## INITIALISATION ET BOUCLE PRINCIPALE
 ## ----------------------------------------------------------------------------
 
-func _ready():
-	# Ici, vous chargerez les scripts initiaux dans les entités
-	# Exemple : hacker.initialize_scripts(load_hacker_scripts())
+	
+func new_fight(_hacker: Entity, robots: Array[Entity]):
+	hacker = _hacker
+	robots_ia = robots
 	transition_to(CombatPhase.PREPARATION)
 
 func _physics_process(delta: float):
@@ -70,15 +72,19 @@ func _on_enter_preparation() -> void:
 	# L'état d'attente/idle. Le _physics_process gère le temps.
 	print("PHASE: Préparation (Attente des Cooldowns/Input du Joueur)")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
+	
+	transition_to(CombatPhase.HACKER_EXECUTION)
+
 
 func _on_enter_hacker_execution() -> void:
 	print("PHASE: Exécution du Hacker")
 	
 	# Exécution de la séquence du Hacker contre l'IA
-	hacker.execute_sequence(robot_ia)
+	hacker.execute_sequence(robots_ia)
 
 	# Vérification si l'IA est vaincue avant qu'elle ne puisse répliquer
-	if robot_ia.current_hp <= 0:
+	# TODO CAR ROBOTS IA EST UNE LISTE
+	if robots_ia[0].current_hp <= 0:
 		transition_to(CombatPhase.RESOLUTION)
 	else:
 		transition_to(CombatPhase.IA_EXECUTION)
@@ -90,7 +96,8 @@ func _on_enter_ia_execution() -> void:
 	_ia_logic_prepare_sequence() 
 	
 	# 2. Exécution de la séquence du Robot IA contre le Hacker
-	robot_ia.execute_sequence(hacker)
+	for robot_ia in robots_ia:
+		robot_ia.execute_sequence([hacker])
 	
 	# Transition vers la résolution
 	transition_to(CombatPhase.RESOLUTION)
@@ -101,7 +108,7 @@ func _on_enter_resolution() -> void:
 	# Vérification de fin de combat
 	if hacker.current_hp <= 0:
 		_end_combat(false) # Défaite
-	elif robot_ia.current_hp <= 0:
+	elif robots_ia[0].current_hp <= 0:
 		_end_combat(true)  # Victoire
 	else:
 		# Le combat continue, on revient à l'état Idle pour la prochaine séquence
@@ -117,10 +124,6 @@ func _ia_logic_prepare_sequence() -> void:
 	# C'est ici que vous définirez les 'patterns' de l'IA contre les stats du joueur
 	print("  [IA Logic] Le robot IA prépare sa contre-attaque...")
 	
-	# Exemple très basique : l'IA joue toujours les deux premiers scripts de son pool
-	if robot_ia.available_scripts.size() >= 2:
-		robot_ia.queue_script(robot_ia.available_scripts[0])
-		robot_ia.queue_script(robot_ia.available_scripts[1])
 
 func _end_combat(victory: bool) -> void:
 	print("--- COMBAT TERMINÉ ---")

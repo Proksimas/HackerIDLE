@@ -17,8 +17,9 @@ class_name Entity extends Node
 # Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés)
 var available_scripts: Array[StackScript] = [] 
 # La Séquence/Stack pour le cycle actuel. Elle contient des INSTANCES (duplicatas) des scripts maîtres.
-var script_sequence: Array[StackScript] = [] 
+var stack_script_sequence: Array[StackScript] = [] 
 
+var stack_script_invenory: Array[StackScript] = [] 
 ## ----------------------------------------------------------------------------
 ## 3. METHODES DE L'ENTITE
 ## ----------------------------------------------------------------------------
@@ -32,30 +33,33 @@ func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.
 	# C'est cette instance qui gérera son propre temps de rechargement (time_remaining).
 	var script_instance = script_resource.duplicate(true)
-	script_sequence.append(script_instance)
+	stack_script_sequence.append(script_instance)
 	
 	# NOTE: Ici, vous pourriez ajouter des vérifications (limite de taille de stack, coût en Compute, etc.)
 
+
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
-func execute_sequence(target: Entity) -> void:
-	print(name + " démarre l'exécution de sa séquence de " + str(script_sequence.size()) + " scripts.")
+func execute_sequence(targets: Array[Entity]) -> void:
+	print(name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
 	
 	# Exécution Script par Script
-	for script_instance in script_sequence:
+	for script_instance: StackScript in stack_script_sequence:
 		if current_hp <= 0:
 			print(name + " a été détruit et arrête l'exécution.")
 			break 
 			
-		print(" -> Exécution de: " + script_instance.script_name)
+		print(" -> Exécution de: " + script_instance.stack_script_name)
+		
 		
 		# 1. Exécution de la logique du Script (dégâts, bouclier, utility)
-		script_instance.execute(self, target) 
+		# TODO CAR TARGETS EST UN ARRAY
+		script_instance.execute(self, targets[0]) 
 		
 		# 2. Activation du Cooldown (Latence) sur l'instance
 		script_instance.start_cooldown(self)
 		
 	# Vider la Stack pour le prochain cycle
-	script_sequence.clear()
+	stack_script_sequence.clear()
 	print(name + " a terminé l'exécution de sa séquence.")
 
 # Méthode pour appliquer les dégâts

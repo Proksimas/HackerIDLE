@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvjnngl5lhewm"]
+
+[ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_ui.gd" id="1_b0i74"]
+
+[node name="StackFightUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b0i74")
+
+[node name="StartFightButton" type="Button" parent="."]
+layout_mode = 0
+anchor_left = 0.366102
+anchor_top = 0.125196
+anchor_right = 0.515254
+anchor_bottom = 0.175274
+text = "fight"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="StartFightButton" to="." method="_on_start_fight_button_pressed"]
