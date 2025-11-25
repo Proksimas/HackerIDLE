@@ -10,10 +10,7 @@ class_name Entity extends Node
 @export_range(0.0, 5.0) var encryption: float = 1.0 # Stat CRYPT (Défense)
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
 
-## ----------------------------------------------------------------------------
-## 2. GESTION DES SCRIPTS (Ressources)
-## ----------------------------------------------------------------------------
-
+var entity_name: String = "default_name"
 # Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés) APRES l'apprentissage
 var available_scripts: Dictionary 
 
@@ -21,6 +18,8 @@ var available_scripts: Dictionary
 # Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
 
+
+signal s_entity_die(entity)
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.
@@ -78,9 +77,11 @@ func take_damage(damage: float) -> void:
 	current_hp -= damage_after_shield
 	
 	if current_hp < 0:
+		#Entité vaincue
 		current_hp = 0
+		s_entity_die.emit(self)
 	
-	print(name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
+	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
 
 # Méthode pour la gestion du temps de rechargement (utilisée par CombatManager)

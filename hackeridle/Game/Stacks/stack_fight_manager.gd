@@ -72,7 +72,15 @@ func _on_enter_preparation() -> void:
 	# L'état d'attente/idle. Le _physics_process gère le temps.
 	print("PHASE: Préparation (Attente des Cooldowns/Input du Joueur)")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
+	# Connexion des signaux
+	hacker.s_entity_die.connect(_on_hacker_died)
+	for robot in robots_ia:
+		robot.s_entity_die.connect(_on_robot_died)
 	
+	print("PV du hacker: %s" % hacker.current_hp)
+	
+	for robot in robots_ia:
+		print("PV du  %s" % robot.current_hp)
 	transition_to(CombatPhase.HACKER_EXECUTION)
 
 
@@ -104,15 +112,19 @@ func _on_enter_ia_execution() -> void:
 
 func _on_enter_resolution() -> void:
 	print("PHASE: Résolution du Cycle")
+	print("PV du hacker: %s" % hacker.current_hp)
 	
+	for robot in robots_ia:
+		print("PV du  %s" % robot.current_hp)
 	# Vérification de fin de combat
 	if hacker.current_hp <= 0:
 		_end_combat(false) # Défaite
-	elif robots_ia[0].current_hp <= 0:
+	elif robots_ia.is_empty():
 		_end_combat(true)  # Victoire
 	else:
 		# Le combat continue, on revient à l'état Idle pour la prochaine séquence
-		transition_to(CombatPhase.PREPARATION)
+		print("Le combat n'est pas fini")
+		transition_to(CombatPhase.HACKER_EXECUTION)
 
 ## ----------------------------------------------------------------------------
 ## LOGIQUE IA ET FIN DE COMBAT
@@ -135,3 +147,15 @@ func _end_combat(victory: bool) -> void:
 		# Logique de défaite : Réinitialisation.
 		
 	# Ici, vous pourriez arrêter le jeu, changer de scène, ou retourner à l'interface principale.
+
+
+func _on_hacker_died(hacker:Entity):
+	print("Le hacker est dead")
+	_end_combat(false) # Défaite
+	
+func _on_robot_died(_robot:Entity):
+	print("robot %s est dead" % _robot.entity_name)
+	for robot in robots_ia:
+		if robot == _robot:
+			robots_ia.erase(robot)
+			
