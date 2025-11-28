@@ -6,4 +6,9 @@
 script = ExtResource("1_mssvw")
 stack_script_name = "syn_flood"
 cooldown_base = 5.0
-type = 0
+robot_ia_base_value = 5
+type_and_coef = {
+"encryption": 1.0,
+"flux": 1.0,
+"penetration": 2.0
+}

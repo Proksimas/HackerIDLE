@@ -19,6 +19,7 @@ var sequence_order: Array[String]
 # La Séquence/Stack pour le cycle actuel. 
 # Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
+var entity_is_hacker: bool = false
 
 
 signal s_entity_die(entity)
@@ -50,6 +51,7 @@ func init_sequence():
 		else:
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
 
+func give_type_to entity # on doit dire que l entité est un hacker avec son nom
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
