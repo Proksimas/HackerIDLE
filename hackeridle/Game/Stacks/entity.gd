@@ -6,15 +6,15 @@ class_name Entity extends Node
 @export var current_hp: float = 100.0
 @export var current_shield: float = 0.0 # Bouclier temporaire
 
-@export_range(0.0, 5.0) var penetration: float = 1.0 # Stat PEN (Attaque)
-@export_range(0.0, 5.0) var encryption: float = 1.0 # Stat CRYPT (Défense)
+@export var penetration: float = 0 # Stat PEN (Attaque)
+@export var encryption: float = 0# Stat CRYPT (Défense)
+@export var flux: float = 0 # Stat FLUX (mixte/utility
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
 
 var entity_name: String = "default_name"
 # Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés) APRES l'apprentissage
 var available_scripts: Dictionary 
-
-#La sequence de script enregistré
+#La sequence de script enregistrée 
 var sequence_order: Array[String]
 # La Séquence/Stack pour le cycle actuel. 
 # Elle contient les scripts choisis dans la séquences
@@ -61,11 +61,10 @@ func execute_sequence(targets: Array[Entity]) -> void:
 			break 
 			
 		print(" -> Exécution de: " + script_instance.stack_script_name)
-		
-		
 		# 1. Exécution de la logique du Script (dégâts, bouclier, utility)
 		# TODO CAR TARGETS EST UN ARRAY
-		script_instance.execute(self, targets[0]) 
+		
+		script_instance.execute(self, targets) 
 		
 		# 2. Activation du Cooldown (Latence) sur l'instance
 		script_instance.start_cooldown(self)
@@ -78,7 +77,6 @@ func execute_sequence(targets: Array[Entity]) -> void:
 func take_damage(damage: float) -> void:
 	# (Logique simplifiée) Le bouclier absorbe d'abord les dégâts
 	var damage_after_shield = damage
-
 	if current_shield > 0:
 		if damage <= current_shield:
 			current_shield -= damage

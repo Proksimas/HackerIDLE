@@ -4,11 +4,20 @@ const stack_dir_path = "res://Game/Stacks/StackScript/"
 const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 
 var stack_script_pool: Dictionary
-# Called when the node enters the scene tree for the first time.
+
+var stack_script_stats: Dictionary # correspond aux robots affectés
+
 func _ready() -> void:
+	
+	_init()
+	pass # Replace with function body.
+
+func _init() -> void:
 	stack_script_pool.clear()
 	initialize_pool()
-	pass # Replace with function body.
+	stack_script_stats = {"penetration": 0,
+							"encryption": 0,
+							"flux": 0}
 
 func new_fight(_hacker: Entity, robots: Array[Entity]):
 	var fight = STACK_FIGHT.instantiate()
@@ -16,6 +25,7 @@ func new_fight(_hacker: Entity, robots: Array[Entity]):
 	fight.start_fight(_hacker, robots)
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
+	"""on donne à l'entité le script donné en nom en paramaètre"""
 	if stack_script_pool.has(stack_script_name): 
 		var script = stack_script_pool[stack_script_name]
 		learner.available_scripts[stack_script_name] = load(script).duplicate(true)
@@ -25,6 +35,7 @@ func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 		return false
 	
 func initialize_pool():
+	"""initialisation du pool de script"""
 	var dir = DirAccess.open(stack_dir_path)
 	if dir:
 		dir.list_dir_begin()
@@ -45,3 +56,8 @@ func initialize_pool():
 		dir.list_dir_end()
 	else:
 		print("Erreur d'ouverture du dossier.")
+
+
+func _save_data():
+	# TODO
+	pass
