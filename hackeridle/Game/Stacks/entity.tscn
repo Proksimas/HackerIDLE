@@ -4,9 +4,3 @@
 
 [node name="Entity" type="Node"]
 script = ExtResource("1_7poxf")
-max_hp = null
-current_hp = null
-current_shield = null
-penetration = null
-encryption = null
-flux = null

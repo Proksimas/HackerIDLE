@@ -24,7 +24,14 @@ var entity_is_hacker: bool = false
 
 signal s_entity_die(entity)
 
-
+func _init(is_hacker: bool, _entity_name: String = "default_name"):
+	match is_hacker:
+		true:
+			entity_is_hacker = true
+			entity_name = "hacker"
+		false:
+			entity_is_hacker = false
+			entity_name = _entity_name
 
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
@@ -50,8 +57,6 @@ func init_sequence():
 			queue_script(available_scripts[script_name])
 		else:
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
-
-func give_type_to entity # on doit dire que l entité est un hacker avec son nom
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
