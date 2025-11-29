@@ -6,8 +6,8 @@ var robot_ia_2: Entity
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hacker = Entity.new(true)
-	robot_ia = Entity.new(false, "robot_a")
-	robot_ia_2 = Entity.new(false, "robot_b")
+	robot_ia = Entity.new(false, "robot_a", 5,0,0)
+	robot_ia_2 = Entity.new(false, "robot_b",3,3,3)
 	pass # Replace with function body.
 
 

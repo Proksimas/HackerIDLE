@@ -8,7 +8,7 @@ class_name StackScript
 @export_category("Valeurs")
 
 #Valeur de base de degat si l'entité est un robot
-@export var robot_ia_base_value: int = 1 
+
 # Selon le type, le sort fait des dégats dans l'élements associé
 # avec le bonus e degat associé
 # La clé est le multiplacteur? mettre à 0 = * 0% , 0.5 = *0.5
@@ -49,7 +49,7 @@ func calcul_effect_value(caster: Entity):
 						type_and_coef[type], type) 
 		else:
 			bonus_value += linear_calcul(\
-						robot_ia_base_value,
+						caster.stats[type], 
 						type_and_coef[type], type) 
 	return round(bonus_value)
 

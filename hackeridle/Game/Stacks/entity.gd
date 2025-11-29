@@ -6,9 +6,10 @@ class_name Entity extends Node
 @export var current_hp: float = 100.0
 @export var current_shield: float = 0.0 # Bouclier temporaire
 
-@export var penetration: float = 0 # Stat PEN (Attaque)
-@export var encryption: float = 0# Stat CRYPT (Défense)
-@export var flux: float = 0 # Stat FLUX (mixte/utility
+@export var stats : Dictionary = {"penetration": 0,
+							"encryption": 0,
+							"flux": 0}
+
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
 
 var entity_name: String = "default_name"
@@ -24,7 +25,8 @@ var entity_is_hacker: bool = false
 
 signal s_entity_die(entity)
 
-func _init(is_hacker: bool, _entity_name: String = "default_name"):
+func _init(is_hacker: bool, _entity_name: String = "default_name", \
+					stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
 	match is_hacker:
 		true:
 			entity_is_hacker = true
@@ -32,6 +34,10 @@ func _init(is_hacker: bool, _entity_name: String = "default_name"):
 		false:
 			entity_is_hacker = false
 			entity_name = _entity_name
+			
+	stats['penetration'] = stat_pen
+	stats['encryption'] = stat_enc
+	stats['flux'] = stat_flux
 
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:

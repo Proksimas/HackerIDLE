@@ -19,9 +19,8 @@ enum CombatPhase {
 }
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
-## ----------------------------------------------------------------------------
-## INITIALISATION ET BOUCLE PRINCIPALE
-## ----------------------------------------------------------------------------
+
+
 
 func start_fight(_hacker: Entity, _robots: Array[Entity]):
 	hacker = _hacker

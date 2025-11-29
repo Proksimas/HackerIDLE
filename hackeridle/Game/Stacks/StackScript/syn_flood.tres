@@ -8,7 +8,7 @@ stack_script_name = "syn_flood"
 turn_cooldown_base = 5
 robot_ia_base_value = 5
 type_and_coef = {
-"encryption": 0.5,
-"flux": 0.0,
+"encryption": 0.0,
+"flux": 0.1,
 "penetration": 2.0
 }
