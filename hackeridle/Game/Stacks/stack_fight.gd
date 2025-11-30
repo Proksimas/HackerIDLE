@@ -20,31 +20,30 @@ enum CombatPhase {
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
 
-
-
 func start_fight(_hacker: Entity, _robots: Array[Entity]):
 	hacker = _hacker
 	robots_ia = _robots
 	transition_to(CombatPhase.ENTERING_FIGHT)
 
-func _physics_process(delta: float):
-	match current_phase:
-		CombatPhase.PREPARATION:
-			# Mise à jour des cooldowns (Latence) pour le Hacker
-			hacker.update_cooldowns(delta)
-			
-			# Condition de transition : Si le Hacker est prêt (tous ses scripts sont rechargés)
-			if hacker.is_ready_for_next_cycle():
-				# NOTE: Ici vous pouvez aussi vérifier si le Hacker a bien préparé sa stack.
-				if hacker.script_sequence.size() > 0:
-					transition_to(CombatPhase.HACKER_EXECUTION)
-				else:
-					# Empêche la boucle de tourner si la stack est vide (le joueur doit la remplir)
-					pass 
-		
-		# Les autres phases sont gérées par les fonctions de transition instantanées
-		_:
-			pass
+#func _physics_process(delta: float):
+	
+	#match current_phase:
+		#CombatPhase.PREPARATION:
+			## Mise à jour des cooldowns (Latence) pour le Hacker
+			#hacker.update_cooldowns(delta)
+			#
+			## Condition de transition : Si le Hacker est prêt (tous ses scripts sont rechargés)
+			#if hacker.is_ready_for_next_cycle():
+				## NOTE: Ici vous pouvez aussi vérifier si le Hacker a bien préparé sa stack.
+				#if hacker.script_sequence.size() > 0:
+					#transition_to(CombatPhase.HACKER_EXECUTION)
+				#else:
+					## Empêche la boucle de tourner si la stack est vide (le joueur doit la remplir)
+					#pass 
+		#
+		## Les autres phases sont gérées par les fonctions de transition instantanées
+		#_:
+			#pass
 
 ## ----------------------------------------------------------------------------
 ## MACHINE À ÉTATS : LOGIQUE DE TRANSITION

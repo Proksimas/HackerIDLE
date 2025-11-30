@@ -11,6 +11,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+### POUR LES TEST
 func _on_start_fight_button_pressed() -> void:
 	var arr:Array[Entity] = [robot_ia, robot_ia_2]
 	StackManager.learn_stack_script(hacker, "syn_flood")
@@ -21,3 +22,7 @@ func _on_start_fight_button_pressed() -> void:
 	robot_ia_2.save_sequence(["syn_flood"])
 	StackManager.new_fight(hacker, arr)
 	pass # Replace with function body.
+### ### ### ### ### ### ### ### ### ### ### ### 
+	
+	
+	
