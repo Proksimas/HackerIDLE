@@ -3,6 +3,10 @@ extends Control
 var hacker: Entity
 var robot_ia: Entity
 var robot_ia_2: Entity
+
+
+@onready var stack_fight_panel: Panel = $StackFightPanel
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hacker = Entity.new(true)
@@ -21,6 +25,7 @@ func _on_start_fight_button_pressed() -> void:
 	robot_ia.save_sequence(["syn_flood"])
 	robot_ia_2.save_sequence(["syn_flood"])
 	StackManager.new_fight(hacker, arr)
+	
 	pass # Replace with function body.
 ### ### ### ### ### ### ### ### ### ### ### ### 
 	

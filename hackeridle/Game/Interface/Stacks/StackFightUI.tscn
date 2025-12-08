@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvjnngl5lhewm"]
+[gd_scene load_steps=4 format=3 uid="uid://bvjnngl5lhewm"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_ui.gd" id="1_b0i74"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_panel.gd" id="2_5xl50"]
+[ext_resource type="PackedScene" uid="uid://djm18s8h6ukxr" path="res://Game/Interface/Stacks/entity_ui.tscn" id="3_xd3nv"]
 
 [node name="StackFightUi" type="Control"]
 layout_mode = 3
@@ -41,12 +42,27 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="HackerContainer" type="Container" parent="StackFightPanel/VBoxContainer"]
+[node name="HackerContainer" type="Control" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RobotsContainer" type="Container" parent="StackFightPanel/VBoxContainer"]
+[node name="EntityUI" parent="StackFightPanel/VBoxContainer/HackerContainer" instance=ExtResource("3_xd3nv")]
+layout_mode = 1
+
+[node name="RobotsContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="EntityUI" parent="StackFightPanel/VBoxContainer/RobotsContainer" instance=ExtResource("3_xd3nv")]
+layout_mode = 2
+
+[node name="EntityUI2" parent="StackFightPanel/VBoxContainer/RobotsContainer" instance=ExtResource("3_xd3nv")]
+layout_mode = 2
+
+[node name="FightLogs" type="Panel" parent="StackFightPanel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 

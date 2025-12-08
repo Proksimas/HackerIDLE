@@ -19,10 +19,12 @@ enum CombatPhase {
 }
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
+signal s_fight_started(hack, array_robots)
 
 func start_fight(_hacker: Entity, _robots: Array[Entity]):
 	hacker = _hacker
 	robots_ia = _robots
+	s_fight_started.emit(hacker, robots_ia)
 	transition_to(CombatPhase.ENTERING_FIGHT)
 
 #func _physics_process(delta: float):
@@ -74,7 +76,7 @@ func _on_enter_entering_fight() -> void:
 	
 func _on_enter_preparation() -> void:
 	# L'état d'attente/idle. Le _physics_process gère le temps.
-	print("PHASE: Préparation (Attente des Cooldowns/Input du Joueur)")
+	print("PHASE: Préparation (Attente des Cooldowns")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
 	# Connexion des signaux
 	print("PV du hacker: %s" % hacker.current_hp)
