@@ -25,7 +25,7 @@ func start_fight(_hacker: Entity, _robots: Array[Entity]):
 	hacker = _hacker
 	robots_ia = _robots
 	s_fight_started.emit(hacker, robots_ia)
-	transition_to(CombatPhase.ENTERING_FIGHT)
+	
 
 #func _physics_process(delta: float):
 	
@@ -155,6 +155,13 @@ func _end_combat(victory: bool) -> void:
 	# TODO phase des recompenses
 	
 	self.queue_free()
+
+# SIGNAUX
+func _on_fight_ui_phase_finished(phase: String):
+	match phase:
+		"fight_start":
+			transition_to(CombatPhase.ENTERING_FIGHT)
+	
 
 func _on_hacker_died(hacker:Entity):
 	print("Le hacker est dead")

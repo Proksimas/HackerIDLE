@@ -19,11 +19,11 @@ func _init() -> void:
 							"encryption": 0,
 							"flux": 0}
 
-func new_fight(_hacker: Entity, robots: Array[Entity]):
+func new_fight(_hacker: Entity, robots: Array[Entity]) -> StackFight:
 	var fight = STACK_FIGHT.instantiate()
 	self.add_child(fight)
-	fight.start_fight(_hacker, robots)
-	
+	#fight.start_fight(_hacker, robots) -> start par l'ui
+	return fight
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	"""on donne à l'entité le script donné en nom en paramaètre"""

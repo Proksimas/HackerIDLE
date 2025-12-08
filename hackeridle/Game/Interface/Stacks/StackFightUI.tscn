@@ -14,6 +14,7 @@ grow_vertical = 2
 script = ExtResource("1_b0i74")
 
 [node name="StackFightPanel" type="Panel" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,6 +45,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HackerContainer" type="Control" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -52,6 +54,7 @@ layout_mode = 1
 
 [node name="RobotsContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
