@@ -9,6 +9,7 @@ var robot_ia_2: Entity
 
 
 signal s_fight_ui_phase_finished
+signal s_execute_script_ui_finished
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	hacker = Entity.new(true)
@@ -26,8 +27,12 @@ func _on_start_fight_button_pressed() -> void:
 	hacker.save_sequence(["syn_flood", "syn_flood"])
 	robot_ia.save_sequence(["syn_flood"])
 	robot_ia_2.save_sequence(["syn_flood"])
+	
 	var fight = StackManager.new_fight(hacker, arr)
+	
 	fight_connexions(fight)
+	arr.all(entity_connexions)
+	entity_connexions(hacker)
 	fight.start_fight(hacker, arr)
 	pass # Replace with function body.
 ### ### ### ### ### ### ### ### ### ### ### ### 
@@ -37,14 +42,26 @@ func fight_connexions(fight: StackFight):
 	
 	#connexions des signaux du fights
 	fight.s_fight_started.connect(_on_fight_started)
-	
+
 	#connexions des signaux d'uis
 	s_fight_ui_phase_finished.connect(fight._on_fight_ui_phase_finished)
+
+func entity_connexions(entity: Entity):
+		
+	entity.s_execute_script.connect(_on_execute_script)
+	s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
+
 	
 func _on_fight_started(hacker, robots: Array):
 	"""Le fight va commencer. On setup les grilles"""
-	var lst_entities = robots
-	lst_entities.append(hacker)
-	await stack_fight_panel.set_entities_container(lst_entities)
+	stack_fight_panel.set_entity_container(hacker)
+	for entity in robots:
+		stack_fight_panel.set_entity_container(entity)
 	#on attends le true du await pour lancer le signal
 	s_fight_ui_phase_finished.emit("fight_start")
+
+func _on_execute_script(stack_script: StackScript):
+	 # gérer sur l'ui avec la fin du cd
+	await  get_tree().create_timer(stack_script.execution_time).timeout
+	s_execute_script_ui_finished.emit(stack_script)
+	pass

@@ -24,6 +24,7 @@ var entity_is_hacker: bool = false
 
 
 signal s_entity_die(entity)
+signal s_execute_script
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 					stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
@@ -75,16 +76,18 @@ func execute_sequence(targets: Array[Entity]) -> void:
 			
 		print(" -> Exécution de: " + script_instance.stack_script_name)
 		# 1. Exécution de la logique du Script (dégâts, bouclier, utility)
-		# TODO CAR TARGETS EST UN ARRAY
+		#  targets est un array, c'est dans l'execute qu'on gere les cibles.
+		script_instance.set_caster_and_targets(self, targets)
+		s_execute_script.emit(script_instance)
+		#script_instance.execute(self, targets) 
 		
-		script_instance.execute(self, targets) 
-		
-		# 2. Activation du Cooldown (Latence) sur l'instance
-		script_instance.start_cooldown(self)
-		
-	# Vider la Stack pour le prochain cycle
-	stack_script_sequence.clear()
-	print(entity_name + " a terminé l'exécution de sa séquence.")
+		#
+		## 2. Activation du Cooldown (Latence) sur l'instance
+		#script_instance.start_cooldown(self)
+		#
+	## Vider la Stack pour le prochain cycle
+	#stack_script_sequence.clear()
+	#print(entity_name + " a terminé l'exécution de sa séquence.")
 
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
@@ -118,6 +121,9 @@ func update_cooldowns(delta: float) -> void:
 			if script.time_remaining < 0.0:
 				script.time_remaining = 0.0
 
+func _on_s_execute_script_ui_finished(stack_script: StackScript):
+	stack_script.execute()
+	
 # Méthode pour vérifier si tous les scripts sont hors Cooldown (Latence)
 func is_ready_for_next_cycle() -> bool:
 	for script in available_scripts:

@@ -16,17 +16,30 @@ class_name StackScript
 							"encryption": 0.0,
 							"flux": 0.0}
 							
+# temps en s de l'éxécution du script (temps de cast)
+@export var execution_time: float = 3.0
+							
 var entity_is_hacker: bool = false
 #enum TYPE {PENETRATION, ENCRYPTION, FLUX}
 #@export var type: TYPE = TYPE.PENETRATION
 #const TYPE_NAME = {TYPE.PENETRATION: "Penetration",
 					#TYPE.ENCRYPTION: "Encryption",
 					#TYPE.FLUX: "Flux"}
-					
+			
 var turn_remaining: float = 0 # turn restant après exécution
 
+var caster: Entity
+var targets: Array[Entity]
+
+func set_caster_and_targets(_caster: Entity, _targets: Array[Entity]) -> void:
+	caster = _caster
+	targets = _targets
+	
 # Méthode abstraite à implémenter par chaque type de Script
-func execute(caster: Entity, targets: Array[Entity]) -> void:
+#func execute(caster: Entity, targets: Array[Entity]) -> void:
+	## Logic spécifique au Script (dégâts, bouclier, etc.)
+	#pass
+func execute() -> void:
 	# Logic spécifique au Script (dégâts, bouclier, etc.)
 	pass
 

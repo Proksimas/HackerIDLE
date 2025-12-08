@@ -19,6 +19,7 @@ enum CombatPhase {
 }
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
+var current_turn: int = 0
 signal s_fight_started(hack, array_robots)
 
 func start_fight(_hacker: Entity, _robots: Array[Entity]):
@@ -68,18 +69,24 @@ func transition_to(new_phase: CombatPhase) -> void:
 
 # --- Fonctions d'Entrée dans les États ---
 func _on_enter_entering_fight() -> void:
+	"""Phase juste apres la création du fight. on est dans une forme de 
+	pré préparation (en gros, avant de rentrer dans la logique du fight)"""
 	print("PHASE: Entering fight")
 	hacker.s_entity_die.connect(_on_hacker_died)
 	for robot in robots_ia:
 		robot.s_entity_die.connect(_on_robot_died)
+	current_turn = 0
 	transition_to(CombatPhase.PREPARATION)
 	
 func _on_enter_preparation() -> void:
+	"""La phase de préparation avant chaque lancement de séquence.
+	Correspond à un tour de jeu"""
 	# L'état d'attente/idle. Le _physics_process gère le temps.
 	print("PHASE: Préparation (Attente des Cooldowns")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
 	# Connexion des signaux
 	print("PV du hacker: %s" % hacker.current_hp)
+	current_turn += 1
 	hacker.init_sequence()
 	for robot in robots_ia:
 		print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
@@ -89,6 +96,7 @@ func _on_enter_preparation() -> void:
 
 
 func _on_enter_hacker_execution() -> void:
+	"""Phase du hacker. Il déroule toute sa séquence. """
 	print("PHASE: Exécution du Hacker")
 	
 	# Exécution de la séquence du Hacker contre l'IA
@@ -97,6 +105,7 @@ func _on_enter_hacker_execution() -> void:
 	# Vérification si l'IA est vaincue avant qu'elle ne puisse répliquer
 	# TODO CAR ROBOTS IA EST UNE LISTE
 
+	return # attendre la end sequene
 	if robots_ia.is_empty():
 		transition_to(CombatPhase.RESOLUTION)
 	else:
