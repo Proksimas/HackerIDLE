@@ -26,7 +26,7 @@ var current_script_index: int = 0
 var cache_targets: Array
 signal s_entity_die(entity)
 signal s_execute_script
-signal sequence_completed(entity)
+signal s_sequence_completed(entity)
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 					stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
@@ -66,6 +66,8 @@ func init_sequence():
 			queue_script(available_scripts[script_name])
 		else:
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
+
+# LOGIQUE DE COMBAT
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
@@ -74,11 +76,11 @@ func execute_sequence(targets: Array[Entity]) -> void:
 	execute_next_script()
 
 func execute_next_script():
+	print("name: %s" % entity_name)
 	if current_script_index >= stack_script_sequence.size():
-		print(entity_name + " : Séquence terminée.")
+		print(entity_name + " : Séquence terminée.\n")
 		# Émettre un signal vers le CombatManager pour indiquer la fin de la Phase
-		#emit_signal("sequence_completed")
-		sequence_completed.emit(self)
+		s_sequence_completed.emit(self)
 		return
 
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
@@ -93,6 +95,7 @@ func execute_next_script():
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
 	print(data_from_execution)
+	#reçu par le StackFightUI
 	s_execute_script.emit(data_from_execution)
 
 # Méthode pour appliquer les dégâts
@@ -117,25 +120,10 @@ func take_damage(damage: float) -> void:
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
 
-# Méthode pour la gestion du temps de rechargement (utilisée par CombatManager)
-func update_cooldowns(delta: float) -> void:
-	# Parcours les scripts disponibles (qui ont été dupliqués lors du dernier cycle)
-	# et met à jour leur temps de rechargement
-	for script in available_scripts:
-		if script.time_remaining > 0.0:
-			script.time_remaining -= delta
-			if script.time_remaining < 0.0:
-				script.time_remaining = 0.0
-
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
 	on peut passer au script suivant"""
+	print("On passe au script suivant")
 	current_script_index += 1
 	execute_next_script()
 	
-# Méthode pour vérifier si tous les scripts sont hors Cooldown (Latence)
-func is_ready_for_next_cycle() -> bool:
-	for script in available_scripts:
-		if script.time_remaining > 0.0:
-			return false
-	return true

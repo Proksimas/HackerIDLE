@@ -32,9 +32,9 @@ func _on_start_fight_button_pressed() -> void:
 	
 	var fight = StackManager.new_fight(hacker, arr)
 	fight_connexions(fight)
-	arr.all(entity_connexions)
-	entity_connexions(hacker)
-	fight.start_fight(hacker, arr)
+	#arr.all(entity_connexions)
+	#entity_connexions(hacker)
+	fight.start_fight(hacker, arr, self)
 	pass # Replace with function body.
 ### ### ### ### ### ### ### ### ### ### ### ### 
 	
@@ -47,10 +47,10 @@ func fight_connexions(fight: StackFight):
 	#connexions des signaux d'uis
 	s_fight_ui_phase_finished.connect(fight._on_fight_ui_phase_finished)
 
-func entity_connexions(entity: Entity):
-		
-	entity.s_execute_script.connect(_on_execute_script)
-	s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
+#func entity_connexions(entity: Entity):
+		#
+	#entity.s_execute_script.connect(_on_execute_script)
+	#s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
 
 	
 func _on_fight_started(hacker, robots: Array):

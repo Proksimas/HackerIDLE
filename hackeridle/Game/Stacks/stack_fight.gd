@@ -20,37 +20,15 @@ enum CombatPhase {
 
 var current_phase: CombatPhase = CombatPhase.PREPARATION
 var current_turn: int = 0
+var current_stack_fight_ui
 signal s_fight_started(hack, array_robots)
 
-func start_fight(_hacker: Entity, _robots: Array[Entity]):
+func start_fight(_hacker: Entity, _robots: Array[Entity], stack_fight_ui):
 	hacker = _hacker
 	robots_ia = _robots
+	current_stack_fight_ui = stack_fight_ui
 	s_fight_started.emit(hacker, robots_ia)
 	
-
-#func _physics_process(delta: float):
-	
-	#match current_phase:
-		#CombatPhase.PREPARATION:
-			## Mise à jour des cooldowns (Latence) pour le Hacker
-			#hacker.update_cooldowns(delta)
-			#
-			## Condition de transition : Si le Hacker est prêt (tous ses scripts sont rechargés)
-			#if hacker.is_ready_for_next_cycle():
-				## NOTE: Ici vous pouvez aussi vérifier si le Hacker a bien préparé sa stack.
-				#if hacker.script_sequence.size() > 0:
-					#transition_to(CombatPhase.HACKER_EXECUTION)
-				#else:
-					## Empêche la boucle de tourner si la stack est vide (le joueur doit la remplir)
-					#pass 
-		#
-		## Les autres phases sont gérées par les fonctions de transition instantanées
-		#_:
-			#pass
-
-## ----------------------------------------------------------------------------
-## MACHINE À ÉTATS : LOGIQUE DE TRANSITION
-## ----------------------------------------------------------------------------
 
 func transition_to(new_phase: CombatPhase) -> void:
 	current_phase = new_phase
@@ -100,29 +78,46 @@ func _on_enter_hacker_execution() -> void:
 	print("PHASE: Exécution du Hacker")
 	
 	# Exécution de la séquence du Hacker contre l'IA
+	entity_connexions(hacker)
 	hacker.execute_sequence(robots_ia)
 
-	# Vérification si l'IA est vaincue avant qu'elle ne puisse répliquer
-	# TODO CAR ROBOTS IA EST UNE LISTE
 
-	return # attendre la end sequene
-	if robots_ia.is_empty():
-		transition_to(CombatPhase.RESOLUTION)
-	else:
-		transition_to(CombatPhase.IA_EXECUTION)
+		
+func entity_connexions(entity: Entity):
+	"""On connecte les signaux de l'entité, vers le stack_fight_ui"""
+	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
+	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
+	entity.s_sequence_completed.connect(_on_sequence_completed)
 
+func entity_deconnexion(entity: Entity):
+	"""Deconnexion"""
+	if entity.s_execute_script.is_connected(current_stack_fight_ui._on_execute_script):
+		entity.s_execute_script.disconnect(current_stack_fight_ui._on_execute_script)
+	if current_stack_fight_ui.s_execute_script_ui_finished.is_connected(entity._on_s_execute_script_ui_finished):
+		current_stack_fight_ui.s_execute_script_ui_finished.disconnect(entity._on_s_execute_script_ui_finished)
+	if entity.s_sequence_completed.is_connected(_on_sequence_completed):
+		entity.s_sequence_completed.disconnect(_on_sequence_completed)
+
+var current_ia_index: int = 0
 func _on_enter_ia_execution() -> void:
 	print("PHASE: Exécution de l'IA")
-	
+	current_ia_index = 0
 	# 1. L'IA prépare sa séquence pour ce cycle
 	_ia_logic_prepare_sequence() 
-	
-	# 2. Exécution de la séquence du Robot IA contre le Hacker
-	for robot_ia in robots_ia:
-		robot_ia.execute_sequence([hacker])
-	
+	next_ia_execution()
+	## 2. Exécution de la séquence du Robot IA contre le Hacker
+	#for robot_ia in robots_ia:
+		#entity_connexions(robot_ia)
+		#robot_ia.execute_sequence([hacker])
+	#
 	# Transition vers la résolution
-	transition_to(CombatPhase.RESOLUTION)
+	#transition_to(CombatPhase.RESOLUTION)
+func next_ia_execution():
+	var ia = robots_ia[current_ia_index]
+	entity_connexions(ia)
+	ia.execute_sequence([hacker])
+	current_ia_index += 1
+	
 
 func _on_enter_resolution() -> void:
 	print("PHASE: Résolution du Cycle")
@@ -170,7 +165,22 @@ func _on_fight_ui_phase_finished(phase: String):
 	match phase:
 		"fight_start":
 			transition_to(CombatPhase.ENTERING_FIGHT)
-	
+
+func _on_sequence_completed(entity: Entity):
+	entity_deconnexion(entity)
+	if entity.entity_is_hacker:
+		if robots_ia.is_empty():
+			transition_to(CombatPhase.RESOLUTION)
+		else:
+			transition_to(CombatPhase.IA_EXECUTION)
+	else:
+		if current_ia_index >= len(robots_ia):
+			transition_to(CombatPhase.RESOLUTION)
+		else:
+			next_ia_execution()
+		
+		print("faut aller au second robot")
+		
 
 func _on_hacker_died(hacker:Entity):
 	print("Le hacker est dead")
