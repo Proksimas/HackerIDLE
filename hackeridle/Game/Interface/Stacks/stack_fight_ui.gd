@@ -21,6 +21,9 @@ func _on_start_fight_button_pressed() -> void:
 	hacker = Entity.new(true)
 	robot_ia = Entity.new(false, "robot_a", 5,0,0)
 	robot_ia_2 = Entity.new(false, "robot_b",3,3,3)
+	StackManager.stack_script_stats = {"penetration": 4,
+							"encryption": 0,
+							"flux": 0}
 	
 	var arr:Array[Entity] = [robot_ia, robot_ia_2]
 	StackManager.learn_stack_script(hacker, "syn_flood")
@@ -64,7 +67,7 @@ func _on_fight_started(hacker, robots: Array):
 func _on_execute_script(data_from_execution: Dictionary):
 	 # gérer sur l'ui avec la fin du cd. 
 	# pour le moment on force un attente
-	await  get_tree().create_timer(3).timeout
+	await  get_tree().create_timer(0.01).timeout
 	#####
 	print("L'ui a terminé de s'afficher")
 	s_execute_script_ui_finished.emit()

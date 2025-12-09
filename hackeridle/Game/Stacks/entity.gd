@@ -61,6 +61,7 @@ func save_sequence(scripts_name: Array[String]):
 
 func init_sequence():
 	"""on duplique dans l'ordre du array pour init la sequence selon le sequence_order"""
+	stack_script_sequence.clear()
 	for script_name: String in sequence_order:
 		if available_scripts.has(script_name):
 			queue_script(available_scripts[script_name])
@@ -84,14 +85,17 @@ func execute_next_script():
 		return
 
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
-
+	print("Taille des targets: %s" % len(cache_targets))
 	if current_hp <= 0:
 		print(entity_name + " a été détruit et arrête l'exécution.")
+		s_sequence_completed.emit(self)
 		return
-
+	elif cache_targets.is_empty():
+		print("Toutes les targets sont mortes, on arrete")
+		s_sequence_completed.emit(self)
+		return
 	print(" -> Exécution de: " + script_instance.stack_script_name)
 
-	#inchallah une target détruite n'est  plus dans les targets
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
 	print(data_from_execution)

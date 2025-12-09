@@ -81,8 +81,6 @@ func _on_enter_hacker_execution() -> void:
 	entity_connexions(hacker)
 	hacker.execute_sequence(robots_ia)
 
-
-		
 func entity_connexions(entity: Entity):
 	"""On connecte les signaux de l'entité, vers le stack_fight_ui"""
 	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
@@ -105,13 +103,7 @@ func _on_enter_ia_execution() -> void:
 	# 1. L'IA prépare sa séquence pour ce cycle
 	_ia_logic_prepare_sequence() 
 	next_ia_execution()
-	## 2. Exécution de la séquence du Robot IA contre le Hacker
-	#for robot_ia in robots_ia:
-		#entity_connexions(robot_ia)
-		#robot_ia.execute_sequence([hacker])
-	#
-	# Transition vers la résolution
-	#transition_to(CombatPhase.RESOLUTION)
+
 func next_ia_execution():
 	var ia = robots_ia[current_ia_index]
 	entity_connexions(ia)
