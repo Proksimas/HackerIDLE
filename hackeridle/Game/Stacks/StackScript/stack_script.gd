@@ -39,9 +39,12 @@ func set_caster_and_targets(_caster: Entity, _targets: Array[Entity]) -> void:
 #func execute(caster: Entity, targets: Array[Entity]) -> void:
 	## Logic spécifique au Script (dégâts, bouclier, etc.)
 	#pass
-func execute() -> void:
-	# Logic spécifique au Script (dégâts, bouclier, etc.)
-	pass
+func execute() -> Dictionary:
+	"""Logic spécifique au Script (dégâts, bouclier, etc.)
+	Return un dictionnaire avec tous les effets de l'éxécution
+	(pv retirés, target etc...)"""
+	
+	return {}
 
 # Méthode appelée après l'exécution pour gérer le cooldown
 func start_cooldown(caster: Entity) -> void:
@@ -68,6 +71,7 @@ func calcul_effect_value(caster: Entity):
 
 func linear_calcul(robots_affected, perc, type):
 	var value = robots_affected * perc
-	print("Valeur de base de %s: %s avec perc de %s donne %s" % [type, robots_affected, perc, value ])
+	#print("Valeur de base de %s: %s avec perc de %s donne %s" % [type, robots_affected, perc, value ])
+	
 	return value
 	

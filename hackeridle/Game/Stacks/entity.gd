@@ -22,9 +22,11 @@ var sequence_order: Array[String]
 var stack_script_sequence: Array[StackScript] = [] 
 var entity_is_hacker: bool = false
 
-
+var current_script_index: int = 0
+var cache_targets: Array
 signal s_entity_die(entity)
 signal s_execute_script
+signal sequence_completed(entity)
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 					stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
@@ -67,27 +69,31 @@ func init_sequence():
 # Méthode principale appelée par le CombatManager pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
-	
-	# Exécution Script par Script
-	for script_instance: StackScript in stack_script_sequence:
-		if current_hp <= 0:
-			print(entity_name + " a été détruit et arrête l'exécution.")
-			break 
-			
-		print(" -> Exécution de: " + script_instance.stack_script_name)
-		# 1. Exécution de la logique du Script (dégâts, bouclier, utility)
-		#  targets est un array, c'est dans l'execute qu'on gere les cibles.
-		script_instance.set_caster_and_targets(self, targets)
-		s_execute_script.emit(script_instance)
-		#script_instance.execute(self, targets) 
-		
-		#
-		## 2. Activation du Cooldown (Latence) sur l'instance
-		#script_instance.start_cooldown(self)
-		#
-	## Vider la Stack pour le prochain cycle
-	#stack_script_sequence.clear()
-	#print(entity_name + " a terminé l'exécution de sa séquence.")
+	current_script_index = 0
+	cache_targets = targets
+	execute_next_script()
+
+func execute_next_script():
+	if current_script_index >= stack_script_sequence.size():
+		print(entity_name + " : Séquence terminée.")
+		# Émettre un signal vers le CombatManager pour indiquer la fin de la Phase
+		#emit_signal("sequence_completed")
+		sequence_completed.emit(self)
+		return
+
+	var script_instance: StackScript = stack_script_sequence[current_script_index]
+
+	if current_hp <= 0:
+		print(entity_name + " a été détruit et arrête l'exécution.")
+		return
+
+	print(" -> Exécution de: " + script_instance.stack_script_name)
+
+	#inchallah une target détruite n'est  plus dans les targets
+	script_instance.set_caster_and_targets(self, cache_targets)
+	var data_from_execution = script_instance.execute()
+	print(data_from_execution)
+	s_execute_script.emit(data_from_execution)
 
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
@@ -121,8 +127,11 @@ func update_cooldowns(delta: float) -> void:
 			if script.time_remaining < 0.0:
 				script.time_remaining = 0.0
 
-func _on_s_execute_script_ui_finished(stack_script: StackScript):
-	stack_script.execute()
+func _on_s_execute_script_ui_finished():
+	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
+	on peut passer au script suivant"""
+	current_script_index += 1
+	execute_next_script()
 	
 # Méthode pour vérifier si tous les scripts sont hors Cooldown (Latence)
 func is_ready_for_next_cycle() -> bool:

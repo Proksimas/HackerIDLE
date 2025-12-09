@@ -12,14 +12,16 @@ signal s_fight_ui_phase_finished
 signal s_execute_script_ui_finished
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	hacker = Entity.new(true)
-	robot_ia = Entity.new(false, "robot_a", 5,0,0)
-	robot_ia_2 = Entity.new(false, "robot_b",3,3,3)
+
 	pass # Replace with function body.
 
 
 ### POUR LES TEST
 func _on_start_fight_button_pressed() -> void:
+	hacker = Entity.new(true)
+	robot_ia = Entity.new(false, "robot_a", 5,0,0)
+	robot_ia_2 = Entity.new(false, "robot_b",3,3,3)
+	
 	var arr:Array[Entity] = [robot_ia, robot_ia_2]
 	StackManager.learn_stack_script(hacker, "syn_flood")
 	StackManager.learn_stack_script(robot_ia, "syn_flood")
@@ -29,7 +31,6 @@ func _on_start_fight_button_pressed() -> void:
 	robot_ia_2.save_sequence(["syn_flood"])
 	
 	var fight = StackManager.new_fight(hacker, arr)
-	
 	fight_connexions(fight)
 	arr.all(entity_connexions)
 	entity_connexions(hacker)
@@ -60,8 +61,11 @@ func _on_fight_started(hacker, robots: Array):
 	#on attends le true du await pour lancer le signal
 	s_fight_ui_phase_finished.emit("fight_start")
 
-func _on_execute_script(stack_script: StackScript):
-	 # gérer sur l'ui avec la fin du cd
-	await  get_tree().create_timer(stack_script.execution_time).timeout
-	s_execute_script_ui_finished.emit(stack_script)
+func _on_execute_script(data_from_execution: Dictionary):
+	 # gérer sur l'ui avec la fin du cd. 
+	# pour le moment on force un attente
+	await  get_tree().create_timer(3).timeout
+	#####
+	print("L'ui a terminé de s'afficher")
+	s_execute_script_ui_finished.emit()
 	pass
