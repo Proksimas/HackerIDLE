@@ -21,6 +21,7 @@ var sequence_order: Array[String]
 # Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
 var entity_is_hacker: bool = false
+var self_is_dead: bool = false
 
 var current_script_index: int = 0
 var cache_targets: Array
@@ -120,6 +121,7 @@ func take_damage(damage: float) -> void:
 		#Entité vaincue
 		current_hp = 0
 		s_entity_die.emit(self)
+		self_is_dead = true
 	
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
