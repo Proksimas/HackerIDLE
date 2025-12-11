@@ -7,7 +7,7 @@ class_name StackComponent
 
 signal s_stack_component_completed
 
-var temps_completion: float = 3.0
+var temps_completion: float = 1.0
 var tween: Tween
 
 func set_component(component_name: String = "default_name") -> void:
