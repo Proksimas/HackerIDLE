@@ -6,6 +6,8 @@ var robot_ia_2: Entity
 
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
+@onready var hacker_container: Control = %HackerContainer
+@onready var robots_container: HBoxContainer = %RobotsContainer
 
 
 signal s_fight_ui_phase_finished
@@ -50,14 +52,9 @@ func fight_connexions(fight: StackFight):
 	#connexions des signaux d'uis
 	s_fight_ui_phase_finished.connect(fight._on_fight_ui_phase_finished)
 
-#func entity_connexions(entity: Entity):
-		#
-	#entity.s_execute_script.connect(_on_execute_script)
-	#s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
-
 	
-func _on_fight_started(hacker, robots: Array):
-	"""Le fight va commencer. On setup les grilles"""
+func _on_fight_started(hacker: Entity, robots: Array[Entity]):
+	"""Le fight va commencer. On setup l'ui des entités"""
 	stack_fight_panel.set_entity_container(hacker)
 	for entity in robots:
 		stack_fight_panel.set_entity_container(entity)
@@ -65,9 +62,11 @@ func _on_fight_started(hacker, robots: Array):
 	s_fight_ui_phase_finished.emit("fight_start")
 
 func _on_execute_script(data_from_execution: Dictionary):
+	"""On reçoit toutes les data qu'on a sur l'éxécution du script."""
 	 # gérer sur l'ui avec la fin du cd. 
 	# pour le moment on force un attente
-	await  get_tree().create_timer(0.01).timeout
+	#await get_tree().create_timer(0).timeout
+	print(data_from_execution)
 	#####
 	print("L'ui a terminé de s'afficher")
 	s_execute_script_ui_finished.emit()

@@ -86,6 +86,7 @@ func entity_connexions(entity: Entity):
 	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
 	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
 	entity.s_sequence_completed.connect(_on_sequence_completed)
+	
 
 func entity_deconnexion(entity: Entity):
 	"""Deconnexion"""
@@ -106,9 +107,10 @@ func _on_enter_ia_execution() -> void:
 
 func next_ia_execution():
 	var ia = robots_ia[current_ia_index]
+	current_ia_index += 1
 	entity_connexions(ia)
 	ia.execute_sequence([hacker])
-	current_ia_index += 1
+	
 	
 
 func _on_enter_resolution() -> void:
@@ -140,6 +142,8 @@ func _ia_logic_prepare_sequence() -> void:
 
 func _end_combat(victory: bool) -> void:
 	print("--- COMBAT TERMINÉ ---")
+	entity_deconnexion(hacker)
+	robots_ia.all(entity_deconnexion)
 	if victory:
 		print("VICTOIRE ! Gain de Force Cyber !")
 		# Logique de récompense : ajouter de la Force Cyber, passer au niveau IA suivant.
@@ -171,7 +175,7 @@ func _on_sequence_completed(entity: Entity):
 		else:
 			next_ia_execution()
 		
-		print("faut aller au second robot")
+	print("faut aller au second robot")
 		
 
 func _on_hacker_died(hacker:Entity):
