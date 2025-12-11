@@ -5,42 +5,46 @@ class_name StackComponent
 @onready var stack_name_label: Label = %StackNameLabel
 @onready var texture_progress_bar: TextureProgressBar = %TextureProgressBar
 
-signal s_stack_component_completed()
-var temps_completion = 3
-var component_starting: bool = false
+signal s_stack_component_completed
 
-func _ready() -> void:
-	component_starting = false
-		
-func _process(delta: float) -> void:
-	print(component_starting)
-	if component_starting:
-		texture_progress_bar.value += delta
-		if texture_progress_bar.value >= texture_progress_bar.max_value:
-			s_stack_component_completed.emit()
-			component_starting = false
-	
-	
-func set_component(component_name: String = "default_name"):
-	"""Le max_value correspon au nombre de seconde avant d'atteindre cette valeur"""
+var temps_completion: float = 3.0
+var tween: Tween
+
+func set_component(component_name: String = "default_name") -> void:
 	stack_name_label.text = component_name
-	texture_progress_bar.value = 0 
-	#l mx_value peut correspondre au temps d'incantation du component
-	texture_progress_bar.max_value = 3
-
-
-func start_component():
-	print("On lance le component")
 	texture_progress_bar.value = 0
-	component_starting = true
-	#timer.start()
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(texture_progress_bar, "value", 3, temps_completion)
-	#tween.finished.connect(_on_tween_finished)
-	#tween.play()
-	#print("tween played")
-	#pass
+	texture_progress_bar.max_value = 100
 
-#func _on_tween_finished():
-	#print("tween finished")
-	#s_stack_component_completed.emit()
+
+func start_component() -> void:
+	print("start_component() appelé")
+	# 1) Sécurité : vérifier que le noeud est bien dans l'arbre
+	if !is_inside_tree():
+		push_error("StackComponent n'est pas encore dans l'arbre de scène.")
+		return
+	# 2) Sécurité : vérifier que la barre existe bien
+	if texture_progress_bar == null:
+		push_error("texture_progress_bar est NULL (mauvais nom %TextureProgressBar ?)")
+		return
+
+	# 3) Reset de la valeur
+	texture_progress_bar.value = 0
+
+	# 4) Création du tween
+	tween = create_tween()
+	tween.tween_property(
+		texture_progress_bar,
+		"value",
+		texture_progress_bar.max_value, # 100
+		temps_completion                # 3s
+	)
+
+	tween.finished.connect(_on_tween_finished)
+
+	print("Tween créé :", tween, " | max_value =", texture_progress_bar.max_value)
+	# ⚠️ PAS de tween.play() ici : create_tween() démarre déjà le tween
+
+
+func _on_tween_finished() -> void:
+	print("tween finished")
+	s_stack_component_completed.emit()

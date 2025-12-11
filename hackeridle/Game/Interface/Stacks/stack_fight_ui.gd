@@ -65,8 +65,12 @@ func _on_execute_script(script_index: int, data_from_execution: Dictionary):
 	# pour le moment on force un attente
 	#await get_tree().create_timer(0).timeout
 	if data_from_execution["caster"] == "hacker":
-		# BUG ON A PAS LE TEMPS D ACTIVIE LE COMPONENT
-		var component = hacker_container.get_child(0).stack_grid.get_child(script_index)
+		# ne pas oublier un process_frame pour s'assurer du bon clear avant
+		await get_tree().process_frame
+		var component: StackComponent = hacker_container.get_child(0).stack_grid.get_child(script_index)
+	
+		component.s_stack_component_completed.connect(_on_s_stack_component_completed)
+		#await component.get_tree().process_frame
 		component.start_component()
 
 	#On lance l'animation du component
@@ -75,3 +79,6 @@ func _on_execute_script(script_index: int, data_from_execution: Dictionary):
 	#print("L'ui a terminé de s'afficher")
 	#s_execute_script_ui_finished.emit()
 	pass
+
+func _on_s_stack_component_completed():
+	s_execute_script_ui_finished.emit()
