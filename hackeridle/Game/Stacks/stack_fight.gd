@@ -178,7 +178,7 @@ func _on_sequence_completed(entity: Entity):
 	print("faut aller au second robot")
 		
 
-func _on_hacker_died(hacker:Entity):
+func _on_hacker_died(_hacker:Entity):
 	print("Le hacker est dead")
 	#_end_combat(false) # Défaite
 	

@@ -47,29 +47,29 @@ func execute() -> Dictionary:
 	return {}
 
 # Méthode appelée après l'exécution pour gérer le cooldown
-func start_cooldown(caster: Entity) -> void:
+func start_cooldown(_caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement
 	var effective_cooldown = turn_cooldown_base
 	turn_remaining = max(0, effective_cooldown)
 	
 	
-func calcul_effect_value(caster: Entity):
+func calcul_effect_value(_caster: Entity):
 	"""Generique pour le plus de scripts possible, va calculer la valeur de l'effet
 	selon les caractéristiques."""
 
 	var bonus_value: float = 0
 	for type in type_and_coef:
-		if caster.entity_is_hacker:
+		if _caster.entity_is_hacker:
 			bonus_value += linear_calcul(\
 						StackManager.stack_script_stats[type],
 						type_and_coef[type], type) 
 		else:
 			bonus_value += linear_calcul(\
-						caster.stats[type], 
+						_caster.stats[type], 
 						type_and_coef[type], type) 
 	return round(bonus_value)
 
-func linear_calcul(robots_affected, perc, type):
+func linear_calcul(robots_affected, perc, _type):
 	var value = robots_affected * perc
 	#print("Valeur de base de %s: %s avec perc de %s donne %s" % [type, robots_affected, perc, value ])
 	

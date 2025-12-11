@@ -45,29 +45,33 @@ func _on_start_fight_button_pressed() -> void:
 	
 func fight_connexions(fight: StackFight):
 	"""on setup toutes les connexions pour le fight pour l'ui"""
-	
 	#connexions des signaux du fights
 	fight.s_fight_started.connect(_on_fight_started)
-
 	#connexions des signaux d'uis
 	s_fight_ui_phase_finished.connect(fight._on_fight_ui_phase_finished)
 
 	
-func _on_fight_started(hacker: Entity, robots: Array[Entity]):
+func _on_fight_started(_hacker: Entity, robots: Array[Entity]):
 	"""Le fight va commencer. On setup l'ui des entités"""
-	stack_fight_panel.set_entity_container(hacker)
+	stack_fight_panel.set_entity_container(_hacker)
 	for entity in robots:
 		stack_fight_panel.set_entity_container(entity)
 	#on attends le true du await pour lancer le signal
 	s_fight_ui_phase_finished.emit("fight_start")
 
-func _on_execute_script(data_from_execution: Dictionary):
+func _on_execute_script(script_index: int, data_from_execution: Dictionary):
 	"""On reçoit toutes les data qu'on a sur l'éxécution du script."""
 	 # gérer sur l'ui avec la fin du cd. 
 	# pour le moment on force un attente
 	#await get_tree().create_timer(0).timeout
+	if data_from_execution["caster"] == "hacker":
+		# BUG ON A PAS LE TEMPS D ACTIVIE LE COMPONENT
+		var component = hacker_container.get_child(0).stack_grid.get_child(script_index)
+		component.start_component()
+
+	#On lance l'animation du component
 	print(data_from_execution)
 	#####
-	print("L'ui a terminé de s'afficher")
-	s_execute_script_ui_finished.emit()
+	#print("L'ui a terminé de s'afficher")
+	#s_execute_script_ui_finished.emit()
 	pass

@@ -99,9 +99,8 @@ func execute_next_script():
 
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
-	print(data_from_execution)
 	#reçu par le StackFightUI
-	s_execute_script.emit(data_from_execution)
+	s_execute_script.emit(current_script_index, data_from_execution)
 
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:

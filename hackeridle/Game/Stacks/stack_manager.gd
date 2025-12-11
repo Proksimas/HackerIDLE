@@ -19,7 +19,7 @@ func _init() -> void:
 							"encryption": 0,
 							"flux": 0}
 
-func new_fight(_hacker: Entity, robots: Array[Entity]) -> StackFight:
+func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
 	var fight = STACK_FIGHT.instantiate()
 	self.add_child(fight)
 	#fight.start_fight(_hacker, robots) -> start par l'ui
