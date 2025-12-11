@@ -1,4 +1,6 @@
 extends Control
+class_name EntityUI
+
 @onready var stack_name_label: Label = %StackNameLabel
 @onready var entity_name_label: Label = %EntityNameLabel
 @onready var stack_grid: GridContainer = %StackGrid
@@ -10,7 +12,7 @@ extends Control
 @onready var flux_label: Label = %FluxLabel
 @onready var flux_value: Label = %FluxValue
 
-
+var entity_name_ui: String = "default_ui_name"
 const STACK_COMPONENT = preload("res://Game/Interface/Stacks/stack_component.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -26,6 +28,7 @@ func _draw() -> void:
 
 func set_stack_grid(entity_name: String, sequence: Array[String]):
 	_clear()
+	entity_name_ui = entity_name
 	entity_name_label.text = entity_name
 	for component_name in sequence:
 		var new_component = STACK_COMPONENT.instantiate()

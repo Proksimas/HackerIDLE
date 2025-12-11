@@ -17,7 +17,7 @@ func set_component(component_name: String = "default_name") -> void:
 
 
 func start_component() -> void:
-	print("start_component() appelé")
+
 	# 1) Sécurité : vérifier que le noeud est bien dans l'arbre
 	if !is_inside_tree():
 		push_error("StackComponent n'est pas encore dans l'arbre de scène.")
@@ -41,10 +41,6 @@ func start_component() -> void:
 
 	tween.finished.connect(_on_tween_finished)
 
-	print("Tween créé :", tween, " | max_value =", texture_progress_bar.max_value)
-	# ⚠️ PAS de tween.play() ici : create_tween() démarre déjà le tween
-
 
 func _on_tween_finished() -> void:
-	print("tween finished")
 	s_stack_component_completed.emit()
