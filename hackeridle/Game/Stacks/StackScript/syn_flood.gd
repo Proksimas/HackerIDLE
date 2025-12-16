@@ -7,8 +7,9 @@ func execute() -> Dictionary:
 	var damages = calcul_effect_value(caster)
 	dict = {"caster": caster,
 			"targets": [targets[0]],
+			"action_type": "Damage",
 			"effects":
-				{"damage": damages, 
+				{"value": damages, 
 				"type": "HP"}
 			}
 	targets[0].take_damage(damages)

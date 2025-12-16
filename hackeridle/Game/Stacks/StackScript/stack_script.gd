@@ -44,11 +44,14 @@ func execute() -> Dictionary:
 	Return un dictionnaire avec tous les effets de l'éxécution
 	(pv retirés, target etc...)
 	
-	var damages = calcul_effect_value(caster)
 	dict = {"caster": caster,
 			"targets": [targets[0]],
-			"targets_damages": [damages]}  # l'index = indexe de la target
-			"""
+			"action_type": "Damage",
+			"effects":
+				{"value": damages, 
+				"type": "HP"}
+			}
+	"""
 	var dict = {}
 	return dict
 

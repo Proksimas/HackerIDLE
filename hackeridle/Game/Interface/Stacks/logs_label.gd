@@ -7,18 +7,17 @@ const COLOR_TARGET = "#00BFFF"  # Bleu Ciel
 const COLOR_CASTER = "#FFD700"  # Jaune
 const COLOR_DOT = "#008000"    # Vert
 
-## Fonction utilitaire pour formater un tableau de noms de cibles
+## Fonction utilitaire pour formater un tableau de noms de cibles (avec le type Array pour flexibilité)
 func format_target_names(targets: Array) -> String:
 	var formatted_targets = []
-	# Assurez-vous d'utiliser Array au lieu de Array[String] pour éviter les erreurs de typage
 	for name in targets:
 		if typeof(name) == TYPE_STRING:
-			formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, name])
+			formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, name.capitalize()])
 	return ", ".join(formatted_targets)
 
 ## Fonction utilitaire pour formater un SEUL effet {value: int, type: String}
 func format_single_effect(effect: Dictionary) -> String:
-	var value = effect.get("damage", 0)
+	var value = effect.get("value", 0)
 	var type = effect.get("type", "HP")
 	var damage_color = ""
 	var damage_tag = ""
@@ -33,61 +32,70 @@ func format_single_effect(effect: Dictionary) -> String:
 		"DoT":
 			damage_color = COLOR_DOT
 			damage_tag = "DoT"
-		_: # Type inconnu
+		_:
 			damage_color = "#FFFFFF"
 			damage_tag = "Effet"
 
-	# Format: [couleur_valeur]VALEUR[/couleur] ([couleur_tag]TAG[/couleur])
-	# J'ai ajouté le tag de couleur pour le DoT, comme demandé initialement
 	var formatted_value = "[color=%s]%d[/color]" % [damage_color, value]
 	
-	# Retourne la chaîne formatée pour cet effet : "20 HP (Rouge)" ou "5 DoT (Vert)"
 	return "%s %s" % [formatted_value, damage_tag]
 
-## Fonction principale pour formater le texte de l'événement
-func log_event(event_data: Dictionary):
-	
-	# 1. Extraction des données
-	var caster_name = event_data.get("caster_name", "Inconnu")
+# ----------------------------------------------------------------------
+# NOUVELLE LOGIQUE POUR LA CONSTRUCTION DE LA PHRASE
+# ----------------------------------------------------------------------
+
+## Construit le message de log final basé sur l'action_type
+func build_log_message(event_data: Dictionary) -> String:
+	var action_type = event_data.get("action_type", " Action Unknown")
+	# Extraction et formatage des entités (qui sont communes à toutes les actions)
+	var caster_name = event_data.get("caster_name", "Catser Unkown")
 	var target_names = event_data.get("target_names", [])
-	var effects = event_data.get("effects", []) # <-- Extraction du tableau d'effets
-
-	# 2. Formatage du Caster et des Targets
-	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name]
+	
+	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
 	var formatted_targets = format_target_names(target_names)
-	var target_str = formatted_targets
 	
-	# 3. Formatage de TOUS les effets
-	var formatted_effects_list = []
-	for effect in effects:
-		formatted_effects_list.append(format_single_effect(effect))
-		
-	# Jointure des effets avec une virgule pour la lisibilité
-	var formatted_effects_str = ", ".join(formatted_effects_list)
-	
-	# 4. Construction de la phrase finale
-	var action = ""
-	var verb = "inflige"
-	
-	if effects.size() > 1:
-		action = "effets"
-	else:
-		action = "effet"
+	match action_type:
+		"Damage":
+			# Demande de l'utilisateur : "x inflige y degats à z"
+			var effects = event_data.get("effects", [])
+			
+			var formatted_effects_list = []
+			for effect in effects:
+				formatted_effects_list.append(format_single_effect(effect))
+			
+			var formatted_effects_str = ", ".join(formatted_effects_list)
+			
+			# Phrase : [Caster] inflige [Effets (valeur + type)] à [Targets]
+			if target_names.size() > 1:
+				return "%s inflige les dégâts suivants à ses cibles : %s (%s)." % [formatted_caster, formatted_effects_str, formatted_targets]
+			else:
+				return "%s inflige %s de dégâts à %s." % [formatted_caster, formatted_effects_str, formatted_targets]
 
-	var targets_phrase = " à %s" % target_str
+		"Death":
+			
+			# Nous utiliserons le premier target comme celui qui est mort.
+			if target_names.size() > 0:
+				return "%s est mort." % formatted_targets
+			else:
+				return "Une entité inconnue est morte."
 
-	if target_names.size() > 1:
-		targets_phrase = " à ses cibles : %s" % target_str
-		
-	# Phrase : Caster inflige [Effet 1, Effet 2, ...] aux Targets
-	var text_log = "%s %s les %s suivants %s: %s." % [
-		formatted_caster,
-		verb,
-		action,
-		targets_phrase,
-		formatted_effects_str
-	]
+		"Heal":
+			# Exemple pour un futur type d'action (vous pouvez ajouter une couleur pour les soins ici)
+			var effects = event_data.get("effects", [])
+			var formatted_effects_list = []
+			for effect in effects:
+				# Si vous voulez une couleur spécifique pour les soins (ex: Bleu clair)
+				# Vous devriez modifier format_single_effect pour gérer un type "Heal"
+				formatted_effects_list.append(format_single_effect(effect))
+			
+			var formatted_effects_str = ", ".join(formatted_effects_list)
+			
+			return "%s soigne %s pour %s points." % [formatted_caster, formatted_targets, formatted_effects_str]
+			
+		_:
+			return "Événement de log non reconnu: %s" % str(event_data)
 
-	# 5. Affichage du texte
-	# Note: Dans ce cas, 'log_event' est appelée sur le RichTextLabel lui-même.
+## Fonction principale pour formater et afficher le texte de l'événement
+func log_event(event_data: Dictionary):
+	var text_log = build_log_message(event_data)
 	self.bbcode_text = text_log

@@ -64,15 +64,22 @@ func target_receive_data_from_execute(data_effect: Dictionary):
 	"""L'entité est la cible deu script d'execution.
 	reçoit les données concernant cette entité post script execution
 	Cela correspond aux degats reçus, shield etc"""
-	
+		#dict = {"caster": caster,
+			#"targets": [targets[0]],
+			#"action_type": "Damage",
+			#"effects":
+				#{"value": damages, 
+				#"type": "HP"}
+			#}
 	# TODO SELON LES EFFETS
-	
-	if data_effect.has("damage"):
-		match data_effect["type"]:
+	var effect
+	if data_effect["action_type"] == "Damage":
+		var damages_received = data_effect["effects"]["value"]
+		match data_effect["effects"]["type"]:
 			"HP":
-				var damages_received = data_effect["damage"]
 				hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
 										0, hp_progress_bar.max_value)
+	
 
 		
 func _clear():

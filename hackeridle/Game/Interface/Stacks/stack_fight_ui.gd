@@ -107,7 +107,7 @@ func _on_s_stack_component_completed(component: StackComponent,
 	# TODO REMPLIR SELON LES DIFFERENTS EFFETS
 	
 	for target_ui in targets_ui:
-		target_ui.target_receive_data_from_execute(data_from_execution["effects"])
+		target_ui.target_receive_data_from_execute(data_from_execution)
 	
 	var targets_name : Array
 	for target in data_from_execution["targets"]:
@@ -115,9 +115,10 @@ func _on_s_stack_component_completed(component: StackComponent,
 	var dict_log = \
 	{"caster_name": data_from_execution["caster"].entity_name,
 	"target_names": targets_name,
+	"action_type": data_from_execution["action_type"],
 	"effects": [data_from_execution["effects"]]}
 	#On est pret à anticiper si il y a plusieurs effets
-	print("data post script: ", data_from_execution)
+	#print("data post script: ", data_from_execution)
 	fight_logs.add_log(dict_log)
 	s_execute_script_ui_finished.emit()
 	
