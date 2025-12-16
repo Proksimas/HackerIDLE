@@ -4,6 +4,9 @@ class_name EntityUI
 @onready var stack_name_label: Label = %StackNameLabel
 @onready var entity_name_label: Label = %EntityNameLabel
 @onready var stack_grid: GridContainer = %StackGrid
+@onready var hp_progress_bar: ProgressBar = %HpProgressBar
+@onready var shield_progress_bar: ProgressBar = %ShieldProgressBar
+
 
 @onready var penetration_label: Label = %PenetrationLabel
 @onready var penetration_value: Label = %PenetrationValue
@@ -34,11 +37,7 @@ func set_stack_grid(entity_name: String, sequence: Array[String]):
 		var new_component = STACK_COMPONENT.instantiate()
 		stack_grid.add_child(new_component)
 		new_component.set_component(component_name)
-		
-func _clear():
-	for elmt in stack_grid.get_children():
-		elmt.queue_free()
-		
+
 
 func set_stack_script_values(dict: Dictionary):
 	for key in dict:
@@ -50,3 +49,15 @@ func set_stack_script_values(dict: Dictionary):
 			"flux":
 				flux_value.text = str(dict["flux"])
 	
+func target_receive_data_from_execute(data: Dictionary):
+	"""L'entité est la cible deu script d'execution.
+	reçoit les données concernant cette entité post script execution
+	Cela correspond aux degats reçus, shield etc"""
+	
+
+
+		
+func _clear():
+	for elmt in stack_grid.get_children():
+		elmt.queue_free()
+		

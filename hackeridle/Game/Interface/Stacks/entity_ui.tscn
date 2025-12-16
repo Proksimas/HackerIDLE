@@ -21,12 +21,30 @@ anchor_right = 1.0
 offset_bottom = 27.0
 grow_horizontal = 2
 
-[node name="EntityNameLabel" type="Label" parent="VBoxContainer"]
+[node name="HeaderContainer" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="EntityNameLabel" type="Label" parent="VBoxContainer/HeaderContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Nom de l'entité"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="HpProgressBar" type="ProgressBar" parent="VBoxContainer/HeaderContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ShieldProgressBar" type="ProgressBar" parent="VBoxContainer/HeaderContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+value = 100.0
+allow_greater = true
+show_percentage = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2

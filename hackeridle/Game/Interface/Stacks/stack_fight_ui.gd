@@ -65,24 +65,45 @@ func _on_execute_script(script_index: int, data_from_execution: Dictionary):
 	# pour le moment on force un attente
 	# ne pas oublier un process_frame pour s'assurer du bon clear avant
 	await get_tree().process_frame
-	if data_from_execution["caster"] == "hacker":
-		var component: StackComponent = hacker_container.get_child(0).stack_grid.get_child(script_index)
-		component.s_stack_component_completed.connect(\
-		_on_s_stack_component_completed.bind(component, data_from_execution))
-		#await component.get_tree().process_frame
-		component.start_component()
+	var entity_ui_caster: EntityUI
+	var entities_ui_targets: Array[EntityUI]
+	var component: StackComponent
+	if data_from_execution["caster"].entity_name == "hacker":
+		entity_ui_caster = hacker_container.get_child(0)
+		component = entity_ui_caster.stack_grid.get_child(script_index)
+
 	else:
 		for _robot_ia: EntityUI in robots_container.get_children():
-			if data_from_execution["caster"] == _robot_ia.entity_name_ui:
-				var component: StackComponent = _robot_ia.stack_grid.get_child(script_index)
-				component.s_stack_component_completed.connect(\
-				_on_s_stack_component_completed.bind(component, data_from_execution))
+			if data_from_execution["caster"].entity_name == _robot_ia.entity_name_ui:
+				entity_ui_caster = _robot_ia
+				component = _robot_ia.stack_grid.get_child(script_index)
+				
+	#Puis parse des targets
+	var entities_ui = hacker_container.get_children()
+	entities_ui.append_array(robots_container.get_children())
+	for target in data_from_execution["targets"]:
+		for target_ui in entities_ui:
+			if target_ui.entity_name_ui == target.entity_name:
+				entities_ui_targets.append(target_ui)
+	component.s_stack_component_completed.connect(\
+	_on_s_stack_component_completed.bind(component, 
+										entity_ui_caster,
+										entities_ui_targets,
+										 data_from_execution))
 				#await component.get_tree().process_frame
-				component.start_component()
+	component.start_component()
 
 	pass
 
-func _on_s_stack_component_completed(component, data_from_execution):
+func _on_s_stack_component_completed(component: StackComponent,
+						 caster_ui:EntityUI,
+						targets_ui: Array[EntityUI],
+						data_from_execution: Dictionary):
+	"""Toutes las animations liées à la stack sont finies.
+	On doit mettre à jour l'ui post stack des entités"""
 	component.s_stack_component_completed.disconnect(_on_s_stack_component_completed)
-	print(data_from_execution)
+	
+	
+	print("data post script: ", data_from_execution)
 	s_execute_script_ui_finished.emit()
+	
