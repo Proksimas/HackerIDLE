@@ -42,9 +42,15 @@ func set_caster_and_targets(_caster: Entity, _targets: Array[Entity]) -> void:
 func execute() -> Dictionary:
 	"""Logic spécifique au Script (dégâts, bouclier, etc.)
 	Return un dictionnaire avec tous les effets de l'éxécution
-	(pv retirés, target etc...)"""
+	(pv retirés, target etc...)
 	
-	return {}
+	var damages = calcul_effect_value(caster)
+	dict = {"caster": caster,
+			"targets": [targets[0]],
+			"targets_damages": [damages]}  # l'index = indexe de la target
+			"""
+	var dict = {}
+	return dict
 
 # Méthode appelée après l'exécution pour gérer le cooldown
 func start_cooldown(_caster: Entity) -> void:

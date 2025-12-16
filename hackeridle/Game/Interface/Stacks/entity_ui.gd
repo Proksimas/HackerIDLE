@@ -16,6 +16,7 @@ class_name EntityUI
 @onready var flux_value: Label = %FluxValue
 
 var entity_name_ui: String = "default_ui_name"
+var entity_associated: Entity
 const STACK_COMPONENT = preload("res://Game/Interface/Stacks/stack_component.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,10 +30,19 @@ func _draw() -> void:
 	encryption_label.text = "$Encryption"
 	flux_label.text = "$Flux"
 
-func set_stack_grid(entity_name: String, sequence: Array[String]):
+func initialize_stack_grid(entity: Entity, sequence: Array[String]):
+	"""Initialisation de l'entité ui"""
 	_clear()
-	entity_name_ui = entity_name
-	entity_name_label.text = entity_name
+	entity_associated = entity
+	entity_name_ui = entity.entity_name
+	entity_name_label.text = entity.entity_name
+	hp_progress_bar.max_value = entity.max_hp
+	hp_progress_bar.min_value = 0
+	hp_progress_bar.value = entity.max_hp
+	shield_progress_bar.max_value = entity.max_hp
+	shield_progress_bar.min_value = 0
+	shield_progress_bar.value = 0
+	
 	for component_name in sequence:
 		var new_component = STACK_COMPONENT.instantiate()
 		stack_grid.add_child(new_component)
@@ -48,13 +58,19 @@ func set_stack_script_values(dict: Dictionary):
 				encryption_value.text = str(dict["encryption"])
 			"flux":
 				flux_value.text = str(dict["flux"])
+				
 	
 func target_receive_data_from_execute(data: Dictionary):
 	"""L'entité est la cible deu script d'execution.
 	reçoit les données concernant cette entité post script execution
 	Cela correspond aux degats reçus, shield etc"""
 	
-
+	# TODO SELON LES EFFETS
+	
+	if data.has("damages"):
+		var damages_received = data["damages"]
+		hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
+								0, hp_progress_bar.max_value)
 
 		
 func _clear():

@@ -2,8 +2,8 @@
 class_name Entity extends Node
 
 
-@export var max_hp: float = 100.0
-@export var current_hp: float = 100.0
+@export var max_hp: float = 20
+@export var current_hp: float = 20
 @export var current_shield: float = 0.0 # Bouclier temporaire
 
 @export var stats : Dictionary = {"penetration": 0,
@@ -30,7 +30,7 @@ signal s_execute_script
 signal s_sequence_completed(entity)
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
-					stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
+			_max_hp:int = 20, stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
 	match is_hacker:
 		true:
 			entity_is_hacker = true
@@ -38,7 +38,8 @@ func _init(is_hacker: bool, _entity_name: String = "default_name", \
 		false:
 			entity_is_hacker = false
 			entity_name = _entity_name
-			
+	max_hp = _max_hp
+	current_hp = max_hp
 	stats['penetration'] = stat_pen
 	stats['encryption'] = stat_enc
 	stats['flux'] = stat_flux

@@ -14,7 +14,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func set_entity_container(entity: Entity)->bool:
+func set_entity_ui_container(entity: Entity)->bool:
 	"""Initialiser l'ui de l'entité"""
 	var new_entity_ui = ENTITY_UI.instantiate()
 	match entity.entity_is_hacker:
@@ -22,7 +22,7 @@ func set_entity_container(entity: Entity)->bool:
 			hacker_container.add_child(new_entity_ui)
 		false:
 			robots_container.add_child(new_entity_ui)
-	new_entity_ui.set_stack_grid(entity.entity_name, entity.sequence_order)
+	new_entity_ui.initialize_stack_grid(entity, entity.sequence_order)
 	new_entity_ui.set_stack_script_values(entity.stats)
 	
 	hacker_container.show()

@@ -21,8 +21,8 @@ func _ready() -> void:
 ### POUR LES TEST
 func _on_start_fight_button_pressed() -> void:
 	hacker = Entity.new(true)
-	robot_ia = Entity.new(false, "robot_a", 5,0,0)
-	robot_ia_2 = Entity.new(false, "robot_b",3,3,3)
+	robot_ia = Entity.new(false, "robot_a", 20, 5,0,0)
+	robot_ia_2 = Entity.new(false, "robot_b",20, 3,3,3)
 	StackManager.stack_script_stats = {"penetration": 4,
 							"encryption": 0,
 							"flux": 0}
@@ -53,9 +53,9 @@ func fight_connexions(fight: StackFight):
 	
 func _on_fight_started(_hacker: Entity, robots: Array[Entity]):
 	"""Le fight va commencer. On setup l'ui des entités"""
-	stack_fight_panel.set_entity_container(_hacker)
+	stack_fight_panel.set_entity_ui_container(_hacker)
 	for entity in robots:
-		stack_fight_panel.set_entity_container(entity)
+		stack_fight_panel.set_entity_ui_container(entity)
 	#on attends le true du await pour lancer le signal
 	s_fight_ui_phase_finished.emit("fight_start")
 
@@ -102,7 +102,15 @@ func _on_s_stack_component_completed(component: StackComponent,
 	"""Toutes las animations liées à la stack sont finies.
 	On doit mettre à jour l'ui post stack des entités"""
 	component.s_stack_component_completed.disconnect(_on_s_stack_component_completed)
+	var i = 0
+	var dict_parsed: Dictionary
 	
+	# TODO REMPLIR SELON LES DIFFERENTS EFFETS
+	
+	for target_ui in targets_ui:
+		dict_parsed["damages"] = data_from_execution["targets_damages"][i]
+		i += 1
+		target_ui.target_receive_data_from_execute(dict_parsed)
 	
 	print("data post script: ", data_from_execution)
 	s_execute_script_ui_finished.emit()
