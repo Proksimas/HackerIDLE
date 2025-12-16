@@ -14,26 +14,25 @@ var event_multi_shield_dot = {
 	"caster_name": "Invocateur",
 	"target_names": ["Tank", "Soigneur"],
 	"effects": [
-		{"value": 10, "type": "Shield"}, # Perte de bouclier (violet)
-		{"value": 5, "type": "DoT"}      # Poison (vert)
+		{"damage": 10, "type": "Shield"}, # Perte de bouclier (violet)
+		{"damage": 5, "type": "DoT"}      # Poison (vert)
 	]
 }
-
 var event_double_hp = {
 	"caster_name": "Berserker",
 	"target_names": ["Guerrier"],
 	"effects": [
-		{"value": 20, "type": "HP"},     # Coup normal (rouge)
-		{"value": 5, "type": "HP"}       # Saignement (rouge)
+		{"damage": 20, "type": "HP"},     # Coup normal (rouge)
+		{"damage": 5, "type": "HP"}       # Saignement (rouge)
 	]
 }
 
-func _ready() -> void:
-	# Test
-	add_log(event_multi_shield_dot)
-	add_log(event_double_hp)
-	for i in range(max_logs):
-		add_log(event_multi_shield_dot)
+#func _ready() -> void:
+	## Test
+	#add_log(event_multi_shield_dot)
+	#add_log(event_double_hp)
+	#for i in range(max_logs):
+		#add_log(event_multi_shield_dot)
 		
 func add_log(event: Dictionary):
 	# 1. Gestion de la limite de logs (Suppression du plus ancien)

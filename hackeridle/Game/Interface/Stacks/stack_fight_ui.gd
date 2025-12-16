@@ -103,22 +103,20 @@ func _on_s_stack_component_completed(component: StackComponent,
 	"""Toutes las animations liées à la stack sont finies.
 	On doit mettre à jour l'ui post stack des entités"""
 	component.s_stack_component_completed.disconnect(_on_s_stack_component_completed)
-	var i = 0
-	var dict_parsed: Dictionary
-	
+
 	# TODO REMPLIR SELON LES DIFFERENTS EFFETS
 	
 	for target_ui in targets_ui:
-		dict_parsed["damages"] = data_from_execution["targets_damages"][i]
-		i += 1
-		target_ui.target_receive_data_from_execute(dict_parsed)
+		target_ui.target_receive_data_from_execute(data_from_execution["effects"])
 	
 	var targets_name : Array
 	for target in data_from_execution["targets"]:
 		targets_name.append(target.entity_name)
 	var dict_log = \
 	{"caster_name": data_from_execution["caster"].entity_name,
-	"target_names": targets_name}
+	"target_names": targets_name,
+	"effects": [data_from_execution["effects"]]}
+	#On est pret à anticiper si il y a plusieurs effets
 	print("data post script: ", data_from_execution)
 	fight_logs.add_log(dict_log)
 	s_execute_script_ui_finished.emit()

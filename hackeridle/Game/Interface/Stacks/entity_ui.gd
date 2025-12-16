@@ -60,17 +60,19 @@ func set_stack_script_values(dict: Dictionary):
 				flux_value.text = str(dict["flux"])
 				
 	
-func target_receive_data_from_execute(data: Dictionary):
+func target_receive_data_from_execute(data_effect: Dictionary):
 	"""L'entité est la cible deu script d'execution.
 	reçoit les données concernant cette entité post script execution
 	Cela correspond aux degats reçus, shield etc"""
 	
 	# TODO SELON LES EFFETS
 	
-	if data.has("damages"):
-		var damages_received = data["damages"]
-		hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
-								0, hp_progress_bar.max_value)
+	if data_effect.has("damage"):
+		match data_effect["type"]:
+			"HP":
+				var damages_received = data_effect["damage"]
+				hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
+										0, hp_progress_bar.max_value)
 
 		
 func _clear():

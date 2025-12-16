@@ -18,7 +18,7 @@ func format_target_names(targets: Array) -> String:
 
 ## Fonction utilitaire pour formater un SEUL effet {value: int, type: String}
 func format_single_effect(effect: Dictionary) -> String:
-	var value = effect.get("value", 0)
+	var value = effect.get("damage", 0)
 	var type = effect.get("type", "HP")
 	var damage_color = ""
 	var damage_tag = ""
