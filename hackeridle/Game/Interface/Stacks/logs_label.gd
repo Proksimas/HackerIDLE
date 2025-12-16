@@ -46,7 +46,7 @@ func format_single_effect(effect: Dictionary) -> String:
 
 ## Construit le message de log final basé sur l'action_type
 func build_log_message(event_data: Dictionary) -> String:
-	var action_type = event_data.get("action_type", " Action Unknown")
+	var action_type = event_data.get("action_type", "Action Unknown")
 	# Extraction et formatage des entités (qui sont communes à toutes les actions)
 	var caster_name = event_data.get("caster_name", "Catser Unkown")
 	var target_names = event_data.get("target_names", [])
@@ -72,12 +72,8 @@ func build_log_message(event_data: Dictionary) -> String:
 				return "%s inflige %s de dégâts à %s." % [formatted_caster, formatted_effects_str, formatted_targets]
 
 		"Death":
-			
-			# Nous utiliserons le premier target comme celui qui est mort.
-			if target_names.size() > 0:
-				return "%s est mort." % formatted_targets
-			else:
-				return "Une entité inconnue est morte."
+			return "%s est mort." % formatted_caster
+
 
 		"Heal":
 			# Exemple pour un futur type d'action (vous pouvez ajouter une couleur pour les soins ici)

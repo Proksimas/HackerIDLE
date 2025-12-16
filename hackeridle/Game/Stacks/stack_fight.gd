@@ -86,7 +86,6 @@ func entity_connexions(entity: Entity):
 	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
 	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
 	entity.s_sequence_completed.connect(_on_sequence_completed)
-	
 
 func entity_deconnexion(entity: Entity):
 	"""Deconnexion"""
@@ -179,11 +178,17 @@ func _on_sequence_completed(entity: Entity):
 		
 
 func _on_hacker_died(_hacker:Entity):
+	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
+												"caster_name": _hacker.entity_name}
+												)
 	print("Le hacker est dead")
 	#_end_combat(false) # Défaite
 	
 func _on_robot_died(_robot:Entity):
 	print("%s est dead" % _robot.entity_name)
+	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
+												"caster_name": _robot.entity_name}
+												)
 	for robot in robots_ia:
 		if robot == _robot:
 			robots_ia.erase(robot)
