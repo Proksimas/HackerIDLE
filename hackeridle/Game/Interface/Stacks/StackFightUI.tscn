@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvjnngl5lhewm"]
+[gd_scene load_steps=6 format=3 uid="uid://bvjnngl5lhewm"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_ui.gd" id="1_b0i74"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_panel.gd" id="2_5xl50"]
 [ext_resource type="PackedScene" uid="uid://djm18s8h6ukxr" path="res://Game/Interface/Stacks/entity_ui.tscn" id="3_xd3nv"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/fight_logs.gd" id="4_x7x87"]
+[ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="5_l8eog"]
 
 [node name="StackFightUi" type="Control"]
 layout_mode = 3
@@ -71,14 +72,19 @@ size_flags_vertical = 3
 script = ExtResource("4_x7x87")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="StackFightPanel/VBoxContainer/FightLogs"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("5_l8eog")
+follow_focus = true
+horizontal_scroll_mode = 0
 
 [node name="LogsContainer" type="VBoxContainer" parent="StackFightPanel/VBoxContainer/FightLogs/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

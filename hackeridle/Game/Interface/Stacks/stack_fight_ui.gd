@@ -8,6 +8,7 @@ var robot_ia_2: Entity
 @onready var stack_fight_panel: Panel = $StackFightPanel
 @onready var hacker_container: Control = %HackerContainer
 @onready var robots_container: HBoxContainer = %RobotsContainer
+@onready var fight_logs: Panel = %FightLogs
 
 
 signal s_fight_ui_phase_finished
@@ -112,6 +113,13 @@ func _on_s_stack_component_completed(component: StackComponent,
 		i += 1
 		target_ui.target_receive_data_from_execute(dict_parsed)
 	
+	var targets_name : Array
+	for target in data_from_execution["targets"]:
+		targets_name.append(target.entity_name)
+	var dict_log = \
+	{"caster_name": data_from_execution["caster"].entity_name,
+	"target_names": targets_name}
 	print("data post script: ", data_from_execution)
+	fight_logs.add_log(dict_log)
 	s_execute_script_ui_finished.emit()
 	
