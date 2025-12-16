@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://diny6826tmcu1"]
+
+[ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_hacas"]
+[ext_resource type="Script" path="res://Game/Interface/Stacks/logs_label.gd" id="1_tcspy"]
+
+[node name="LogsLabel" type="RichTextLabel"]
+custom_minimum_size = Vector2(0, 40)
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_hacas")
+bbcode_enabled = true
+text = "test cdsknc ckdscndsk cdsknckdlcn cdsnlkcd cdskckdsjc cjdslkcjds cjdsllckjdsl cjdslk"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+script = ExtResource("1_tcspy")
