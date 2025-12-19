@@ -39,13 +39,12 @@ const ROLE_MULT := {
 	EnemyRole.BOSS:    {"p": 1.6, "e": 1.6, "f": 2.0, "hp": 2.2},
 }
 
-# Pools simples (remplace par tes IDs de scènes/ressources)
-const POOL_DPS := ["DPS_A", "DPS_B", "DPS_C"]
-const POOL_TANK := ["TANK_A", "TANK_B"]
-const POOL_SUPPORT := ["SUPPORT_A", "SUPPORT_B", "SUPPORT_C"]
-const POOL_ELITE := ["ELITE_A", "ELITE_B"]
-const POOL_BOSS := ["BOSS_A", "BOSS_B"]
-
+# Pools, avec des variantes si besoin
+const POOL_DPS := ["RAPTOR", "RAPTORS_SWARM", "RAPTOR_BLADE", "RAPTOR_VIPER", "RAPTOR_STRIKER", "RAPORT_HUNTER"]
+const POOL_TANK := ["GOLIATH", "GOLIATH_SIEGE", "GOLIATH_SHIELD", "GOLIATH_BASTION", "GOLIATH_COLOSSUS", "GOLIATH_BULWARK"]
+const POOL_SUPPORT := ["OPERATOR", "OPERATOR_RELAY", "OPERATOR_HACK", "OPERATOR_ENGINEER", "OPERATOR_TECHNODE", "OPERATOR_COORDINATOR"]
+const POOL_ELITE := ["WARDEN_MK1", "WARDEN_MK2", "WARDEN_MK3", "WARDEN_MK4", "WARDEN_MK5"]
+const POOL_BOSS := ["TITAN", "TITAN_OMEGA", "TITAN_CORE", "TITAN_SOVEREIGN", "OBLIVION", "ATLAS_CORE"]
 # -------------------------
 # PROGRESSION
 # -------------------------
