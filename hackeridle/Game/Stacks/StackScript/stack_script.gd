@@ -18,6 +18,9 @@ class_name StackScript
 							
 # temps en s de l'éxécution du script (temps de cast)
 @export var execution_time: float = 3.0
+
+enum ScriptKind { DAMAGE, SHIELD, UTILITY}
+@export var script_kind: ScriptKind = ScriptKind.DAMAGE
 							
 var entity_is_hacker: bool = false
 #enum TYPE {PENETRATION, ENCRYPTION, FLUX}

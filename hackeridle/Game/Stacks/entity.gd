@@ -44,6 +44,8 @@ func _init(is_hacker: bool, _entity_name: String = "default_name", \
 	stats['encryption'] = stat_enc
 	stats['flux'] = stat_flux
 
+
+		
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.

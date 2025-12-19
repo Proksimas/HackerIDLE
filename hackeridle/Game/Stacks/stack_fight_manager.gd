@@ -21,6 +21,8 @@ const WAVES_MAX := 10
 const LEVELS_BASE := 5
 const LEVELS_MAX := 9
 
+const MIX_START_SECTOR := 4
+
 # -------------------------
 # ENNEMIS / ARCHÉTYPES
 # -------------------------
@@ -45,6 +47,15 @@ const POOL_TANK := ["GOLIATH", "GOLIATH_SIEGE", "GOLIATH_SHIELD", "GOLIATH_BASTI
 const POOL_SUPPORT := ["OPERATOR", "OPERATOR_RELAY", "OPERATOR_HACK", "OPERATOR_ENGINEER", "OPERATOR_TECHNODE", "OPERATOR_COORDINATOR"]
 const POOL_ELITE := ["WARDEN_MK1", "WARDEN_MK2", "WARDEN_MK3", "WARDEN_MK4", "WARDEN_MK5"]
 const POOL_BOSS := ["TITAN", "TITAN_OMEGA", "TITAN_CORE", "TITAN_SOVEREIGN", "OBLIVION", "ATLAS_CORE"]
+
+const SCRIPT_POOL:Dictionary = {
+	"DPS": ["syn_flood"],
+	"TANK": ["syn_flood"],
+	"SUPPORT": ["syn_flood"],
+	"ELITE": ["syn_flood"],
+	"BOSS": ["syn_flood"]
+}
+
 # -------------------------
 # PROGRESSION
 # -------------------------
@@ -54,11 +65,14 @@ var wave_index: int = 1            # IMPORTANT: commence à 1
 
 # RNG
 var rng := RandomNumberGenerator.new()
-
+#rng.seed = X
+#Fixer à une seed permet de s'assurer qu'on aura TOUJOURS la meme suite d'élément.
+#cela permet d'empecher de devoir stocker des datas
 # ======================= TEST =======================
 func _ready():
 	var encounters_to_simulate := 120
 	rng.randomize() # ou fixe : rng.seed = 42
+	#rng.seed = 42
 
 	print("\n===== START TEST RUN =====")
 	for i in range(encounters_to_simulate):
@@ -178,12 +192,11 @@ func next_encounter() -> Dictionary:
 	var wave := _generate_normal_wave()
 	_advance_wave()
 	return wave
-
-# Timeline anticipable : types fixes, mais longueur variable
 func get_level_wave_blueprint() -> Array:
 	var wpl := waves_per_level()
 	var blueprint: Array = []
 
+	# Pattern de base
 	var fixed := ["DPS", "TANK", "SUPPORT", "MIX_DPS_TANK", "MIX_TANK_SUPPORT"]
 
 	var i := 0
@@ -192,6 +205,7 @@ func get_level_wave_blueprint() -> Array:
 		if i < fixed.size():
 			kind = fixed[i]
 		else:
+			# Remplissage stable : alterne MIX puis TEST
 			if (i % 2) == 0:
 				kind = "MIX_DPS_SUPPORT"
 			else:
@@ -202,6 +216,20 @@ func get_level_wave_blueprint() -> Array:
 
 	# La dernière vague est spéciale (Elite/Boss géré dans next_encounter)
 	blueprint[wpl - 1].kind = "SPECIAL"
+
+	# --------- NOUVEAU : verrou MIX avant secteur 4 ----------
+	if sector_index < MIX_START_SECTOR:
+		for j in range(wpl):
+			var k := str(blueprint[j].kind)
+			if k.begins_with("MIX_"):
+				# On remplace les MIX par quelque chose de lisible
+				# Option simple : alternance DPS / TANK
+				if (j % 2) == 0:
+					blueprint[j].kind = "DPS"
+				else:
+					blueprint[j].kind = "TANK"
+	# --------------------------------------------------------
+
 	return blueprint
 
 # -------------------------
@@ -211,6 +239,7 @@ func _pick_from(pool: Array) -> String:
 	return pool[rng.randi_range(0, pool.size() - 1)]
 
 func _make_enemy(role: int, variant_id: String) -> Dictionary:
+	"""on va crééer et renvoyer un dict de stats de l'entité choisie"""
 	var depth := _depth()
 	var s := _scale(depth)
 	var fs := _flux_scale(depth)
@@ -240,68 +269,127 @@ func _wave_pack(enemies: Array, wave_type: String) -> Dictionary:
 	}
 
 func _generate_normal_wave() -> Dictionary:
-	var wpl := waves_per_level()
-	if wave_index == wpl:
-		# Sécurité: normalement cette vague est gérée comme ELITE/BOSS ailleurs
-		return _wave_pack([_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))], "NORMAL")
-
 	var bp := get_level_wave_blueprint()
 	var kind := str(bp[wave_index - 1].kind)
 
-	if kind == "DPS":
-		return _wave_pack([
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-		], "NORMAL")
+	var enemy_count := _roll_enemy_count()
+	var enemies: Array = []
 
-	if kind == "TANK":
-		return _wave_pack([
-			_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK)),
-		], "NORMAL")
+	match kind:
+		"DPS":
+			for i in range(enemy_count):
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
 
-	if kind == "SUPPORT":
-		return _wave_pack([
-			_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT)),
-		], "NORMAL")
+		"TANK":
+			# 1 tank obligatoire
+			enemies.append(
+				_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK))
+			)
+			while enemies.size() < enemy_count:
+				if rng.randf() < 0.5:
+					enemies.append(
+						_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+					)
+				else:
+					enemies.append(
+						_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+					)
 
-	if kind == "MIX_DPS_TANK":
-		return _wave_pack([
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-			_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK)),
-		], "NORMAL")
+		"SUPPORT":
+			enemies.append(
+				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+			)
+			while enemies.size() < enemy_count:
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
 
-	if kind == "MIX_TANK_SUPPORT":
-		return _wave_pack([
-			_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK)),
-			_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT)),
-		], "NORMAL")
+		"MIX_DPS_TANK":
+			enemies.append(
+				_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+			)
+			enemies.append(
+				_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK))
+			)
+			while enemies.size() < enemy_count:
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
 
-	if kind == "MIX_DPS_SUPPORT":
-		return _wave_pack([
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-			_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT)),
-		], "NORMAL")
+		"MIX_TANK_SUPPORT":
+			enemies.append(
+				_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK))
+			)
+			enemies.append(
+				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+			)
+			while enemies.size() < enemy_count:
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
 
-	# TEST
-	var r := rng.randi_range(0, 2)
-	if r == 0:
-		return _wave_pack([
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-			_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT)),
-		], "TEST")
-	if r == 1:
-		return _wave_pack([
-			_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK)),
-			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS)),
-		], "TEST")
-	return _wave_pack([
-		_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK)),
-		_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT)),
-	], "TEST")
+		"MIX_DPS_SUPPORT":
+			enemies.append(
+				_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+			)
+			enemies.append(
+				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+			)
+			while enemies.size() < enemy_count:
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
+
+		"TEST":
+			# TEST = mélange pénible mais lisible
+			enemies.append(
+				_make_enemy(EnemyRole.TANK, _pick_from(POOL_TANK))
+			)
+			enemies.append(
+				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+			)
+			while enemies.size() < enemy_count:
+				enemies.append(
+					_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+				)
+
+		_:
+			# fallback sécurité
+			enemies.append(
+				_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+			)
+
+	return _wave_pack(enemies, "NORMAL")
 
 func _generate_elite_wave() -> Dictionary:
-	var elite := _make_enemy(EnemyRole.ELITE, _pick_from(POOL_ELITE))
-	return _wave_pack([elite], "ELITE")
+	var enemies: Array = []
+
+	# Elite principale
+	enemies.append(
+		_make_enemy(EnemyRole.ELITE, _pick_from(POOL_ELITE))
+	)
+
+	# À partir d’un certain secteur, on ajoute de la pression
+	if sector_index >= 3:
+		if rng.randf() < 0.6:
+			enemies.append(
+				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
+			)
+		else:
+			enemies.append(
+				_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+			)
+
+	# Très tard : parfois un 3e ennemi
+	if sector_index >= 7 and rng.randf() < 0.3:
+		enemies.append(
+			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
+		)
+
+	return _wave_pack(enemies, "ELITE")
+
 
 func _generate_boss() -> Dictionary:
 	var boss := _make_enemy(EnemyRole.BOSS, _pick_from(POOL_BOSS))
@@ -317,7 +405,47 @@ func _generate_boss() -> Dictionary:
 		"boss": boss,
 		"gimmick_id": _pick_boss_gimmick(),
 	}
+func _enemy_count_distribution_for_sector(s: int) -> Array:
+	# Paires [count, weight]
+	# Progression très douce, pensée pour 20+ secteurs.
+	if s <= 1:
+		# Ultra early: apprentissage, lecture des scripts
+		return [[1, 100], [2, 0], [3, 0]]
+	if s <= 3:
+		# Early: 1 encore dominant, 2 commence à apparaître
+		return [[1, 80], [2, 15], [3, 5]]
+	if s <= 6:
+		# Transition: 2 devient fréquent, 1 encore présent
+		return [[1, 45], [2, 45], [3, 10]]
+	if s <= 9:
+		# Mid early: 2 devient la norme
+		return [[1, 25], [2, 55], [3, 18], [4, 2]]
+	if s <= 13:
+		# Mid: 3 apparaît souvent, 4 reste rare
+		return [[1, 12], [2, 50], [3, 33], [4, 5]]
+	if s <= 17:
+		# Mid-late: 3 fréquent, 4 possible
+		return [[1, 6], [2, 44], [3, 38], [4, 12]]
+	# s >= 18 (late game stable)
+	# 4 ennemis acceptés, 1 devient exceptionnel
+	return [[1, 3], [2, 40], [3, 40], [4, 17]]
 
+
+
+func _roll_enemy_count() -> int:
+	var dist := _enemy_count_distribution_for_sector(sector_index)
+	var total := 0
+	for pair in dist:
+		total += int(pair[1])
+
+	var r := rng.randi_range(1, total)
+	var acc := 0
+	for pair in dist:
+		acc += int(pair[1])
+		if r <= acc:
+			return int(pair[0])
+	return 2
+	
 func _pick_boss_gimmick() -> String:
 	var gimmicks := ["MIRROR", "FIREWALL_REGEN", "PROXY_REFLECT", "SCRIPT_COPY", "SHIELD_INVERSION"]
 	return gimmicks[rng.randi_range(0, gimmicks.size() - 1)]
@@ -337,6 +465,12 @@ func _advance_after_boss() -> void:
 	level_index = 1
 	wave_index = 1
 
+
+func setup_robot_scripts(entity: Entity, robot_name: String, all_scripts_db: Dictionary) -> void:
+	
+	entity.available_scripts = {}
+	for s_name in SCRIPT_POOL[robot_name]:
+		entity.available_scripts[s_name] = all_scripts_db[s_name]
 # -------------------------
 # UTIL
 # -------------------------
