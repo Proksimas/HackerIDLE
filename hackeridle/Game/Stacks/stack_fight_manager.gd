@@ -1,4 +1,5 @@
 extends Node
+class_name StackFightManager
 # STRUCTURE : Secteurs -> Niveaux -> Vagues
 #
 # RÈGLES :
@@ -67,15 +68,17 @@ var encounter_active: bool = false
 
 # RNG
 var rng := RandomNumberGenerator.new()
-#rng.seed = X
+var run_seed: int = 0
 #Fixer à une seed permet de s'assurer qu'on aura TOUJOURS la meme suite d'élément.
 #cela permet d'empecher de devoir stocker des datas
 # ======================= TEST =======================
 func _ready():
 	var encounters_to_simulate := 120
-	rng.randomize() # ou fixe : rng.seed = 42
-	#rng.seed = 42
-
+	rng.randomize() 
+	run_seed = randi() #SI CHAREGEMENT, METTRE LA BONNE SEED
+	rng.seed = _sector_seed(sector_index)
+	
+	return
 	print("\n===== START TEST RUN =====")
 	for i in range(encounters_to_simulate):
 		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
@@ -173,6 +176,11 @@ func _roll_variation() -> float:
 # PUBLIC API
 # -------------------------
 func start_encounter() -> Dictionary:
+	"""Renvoie les stats de la prochaine vague à prendre
+	La fonction prend en compte tout le paradigme existant:
+		setceur, niveau, type de vague etc
+	La fonction resolve_encouter doit etre appelée à la fin du combat pour faire
+	avancée la prorgession"""
 	# Si un encounter est déjà en cours, on le renvoie (évite double génération)
 	if encounter_active and not current_encounter.is_empty():
 		return current_encounter
@@ -194,6 +202,34 @@ func start_encounter() -> Dictionary:
 
 	encounter_active = true
 	return current_encounter
+	
+func resolve_encounter(victory: bool) -> void:
+	"""appelée à la fin du combat pour faire
+	avancée la prorgession"""
+	
+	if not encounter_active:
+		return
+
+	if not victory:
+		_apply_defeat_penalty()
+		_end_encounter()
+		return
+
+	# Victoire : on avance selon le type réellement joué
+	var t := str(current_encounter.type)
+
+	if t == "NORMAL" or t == "TEST":
+		_advance_wave()
+	elif t == "ELITE":
+		_advance_after_elite()
+	elif t == "BOSS":
+		_advance_after_boss()
+	else:
+		# fallback : comportement NORMAL
+		_advance_wave()
+
+	_end_encounter()
+
 
 func next_encounter() -> Dictionary:
 	"""Utilisé dans le DEBUG"""
@@ -257,30 +293,6 @@ func get_level_wave_blueprint() -> Array:
 	# --------------------------------------------------------
 
 	return blueprint
-
-func resolve_encounter(victory: bool) -> void:
-	if not encounter_active:
-		return
-
-	if not victory:
-		_apply_defeat_penalty()
-		_end_encounter()
-		return
-
-	# Victoire : on avance selon le type réellement joué
-	var t := str(current_encounter.type)
-
-	if t == "NORMAL" or t == "TEST":
-		_advance_wave()
-	elif t == "ELITE":
-		_advance_after_elite()
-	elif t == "BOSS":
-		_advance_after_boss()
-	else:
-		# fallback : comportement NORMAL
-		_advance_wave()
-
-	_end_encounter()
 
 func _end_encounter() -> void:
 	current_encounter = {}
@@ -528,7 +540,9 @@ func _advance_after_boss() -> void:
 	sector_index += 1
 	level_index = 1
 	wave_index = 1
-
+	#On définit une nouvelle seed, qui est enregistrée pour geler les stats
+	#des robots dans ce secteur
+	rng.seed = _sector_seed(sector_index)
 
 func setup_robot_scripts(entity: Entity, robot_name: String, all_scripts_db: Dictionary) -> void:
 	# TODO SELON LE ROBOT_NAME
@@ -542,6 +556,11 @@ func setup_robot_scripts(entity: Entity, robot_name: String, all_scripts_db: Dic
 # -------------------------
 # UTIL
 # -------------------------
+func _sector_seed(s: int) -> int:
+	# hash() renvoie un int stable.
+	# On mélange run_seed + s pour éviter corrélation.
+	return int(hash("%d|SECTOR|%d" % [run_seed, s]))
+
 func _role_to_string(role: int) -> String:
 	if role == EnemyRole.DPS:
 		return "DPS"

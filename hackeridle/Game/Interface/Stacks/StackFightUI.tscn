@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bvjnngl5lhewm"]
+[gd_scene load_steps=7 format=3 uid="uid://bvjnngl5lhewm"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_ui.gd" id="1_b0i74"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_panel.gd" id="2_5xl50"]
 [ext_resource type="PackedScene" uid="uid://djm18s8h6ukxr" path="res://Game/Interface/Stacks/entity_ui.tscn" id="3_xd3nv"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/fight_logs.gd" id="4_x7x87"]
 [ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="5_l8eog"]
+[ext_resource type="PackedScene" uid="uid://bdlyf7ghj42s2" path="res://Game/Stacks/stack_fight_manager.tscn" id="6_o7dq6"]
 
 [node name="StackFightUi" type="Control"]
 layout_mode = 3
@@ -88,5 +89,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="StackFightManager" parent="." instance=ExtResource("6_o7dq6")]
 
 [connection signal="pressed" from="StackFightPanel/StartFightButton" to="." method="_on_start_fight_button_pressed"]
