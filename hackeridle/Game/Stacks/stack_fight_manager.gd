@@ -15,10 +15,10 @@ extends Node
 # -------------------------
 # CONFIG (dynamique + plafonds)
 # -------------------------
-const WAVES_BASE := 6
+const WAVES_BASE := 3
 const WAVES_MAX := 10
 
-const LEVELS_BASE := 5
+const LEVELS_BASE := 3
 const LEVELS_MAX := 9
 
 const MIX_START_SECTOR := 4
@@ -42,7 +42,7 @@ const ROLE_MULT := {
 }
 
 # Pools, avec des variantes si besoin
-const POOL_DPS := ["RAPTOR", "RAPTORS_SWARM", "RAPTOR_BLADE", "RAPTOR_VIPER", "RAPTOR_STRIKER", "RAPORT_HUNTER"]
+const POOL_DPS := ["RAPTOR", "RAPTOR_SWARM", "RAPTOR_BLADE", "RAPTOR_VIPER", "RAPTOR_STRIKER", "RAPTORT_HUNTER"]
 const POOL_TANK := ["GOLIATH", "GOLIATH_SIEGE", "GOLIATH_SHIELD", "GOLIATH_BASTION", "GOLIATH_COLOSSUS", "GOLIATH_BULWARK"]
 const POOL_SUPPORT := ["OPERATOR", "OPERATOR_RELAY", "OPERATOR_HACK", "OPERATOR_ENGINEER", "OPERATOR_TECHNODE", "OPERATOR_COORDINATOR"]
 const POOL_ELITE := ["WARDEN_MK1", "WARDEN_MK2", "WARDEN_MK3", "WARDEN_MK4", "WARDEN_MK5"]
@@ -249,10 +249,10 @@ func _make_enemy(role: int, variant_id: String) -> Dictionary:
 	return {
 		"role": role,
 		"variant": variant_id,
-		"hp": ENEMY_BASE.hp * s * mult.hp * v,
-		"penetration": ENEMY_BASE.p * s * mult.p * v,
-		"encryption": ENEMY_BASE.e * s * mult.e * v,
-		"flux": ENEMY_BASE.f * fs * mult.f * v,
+		"hp": round(ENEMY_BASE.hp * s * mult.hp * v),
+		"penetration": round(ENEMY_BASE.p * s * mult.p * v),
+		"encryption": round(ENEMY_BASE.e * s * mult.e * v),
+		"flux": round(ENEMY_BASE.f * fs * mult.f * v)
 	}
 
 func _wave_pack(enemies: Array, wave_type: String) -> Dictionary:
@@ -467,10 +467,14 @@ func _advance_after_boss() -> void:
 
 
 func setup_robot_scripts(entity: Entity, robot_name: String, all_scripts_db: Dictionary) -> void:
-	
-	entity.available_scripts = {}
-	for s_name in SCRIPT_POOL[robot_name]:
-		entity.available_scripts[s_name] = all_scripts_db[s_name]
+	# TODO SELON LE ROBOT_NAME
+	#entity.available_scripts = {}
+	#for s_name in SCRIPT_POOL[robot_name]:
+		#entity.available_scripts[s_name] = all_scripts_db[s_name]
+		
+	#pour le moment on ne donne que le SYN_FLOOD
+	StackManager.learn_stack_script(entity, "syn_flood")
+	entity.save_sequence(["syn_flood"])
 # -------------------------
 # UTIL
 # -------------------------
