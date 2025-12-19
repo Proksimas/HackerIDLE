@@ -79,6 +79,7 @@ func calcul_effect_value(_caster: Entity):
 	return round(bonus_value)
 
 func linear_calcul(robots_affected, perc, _type):
+	#robots affected = aussi pour un ennemi sa valeur de base
 	var value = robots_affected * perc
 	#print("Valeur de base de %s: %s avec perc de %s donne %s" % [type, robots_affected, perc, value ])
 	
