@@ -22,6 +22,8 @@ func _ready() -> void:
 ### POUR LES TEST
 func _on_start_fight_button_pressed() -> void:
 	hacker = Entity.new(true)
+	
+	
 	robot_ia = Entity.new(false, "robot_a", 20, 5,0,0)
 	robot_ia_2 = Entity.new(false, "robot_b",20, 3,3,3)
 	StackManager.stack_script_stats = {"penetration": 4,

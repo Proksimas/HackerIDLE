@@ -62,6 +62,8 @@ const SCRIPT_POOL:Dictionary = {
 var sector_index: int = 0          # 0 -> Secteur -1
 var level_index: int = 1           # 1 -> Niveau -1 (affiché négativement)
 var wave_index: int = 1            # IMPORTANT: commence à 1
+var current_encounter: Dictionary = {}
+var encounter_active: bool = false
 
 # RNG
 var rng := RandomNumberGenerator.new()
@@ -76,7 +78,7 @@ func _ready():
 
 	print("\n===== START TEST RUN =====")
 	for i in range(encounters_to_simulate):
-		var encounter := next_encounter()
+		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
 		_print_encounter(i + 1, encounter)
 	print("===== END TEST RUN =====\n")
 
@@ -170,7 +172,31 @@ func _roll_variation() -> float:
 # -------------------------
 # PUBLIC API
 # -------------------------
+func start_encounter() -> Dictionary:
+	# Si un encounter est déjà en cours, on le renvoie (évite double génération)
+	if encounter_active and not current_encounter.is_empty():
+		return current_encounter
+
+	var lps := levels_per_sector()
+	var wpl := waves_per_level()
+
+	var is_last_wave_of_level := (wave_index == wpl)
+	var is_last_level_of_sector := (level_index == lps)
+
+	# Dernière vague => ELITE ou BOSS (mais on N'AVANCE PAS ici)
+	if is_last_wave_of_level:
+		if is_last_level_of_sector:
+			current_encounter = _generate_boss()
+		else:
+			current_encounter = _generate_elite_wave()
+	else:
+		current_encounter = _generate_normal_wave()
+
+	encounter_active = true
+	return current_encounter
+
 func next_encounter() -> Dictionary:
+	"""Utilisé dans le DEBUG"""
 	var lps := levels_per_sector()
 	var wpl := waves_per_level()
 
@@ -232,6 +258,44 @@ func get_level_wave_blueprint() -> Array:
 
 	return blueprint
 
+func resolve_encounter(victory: bool) -> void:
+	if not encounter_active:
+		return
+
+	if not victory:
+		_apply_defeat_penalty()
+		_end_encounter()
+		return
+
+	# Victoire : on avance selon le type réellement joué
+	var t := str(current_encounter.type)
+
+	if t == "NORMAL" or t == "TEST":
+		_advance_wave()
+	elif t == "ELITE":
+		_advance_after_elite()
+	elif t == "BOSS":
+		_advance_after_boss()
+	else:
+		# fallback : comportement NORMAL
+		_advance_wave()
+
+	_end_encounter()
+
+func _end_encounter() -> void:
+	current_encounter = {}
+	encounter_active = false
+
+func _apply_defeat_penalty() -> void:
+	# Pénalité douce :
+	# - Revenir au début du niveau
+	# - Reculer d'1 niveau (si possible)
+	# - Si déjà au niveau 1, reculer d'1 secteur (option)
+	var penalty_levels := 1
+
+	level_index = max(1, level_index - penalty_levels)
+	wave_index = 1
+
 # -------------------------
 # GENERATION
 # -------------------------
@@ -256,7 +320,7 @@ func _make_enemy(role: int, variant_id: String) -> Dictionary:
 	}
 
 func _wave_pack(enemies: Array, wave_type: String) -> Dictionary:
-	# Snapshot complet pour affichage/analytics/debug
+	# Snapshot complet de la wave
 	return {
 		"type": wave_type,
 		"sector_index": sector_index,
