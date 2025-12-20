@@ -10,9 +10,9 @@ const COLOR_DOT = "#008000"    # Vert
 ## Fonction utilitaire pour formater un tableau de noms de cibles (avec le type Array pour flexibilité)
 func format_target_names(targets: Array) -> String:
 	var formatted_targets = []
-	for name in targets:
-		if typeof(name) == TYPE_STRING:
-			formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, name.capitalize()])
+	for _name in targets:
+		if typeof(_name) == TYPE_STRING:
+			formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, _name.capitalize()])
 	return ", ".join(formatted_targets)
 
 ## Fonction utilitaire pour formater un SEUL effet {value: int, type: String}

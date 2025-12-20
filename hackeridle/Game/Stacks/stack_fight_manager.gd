@@ -136,16 +136,16 @@ func _encounter_label(encounter: Dictionary) -> String:
 # -------------------------
 func levels_per_sector() -> int:
 	# +1 niveau tous les 2 secteurs, plafonné
-	var inc := sector_index / 2
+	var inc := sector_index / 2.0
 	var v := LEVELS_BASE + inc
 	if v > LEVELS_MAX:
 		v = LEVELS_MAX
-	return v
+	return int(v)
 
 func waves_per_level() -> int:
 	# +1 vague tous les 3 secteurs, +1 si on dépasse la moitié des niveaux du secteur
-	var inc_sector := sector_index / 3
-	var half := levels_per_sector() / 2
+	var inc_sector := sector_index / 3.0
+	var half := levels_per_sector() / 2.0
 	var inc_level := 0
 	if level_index > half:
 		inc_level = 1
@@ -153,7 +153,7 @@ func waves_per_level() -> int:
 	var v := WAVES_BASE + inc_sector + inc_level
 	if v > WAVES_MAX:
 		v = WAVES_MAX
-	return v
+	return int(v)
 
 # -------------------------
 # SCALE INFINI (stable)
@@ -544,7 +544,7 @@ func _advance_after_boss() -> void:
 	#des robots dans ce secteur
 	rng.seed = _sector_seed(sector_index)
 
-func setup_robot_scripts(entity: Entity, robot_name: String, all_scripts_db: Dictionary) -> void:
+func setup_robot_scripts(entity: Entity, _robot_name: String, _all_scripts_db: Dictionary) -> void:
 	# TODO SELON LE ROBOT_NAME
 	#entity.available_scripts = {}
 	#for s_name in SCRIPT_POOL[robot_name]:

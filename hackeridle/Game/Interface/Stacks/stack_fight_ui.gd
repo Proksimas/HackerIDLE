@@ -115,7 +115,7 @@ func _on_execute_script(script_index: int, data_from_execution: Dictionary):
 	pass
 
 func _on_s_stack_component_completed(component: StackComponent,
-						 caster_ui:EntityUI,
+						 _caster_ui:EntityUI,
 						targets_ui: Array[EntityUI],
 						data_from_execution: Dictionary):
 	"""Toutes las animations liées à la stack sont finies.

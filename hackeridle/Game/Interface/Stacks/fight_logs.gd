@@ -50,7 +50,7 @@ func add_log(event: Dictionary):
 	
 ## Fonction d'aide pour obtenir la position de défilement maximale
 func get_max_v_scroll() -> int:
-	return scroll_container.get_v_scroll_bar().max_value
+	return int(scroll_container.get_v_scroll_bar().max_value)
 	
 	
 func _clear():

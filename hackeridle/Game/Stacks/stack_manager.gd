@@ -5,7 +5,7 @@ const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 
 var stack_script_pool: Dictionary
 
-var stack_script_stats: Dictionary # correspond aux robots affectés
+var stack_script_stats: Dictionary # correspond aux bots affectés pour le gain de stats
 
 func _ready() -> void:
 	

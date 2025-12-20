@@ -72,7 +72,7 @@ func target_receive_data_from_execute(data_effect: Dictionary):
 				#"type": "HP"}
 			#}
 	# TODO SELON LES EFFETS
-	var effect
+
 	if data_effect["action_type"] == "Damage":
 		var damages_received = data_effect["effects"]["value"]
 		match data_effect["effects"]["type"]:

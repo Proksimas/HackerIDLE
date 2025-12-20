@@ -27,10 +27,13 @@ func set_entity_ui_container(entity: Entity)->bool:
 	match entity.entity_is_hacker:
 		true:
 			hacker_container.add_child(new_entity_ui)
+			new_entity_ui.set_stack_script_values(StackManager.stack_script_stats)
 		false:
 			robots_container.add_child(new_entity_ui)
+			new_entity_ui.set_stack_script_values(entity.stats)
+			
 	new_entity_ui.initialize_stack_grid(entity, entity.sequence_order)
-	new_entity_ui.set_stack_script_values(entity.stats)
+	
 	
 	hacker_container.show()
 	robots_container.show()
