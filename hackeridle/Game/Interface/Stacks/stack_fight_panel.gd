@@ -4,6 +4,13 @@ extends Panel
 @onready var robots_container: Control = %RobotsContainer
 @onready var fight_logs: Panel = %FightLogs
 
+@onready var sector_label: Label = %SectorLabel
+@onready var sector_value: Label = %SectorValue
+@onready var level_label: Label = %LevelLabel
+@onready var level_value: Label = %LevelValue
+@onready var wave_label: Label = %WaveLabel
+@onready var wave_value: Label = %WaveValue
+
 const ENTITY_UI = preload("res://Game/Interface/Stacks/entity_ui.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +36,15 @@ func set_entity_ui_container(entity: Entity)->bool:
 	robots_container.show()
 	return true
 	
+func set_wave_state(wave_data):
+	print(wave_data)
+	sector_label.text = tr("$Sector")
+	sector_value.text = "%s" % wave_data["sector_index"]
+	level_label.text = tr("$Level")
+	level_value.text = "-%s" % wave_data["level_index"]
+	wave_label.text = tr("$Wave")
+	wave_value.text = "%s/%s" % [wave_data["wave_index"], wave_data["waves_per_level"]]
+	pass
 
 func _clear():
 	for elmt in hacker_container.get_children():

@@ -30,10 +30,10 @@ func _on_start_fight_button_pressed() -> void:
 	hacker.save_sequence(["syn_flood", "syn_flood"])
 	####
 	### init des ennemis selon l'etat de la wave
-	var wava_data = $StackFightManager.start_encounter()
+	var wave_data = $StackFightManager.start_encounter()
 	var new_entity: Entity
 	var arr:Array[Entity]
-	for enemy in wava_data["enemies"]:
+	for enemy in wave_data["enemies"]:
 		new_entity = Entity.new(false,
 								enemy["variant"],
 									enemy["hp"],
@@ -42,6 +42,7 @@ func _on_start_fight_button_pressed() -> void:
 									enemy["flux"])
 		arr.append(new_entity)
 		$StackFightManager.setup_robot_scripts(new_entity,enemy["variant"],{})
+		
 	
 	#robot_ia = Entity.new(false, "robot_a", 20, 5,0,0)
 	#robot_ia_2 = Entity.new(false, "robot_b",20, 3,3,3)
@@ -52,6 +53,7 @@ func _on_start_fight_button_pressed() -> void:
 	#robot_ia.save_sequence(["syn_flood"])
 	#robot_ia_2.save_sequence(["syn_flood"])
 	
+	stack_fight_panel.set_wave_state(wave_data)
 	var fight = StackManager.new_fight(hacker, arr)
 	fight_connexions(fight)
 	#arr.all(entity_connexions)

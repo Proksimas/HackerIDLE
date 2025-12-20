@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvjnngl5lhewm"]
+[gd_scene load_steps=9 format=3 uid="uid://bvjnngl5lhewm"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_ui.gd" id="1_b0i74"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/stack_fight_panel.gd" id="2_5xl50"]
@@ -6,6 +6,10 @@
 [ext_resource type="Script" path="res://Game/Interface/Stacks/fight_logs.gd" id="4_x7x87"]
 [ext_resource type="Theme" uid="uid://caima42uc2vm4" path="res://Game/Themes/NoScrollBars.tres" id="5_l8eog"]
 [ext_resource type="PackedScene" uid="uid://bdlyf7ghj42s2" path="res://Game/Stacks/stack_fight_manager.tscn" id="6_o7dq6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yesh3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i1bps"]
 
 [node name="StackFightUi" type="Control"]
 layout_mode = 3
@@ -26,24 +30,72 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_5xl50")
 
-[node name="StartFightButton" type="Button" parent="StackFightPanel"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.40678
-anchor_top = 0.0125196
-anchor_right = 0.555932
-anchor_bottom = 0.0625976
-text = "fight"
-metadata/_edit_use_anchors_ = true
-
 [node name="VBoxContainer" type="VBoxContainer" parent="StackFightPanel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.150235
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StackFightPanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="StackFightPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_yesh3")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="StackFightPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SectorLabel" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Secteur"
+
+[node name="SectorValue" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "2"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="LevelLabel" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Niveau "
+
+[node name="LevelValue" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-2"
+
+[node name="VSeparator" type="VSeparator" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+theme_override_styles/separator = SubResource("StyleBoxEmpty_i1bps")
+
+[node name="WaveLabel" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Vague"
+
+[node name="WaveValue" type="Label" parent="StackFightPanel/VBoxContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " 2/6"
+
+[node name="StartFightButton" type="Button" parent="StackFightPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "fight"
 metadata/_edit_use_anchors_ = true
 
 [node name="HackerContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer"]
@@ -92,4 +144,4 @@ size_flags_vertical = 3
 
 [node name="StackFightManager" parent="." instance=ExtResource("6_o7dq6")]
 
-[connection signal="pressed" from="StackFightPanel/StartFightButton" to="." method="_on_start_fight_button_pressed"]
+[connection signal="pressed" from="StackFightPanel/VBoxContainer/StartFightButton" to="." method="_on_start_fight_button_pressed"]
