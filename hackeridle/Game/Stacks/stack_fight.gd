@@ -83,12 +83,15 @@ func _on_enter_hacker_execution() -> void:
 
 func entity_connexions(entity: Entity):
 	"""On connecte les signaux de l'entité, vers le stack_fight_ui"""
+	entity.s_cast_script.connect(current_stack_fight_ui._on_s_cast_script)
 	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
 	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
 	entity.s_sequence_completed.connect(_on_sequence_completed)
 
 func entity_deconnexion(entity: Entity):
 	"""Deconnexion"""
+	if entity.s_cast_script.is_connected(current_stack_fight_ui._on_s_cast_script):
+		entity.s_cast_script.disconnect(current_stack_fight_ui._on_s_cast_script)
 	if entity.s_execute_script.is_connected(current_stack_fight_ui._on_execute_script):
 		entity.s_execute_script.disconnect(current_stack_fight_ui._on_execute_script)
 	if current_stack_fight_ui.s_execute_script_ui_finished.is_connected(entity._on_s_execute_script_ui_finished):

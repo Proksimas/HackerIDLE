@@ -28,6 +28,7 @@ var cache_targets: Array
 signal s_entity_die(entity)
 signal s_execute_script
 signal s_sequence_completed(entity)
+signal s_cast_script
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			_max_hp:int = 20, stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
@@ -73,14 +74,18 @@ func init_sequence():
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
 
 # LOGIQUE DE COMBAT
-# Méthode principale appelée par le CombatManager pour exécuter le Stack
+# Méthode principale appelée par le StackFight pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
 	current_script_index = 0
 	cache_targets = targets
-	execute_next_script()
+	
+	#on doit lancer la première exécution sur l'ui. lorsqu'il sera fini,
+	#on execute le next_scrip
+	
+	prepare_next_script()
 
-func execute_next_script():
+func prepare_next_script():
 	print("name: %s" % entity_name)
 	if current_script_index >= stack_script_sequence.size():
 		print(entity_name + " : Séquence terminée.\n")
@@ -101,10 +106,28 @@ func execute_next_script():
 	print(" -> Exécution de: " + script_instance.stack_script_name)
 
 	script_instance.set_caster_and_targets(self, cache_targets)
+	
+	#On doit lancer l'ui qui cast le script. Lorsque cela sera fini,
+	#on pourra l'exécuter
+	var data_before_execution ={"caster": self,
+			"targets": [cache_targets]
+			}
+	s_cast_script.emit(current_script_index, data_before_execution) #->StackFightUi
+	
+
+	#var data_from_execution = script_instance.execute()
+	##reçu par le StackFightUI
+	#s_execute_script.emit(current_script_index, data_from_execution)
+
+func execute_next_script():
+	"""Tout est bon, l'ui est ok, il faut maintenant executer le script"""
+	var script_instance: StackScript = stack_script_sequence[current_script_index]
+	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
 	#reçu par le StackFightUI
 	s_execute_script.emit(current_script_index, data_from_execution)
-
+	
+	
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
 	# (Logique simplifiée) Le bouclier absorbe d'abord les dégâts
@@ -127,11 +150,18 @@ func take_damage(damage: float) -> void:
 	
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
+func _on_s_stack_component_completed():
+	"""La stack a terminé d'être casté. On lance le script"""
+	var script_instance: StackScript = stack_script_sequence[current_script_index]
+	var data_from_execution = script_instance.execute()
+	#reçu par le StackFightUI
+	s_execute_script.emit(current_script_index, data_from_execution)
+
 
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
 	on peut passer au script suivant"""
 	print("On passe au script suivant")
 	current_script_index += 1
-	execute_next_script()
+	prepare_next_script()
 	

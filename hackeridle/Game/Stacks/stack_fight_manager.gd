@@ -43,7 +43,7 @@ const ROLE_MULT := {
 }
 
 # Pools, avec des variantes si besoin
-const POOL_DPS := ["RAPTOR", "RAPTOR_SWARM", "RAPTOR_BLADE", "RAPTOR_VIPER", "RAPTOR_STRIKER", "RAPTORT_HUNTER"]
+const POOL_DPS := ["RAPTOR", "RAPTOR_SWARM", "RAPTOR_BLADE", "RAPTOR_VIPER", "RAPTOR_STRIKER", "RAPTOR_HUNTER"]
 const POOL_TANK := ["GOLIATH", "GOLIATH_SIEGE", "GOLIATH_SHIELD", "GOLIATH_BASTION", "GOLIATH_COLOSSUS", "GOLIATH_BULWARK"]
 const POOL_SUPPORT := ["OPERATOR", "OPERATOR_RELAY", "OPERATOR_HACK", "OPERATOR_ENGINEER", "OPERATOR_TECHNODE", "OPERATOR_COORDINATOR"]
 const POOL_ELITE := ["WARDEN_MK1", "WARDEN_MK2", "WARDEN_MK3", "WARDEN_MK4", "WARDEN_MK5"]
@@ -77,7 +77,6 @@ func _ready():
 	rng.randomize() 
 	run_seed = randi() #SI CHAREGEMENT, METTRE LA BONNE SEED
 	rng.seed = _sector_seed(sector_index)
-	
 	return
 	print("\n===== START TEST RUN =====")
 	for i in range(encounters_to_simulate):
