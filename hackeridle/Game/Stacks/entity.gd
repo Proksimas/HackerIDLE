@@ -2,11 +2,11 @@
 class_name Entity extends Node
 
 
-@export var max_hp: float = 20
-@export var current_hp: float = 20
-@export var current_shield: float = 0.0 # Bouclier temporaire
-
-@export var stats : Dictionary = {"penetration": 0,
+var max_hp: float = 20
+var current_hp: float = 20
+var base_hacker_hp = 20
+var current_shield: float = 0.0 # Bouclier temporaire
+var stats : Dictionary = {"penetration": 0,
 							"encryption": 0,
 							"flux": 0}
 
@@ -32,18 +32,22 @@ signal s_cast_script
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			_max_hp:int = 20, stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
+	stats['penetration'] = float(stat_pen)
+	stats['encryption'] = float(stat_enc)
+	stats['flux'] = float(stat_flux)
+	
 	match is_hacker:
 		true:
 			entity_is_hacker = true
 			entity_name = "hacker"
+			set_hacker_max_hp()
+			print("hp du hacker: %s" % max_hp)
 		false:
 			entity_is_hacker = false
 			entity_name = _entity_name
-	max_hp = _max_hp
+			max_hp = _max_hp
+	
 	current_hp = max_hp
-	stats['penetration'] = stat_pen
-	stats['encryption'] = stat_enc
-	stats['flux'] = stat_flux
 
 
 		
@@ -72,6 +76,17 @@ func init_sequence():
 			queue_script(available_scripts[script_name])
 		else:
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
+			
+func set_hacker_max_hp():
+	"""Calcule le max hp du hacker selon les stats et autres modificateurs"""
+	if !self.entity_is_hacker:
+		push_warning("L'entité doit etre le hacker")
+		return
+	
+	max_hp = base_hacker_hp + (StackManager.stack_script_stats["penetration"] + \
+							(StackManager.stack_script_stats["encryption"] * 1.5) + \
+							(StackManager.stack_script_stats["flux"] * 0.5))
+	
 
 # LOGIQUE DE COMBAT
 # Méthode principale appelée par le StackFight pour exécuter le Stack

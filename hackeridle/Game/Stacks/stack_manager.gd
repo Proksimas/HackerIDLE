@@ -5,7 +5,7 @@ const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 
 var stack_script_pool: Dictionary
 
-var stack_script_stats: Dictionary # correspond aux bots affectés pour le gain de stats
+var stack_script_stats: Dictionary # correspond aux bots affectés pour le gain de stats, ainsi que les PV.
 
 func _ready() -> void:
 	
@@ -15,9 +15,9 @@ func _ready() -> void:
 func _init() -> void:
 	stack_script_pool.clear()
 	initialize_pool()
-	stack_script_stats = {"penetration": 0,
-							"encryption": 0,
-							"flux": 0}
+	stack_script_stats = {"penetration": 0, # Influe sur les compétences offensives et moyenne  sur les PV
+							"encryption": 0,# Influe sur les compétences défensives, et grandement sur les pv
+							"flux": 0}# Influe sur les compétences utilitaires et légérement sur les pv
 
 func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
 	var fight = STACK_FIGHT.instantiate()
