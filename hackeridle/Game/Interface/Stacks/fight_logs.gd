@@ -34,16 +34,23 @@ var event_double_hp = {
 	#for i in range(max_logs):
 		#add_log(event_multi_shield_dot)
 		
+
+		
 func add_log(event: Dictionary):
 	# 1. Gestion de la limite de logs (Suppression du plus ancien)
 	if logs_container.get_child_count() >= max_logs:
 		var oldest_log = logs_container.get_child(0)
 		oldest_log.queue_free()
 
+	#pour la Death spécifiquement, on delay le log
+	if event["action_type"] == "Death":
+		await get_tree().create_timer(0.1).timeout
+		
 	# 2. Création et ajout du nouveau log
 	var new_log = LOGS_LABEL.instantiate()
 	logs_container.add_child(new_log)
 	
+
 	# Appel de la fonction de formatage sur le nouveau RichTextLabel
 	new_log.log_event(event) # Le dictionnaire "event" contient maintenant le tableau "effects"
 	scroll_container.call_deferred("set_v_scroll", get_max_v_scroll())

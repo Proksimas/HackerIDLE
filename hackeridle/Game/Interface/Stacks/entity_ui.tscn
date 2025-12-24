@@ -1,7 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://djm18s8h6ukxr"]
+[gd_scene load_steps=7 format=3 uid="uid://djm18s8h6ukxr"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/entity_ui.gd" id="1_mr1j7"]
 [ext_resource type="PackedScene" uid="uid://da3vo5rgmwv44" path="res://Game/Interface/Stacks/stack_component.tscn" id="2_apacx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pichf"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xxm0h"]
+bg_color = Color(1, 0, 0, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_arjwq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rc0od"]
+bg_color = Color(0.541176, 0.168627, 0.886275, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="EntityUI" type="Control"]
 layout_mode = 3
@@ -33,17 +57,22 @@ vertical_alignment = 1
 
 [node name="HpProgressBar" type="ProgressBar" parent="VBoxContainer/HeaderContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 20)
+custom_minimum_size = Vector2(200, 20)
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_pichf")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xxm0h")
+value = 30.0
 show_percentage = false
 
 [node name="ShieldProgressBar" type="ProgressBar" parent="VBoxContainer/HeaderContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(400, 10)
+custom_minimum_size = Vector2(200, 10)
 layout_mode = 2
 size_flags_horizontal = 4
-value = 100.0
+theme_override_styles/background = SubResource("StyleBoxEmpty_arjwq")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rc0od")
+value = 30.0
 allow_greater = true
 show_percentage = false
 
