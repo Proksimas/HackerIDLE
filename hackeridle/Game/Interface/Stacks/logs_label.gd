@@ -46,48 +46,75 @@ func format_single_effect(effect: Dictionary) -> String:
 ## Construit le message de log final basé sur l'action_type
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
-	# Extraction et formatage des entités (qui sont communes à toutes les actions)
+
+	# Extraction et formatage des entités (communes à toutes les actions)
 	var caster_name = event_data["caster"].entity_name
-	var target_names = event_data.get("targets", [])
-	
+	var targets: Array = event_data.get("targets", [])
+
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
-	var formatted_targets = format_target_names(target_names)
-	
+	var formatted_targets = format_target_names(targets)
+
+	# --- Suffixe de kill basé sur la résolution ---
+	var kill_suffix := ""
+	if event_data.has("resolution"):
+		var killed: Array = event_data["resolution"].get("killed", [])
+		if killed.size() > 0:
+			var killed_names: Array = []
+			for t in killed:
+				if t != null:
+					killed_names.append(t.entity_name.capitalize())
+			if killed_names.size() > 0:
+				kill_suffix = " [color=#FFFFFF](%s meurt)[/color]" % ", ".join(killed_names)
+
 	match action_type:
 		"Damage":
+			# Effets réels si résolution présente, sinon intention
 			var effects = build_effects_from_resolution(event_data)
-			
-			var formatted_effects_list = []
+
+			var formatted_effects_list: Array = []
 			for effect in effects:
-				formatted_effects_list.append(format_single_effect(effect))
-			
+				# Petit garde-fou si jamais un élément n'est pas un dict
+				if effect is Dictionary:
+					formatted_effects_list.append(format_single_effect(effect))
+				else:
+					formatted_effects_list.append(str(effect))
+
 			var formatted_effects_str = ", ".join(formatted_effects_list)
-			
-			# Phrase : [Caster] inflige [Effets (valeur + type)] à [Targets]
-			if target_names.size() > 1:
-				return "%s inflige les dégâts suivants à ses cibles : %s (%s)." % [formatted_caster, formatted_effects_str, formatted_targets]
+
+			# Phrase : [Caster] inflige [Effets] à [Targets]
+			if targets.size() > 1:
+				return "%s inflige les dégâts suivants à ses cibles : %s (%s).%s" % [
+					formatted_caster,
+					formatted_effects_str,
+					formatted_targets,
+					kill_suffix
+				]
 			else:
-				return "%s inflige %s de dégâts à %s." % [formatted_caster, formatted_effects_str, formatted_targets]
+				return "%s inflige %s de dégâts à %s.%s" % [
+					formatted_caster,
+					formatted_effects_str,
+					formatted_targets,
+					kill_suffix
+				]
 
 		"Death":
 			return "%s est mort." % formatted_caster
 
-
 		"Heal":
-			# Exemple pour un futur type d'action (vous pouvez ajouter une couleur pour les soins ici)
 			var effects = event_data.get("effects", [])
-			var formatted_effects_list = []
+			var formatted_effects_list: Array = []
 			for effect in effects:
-				# Si vous voulez une couleur spécifique pour les soins (ex: Bleu clair)
-				# Vous devriez modifier format_single_effect pour gérer un type "Heal"
-				formatted_effects_list.append(format_single_effect(effect))
-			
+				if effect is Dictionary:
+					formatted_effects_list.append(format_single_effect(effect))
+				else:
+					formatted_effects_list.append(str(effect))
+
 			var formatted_effects_str = ", ".join(formatted_effects_list)
-			
 			return "%s soigne %s pour %s points." % [formatted_caster, formatted_targets, formatted_effects_str]
-			
+
 		_:
 			return "Événement de log non reconnu: %s" % str(event_data)
+
 
 func build_effects_from_resolution(event_data: Dictionary) -> Array:
 	var res = event_data.get("resolution", null)
