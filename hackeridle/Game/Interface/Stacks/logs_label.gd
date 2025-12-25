@@ -55,8 +55,7 @@ func build_log_message(event_data: Dictionary) -> String:
 	
 	match action_type:
 		"Damage":
-			# Demande de l'utilisateur : "x inflige y degats à z"
-			var effects = event_data.get("effects", [])
+			var effects = build_effects_from_resolution(event_data)
 			
 			var formatted_effects_list = []
 			for effect in effects:
@@ -89,6 +88,34 @@ func build_log_message(event_data: Dictionary) -> String:
 			
 		_:
 			return "Événement de log non reconnu: %s" % str(event_data)
+
+func build_effects_from_resolution(event_data: Dictionary) -> Array:
+	var res = event_data.get("resolution", null)
+	if res == null:
+		return event_data.get("effects", [])
+
+	var per_target: Array = res.get("perTarget", [])
+	var total_hp_lost := 0.0
+	var total_shield_lost := 0.0
+
+	for entry in per_target:
+		var delta: Dictionary = entry.get("delta", {})
+		total_hp_lost += float(delta.get("hpLost", 0))
+		total_shield_lost += float(delta.get("shieldLost", 0))
+
+	var effects_for_log: Array = []
+	# On affiche d'abord le shield absorbé (si tu veux), puis la perte HP
+	if total_shield_lost > 0:
+		effects_for_log.append({"value": int(round(total_shield_lost)), "type": "Shield"})
+	if total_hp_lost > 0:
+		effects_for_log.append({"value": int(round(total_hp_lost)), "type": "HP"})
+
+	# fallback si jamais rien n'a bougé
+	if effects_for_log.is_empty():
+		return event_data.get("effects", [])
+
+	return effects_for_log
+
 
 ## Fonction principale pour formater et afficher le texte de l'événement
 func log_event(event_data: Dictionary):
