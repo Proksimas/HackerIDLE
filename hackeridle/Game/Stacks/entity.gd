@@ -175,6 +175,11 @@ func take_pierce_damage(damage: float) -> void:
 		s_entity_die.emit(self)
 		self_is_dead = true
 
+func heal(value: float) -> void:
+	if value <= 0:
+		return
+	current_hp = min(current_hp + value, max_hp)
+
 
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script

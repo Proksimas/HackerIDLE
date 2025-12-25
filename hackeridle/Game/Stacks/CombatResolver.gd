@@ -80,6 +80,12 @@ static func _apply_effect(caster: Entity, target: Entity, effect: Dictionary) ->
 				target.take_pierce_damage(value)
 			else:
 				push_error("L'entité est censé avoir le take_pierce_damage")
+		"Heal":
+			if target.has_method("heal"):
+				target.heal(value)
+			else:
+				push_error("L'entité est censé avoir le heal")
+
 
 		_:
 			pass
