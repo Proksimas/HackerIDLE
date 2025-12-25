@@ -28,10 +28,10 @@ func _on_start_fight_button_pressed() -> void:
 							"encryption": 4,
 							"flux": 4}
 	hacker = Entity.new(true)
-	StackManager.learn_stack_script(hacker, "syn_flood")
-	StackManager.learn_stack_script(hacker, "cipher_strike")
-	hacker.save_sequence(["syn_flood", "cipher_strike"])
+	StackManager.learn_stack_script(hacker, "data_healing")
+	StackManager.learn_stack_script(hacker, "crypt_breach")
 	
+	hacker.save_sequence(["data_healing", "crypt_breach"])
 	####
 	### init des ennemis selon l'etat de la wave
 	var wave_data = $StackFightManager.start_encounter()
@@ -100,46 +100,46 @@ func _on_s_cast_script(script_index: int, data_before_execution: Dictionary):
 	_on_s_stack_component_completed.bind(component, data_before_execution))
 				#await component.get_tree().process_frame
 	component.start_component()
-	
-func _on_execute_script(_script_index: int, data_from_execution: Dictionary):
+func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> void:
 	"""On reçoit toutes les data qu'on a sur APRES l'éxécution du script."""
-
-	# TODO REMPLIR SELON LES DIFFERENTS EFFETS pour l'ui
 	await get_tree().process_frame
-	
-	var entity_ui_caster: EntityUI
-	var caster = data_from_execution["caster"]
-	var targets = data_from_execution["targets"]
-	if caster.entity_name == "hacker":
-		entity_ui_caster = hacker_container.get_child(0)
-	else:
-		for _robot_ia: EntityUI in robots_container.get_children():
-			if caster.entity_name == _robot_ia.entity_name_ui:
-				entity_ui_caster = _robot_ia
-				
-	var entities_ui: Array[EntityUI] 
+
+	# --- Construire la liste des EntityUI disponibles ---
+	var entities_ui: Array[EntityUI] = []
 	entities_ui.append_array(hacker_container.get_children())
 	entities_ui.append_array(robots_container.get_children())
-	for entity:Entity in targets:
-		for entity_ui in entities_ui:
-			if entity.entity_name == entity_ui.entity_name_ui:
+
+	# --- Déduire les cibles depuis targetEffects (canon) ---
+	var targets_entities: Array[Entity] = []
+
+	if data_from_execution.has("targetEffects"):
+		for te in data_from_execution.get("targetEffects", []):
+			if te is Dictionary:
+				var t: Entity = te.get("target", null)
+				if t != null and not targets_entities.has(t):
+					targets_entities.append(t)
+
+	# --- Fallback si jamais pas de targetEffects : résolution ---
+	if targets_entities.is_empty() and data_from_execution.has("resolution"):
+		var per_target: Array = data_from_execution["resolution"].get("perTarget", [])
+		for entry in per_target:
+			if entry is Dictionary:
+				var t: Entity = entry.get("target", null)
+				if t != null and not targets_entities.has(t):
+					targets_entities.append(t)
+
+	# --- Appliquer aux UI correspondantes ---
+	for target_entity: Entity in targets_entities:
+		for entity_ui: EntityUI in entities_ui:
+			if target_entity.entity_name == entity_ui.entity_name_ui:
 				entity_ui.target_receive_data_from_execute(data_from_execution)
-	
-	## TODO REMPLIR SELON LES DIFFERENTS EFFETS
-	## doit pouvoir marcher en envoyant que le data_from execution
-	#var targets_name : Array
-	#for target in data_from_execution["targets"]:
-		#targets_name.append(target.entity_name)
-	#var dict_log = \
-	#{"caster_name": data_from_execution["caster"].entity_name,
-	#"target_names": targets_name,
-	#"action_type": data_from_execution["action_type"],
-	#"effects": [data_from_execution["effects"]]}
-	#On est pret à anticiper si il y a plusieurs effets
-	#print("data post script: ", data_from_execution)
-	#fight_logs.add_log(dict_log)
+				break
+
+	# Logs (déjà compatibles targetEffects dans ton nouveau logger)
 	fight_logs.add_log(data_from_execution)
+
 	s_execute_script_ui_finished.emit()
+
 
 	pass
 

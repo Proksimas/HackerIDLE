@@ -5,12 +5,16 @@ func execute() -> Dictionary:
 
 	return {
 		"caster": caster,
-		"targets": [caster], # self-buff
 		"action_type": "Shield",
-		"effects": [
+		"targetEffects": [
 			{
-				"value": shield_value,
-				"type": "Shield"
+				"target": caster, # self-buff
+				"effects": [
+					{
+						"value": shield_value,
+						"type": "Shield"
+					}
+				]
 			}
 		]
 	}

@@ -15,7 +15,6 @@ func execute() -> Dictionary:
 	return {
 		"caster": caster,
 		"action_type": "Damage",
-		"targets": [target],
 		"targetEffects": [
 			{
 				"target": target,

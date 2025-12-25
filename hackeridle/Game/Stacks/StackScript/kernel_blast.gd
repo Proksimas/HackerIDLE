@@ -4,21 +4,27 @@ func execute() -> Dictionary:
 	if targets.is_empty():
 		return {
 			"caster": caster,
-			"targets": [],
 			"action_type": "Damage",
-			"effects": []
+			"targetEffects": []
 		}
 
 	var damages = calcul_effect_value(caster)
 
+	# Un hit identique sur toutes les cibles
+	var target_effects: Array = []
+	for t: Entity in targets:
+		target_effects.append({
+			"target": t,
+			"effects": [
+				{
+					"value": damages,
+					"type": "HP"
+				}
+			]
+		})
+
 	return {
 		"caster": caster,
-		"targets": targets, # frappe toutes les cibles
 		"action_type": "Damage",
-		"effects": [
-			{
-				"value": damages,
-				"type": "HP"
-			}
-		]
+		"targetEffects": target_effects
 	}

@@ -5,12 +5,16 @@ func execute() -> Dictionary:
 
 	return {
 		"caster": caster,
-		"targets": [caster], # self-heal (Hacker)
 		"action_type": "Heal",
-		"effects": [
+		"targetEffects": [
 			{
-				"value": heal_value,
-				"type": "Heal"
+				"target": caster, # self-heal
+				"effects": [
+					{
+						"value": heal_value,
+						"type": "Heal"
+					}
+				]
 			}
 		]
 	}
