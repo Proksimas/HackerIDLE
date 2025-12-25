@@ -22,8 +22,19 @@ const STACK_COMPONENT = preload("res://Game/Interface/Stacks/stack_component.tsc
 @export var tween_duration_hp: float = 0.35
 @export var tween_duration_shield: float = 0.25
 
+# Feedback damage HP
+@export var hp_flash_duration: float = 0.10
+@export var hp_flash_return_duration: float = 0.18
+@export var hp_punch_scale: float = 1.04
+@export var hp_punch_in_duration: float = 0.08
+@export var hp_punch_out_duration: float = 0.12
+
 var _hp_tween: Tween
 var _shield_tween: Tween
+var _hp_feedback_tween: Tween
+
+var _hp_base_modulate: Color = Color(1, 1, 1, 1)
+var _hp_base_scale: Vector2 = Vector2.ONE
 
 
 func _ready() -> void:
@@ -47,11 +58,15 @@ func initialize_stack_grid(entity: Entity, sequence: Array[String]) -> void:
 	# Init bars based on actual entity state (no assumptions)
 	hp_progress_bar.min_value = 0
 	hp_progress_bar.max_value = entity.max_hp
-	hp_progress_bar.value = clamp(float(entity.current_hp), 0, hp_progress_bar.max_value)
+	hp_progress_bar.value = clamp(float(entity.current_hp), 0, float(hp_progress_bar.max_value))
 
 	shield_progress_bar.min_value = 0
 	shield_progress_bar.max_value = entity.max_hp
-	shield_progress_bar.value = clamp(float(entity.current_shield), 0, shield_progress_bar.max_value)
+	shield_progress_bar.value = clamp(float(entity.current_shield), 0, float(shield_progress_bar.max_value))
+
+	# Save base visuals for feedback
+	_hp_base_modulate = hp_progress_bar.modulate
+	_hp_base_scale = hp_progress_bar.scale
 
 	# Ensure shield visibility matches initial state
 	_on_shield_progress_bar_value_changed(shield_progress_bar.value)
@@ -90,6 +105,10 @@ func target_receive_data_from_execute(data_effect: Dictionary) -> void:
 		new_hp = clamp(new_hp, 0.0, float(hp_progress_bar.max_value))
 		new_shield = clamp(new_shield, 0.0, float(shield_progress_bar.max_value))
 
+		# 🔥 Feedback uniquement si HP baisse (ici, pas dans _animate_progress)
+		if new_hp < float(hp_progress_bar.value):
+			_play_hp_damage_feedback()
+
 		_animate_progress(hp_progress_bar, new_hp, tween_duration_hp, true)
 		_animate_progress(shield_progress_bar, new_shield, tween_duration_shield, false)
 		return
@@ -102,7 +121,9 @@ func target_receive_data_from_execute(data_effect: Dictionary) -> void:
 			var value := float(_effect.get("value", 0))
 			match str(_effect.get("type", "")):
 				"HP":
-					var new_hp = clamp(hp_progress_bar.value - value, 0.0, float(hp_progress_bar.max_value))
+					var new_hp = clamp(float(hp_progress_bar.value) - value, 0.0, float(hp_progress_bar.max_value))
+					if new_hp < float(hp_progress_bar.value):
+						_play_hp_damage_feedback()
 					_animate_progress(hp_progress_bar, new_hp, tween_duration_hp, true)
 
 	elif action_type == "Shield":
@@ -110,7 +131,7 @@ func target_receive_data_from_execute(data_effect: Dictionary) -> void:
 			var value := float(_effect.get("value", 0))
 			match str(_effect.get("type", "")):
 				"Shield":
-					var new_shield = clamp(shield_progress_bar.value + value, 0.0, float(shield_progress_bar.max_value))
+					var new_shield = clamp(float(shield_progress_bar.value) + value, 0.0, float(shield_progress_bar.max_value))
 					_animate_progress(shield_progress_bar, new_shield, tween_duration_shield, false)
 
 
@@ -156,6 +177,51 @@ func _animate_progress(bar: ProgressBar, to_value: float, duration: float, is_hp
 		t.finished.connect(func():
 			_on_shield_progress_bar_value_changed(bar.value)
 		)
+
+
+func _play_hp_damage_feedback() -> void:
+	# Kill previous feedback tween to avoid stacking
+	if _hp_feedback_tween and _hp_feedback_tween.is_valid():
+		_hp_feedback_tween.kill()
+
+	# Reset to base first (in case the previous tween was interrupted)
+	hp_progress_bar.modulate = _hp_base_modulate
+	hp_progress_bar.scale = _hp_base_scale
+
+	_hp_feedback_tween = create_tween()
+	_hp_feedback_tween.set_trans(Tween.TRANS_SINE)
+	_hp_feedback_tween.set_ease(Tween.EASE_OUT)
+
+	# Flash to white then return
+	_hp_feedback_tween.tween_property(
+		hp_progress_bar,
+		"modulate",
+		Color(1, 1, 1, 1),
+		max(0.01, hp_flash_duration)
+	)
+	_hp_feedback_tween.tween_property(
+		hp_progress_bar,
+		"modulate",
+		_hp_base_modulate,
+		max(0.01, hp_flash_return_duration)
+	)
+
+	# Mini punch scale (parallel)
+	var punch := create_tween()
+	punch.set_trans(Tween.TRANS_SINE)
+	punch.set_ease(Tween.EASE_OUT)
+	punch.tween_property(
+		hp_progress_bar,
+		"scale",
+		_hp_base_scale * hp_punch_scale,
+		max(0.01, hp_punch_in_duration)
+	)
+	punch.tween_property(
+		hp_progress_bar,
+		"scale",
+		_hp_base_scale,
+		max(0.01, hp_punch_out_duration)
+	)
 
 
 func _clear() -> void:
