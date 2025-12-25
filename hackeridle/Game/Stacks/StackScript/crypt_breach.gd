@@ -19,7 +19,7 @@ func execute() -> Dictionary:
 				"target": target,
 				"effects": [
 					{"value": damages, "type": "HP"},        # Hit 1 : normal
-					{"value": damages, "type": "PierceHP"}   # Hit 2 : brut (ignore shield)
+					{"value": damages / 2, "type": "PierceHP"}   # Hit 2 : brut (ignore shield)
 				]
 			}
 		]

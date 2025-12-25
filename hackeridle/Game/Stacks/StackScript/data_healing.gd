@@ -12,7 +12,7 @@ func execute() -> Dictionary:
 				"effects": [
 					{
 						"value": heal_value,
-						"type": "Heal"
+						"type": "HealHP"
 					}
 				]
 			}

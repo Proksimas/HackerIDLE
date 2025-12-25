@@ -7,9 +7,9 @@ script = ExtResource("1_12r7t")
 stack_script_name = "data_healing"
 turn_cooldown_base = 5
 type_and_coef = {
-"encryption": 0.0,
+"encryption": 0.2,
 "flux": 2.0,
-"penetration": 0.0
+"penetration": 0.1
 }
 execution_time = 3.0
 script_kind = 0
