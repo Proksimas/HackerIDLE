@@ -1,6 +1,8 @@
 extends Resource
 class_name StackScript
 
+### COMPETENCES DES STACKS. Notons que les compétences vont uniquement
+### créer des datas d'effets qui seront ensuites traités dans un CombatResolver
 
 # Propriétés de base du Script
 @export var stack_script_name: String = "Script Inconnu"
@@ -21,13 +23,7 @@ class_name StackScript
 
 enum ScriptKind { DAMAGE, SHIELD, UTILITY}
 @export var script_kind: ScriptKind = ScriptKind.DAMAGE
-							
-#enum TYPE {PENETRATION, ENCRYPTION, FLUX}
-#@export var type: TYPE = TYPE.PENETRATION
-#const TYPE_NAME = {TYPE.PENETRATION: "Penetration",
-					#TYPE.ENCRYPTION: "Encryption",
-					#TYPE.FLUX: "Flux"}
-			
+
 var turn_remaining: float = 0 # turn restant après exécution
 
 var caster: Entity
@@ -37,10 +33,7 @@ func set_caster_and_targets(_caster: Entity, _targets: Array[Entity]) -> void:
 	caster = _caster
 	targets = _targets
 	
-# Méthode abstraite à implémenter par chaque type de Script
-#func execute(caster: Entity, targets: Array[Entity]) -> void:
-	## Logic spécifique au Script (dégâts, bouclier, etc.)
-	#pass
+
 func execute() -> Dictionary:
 	"""Logic spécifique au Script (dégâts, bouclier, etc.)
 	Return un dictionnaire avec tous les effets de l'éxécution
@@ -53,6 +46,8 @@ func execute() -> Dictionary:
 				{"value": damages, 
 				"type": "HP"}
 			}
+			
+	LES DONNEES VONT ETRE ENSUITE TRAITEES DANS LE COMBATRESOLVER
 	"""
 	var dict = {}
 	return dict
