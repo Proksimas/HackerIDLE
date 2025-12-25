@@ -20,7 +20,7 @@ func format_single_effect(effect: Dictionary) -> String:
 	var type = effect.get("type", "HP")
 	var damage_color = ""
 	var damage_tag = ""
-	
+
 	match type:
 		"HP":
 			damage_color = COLOR_HP
@@ -42,25 +42,33 @@ func format_single_effect(effect: Dictionary) -> String:
 			damage_tag = "Effet"
 
 	var formatted_value = "[color=%s]%d[/color]" % [damage_color, value]
-	
 	return "%s %s" % [formatted_value, damage_tag]
 
-# ----------------------------------------------------------------------
-# NOUVELLE LOGIQUE POUR LA CONSTRUCTION DE LA PHRASE
-# ----------------------------------------------------------------------
 
-## Construit le message de log final basé sur l'action_type
-func build_log_message(event_data: Dictionary) -> String:
-	var action_type = event_data.get("action_type", "Action Unknown")
+func _format_effects_list(effects: Array) -> String:
+	var formatted_effects_list: Array = []
+	for effect in effects:
+		if effect is Dictionary:
+			formatted_effects_list.append(format_single_effect(effect))
+		else:
+			formatted_effects_list.append(str(effect))
+	return ", ".join(formatted_effects_list)
 
-	# Extraction et formatage des entités (communes à toutes les actions)
-	var caster_name = event_data["caster"].entity_name
-	var targets: Array = event_data.get("targets", [])
 
-	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
-	var formatted_targets = format_target_names(targets)
+func _unique_targets_from_target_effects(te_list: Array) -> Array:
+	var uniques: Array = []
+	for te in te_list:
+		if not (te is Dictionary):
+			continue
+		var t: Entity = te.get("target", null)
+		if t == null:
+			continue
+		if not uniques.has(t):
+			uniques.append(t)
+	return uniques
 
-	# --- Suffixe de kill basé sur la résolution ---
+
+func _kill_suffix(event_data: Dictionary) -> String:
 	var kill_suffix := ""
 	if event_data.has("resolution"):
 		var killed: Array = event_data["resolution"].get("killed", [])
@@ -71,23 +79,62 @@ func build_log_message(event_data: Dictionary) -> String:
 					killed_names.append(t.entity_name.capitalize())
 			if killed_names.size() > 0:
 				kill_suffix = " [color=#FFFFFF](%s meurt)[/color]" % ", ".join(killed_names)
+	return kill_suffix
+
+
+## Construit le message de log final basé sur l'action_type
+func build_log_message(event_data: Dictionary) -> String:
+	var action_type = event_data.get("action_type", "Action Unknown")
+
+	# Extraction et formatage des entités
+	var caster_name = event_data["caster"].entity_name
+	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
+
+	var kill_suffix := _kill_suffix(event_data)
 
 	match action_type:
 		"Damage":
+			#  targetEffects -> 1 ligne par entrée ---
+			if event_data.has("targetEffects"):
+				var te_list: Array = event_data.get("targetEffects", [])
+				var lines: Array = []
+
+				for te in te_list:
+					if not (te is Dictionary):
+						continue
+					var t: Entity = te.get("target", null)
+					if t == null:
+						continue
+
+					var effects: Array = te.get("effects", [])
+					var formatted_target = format_target_names([t])
+					var formatted_effects_str = _format_effects_list(effects)
+
+					# Petite phrase plus naturelle si on ne fait que Shield / Heal
+					var is_only_shield := effects.size() == 1 and effects[0] is Dictionary and str(effects[0].get("type", "")) == "Shield"
+					var is_only_heal := effects.size() == 1 and effects[0] is Dictionary and str(effects[0].get("type", "")) == "Heal"
+
+					if is_only_shield:
+						lines.append("%s renforce %s avec %s." % [formatted_caster, formatted_target, formatted_effects_str])
+					elif is_only_heal:
+						lines.append("%s soigne %s pour %s points." % [formatted_caster, formatted_target, formatted_effects_str])
+					else:
+						lines.append("%s inflige %s à %s." % [formatted_caster, formatted_effects_str, formatted_target])
+
+				# Si on n'a pas de lines (cas edge), fallback ancien
+				if lines.size() > 0:
+					# On ajoute le suffixe kill à la dernière ligne (plus lisible)
+					lines[lines.size() - 1] = str(lines[lines.size() - 1]) + kill_suffix
+					return "\n".join(lines)
+
+			# --- Ancien format : targets + effects ---
+			var targets: Array = event_data.get("targets", [])
+			var formatted_targets = format_target_names(targets)
+
 			# Effets réels si résolution présente, sinon intention
 			var effects = build_effects_from_resolution(event_data)
+			var formatted_effects_str = _format_effects_list(effects)
 
-			var formatted_effects_list: Array = []
-			for effect in effects:
-				# Petit garde-fou si jamais un élément n'est pas un dict
-				if effect is Dictionary:
-					formatted_effects_list.append(format_single_effect(effect))
-				else:
-					formatted_effects_list.append(str(effect))
-
-			var formatted_effects_str = ", ".join(formatted_effects_list)
-
-			# Phrase : [Caster] inflige [Effets] à [Targets]
 			if targets.size() > 1:
 				return "%s inflige les dégâts suivants à ses cibles : %s (%s).%s" % [
 					formatted_caster,
@@ -105,26 +152,21 @@ func build_log_message(event_data: Dictionary) -> String:
 
 		"Death":
 			return "%s est mort." % formatted_caster
-			
+
 		"Shield":
+			var targets: Array = event_data.get("targets", [])
+			var formatted_targets = format_target_names(targets)
+
 			var effects = build_effects_from_resolution(event_data)
-			var formatted_effects_list: Array = []
-			for effect in effects:
-				formatted_effects_list.append(format_single_effect(effect))
-			var formatted_effects_str = ", ".join(formatted_effects_list)
+			var formatted_effects_str = _format_effects_list(effects)
 			return "%s renforce %s avec %s." % [formatted_caster, formatted_targets, formatted_effects_str]
 
-
 		"Heal":
-			var effects = event_data.get("effects", [])
-			var formatted_effects_list: Array = []
-			for effect in effects:
-				if effect is Dictionary:
-					formatted_effects_list.append(format_single_effect(effect))
-				else:
-					formatted_effects_list.append(str(effect))
+			var targets: Array = event_data.get("targets", [])
+			var formatted_targets = format_target_names(targets)
 
-			var formatted_effects_str = ", ".join(formatted_effects_list)
+			var effects = event_data.get("effects", [])
+			var formatted_effects_str = _format_effects_list(effects)
 			return "%s soigne %s pour %s points." % [formatted_caster, formatted_targets, formatted_effects_str]
 
 		_:
@@ -146,13 +188,11 @@ func build_effects_from_resolution(event_data: Dictionary) -> Array:
 		total_shield_lost += float(delta.get("shieldLost", 0))
 
 	var effects_for_log: Array = []
-	# On affiche d'abord le shield absorbé (si tu veux), puis la perte HP
 	if total_shield_lost > 0:
 		effects_for_log.append({"value": int(round(total_shield_lost)), "type": "Shield"})
 	if total_hp_lost > 0:
 		effects_for_log.append({"value": int(round(total_hp_lost)), "type": "HP"})
 
-	# fallback si jamais rien n'a bougé
 	if effects_for_log.is_empty():
 		return event_data.get("effects", [])
 

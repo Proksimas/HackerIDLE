@@ -29,8 +29,8 @@ func _on_start_fight_button_pressed() -> void:
 							"flux": 4}
 	hacker = Entity.new(true)
 	StackManager.learn_stack_script(hacker, "syn_flood")
-	StackManager.learn_stack_script(hacker, "data_healing")
-	hacker.save_sequence(["syn_flood", "data_healing"])
+	StackManager.learn_stack_script(hacker, "cipher_strike")
+	hacker.save_sequence(["syn_flood", "cipher_strike"])
 	
 	####
 	### init des ennemis selon l'etat de la wave
