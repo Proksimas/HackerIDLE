@@ -7,7 +7,6 @@ class_name EntityUI
 @onready var hp_progress_bar: ProgressBar = %HpProgressBar
 @onready var shield_progress_bar: ProgressBar = %ShieldProgressBar
 
-
 @onready var penetration_label: Label = %PenetrationLabel
 @onready var penetration_value: Label = %PenetrationValue
 @onready var encryption_label: Label = %EncryptionLabel
@@ -17,11 +16,18 @@ class_name EntityUI
 
 var entity_name_ui: String = "default_ui_name"
 var entity_associated: Entity
+
 const STACK_COMPONENT = preload("res://Game/Interface/Stacks/stack_component.tscn")
-# Called when the node enters the scene tree for the first time.
+
+@export var tween_duration_hp: float = 0.35
+@export var tween_duration_shield: float = 0.25
+
+var _hp_tween: Tween
+var _shield_tween: Tween
+
+
 func _ready() -> void:
 	_clear()
-	pass # Replace with function body.
 
 
 func _draw() -> void:
@@ -30,26 +36,33 @@ func _draw() -> void:
 	encryption_label.text = "$Encryption"
 	flux_label.text = "$Flux"
 
-func initialize_stack_grid(entity: Entity, sequence: Array[String]):
-	"""Initialisation de l'entité ui"""
+
+func initialize_stack_grid(entity: Entity, sequence: Array[String]) -> void:
+	"""Initialisation de l'entité UI"""
 	_clear()
 	entity_associated = entity
 	entity_name_ui = entity.entity_name
 	entity_name_label.text = entity.entity_name
-	hp_progress_bar.max_value = entity.max_hp
+
+	# Init bars based on actual entity state (no assumptions)
 	hp_progress_bar.min_value = 0
-	hp_progress_bar.value = entity.max_hp
-	shield_progress_bar.max_value = entity.max_hp
+	hp_progress_bar.max_value = entity.max_hp
+	hp_progress_bar.value = clamp(float(entity.current_hp), 0, hp_progress_bar.max_value)
+
 	shield_progress_bar.min_value = 0
-	shield_progress_bar.value = 0
-	
+	shield_progress_bar.max_value = entity.max_hp
+	shield_progress_bar.value = clamp(float(entity.current_shield), 0, shield_progress_bar.max_value)
+
+	# Ensure shield visibility matches initial state
+	_on_shield_progress_bar_value_changed(shield_progress_bar.value)
+
 	for component_name in sequence:
 		var new_component = STACK_COMPONENT.instantiate()
 		stack_grid.add_child(new_component)
 		new_component.set_component(component_name)
 
 
-func set_stack_script_values(dict: Dictionary):
+func set_stack_script_values(dict: Dictionary) -> void:
 	for key in dict:
 		match key:
 			"penetration":
@@ -58,32 +71,100 @@ func set_stack_script_values(dict: Dictionary):
 				encryption_value.text = str(dict["encryption"])
 			"flux":
 				flux_value.text = str(dict["flux"])
-				
-	
-func target_receive_data_from_execute(data_effect: Dictionary):
-	"""L'entité est la cible deu script d'execution.
-	reçoit les données concernant cette entité post script execution
-	Cela correspond aux degats reçus, shield etc"""
-		#dict = {"caster": caster,
-			#"targets": [targets[0]],
-			#"action_type": "Damage",
-			#"effects":
-				#{"value": damages, 
-				#"type": "HP"}
-			#}
-	# TODO SELON LES EFFETS
 
-	if data_effect["action_type"] == "Damage":
-		for _effect in data_effect["effects"]:
-			var damages_received = _effect["value"]
-			match _effect["type"]:
+
+func target_receive_data_from_execute(data_effect: Dictionary) -> void:
+	"""L'entité est la cible du script d'execution.
+	Reçoit les données concernant cette entité post script execution (hp, shield, etc.)
+	On privilégie la 'resolution' (vérité du combat) pour éviter les désync.
+	"""
+	var entry := _find_resolution_entry_for_self(data_effect)
+
+	# ✅ Source de vérité : résolution (after)
+	if not entry.is_empty():
+		var after: Dictionary = entry.get("after", {})
+		var new_hp: float = float(after.get("hp", hp_progress_bar.value))
+		var new_shield: float = float(after.get("shield", shield_progress_bar.value))
+
+		# Clamp to bars range (shield capped to max_hp)
+		new_hp = clamp(new_hp, 0.0, float(hp_progress_bar.max_value))
+		new_shield = clamp(new_shield, 0.0, float(shield_progress_bar.max_value))
+
+		_animate_progress(hp_progress_bar, new_hp, tween_duration_hp, true)
+		_animate_progress(shield_progress_bar, new_shield, tween_duration_shield, false)
+		return
+
+	# Fallback (si jamais pas de resolution)
+	var action_type: String = str(data_effect.get("action_type", ""))
+
+	if action_type == "Damage":
+		for _effect in data_effect.get("effects", []):
+			var value := float(_effect.get("value", 0))
+			match str(_effect.get("type", "")):
 				"HP":
-					hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
-											0, hp_progress_bar.max_value)
-	
+					var new_hp = clamp(hp_progress_bar.value - value, 0.0, float(hp_progress_bar.max_value))
+					_animate_progress(hp_progress_bar, new_hp, tween_duration_hp, true)
 
-		
-func _clear():
+	elif action_type == "Shield":
+		for _effect in data_effect.get("effects", []):
+			var value := float(_effect.get("value", 0))
+			match str(_effect.get("type", "")):
+				"Shield":
+					var new_shield = clamp(shield_progress_bar.value + value, 0.0, float(shield_progress_bar.max_value))
+					_animate_progress(shield_progress_bar, new_shield, tween_duration_shield, false)
+
+
+func _find_resolution_entry_for_self(data_effect: Dictionary) -> Dictionary:
+	if not data_effect.has("resolution"):
+		return {}
+	var per_target: Array = data_effect["resolution"].get("perTarget", [])
+	for entry in per_target:
+		if entry.has("target") and entry["target"] == entity_associated:
+			return entry
+	return {}
+
+
+func _animate_progress(bar: ProgressBar, to_value: float, duration: float, is_hp: bool) -> void:
+	# Kill previous tween on that bar to avoid stacking
+	if is_hp:
+		if _hp_tween and _hp_tween.is_valid():
+			_hp_tween.kill()
+	else:
+		if _shield_tween and _shield_tween.is_valid():
+			_shield_tween.kill()
+
+	var from_value: float = float(bar.value)
+	if is_equal_approx(from_value, to_value):
+		# Still ensure shield visibility reacts if needed
+		if bar == shield_progress_bar:
+			_on_shield_progress_bar_value_changed(to_value)
+		return
+
+	var t := create_tween()
+	t.set_trans(Tween.TRANS_SINE)
+	t.set_ease(Tween.EASE_OUT)
+
+	# Animate the ProgressBar.value
+	t.tween_property(bar, "value", to_value, max(0.01, duration))
+
+	# Keep a reference
+	if is_hp:
+		_hp_tween = t
+	else:
+		_shield_tween = t
+		# Ensure show/hide happens at the end (cleaner visually)
+		t.finished.connect(func():
+			_on_shield_progress_bar_value_changed(bar.value)
+		)
+
+
+func _clear() -> void:
 	for elmt in stack_grid.get_children():
 		elmt.queue_free()
-		
+
+
+func _on_shield_progress_bar_value_changed(value: float) -> void:
+	if value > 0.0:
+		shield_progress_bar.show()
+	else:
+		shield_progress_bar.hide()

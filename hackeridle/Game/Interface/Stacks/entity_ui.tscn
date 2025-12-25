@@ -142,3 +142,5 @@ text = "Penetration:"
 unique_name_in_owner = true
 layout_mode = 2
 text = "X"
+
+[connection signal="value_changed" from="VBoxContainer/HeaderContainer/ShieldProgressBar" to="." method="_on_shield_progress_bar_value_changed"]
