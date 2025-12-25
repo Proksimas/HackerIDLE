@@ -69,6 +69,8 @@ static func _apply_effect(caster: Entity, target: Entity, effect: Dictionary) ->
 			if target.has_method("add_shield"):
 				target.add_shield(value)
 			else:
-				target.current_shield += value
+				# fallback si tu n'as pas encore add_shield()
+				target.current_shield = min(target.current_shield + value, target.max_hp)
+
 		_:
 			pass

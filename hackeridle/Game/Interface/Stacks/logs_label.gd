@@ -99,6 +99,15 @@ func build_log_message(event_data: Dictionary) -> String:
 
 		"Death":
 			return "%s est mort." % formatted_caster
+			
+		"Shield":
+			var effects = build_effects_from_resolution(event_data)
+			var formatted_effects_list: Array = []
+			for effect in effects:
+				formatted_effects_list.append(format_single_effect(effect))
+			var formatted_effects_str = ", ".join(formatted_effects_list)
+			return "%s renforce %s avec %s." % [formatted_caster, formatted_targets, formatted_effects_str]
+
 
 		"Heal":
 			var effects = event_data.get("effects", [])

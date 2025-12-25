@@ -163,6 +163,11 @@ func take_damage(damage: float) -> void:
 	
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
+func add_shield(value: float) -> void:
+	if value <= 0:
+		return
+	current_shield = min(current_shield + value, max_hp)
+
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
 	on peut passer au script suivant"""

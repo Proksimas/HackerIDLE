@@ -25,11 +25,13 @@ func _on_start_fight_button_pressed() -> void:
 	###on init le hacker
 	
 	StackManager.stack_script_stats = {"penetration": 4,
-							"encryption": 0,
-							"flux": 0}
+							"encryption": 4,
+							"flux": 4}
 	hacker = Entity.new(true)
 	StackManager.learn_stack_script(hacker, "syn_flood")
-	hacker.save_sequence(["syn_flood", "syn_flood"])
+	StackManager.learn_stack_script(hacker, "firewall_patch")
+	
+	hacker.save_sequence(["syn_flood", "firewall_patch"])
 	####
 	### init des ennemis selon l'etat de la wave
 	var wave_data = $StackFightManager.start_encounter()
