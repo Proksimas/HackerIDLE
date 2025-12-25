@@ -10,9 +10,8 @@ const COLOR_DOT = "#008000"    # Vert
 ## Fonction utilitaire pour formater un tableau de noms de cibles (avec le type Array pour flexibilité)
 func format_target_names(targets: Array) -> String:
 	var formatted_targets = []
-	for _name in targets:
-		if typeof(_name) == TYPE_STRING:
-			formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, _name.capitalize()])
+	for target: Entity in targets:
+		formatted_targets.append("[color=%s]%s[/color]" % [COLOR_TARGET, target.entity_name.capitalize()])
 	return ", ".join(formatted_targets)
 
 ## Fonction utilitaire pour formater un SEUL effet {value: int, type: String}
@@ -48,8 +47,8 @@ func format_single_effect(effect: Dictionary) -> String:
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
 	# Extraction et formatage des entités (qui sont communes à toutes les actions)
-	var caster_name = event_data.get("caster_name", "Catser Unkown")
-	var target_names = event_data.get("target_names", [])
+	var caster_name = event_data["caster"].entity_name
+	var target_names = event_data.get("targets", [])
 	
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
 	var formatted_targets = format_target_names(target_names)

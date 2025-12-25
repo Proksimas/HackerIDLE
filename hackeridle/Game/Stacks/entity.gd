@@ -130,15 +130,13 @@ func prepare_next_script():
 	s_cast_script.emit(current_script_index, data_before_execution) #->StackFightUi
 	
 
-	#var data_from_execution = script_instance.execute()
-	##reçu par le StackFightUI
-	#s_execute_script.emit(current_script_index, data_from_execution)
-
 func execute_next_script():
 	"""Tout est bon, l'ui est ok, il faut maintenant executer le script"""
+	print('execute_next_script')
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
+	CombatResolver.resolve(data_from_execution)
 	#reçu par le StackFightUI
 	s_execute_script.emit(current_script_index, data_from_execution)
 	
@@ -164,14 +162,6 @@ func take_damage(damage: float) -> void:
 		self_is_dead = true
 	
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
-
-func _on_s_stack_component_completed():
-	"""La stack a terminé d'être casté. On lance le script"""
-	var script_instance: StackScript = stack_script_sequence[current_script_index]
-	var data_from_execution = script_instance.execute()
-	#reçu par le StackFightUI
-	s_execute_script.emit(current_script_index, data_from_execution)
-
 
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script

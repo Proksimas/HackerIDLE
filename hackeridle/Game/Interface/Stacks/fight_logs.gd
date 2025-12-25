@@ -52,7 +52,7 @@ func add_log(event: Dictionary):
 	
 
 	# Appel de la fonction de formatage sur le nouveau RichTextLabel
-	new_log.log_event(event) # Le dictionnaire "event" contient maintenant le tableau "effects"
+	new_log.log_event(event) #
 	scroll_container.call_deferred("set_v_scroll", get_max_v_scroll())
 	
 ## Fonction d'aide pour obtenir la position de défilement maximale

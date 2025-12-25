@@ -22,7 +22,6 @@ class_name StackScript
 enum ScriptKind { DAMAGE, SHIELD, UTILITY}
 @export var script_kind: ScriptKind = ScriptKind.DAMAGE
 							
-var entity_is_hacker: bool = false
 #enum TYPE {PENETRATION, ENCRYPTION, FLUX}
 #@export var type: TYPE = TYPE.PENETRATION
 #const TYPE_NAME = {TYPE.PENETRATION: "Penetration",
@@ -70,15 +69,15 @@ func calcul_effect_value(_caster: Entity):
 	selon les caractéristiques."""
 
 	var bonus_value: float = 0
-	for type in type_and_coef:
+	for _type in type_and_coef:
 		if _caster.entity_is_hacker:
 			bonus_value += linear_calcul(\
-						StackManager.stack_script_stats[type],
-						type_and_coef[type], type) 
+						StackManager.stack_script_stats[_type],
+						type_and_coef[_type], _type) 
 		else:
 			bonus_value += linear_calcul(\
-						_caster.stats[type], 
-						type_and_coef[type], type) 
+						_caster.stats[_type], 
+						type_and_coef[_type], _type) 
 	return round(bonus_value)
 
 func linear_calcul(robots_affected, perc, _type):

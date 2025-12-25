@@ -125,17 +125,18 @@ func _on_execute_script(_script_index: int, data_from_execution: Dictionary):
 	
 	## TODO REMPLIR SELON LES DIFFERENTS EFFETS
 	## doit pouvoir marcher en envoyant que le data_from execution
-	var targets_name : Array
-	for target in data_from_execution["targets"]:
-		targets_name.append(target.entity_name)
-	var dict_log = \
-	{"caster_name": data_from_execution["caster"].entity_name,
-	"target_names": targets_name,
-	"action_type": data_from_execution["action_type"],
-	"effects": [data_from_execution["effects"]]}
+	#var targets_name : Array
+	#for target in data_from_execution["targets"]:
+		#targets_name.append(target.entity_name)
+	#var dict_log = \
+	#{"caster_name": data_from_execution["caster"].entity_name,
+	#"target_names": targets_name,
+	#"action_type": data_from_execution["action_type"],
+	#"effects": [data_from_execution["effects"]]}
 	#On est pret à anticiper si il y a plusieurs effets
 	#print("data post script: ", data_from_execution)
-	fight_logs.add_log(dict_log)
+	#fight_logs.add_log(dict_log)
+	fight_logs.add_log(data_from_execution)
 	s_execute_script_ui_finished.emit()
 
 	pass

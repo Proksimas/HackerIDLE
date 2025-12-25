@@ -74,11 +74,12 @@ func target_receive_data_from_execute(data_effect: Dictionary):
 	# TODO SELON LES EFFETS
 
 	if data_effect["action_type"] == "Damage":
-		var damages_received = data_effect["effects"]["value"]
-		match data_effect["effects"]["type"]:
-			"HP":
-				hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
-										0, hp_progress_bar.max_value)
+		for _effect in data_effect["effects"]:
+			var damages_received = _effect["value"]
+			match _effect["type"]:
+				"HP":
+					hp_progress_bar.value = clamp(hp_progress_bar.value - damages_received,
+											0, hp_progress_bar.max_value)
 	
 
 		
