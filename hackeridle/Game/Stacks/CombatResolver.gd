@@ -64,13 +64,22 @@ static func _apply_effect(caster: Entity, target: Entity, effect: Dictionary) ->
 
 	match effect_type:
 		"HP":
-			target.take_damage(value)
+			if target.has_method("take_damage"):
+				target.take_damage(value)
+			else:
+				push_error("L'entité est censé avoir le take_damage")
+			
 		"Shield":
 			if target.has_method("add_shield"):
 				target.add_shield(value)
 			else:
 				# fallback si tu n'as pas encore add_shield()
-				target.current_shield = min(target.current_shield + value, target.max_hp)
+				push_error("L'entité est censé avoir le add_shield")
+		"PierceHP":
+			if target.has_method("take_pierce_damage"):
+				target.take_pierce_damage(value)
+			else:
+				push_error("L'entité est censé avoir le take_pierce_damage")
 
 		_:
 			pass

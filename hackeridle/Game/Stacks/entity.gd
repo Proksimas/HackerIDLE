@@ -168,6 +168,14 @@ func add_shield(value: float) -> void:
 		return
 	current_shield = min(current_shield + value, max_hp)
 
+func take_pierce_damage(damage: float) -> void:
+	current_hp -= damage
+	if current_hp <= 0:
+		current_hp = 0
+		s_entity_die.emit(self)
+		self_is_dead = true
+
+
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
 	on peut passer au script suivant"""

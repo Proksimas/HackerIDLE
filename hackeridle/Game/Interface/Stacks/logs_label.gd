@@ -31,6 +31,10 @@ func format_single_effect(effect: Dictionary) -> String:
 		"DoT":
 			damage_color = COLOR_DOT
 			damage_tag = "DoT"
+		"PierceHP":
+			damage_color = COLOR_HP
+			damage_tag = "Brut"
+
 		_:
 			damage_color = "#FFFFFF"
 			damage_tag = "Effet"
