@@ -30,8 +30,9 @@ func _on_start_fight_button_pressed() -> void:
 	hacker = Entity.new(true)
 	StackManager.learn_stack_script(hacker, "malware_apt")
 	StackManager.learn_stack_script(hacker, "data_healing")
+	StackManager.learn_stack_script(hacker, "malware_apt")
 	
-	hacker.save_sequence(["malware_apt", "data_healing"])
+	hacker.save_sequence(["malware_apt", "data_healing","malware_apt"])
 	####
 	### init des ennemis selon l'etat de la wave
 	var wave_data = $StackFightManager.start_encounter()

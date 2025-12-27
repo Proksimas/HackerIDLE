@@ -189,25 +189,18 @@ func heal(value: float) -> void:
 func add_status(status: Dictionary) -> void:
 	if status.is_empty():
 		return
-	# Normalisation minimale
-	var id: String = str(status.get("id", ""))
+
+	var id := str(status.get("id", ""))
 	if id == "":
 		return
-	var turns: int = int(status.get("turns", 0))
-	if turns <= 0:
-		return
-	# Règle V1 : Refresh si déjà présent
+
 	for i in range(active_statuses.size()):
 		if str(active_statuses[i].get("id", "")) == id:
-			active_statuses[i]["turnsRemaining"] = turns
-			# Optionnel : update valeur si tu veux
-			active_statuses[i]["value"] = status.get("value", active_statuses[i].get("value", 0))
-			active_statuses[i]["source"] = status.get("source", active_statuses[i].get("source", null))
+			active_statuses[i] = StatusRules.Merge(active_statuses[i], status)
 			return
-	# Nouveau status
-	var new_status := status.duplicate(true)
-	new_status["turnsRemaining"] = turns
-	active_statuses.append(new_status)
+
+	active_statuses.append(StatusRules.Init(status))
+
 
 ############## SIGNAUX ########################################################
 
