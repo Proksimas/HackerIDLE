@@ -115,7 +115,6 @@ func _is_only_type(effects: Array, type_name: String) -> bool:
 	if not (effects[0] is Dictionary):
 		return false
 	return str(effects[0].get("type", "")) == type_name
-
 ## Construit le message de log final basé sur l'action_type
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
@@ -124,12 +123,17 @@ func build_log_message(event_data: Dictionary) -> String:
 	var caster_name = event_data["caster"].entity_name
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
 
-	# --- Si c'est un tick de statut, on affiche le statut comme "caster" ---
+	# --- Si c'est un tick de statut, on affiche le statut comme "caster" + stacks ---
 	var meta: Dictionary = event_data.get("meta", {})
 	if bool(meta.get("tick", false)):
 		var status_id: String = str(meta.get("statusId", "Status"))
-		
-		formatted_caster = "[color=%s]%s[/color]" % [COLOR_DOT, tr(status_id.capitalize())]
+		var stacks_tick: int = int(meta.get("stacks", 1))
+
+		var stack_txt := ""
+		if stacks_tick > 1:
+			stack_txt = " x%d" % stacks_tick
+
+		formatted_caster = "[color=%s]%s%s[/color]" % [COLOR_DOT, tr(status_id.capitalize()), stack_txt]
 
 	var kill_suffix := _kill_suffix(event_data)
 
@@ -155,35 +159,53 @@ func build_log_message(event_data: Dictionary) -> String:
 
 					var formatted_target = format_target_names([target])
 
-					# --- Construire un suffixe "applique statut" si ApplyStatus présent ---
+					# --- Construire un suffixe "applique statut" si ApplyStatus présent (avec stacks) ---
 					var extra_parts: Array = []
 					for eff in te.get("effects", []):
 						if eff is Dictionary and str(eff.get("type", "")) == "ApplyStatus":
 							var status: Dictionary = eff.get("status", {})
 							var status_name: String = str(status.get("display_name", status.get("id", "Status")))
 							var turns: int = int(status.get("turns", status.get("turnsRemaining", 0)))
+							var stacks_apply: int = int(status.get("stacks", 1))
+
+							var stack_txt_apply := ""
+							if stacks_apply > 1:
+								stack_txt_apply = " x%d" % stacks_apply
+
 							if turns > 0:
-								extra_parts.append("applique [color=%s]%s[/color] (%d tours)" % [COLOR_DOT, status_name, turns])
+								extra_parts.append("applique [color=%s]%s%s[/color] (%d tours)" % [
+									COLOR_DOT,
+									tr(status_name),
+									stack_txt_apply,
+									turns
+								])
 							else:
-								extra_parts.append("applique %s" % status_name)
+								extra_parts.append("applique [color=%s]%s%s[/color]" % [
+									COLOR_DOT,
+									tr(status_name),
+									stack_txt_apply
+								])
 
 					var extra_suffix := ""
 					if extra_parts.size() > 0:
 						extra_suffix = " et " + " et ".join(extra_parts)
 
 					# --- Format des effets affichés ---
-					# Si on a une résolution, elle ne "voit" pas ApplyStatus (normal).
-					# Donc on affiche dégâts/heal/shield via resolved_effects, et l'application de status via extra_suffix.
 					var formatted_effects_str = _format_effects_list(effects_for_phrase)
 
 					# --- Choix de la phrase ---
 					if _is_only_type(effects_for_phrase, "Shield"):
-						lines.append("%s renforce %s avec %s.%s" % [formatted_caster, formatted_target, formatted_effects_str, kill_suffix])
+						lines.append("%s renforce %s avec %s.%s" % [
+							formatted_caster, formatted_target, formatted_effects_str, kill_suffix
+						])
 					elif _is_only_type(effects_for_phrase, "HealHP"):
-						lines.append("%s soigne %s pour %s points.%s" % [formatted_caster, formatted_target, formatted_effects_str, kill_suffix])
+						lines.append("%s soigne %s pour %s points.%s" % [
+							formatted_caster, formatted_target, formatted_effects_str, kill_suffix
+						])
 					else:
-						# Damage (inclut aussi les ticks DoT, où formatted_caster a été remplacé)
-						lines.append("%s inflige %s à %s%s.%s" % [formatted_caster, formatted_effects_str, formatted_target, extra_suffix, kill_suffix])
+						lines.append("%s inflige %s à %s%s.%s" % [
+							formatted_caster, formatted_effects_str, formatted_target, extra_suffix, kill_suffix
+						])
 
 				if lines.size() > 0:
 					return "\n".join(lines)
@@ -198,7 +220,6 @@ func build_log_message(event_data: Dictionary) -> String:
 
 		_:
 			return "Événement de log non reconnu: %s" % str(event_data)
-
 
 ## Fonction principale pour formater et afficher le texte de l'événement
 func log_event(event_data: Dictionary) -> void:
