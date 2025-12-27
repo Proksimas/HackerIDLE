@@ -116,12 +116,21 @@ func _is_only_type(effects: Array, type_name: String) -> bool:
 		return false
 	return str(effects[0].get("type", "")) == type_name
 
-
 ## Construit le message de log final basé sur l'action_type
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
+
+	# --- Caster (normal) ---
 	var caster_name = event_data["caster"].entity_name
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
+
+	# --- Si c'est un tick de statut, on affiche le statut comme "caster" ---
+	var meta: Dictionary = event_data.get("meta", {})
+	if bool(meta.get("tick", false)):
+		var status_id: String = str(meta.get("statusId", "Status"))
+		
+		formatted_caster = "[color=%s]%s[/color]" % [COLOR_DOT, tr(status_id.capitalize())]
+
 	var kill_suffix := _kill_suffix(event_data)
 
 	match action_type:
@@ -140,28 +149,46 @@ func build_log_message(event_data: Dictionary) -> String:
 
 					# Effets "réels" si possible (résolution), sinon intention sur cette cible
 					var resolved_effects: Array = _build_effects_from_resolution_for_target(event_data, target)
-					var effects: Array = resolved_effects
-					if effects.is_empty():
-						effects = te.get("effects", [])
+					var effects_for_phrase: Array = resolved_effects
+					if effects_for_phrase.is_empty():
+						effects_for_phrase = te.get("effects", [])
 
 					var formatted_target = format_target_names([target])
-					var formatted_effects_str = _format_effects_list(effects)
 
-					# Phrases un peu plus naturelles selon le contenu
-					if _is_only_type(effects, "Shield"):
-						lines.append("%s renforce %s avec %s." % [formatted_caster, formatted_target, formatted_effects_str])
-					elif _is_only_type(effects, "HealHP"):
-						lines.append("%s soigne %s pour %s points." % [formatted_caster, formatted_target, formatted_effects_str])
+					# --- Construire un suffixe "applique statut" si ApplyStatus présent ---
+					var extra_parts: Array = []
+					for eff in te.get("effects", []):
+						if eff is Dictionary and str(eff.get("type", "")) == "ApplyStatus":
+							var status: Dictionary = eff.get("status", {})
+							var status_name: String = str(status.get("display_name", status.get("id", "Status")))
+							var turns: int = int(status.get("turns", status.get("turnsRemaining", 0)))
+							if turns > 0:
+								extra_parts.append("applique [color=%s]%s[/color] (%d tours)" % [COLOR_DOT, status_name, turns])
+							else:
+								extra_parts.append("applique %s" % status_name)
+
+					var extra_suffix := ""
+					if extra_parts.size() > 0:
+						extra_suffix = " et " + " et ".join(extra_parts)
+
+					# --- Format des effets affichés ---
+					# Si on a une résolution, elle ne "voit" pas ApplyStatus (normal).
+					# Donc on affiche dégâts/heal/shield via resolved_effects, et l'application de status via extra_suffix.
+					var formatted_effects_str = _format_effects_list(effects_for_phrase)
+
+					# --- Choix de la phrase ---
+					if _is_only_type(effects_for_phrase, "Shield"):
+						lines.append("%s renforce %s avec %s.%s" % [formatted_caster, formatted_target, formatted_effects_str, kill_suffix])
+					elif _is_only_type(effects_for_phrase, "HealHP"):
+						lines.append("%s soigne %s pour %s points.%s" % [formatted_caster, formatted_target, formatted_effects_str, kill_suffix])
 					else:
-						lines.append("%s inflige %s à %s." % [formatted_caster, formatted_effects_str, formatted_target])
+						# Damage (inclut aussi les ticks DoT, où formatted_caster a été remplacé)
+						lines.append("%s inflige %s à %s%s.%s" % [formatted_caster, formatted_effects_str, formatted_target, extra_suffix, kill_suffix])
 
 				if lines.size() > 0:
-					# suffix kill sur la dernière ligne (lisible)
-					lines[lines.size() - 1] = str(lines[lines.size() - 1]) + kill_suffix
 					return "\n".join(lines)
 
 			# Fallback si jamais on reçoit un ancien event sans targetEffects
-			# (tu peux le retirer quand tu auras migré 100% des scripts)
 			var effects_fallback: Array = event_data.get("effects", [])
 			var formatted_effects_str_fb = _format_effects_list(effects_fallback)
 			return "%s exécute une action : %s.%s" % [formatted_caster, formatted_effects_str_fb, kill_suffix]

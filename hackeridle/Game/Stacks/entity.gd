@@ -9,6 +9,7 @@ var current_shield: float = 0.0 # Bouclier temporaire
 var stats : Dictionary = {"penetration": 0,
 							"encryption": 0,
 							"flux": 0}
+var active_statuses: Array[Dictionary]
 
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
 
@@ -29,6 +30,7 @@ signal s_entity_die(entity)
 signal s_execute_script
 signal s_sequence_completed(entity)
 signal s_cast_script
+signal s_send_log(logs)
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			_max_hp:int = 20, stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
@@ -48,9 +50,6 @@ func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			max_hp = _max_hp
 	
 	current_hp = max_hp
-
-
-		
 # Méthode appelée par l'interface utilisateur (Hacker) ou la logique IA (RobotIA)
 func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.
@@ -94,10 +93,16 @@ func execute_sequence(targets: Array[Entity]) -> void:
 	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
 	current_script_index = 0
 	cache_targets = targets
+	#Cela correspond aussi au début d'un nouveau tour pour l'entité actuelle
+	var tick_events: Array[Dictionary] = StatusResolver.TickStartOfTurn(self)
+
+	for ev in tick_events:
+		print("events de tick: %s" % ev)
+		CombatResolver.resolve(ev)
+		s_send_log.emit(ev)
 	
 	#on doit lancer la première exécution sur l'ui. lorsqu'il sera fini,
 	#on execute le next_scrip
-	
 	prepare_next_script()
 
 func prepare_next_script():
@@ -140,7 +145,8 @@ func execute_next_script():
 	#reçu par le StackFightUI
 	s_execute_script.emit(current_script_index, data_from_execution)
 	
-	
+
+############# METHODES POUR LE COMBAT #########################################
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
 	# (Logique simplifiée) Le bouclier absorbe d'abord les dégâts
@@ -180,6 +186,30 @@ func heal(value: float) -> void:
 		return
 	current_hp = min(current_hp + value, max_hp)
 
+func add_status(status: Dictionary) -> void:
+	if status.is_empty():
+		return
+	# Normalisation minimale
+	var id: String = str(status.get("id", ""))
+	if id == "":
+		return
+	var turns: int = int(status.get("turns", 0))
+	if turns <= 0:
+		return
+	# Règle V1 : Refresh si déjà présent
+	for i in range(active_statuses.size()):
+		if str(active_statuses[i].get("id", "")) == id:
+			active_statuses[i]["turnsRemaining"] = turns
+			# Optionnel : update valeur si tu veux
+			active_statuses[i]["value"] = status.get("value", active_statuses[i].get("value", 0))
+			active_statuses[i]["source"] = status.get("source", active_statuses[i].get("source", null))
+			return
+	# Nouveau status
+	var new_status := status.duplicate(true)
+	new_status["turnsRemaining"] = turns
+	active_statuses.append(new_status)
+
+############## SIGNAUX ########################################################
 
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script

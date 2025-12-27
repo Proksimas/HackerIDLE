@@ -87,6 +87,7 @@ func entity_connexions(entity: Entity):
 	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
 	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
 	entity.s_sequence_completed.connect(_on_sequence_completed)
+	entity.s_send_log.connect(_on_s_send_log)
 
 func entity_deconnexion(entity: Entity):
 	"""Deconnexion"""
@@ -98,7 +99,8 @@ func entity_deconnexion(entity: Entity):
 		current_stack_fight_ui.s_execute_script_ui_finished.disconnect(entity._on_s_execute_script_ui_finished)
 	if entity.s_sequence_completed.is_connected(_on_sequence_completed):
 		entity.s_sequence_completed.disconnect(_on_sequence_completed)
-
+	if entity.s_send_log.is_connected(_on_s_send_log):
+		entity.s_send_log.disconnect(_on_s_send_log)
 var current_ia_index: int = 0
 func _on_enter_ia_execution() -> void:
 	print("PHASE: Exécution de l'IA")
@@ -196,3 +198,6 @@ func _on_robot_died(_robot:Entity):
 		if robot == _robot:
 			robots_ia.erase(robot)
 			
+func _on_s_send_log(logs):
+	"""on reçoit spécialement un log, qu'on envoie directement au fight.logs"""
+	current_stack_fight_ui.fight_logs.add_log(logs)
