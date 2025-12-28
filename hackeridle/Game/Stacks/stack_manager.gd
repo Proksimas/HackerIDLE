@@ -34,6 +34,16 @@ func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	else:
 		push_warning("Probleme dans l'apprentissage du stack script %s" % stack_script_name)
 		return false
+
+func learn_all_script(learner: Entity) -> void:
+	"""Apprend tous les scripts du pool pour l'entite donnee."""
+	if learner == null:
+		return
+	if stack_script_pool.is_empty():
+		initialize_pool()
+	for script_name in stack_script_pool.keys():
+		learn_stack_script(learner, str(script_name))
+
 	
 func initialize_pool():
 	"""initialisation du pool de script"""
