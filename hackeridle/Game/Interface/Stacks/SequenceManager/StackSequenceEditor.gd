@@ -7,11 +7,13 @@ extends Control
 @onready var status_label: Label = %StatusLabel
 @onready var up_button: Button = %UpButton
 @onready var down_button: Button = %DownButton
+@onready var entities_menu: OptionButton = %EntitiesMenu
 
 const CREATE_ENTITY = preload("res://Game/Interface/Stacks/SequenceManager/CreateEntity.tscn")
 var available_names: Array[String] = []
 var sequence_names: Array[String] = []
 var dirty := false
+var entities: Array[Entity] = []
 
 func _ready() -> void:
 	if entity != null:
@@ -34,12 +36,12 @@ func load_from_entity(target: Entity) -> void:
 
 func _refresh_lists() -> void:
 	available_list.clear()
-	for name in available_names:
-		available_list.add_item(name)
+	for _name in available_names:
+		available_list.add_item(_name)
 
 	sequence_list.clear()
-	for name in sequence_names:
-		sequence_list.add_item(name)
+	for _name in sequence_names:
+		sequence_list.add_item(_name)
 
 func _on_available_item_activated(index: int) -> void:
 	if index < 0 or index >= available_names.size():
@@ -104,6 +106,14 @@ func _on_save_pressed() -> void:
 func _on_create_entity_pressed() -> void:
 	open_create_entity_ui()
 
+func _on_entity_selected(index: int) -> void:
+	if index < 0 or index >= entities.size():
+		return
+	load_from_entity(entities[index])
+
+func _on_refresh_entities_pressed() -> void:
+	_refresh_entities_menu()
+
 func _update_status(extra: String = "") -> void:
 	var base := ""
 	if entity == null:
@@ -130,5 +140,20 @@ func open_create_entity_ui() -> void:
 		creator.connect("entity_created", Callable(self, "_on_entity_created"))
 
 func _on_entity_created(ent: Entity) -> void:
+	if ent == null:
+		return
+	entities.append(ent)
+	_refresh_entities_menu(entities.size() - 1)
 	load_from_entity(ent)
 	_update_status("Entite chargee depuis le createur.")
+
+func _refresh_entities_menu(select_index: int = -1) -> void:
+	entities_menu.clear()
+	if entities.is_empty():
+		entities_menu.add_item("Aucune entite")
+		entities_menu.select(0)
+		return
+	for i in range(entities.size()):
+		entities_menu.add_item(str(entities[i].entity_name))
+	if select_index >= 0 and select_index < entities.size():
+		entities_menu.select(select_index)
