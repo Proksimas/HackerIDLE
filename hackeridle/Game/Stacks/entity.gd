@@ -9,15 +9,15 @@ var current_shield: float = 0.0 # Bouclier temporaire
 var stats : Dictionary = {"penetration": 0,
 							"encryption": 0,
 							"flux": 0}
-var active_statuses: Array[Dictionary]
+var active_statuses: Array[Dictionary] = []
 
 # Facteur de réduction de Cooldown. Ex: 0.5 = 50% de temps de rechargement en moins.
 
 var entity_name: String = "default_name"
 # Le pool de scripts ORIGINAUX (les modèles maîtres, non modifiés) APRES l'apprentissage
-var available_scripts: Dictionary 
+var available_scripts: Dictionary = {}
 #La sequence de script enregistrée 
-var sequence_order: Array[String]
+var sequence_order: Array[String] = []
 # La Séquence/Stack pour le cycle actuel. 
 # Elle contient les scripts choisis dans la séquences
 var stack_script_sequence: Array[StackScript] = [] 
@@ -34,6 +34,15 @@ signal s_send_log(logs)
 
 func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			_max_hp:int = 20, stat_pen:int = 0, stat_enc:int = 0, stat_flux:int = 0):
+	available_scripts = {}
+	sequence_order = []
+	active_statuses = []
+	stack_script_sequence.clear()
+	current_shield = 0.0
+	self_is_dead = false
+	current_script_index = 0
+	cache_targets = []
+
 	stats['penetration'] = float(stat_pen)
 	stats['encryption'] = float(stat_enc)
 	stats['flux'] = float(stat_flux)
@@ -43,7 +52,6 @@ func _init(is_hacker: bool, _entity_name: String = "default_name", \
 			entity_is_hacker = true
 			entity_name = "hacker"
 			set_hacker_max_hp()
-			print("hp du hacker: %s" % max_hp)
 		false:
 			entity_is_hacker = false
 			entity_name = _entity_name
