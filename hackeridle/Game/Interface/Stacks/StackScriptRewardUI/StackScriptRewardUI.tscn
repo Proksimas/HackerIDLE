@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://cokxlkeb0glxx"]
+
+[ext_resource type="Script" path="res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardUI.gd" id="1_l0jxr"]
+
+[node name="StackScriptRewardUI" type="PanelContainer"]
+custom_minimum_size = Vector2(320, 0)
+anchors_preset = -1
+anchor_right = 0.542373
+anchor_bottom = 0.117371
+offset_right = -320.0
+offset_bottom = -150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_type_variation = &"Panel"
+script = ExtResource("1_l0jxr")
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="KindTag" type="Label" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.58, 0.82, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "StackScript"
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "Titre du script"
+autowrap_mode = 3
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Aucune description."
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+
+[node name="Actions" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ClaimButton" type="Button" parent="MarginContainer/VBox/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Obtenir"
+icon_alignment = 1
+expand_icon = true
