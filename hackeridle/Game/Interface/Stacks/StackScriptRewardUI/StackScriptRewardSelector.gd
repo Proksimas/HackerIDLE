@@ -9,7 +9,6 @@ signal selection_cancelled
 @onready var cards_container: VBoxContainer = %CardsContainer
 @onready var title_label: Label = %TitleLabel
 @onready var overlay: ColorRect = %Overlay
-@onready var close_button: Button = %CloseButton
 
 @export var pause_game_during_selection: bool = true
 
@@ -19,7 +18,6 @@ var _closed: bool = false
 
 func _ready() -> void:
 	_clear_cards()
-	close_button.pressed.connect(_on_close_pressed)
 	_set_modal_pause(true)
 	
 	
@@ -28,7 +26,7 @@ func _ready() -> void:
 		"id": "syn_flood_reward",
 		"kind": "script",                      # ou RewardKind.SCRIPT
 		"title": "Syn Flood",
-		"description": "Dégâts mono-cible basés sur la pénétration.",
+		"description": "blabla.",
 		"script_resource": load("res://Game/Stacks/StackScript/syn_flood.tres"),
 	# optionnel pour les autres types :
 	# "slot_increment": 1,
@@ -76,19 +74,12 @@ func _disable_other_cards(selected_card: StackScriptRewardUI) -> void:
 		if child is StackScriptRewardUI and child != selected_card:
 			child.claim_button.disabled = true
 
-
-func _on_close_pressed() -> void:
-	if _closed:
-		return
-	_closed = true
-	selection_cancelled.emit()
-	_close_selector()
-
-
 func _close_selector() -> void:
 	_set_modal_pause(false)
 	queue_free()
 
+func _draw() -> void:
+	title_label.text = tr("$ChoseReward")
 
 func _set_modal_pause(enable: bool) -> void:
 	# Utilise get_tree().paused pour geler les autres process ; ce nœud reste actif.
