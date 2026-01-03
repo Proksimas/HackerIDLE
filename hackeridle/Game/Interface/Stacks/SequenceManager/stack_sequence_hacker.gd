@@ -35,6 +35,7 @@ var _drag_origin := ""
 var _drag_index := -1
 var _drag_started := false
 var _drag_start_pos := Vector2.ZERO
+var _inventory_names: Array[String] = []
 
 const DRAG_THRESHOLD := 6.0
 
@@ -89,6 +90,7 @@ func _populate_lists() -> void:
 func _populate_scripts() -> void:
 	scripts_list.clear()
 	_script_lookup.clear()
+	_inventory_names.clear()
 
 	if hacker == null or hacker.available_scripts.is_empty():
 		return
@@ -103,6 +105,7 @@ func _populate_scripts() -> void:
 		if script_res is StackScript:
 			_script_lookup[name] = script_res
 			scripts_list.add_item(name)
+			_inventory_names.append(name)
 
 	if scripts_list.item_count > 0:
 		scripts_list.select(0)
@@ -267,8 +270,13 @@ func _on_sequence_list_item_selected(index: int) -> void:
 func _on_sequence_list_item_activated(index: int) -> void:
 	if index < 0 or index >= _sequence_names.size():
 		return
+	var removed := _sequence_names[index]
 	_sequence_names.remove_at(index)
+	if not _inventory_names.has(removed):
+		_inventory_names.append(removed)
+		_inventory_names.sort()
 	_refresh_sequence_list(min(index, _sequence_names.size() - 1))
+	_refresh_scripts_list()
 
 
 func _on_sequence_list_gui_input(event: InputEvent) -> void:
@@ -278,11 +286,15 @@ func _on_sequence_list_gui_input(event: InputEvent) -> void:
 func _add_to_sequence(name: String, insert_idx: int) -> void:
 	if _sequence_names.size() >= max_slots:
 		return
+	if not _inventory_names.has(name):
+		return
 	if insert_idx < 0 or insert_idx > _sequence_names.size():
 		_sequence_names.append(name)
 	else:
 		_sequence_names.insert(insert_idx, name)
+	_inventory_names.erase(name)
 	_refresh_sequence_list(insert_idx if insert_idx >= 0 else _sequence_names.size() - 1)
+	_refresh_scripts_list()
 
 
 func _refresh_sequence_list(select_idx: int = -1) -> void:
@@ -293,6 +305,12 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 		sequence_list.select(select_idx)
 	_display_script(sequence_list.get_item_text(select_idx) if select_idx >= 0 and select_idx < sequence_list.item_count else selected_name.text)
 	_update_slots_label()
+
+
+func _refresh_scripts_list() -> void:
+	scripts_list.clear()
+	for n in _inventory_names:
+		scripts_list.add_item(n)
 
 
 func _update_slots_label() -> void:
@@ -330,7 +348,7 @@ func _can_drop_data(at_position: Vector2, data) -> bool:
 		# Ajout dans la sequence : on refuse si plein et pas un simple reorder
 		if str(data.get("source", "")) == "sequence":
 			return true
-		return _sequence_names.size() < max_slots
+		return _sequence_names.size() < max_slots and _inventory_names.has(str(data.get("name", "")))
 
 	if scripts_list.get_global_rect().has_point(mouse):
 		# Permet de retirer via drag vers l'inventaire
@@ -366,8 +384,13 @@ func _drop_data(at_position: Vector2, data) -> void:
 
 	if scripts_list.get_global_rect().has_point(mouse) and source == "sequence":
 		if from_idx >= 0 and from_idx < _sequence_names.size():
+			var removed := _sequence_names[from_idx]
 			_sequence_names.remove_at(from_idx)
+			if not _inventory_names.has(removed):
+				_inventory_names.append(removed)
+				_inventory_names.sort()
 			_refresh_sequence_list(-1)
+			_refresh_scripts_list()
 
 
 func _handle_drag_event(event: InputEvent, list: ItemList, source: String) -> void:
