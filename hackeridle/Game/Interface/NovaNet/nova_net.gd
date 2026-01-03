@@ -3,6 +3,7 @@ extends Control
 @onready var nova_net_tab: TabContainer = %NovaNetTab
 @onready var bots: VBoxContainer = %Bots
 @onready var bots_affecation: VBoxContainer = %BotsAffecation
+@onready var nova_net_main: Control = %NovaNetMain
 
 
 
@@ -17,6 +18,6 @@ func _load_data(content):
 
 
 func _on_draw() -> void:
-	bots.show()
+	nova_net_main.show()
 	refresh()
 	pass # Replace with function body.
