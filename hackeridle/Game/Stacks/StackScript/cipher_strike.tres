@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://f1nxj5qx0c1u"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/cipher_strike.gd" id="1_o6ths"]
+
+[resource]
+script = ExtResource("1_o6ths")
+stack_script_name = "cipher_strike"
+turn_cooldown_base = 5
+type_and_coef = {
+"encryption": 1.0,
+"flux": 0.0,
+"penetration": 0.5
+}
+execution_time = 3.0
+script_kind = 0

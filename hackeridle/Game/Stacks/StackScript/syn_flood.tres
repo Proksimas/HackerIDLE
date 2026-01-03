@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dpkvud6n50pp2"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/syn_flood.gd" id="1_mssvw"]
+
+[resource]
+script = ExtResource("1_mssvw")
+stack_script_name = "syn_flood"
+turn_cooldown_base = 5
+type_and_coef = {
+"encryption": 0.0,
+"flux": 0.1,
+"penetration": 2.0
+}
+execution_time = 3.0
+script_kind = 0

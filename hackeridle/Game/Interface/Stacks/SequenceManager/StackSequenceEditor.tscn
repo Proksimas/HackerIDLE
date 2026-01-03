@@ -1,0 +1,139 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvwmwqa5a53je"]
+
+[ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/StackSequenceEditor.gd" id="1_1j7ue"]
+
+[node name="StackSequenceEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1j7ue")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.500782
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+metadata/_edit_use_anchors_ = true
+
+[node name="VBox" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 12
+
+[node name="Header" type="Label" parent="Margin/VBox"]
+layout_mode = 2
+text = "Ordre de sequence des scripts"
+
+[node name="Lists" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+
+[node name="AvailableBox" type="VBoxContainer" parent="Margin/VBox/Lists"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="AvailableLabel" type="Label" parent="Margin/VBox/Lists/AvailableBox"]
+layout_mode = 2
+text = "Scripts disponibles"
+
+[node name="AvailableList" type="ItemList" parent="Margin/VBox/Lists/AvailableBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="SequenceBox" type="VBoxContainer" parent="Margin/VBox/Lists"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="SequenceLabel" type="Label" parent="Margin/VBox/Lists/SequenceBox"]
+layout_mode = 2
+text = "Sequence actuelle"
+
+[node name="SequenceList" type="ItemList" parent="Margin/VBox/Lists/SequenceBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+allow_reselect = true
+
+[node name="MoveButtons" type="HBoxContainer" parent="Margin/VBox/Lists/SequenceBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="UpButton" type="Button" parent="Margin/VBox/Lists/SequenceBox/MoveButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Monter"
+
+[node name="DownButton" type="Button" parent="Margin/VBox/Lists/SequenceBox/MoveButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Descendre"
+
+[node name="EntityBar" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EntitiesMenu" type="OptionButton" parent="Margin/VBox/EntityBar"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RefreshButton" type="Button" parent="Margin/VBox/EntityBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Rafraichir"
+
+[node name="CreateButton" type="Button" parent="Margin/VBox/EntityBar"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Creer une entite"
+
+[node name="Actions" type="HBoxContainer" parent="Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SaveButton" type="Button" parent="Margin/VBox/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Enregistrer"
+
+[node name="ClearButton" type="Button" parent="Margin/VBox/Actions"]
+layout_mode = 2
+text = "Vider"
+
+[node name="StatusLabel" type="Label" parent="Margin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Aucune entite chargee."
+autowrap_mode = 2
+
+[connection signal="item_activated" from="Margin/VBox/Lists/AvailableBox/AvailableList" to="." method="_on_available_item_activated"]
+[connection signal="item_activated" from="Margin/VBox/Lists/SequenceBox/SequenceList" to="." method="_on_sequence_item_activated"]
+[connection signal="pressed" from="Margin/VBox/Lists/SequenceBox/MoveButtons/UpButton" to="." method="_on_move_up_pressed"]
+[connection signal="pressed" from="Margin/VBox/Lists/SequenceBox/MoveButtons/DownButton" to="." method="_on_move_down_pressed"]
+[connection signal="item_selected" from="Margin/VBox/EntityBar/EntitiesMenu" to="." method="_on_entity_selected"]
+[connection signal="pressed" from="Margin/VBox/EntityBar/RefreshButton" to="." method="_on_refresh_entities_pressed"]
+[connection signal="pressed" from="Margin/VBox/EntityBar/CreateButton" to="." method="_on_create_entity_pressed"]
+[connection signal="pressed" from="Margin/VBox/Actions/SaveButton" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="Margin/VBox/Actions/ClearButton" to="." method="_on_clear_pressed"]

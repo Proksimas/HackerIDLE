@@ -195,3 +195,4 @@ func fill_player_stats(_rebirthing: bool = false):
 	StatsManager._init()
 	EventsManager.events_initialisation()
 	NovaNetManager._init()
+	StackManager._init()

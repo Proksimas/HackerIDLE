@@ -1,0 +1,74 @@
+extends Node
+
+const stack_dir_path = "res://Game/Stacks/StackScript/"
+const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
+
+var stack_script_pool: Dictionary
+
+var stack_script_stats: Dictionary # correspond aux bots affectés pour le gain de stats, ainsi que les PV.
+
+func _ready() -> void:
+	
+	_init()
+	pass # Replace with function body.
+
+func _init() -> void:
+	stack_script_pool.clear()
+	initialize_pool()
+	stack_script_stats = {"penetration": 0, # Influe sur les compétences offensives et moyenne  sur les PV
+							"encryption": 0,# Influe sur les compétences défensives, et grandement sur les pv
+							"flux": 0}# Influe sur les compétences utilitaires et légérement sur les pv
+
+func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
+	var fight = STACK_FIGHT.instantiate()
+	self.add_child(fight)
+	#fight.start_fight(_hacker, robots) -> start par l'ui
+	return fight
+
+func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
+	"""on donne à l'entité le script donné en nom en paramaètre"""
+	if stack_script_pool.has(stack_script_name): 
+		var script = stack_script_pool[stack_script_name]
+		learner.available_scripts[stack_script_name] = load(script).duplicate(true)
+		return true
+	else:
+		push_warning("Probleme dans l'apprentissage du stack script %s" % stack_script_name)
+		return false
+
+func learn_all_script(learner: Entity) -> void:
+	"""Apprend tous les scripts du pool pour l'entite donnee."""
+	if learner == null:
+		return
+	if stack_script_pool.is_empty():
+		initialize_pool()
+	for script_name in stack_script_pool.keys():
+		learn_stack_script(learner, str(script_name))
+
+	
+func initialize_pool():
+	"""initialisation du pool de script"""
+	var dir = DirAccess.open(stack_dir_path)
+	if dir:
+		dir.list_dir_begin()
+		var nom_element = dir.get_next()
+		while nom_element != "":
+			if dir.current_is_dir():
+				# C'est un sous-dossier, novous pouvez appeler cette fonction récursivement
+				pass
+			elif nom_element.ends_with(".gd") or nom_element == "stack_script.tres":
+				pass
+			else:
+				var chemin_complet = dir.get_current_dir().path_join(nom_element)
+				var file_name = nom_element.trim_suffix(".tres")
+				stack_script_pool[file_name] = chemin_complet
+				
+			nom_element = dir.get_next()
+			
+		dir.list_dir_end()
+	else:
+		print("Erreur d'ouverture du dossier.")
+
+
+func _save_data():
+	# TODO
+	pass

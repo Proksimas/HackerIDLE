@@ -1,0 +1,141 @@
+[gd_scene load_steps=2 format=3 uid="uid://createentity"]
+
+[ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/CreateEntity.gd" id="1_abced"]
+
+[node name="CreateEntity" type="PanelContainer"]
+offset_left = 200.0
+offset_top = 120.0
+offset_right = 600.0
+offset_bottom = 480.0
+mouse_filter = 1
+script = ExtResource("1_abced")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="MarginContainer/VBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Creation d'entite"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBox/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "X"
+
+[node name="NameRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBox/NameRow"]
+layout_mode = 2
+text = "Nom"
+
+[node name="NameEdit" type="LineEdit" parent="MarginContainer/VBox/NameRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Nom de l'entite"
+
+[node name="HackerCheck" type="CheckBox" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Est hacker"
+
+[node name="HpRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HpLabel" type="Label" parent="MarginContainer/VBox/HpRow"]
+layout_mode = 2
+text = "HP max"
+
+[node name="HpSpin" type="SpinBox" parent="MarginContainer/VBox/HpRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 9999.0
+value = 20.0
+
+[node name="PenRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PenLabel" type="Label" parent="MarginContainer/VBox/PenRow"]
+layout_mode = 2
+text = "Penetration"
+
+[node name="PenSpin" type="SpinBox" parent="MarginContainer/VBox/PenRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 999.0
+
+[node name="EncRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="EncLabel" type="Label" parent="MarginContainer/VBox/EncRow"]
+layout_mode = 2
+text = "Encryption"
+
+[node name="EncSpin" type="SpinBox" parent="MarginContainer/VBox/EncRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 999.0
+
+[node name="FluxRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="FluxLabel" type="Label" parent="MarginContainer/VBox/FluxRow"]
+layout_mode = 2
+text = "Flux"
+
+[node name="FluxSpin" type="SpinBox" parent="MarginContainer/VBox/FluxRow"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 999.0
+
+[node name="ButtonsRow" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CreateButton" type="Button" parent="MarginContainer/VBox/ButtonsRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Creer l'entite"
+
+[node name="ResetButton" type="Button" parent="MarginContainer/VBox/ButtonsRow"]
+layout_mode = 2
+text = "Reinitialiser"
+
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Pret a creer une entite."
+autowrap_mode = 2
+
+[connection signal="pressed" from="MarginContainer/VBox/Header/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBox/ButtonsRow/CreateButton" to="." method="_on_create_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBox/ButtonsRow/ResetButton" to="." method="_on_reset_button_pressed"]

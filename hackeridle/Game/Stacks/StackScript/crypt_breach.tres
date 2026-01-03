@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dxi8cfxkv22kf"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/crypt_breach.gd" id="1_grbcs"]
+
+[resource]
+script = ExtResource("1_grbcs")
+stack_script_name = "crypt_breach"
+turn_cooldown_base = 5
+type_and_coef = {
+"encryption": 0.5,
+"flux": 0.0,
+"penetration": 1.0
+}
+execution_time = 3.0
+script_kind = 0

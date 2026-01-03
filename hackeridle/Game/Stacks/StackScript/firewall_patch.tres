@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dpuvgq34ab6io"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/firewall_patch.gd" id="1_jsi47"]
+
+[resource]
+script = ExtResource("1_jsi47")
+stack_script_name = "firewall_patch"
+turn_cooldown_base = 5
+type_and_coef = {
+"encryption": 3.0,
+"flux": 0.0,
+"penetration": 0.0
+}
+execution_time = 3.0
+script_kind = 1

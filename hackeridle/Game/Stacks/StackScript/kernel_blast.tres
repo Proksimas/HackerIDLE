@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://2im6tai68ut1"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/kernel_blast.gd" id="1_55bwo"]
+
+[resource]
+script = ExtResource("1_55bwo")
+stack_script_name = "kernel_blast"
+turn_cooldown_base = 5
+type_and_coef = {
+"encryption": 0.5,
+"flux": 0.0,
+"penetration": 0.5
+}
+execution_time = 3.0
+script_kind = 0
