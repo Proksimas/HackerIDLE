@@ -55,6 +55,8 @@ func _gui_input(event: InputEvent) -> void:
 				_drag_started = true
 				var preview = PREVIEW_SCENE.instantiate()
 				preview.setup(_script_name, name_label.text, _script_kind, type_label.text, _source, _sequence_index)
+				if preview.has_method("set_preview_only"):
+					preview.set_preview_only()
 				var idx := -1
 				if _source == "sequence":
 					idx = _sequence_index
@@ -84,6 +86,12 @@ func _apply_style() -> void:
 			style.border_color = Color(0.3, 0.3, 0.35, 1)
 
 	add_theme_stylebox_override("panel", style)
+
+
+func set_preview_only() -> void:
+	_ensure_nodes()
+	if type_label != null:
+		type_label.visible = false
 
 
 func _ensure_nodes() -> void:

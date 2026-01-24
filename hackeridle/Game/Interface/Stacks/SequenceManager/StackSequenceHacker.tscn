@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c6ctlstq4ibhs"]
+[gd_scene load_steps=13 format=3 uid="uid://c6ctlstq4ibhs"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
+[ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptDropArea.gd" id="2_4c8sd"]
 
 [sub_resource type="StyleBoxFlat" id="style_frame"]
 bg_color = Color(0.08, 0.09, 0.1, 1)
@@ -241,6 +242,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("style_list")
+script = ExtResource("2_4c8sd")
 
 [node name="ScriptsContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsScroll"]
 unique_name_in_owner = true
@@ -487,3 +489,5 @@ text = "Flux"
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
+
+[connection signal="pressed" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions/ClearButton" to="." method="_on_clear_button_pressed"]

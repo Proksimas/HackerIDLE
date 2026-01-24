@@ -40,6 +40,8 @@ const COLOR_DOT = "#008000"     # Vert
 func _ready() -> void:
 	_reset_details()
 	_refresh_stats()
+	if scripts_scroll.has_signal("script_drop"):
+		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
 	if hacker != null:
 		load_hacker(hacker)
 	else:
@@ -419,6 +421,38 @@ func _on_sequence_slot_drop(slot_index: int, data: Dictionary) -> void:
 			_sequence_names[from_idx] = ""
 			_sequence_names[slot_index] = moved
 			_refresh_sequence_list(slot_index)
+
+
+func _on_clear_button_pressed() -> void:
+	_ensure_sequence_slots()
+	for i in range(_sequence_names.size()):
+		var name := _sequence_names[i]
+		if name == "":
+			continue
+		if not _inventory_names.has(name):
+			_inventory_names.append(name)
+		_sequence_names[i] = ""
+	_inventory_names.sort()
+	_refresh_sequence_list(-1)
+	_refresh_scripts_list()
+
+
+func _on_scripts_drop(data: Dictionary) -> void:
+	var source := str(data.get("source", ""))
+	if source != "sequence":
+		return
+	var from_idx := int(data.get("from_index", -1))
+	if from_idx < 0 or from_idx >= _sequence_names.size():
+		return
+	var removed := _sequence_names[from_idx]
+	if removed == "":
+		return
+	_sequence_names[from_idx] = ""
+	if not _inventory_names.has(removed):
+		_inventory_names.append(removed)
+		_inventory_names.sort()
+	_refresh_sequence_list(-1)
+	_refresh_scripts_list()
 
 
 func _ensure_sequence_slots() -> void:
