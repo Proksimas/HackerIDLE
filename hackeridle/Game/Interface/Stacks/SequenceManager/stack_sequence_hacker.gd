@@ -3,7 +3,8 @@ extends Control
 @export var hacker: Entity
 @export var max_slots: int = 5
 
-@onready var scripts_list: ItemList = %ScriptsList
+@onready var scripts_scroll: Control = %ScriptsScroll
+@onready var scripts_container: VBoxContainer = %ScriptsContainer
 @onready var stack_script_name: Label = %StackScriptName
 @onready var type_value: Label = %TypeValue
 @onready var cooldown_value: Label = %CooldownValue
@@ -15,19 +16,17 @@ extends Control
 @onready var penetration_value: Label = %PenetrationValue
 @onready var encryption_value: Label = %EncryptionValue
 @onready var flux_value: Label = %FluxValue
-@onready var sequence_list: ItemList = %SequenceList
+@onready var sequence_scroll: Control = %SequenceScroll
+@onready var sequence_container: VBoxContainer = %SequenceContainer
 @onready var slots_label: Label = %SlotsLabel
+
+const SCRIPT_ENTRY_SCENE = preload("res://Game/Interface/Stacks/SequenceManager/ScriptEntry.tscn")
 
 var _script_lookup: Dictionary = {} # nom -> StackScript
 var _selected_script: StackScript
+var _selected_entry: Control
 var _sequence_names: Array[String] = []
-var _drag_origin := ""
-var _drag_index := -1
-var _drag_started := false
-var _drag_start_pos := Vector2.ZERO
 var _inventory_names: Array[String] = []
-
-const DRAG_THRESHOLD := 6.0
 
 # Définition des couleurs (constantes)
 const COLOR_HP = "#FF0000"      # Rouge
@@ -84,7 +83,7 @@ func _populate_lists() -> void:
 
 
 func _populate_scripts() -> void:
-	scripts_list.clear()
+	_clear_scripts_container()
 	_script_lookup.clear()
 	_inventory_names.clear()
 
@@ -100,19 +99,13 @@ func _populate_scripts() -> void:
 		var script_res = hacker.available_scripts.get(name, null)
 		if script_res is StackScript:
 			_script_lookup[name] = script_res
-			var display_name := _format_script_name(name)
-			scripts_list.add_item(display_name)
-			scripts_list.set_item_metadata(scripts_list.item_count - 1, name)
 			_inventory_names.append(name)
 
-	if scripts_list.item_count > 0:
-		scripts_list.select(0)
-		var first_name := _get_item_name(scripts_list, 0)
-		_display_script(first_name)
+	_refresh_scripts_list()
 
 
 func _populate_sequence() -> void:
-	sequence_list.clear()
+	_clear_sequence_container()
 	_sequence_names.clear()
 
 	if hacker != null and not hacker.sequence_order.is_empty():
@@ -123,15 +116,7 @@ func _populate_sequence() -> void:
 	# S'assure que max_slots couvre toujours la sequence existante
 	max_slots = max(max_slots, _sequence_names.size())
 
-	for name in _sequence_names:
-		var display_name := _format_script_name(name)
-		sequence_list.add_item(display_name)
-		sequence_list.set_item_metadata(sequence_list.item_count - 1, name)
-
-	if sequence_list.item_count > 0:
-		sequence_list.select(0)
-
-	_update_slots_label()
+	_refresh_sequence_list()
 
 
 func _display_script(name: String) -> void:
@@ -248,46 +233,33 @@ func _reset_details() -> void:
 	exec_value.text = "-"
 	scaling_value.text = "-"
 	description_label.text = "Choisis un script pour voir son effet."
-	sequence_list.deselect_all()
+	_set_selected_entry(null)
+
+func _on_script_entry_selected(name: String) -> void:
+	_display_script(name)
+	_select_entry_by_name_in(scripts_container, name)
 
 
-func _on_scripts_list_item_selected(index: int) -> void:
-	if index < 0 or index >= scripts_list.item_count:
+func _on_script_entry_activated(name: String) -> void:
+	_display_script(name)
+	_add_to_sequence(name, -1)
+
+
+func _on_sequence_entry_selected(name: String) -> void:
+	_display_script(name)
+	_select_entry_by_name_in(sequence_container, name)
+
+
+func _on_sequence_entry_activated(name: String) -> void:
+	var index := _sequence_names.find(name)
+	if index == -1:
 		return
-	_display_script(_get_item_name(scripts_list, index))
-
-
-func _on_scripts_list_item_activated(index: int) -> void:
-	_on_scripts_list_item_selected(index)
-	if index < 0 or index >= scripts_list.item_count:
-		return
-	_add_to_sequence(_get_item_name(scripts_list, index), -1)
-
-
-func _on_scripts_list_gui_input(event: InputEvent) -> void:
-	_handle_drag_event(event, scripts_list, "available")
-
-
-func _on_sequence_list_item_selected(index: int) -> void:
-	if index < 0 or index >= sequence_list.item_count:
-		return
-	_display_script(_get_item_name(sequence_list, index))
-
-
-func _on_sequence_list_item_activated(index: int) -> void:
-	if index < 0 or index >= _sequence_names.size():
-		return
-	var removed := _sequence_names[index]
 	_sequence_names.remove_at(index)
-	if not _inventory_names.has(removed):
-		_inventory_names.append(removed)
+	if not _inventory_names.has(name):
+		_inventory_names.append(name)
 		_inventory_names.sort()
 	_refresh_sequence_list(min(index, _sequence_names.size() - 1))
 	_refresh_scripts_list()
-
-
-func _on_sequence_list_gui_input(event: InputEvent) -> void:
-	_handle_drag_event(event, sequence_list, "sequence")
 
 
 func _add_to_sequence(name: String, insert_idx: int) -> void:
@@ -305,49 +277,41 @@ func _add_to_sequence(name: String, insert_idx: int) -> void:
 
 
 func _refresh_sequence_list(select_idx: int = -1) -> void:
-	sequence_list.clear()
+	_clear_sequence_container()
 	for n in _sequence_names:
-		var display_name := _format_script_name(n)
-		sequence_list.add_item(display_name)
-		sequence_list.set_item_metadata(sequence_list.item_count - 1, n)
-	if select_idx >= 0 and select_idx < sequence_list.item_count:
-		sequence_list.select(select_idx)
-	var selected_name_raw := _get_item_name(sequence_list, select_idx)
+		var script_res = _script_lookup.get(n, null)
+		if script_res is StackScript:
+			var entry = SCRIPT_ENTRY_SCENE.instantiate()
+			sequence_container.add_child(entry)
+			entry.setup(n, _format_script_name(n), script_res.script_kind, _script_kind_to_string(script_res.script_kind), "sequence")
+			entry.connect("selected", Callable(self, "_on_sequence_entry_selected"))
+			entry.connect("activated", Callable(self, "_on_sequence_entry_activated"))
+	if select_idx >= 0 and select_idx < _sequence_names.size():
+		_select_entry_by_name_in(sequence_container, _sequence_names[select_idx])
+		_display_script(_sequence_names[select_idx])
 	_update_slots_label()
 
 
 func _refresh_scripts_list() -> void:
-	scripts_list.clear()
+	_clear_scripts_container()
+	var first_name := ""
 	for n in _inventory_names:
-		var display_name := _format_script_name(n)
-		scripts_list.add_item(display_name)
-		scripts_list.set_item_metadata(scripts_list.item_count - 1, n)
+		var script_res = _script_lookup.get(n, null)
+		if script_res is StackScript:
+			var entry = SCRIPT_ENTRY_SCENE.instantiate()
+			scripts_container.add_child(entry)
+			entry.setup(n, _format_script_name(n), script_res.script_kind, _script_kind_to_string(script_res.script_kind), "available")
+			entry.connect("selected", Callable(self, "_on_script_entry_selected"))
+			entry.connect("activated", Callable(self, "_on_script_entry_activated"))
+			if first_name == "":
+				first_name = n
+	if first_name != "":
+		_display_script(first_name)
+		_select_entry_by_name_in(scripts_container, first_name)
 
 
 func _update_slots_label() -> void:
 	slots_label.text = "Slots : %d/%d" % [_sequence_names.size(), max_slots]
-
-
-func _get_drag_data(at_position: Vector2):
-	var mouse := get_global_mouse_position()
-
-	if scripts_list.get_global_rect().has_point(mouse):
-		var idx := scripts_list.get_item_at_position(scripts_list.get_local_mouse_position(), true)
-		if idx != -1:
-			var name := _get_item_name(scripts_list, idx)
-			var preview := Label.new()
-			preview.text = _format_script_name(name)
-			return {"name": name, "source": "available", "from_index": idx, "preview": preview}
-
-	if sequence_list.get_global_rect().has_point(mouse):
-		var idx2 := sequence_list.get_item_at_position(sequence_list.get_local_mouse_position(), true)
-		if idx2 != -1:
-			var name2 := _get_item_name(sequence_list, idx2)
-			var preview2 := Label.new()
-			preview2.text = _format_script_name(name2)
-			return {"name": name2, "source": "sequence", "from_index": idx2, "preview": preview2}
-
-	return null
 
 
 func _can_drop_data(at_position: Vector2, data) -> bool:
@@ -355,13 +319,13 @@ func _can_drop_data(at_position: Vector2, data) -> bool:
 		return false
 	var mouse := get_global_mouse_position()
 
-	if sequence_list.get_global_rect().has_point(mouse):
+	if sequence_scroll.get_global_rect().has_point(mouse):
 		# Ajout dans la sequence : on refuse si plein et pas un simple reorder
 		if str(data.get("source", "")) == "sequence":
 			return true
 		return _sequence_names.size() < max_slots and _inventory_names.has(str(data.get("name", "")))
 
-	if scripts_list.get_global_rect().has_point(mouse):
+	if scripts_scroll.get_global_rect().has_point(mouse):
 		# Permet de retirer via drag vers l'inventaire
 		return str(data.get("source", "")) == "sequence"
 
@@ -377,14 +341,14 @@ func _drop_data(at_position: Vector2, data) -> void:
 	var from_idx := int(data.get("from_index", -1))
 	var name := str(data.get("name", ""))
 
-	if sequence_list.get_global_rect().has_point(mouse):
-		var target_idx := sequence_list.get_item_at_position(sequence_list.get_local_mouse_position(), true)
-		if target_idx == -1:
-			target_idx = _sequence_names.size()
-
+	if sequence_scroll.get_global_rect().has_point(mouse):
+		var local_pos := sequence_container.get_local_mouse_position()
+		var target_idx := _get_sequence_drop_index(local_pos)
 		if source == "sequence":
 			if from_idx >= 0 and from_idx < _sequence_names.size():
 				var moved = _sequence_names.pop_at(from_idx)
+				if from_idx < target_idx:
+					target_idx -= 1
 				if target_idx > _sequence_names.size():
 					target_idx = _sequence_names.size()
 				_sequence_names.insert(target_idx, moved)
@@ -393,7 +357,7 @@ func _drop_data(at_position: Vector2, data) -> void:
 			_add_to_sequence(name, target_idx)
 		return
 
-	if scripts_list.get_global_rect().has_point(mouse) and source == "sequence":
+	if scripts_scroll.get_global_rect().has_point(mouse) and source == "sequence":
 		if from_idx >= 0 and from_idx < _sequence_names.size():
 			var removed := _sequence_names[from_idx]
 			_sequence_names.remove_at(from_idx)
@@ -404,33 +368,38 @@ func _drop_data(at_position: Vector2, data) -> void:
 			_refresh_scripts_list()
 
 
-func _handle_drag_event(event: InputEvent, list: ItemList, source: String) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			_drag_origin = source
-			_drag_index = list.get_item_at_position(event.position, true)
-			_drag_start_pos = event.position
-			_drag_started = false
-		else:
-			_drag_origin = ""
-			_drag_index = -1
-			_drag_started = false
-	elif event is InputEventMouseMotion:
-		if _drag_origin == source and not _drag_started and _drag_index != -1:
-			if event.position.distance_to(_drag_start_pos) >= DRAG_THRESHOLD:
-				_drag_started = true
-				var name := _get_item_name(list, _drag_index)
-				var preview := Label.new()
-				preview.text = _format_script_name(name)
-				force_drag(_drag_data_payload(name, source, _drag_index), preview)
+func _clear_scripts_container() -> void:
+	for child in scripts_container.get_children():
+		child.queue_free()
 
 
-func _drag_data_payload(name: String, source: String, idx: int) -> Dictionary:
-	return {"name": name, "source": source, "from_index": idx}
+func _clear_sequence_container() -> void:
+	for child in sequence_container.get_children():
+		child.queue_free()
 
 
-func _get_item_name(list: ItemList, index: int) -> String:
-	if index < 0 or index >= list.item_count:
-		return ""
-	var meta = list.get_item_metadata(index)
-	return str(meta) if meta != null else list.get_item_text(index)
+func _set_selected_entry(entry: Control) -> void:
+	if _selected_entry != null and _selected_entry.has_method("set_selected"):
+		_selected_entry.set_selected(false)
+	_selected_entry = entry
+	if _selected_entry != null and _selected_entry.has_method("set_selected"):
+		_selected_entry.set_selected(true)
+
+
+func _select_entry_by_name_in(container: VBoxContainer, name: String) -> void:
+	var found: Control = null
+	for child in container.get_children():
+		if child.has_method("get_script_name") and child.get_script_name() == name:
+			found = child
+			break
+	_set_selected_entry(found)
+
+
+func _get_sequence_drop_index(local_pos: Vector2) -> int:
+	var children := sequence_container.get_children()
+	for i in range(children.size()):
+		var child := children[i]
+		var rect := Rect2(child.position, child.size)
+		if local_pos.y < rect.position.y + rect.size.y * 0.5:
+			return i
+	return children.size()

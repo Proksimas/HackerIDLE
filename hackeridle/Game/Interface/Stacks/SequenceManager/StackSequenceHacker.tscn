@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6ctlstq4ibhs"]
+[gd_scene load_steps=12 format=3 uid="uid://c6ctlstq4ibhs"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
 
@@ -95,18 +95,6 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.2, 0.22, 0.25, 1)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="style_list_selected"]
-bg_color = Color(0.12, 0.23, 0.22, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.25, 0.6, 0.52, 1)
 corner_radius_top_left = 6
 corner_radius_top_right = 6
 corner_radius_bottom_right = 6
@@ -247,15 +235,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("style_inset")
 
-[node name="ScriptsList" type="ItemList" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+[node name="ScriptsScroll" type="ScrollContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
 theme_override_styles/panel = SubResource("style_list")
-theme_override_styles/selected = SubResource("style_list_selected")
-allow_reselect = true
+
+[node name="ScriptsContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
 
 [node name="SequencePanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
 layout_mode = 2
@@ -304,16 +296,19 @@ theme_override_styles/hover = SubResource("style_button_primary_hover")
 theme_override_styles/normal = SubResource("style_button_primary")
 text = "Vider"
 
-[node name="SequenceList" type="ItemList" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+[node name="SequenceScroll" type="ScrollContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
 theme_override_styles/panel = SubResource("style_list")
-theme_override_styles/selected = SubResource("style_list_selected")
-allow_reselect = true
-allow_rmb_select = true
+
+[node name="SequenceContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
 
 [node name="DetailsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
 layout_mode = 2
@@ -492,10 +487,3 @@ text = "Flux"
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
-
-[connection signal="gui_input" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_gui_input"]
-[connection signal="item_activated" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_item_activated"]
-[connection signal="item_selected" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_item_selected"]
-[connection signal="gui_input" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_gui_input"]
-[connection signal="item_activated" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_item_activated"]
-[connection signal="item_selected" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_item_selected"]
