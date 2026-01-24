@@ -4,13 +4,12 @@ extends Control
 @export var max_slots: int = 5
 
 @onready var scripts_list: ItemList = %ScriptsList
-@onready var selected_name: Label = %SelectedName
+@onready var stack_script_name: Label = %StackScriptName
 @onready var type_value: Label = %TypeValue
 @onready var cooldown_value: Label = %CooldownValue
 @onready var exec_value: Label = %ExecValue
 @onready var scaling_value: Label = %ScalingValue
 @onready var description_label: RichTextLabel = %Description
-@onready var stack_script_name: Label = %StackScriptName
 
 @onready var hp_value: Label = %HpValue
 @onready var penetration_value: Label = %PenetrationValue
@@ -30,6 +29,12 @@ var _inventory_names: Array[String] = []
 
 const DRAG_THRESHOLD := 6.0
 
+# Définition des couleurs (constantes)
+const COLOR_HP = "#FF0000"      # Rouge
+const COLOR_SHIELD = "#8A2BE2"  # Violet
+const COLOR_TARGET = "#00BFFF"  # Bleu Ciel
+const COLOR_CASTER = "#FFD700"  # Jaune
+const COLOR_DOT = "#008000"     # Vert
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -95,12 +100,14 @@ func _populate_scripts() -> void:
 		var script_res = hacker.available_scripts.get(name, null)
 		if script_res is StackScript:
 			_script_lookup[name] = script_res
-			scripts_list.add_item(name)
+			var display_name := _format_script_name(name)
+			scripts_list.add_item(display_name)
+			scripts_list.set_item_metadata(scripts_list.item_count - 1, name)
 			_inventory_names.append(name)
 
 	if scripts_list.item_count > 0:
 		scripts_list.select(0)
-		var first_name := scripts_list.get_item_text(0)
+		var first_name := _get_item_name(scripts_list, 0)
 		_display_script(first_name)
 
 
@@ -117,7 +124,9 @@ func _populate_sequence() -> void:
 	max_slots = max(max_slots, _sequence_names.size())
 
 	for name in _sequence_names:
-		sequence_list.add_item(name)
+		var display_name := _format_script_name(name)
+		sequence_list.add_item(display_name)
+		sequence_list.set_item_metadata(sequence_list.item_count - 1, name)
 
 	if sequence_list.item_count > 0:
 		sequence_list.select(0)
@@ -131,7 +140,8 @@ func _display_script(name: String) -> void:
 		return
 
 	_selected_script = _script_lookup[name]
-	selected_name.text = name
+	var display_name := _format_script_name(name)
+	stack_script_name.text = display_name
 	type_value.text = _script_kind_to_string(_selected_script.script_kind)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
@@ -167,6 +177,15 @@ func _format_stat_name(key: String) -> String:
 			return "Flux"
 		_:
 			return key
+
+
+func _format_script_name(name: String) -> String:
+	var pretty := name.replace("_", " ")
+	if pretty.length() == 0:
+		return pretty
+	if pretty.length() == 1:
+		return pretty.to_upper()
+	return pretty[0].to_upper() + pretty.substr(1, pretty.length() - 1)
 
 
 func _format_number(value: float) -> String:
@@ -223,7 +242,7 @@ func _compute_hacker_hp(stats_dict: Dictionary) -> float:
 
 
 func _reset_details() -> void:
-	selected_name.text = "Selectionne un script"
+	stack_script_name.text = "Selectionne un script"
 	type_value.text = "-"
 	cooldown_value.text = "-"
 	exec_value.text = "-"
@@ -235,14 +254,14 @@ func _reset_details() -> void:
 func _on_scripts_list_item_selected(index: int) -> void:
 	if index < 0 or index >= scripts_list.item_count:
 		return
-	_display_script(scripts_list.get_item_text(index))
+	_display_script(_get_item_name(scripts_list, index))
 
 
 func _on_scripts_list_item_activated(index: int) -> void:
 	_on_scripts_list_item_selected(index)
 	if index < 0 or index >= scripts_list.item_count:
 		return
-	_add_to_sequence(scripts_list.get_item_text(index), -1)
+	_add_to_sequence(_get_item_name(scripts_list, index), -1)
 
 
 func _on_scripts_list_gui_input(event: InputEvent) -> void:
@@ -252,7 +271,7 @@ func _on_scripts_list_gui_input(event: InputEvent) -> void:
 func _on_sequence_list_item_selected(index: int) -> void:
 	if index < 0 or index >= sequence_list.item_count:
 		return
-	_display_script(sequence_list.get_item_text(index))
+	_display_script(_get_item_name(sequence_list, index))
 
 
 func _on_sequence_list_item_activated(index: int) -> void:
@@ -288,17 +307,21 @@ func _add_to_sequence(name: String, insert_idx: int) -> void:
 func _refresh_sequence_list(select_idx: int = -1) -> void:
 	sequence_list.clear()
 	for n in _sequence_names:
-		sequence_list.add_item(n)
+		var display_name := _format_script_name(n)
+		sequence_list.add_item(display_name)
+		sequence_list.set_item_metadata(sequence_list.item_count - 1, n)
 	if select_idx >= 0 and select_idx < sequence_list.item_count:
 		sequence_list.select(select_idx)
-	_display_script(sequence_list.get_item_text(select_idx) if select_idx >= 0 and select_idx < sequence_list.item_count else selected_name.text)
+	var selected_name_raw := _get_item_name(sequence_list, select_idx)
 	_update_slots_label()
 
 
 func _refresh_scripts_list() -> void:
 	scripts_list.clear()
 	for n in _inventory_names:
-		scripts_list.add_item(n)
+		var display_name := _format_script_name(n)
+		scripts_list.add_item(display_name)
+		scripts_list.set_item_metadata(scripts_list.item_count - 1, n)
 
 
 func _update_slots_label() -> void:
@@ -311,17 +334,17 @@ func _get_drag_data(at_position: Vector2):
 	if scripts_list.get_global_rect().has_point(mouse):
 		var idx := scripts_list.get_item_at_position(scripts_list.get_local_mouse_position(), true)
 		if idx != -1:
-			var name := scripts_list.get_item_text(idx)
+			var name := _get_item_name(scripts_list, idx)
 			var preview := Label.new()
-			preview.text = name
+			preview.text = _format_script_name(name)
 			return {"name": name, "source": "available", "from_index": idx, "preview": preview}
 
 	if sequence_list.get_global_rect().has_point(mouse):
 		var idx2 := sequence_list.get_item_at_position(sequence_list.get_local_mouse_position(), true)
 		if idx2 != -1:
-			var name2 := sequence_list.get_item_text(idx2)
+			var name2 := _get_item_name(sequence_list, idx2)
 			var preview2 := Label.new()
-			preview2.text = name2
+			preview2.text = _format_script_name(name2)
 			return {"name": name2, "source": "sequence", "from_index": idx2, "preview": preview2}
 
 	return null
@@ -396,11 +419,18 @@ func _handle_drag_event(event: InputEvent, list: ItemList, source: String) -> vo
 		if _drag_origin == source and not _drag_started and _drag_index != -1:
 			if event.position.distance_to(_drag_start_pos) >= DRAG_THRESHOLD:
 				_drag_started = true
-				var name := list.get_item_text(_drag_index)
+				var name := _get_item_name(list, _drag_index)
 				var preview := Label.new()
-				preview.text = name
+				preview.text = _format_script_name(name)
 				force_drag(_drag_data_payload(name, source, _drag_index), preview)
 
 
 func _drag_data_payload(name: String, source: String, idx: int) -> Dictionary:
 	return {"name": name, "source": source, "from_index": idx}
+
+
+func _get_item_name(list: ItemList, index: int) -> String:
+	if index < 0 or index >= list.item_count:
+		return ""
+	var meta = list.get_item_metadata(index)
+	return str(meta) if meta != null else list.get_item_text(index)

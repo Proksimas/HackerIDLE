@@ -1,8 +1,8 @@
 key;fr;en
 syn_flood_desc;Attaque rapide sur une cible. Inflige des degats bruts base sur la penetration.;Quick attack on a target. Inflicts raw damage based on penetration.
-cipher_strike;Attaque et renforce le hacker degats classiques puis gain de bouclier base sur l'encryption.;Attacks and strengthens the hacker standard damage followed by a shield gain based on encryption.
-crypt_breach;Double impact degats normaux puis percants pour ignorer les boucliers.;Double impact normal damage then piercing damage to ignore shields.
-data_healing;Repare le hacker et restaure ses PV.;Repairs the hacker and restores HP.
-firewall_patch;Renforce le pare-feu en ajoutant un bouclier temporaire.;Strengthens the firewall by adding a temporary shield.
-kernel_blast;Explosion logicielle qui touche toutes les cibles.;Software explosion that hits all targets.
-malware_apt;Infecte la cible degats immediats puis DoT malware cumulable.;Infects the target immediate damage followed by stackable malware DoT.
+cipher_strike_desc;Attaque et renforce le hacker degats classiques puis gain de bouclier base sur l'encryption.;Attacks and strengthens the hacker standard damage followed by a shield gain based on encryption.
+crypt_breach_desc;Double impact degats normaux puis percants pour ignorer les boucliers.;Double impact normal damage then piercing damage to ignore shields.
+data_healing_desc;Repare le hacker et restaure ses PV.;Repairs the hacker and restores HP.
+firewall_patch_desc;Renforce le pare-feu en ajoutant un bouclier temporaire.;Strengthens the firewall by adding a temporary shield.
+kernel_blast_desc;Explosion logicielle qui touche toutes les cibles.;Software explosion that hits all targets.
+malware_apt_desc;Infecte la cible degats immediats puis DoT malware cumulable.;Infects the target immediate damage followed by stackable malware DoT.
