@@ -1,6 +1,140 @@
-[gd_scene load_steps=2 format=3 uid="uid://mwwbyp8hah8d"]
+[gd_scene load_steps=13 format=3 uid="uid://c6ctlstq4ibhs"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
+
+[sub_resource type="StyleBoxFlat" id="style_frame"]
+bg_color = Color(0.08, 0.09, 0.1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.22, 0.25, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 0.5)
+shadow_size = 8
+
+[sub_resource type="StyleBoxFlat" id="style_panel"]
+bg_color = Color(0.1, 0.11, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.24, 0.27, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="style_button_primary_hover"]
+bg_color = Color(0.15, 0.4, 0.33, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.9, 0.75, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button_primary"]
+bg_color = Color(0.12, 0.33, 0.27, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.8, 0.65, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button_hover"]
+bg_color = Color(0.2, 0.22, 0.25, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.37, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button"]
+bg_color = Color(0.16, 0.17, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.3, 0.33, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_inset"]
+bg_color = Color(0.07, 0.08, 0.09, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.2, 0.23, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_list"]
+bg_color = Color(0.06, 0.07, 0.08, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.22, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_list_selected"]
+bg_color = Color(0.12, 0.23, 0.22, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.6, 0.52, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_card"]
+bg_color = Color(0.09, 0.1, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.26, 0.29, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="style_stats"]
+bg_color = Color(0.07, 0.08, 0.09, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.2, 0.23, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [node name="StackSequenceHacker" type="Control"]
 layout_mode = 3
@@ -11,116 +145,292 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xiqgv")
 
-[node name="Margin" type="MarginContainer" parent="."]
+[node name="Frame" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.751174
+offset_bottom = -6.10352e-05
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_styles/panel = SubResource("style_frame")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBox" type="VBoxContainer" parent="Margin"]
+[node name="OuterMargin" type="MarginContainer" parent="Frame"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 12
 
-[node name="Header" type="Label" parent="Margin/VBox"]
-layout_mode = 2
-text = "Stack du hacker"
-
-[node name="Content" type="HBoxContainer" parent="Margin/VBox"]
-custom_minimum_size = Vector2(0, 400)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
-
-[node name="ScriptsBox" type="VBoxContainer" parent="Margin/VBox/Content"]
-layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 6
-
-[node name="ScriptsLabel" type="Label" parent="Margin/VBox/Content/ScriptsBox"]
-layout_mode = 2
-text = "Scripts du hacker"
-
-[node name="ScriptsList" type="ItemList" parent="Margin/VBox/Content/ScriptsBox"]
-unique_name_in_owner = true
+[node name="RootVBox" type="VBoxContainer" parent="Frame/OuterMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
-allow_reselect = true
+theme_override_constants/separation = 14
 
-[node name="DetailsBox" type="VBoxContainer" parent="Margin/VBox/Content"]
+[node name="Content" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScriptsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="ScriptsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ScriptsVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="DetailsHeader" type="Label" parent="Margin/VBox/Content/DetailsBox"]
+[node name="ScriptsHeader" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
 layout_mode = 2
-text = "Details du script"
+size_flags_horizontal = 3
 
-[node name="SelectedName" type="Label" parent="Margin/VBox/Content/DetailsBox"]
+[node name="ScriptsTitle" type="Label" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "SCRIPTS"
+
+[node name="Tabs" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TabOffense" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "Offense"
+
+[node name="TabDefense" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "Defense"
+
+[node name="TabUtility" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "Utility"
+
+[node name="TabAoe" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "AoE"
+
+[node name="SortRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SortLabel" type="Label" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/SortRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Trier par"
+
+[node name="SortMenu" type="OptionButton" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/SortRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("style_inset")
+
+[node name="ScriptsList" type="ItemList" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("style_list")
+theme_override_styles/selected = SubResource("style_list_selected")
+allow_reselect = true
+
+[node name="SequencePanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="SequenceMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="SequenceVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SequenceHeader" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SequenceTitle" type="Label" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "SEQUENCE"
+
+[node name="SlotsLabel" type="Label" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.64, 0.68, 1)
+text = "Slots : 0/0"
+
+[node name="SequenceActions" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ClearButton" type="Button" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "Vider"
+
+[node name="SequenceList" type="ItemList" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+theme_override_styles/panel = SubResource("style_list")
+theme_override_styles/selected = SubResource("style_list_selected")
+allow_reselect = true
+allow_rmb_select = true
+
+[node name="DetailsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="DetailsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="DetailsVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DetailsTitle" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "DETAILS DU SCRIPT"
+
+[node name="StackScriptName" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DetailsCard" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_card")
+
+[node name="DetailsCardMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="DetailsCardVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SelectedName" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
 text = "Selectionne un script"
 autowrap_mode = 2
 
-[node name="Properties" type="GridContainer" parent="Margin/VBox/Content/DetailsBox"]
-unique_name_in_owner = true
+[node name="TypeRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
-columns = 2
+theme_override_constants/separation = 8
 
-[node name="TypeLabel" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="TypeLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/TypeRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Type"
 
-[node name="TypeValue" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="TypeValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/TypeRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="CooldownLabel" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="CooldownRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="CooldownLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/CooldownRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Cooldown"
 
-[node name="CooldownValue" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="CooldownValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/CooldownRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="ExecLabel" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="ExecRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ExecLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/ExecRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Temps d'execution"
 
-[node name="ExecValue" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="ExecValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/ExecRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="ScalingLabel" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Coefficients"
 
-[node name="ScalingValue" type="Label" parent="Margin/VBox/Content/DetailsBox/Properties"]
+[node name="ScalingValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 autowrap_mode = 2
 
-[node name="DescriptionLabel" type="Label" parent="Margin/VBox/Content/DetailsBox"]
+[node name="DescriptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
-text = "Description"
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Effet"
 
-[node name="Description" type="RichTextLabel" parent="Margin/VBox/Content/DetailsBox"]
+[node name="Description" type="RichTextLabel" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -130,83 +440,68 @@ text = "Choisis un script pour voir son effet."
 scroll_active = false
 autowrap_mode = 2
 
-[node name="SequenceBox" type="VBoxContainer" parent="Margin/VBox/Content"]
+[node name="StatsBar" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 3
-theme_override_constants/separation = 6
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("style_stats")
 
-[node name="SequenceHeader" type="Label" parent="Margin/VBox/Content/SequenceBox"]
-layout_mode = 2
-text = "Sequence du hacker"
-
-[node name="SlotsLabel" type="Label" parent="Margin/VBox/Content/SequenceBox"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Slots : 0/0"
-
-[node name="SequenceList" type="ItemList" parent="Margin/VBox/Content/SequenceBox"]
-unique_name_in_owner = true
+[node name="StatsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/StatsBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-mouse_filter = 1
-allow_reselect = true
-allow_rmb_select = true
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
 
-[node name="StatsBox" type="VBoxContainer" parent="Margin/VBox"]
+[node name="StatsRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 6
+theme_override_constants/separation = 16
 
-[node name="StatsHeader" type="Label" parent="Margin/VBox/StatsBox"]
+[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 layout_mode = 2
-text = "Stats du hacker"
-
-[node name="StatsGrid" type="GridContainer" parent="Margin/VBox/StatsBox"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 2
-
-[node name="HpLabel" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
-layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "PV max"
 
-[node name="HpValue" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="PenetrationLabel" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="PenetrationLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Penetration"
 
-[node name="PenetrationValue" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="PenetrationValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="EncryptionLabel" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="EncryptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Encryption"
 
-[node name="EncryptionValue" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="EncryptionValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="FluxLabel" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="FluxLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Flux"
 
-[node name="FluxValue" type="Label" parent="Margin/VBox/StatsBox/StatsGrid"]
+[node name="FluxValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[connection signal="gui_input" from="Margin/VBox/Content/ScriptsBox/ScriptsList" to="." method="_on_scripts_list_gui_input"]
-[connection signal="item_activated" from="Margin/VBox/Content/ScriptsBox/ScriptsList" to="." method="_on_scripts_list_item_activated"]
-[connection signal="item_selected" from="Margin/VBox/Content/ScriptsBox/ScriptsList" to="." method="_on_scripts_list_item_selected"]
-[connection signal="gui_input" from="Margin/VBox/Content/SequenceBox/SequenceList" to="." method="_on_sequence_list_gui_input"]
-[connection signal="item_activated" from="Margin/VBox/Content/SequenceBox/SequenceList" to="." method="_on_sequence_list_item_activated"]
-[connection signal="item_selected" from="Margin/VBox/Content/SequenceBox/SequenceList" to="." method="_on_sequence_list_item_selected"]
+[connection signal="gui_input" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_gui_input"]
+[connection signal="item_activated" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_item_activated"]
+[connection signal="item_selected" from="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsList" to="." method="_on_scripts_list_item_selected"]
+[connection signal="gui_input" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_gui_input"]
+[connection signal="item_activated" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_item_activated"]
+[connection signal="item_selected" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceList" to="." method="_on_sequence_list_item_selected"]

@@ -10,6 +10,7 @@ extends Control
 @onready var exec_value: Label = %ExecValue
 @onready var scaling_value: Label = %ScalingValue
 @onready var description_label: RichTextLabel = %Description
+@onready var stack_script_name: Label = %StackScriptName
 
 @onready var hp_value: Label = %HpValue
 @onready var penetration_value: Label = %PenetrationValue
@@ -17,16 +18,6 @@ extends Control
 @onready var flux_value: Label = %FluxValue
 @onready var sequence_list: ItemList = %SequenceList
 @onready var slots_label: Label = %SlotsLabel
-
-const SCRIPT_DESCRIPTIONS := {
-	"syn_flood": "Attaque rapide sur une cible. Inflige des degats bruts base sur la penetration.",
-	"cipher_strike": "Attaque et renforce le hacker : degats classiques puis gain de bouclier base sur l'encryption.",
-	"crypt_breach": "Double impact : degats normaux puis percants pour ignorer les boucliers.",
-	"data_healing": "Repare le hacker et restaure ses PV.",
-	"firewall_patch": "Renforce le pare-feu en ajoutant un bouclier temporaire.",
-	"kernel_blast": "Explosion logicielle qui touche toutes les cibles.",
-	"malware_apt": "Infecte la cible : degats immediats puis DoT malware cumulable."
-}
 
 var _script_lookup: Dictionary = {} # nom -> StackScript
 var _selected_script: StackScript
@@ -149,10 +140,7 @@ func _display_script(name: String) -> void:
 
 
 func _build_description(name: String, script: StackScript) -> String:
-	var desc = SCRIPT_DESCRIPTIONS.get(name, "")
-	if desc == "":
-		desc = "Aucune description pour ce script. Type: %s." % _script_kind_to_string(script.script_kind)
-	return desc
+	return tr("%s_desc" % name)
 
 
 func _format_scaling(coeffs: Dictionary) -> String:
