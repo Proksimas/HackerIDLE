@@ -7,10 +7,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func set_gain_button(value):
 	if value_negative:
 		self.text = "- " + Global.number_to_string(value)

@@ -100,11 +100,11 @@ func _populate_scripts() -> void:
 		names.append(str(key))
 	names.sort()
 
-	for name in names:
-		var script_res = hacker.available_scripts.get(name, null)
+	for _name in names:
+		var script_res = hacker.available_scripts.get(_name, null)
 		if script_res is StackScript:
-			_script_lookup[name] = script_res
-			_inventory_names.append(name)
+			_script_lookup[_name] = script_res
+			_inventory_names.append(_name)
 
 	_refresh_scripts_list()
 
@@ -125,23 +125,23 @@ func _populate_sequence() -> void:
 	_refresh_sequence_list()
 
 
-func _display_script(name: String) -> void:
-	if not _script_lookup.has(name):
+func _display_script(_name: String) -> void:
+	if not _script_lookup.has(_name):
 		_reset_details()
 		return
 
-	_selected_script = _script_lookup[name]
-	var display_name := _format_script_name(name)
+	_selected_script = _script_lookup[_name]
+	var display_name := _format_script_name(_name)
 	stack_script_name.text = display_name
 	type_value.text = _script_kind_to_string(_selected_script.script_kind)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
 	scaling_value.text = _format_scaling(_selected_script.type_and_coef)
-	description_label.text = _build_description(name, _selected_script)
+	description_label.text = _build_description(_name, _selected_script)
 
 
-func _build_description(name: String, script: StackScript) -> String:
-	return tr("%s_desc" % name)
+func _build_description(_name: String, _script: StackScript) -> String:
+	return tr("%s_desc" % _name)
 
 
 func _format_scaling(coeffs: Dictionary) -> String:
@@ -170,8 +170,8 @@ func _format_stat_name(key: String) -> String:
 			return key
 
 
-func _format_script_name(name: String) -> String:
-	var pretty := name.replace("_", " ")
+func _format_script_name(_name: String) -> String:
+	var pretty := _name.replace("_", " ")
 	if pretty.length() == 0:
 		return pretty
 	if pretty.length() == 1:
@@ -241,35 +241,35 @@ func _reset_details() -> void:
 	description_label.text = "Choisis un script pour voir son effet."
 	_set_selected_entry(null)
 
-func _on_script_entry_selected(name: String) -> void:
-	_display_script(name)
-	_select_entry_by_name_in(scripts_container, name)
+func _on_script_entry_selected(_name: String) -> void:
+	_display_script(_name)
+	_select_entry_by_name_in(scripts_container, _name)
 
 
-func _on_script_entry_activated(name: String) -> void:
-	_display_script(name)
-	_add_to_sequence(name, -1)
+func _on_script_entry_activated(_name: String) -> void:
+	_display_script(_name)
+	_add_to_sequence(_name, -1)
 
 
-func _on_sequence_entry_selected(name: String) -> void:
-	_display_script(name)
-	_select_entry_by_name_in(sequence_container, name)
+func _on_sequence_entry_selected(_name: String) -> void:
+	_display_script(_name)
+	_select_entry_by_name_in(sequence_container, _name)
 
 
-func _on_sequence_entry_activated(name: String) -> void:
-	var index := _sequence_names.find(name)
+func _on_sequence_entry_activated(_name: String) -> void:
+	var index := _sequence_names.find(_name)
 	if index == -1:
 		return
 	_sequence_names[index] = ""
-	if not _inventory_names.has(name):
-		_inventory_names.append(name)
+	if not _inventory_names.has(_name):
+		_inventory_names.append(_name)
 		_inventory_names.sort()
 	_refresh_sequence_list(min(index, _sequence_names.size() - 1))
 	_refresh_scripts_list()
 
 
-func _add_to_sequence(name: String, insert_idx: int) -> void:
-	if not _inventory_names.has(name):
+func _add_to_sequence(_name: String, insert_idx: int) -> void:
+	if not _inventory_names.has(_name):
 		return
 	_ensure_sequence_slots()
 	var target_idx := insert_idx
@@ -279,8 +279,8 @@ func _add_to_sequence(name: String, insert_idx: int) -> void:
 		return
 	if _sequence_names[target_idx] != "":
 		return
-	_sequence_names[target_idx] = name
-	_inventory_names.erase(name)
+	_sequence_names[target_idx] = _name
+	_inventory_names.erase(_name)
 	_refresh_sequence_list(target_idx)
 	_refresh_scripts_list()
 
@@ -341,7 +341,7 @@ func _update_slots_label() -> void:
 	slots_label.text = "Slots : %d/%d" % [used, max_slots]
 
 
-func _can_drop_data(at_position: Vector2, data) -> bool:
+func _can_drop_data(_at_position: Vector2, data) -> bool:
 	if typeof(data) != TYPE_DICTIONARY or not data.has("name"):
 		return false
 	var mouse := get_global_mouse_position()
@@ -351,14 +351,14 @@ func _can_drop_data(at_position: Vector2, data) -> bool:
 	return false
 
 
-func _drop_data(at_position: Vector2, data) -> void:
+func _drop_data(_at_position: Vector2, data) -> void:
 	if typeof(data) != TYPE_DICTIONARY or not data.has("name"):
 		return
 
 	var mouse := get_global_mouse_position()
 	var source := str(data.get("source", ""))
 	var from_idx := int(data.get("from_index", -1))
-	var name := str(data.get("name", ""))
+	var _name := str(data.get("name", ""))
 
 	if sequence_scroll.get_global_rect().has_point(mouse):
 		# Le drop sur la sequence est geré par les slots/entries
@@ -428,11 +428,11 @@ func _on_sequence_slot_drop(slot_index: int, data: Dictionary) -> void:
 func _on_clear_button_pressed() -> void:
 	_ensure_sequence_slots()
 	for i in range(_sequence_names.size()):
-		var name := _sequence_names[i]
-		if name == "":
+		var _name := _sequence_names[i]
+		if _name == "":
 			continue
-		if not _inventory_names.has(name):
-			_inventory_names.append(name)
+		if not _inventory_names.has(_name):
+			_inventory_names.append(_name)
 		_sequence_names[i] = ""
 	_inventory_names.sort()
 	_refresh_sequence_list(-1)
