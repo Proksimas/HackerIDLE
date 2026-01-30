@@ -12,4 +12,4 @@ type_and_coef = {
 "penetration": 0.5
 }
 execution_time = 3.0
-script_kind = 0
+script_kind = 1

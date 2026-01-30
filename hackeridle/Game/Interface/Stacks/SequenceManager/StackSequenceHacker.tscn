@@ -3,19 +3,7 @@
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptDropArea.gd" id="2_4c8sd"]
 
-[sub_resource type="StyleBoxFlat" id="style_frame"]
-bg_color = Color(0.08, 0.09, 0.1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.22, 0.25, 1)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_color = Color(0, 0, 0, 0.5)
-shadow_size = 8
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74yab"]
 
 [sub_resource type="StyleBoxFlat" id="style_panel"]
 bg_color = Color(0.1, 0.11, 0.12, 1)
@@ -133,18 +121,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xiqgv")
-metadata/_edit_use_anchors_ = true
 
 [node name="Frame" type="PanelContainer" parent="."]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.751174
-offset_bottom = -6.10352e-05
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("style_frame")
-metadata/_edit_use_anchors_ = true
+theme_override_styles/panel = SubResource("StyleBoxEmpty_74yab")
 
 [node name="OuterMargin" type="MarginContainer" parent="Frame"]
 layout_mode = 2
@@ -158,10 +143,9 @@ size_flags_vertical = 3
 theme_override_constants/separation = 14
 
 [node name="Content" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox"]
-custom_minimum_size = Vector2(0, 500)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="ScriptsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
 layout_mode = 2
@@ -223,6 +207,7 @@ theme_override_styles/normal = SubResource("style_button")
 text = "AoE"
 
 [node name="SortRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 8
 

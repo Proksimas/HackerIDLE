@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c2h0a4l4d6sby"]
+[gd_scene load_steps=3 format=3 uid="uid://c2h0a4l4d6sby"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptSlotPlaceholder.gd" id="1_1s2ad"]
 
@@ -31,5 +31,5 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="Margin"]
 layout_mode = 2
-text = "Glisser un script ici"
 theme_override_colors/font_color = Color(0.45, 0.48, 0.52, 1)
+text = "Glisser un script ici"

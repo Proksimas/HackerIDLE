@@ -42,17 +42,19 @@ func _ready() -> void:
 	_refresh_stats()
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
-	if hacker != null:
-		load_hacker(hacker)
-	else:
-		_bootstrap_hacker_from_manager()
+	
+	
+	#if hacker != null:
+		#load_hacker(hacker)
+	#else:
+		#_bootstrap_hacker_from_manager()
 
 
 func load_hacker(target: Entity) -> void:
 	"""Charge un hacker externe et remplit l'UI."""
 	hacker = target
 	_refresh_stats()
-	_ensure_hacker_scripts()
+	#_ensure_hacker_scripts() c'est pour les test
 	_populate_lists()
 
 
