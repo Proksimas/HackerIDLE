@@ -4,7 +4,8 @@ const stack_dir_path = "res://Game/Stacks/StackScript/"
 const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 
 var stack_script_pool: Dictionary
-
+var stack_hacker_script_learned: Dictionary #uniquement les script que connait deja le hacker
+var stack_hacker_sequence: Array # ordre de sequence des scripts sauvegardés
 var stack_script_stats: Dictionary # correspond aux bots affectés pour le gain de stats, ainsi que les PV.
 
 func _ready() -> void:

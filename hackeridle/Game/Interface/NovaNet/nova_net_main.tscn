@@ -13,4 +13,7 @@ grow_vertical = 2
 script = ExtResource("1_5cn5c")
 
 [node name="StackSequenceHacker" parent="." instance=ExtResource("2_s4q6c")]
-layout_mode = 1
+layout_mode = 2
+anchors_preset = 0
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true

@@ -24,10 +24,12 @@ func _ready() -> void:
 func _on_start_fight_button_pressed() -> void:
 	###on init le hacker
 	
-	StackManager.stack_script_stats = {"penetration": 4,
-							"encryption": 4,
-							"flux": 4}
+	#StackManager.stack_script_stats = {"penetration": 4,
+							#"encryption": 4,
+							#"flux": 4}
 	hacker = Entity.new(true)
+	
+	
 	#StackManager.learn_stack_script(hacker, "malware_apt")
 	#StackManager.learn_stack_script(hacker, "data_healing")
 	#StackManager.learn_stack_script(hacker, "malware_apt")

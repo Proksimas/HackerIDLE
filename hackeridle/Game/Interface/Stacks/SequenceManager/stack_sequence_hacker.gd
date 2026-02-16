@@ -42,7 +42,10 @@ func _ready() -> void:
 	_refresh_stats()
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
-	
+	#### TEST
+	StackManager.stack_script_stats = {"penetration": 4,
+						"encryption": 4,
+						"flux": 4}
 	
 	#if hacker != null:
 		#load_hacker(hacker)
@@ -114,9 +117,9 @@ func _populate_sequence() -> void:
 	_sequence_names.clear()
 
 	if hacker != null and not hacker.sequence_order.is_empty():
-		for name in hacker.sequence_order:
-			if hacker.available_scripts.has(name):
-				_sequence_names.append(str(name))
+		for _name in hacker.sequence_order:
+			if hacker.available_scripts.has(_name):
+				_sequence_names.append(str(_name))
 
 	# S'assure que max_slots couvre toujours la sequence existante
 	max_slots = max(max_slots, _sequence_names.size())
@@ -394,10 +397,10 @@ func _set_selected_entry(entry: Control) -> void:
 		_selected_entry.set_selected(true)
 
 
-func _select_entry_by_name_in(container: VBoxContainer, name: String) -> void:
+func _select_entry_by_name_in(container: VBoxContainer, _name: String) -> void:
 	var found: Control = null
 	for child in container.get_children():
-		if child.has_method("get_script_name") and child.get_script_name() == name:
+		if child.has_method("get_script_name") and child.get_script_name() == _name:
 			found = child
 			break
 	_set_selected_entry(found)
@@ -406,7 +409,7 @@ func _select_entry_by_name_in(container: VBoxContainer, name: String) -> void:
 func _on_sequence_slot_drop(slot_index: int, data: Dictionary) -> void:
 	var source := str(data.get("source", ""))
 	var from_idx := int(data.get("from_index", -1))
-	var name := str(data.get("name", ""))
+	var _name := str(data.get("name", ""))
 
 	_ensure_sequence_slots()
 	if slot_index < 0 or slot_index >= max_slots:
@@ -414,7 +417,7 @@ func _on_sequence_slot_drop(slot_index: int, data: Dictionary) -> void:
 	if _sequence_names[slot_index] != "":
 		return
 	if source == "available":
-		_add_to_sequence(name, slot_index)
+		_add_to_sequence(_name, slot_index)
 	elif source == "sequence":
 		if from_idx >= 0 and from_idx < _sequence_names.size():
 			var moved := _sequence_names[from_idx]

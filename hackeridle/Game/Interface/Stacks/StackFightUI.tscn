@@ -100,7 +100,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HackerContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
