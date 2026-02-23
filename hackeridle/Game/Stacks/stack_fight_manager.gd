@@ -201,6 +201,17 @@ func start_encounter() -> Dictionary:
 
 	encounter_active = true
 	return current_encounter
+
+func reset_run() -> void:
+	"""Reinitialise la progression roguelike au tout premier combat."""
+	sector_index = 0
+	level_index = 1
+	wave_index = 1
+	current_encounter = {}
+	encounter_active = false
+	rng.randomize()
+	run_seed = randi()
+	rng.seed = _sector_seed(sector_index)
 	
 func resolve_encounter(victory: bool) -> void:
 	"""appelée à la fin du combat pour faire

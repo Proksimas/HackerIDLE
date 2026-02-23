@@ -22,6 +22,7 @@ var current_phase: CombatPhase = CombatPhase.PREPARATION
 var current_turn: int = 0
 var current_stack_fight_ui
 signal s_fight_started(hack, array_robots)
+signal s_combat_ended(victory: bool)
 
 func start_fight(_hacker: Entity, _robots: Array[Entity], stack_fight_ui):
 	hacker = _hacker
@@ -157,7 +158,7 @@ func _end_combat(victory: bool) -> void:
 		
 	# Ici, vous pourriez arrêter le jeu, changer de scène, ou retourner à l'interface principale.
 	# TODO phase des recompenses
-	
+	s_combat_ended.emit(victory)
 	self.queue_free()
 
 # SIGNAUX

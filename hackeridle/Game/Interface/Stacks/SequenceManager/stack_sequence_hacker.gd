@@ -42,10 +42,6 @@ func _ready() -> void:
 	_refresh_stats()
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
-	#### TEST
-	StackManager.stack_script_stats = {"penetration": 4,
-						"encryption": 4,
-						"flux": 4}
 	
 	#if hacker != null:
 		#load_hacker(hacker)
@@ -59,13 +55,12 @@ func load_hacker(target: Entity) -> void:
 	_refresh_stats()
 	#_ensure_hacker_scripts() c'est pour les test
 	_populate_lists()
+	_persist_hacker_loadout()
 
 
 func _bootstrap_hacker_from_manager() -> void:
 	"""Fallback : cree un hacker local et lui apprend tous les scripts disponibles."""
-	_ensure_pool_ready()
-	var temp_hacker := Entity.new(true)
-	StackManager.learn_all_script(temp_hacker)
+	var temp_hacker := StackManager.create_hacker_entity()
 	load_hacker(temp_hacker)
 
 
@@ -309,6 +304,19 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 		_select_entry_by_name_in(sequence_container, _sequence_names[select_idx])
 		_display_script(_sequence_names[select_idx])
 	_update_slots_label()
+	_persist_hacker_loadout()
+
+func _persist_hacker_loadout() -> void:
+	if hacker == null:
+		return
+	var known_scripts: Array[String] = []
+	for key in hacker.available_scripts.keys():
+		known_scripts.append(str(key))
+	var sequence: Array[String] = []
+	for script_name in _sequence_names:
+		if script_name != "":
+			sequence.append(script_name)
+	StackManager.save_hacker_loadout(known_scripts, sequence)
 
 
 func _refresh_scripts_list() -> void:

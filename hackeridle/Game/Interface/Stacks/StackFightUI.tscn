@@ -142,5 +142,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="StackFightManager" parent="." instance=ExtResource("6_o7dq6")]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="StackFightPanel/VBoxContainer/StartFightButton" to="." method="_on_start_fight_button_pressed"]

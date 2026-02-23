@@ -25,10 +25,14 @@ func _on_create_button_pressed() -> void:
 	var enc := int(enc_spin.value)
 	var flux := int(flux_spin.value)
 
-	var ent := Entity.new(is_hacker, _name, hp, pen, enc, flux)
-	StackManager.learn_all_script(ent)
+	var ent: Entity
+	if is_hacker:
+		ent = StackManager.create_hacker_entity()
+	else:
+		ent = Entity.new(false, _name, hp, pen, enc, flux)
+		StackManager.learn_all_script(ent)
 	entity_created.emit(ent)
-	_update_status("Entite creee: %s" % name)
+	_update_status("Entite creee: %s" % ent.entity_name)
 
 func _on_reset_button_pressed() -> void:
 	name_edit.text = ""
