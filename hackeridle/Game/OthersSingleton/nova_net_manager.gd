@@ -155,7 +155,7 @@ func click(or_investi: float) -> bool:
 		return false
 	next_bot_kwoledge_acquired += knowledge_gain
 	Player.earn_knowledge_point(0 - knowledge_gain)
-	Player.earn_gold(0 - or_investi)
+	#Player.earn_gold(0 - or_investi) l'or investi est dépensé au début
 	s_bot_knowledge_gain.emit(knowledge_gain)
 	check_buy_bot()
 	return true
