@@ -13,6 +13,7 @@ func _ready() -> void:
 func on_opened() -> void:
 	"""Appellee quand le joueur ouvre NovaNet depuis l'interface principale."""
 	_refresh_novanet_access()
+	nova_net_tab.current_tab = 0
 	refresh()
 
 
