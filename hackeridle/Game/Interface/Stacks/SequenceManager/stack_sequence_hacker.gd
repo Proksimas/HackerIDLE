@@ -16,6 +16,12 @@ extends Control
 @onready var penetration_value: Label = %PenetrationValue
 @onready var encryption_value: Label = %EncryptionValue
 @onready var flux_value: Label = %FluxValue
+@onready var bots_availible_label: Label = %BotsAvailibleLabel
+@onready var bots_availible_value: Label = %BotsAvailibleValue
+@onready var hp_plus_button: Button = %HpPlusButton
+@onready var penetration_plus_button: Button = %PenetrationPlusButton
+@onready var encryption_plus_button: Button = %EncryptionPlusButton
+@onready var flux_plus_button: Button = %FluxPlusButton
 @onready var sequence_scroll: Control = %SequenceScroll
 @onready var sequence_container: VBoxContainer = %SequenceContainer
 @onready var slots_label: Label = %SlotsLabel
@@ -40,6 +46,16 @@ const COLOR_DOT = "#008000"     # Vert
 func _ready() -> void:
 	_reset_details()
 	_refresh_stats()
+	if Player.has_signal("s_earn_bots") and not Player.s_earn_bots.is_connected(_on_player_bots_changed):
+		Player.s_earn_bots.connect(_on_player_bots_changed)
+	if hp_plus_button != null and not hp_plus_button.pressed.is_connected(_on_hp_plus_button_pressed):
+		hp_plus_button.pressed.connect(_on_hp_plus_button_pressed)
+	if penetration_plus_button != null and not penetration_plus_button.pressed.is_connected(_on_penetration_plus_button_pressed):
+		penetration_plus_button.pressed.connect(_on_penetration_plus_button_pressed)
+	if encryption_plus_button != null and not encryption_plus_button.pressed.is_connected(_on_encryption_plus_button_pressed):
+		encryption_plus_button.pressed.connect(_on_encryption_plus_button_pressed)
+	if flux_plus_button != null and not flux_plus_button.pressed.is_connected(_on_flux_plus_button_pressed):
+		flux_plus_button.pressed.connect(_on_flux_plus_button_pressed)
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
 	
@@ -205,6 +221,9 @@ func _refresh_stats() -> void:
 	penetration_value.text = str(pen)
 	encryption_value.text = str(enc)
 	flux_value.text = str(flux)
+	bots_availible_label.text = "Bots dispo"
+	bots_availible_value.text = str(Player.bots)
+	_update_stat_buttons()
 
 	var hp_str := "-"
 	if hacker != null:
@@ -218,7 +237,7 @@ func _refresh_stats() -> void:
 
 func _get_hacker_stats() -> Dictionary:
 	if typeof(StackManager.stack_script_stats) != TYPE_DICTIONARY:
-		StackManager.stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0}
+		StackManager.stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
 	return StackManager.stack_script_stats
 
 
@@ -227,7 +246,38 @@ func _compute_hacker_hp(stats_dict: Dictionary) -> float:
 	var pen := float(stats_dict.get("penetration", 0))
 	var enc := float(stats_dict.get("encryption", 0))
 	var flux := float(stats_dict.get("flux", 0))
-	return base_hp + pen + (enc * 1.5) + (flux * 0.5)
+	var hp_bonus := float(stats_dict.get("hp_bonus", 0))
+	return base_hp + pen + enc + flux + hp_bonus
+
+func _update_stat_buttons() -> void:
+	var can_buy := Player.bots > 0
+	if hp_plus_button != null:
+		hp_plus_button.disabled = not can_buy
+	if penetration_plus_button != null:
+		penetration_plus_button.disabled = not can_buy
+	if encryption_plus_button != null:
+		encryption_plus_button.disabled = not can_buy
+	if flux_plus_button != null:
+		flux_plus_button.disabled = not can_buy
+
+func _on_player_bots_changed(_value: int) -> void:
+	_refresh_stats()
+
+func _on_hp_plus_button_pressed() -> void:
+	if StackManager.spend_bot_for_hp_bonus():
+		_refresh_stats()
+
+func _on_penetration_plus_button_pressed() -> void:
+	if StackManager.spend_bot_for_stat("penetration"):
+		_refresh_stats()
+
+func _on_encryption_plus_button_pressed() -> void:
+	if StackManager.spend_bot_for_stat("encryption"):
+		_refresh_stats()
+
+func _on_flux_plus_button_pressed() -> void:
+	if StackManager.spend_bot_for_stat("flux"):
+		_refresh_stats()
 
 
 func _reset_details() -> void:

@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6ctlstq4ibhs"]
+[gd_scene load_steps=15 format=3 uid="uid://c6ctlstq4ibhs"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptDropArea.gd" id="2_4c8sd"]
+[ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="3_vqvmt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74yab"]
 
@@ -113,6 +114,8 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2rq4"]
+
 [node name="StackSequenceHacker" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -121,6 +124,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xiqgv")
+metadata/_edit_use_anchors_ = true
 
 [node name="Frame" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -348,50 +352,60 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="TypeRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+[node name="GridContainer" type="GridContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
+columns = 2
 
-[node name="TypeLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/TypeRow"]
+[node name="TypeRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TypeLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/TypeRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Type"
 
-[node name="TypeValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/TypeRow"]
+[node name="TypeValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/TypeRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="CooldownRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+[node name="CooldownRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
 theme_override_constants/separation = 8
+alignment = 1
 
-[node name="CooldownLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/CooldownRow"]
+[node name="CooldownLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/CooldownRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Cooldown"
 
-[node name="CooldownValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/CooldownRow"]
+[node name="CooldownValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/CooldownRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="ExecRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+[node name="ExecRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
 theme_override_constants/separation = 8
 
-[node name="ExecLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/ExecRow"]
+[node name="ExecLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/ExecRow"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Temps d'execution"
 
-[node name="ExecValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/ExecRow"]
+[node name="ExecValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/ExecRow"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Coefficients"
 
@@ -430,49 +444,120 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 12
 theme_override_constants/margin_bottom = 10
 
-[node name="StatsRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin"]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 16
 
-[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
 layout_mode = 2
+
+[node name="BotIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_vqvmt")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="BotsAvailibleLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Bots dispo:"
+
+[node name="BotsAvailibleValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="VSeparator" type="VSeparator" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_x2rq4")
+
+[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "PV max"
 
-[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 4
 text = "-"
 
-[node name="PenetrationLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="HpPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="StatsRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="PenetrationLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Penetration"
 
-[node name="PenetrationValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="PenetrationValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="EncryptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="PenetrationPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="EncryptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Encryption"
 
-[node name="EncryptionValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="EncryptionValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
 
-[node name="FluxLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="EncryptionPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="FluxLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Flux"
 
-[node name="FluxValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/StatsRow"]
+[node name="FluxValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "-"
+
+[node name="FluxPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
 
 [connection signal="pressed" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions/ClearButton" to="." method="_on_clear_button_pressed"]

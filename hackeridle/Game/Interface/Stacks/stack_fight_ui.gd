@@ -5,6 +5,7 @@ var robot_ia: Entity
 var robot_ia_2: Entity
 var current_fight: StackFight
 var run_active: bool = false
+var _last_wave_enemy_count: int = 0
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
 @onready var hacker_container: Control = %HackerContainer
@@ -55,6 +56,7 @@ func _start_next_encounter() -> void:
 		return
 
 	var wave_data := stack_fight_manager.start_encounter()
+	_last_wave_enemy_count = _count_wave_enemies(wave_data)
 	var robots := _build_robots_from_wave(wave_data)
 
 	if stack_fight_panel.has_method("_clear"):
@@ -93,6 +95,13 @@ func _build_robots_from_wave(wave_data: Dictionary) -> Array[Entity]:
 
 	return robots
 
+func _count_wave_enemies(wave_data: Dictionary) -> int:
+	if wave_data.has("enemies"):
+		return int((wave_data.get("enemies", []) as Array).size())
+	if wave_data.has("boss"):
+		return 1
+	return 0
+
 func _build_wave_preview_data() -> Dictionary:
 	return {
 		"sector_index": stack_fight_manager.sector_index,
@@ -102,6 +111,8 @@ func _build_wave_preview_data() -> Dictionary:
 	}
 
 func _on_combat_ended(victory: bool) -> void:
+	if victory and _last_wave_enemy_count > 0:
+		Player.earn_cyber_implants(_last_wave_enemy_count)
 	stack_fight_manager.resolve_encounter(victory)
 	current_fight = null
 

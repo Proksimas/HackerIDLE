@@ -91,8 +91,9 @@ func set_hacker_max_hp():
 		return
 	
 	max_hp = base_hacker_hp + (StackManager.stack_script_stats["penetration"] + \
-							(StackManager.stack_script_stats["encryption"] * 1.5) + \
-							(StackManager.stack_script_stats["flux"] * 0.5))
+							StackManager.stack_script_stats["encryption"] + \
+							StackManager.stack_script_stats["flux"] + \
+							StackManager.stack_script_stats.get("hp_bonus", 0))
 	
 
 # LOGIQUE DE COMBAT

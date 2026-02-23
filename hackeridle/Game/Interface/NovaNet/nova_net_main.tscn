@@ -16,4 +16,3 @@ script = ExtResource("1_5cn5c")
 layout_mode = 2
 anchors_preset = 0
 size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true

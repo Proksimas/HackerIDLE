@@ -5,6 +5,7 @@ const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 const DEFAULT_HACKER_SEQUENCE: Array[String] = []
 const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
+const HP_BONUS_PER_BOT: int = 3
 
 var stack_script_pool: Dictionary
 var stack_hacker_script_learned: Dictionary # scripts connus du hacker
@@ -14,7 +15,6 @@ signal s_hacker_loadout_changed
 
 func _ready() -> void:
 	_init()
-	pass
 
 func _init() -> void:
 	stack_script_pool = {}
@@ -24,7 +24,8 @@ func _init() -> void:
 	stack_script_stats = {
 		"penetration": 0,
 		"encryption": 0,
-		"flux": 0
+		"flux": 0,
+		"hp_bonus": 0
 	}
 
 func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
@@ -154,6 +155,36 @@ func _resolve_hacker_sequence(available_scripts: Dictionary) -> Array[String]:
 				resolved.append(script_name)
 
 	return resolved
+
+func spend_bot_for_stat(stat_name: String) -> bool:
+	"""Consomme 1 bot pour augmenter une stat du hacker."""
+	if Player.bots <= 0:
+		return false
+	if stat_name not in ["penetration", "encryption", "flux", "hp_bonus"]:
+		return false
+	if typeof(stack_script_stats) != TYPE_DICTIONARY:
+		stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
+	if not stack_script_stats.has(stat_name):
+		stack_script_stats[stat_name] = 0
+
+	Player.bots -= 1
+	stack_script_stats[stat_name] = int(stack_script_stats.get(stat_name, 0)) + 1
+	s_hacker_loadout_changed.emit()
+	return true
+
+func spend_bot_for_hp_bonus(hp_to_add: int = HP_BONUS_PER_BOT) -> bool:
+	"""Consomme 1 bot pour augmenter les PV max plats."""
+	if Player.bots <= 0:
+		return false
+	if hp_to_add <= 0:
+		return false
+	if typeof(stack_script_stats) != TYPE_DICTIONARY:
+		stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
+
+	Player.bots -= 1
+	stack_script_stats["hp_bonus"] = int(stack_script_stats.get("hp_bonus", 0)) + hp_to_add
+	s_hacker_loadout_changed.emit()
+	return true
 
 func _save_data():
 	# TODO

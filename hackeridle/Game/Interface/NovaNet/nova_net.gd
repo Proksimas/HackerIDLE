@@ -2,11 +2,12 @@ extends Control
 
 @onready var nova_net_tab: TabContainer = %NovaNetTab
 @onready var bots: VBoxContainer = %Bots
-@onready var bots_affecation: VBoxContainer = %BotsAffecation
+@onready var implants_affecation: VBoxContainer = %ImplantsAffecation
 @onready var nova_net_main: Control = %NovaNetMain
 @onready var stack_fight_ui: Control = %StackFightUi
 
 func _ready() -> void:
+	nova_net_tab.current_tab = 0
 	_refresh_novanet_access()
 	refresh()
 
@@ -19,7 +20,7 @@ func on_opened() -> void:
 
 func refresh():
 	bots.name = tr("$Bots")
-	bots_affecation.name = tr("$BotsAffecation")
+	implants_affecation.name = tr("$BotsAffecation")
 
 func _refresh_novanet_access() -> void:
 	var has_novanet := Player.nb_of_rebirth > 0
@@ -38,7 +39,7 @@ func _refresh_novanet_access() -> void:
 
 
 func _load_data(content):
-	bots_affecation._load_data(content)
+	implants_affecation._load_data(content)
 	_refresh_novanet_access()
 	
 
