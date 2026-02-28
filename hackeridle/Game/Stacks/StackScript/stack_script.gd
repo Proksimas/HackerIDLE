@@ -7,7 +7,10 @@ class_name StackScript
 # Propriétés de base du Script
 @export var stack_script_name: String = "Script Inconnu"
 @export var turn_cooldown_base: int = 5# Temps de rechargement de base
+
 @export_category("Valeurs")
+@export var base_value_hacker: float = 0.0
+@export var base_value_robot: float = 0.0
 
 #Valeur de base de degat si l'entité est un robot
 
@@ -64,6 +67,11 @@ func calcul_effect_value(_caster: Entity):
 	selon les caractéristiques."""
 
 	var bonus_value: float = 0
+	if _caster.entity_is_hacker:
+		bonus_value += base_value_hacker
+	else:
+		bonus_value += base_value_robot
+		
 	for _type in type_and_coef:
 		if _caster.entity_is_hacker:
 			bonus_value += linear_calcul(\

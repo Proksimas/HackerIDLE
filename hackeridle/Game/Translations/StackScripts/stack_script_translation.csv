@@ -1,8 +1,8 @@
 key;fr;en
-syn_flood_desc;Attaque rapide sur une cible. Inflige des degats bruts base sur la penetration.;Quick attack on a target. Inflicts raw damage based on penetration.
-cipher_strike_desc;Attaque et renforce le hacker degats classiques puis gain de bouclier base sur l'encryption.;Attacks and strengthens the hacker standard damage followed by a shield gain based on encryption.
-crypt_breach_desc;Double impact degats normaux puis percants pour ignorer les boucliers.;Double impact normal damage then piercing damage to ignore shields.
-data_healing_desc;Repare le hacker et restaure ses PV.;Repairs the hacker and restores HP.
-firewall_patch_desc;Renforce le pare-feu en ajoutant un bouclier temporaire.;Strengthens the firewall by adding a temporary shield.
-kernel_blast_desc;Explosion logicielle qui touche toutes les cibles.;Software explosion that hits all targets.
-malware_apt_desc;Infecte la cible degats immediats puis DoT malware cumulable.;Infects the target immediate damage followed by stackable malware DoT.
+syn_flood_desc;Moyenne attaque sur une cible;Average attack on a target
+cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats binfligés;Small attack on a target, and adds a shield based on the damage inflicted
+crypt_breach_desc;Petite attaque sure une cible, puis petite attaque ignorant son bouclier;Small attack on a target, then small attack ignoring its shield
+data_healing_desc;Redonne des pv;Restores HP
+firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les pv max.;Generates a temporary shield.
+kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor damage to all targets
+malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corrupition faisant des dégats sur 3 tours (stack: 5);IInflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
