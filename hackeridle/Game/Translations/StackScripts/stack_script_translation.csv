@@ -6,3 +6,11 @@ data_healing_desc;Redonne des pv;Restores HP
 firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les pv max.;Generates a temporary shield.
 kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor damage to all targets
 malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corruption faisant des dégats sur 3 tours (stack: 5);IInflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
+stack_tab_all;Tous;All
+stack_tab_damage;Deg.;Dam.
+stack_tab_shield;Bouc.;Shi.
+stack_tab_utility;Util.;Util.
+stat_penetration;Penetration;Penetration
+stat_encryption;Chiffrement;Encryption
+stat_flux;Flux;Flux
+$Valeur;Valeur;Valeur

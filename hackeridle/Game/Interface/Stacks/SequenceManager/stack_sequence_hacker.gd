@@ -5,6 +5,7 @@ extends Control
 
 @onready var scripts_scroll: Control = %ScriptsScroll
 @onready var scripts_container: VBoxContainer = %ScriptsContainer
+@onready var tabs_container: HBoxContainer = $"Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"
 @onready var stack_script_name: Label = %StackScriptName
 @onready var type_value: Label = %TypeValue
 @onready var cooldown_value: Label = %CooldownValue
@@ -33,11 +34,16 @@ const SCRIPT_PRESENTER = preload("res://Game/Interface/Stacks/SequenceManager/St
 
 var _script_lookup: Dictionary = {}
 var _selected_script: StackScript
+var _selected_script_name: String = ""
 var _selected_entry: Control
 var _loadout = LOADOUT_STATE.new()
+var _script_presenter = SCRIPT_PRESENTER.new()
+var _selected_kind_filter: int = -1
+var _tab_buttons: Dictionary = {}
 
 
 func _ready() -> void:
+	_setup_kind_tabs()
 	_reset_details()
 	_refresh_stats()
 	if Player.has_signal("s_earn_bots") and not Player.s_earn_bots.is_connected(_on_player_bots_changed):
@@ -52,6 +58,62 @@ func _ready() -> void:
 		flux_plus_button.pressed.connect(_on_flux_plus_button_pressed)
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
+
+
+func _setup_kind_tabs() -> void:
+	if tabs_container == null:
+		return
+
+	for child in tabs_container.get_children():
+		child.queue_free()
+	_tab_buttons.clear()
+
+	_create_filter_tab("stack_tab_all", -1)
+	_create_filter_tab("stack_tab_damage", StackScript.ScriptKind.DAMAGE)
+	_create_filter_tab("stack_tab_shield", StackScript.ScriptKind.SHIELD)
+	_create_filter_tab("stack_tab_utility", StackScript.ScriptKind.UTILITY)
+	_update_tab_buttons_state()
+
+
+func _create_filter_tab(label_key: String, kind_filter: int) -> void:
+	var btn := Button.new()
+	btn.text = tr(label_key)
+	var kind_color := _get_kind_color(kind_filter)
+	btn.add_theme_color_override("font_color", kind_color)
+	btn.add_theme_color_override("font_hover_color", kind_color)
+	btn.add_theme_color_override("font_pressed_color", kind_color)
+	btn.add_theme_color_override("font_focus_color", kind_color)
+	btn.add_theme_color_override("font_disabled_color", Color(kind_color.r, kind_color.g, kind_color.b, 0.7))
+	btn.pressed.connect(func() -> void:
+		_on_kind_tab_pressed(kind_filter)
+	)
+	tabs_container.add_child(btn)
+	_tab_buttons[kind_filter] = btn
+
+
+func _on_kind_tab_pressed(kind_filter: int) -> void:
+	_selected_kind_filter = kind_filter
+	_update_tab_buttons_state()
+	_refresh_scripts_list()
+
+
+func _update_tab_buttons_state() -> void:
+	for key in _tab_buttons.keys():
+		var btn = _tab_buttons[key]
+		if btn is Button:
+			btn.disabled = int(key) == _selected_kind_filter
+
+
+func _get_kind_color(kind_filter: int) -> Color:
+	match kind_filter:
+		StackScript.ScriptKind.DAMAGE:
+			return Color(0.8, 0.25, 0.25, 1)
+		StackScript.ScriptKind.SHIELD:
+			return Color(0.25, 0.45, 0.85, 1)
+		StackScript.ScriptKind.UTILITY:
+			return Color(0.25, 0.75, 0.45, 1)
+		_:
+			return Color(0.85, 0.88, 0.9, 1)
 
 
 func load_hacker(target: Entity) -> void:
@@ -90,15 +152,21 @@ func _populate_lists() -> void:
 
 func _display_script(script_name: String) -> void:
 	if not _script_lookup.has(script_name):
+		_selected_script_name = ""
 		_reset_details()
 		return
 
+	_selected_script_name = script_name
 	_selected_script = _script_lookup[script_name]
-	stack_script_name.text = SCRIPT_PRESENTER.format_script_name(script_name)
-	type_value.text = SCRIPT_PRESENTER.script_kind_to_string(_selected_script.script_kind)
+	stack_script_name.text = _script_presenter.format_script_name(script_name)
+	type_value.text = _script_presenter.script_kind_to_string(_selected_script.script_kind)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
-	scaling_value.text = SCRIPT_PRESENTER.format_scaling(_selected_script.type_and_coef)
+	var damage_preview := _script_presenter.build_damage_preview(_selected_script, _get_hacker_stats())
+	if damage_preview != "":
+		scaling_value.text = damage_preview
+	else:
+		scaling_value.text = _script_presenter.format_scaling(_selected_script.type_and_coef)
 	description_label.text = tr("%s_desc" % script_name)
 
 
@@ -123,6 +191,9 @@ func _refresh_stats() -> void:
 	elif not stats_dict.is_empty():
 		hp_str = str(int(round(_compute_hacker_hp(stats_dict))))
 	hp_value.text = hp_str
+
+	if _selected_script_name != "" and _script_lookup.has(_selected_script_name):
+		_display_script(_selected_script_name)
 
 
 func _get_hacker_stats() -> Dictionary:
@@ -232,9 +303,9 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 				sequence_container.add_child(entry)
 				entry.setup(
 					script_name,
-					SCRIPT_PRESENTER.format_script_name(script_name),
+					_script_presenter.format_script_name(script_name),
 					script_res.script_kind,
-					SCRIPT_PRESENTER.script_kind_to_string(script_res.script_kind),
+					_script_presenter.script_kind_to_string(script_res.script_kind),
 					"sequence",
 					i
 				)
@@ -270,13 +341,15 @@ func _refresh_scripts_list() -> void:
 	for script_name in _loadout.inventory_names:
 		var script_res = _script_lookup.get(script_name, null)
 		if script_res is StackScript:
+			if _selected_kind_filter != -1 and int(script_res.script_kind) != _selected_kind_filter:
+				continue
 			var entry = SCRIPT_ENTRY_SCENE.instantiate()
 			scripts_container.add_child(entry)
 			entry.setup(
 				script_name,
-				SCRIPT_PRESENTER.format_script_name(script_name),
+				_script_presenter.format_script_name(script_name),
 				script_res.script_kind,
-				SCRIPT_PRESENTER.script_kind_to_string(script_res.script_kind),
+				_script_presenter.script_kind_to_string(script_res.script_kind),
 				"available"
 			)
 			entry.connect("selected", Callable(self, "_on_script_entry_selected"))
@@ -287,6 +360,8 @@ func _refresh_scripts_list() -> void:
 	if first_name != "":
 		_display_script(first_name)
 		_select_entry_by_name_in(scripts_container, first_name)
+	elif scripts_container.get_child_count() == 0:
+		_reset_details()
 
 
 func _add_sequence_slot() -> void:
