@@ -28,21 +28,15 @@ extends Control
 
 const SCRIPT_ENTRY_SCENE = preload("res://Game/Interface/Stacks/SequenceManager/ScriptEntry.tscn")
 const SCRIPT_SLOT_SCENE = preload("res://Game/Interface/Stacks/SequenceManager/ScriptSlotPlaceholder.tscn")
+const LOADOUT_STATE = preload("res://Game/Interface/Stacks/SequenceManager/HackerLoadoutState.gd")
+const SCRIPT_PRESENTER = preload("res://Game/Interface/Stacks/SequenceManager/StackScriptPresenter.gd")
 
-var _script_lookup: Dictionary = {} # nom -> StackScript
+var _script_lookup: Dictionary = {}
 var _selected_script: StackScript
 var _selected_entry: Control
-var _sequence_names: Array[String] = []
-var _inventory_names: Array[String] = []
+var _loadout = LOADOUT_STATE.new()
 
-# Définition des couleurs (constantes)
-const COLOR_HP = "#FF0000"      # Rouge
-const COLOR_SHIELD = "#8A2BE2"  # Violet
-const COLOR_TARGET = "#00BFFF"  # Bleu Ciel
-const COLOR_CASTER = "#FFD700"  # Jaune
-const COLOR_DOT = "#008000"     # Vert
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	_reset_details()
 	_refresh_stats()
@@ -58,158 +52,54 @@ func _ready() -> void:
 		flux_plus_button.pressed.connect(_on_flux_plus_button_pressed)
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
-	
-	#if hacker != null:
-		#load_hacker(hacker)
-	#else:
-		#_bootstrap_hacker_from_manager()
 
 
 func load_hacker(target: Entity) -> void:
-	"""Charge un hacker externe et remplit l'UI."""
 	hacker = target
 	_refresh_stats()
-	#_ensure_hacker_scripts() c'est pour les test
 	_populate_lists()
 	_persist_hacker_loadout()
 
 
-func _bootstrap_hacker_from_manager() -> void:
-	"""Fallback : cree un hacker local et lui apprend tous les scripts disponibles."""
-	var temp_hacker := StackManager.create_hacker_entity()
-	load_hacker(temp_hacker)
-
-
-func _ensure_pool_ready() -> void:
-	if typeof(StackManager.stack_script_pool) != TYPE_DICTIONARY:
-		StackManager.stack_script_pool = {}
-	if StackManager.stack_script_pool.is_empty():
-		StackManager.initialize_pool()
-
-
-func _ensure_hacker_scripts() -> void:
-	if hacker == null:
-		return
-	if hacker.available_scripts.is_empty():
-		_ensure_pool_ready()
-		StackManager.learn_all_script(hacker)
-
-
 func _populate_lists() -> void:
-	_populate_scripts()
-	_populate_sequence()
-	_update_slots_label()
-
-
-func _populate_scripts() -> void:
-	_clear_scripts_container()
 	_script_lookup.clear()
-	_inventory_names.clear()
+	var known_names: Array[String] = []
 
-	if hacker == null or hacker.available_scripts.is_empty():
-		return
+	if hacker != null and not hacker.available_scripts.is_empty():
+		for key in hacker.available_scripts.keys():
+			var script_name := str(key)
+			var script_res = hacker.available_scripts.get(script_name, null)
+			if script_res is StackScript:
+				_script_lookup[script_name] = script_res
+				known_names.append(script_name)
+	known_names.sort()
 
-	var names: Array[String] = []
-	for key in hacker.available_scripts.keys():
-		names.append(str(key))
-	names.sort()
+	var initial_sequence: Array[String] = []
+	if hacker != null and not hacker.sequence_order.is_empty():
+		for script_name in hacker.sequence_order:
+			var name := str(script_name)
+			if _script_lookup.has(name):
+				initial_sequence.append(name)
 
-	for _name in names:
-		var script_res = hacker.available_scripts.get(_name, null)
-		if script_res is StackScript:
-			_script_lookup[_name] = script_res
-			_inventory_names.append(_name)
+	max_slots = max(max_slots, initial_sequence.size())
+	_loadout.setup(known_names, initial_sequence, max_slots)
 
 	_refresh_scripts_list()
-
-
-func _populate_sequence() -> void:
-	_clear_sequence_container()
-	_sequence_names.clear()
-
-	if hacker != null and not hacker.sequence_order.is_empty():
-		for _name in hacker.sequence_order:
-			if hacker.available_scripts.has(_name):
-				_sequence_names.append(str(_name))
-
-	# S'assure que max_slots couvre toujours la sequence existante
-	max_slots = max(max_slots, _sequence_names.size())
-
-	_ensure_sequence_slots()
 	_refresh_sequence_list()
 
 
-func _display_script(_name: String) -> void:
-	if not _script_lookup.has(_name):
+func _display_script(script_name: String) -> void:
+	if not _script_lookup.has(script_name):
 		_reset_details()
 		return
 
-	_selected_script = _script_lookup[_name]
-	var display_name := _format_script_name(_name)
-	stack_script_name.text = display_name
-	type_value.text = _script_kind_to_string(_selected_script.script_kind)
+	_selected_script = _script_lookup[script_name]
+	stack_script_name.text = SCRIPT_PRESENTER.format_script_name(script_name)
+	type_value.text = SCRIPT_PRESENTER.script_kind_to_string(_selected_script.script_kind)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
-	scaling_value.text = _format_scaling(_selected_script.type_and_coef)
-	description_label.text = _build_description(_name, _selected_script)
-
-
-func _build_description(_name: String, _script: StackScript) -> String:
-	return tr("%s_desc" % _name)
-
-
-func _format_scaling(coeffs: Dictionary) -> String:
-	if coeffs.is_empty():
-		return "Aucun bonus"
-	var parts: Array[String] = []
-	var ordered := ["penetration", "encryption", "flux"]
-	for key in ordered:
-		var coef := float(coeffs.get(key, 0.0))
-		if abs(coef) < 0.0001:
-			continue
-		parts.append("%s x%s" % [_format_stat_name(key), _format_number(coef)])
-
-	return " / ".join(parts) if not parts.is_empty() else "Aucun bonus"
-
-
-func _format_stat_name(key: String) -> String:
-	match key:
-		"penetration":
-			return "Penetration"
-		"encryption":
-			return "Encryption"
-		"flux":
-			return "Flux"
-		_:
-			return key
-
-
-func _format_script_name(_name: String) -> String:
-	var pretty := _name.replace("_", " ")
-	if pretty.length() == 0:
-		return pretty
-	if pretty.length() == 1:
-		return pretty.to_upper()
-	return pretty[0].to_upper() + pretty.substr(1, pretty.length() - 1)
-
-
-func _format_number(value: float) -> String:
-	# Affiche les floats courts sans trailing zeros inutiles.
-	if int(value) == value:
-		return str(int(value))
-	return "%.2f" % value
-
-
-func _script_kind_to_string(kind: int) -> String:
-	match kind:
-		StackScript.ScriptKind.DAMAGE:
-			return "Degats"
-		StackScript.ScriptKind.SHIELD:
-			return "Bouclier"
-		StackScript.ScriptKind.UTILITY:
-			return "Utilitaire"
-		_:
-			return "Inconnu"
+	scaling_value.text = SCRIPT_PRESENTER.format_scaling(_selected_script.type_and_coef)
+	description_label.text = tr("%s_desc" % script_name)
 
 
 func _refresh_stats() -> void:
@@ -249,6 +139,7 @@ func _compute_hacker_hp(stats_dict: Dictionary) -> float:
 	var hp_bonus := float(stats_dict.get("hp_bonus", 0))
 	return base_hp + pen + enc + flux + hp_bonus
 
+
 func _update_stat_buttons() -> void:
 	var can_buy := Player.bots > 0
 	if hp_plus_button != null:
@@ -260,20 +151,25 @@ func _update_stat_buttons() -> void:
 	if flux_plus_button != null:
 		flux_plus_button.disabled = not can_buy
 
+
 func _on_player_bots_changed(_value: int) -> void:
 	_refresh_stats()
+
 
 func _on_hp_plus_button_pressed() -> void:
 	if StackManager.spend_bot_for_hp_bonus():
 		_refresh_stats()
 
+
 func _on_penetration_plus_button_pressed() -> void:
 	if StackManager.spend_bot_for_stat("penetration"):
 		_refresh_stats()
 
+
 func _on_encryption_plus_button_pressed() -> void:
 	if StackManager.spend_bot_for_stat("encryption"):
 		_refresh_stats()
+
 
 func _on_flux_plus_button_pressed() -> void:
 	if StackManager.spend_bot_for_stat("flux"):
@@ -289,46 +185,37 @@ func _reset_details() -> void:
 	description_label.text = "Choisis un script pour voir son effet."
 	_set_selected_entry(null)
 
-func _on_script_entry_selected(_name: String) -> void:
-	_display_script(_name)
-	_select_entry_by_name_in(scripts_container, _name)
+
+func _on_script_entry_selected(script_name: String) -> void:
+	_display_script(script_name)
+	_select_entry_by_name_in(scripts_container, script_name)
 
 
-func _on_script_entry_activated(_name: String) -> void:
-	_display_script(_name)
-	_add_to_sequence(_name, -1)
+func _on_script_entry_activated(script_name: String) -> void:
+	_display_script(script_name)
+	_add_to_sequence(script_name, -1)
 
 
-func _on_sequence_entry_selected(_name: String) -> void:
-	_display_script(_name)
-	_select_entry_by_name_in(sequence_container, _name)
+func _on_sequence_entry_selected(script_name: String) -> void:
+	_display_script(script_name)
+	_select_entry_by_name_in(sequence_container, script_name)
 
 
-func _on_sequence_entry_activated(_name: String) -> void:
-	var index := _sequence_names.find(_name)
+func _on_sequence_entry_activated(script_name: String) -> void:
+	var index = _loadout.sequence_names.find(script_name)
 	if index == -1:
 		return
-	_sequence_names[index] = ""
-	if not _inventory_names.has(_name):
-		_inventory_names.append(_name)
-		_inventory_names.sort()
-	_refresh_sequence_list(min(index, _sequence_names.size() - 1))
+	_loadout.remove_from_sequence(index)
+	_refresh_sequence_list(min(index, _loadout.sequence_names.size() - 1))
 	_refresh_scripts_list()
 
 
-func _add_to_sequence(_name: String, insert_idx: int) -> void:
-	if not _inventory_names.has(_name):
+func _add_to_sequence(script_name: String, insert_idx: int) -> void:
+	if not _loadout.add_to_sequence(script_name, insert_idx):
 		return
-	_ensure_sequence_slots()
 	var target_idx := insert_idx
 	if target_idx < 0:
-		target_idx = _sequence_names.find("")
-	if target_idx < 0 or target_idx >= max_slots:
-		return
-	if _sequence_names[target_idx] != "":
-		return
-	_sequence_names[target_idx] = _name
-	_inventory_names.erase(_name)
+		target_idx = _loadout.sequence_names.find(script_name)
 	_refresh_sequence_list(target_idx)
 	_refresh_scripts_list()
 
@@ -337,24 +224,36 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 	_clear_sequence_container()
 	_ensure_sequence_slots()
 	for i in range(max_slots):
-		var n := _sequence_names[i]
-		if n != "":
-			var script_res = _script_lookup.get(n, null)
+		var script_name = _loadout.sequence_names[i]
+		if script_name != "":
+			var script_res = _script_lookup.get(script_name, null)
 			if script_res is StackScript:
 				var entry = SCRIPT_ENTRY_SCENE.instantiate()
 				sequence_container.add_child(entry)
-				entry.setup(n, _format_script_name(n), script_res.script_kind, _script_kind_to_string(script_res.script_kind), "sequence", i)
+				entry.setup(
+					script_name,
+					SCRIPT_PRESENTER.format_script_name(script_name),
+					script_res.script_kind,
+					SCRIPT_PRESENTER.script_kind_to_string(script_res.script_kind),
+					"sequence",
+					i
+				)
 				entry.connect("selected", Callable(self, "_on_sequence_entry_selected"))
 				entry.connect("activated", Callable(self, "_on_sequence_entry_activated"))
 			else:
 				_add_sequence_slot()
 		else:
 			_add_sequence_slot()
-	if select_idx >= 0 and select_idx < _sequence_names.size() and _sequence_names[select_idx] != "":
-		_select_entry_by_name_in(sequence_container, _sequence_names[select_idx])
-		_display_script(_sequence_names[select_idx])
+
+	if select_idx >= 0 and select_idx < _loadout.sequence_names.size():
+		var selected_name = _loadout.sequence_names[select_idx]
+		if selected_name != "":
+			_select_entry_by_name_in(sequence_container, selected_name)
+			_display_script(selected_name)
+
 	_update_slots_label()
 	_persist_hacker_loadout()
+
 
 func _persist_hacker_loadout() -> void:
 	if hacker == null:
@@ -362,26 +261,29 @@ func _persist_hacker_loadout() -> void:
 	var known_scripts: Array[String] = []
 	for key in hacker.available_scripts.keys():
 		known_scripts.append(str(key))
-	var sequence: Array[String] = []
-	for script_name in _sequence_names:
-		if script_name != "":
-			sequence.append(script_name)
-	StackManager.save_hacker_loadout(known_scripts, sequence)
+	StackManager.save_hacker_loadout(known_scripts, _loadout.sequence_compact())
 
 
 func _refresh_scripts_list() -> void:
 	_clear_scripts_container()
 	var first_name := ""
-	for n in _inventory_names:
-		var script_res = _script_lookup.get(n, null)
+	for script_name in _loadout.inventory_names:
+		var script_res = _script_lookup.get(script_name, null)
 		if script_res is StackScript:
 			var entry = SCRIPT_ENTRY_SCENE.instantiate()
 			scripts_container.add_child(entry)
-			entry.setup(n, _format_script_name(n), script_res.script_kind, _script_kind_to_string(script_res.script_kind), "available")
+			entry.setup(
+				script_name,
+				SCRIPT_PRESENTER.format_script_name(script_name),
+				script_res.script_kind,
+				SCRIPT_PRESENTER.script_kind_to_string(script_res.script_kind),
+				"available"
+			)
 			entry.connect("selected", Callable(self, "_on_script_entry_selected"))
 			entry.connect("activated", Callable(self, "_on_script_entry_activated"))
 			if first_name == "":
-				first_name = n
+				first_name = script_name
+
 	if first_name != "":
 		_display_script(first_name)
 		_select_entry_by_name_in(scripts_container, first_name)
@@ -395,11 +297,7 @@ func _add_sequence_slot() -> void:
 
 
 func _update_slots_label() -> void:
-	var used := 0
-	for n in _sequence_names:
-		if n != "":
-			used += 1
-	slots_label.text = "Slots : %d/%d" % [used, max_slots]
+	slots_label.text = "Slots : %d/%d" % [_loadout.used_slots_count(), max_slots]
 
 
 func _can_drop_data(_at_position: Vector2, data) -> bool:
@@ -407,7 +305,6 @@ func _can_drop_data(_at_position: Vector2, data) -> bool:
 		return false
 	var mouse := get_global_mouse_position()
 	if scripts_scroll.get_global_rect().has_point(mouse):
-		# Permet de retirer via drag vers l'inventaire
 		return str(data.get("source", "")) == "sequence"
 	return false
 
@@ -419,22 +316,14 @@ func _drop_data(_at_position: Vector2, data) -> void:
 	var mouse := get_global_mouse_position()
 	var source := str(data.get("source", ""))
 	var from_idx := int(data.get("from_index", -1))
-	var _name := str(data.get("name", ""))
 
 	if sequence_scroll.get_global_rect().has_point(mouse):
-		# Le drop sur la sequence est geré par les slots/entries
 		return
 
 	if scripts_scroll.get_global_rect().has_point(mouse) and source == "sequence":
-		if from_idx >= 0 and from_idx < _sequence_names.size():
-			var removed := _sequence_names[from_idx]
-			_sequence_names[from_idx] = ""
-			if removed != "":
-				if not _inventory_names.has(removed):
-					_inventory_names.append(removed)
-					_inventory_names.sort()
-				_refresh_sequence_list(-1)
-				_refresh_scripts_list()
+		if _loadout.remove_from_sequence(from_idx) != "":
+			_refresh_sequence_list(-1)
+			_refresh_scripts_list()
 
 
 func _clear_scripts_container() -> void:
@@ -455,10 +344,10 @@ func _set_selected_entry(entry: Control) -> void:
 		_selected_entry.set_selected(true)
 
 
-func _select_entry_by_name_in(container: VBoxContainer, _name: String) -> void:
+func _select_entry_by_name_in(container: VBoxContainer, script_name: String) -> void:
 	var found: Control = null
 	for child in container.get_children():
-		if child.has_method("get_script_name") and child.get_script_name() == _name:
+		if child.has_method("get_script_name") and child.get_script_name() == script_name:
 			found = child
 			break
 	_set_selected_entry(found)
@@ -467,35 +356,23 @@ func _select_entry_by_name_in(container: VBoxContainer, _name: String) -> void:
 func _on_sequence_slot_drop(slot_index: int, data: Dictionary) -> void:
 	var source := str(data.get("source", ""))
 	var from_idx := int(data.get("from_index", -1))
-	var _name := str(data.get("name", ""))
+	var script_name := str(data.get("name", ""))
 
 	_ensure_sequence_slots()
 	if slot_index < 0 or slot_index >= max_slots:
 		return
-	if _sequence_names[slot_index] != "":
+	if _loadout.sequence_names[slot_index] != "":
 		return
+
 	if source == "available":
-		_add_to_sequence(_name, slot_index)
+		_add_to_sequence(script_name, slot_index)
 	elif source == "sequence":
-		if from_idx >= 0 and from_idx < _sequence_names.size():
-			var moved := _sequence_names[from_idx]
-			if moved == "":
-				return
-			_sequence_names[from_idx] = ""
-			_sequence_names[slot_index] = moved
+		if _loadout.move_sequence_script(from_idx, slot_index):
 			_refresh_sequence_list(slot_index)
 
 
 func _on_clear_button_pressed() -> void:
-	_ensure_sequence_slots()
-	for i in range(_sequence_names.size()):
-		var _name := _sequence_names[i]
-		if _name == "":
-			continue
-		if not _inventory_names.has(_name):
-			_inventory_names.append(_name)
-		_sequence_names[i] = ""
-	_inventory_names.sort()
+	_loadout.clear_sequence()
 	_refresh_sequence_list(-1)
 	_refresh_scripts_list()
 
@@ -505,20 +382,11 @@ func _on_scripts_drop(data: Dictionary) -> void:
 	if source != "sequence":
 		return
 	var from_idx := int(data.get("from_index", -1))
-	if from_idx < 0 or from_idx >= _sequence_names.size():
+	if _loadout.remove_from_sequence(from_idx) == "":
 		return
-	var removed := _sequence_names[from_idx]
-	if removed == "":
-		return
-	_sequence_names[from_idx] = ""
-	if not _inventory_names.has(removed):
-		_inventory_names.append(removed)
-		_inventory_names.sort()
 	_refresh_sequence_list(-1)
 	_refresh_scripts_list()
 
 
 func _ensure_sequence_slots() -> void:
-	if _sequence_names.size() < max_slots:
-		while _sequence_names.size() < max_slots:
-			_sequence_names.append("")
+	_loadout.set_max_slots(max_slots)
