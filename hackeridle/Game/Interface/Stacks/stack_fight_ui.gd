@@ -192,6 +192,12 @@ func _finalize_encounter(victory: bool) -> void:
 		call_deferred("_start_next_encounter_with_countdown")
 		return
 
+	if not victory and run_active:
+		print("StackFightUI | défaite détectée, reprise au début du niveau")
+		hacker = StackManager.create_hacker_entity()
+		call_deferred("_start_next_encounter_with_countdown")
+		return
+
 	print("StackFightUI | fin de run après combat")
 	_end_run(victory)
 

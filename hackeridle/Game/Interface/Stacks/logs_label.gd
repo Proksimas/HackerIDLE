@@ -56,6 +56,7 @@ func _format_effects_list(effects: Array) -> String:
 
 
 func _kill_suffix(event_data: Dictionary) -> String:
+	return ''
 	var kill_suffix := ""
 	if event_data.has("resolution"):
 		var killed: Array = event_data["resolution"].get("killed", [])
@@ -123,8 +124,8 @@ func build_log_message(event_data: Dictionary) -> String:
 		var victory: bool = bool(event_data.get("victory", false))
 		var encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
 		if victory:
-			return "[color=#FFFFFF]Combat terminé: victoire (%s).[/color]" % encounter_type
-		return "[color=#FFFFFF]Combat terminé: défaite (%s).[/color]" % encounter_type
+			return "[color=#FFFFFF]Combat terminé: VICTOIRE[/color]"
+		return "[color=#FFFFFF]Combat terminé: DEFAITE [/color]" 
 
 	# --- Caster (normal) ---
 	var caster_name = event_data["caster"].entity_name
@@ -224,15 +225,6 @@ func build_log_message(event_data: Dictionary) -> String:
 
 		"Death":
 			return "%s est mort." % formatted_caster
-
-		"Cooldown":
-			var script_name := str(event_data.get("script_name", "script"))
-			var turns_remaining := int(event_data.get("turns_remaining", 0))
-			return "%s ne peut pas lancer [color=#FFFFFF]%s[/color] pendant encore %d tour(s)." % [
-				formatted_caster,
-				script_name.capitalize(),
-				turns_remaining
-			]
 
 		_:
 			return "Événement de log non reconnu: %s" % str(event_data)

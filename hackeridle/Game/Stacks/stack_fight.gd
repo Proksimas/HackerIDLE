@@ -236,7 +236,7 @@ func _on_hacker_died(_hacker:Entity):
 												"caster": _hacker}
 												)
 	print("Le hacker est dead")
-	#_end_combat(false) # Défaite
+	call_deferred("_end_combat", false)
 	
 func _on_robot_died(_robot:Entity):
 	if combat_ended:
@@ -248,6 +248,9 @@ func _on_robot_died(_robot:Entity):
 	for robot in robots_ia:
 		if robot == _robot:
 			robots_ia.erase(robot)
+			break
+	if robots_ia.is_empty():
+		call_deferred("_end_combat", true)
 			
 func _on_s_send_log(logs):
 	"""on reçoit spécialement un log, qu'on envoie directement au fight.logs"""
