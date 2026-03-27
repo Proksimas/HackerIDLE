@@ -4,6 +4,7 @@ class_name StackComponent
 
 @onready var stack_name_label: Label = %StackNameLabel
 @onready var texture_progress_bar: TextureProgressBar = %TextureProgressBar
+@onready var turns_remaining_label: Label = %TurnsRemainingLabel
 
 signal s_stack_component_completed
 
@@ -14,6 +15,15 @@ func set_component(component_name: String = "default_name") -> void:
 	stack_name_label.text = component_name
 	texture_progress_bar.value = 0
 	texture_progress_bar.max_value = 100
+	set_turns_remaining(0)
+
+
+func set_turns_remaining(turns_remaining: int) -> void:
+	if turns_remaining > 0:
+		turns_remaining_label.text = "%s" % turns_remaining
+		turns_remaining_label.show()
+	else:
+		turns_remaining_label.hide()
 
 
 func start_component() -> void:

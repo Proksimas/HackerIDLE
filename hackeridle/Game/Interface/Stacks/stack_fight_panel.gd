@@ -54,3 +54,12 @@ func _clear():
 		elmt.queue_free()
 	for elmt2 in robots_container.get_children():
 		elmt2.queue_free()
+
+
+func refresh_stack_components_cooldowns() -> void:
+	for entity_ui in hacker_container.get_children():
+		if entity_ui.has_method("refresh_stack_components_cooldowns"):
+			entity_ui.refresh_stack_components_cooldowns()
+	for entity_ui in robots_container.get_children():
+		if entity_ui.has_method("refresh_stack_components_cooldowns"):
+			entity_ui.refresh_stack_components_cooldowns()

@@ -192,6 +192,7 @@ func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> 
 				entity_ui.target_receive_data_from_execute(data_from_execution)
 				break
 
+	refresh_stack_components_cooldowns()
 	fight_logs.add_log(data_from_execution)
 	s_execute_script_ui_finished.emit()
 
@@ -200,3 +201,8 @@ func _on_s_stack_component_completed(component: StackComponent, data_before_exec
 	component.s_stack_component_completed.disconnect(_on_s_stack_component_completed)
 	data_before_execution["caster"].execute_next_script()
 	s_must_execute_script.emit()
+
+
+func refresh_stack_components_cooldowns() -> void:
+	if stack_fight_panel.has_method("refresh_stack_components_cooldowns"):
+		stack_fight_panel.refresh_stack_components_cooldowns()

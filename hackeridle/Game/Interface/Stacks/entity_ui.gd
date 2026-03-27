@@ -75,7 +75,8 @@ func initialize_stack_grid(entity: Entity, sequence: Array[String]) -> void:
 		var new_component = STACK_COMPONENT.instantiate()
 		stack_grid.add_child(new_component)
 		new_component.set_component(component_name)
-
+		var component_index := stack_grid.get_child_count() - 1
+		new_component.set_turns_remaining(_get_script_turns_remaining(component_index, component_name))
 
 func set_stack_script_values(dict: Dictionary) -> void:
 	for key in dict:
@@ -227,6 +228,33 @@ func _play_hp_damage_feedback() -> void:
 func _clear() -> void:
 	for elmt in stack_grid.get_children():
 		elmt.queue_free()
+
+
+func refresh_stack_components_cooldowns() -> void:
+	if entity_associated == null:
+		return
+
+	for i in range(min(stack_grid.get_child_count(), entity_associated.sequence_order.size())):
+		var component := stack_grid.get_child(i)
+		if not (component is StackComponent):
+			continue
+		var script_name := str(entity_associated.sequence_order[i])
+		component.set_turns_remaining(_get_script_turns_remaining(i, script_name))
+
+
+func _get_script_turns_remaining(script_index: int, script_name: String) -> int:
+	if entity_associated == null:
+		return 0
+
+	if script_index >= 0 and script_index < entity_associated.stack_script_sequence.size():
+		var queued_script = entity_associated.stack_script_sequence[script_index]
+		if queued_script is StackScript:
+			return int(queued_script.turn_remaining)
+
+	var script_res = entity_associated.available_scripts.get(script_name, null)
+	if script_res is StackScript:
+		return int(script_res.turn_remaining)
+	return 0
 
 
 func _on_shield_progress_bar_value_changed(value: float) -> void:

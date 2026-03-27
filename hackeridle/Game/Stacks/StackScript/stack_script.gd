@@ -59,7 +59,20 @@ func execute() -> Dictionary:
 func start_cooldown(_caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement
 	var effective_cooldown = turn_cooldown_base
-	turn_remaining = max(0, effective_cooldown)
+	# Le décrément intervient en phase de préparation du tour suivant.
+	# On ajoute 1 pour que "5 tours" signifie bien 5 tours complets d'attente.
+	turn_remaining = max(0, effective_cooldown + 1)
+
+
+func tick_cooldown() -> void:
+	if turn_remaining <= 0:
+		turn_remaining = 0
+		return
+	turn_remaining = max(0, turn_remaining - 1)
+
+
+func is_on_cooldown() -> bool:
+	return turn_remaining > 0
 	
 	
 func calcul_effect_value(_caster: Entity):
