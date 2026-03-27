@@ -18,6 +18,14 @@ func set_component(component_name: String = "default_name") -> void:
 	set_turns_remaining(0)
 
 
+func reset_component() -> void:
+	if tween != null and tween.is_valid():
+		tween.kill()
+	texture_progress_bar.value = 0
+	set_turns_remaining(0)
+	hide()
+
+
 func set_turns_remaining(turns_remaining: int) -> void:
 	if turns_remaining > 0:
 		turns_remaining_label.text = "%s" % turns_remaining
@@ -37,6 +45,8 @@ func start_component() -> void:
 		return
 
 	# 3) Reset de la valeur
+	if tween != null and tween.is_valid():
+		tween.kill()
 	texture_progress_bar.value = 0
 	tween = create_tween()
 	tween.tween_property(

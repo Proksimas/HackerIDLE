@@ -11,6 +11,9 @@ var _last_encounter_is_boss: bool = false
 var _pending_victory_resolution: bool = false
 var _between_fights_countdown_seconds: int = 5
 
+const BETWEEN_FIGHTS_FADE_OUT_DURATION: float = 0.3
+const BETWEEN_FIGHTS_FADE_IN_DURATION: float = 0.25
+
 const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
@@ -93,6 +96,7 @@ func _start_next_encounter() -> void:
 	fight_connexions(current_fight)
 	current_fight.s_combat_ended.connect(_on_combat_ended)
 	current_fight.start_fight(hacker, robots, self)
+	await _fade_in_combat_entities()
 
 func _build_robots_from_wave(wave_data: Dictionary) -> Array[Entity]:
 	var enemies_data: Array = []
@@ -165,7 +169,7 @@ func _on_combat_ended(victory: bool) -> void:
 			return
 
 	print("StackFightUI | pas de reward boss, finalisation et enchaînement")
-	_finalize_encounter(victory)
+	await _finalize_encounter(victory)
 
 
 func _finalize_encounter(victory: bool) -> void:
@@ -174,6 +178,10 @@ func _finalize_encounter(victory: bool) -> void:
 		_last_encounter_type,
 		str(_last_encounter_is_boss)
 	])
+
+	if victory and hacker != null and hacker.current_hp > 0:
+		await _fade_out_combat_entities()
+
 	_pending_victory_resolution = false
 	stack_fight_manager.resolve_encounter(victory)
 	_last_encounter_type = ""
@@ -261,7 +269,7 @@ func _on_boss_reward_selected(selected_data: Dictionary) -> void:
 			StackManager.learn_stack_script(hacker, script_name)
 
 	if _pending_victory_resolution:
-		_finalize_encounter(true)
+		await _finalize_encounter(true)
 
 func _end_run(_victory: bool) -> void:
 	run_active = false
@@ -398,3 +406,41 @@ func _show_between_fights_countdown(seconds_left: int) -> void:
 func _hide_between_fights_countdown() -> void:
 	if next_fight_countdown_label != null:
 		next_fight_countdown_label.hide()
+
+
+func _fade_out_combat_entities() -> void:
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+
+	if hacker_container != null:
+		hacker_container.show()
+		tween.tween_property(hacker_container, "modulate:a", 0.0, BETWEEN_FIGHTS_FADE_OUT_DURATION)
+	if robots_container != null:
+		robots_container.show()
+		tween.tween_property(robots_container, "modulate:a", 0.0, BETWEEN_FIGHTS_FADE_OUT_DURATION)
+
+	await tween.finished
+
+
+func _fade_in_combat_entities() -> void:
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.set_ease(Tween.EASE_IN_OUT)
+
+	if hacker_container != null:
+		var hacker_modulate := hacker_container.modulate
+		hacker_modulate.a = 0.0
+		hacker_container.modulate = hacker_modulate
+		hacker_container.show()
+		tween.tween_property(hacker_container, "modulate:a", 1.0, BETWEEN_FIGHTS_FADE_IN_DURATION)
+	if robots_container != null:
+		var robots_modulate := robots_container.modulate
+		robots_modulate.a = 0.0
+		robots_container.modulate = robots_modulate
+		robots_container.show()
+		tween.tween_property(robots_container, "modulate:a", 1.0, BETWEEN_FIGHTS_FADE_IN_DURATION)
+
+	await tween.finished

@@ -50,10 +50,10 @@ func _draw() -> void:
 
 func initialize_stack_grid(entity: Entity, sequence: Array[String]) -> void:
 	"""Initialisation de l'entité UI"""
-	_clear()
 	entity_associated = entity
 	entity_name_ui = entity.entity_name
 	entity_name_label.text = entity.entity_name
+	show()
 
 	# Init bars based on actual entity state (no assumptions)
 	hp_progress_bar.min_value = 0
@@ -70,13 +70,7 @@ func initialize_stack_grid(entity: Entity, sequence: Array[String]) -> void:
 
 	# Ensure shield visibility matches initial state
 	_on_shield_progress_bar_value_changed(shield_progress_bar.value)
-
-	for component_name in sequence:
-		var new_component = STACK_COMPONENT.instantiate()
-		stack_grid.add_child(new_component)
-		new_component.set_component(component_name)
-		var component_index := stack_grid.get_child_count() - 1
-		new_component.set_turns_remaining(_get_script_turns_remaining(component_index, component_name))
+	_sync_stack_components(sequence)
 
 func set_stack_script_values(dict: Dictionary) -> void:
 	for key in dict:
@@ -226,8 +220,42 @@ func _play_hp_damage_feedback() -> void:
 
 
 func _clear() -> void:
+	entity_associated = null
+	entity_name_ui = "default_ui_name"
+	entity_name_label.text = ""
+	hp_progress_bar.value = 0
+	shield_progress_bar.value = 0
+	_on_shield_progress_bar_value_changed(0)
 	for elmt in stack_grid.get_children():
-		elmt.queue_free()
+		if elmt is StackComponent:
+			elmt.reset_component()
+
+
+func _sync_stack_components(sequence: Array[String]) -> void:
+	for i in range(sequence.size()):
+		var component := _get_or_create_stack_component(i)
+		var component_name := str(sequence[i])
+		component.set_component(component_name)
+		component.set_turns_remaining(_get_script_turns_remaining(i, component_name))
+		component.show()
+
+	for i in range(sequence.size(), stack_grid.get_child_count()):
+		var extra_component := stack_grid.get_child(i)
+		if extra_component is StackComponent:
+			extra_component.reset_component()
+
+
+func _get_or_create_stack_component(index: int) -> StackComponent:
+	while stack_grid.get_child_count() <= index:
+		var new_component: StackComponent = STACK_COMPONENT.instantiate() as StackComponent
+		stack_grid.add_child(new_component)
+	var component := stack_grid.get_child(index) as StackComponent
+	return component
+
+
+func reset_entity_ui() -> void:
+	_clear()
+	hide()
 
 
 func refresh_stack_components_cooldowns() -> void:

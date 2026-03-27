@@ -23,13 +23,14 @@ func _ready() -> void:
 
 func set_entity_ui_container(entity: Entity)->bool:
 	"""Initialiser l'ui de l'entité"""
-	var new_entity_ui = ENTITY_UI.instantiate()
+	var target_container: Control = hacker_container if entity.entity_is_hacker else robots_container
+	var new_entity_ui: EntityUI = _acquire_entity_ui(target_container)
+	if new_entity_ui == null:
+		return false
 	match entity.entity_is_hacker:
 		true:
-			hacker_container.add_child(new_entity_ui)
 			new_entity_ui.set_stack_script_values(StackManager.stack_script_stats)
 		false:
-			robots_container.add_child(new_entity_ui)
 			new_entity_ui.set_stack_script_values(entity.stats)
 			
 	new_entity_ui.initialize_stack_grid(entity, entity.sequence_order)
@@ -51,16 +52,29 @@ func set_wave_state(wave_data):
 
 func _clear():
 	for elmt in hacker_container.get_children():
-		elmt.queue_free()
+		if elmt is EntityUI:
+			elmt.reset_entity_ui()
 	for elmt2 in robots_container.get_children():
-		elmt2.queue_free()
+		if elmt2 is EntityUI:
+			elmt2.reset_entity_ui()
 
 
 
 func refresh_stack_components_cooldowns() -> void:
 	for entity_ui in hacker_container.get_children():
-		if entity_ui.has_method("refresh_stack_components_cooldowns"):
+		if entity_ui.visible and entity_ui.has_method("refresh_stack_components_cooldowns"):
 			entity_ui.refresh_stack_components_cooldowns()
 	for entity_ui in robots_container.get_children():
-		if entity_ui.has_method("refresh_stack_components_cooldowns"):
+		if entity_ui.visible and entity_ui.has_method("refresh_stack_components_cooldowns"):
 			entity_ui.refresh_stack_components_cooldowns()
+
+
+func _acquire_entity_ui(container: Control) -> EntityUI:
+	for child in container.get_children():
+		if child is EntityUI and not child.visible:
+			child.show()
+			return child
+
+	var new_entity_ui: EntityUI = ENTITY_UI.instantiate() as EntityUI
+	container.add_child(new_entity_ui)
+	return new_entity_ui
