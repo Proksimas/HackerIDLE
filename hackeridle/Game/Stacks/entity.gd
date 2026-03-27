@@ -4,7 +4,7 @@ class_name Entity extends Node
 
 var max_hp: float = 20
 var current_hp: float = 20
-var base_hacker_hp = 200
+var base_hacker_hp = 20
 var current_shield: float = 0.0 # Bouclier temporaire
 var stats : Dictionary = {"penetration": 0,
 							"encryption": 0,

@@ -6,12 +6,19 @@ var robot_ia_2: Entity
 var current_fight: StackFight
 var run_active: bool = false
 var _last_wave_enemy_count: int = 0
+var _last_encounter_type: String = ""
+var _last_encounter_is_boss: bool = false
+var _pending_victory_resolution: bool = false
+var _between_fights_countdown_seconds: int = 5
+
+const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
 @onready var hacker_container: Control = %HackerContainer
 @onready var robots_container: HBoxContainer = %RobotsContainer
 @onready var fight_logs: Panel = %FightLogs
 @onready var stack_fight_manager: StackFightManager = %StackFightManager
+@onready var next_fight_countdown_label: Label = %NextFightCountdownLabel
 
 signal s_fight_ui_phase_finished
 signal s_execute_script_ui_finished
@@ -25,6 +32,8 @@ func on_opened() -> void:
 	"""Precharge l'UI de combat a l'ouverture, sans demarrer le run."""
 	if run_active:
 		return
+	_last_encounter_type = ""
+	_last_encounter_is_boss = false
 
 	hacker = StackManager.create_hacker_entity()
 
@@ -32,6 +41,7 @@ func on_opened() -> void:
 		stack_fight_panel.call("_clear")
 	if fight_logs.has_method("_clear"):
 		fight_logs.call("_clear")
+	_hide_between_fights_countdown()
 
 	stack_fight_panel.set_entity_ui_container(hacker)
 	stack_fight_panel.set_wave_state(_build_wave_preview_data())
@@ -43,6 +53,8 @@ func _on_start_fight_button_pressed() -> void:
 
 func _start_roguelike_run(reset_progression: bool = false) -> void:
 	run_active = true
+	_last_encounter_type = ""
+	_last_encounter_is_boss = false
 	if reset_progression:
 		stack_fight_manager.reset_run()
 	hacker = StackManager.create_hacker_entity()
@@ -50,19 +62,31 @@ func _start_roguelike_run(reset_progression: bool = false) -> void:
 
 func _start_next_encounter() -> void:
 	if not run_active:
+		print("StackFightUI | _start_next_encounter annulé: run inactive")
 		return
 	if hacker == null or hacker.current_hp <= 0:
+		print("StackFightUI | _start_next_encounter annulé: hacker absent ou mort")
 		_end_run(false)
 		return
 
 	var wave_data := stack_fight_manager.start_encounter()
 	_last_wave_enemy_count = _count_wave_enemies(wave_data)
+	_last_encounter_type = str(wave_data.get("type", ""))
+	_last_encounter_is_boss = wave_data.has("boss") or _last_encounter_type == "BOSS"
+	print("StackFightUI | start encounter | type=%s | is_boss=%s | sector=%s | level=%s | wave=%s" % [
+		_last_encounter_type,
+		str(_last_encounter_is_boss),
+		str(wave_data.get("sector_index", "?")),
+		str(wave_data.get("level_index", "?")),
+		str(wave_data.get("wave_index", "?"))
+	])
 	var robots := _build_robots_from_wave(wave_data)
 
 	if stack_fight_panel.has_method("_clear"):
 		stack_fight_panel.call("_clear")
 	if fight_logs.has_method("_clear"):
 		fight_logs.call("_clear")
+	_hide_between_fights_countdown()
 
 	stack_fight_panel.set_wave_state(wave_data)
 	current_fight = StackManager.new_fight(hacker, robots)
@@ -111,20 +135,140 @@ func _build_wave_preview_data() -> Dictionary:
 	}
 
 func _on_combat_ended(victory: bool) -> void:
+	print("StackFightUI | combat fini | victory=%s | encounter_type=%s | is_boss=%s | enemy_count=%s" % [
+		str(victory),
+		_last_encounter_type,
+		str(_last_encounter_is_boss),
+		str(_last_wave_enemy_count)
+	])
 	if victory and _last_wave_enemy_count > 0:
 		Player.earn_cyber_implants(_last_wave_enemy_count)
-	stack_fight_manager.resolve_encounter(victory)
 	current_fight = null
+	if fight_logs != null and fight_logs.has_method("add_log"):
+		await fight_logs.add_log({
+			"action_type": "Resolution",
+			"victory": victory,
+			"encounter_type": _last_encounter_type
+		})
+	await get_tree().create_timer(0.6).timeout
+	print("Combat terminé | victory=%s | encounter_type=%s | is_boss=%s" % [
+		str(victory),
+		_last_encounter_type,
+		str(_last_encounter_is_boss)
+	])
+
+	if victory and _is_current_encounter_boss():
+		print("StackFightUI | boss détecté en fin de combat")
+		if _show_boss_rewards_if_needed():
+			print("StackFightUI | reward boss affichée")
+			_pending_victory_resolution = true
+			return
+
+	print("StackFightUI | pas de reward boss, finalisation et enchaînement")
+	_finalize_encounter(victory)
+
+
+func _finalize_encounter(victory: bool) -> void:
+	print("StackFightUI | finalize encounter | victory=%s | previous_type=%s | previous_is_boss=%s" % [
+		str(victory),
+		_last_encounter_type,
+		str(_last_encounter_is_boss)
+	])
+	_pending_victory_resolution = false
+	stack_fight_manager.resolve_encounter(victory)
+	_last_encounter_type = ""
+	_last_encounter_is_boss = false
 
 	if victory and hacker != null and hacker.current_hp > 0:
-		call_deferred("_start_next_encounter")
+		print("StackFightUI | enchainement sur le combat suivant")
+		call_deferred("_start_next_encounter_with_countdown")
 		return
 
+	print("StackFightUI | fin de run après combat")
 	_end_run(victory)
+
+
+func _is_current_encounter_boss() -> bool:
+	return _last_encounter_is_boss
+
+
+func _show_boss_rewards_if_needed() -> bool:
+	var rewards := _build_boss_rewards()
+	if rewards.is_empty():
+		print("StackFightUI | aucun reward boss disponible")
+		return false
+
+	var selector: StackScriptRewardSelector = STACK_SCRIPT_REWARD_SELECTOR.instantiate() as StackScriptRewardSelector
+	if selector == null:
+		print("StackFightUI | échec instanciation reward selector")
+		return false
+
+	add_child(selector)
+	selector.reward_selected.connect(_on_boss_reward_selected)
+	selector.show_rewards(rewards, "Récompense de boss")
+	return true
+
+
+func _build_boss_rewards() -> Array[Dictionary]:
+	if typeof(StackManager.stack_script_pool) != TYPE_DICTIONARY or StackManager.stack_script_pool.is_empty():
+		StackManager.initialize_pool()
+
+	var candidates: Array[String] = []
+	for script_name_variant in StackManager.stack_script_pool.keys():
+		var script_name := str(script_name_variant)
+		if StackManager.stack_hacker_script_learned.has(script_name):
+			continue
+		candidates.append(script_name)
+
+	candidates.shuffle()
+
+	var rewards: Array[Dictionary] = []
+	var reward_count: int = min(3, candidates.size())
+	for i in range(reward_count):
+		var script_name := candidates[i]
+		var script_path := str(StackManager.stack_script_pool.get(script_name, ""))
+		if script_path == "":
+			continue
+		var script_resource = load(script_path)
+		if not (script_resource is StackScript):
+			continue
+
+		var title := script_name
+		if str(script_resource.stack_script_name).strip_edges() != "" and script_resource.stack_script_name != "Script Inconnu":
+			title = script_resource.stack_script_name
+
+		rewards.append({
+			"id": "%s_reward" % script_name,
+			"kind": "script",
+			"title": title,
+			"description": tr("%s_desc" % script_name),
+			"script_resource": script_resource,
+			"custom_payload": {
+				"script_name": script_name
+			}
+		})
+
+	return rewards
+
+
+func _on_boss_reward_selected(selected_data: Dictionary) -> void:
+	var payload: Dictionary = selected_data.get("payload", {})
+	var script_name := str(payload.get("script_name", ""))
+	print("StackFightUI | reward boss sélectionnée | script=%s" % script_name)
+	if script_name != "":
+		StackManager.unlock_hacker_script(script_name)
+		if hacker != null:
+			StackManager.learn_stack_script(hacker, script_name)
+
+	if _pending_victory_resolution:
+		_finalize_encounter(true)
 
 func _end_run(_victory: bool) -> void:
 	run_active = false
 	current_fight = null
+	_last_encounter_type = ""
+	_last_encounter_is_boss = false
+	_hide_between_fights_countdown()
 	if hacker != null and hacker.current_hp <= 0:
 		print("Run termine: hacker mort")
 
@@ -149,17 +293,34 @@ func _on_fight_started(_hacker: Entity, robots: Array[Entity]):
 func _on_s_cast_script(script_index: int, data_before_execution: Dictionary):
 	"""On demande de cast le lancement du prochain script, qui est le component"""
 	await get_tree().process_frame
-	var entity_ui_caster: EntityUI
-	var component: StackComponent
+	var entity_ui_caster: EntityUI = null
+	var component: StackComponent = null
 	if data_before_execution["caster"].entity_name == "hacker":
-		entity_ui_caster = hacker_container.get_child(0)
-		component = entity_ui_caster.stack_grid.get_child(script_index)
+		if hacker_container.get_child_count() > 0:
+			entity_ui_caster = hacker_container.get_child(0) as EntityUI
 	else:
 		for _robot_ia: EntityUI in robots_container.get_children():
 			if data_before_execution["caster"].entity_name == _robot_ia.entity_name_ui:
 				entity_ui_caster = _robot_ia
-				component = _robot_ia.stack_grid.get_child(script_index)
-	component.s_stack_component_completed.connect(_on_s_stack_component_completed.bind(component, data_before_execution))
+				break
+
+	if entity_ui_caster == null:
+		data_before_execution["caster"].execute_next_script()
+		s_must_execute_script.emit()
+		return
+
+	if script_index >= 0 and script_index < entity_ui_caster.stack_grid.get_child_count():
+		component = entity_ui_caster.stack_grid.get_child(script_index) as StackComponent
+
+	if component == null:
+		data_before_execution["caster"].execute_next_script()
+		s_must_execute_script.emit()
+		return
+
+	var completion_callable := Callable(self, "_on_s_stack_component_completed").bind(component, data_before_execution)
+	if component.s_stack_component_completed.is_connected(completion_callable):
+		component.s_stack_component_completed.disconnect(completion_callable)
+	component.s_stack_component_completed.connect(completion_callable, CONNECT_ONE_SHOT)
 	component.start_component()
 
 func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> void:
@@ -198,7 +359,6 @@ func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> 
 
 func _on_s_stack_component_completed(component: StackComponent, data_before_execution: Dictionary):
 	"""Toutes les animations liees a la stack sont finies. On peut lancer le script."""
-	component.s_stack_component_completed.disconnect(_on_s_stack_component_completed)
 	data_before_execution["caster"].execute_next_script()
 	s_must_execute_script.emit()
 
@@ -206,3 +366,35 @@ func _on_s_stack_component_completed(component: StackComponent, data_before_exec
 func refresh_stack_components_cooldowns() -> void:
 	if stack_fight_panel.has_method("refresh_stack_components_cooldowns"):
 		stack_fight_panel.refresh_stack_components_cooldowns()
+
+
+func _start_next_encounter_with_countdown() -> void:
+	if not run_active:
+		return
+	if hacker == null or hacker.current_hp <= 0:
+		_end_run(false)
+		return
+	for seconds_left in range(_between_fights_countdown_seconds, 0, -1):
+		_show_between_fights_countdown(seconds_left)
+		await get_tree().create_timer(1.0).timeout
+		if not run_active:
+			return
+		if hacker == null or hacker.current_hp <= 0:
+			_end_run(false)
+			return
+	_hide_between_fights_countdown()
+	_start_next_encounter()
+
+
+func _show_between_fights_countdown(seconds_left: int) -> void:
+	hacker_container.hide()
+	robots_container.hide()
+	if next_fight_countdown_label == null:
+		return
+	next_fight_countdown_label.text = "Prochain combat dans %d" % max(0, seconds_left)
+	next_fight_countdown_label.show()
+
+
+func _hide_between_fights_countdown() -> void:
+	if next_fight_countdown_label != null:
+		next_fight_countdown_label.hide()

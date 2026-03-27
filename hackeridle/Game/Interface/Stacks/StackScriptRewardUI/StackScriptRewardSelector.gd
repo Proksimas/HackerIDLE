@@ -19,22 +19,10 @@ var _closed: bool = false
 func _ready() -> void:
 	_clear_cards()
 	_set_modal_pause(true)
-	
-	
-	############ TEST ######################
-	var test_reward_data = {
-		"id": "syn_flood_reward",
-		"kind": "script",                      # ou RewardKind.SCRIPT
-		"title": "Syn Flood",
-		"description": "blabla.",
-		"script_resource": load("res://Game/Stacks/StackScript/syn_flood.tres"),
-	# optionnel pour les autres types :
-	# "slot_increment": 1,
-	# "custom_payload": {"foo": "bar"}
-}
-	_add_card(test_reward_data)
+	title_label.text = tr("$ChoseReward")
 
 func show_rewards(rewards: Array[Dictionary], title: String = "Choisis ta récompense") -> void:
+	_closed = false
 	title_label.text = title
 	_clear_cards()
 	for reward_data in rewards:
@@ -45,10 +33,9 @@ func _add_card(reward_data: Dictionary) -> void:
 	if reward_card_scene == null:
 		push_error("reward_card_scene n'est pas défini.")
 		return
-	var card = reward_card_scene.instantiate()
-	if not card is StackScriptRewardUI:
+	var card: StackScriptRewardUI = reward_card_scene.instantiate() as StackScriptRewardUI
+	if card == null:
 		push_error("La scène de carte doit être un StackScriptRewardUI.")
-		card.queue_free()
 		return
 	cards_container.add_child(card)
 	card.set_reward_data(reward_data)
@@ -79,7 +66,7 @@ func _close_selector() -> void:
 	queue_free()
 
 func _draw() -> void:
-	title_label.text = tr("$ChoseReward")
+	pass
 
 func _set_modal_pause(enable: bool) -> void:
 	# Utilise get_tree().paused pour geler les autres process ; ce nœud reste actif.

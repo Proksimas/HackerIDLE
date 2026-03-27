@@ -21,10 +21,12 @@ enum CombatPhase {
 var current_phase: CombatPhase = CombatPhase.PREPARATION
 var current_turn: int = 0
 var current_stack_fight_ui
+var combat_ended: bool = false
 signal s_fight_started(hack, array_robots)
 signal s_combat_ended(victory: bool)
 
 func start_fight(_hacker: Entity, _robots: Array[Entity], stack_fight_ui):
+	combat_ended = false
 	hacker = _hacker
 	robots_ia = _robots
 	current_stack_fight_ui = stack_fight_ui
@@ -32,6 +34,8 @@ func start_fight(_hacker: Entity, _robots: Array[Entity], stack_fight_ui):
 	
 
 func transition_to(new_phase: CombatPhase) -> void:
+	if combat_ended:
+		return
 	current_phase = new_phase
 	
 	match current_phase:
@@ -51,9 +55,13 @@ func _on_enter_entering_fight() -> void:
 	"""Phase juste apres la création du fight. on est dans une forme de 
 	pré préparation (en gros, avant de rentrer dans la logique du fight)"""
 	print("PHASE: Entering fight")
-	hacker.s_entity_die.connect(_on_hacker_died)
+	var hacker_die_callable := Callable(self, "_on_hacker_died")
+	if not hacker.s_entity_die.is_connected(hacker_die_callable):
+		hacker.s_entity_die.connect(hacker_die_callable)
 	for robot in robots_ia:
-		robot.s_entity_die.connect(_on_robot_died)
+		var robot_die_callable := Callable(self, "_on_robot_died")
+		if not robot.s_entity_die.is_connected(robot_die_callable):
+			robot.s_entity_die.connect(robot_die_callable)
 	current_turn = 0
 	transition_to(CombatPhase.PREPARATION)
 	
@@ -89,24 +97,41 @@ func _on_enter_hacker_execution() -> void:
 
 func entity_connexions(entity: Entity):
 	"""On connecte les signaux de l'entité, vers le stack_fight_ui"""
-	entity.s_cast_script.connect(current_stack_fight_ui._on_s_cast_script)
-	entity.s_execute_script.connect(current_stack_fight_ui._on_execute_script)
-	current_stack_fight_ui.s_execute_script_ui_finished.connect(entity._on_s_execute_script_ui_finished)
-	entity.s_sequence_completed.connect(_on_sequence_completed)
-	entity.s_send_log.connect(_on_s_send_log)
+	var cast_callable := Callable(current_stack_fight_ui, "_on_s_cast_script")
+	var execute_callable := Callable(current_stack_fight_ui, "_on_execute_script")
+	var execute_finished_callable := Callable(entity, "_on_s_execute_script_ui_finished")
+	var sequence_completed_callable := Callable(self, "_on_sequence_completed")
+	var send_log_callable := Callable(self, "_on_s_send_log")
+
+	if not entity.s_cast_script.is_connected(cast_callable):
+		entity.s_cast_script.connect(cast_callable)
+	if not entity.s_execute_script.is_connected(execute_callable):
+		entity.s_execute_script.connect(execute_callable)
+	if not current_stack_fight_ui.s_execute_script_ui_finished.is_connected(execute_finished_callable):
+		current_stack_fight_ui.s_execute_script_ui_finished.connect(execute_finished_callable)
+	if not entity.s_sequence_completed.is_connected(sequence_completed_callable):
+		entity.s_sequence_completed.connect(sequence_completed_callable)
+	if not entity.s_send_log.is_connected(send_log_callable):
+		entity.s_send_log.connect(send_log_callable)
 
 func entity_deconnexion(entity: Entity):
 	"""Deconnexion"""
-	if entity.s_cast_script.is_connected(current_stack_fight_ui._on_s_cast_script):
-		entity.s_cast_script.disconnect(current_stack_fight_ui._on_s_cast_script)
-	if entity.s_execute_script.is_connected(current_stack_fight_ui._on_execute_script):
-		entity.s_execute_script.disconnect(current_stack_fight_ui._on_execute_script)
-	if current_stack_fight_ui.s_execute_script_ui_finished.is_connected(entity._on_s_execute_script_ui_finished):
-		current_stack_fight_ui.s_execute_script_ui_finished.disconnect(entity._on_s_execute_script_ui_finished)
-	if entity.s_sequence_completed.is_connected(_on_sequence_completed):
-		entity.s_sequence_completed.disconnect(_on_sequence_completed)
-	if entity.s_send_log.is_connected(_on_s_send_log):
-		entity.s_send_log.disconnect(_on_s_send_log)
+	var cast_callable := Callable(current_stack_fight_ui, "_on_s_cast_script")
+	var execute_callable := Callable(current_stack_fight_ui, "_on_execute_script")
+	var execute_finished_callable := Callable(entity, "_on_s_execute_script_ui_finished")
+	var sequence_completed_callable := Callable(self, "_on_sequence_completed")
+	var send_log_callable := Callable(self, "_on_s_send_log")
+
+	if entity.s_cast_script.is_connected(cast_callable):
+		entity.s_cast_script.disconnect(cast_callable)
+	if entity.s_execute_script.is_connected(execute_callable):
+		entity.s_execute_script.disconnect(execute_callable)
+	if current_stack_fight_ui.s_execute_script_ui_finished.is_connected(execute_finished_callable):
+		current_stack_fight_ui.s_execute_script_ui_finished.disconnect(execute_finished_callable)
+	if entity.s_sequence_completed.is_connected(sequence_completed_callable):
+		entity.s_sequence_completed.disconnect(sequence_completed_callable)
+	if entity.s_send_log.is_connected(send_log_callable):
+		entity.s_send_log.disconnect(send_log_callable)
 var current_ia_index: int = 0
 func _on_enter_ia_execution() -> void:
 	print("PHASE: Exécution de l'IA")
@@ -116,6 +141,8 @@ func _on_enter_ia_execution() -> void:
 	next_ia_execution()
 
 func next_ia_execution():
+	if combat_ended:
+		return
 	var ia = robots_ia[current_ia_index]
 	current_ia_index += 1
 	entity_connexions(ia)
@@ -151,7 +178,17 @@ func _ia_logic_prepare_sequence() -> void:
 	
 
 func _end_combat(victory: bool) -> void:
+	if combat_ended:
+		return
+	combat_ended = true
 	print("--- COMBAT TERMINÉ ---")
+	var hacker_die_callable := Callable(self, "_on_hacker_died")
+	if hacker != null and hacker.s_entity_die.is_connected(hacker_die_callable):
+		hacker.s_entity_die.disconnect(hacker_die_callable)
+	var robot_die_callable := Callable(self, "_on_robot_died")
+	for robot in robots_ia:
+		if robot != null and robot.s_entity_die.is_connected(robot_die_callable):
+			robot.s_entity_die.disconnect(robot_die_callable)
 	entity_deconnexion(hacker)
 	robots_ia.all(entity_deconnexion)
 	if victory:
@@ -168,11 +205,15 @@ func _end_combat(victory: bool) -> void:
 
 # SIGNAUX
 func _on_fight_ui_phase_finished(phase: String):
+	if combat_ended:
+		return
 	match phase:
 		"fight_start":
 			transition_to(CombatPhase.ENTERING_FIGHT)
 
 func _on_sequence_completed(entity: Entity):
+	if combat_ended:
+		return
 	entity_deconnexion(entity)
 	if entity.entity_is_hacker:
 		if robots_ia.is_empty():
@@ -189,6 +230,8 @@ func _on_sequence_completed(entity: Entity):
 		
 
 func _on_hacker_died(_hacker:Entity):
+	if combat_ended:
+		return
 	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
 												"caster": _hacker}
 												)
@@ -196,6 +239,8 @@ func _on_hacker_died(_hacker:Entity):
 	#_end_combat(false) # Défaite
 	
 func _on_robot_died(_robot:Entity):
+	if combat_ended:
+		return
 	print("%s est dead" % _robot.entity_name)
 	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
 												"caster": _robot}
@@ -206,4 +251,6 @@ func _on_robot_died(_robot:Entity):
 			
 func _on_s_send_log(logs):
 	"""on reçoit spécialement un log, qu'on envoie directement au fight.logs"""
+	if combat_ended:
+		return
 	current_stack_fight_ui.fight_logs.add_log(logs)

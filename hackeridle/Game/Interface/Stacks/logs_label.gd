@@ -119,6 +119,13 @@ func _is_only_type(effects: Array, type_name: String) -> bool:
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
 
+	if action_type == "Resolution":
+		var victory: bool = bool(event_data.get("victory", false))
+		var encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
+		if victory:
+			return "[color=#FFFFFF]Combat terminé: victoire (%s).[/color]" % encounter_type
+		return "[color=#FFFFFF]Combat terminé: défaite (%s).[/color]" % encounter_type
+
 	# --- Caster (normal) ---
 	var caster_name = event_data["caster"].entity_name
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
