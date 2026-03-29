@@ -16,8 +16,8 @@ class_name StackFightManager
 # -------------------------
 # CONFIG (dynamique + plafonds)
 # -------------------------
-const WAVES_BASE := 3
-const WAVES_MAX := 10
+const WAVES_BASE = 3
+const WAVES_MAX = 10
 
 const LEVELS_BASE := 3
 const LEVELS_MAX := 9
@@ -73,16 +73,9 @@ var run_seed: int = 0
 #cela permet d'empecher de devoir stocker des datas
 # ======================= TEST =======================
 func _ready():
-	var encounters_to_simulate := 120
 	rng.randomize() 
 	run_seed = randi() #SI CHAREGEMENT, METTRE LA BONNE SEED
 	rng.seed = _sector_seed(sector_index)
-	return
-	print("\n===== START TEST RUN =====")
-	for i in range(encounters_to_simulate):
-		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
-		_print_encounter(i + 1, encounter)
-	print("===== END TEST RUN =====\n")
 
 func _print_encounter(idx: int, encounter: Dictionary) -> void:
 	var label := _encounter_label(encounter) # <-- CORRECTION: label = snapshot de l'encounter

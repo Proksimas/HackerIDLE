@@ -2,7 +2,6 @@ extends Control
 class_name StackScriptRewardSelector
 
 signal reward_selected(selected_data: Dictionary)
-signal selection_cancelled
 
 @export var reward_card_scene: PackedScene = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardUI.tscn")
 

@@ -73,8 +73,8 @@ func build_damage_preview(script: StackScript, stats: Dictionary) -> String:
 		if abs(coef) < 0.0001:
 			continue
 		var ratio_percent := format_number(abs(coef) * 100.0)
-		var sign := "+" if coef >= 0.0 else "-"
-		terms.append("%s %s (%s%%)" % [sign, format_stat_name(key), ratio_percent])
+		var sign_prefix := "+" if coef >= 0.0 else "-"
+		terms.append("%s %s (%s%%)" % [sign_prefix, format_stat_name(key), ratio_percent])
 		total += float(stats.get(key, 0.0)) * coef
 
 	if terms.is_empty():

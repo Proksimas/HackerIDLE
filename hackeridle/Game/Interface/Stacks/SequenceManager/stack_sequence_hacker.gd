@@ -139,9 +139,9 @@ func _populate_lists() -> void:
 	var initial_sequence: Array[String] = []
 	if hacker != null and not hacker.sequence_order.is_empty():
 		for script_name in hacker.sequence_order:
-			var name := str(script_name)
-			if _script_lookup.has(name):
-				initial_sequence.append(name)
+			var script_id := str(script_name)
+			if _script_lookup.has(script_id):
+				initial_sequence.append(script_id)
 
 	max_slots = max(max_slots, initial_sequence.size())
 	_loadout.setup(known_names, initial_sequence, max_slots)

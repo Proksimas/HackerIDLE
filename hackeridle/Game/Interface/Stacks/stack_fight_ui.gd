@@ -371,7 +371,7 @@ func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> 
 	fight_logs.add_log(data_from_execution)
 	s_execute_script_ui_finished.emit()
 
-func _on_s_stack_component_completed(component: StackComponent, data_before_execution: Dictionary):
+func _on_s_stack_component_completed(_component: StackComponent, data_before_execution: Dictionary):
 	"""Toutes les animations liees a la stack sont finies. On peut lancer le script."""
 	data_before_execution["caster"].execute_next_script()
 	s_must_execute_script.emit()

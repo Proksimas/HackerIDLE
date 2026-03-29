@@ -55,19 +55,8 @@ func _format_effects_list(effects: Array) -> String:
 	return ", ".join(parts)
 
 
-func _kill_suffix(event_data: Dictionary) -> String:
-	return ''
-	var kill_suffix := ""
-	if event_data.has("resolution"):
-		var killed: Array = event_data["resolution"].get("killed", [])
-		if killed.size() > 0:
-			var killed_names: Array = []
-			for t in killed:
-				if t != null:
-					killed_names.append(t.entity_name.capitalize())
-			if killed_names.size() > 0:
-				kill_suffix = " [color=#FFFFFF](%s meurt)[/color]" % ", ".join(killed_names)
-	return kill_suffix
+func _kill_suffix(_event_data: Dictionary) -> String:
+	return ""
 
 
 func _get_resolution_entry_for_target(event_data: Dictionary, target: Entity) -> Dictionary:
@@ -122,7 +111,7 @@ func build_log_message(event_data: Dictionary) -> String:
 
 	if action_type == "Resolution":
 		var victory: bool = bool(event_data.get("victory", false))
-		var encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
+		var _encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
 		if victory:
 			return "[color=#FFFFFF]Combat terminé: VICTOIRE[/color]"
 		return "[color=#FFFFFF]Combat terminé: DEFAITE [/color]" 

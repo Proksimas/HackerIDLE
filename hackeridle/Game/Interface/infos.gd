@@ -181,7 +181,7 @@ func _draw() -> void:
 	
 
 func get_performance_profile() -> String:
-	var cpu_name = OS.get_processor_name().to_lower()
+	var _cpu_name = OS.get_processor_name().to_lower()
 	var cores = OS.get_processor_count()
 
 	# Cas simple par nombre de coeurs
@@ -191,17 +191,6 @@ func get_performance_profile() -> String:
 		return "MEDIUM"
 	else:
 		return "HIGH"
-
-	# (Optionnel) Ajustement par nom du CPU
-	if "snapdragon 8" in cpu_name or "apple a1" in cpu_name or "m1" in cpu_name:
-		return "HIGH"
-	elif "snapdragon 6" in cpu_name or "mediatek dimensity 800" in cpu_name:
-		return "MEDIUM"
-	elif "snapdragon 4" in cpu_name or "mediatek helio" in cpu_name:
-		return "LOW"
-
-	# fallback
-	return "MEDIUM"
 
 
 func _on_settings_button_pressed() -> void:
