@@ -186,6 +186,39 @@ func spend_bot_for_hp_bonus(hp_to_add: int = HP_BONUS_PER_BOT) -> bool:
 	s_hacker_loadout_changed.emit()
 	return true
 
+func set_hacker_stat(stat_name: String, value: int) -> bool:
+	"""Force une stat precise du hacker."""
+	if stat_name not in ["penetration", "encryption", "flux", "hp_bonus"]:
+		return false
+	if typeof(stack_script_stats) != TYPE_DICTIONARY:
+		stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
+
+	stack_script_stats[stat_name] = max(0, int(value))
+	s_hacker_loadout_changed.emit()
+	return true
+
+func set_hacker_stats(new_stats: Dictionary, keep_unspecified: bool = true) -> void:
+	"""Met a jour les stats du hacker.
+	- keep_unspecified=true: ne change que les cles fournies
+	- keep_unspecified=false: reset les autres cles a 0
+	"""
+	var allowed := ["penetration", "encryption", "flux", "hp_bonus"]
+	var base := {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
+
+	if typeof(stack_script_stats) != TYPE_DICTIONARY:
+		stack_script_stats = base.duplicate(true)
+
+	if not keep_unspecified:
+		stack_script_stats = base.duplicate(true)
+
+	for key in allowed:
+		if new_stats.has(key):
+			stack_script_stats[key] = max(0, int(new_stats[key]))
+		elif not stack_script_stats.has(key):
+			stack_script_stats[key] = 0
+
+	s_hacker_loadout_changed.emit()
+
 func _save_data():
 	# TODO
 	pass

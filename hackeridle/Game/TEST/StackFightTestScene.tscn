@@ -11,6 +11,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hy3qw")
+auto_start_on_ready = true
+auto_chain_on_victory = true
+hacker_penetration = 50
+hacker_hp_bonus = 2000
 
 [node name="RootMargin" type="MarginContainer" parent="."]
 layout_mode = 1

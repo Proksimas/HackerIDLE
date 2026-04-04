@@ -12,6 +12,17 @@ extends Control
 @export var manager_level_index: int = 1
 @export var manager_wave_index: int = 1
 
+@export_group("Hacker Stats Override")
+@export var use_hacker_stats_override: bool = true
+@export var hacker_penetration: int = 0
+@export var hacker_encryption: int = 0
+@export var hacker_flux: int = 0
+@export var hacker_hp_bonus: int = 0
+
+@export_group("Hacker Scripts Override")
+@export var use_hacker_scripts_override: bool = true
+@export var hacker_sequence_scripts: Array[String] = ["syn_flood"]
+
 @onready var stack_fight_ui = %StackFightUi
 @onready var start_button: Button = %LaunchCustomFightButton
 @onready var result_label: Label = %ResultLabel
@@ -33,6 +44,8 @@ func _on_start_fight_button_pressed() -> void:
 		return
 
 	_prepare_manager_for_new_test()
+	_apply_hacker_stats_override()
+	_apply_hacker_scripts_override()
 	test_hacker = StackManager.create_hacker_entity()
 	await _launch_next_encounter(test_hacker, true)
 
@@ -49,6 +62,44 @@ func _prepare_manager_for_new_test() -> void:
 		manager.sector_index = max(0, manager_sector_index)
 		manager.level_index = max(1, manager_level_index)
 		manager.wave_index = max(1, manager_wave_index)
+
+
+func _apply_hacker_stats_override() -> void:
+	if not use_hacker_stats_override:
+		return
+	StackManager.set_hacker_stats({
+		"penetration": max(0, hacker_penetration),
+		"encryption": max(0, hacker_encryption),
+		"flux": max(0, hacker_flux),
+		"hp_bonus": max(0, hacker_hp_bonus)
+	}, false)
+
+
+func _apply_hacker_scripts_override() -> void:
+	if not use_hacker_scripts_override:
+		return
+
+	if StackManager.stack_script_pool.is_empty():
+		StackManager.initialize_pool()
+
+	var valid_known: Array[String] = []
+	var source_sequence: Array[String] = hacker_sequence_scripts if not hacker_sequence_scripts.is_empty() else valid_known
+	var valid_sequence: Array[String] = []
+	for script_name in source_sequence:
+		var s := str(script_name)
+		if StackManager.stack_script_pool.has(s):
+			if not valid_known.has(s):
+				valid_known.append(s)
+			valid_sequence.append(s)
+		else:
+			push_warning("StackFightTestScene | script inconnu ignore (sequence): %s" % s)
+
+	if valid_known.is_empty() and StackManager.stack_script_pool.has("syn_flood"):
+		valid_known.append("syn_flood")
+	if valid_sequence.is_empty() and valid_known.has("syn_flood"):
+		valid_sequence.append("syn_flood")
+
+	StackManager.save_hacker_loadout(valid_known, valid_sequence)
 
 
 func _launch_next_encounter(hacker: Entity, clear_logs: bool) -> void:
