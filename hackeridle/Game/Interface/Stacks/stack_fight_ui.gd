@@ -148,6 +148,9 @@ func _on_combat_ended(victory: bool) -> void:
 	if victory and _last_wave_enemy_count > 0:
 		Player.earn_cyber_implants(_last_wave_enemy_count)
 	current_fight = null
+	# Les logs "Death" sont légèrement différés dans FightLogs.
+	# On attend ce flush pour garantir que "Resolution" soit toujours le dernier log.
+	await get_tree().create_timer(0.12).timeout
 	if fight_logs != null and fight_logs.has_method("add_log"):
 		await fight_logs.add_log({
 			"action_type": "Resolution",

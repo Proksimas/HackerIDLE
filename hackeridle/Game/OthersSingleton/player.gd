@@ -356,4 +356,3 @@ func _save_data():
 	
 	all_vars["skills_owned"] = skills_owned_to_save
 	return all_vars
-
