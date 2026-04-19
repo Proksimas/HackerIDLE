@@ -22,7 +22,15 @@ const WAVES_MAX = 10
 const LEVELS_BASE := 3
 const LEVELS_MAX := 9
 
-const MIX_START_SECTOR := 4
+const LEVELS_INC_EVERY_SECTORS := 4
+const WAVES_INC_EVERY_SECTORS := 6
+const MIX_START_SECTOR := 8
+const ONBOARDING_SECTOR_MAX := 1
+const ONBOARDING_LEVELS_PER_SECTOR := 3
+const EARLY_INC_LEVEL_START_SECTOR := 4
+const ELITE_EXTRA_START_SECTOR := 8
+const ELITE_THIRD_ENEMY_START_SECTOR := 14
+const DEBUG_PREVIEW_ENCOUNTERS := 0
 
 # -------------------------
 # ENNEMIS / ARCHÉTYPES
@@ -73,9 +81,20 @@ var run_seed: int = 0
 #cela permet d'empecher de devoir stocker des datas
 # ======================= TEST =======================
 func _ready():
-	rng.randomize() 
-	run_seed = randi() #SI CHAREGEMENT, METTRE LA BONNE SEED
+	rng.randomize()
+	run_seed = randi() # SI CHARGEMENT, METTRE LA BONNE SEED
 	rng.seed = _sector_seed(sector_index)
+	if DEBUG_PREVIEW_ENCOUNTERS <= 0:
+		return
+
+	_debug_preview_encounters(DEBUG_PREVIEW_ENCOUNTERS)
+
+func _debug_preview_encounters(encounters_to_simulate: int) -> void:
+	print("\n===== START TEST RUN =====")
+	for i in range(encounters_to_simulate):
+		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
+		_print_encounter(i + 1, encounter)
+	print("===== END TEST RUN =====\n")
 
 func _print_encounter(idx: int, encounter: Dictionary) -> void:
 	var label := _encounter_label(encounter) # <-- CORRECTION: label = snapshot de l'encounter
@@ -112,11 +131,11 @@ func _print_enemy_line(index: int, enemy: Dictionary) -> void:
 
 func _encounter_label(encounter: Dictionary) -> String:
 	# On affiche depuis les champs stockés dans encounter (snapshot)
-	var sector_label := -(int(encounter.sector_index) + 1)
-	var level_label := -int(encounter.level_index)
-	var max_level_label := -int(encounter.levels_per_sector)
-	var wave_label := int(encounter.wave_index)
-	var max_wave_label := int(encounter.waves_per_level)
+	var sector_label := -(int(encounter.get("sector_index", sector_index)) + 1)
+	var level_label := -int(encounter.get("level_index", level_index))
+	var max_level_label := -int(encounter.get("levels_per_sector", levels_per_sector()))
+	var wave_label := int(encounter.get("wave_index", wave_index))
+	var max_wave_label := int(encounter.get("waves_per_level", waves_per_level()))
 	return "Secteur %d | Niveau %d/%d | Vague %d/%d" % [
 		sector_label, level_label, max_level_label, wave_label, max_wave_label
 	]
@@ -127,19 +146,23 @@ func _encounter_label(encounter: Dictionary) -> String:
 # DYNAMIQUE: vagues/niveaux qui augmentent avec la progression
 # -------------------------
 func levels_per_sector() -> int:
-	# +1 niveau tous les 2 secteurs, plafonné
-	var inc := sector_index / 2.0
+	# Early onboarding: secteurs 0 et 1 = 3 niveaux (2 normaux puis boss).
+	if sector_index <= ONBOARDING_SECTOR_MAX:
+		return ONBOARDING_LEVELS_PER_SECTOR
+	# +1 niveau tous les 4 secteurs, plafonné
+	var inc := sector_index / float(LEVELS_INC_EVERY_SECTORS)
 	var v := LEVELS_BASE + inc
 	if v > LEVELS_MAX:
 		v = LEVELS_MAX
 	return int(v)
 
 func waves_per_level() -> int:
-	# +1 vague tous les 3 secteurs, +1 si on dépasse la moitié des niveaux du secteur
-	var inc_sector := sector_index / 3.0
+	# +1 vague tous les 6 secteurs, +1 si on dépasse la moitié des niveaux du secteur
+	var inc_sector := sector_index / float(WAVES_INC_EVERY_SECTORS)
 	var half := levels_per_sector() / 2.0
 	var inc_level := 0
-	if level_index > half:
+	# Early game: on évite le +1 "seconde moitié" pour ne pas rallonger trop vite les niveaux.
+	if sector_index >= EARLY_INC_LEVEL_START_SECTOR and level_index > half:
 		inc_level = 1
 
 	var v := WAVES_BASE + inc_sector + inc_level
@@ -163,6 +186,14 @@ func _flux_scale(depth: int) -> float:
 
 func _roll_variation() -> float:
 	return rng.randf_range(STAT_VARIATION_MIN, STAT_VARIATION_MAX)
+
+func _early_difficulty_mult() -> float:
+	# Ramp douce: secteurs 0-2 nettement plus faciles, retour progressif à 1.0 jusqu'au secteur 8.
+	if sector_index <= 2:
+		return 0.78
+	if sector_index >= 8:
+		return 1.0
+	return lerpf(0.78, 1.0, float(sector_index - 2) / 6.0)
 
 # -------------------------
 # PUBLIC API
@@ -282,7 +313,7 @@ func get_level_wave_blueprint() -> Array:
 	# La dernière vague est spéciale (Elite/Boss géré dans next_encounter)
 	blueprint[wpl - 1].kind = "SPECIAL"
 
-	# --------- NOUVEAU : verrou MIX avant secteur 4 ----------
+	# --------- Verrou MIX avant MIX_START_SECTOR ----------
 	if sector_index < MIX_START_SECTOR:
 		for j in range(wpl):
 			var k := str(blueprint[j].kind)
@@ -324,28 +355,22 @@ func _make_enemy(role: int, variant_id: String) -> Dictionary:
 	var fs := _flux_scale(depth)
 	var mult = ROLE_MULT[role]
 	var v := _roll_variation()
+	var early_mult := _early_difficulty_mult()
 
 	return {
 		"role": role,
 		"variant": variant_id,
-		"hp": round(ENEMY_BASE.hp * s * mult.hp * v),
-		"penetration": round(ENEMY_BASE.p * s * mult.p * v),
-		"encryption": round(ENEMY_BASE.e * s * mult.e * v),
-		"flux": round(ENEMY_BASE.f * fs * mult.f * v)
+		"hp": round(ENEMY_BASE.hp * s * mult.hp * v * early_mult),
+		"penetration": round(ENEMY_BASE.p * s * mult.p * v * early_mult),
+		"encryption": round(ENEMY_BASE.e * s * mult.e * v * early_mult),
+		"flux": round(ENEMY_BASE.f * fs * mult.f * v * early_mult)
 	}
 
 func _wave_pack(enemies: Array, wave_type: String) -> Dictionary:
-	# Snapshot complet de la wave
-	return {
-		"type": wave_type,
-		"sector_index": sector_index,
-		"level_index": level_index,
-		"wave_index": wave_index,
-		"waves_per_level": waves_per_level(),
-		"levels_per_sector": levels_per_sector(),
-		"depth": _depth(),
-		"enemies": enemies,
-	}
+	var pack := _encounter_snapshot()
+	pack["type"] = wave_type
+	pack["enemies"] = enemies
+	return pack
 
 func _generate_normal_wave() -> Dictionary:
 	var bp := get_level_wave_blueprint()
@@ -451,7 +476,7 @@ func _generate_elite_wave() -> Dictionary:
 	)
 
 	# À partir d’un certain secteur, on ajoute de la pression
-	if sector_index >= 3:
+	if sector_index >= ELITE_EXTRA_START_SECTOR:
 		if rng.randf() < 0.6:
 			enemies.append(
 				_make_enemy(EnemyRole.SUPPORT, _pick_from(POOL_SUPPORT))
@@ -462,7 +487,7 @@ func _generate_elite_wave() -> Dictionary:
 			)
 
 	# Très tard : parfois un 3e ennemi
-	if sector_index >= 7 and rng.randf() < 0.3:
+	if sector_index >= ELITE_THIRD_ENEMY_START_SECTOR and rng.randf() < 0.3:
 		enemies.append(
 			_make_enemy(EnemyRole.DPS, _pick_from(POOL_DPS))
 		)
@@ -472,40 +497,43 @@ func _generate_elite_wave() -> Dictionary:
 
 func _generate_boss() -> Dictionary:
 	var boss := _make_enemy(EnemyRole.BOSS, _pick_from(POOL_BOSS))
-	# Snapshot inclus (très important pour affichage correct)
+	var pack := _encounter_snapshot()
+	pack["type"] = "BOSS"
+	pack["boss"] = boss
+	pack["gimmick_id"] = _pick_boss_gimmick()
+	return pack
+
+func _encounter_snapshot() -> Dictionary:
 	return {
-		"type": "BOSS",
 		"sector_index": sector_index,
 		"level_index": level_index,
 		"wave_index": wave_index,
 		"waves_per_level": waves_per_level(),
 		"levels_per_sector": levels_per_sector(),
 		"depth": _depth(),
-		"boss": boss,
-		"gimmick_id": _pick_boss_gimmick(),
 	}
 func _enemy_count_distribution_for_sector(s: int) -> Array:
 	# Paires [count, weight]
-	# Progression très douce, pensée pour 20+ secteurs.
-	if s <= 1:
+	# Progression très douce, pensée pour runs plus longs.
+	if s <= 2:
 		# Ultra early: apprentissage, lecture des scripts
 		return [[1, 100], [2, 0], [3, 0]]
-	if s <= 3:
+	if s <= 6:
 		# Early: 1 encore dominant, 2 commence à apparaître
 		return [[1, 80], [2, 15], [3, 5]]
-	if s <= 6:
+	if s <= 12:
 		# Transition: 2 devient fréquent, 1 encore présent
 		return [[1, 45], [2, 45], [3, 10]]
-	if s <= 9:
+	if s <= 18:
 		# Mid early: 2 devient la norme
 		return [[1, 25], [2, 55], [3, 18], [4, 2]]
-	if s <= 13:
+	if s <= 26:
 		# Mid: 3 apparaît souvent, 4 reste rare
 		return [[1, 12], [2, 50], [3, 33], [4, 5]]
-	if s <= 17:
+	if s <= 34:
 		# Mid-late: 3 fréquent, 4 possible
 		return [[1, 6], [2, 44], [3, 38], [4, 12]]
-	# s >= 18 (late game stable)
+	# s >= 35 (late game stable)
 	# 4 ennemis acceptés, 1 devient exceptionnel
 	return [[1, 3], [2, 40], [3, 40], [4, 17]]
 

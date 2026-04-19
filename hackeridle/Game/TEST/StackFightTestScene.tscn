@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhgj0lxd2dck"]
+
+[ext_resource type="Script" path="res://Game/TEST/stack_fight_test_scene.gd" id="1_hy3qw"]
+[ext_resource type="PackedScene" uid="uid://bvjnngl5lhewm" path="res://Game/Interface/Stacks/StackFightUI.tscn" id="2_vn12j"]
+
+[node name="StackFightTestScene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hy3qw")
+auto_start_on_ready = true
+auto_chain_on_victory = true
+hacker_penetration = 50
+hacker_hp_bonus = 2000
+
+[node name="RootMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="RootMargin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="RootMargin/VBox"]
+layout_mode = 2
+text = "Stack Fight Test Scene"
+
+[node name="Help" type="Label" parent="RootMargin/VBox"]
+layout_mode = 2
+text = "Configurez les parametres dans l inspector, puis lancez un combat avec l UI StackFight."
+
+[node name="Actions" type="HBoxContainer" parent="RootMargin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="LaunchCustomFightButton" type="Button" parent="RootMargin/VBox/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Launch Custom Fight"
+
+[node name="ClearLogsButton" type="Button" parent="RootMargin/VBox/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clear Logs"
+
+[node name="ResultLabel" type="Label" parent="RootMargin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resultat: en attente"
+
+[node name="StackFightUi" parent="RootMargin/VBox" instance=ExtResource("2_vn12j")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[connection signal="pressed" from="RootMargin/VBox/Actions/LaunchCustomFightButton" to="." method="_on_start_fight_button_pressed"]
+[connection signal="pressed" from="RootMargin/VBox/Actions/ClearLogsButton" to="." method="_on_clear_logs_button_pressed"]
