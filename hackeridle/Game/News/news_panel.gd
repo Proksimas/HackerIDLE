@@ -6,13 +6,10 @@ extends PanelContainer
 @onready var breaking_news_container: HBoxContainer = %BreakingNewsContainer
 @onready var news_container: PanelContainer = %NewsContainer
 @onready var news_color_rect: Panel = %NewsColorRect
-@onready var news_history_label: RichTextLabel = %NewsHistoryLabel
-@onready var news_history: Panel = %NewsHistory
+
+
 @onready var news_paper_icon: TextureButton = %NewsPaperIcon
 @onready var warning_icon: TextureRect = %WarningIcon
-@onready var pulsar_title: Label = %PulsarTitle
-@onready var pulsar_logan_label: Label = %PulsarLoganLabel
-
 @export var scroll_speed_pixels_per_second: float = 100.0
 @export var scrolling_time: int = 2
 
@@ -35,9 +32,11 @@ var nb_of_msg = {"random": 60,}
 
 signal news_finished
 signal show_infamy
+signal s_refresh_news_history
 
 func _ready() -> void:
-	news_history_label.clear()
+	has_news_to_read = false
+	warning_icon.visible = false
 	news_size = text_label_container.size.x
 	new_news()
 	
@@ -45,9 +44,7 @@ func _ready() -> void:
 	#StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	TimeManager.s_date.connect(_on_s_date)
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
-	news_history.hide()
-	pulsar_title.text = tr("$PulsarTitle")
-	pulsar_logan_label.text = tr("$PulsarLogan")
+
 
 func _process(_delta: float) -> void:
 	if scroll_starting:
@@ -130,7 +127,7 @@ func display_news(news_key: String, type: NewsType):
 	if type != NewsType.RANDOM:
 		has_news_to_read = true
 		warning_icon.visible = true
-	refresh_news_history()
+	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)
 
 
 func pick_random_sentence(key: String):
@@ -142,7 +139,7 @@ func pick_random_sentence(key: String):
 
 func _on_news_finished():
 	news_finished.disconnect(_on_news_finished)
-	refresh_news_history()
+	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)
 	new_news()
 
 func _on_s_date(date):
@@ -174,48 +171,10 @@ func new_news():
 func add_achievement(achievement_name, date):
 	chronological_news_passed.append({"key": "achievement_" + achievement_name,
 										"date": TimeManager.get_formatted_date_string(date)})
-	refresh_news_history()
+	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)
 	
 	pass
 	
-var news_to_show:int = 0
-func refresh_news_history():
-	news_history_label.text = ""
-	match news_to_show:
-		1:
-			for elmt in breaking_news_passed:
-				news_history_label.text += " [color=red]%s[/color]   %s\n" % [elmt, tr(elmt)]
-		2:
-			for elmt2 in chronological_news_passed:
-				if elmt2 is Dictionary: #alors c'est un player achievement
-					news_history_label.text += \
-					"[color=green]%s[/color]   %s\n" % [elmt2["date"], tr(elmt2["key"])]
-				else:
-					news_history_label.text += " [color=yellow]%s[/color]   %s\n" % [elmt2.trim_prefix("$"), tr(elmt2)]
-	if has_news_to_read:
-		warning_icon.visible = true
-	else:
-		warning_icon.visible = false
-func _on_news_paper_icon_pressed() -> void:
-	match news_to_show:
-		0:
-			news_history.visible = true
-			news_paper_icon.texture_normal = BREAKING_NEWS_ICON
-			news_to_show = 1
-		1:
-			news_paper_icon.flip_h = true
-			news_to_show = 2
-		2:
-			news_paper_icon.texture_normal = NEWS_PAPER_ICON
-			news_paper_icon.flip_h = false
-			news_history.visible = false
-			news_to_show = 0
-			
-	if has_news_to_read:
-		has_news_to_read = false
-	
-	refresh_news_history()
-
 #region INFAMY
 
 func _on_s_add_infamy(_infamy_value):
@@ -230,8 +189,6 @@ func _on_infamy_icon_pressed() -> void:
 
 func _draw():
 	infamy_value.text = str(StatsManager.infamy["current_value"])
-	pulsar_title.text = tr("$PulsarTitle")
-	pulsar_logan_label.text = tr("$PulsarLogan")
 	
 func _on_cheat_infamy_pressed() -> void:
 	StatsManager.add_infamy(5)
@@ -252,3 +209,9 @@ func _load_data(content):
 	breaking_news_passed = content["breaking_news_passed"]
 	chronological_news_passed = content["chronological_news_passed"]
 	pass
+
+
+func _on_news_paper_icon_pressed() -> void:
+	has_news_to_read = false
+	warning_icon.visible = false
+	pass # Replace with function body.

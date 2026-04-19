@@ -8,6 +8,7 @@ extends Control
 @onready var infos: Control = %Infos
 @onready var jail: Control = %Jail
 @onready var novanet: Control = %NovaNet
+@onready var newspaper: Control = %Newspaper
 
 
 @onready var skills_tree: Control = %SkillsTree
@@ -62,6 +63,8 @@ func _ready() -> void:
 	
 func connexions() -> void:
 	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
+	news_panel.s_refresh_news_history.connect(newspaper._on_refresh_news_history)
+	news_panel.news_paper_icon.pressed.connect(newspaper.show)
 	
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
@@ -282,4 +285,3 @@ func _on_more_button_container_hidden() -> void:
 func _on_cheat_button_pressed() -> void:
 	cheat_panel.visible = !cheat_panel.visible
 	pass # Replace with function body.
-
