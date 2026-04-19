@@ -81,6 +81,7 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="StackNameLabel" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -92,14 +93,24 @@ vertical_alignment = 1
 [node name="StackGrid" type="GridContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 15
+columns = 4
 
 [node name="StackComponent" parent="VBoxContainer/HBoxContainer/VBoxContainer/StackGrid" instance=ExtResource("2_apacx")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="StackComponent2" parent="VBoxContainer/HBoxContainer/VBoxContainer/StackGrid" instance=ExtResource("2_apacx")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 alignment = 1

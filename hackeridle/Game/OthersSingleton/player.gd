@@ -21,6 +21,11 @@ var bots: int = 0:
 	set(value):
 		bots = clamp(value, 0, INF)
 		s_earn_bots.emit(bots)
+
+var cyber_implants: int = 0:
+	set(value):
+		cyber_implants = clamp(value, 0, INF)
+		s_earn_cyber_implants.emit(cyber_implants)
 		
 var exploit_point: int = 0:
 	set(value):
@@ -65,6 +70,7 @@ signal s_earn_cyber_force(number)
 signal s_brain_clicked(knowledge, brain_xp)
 signal s_brain_xp_to_earn(number)
 signal s_earn_bots(number)
+signal s_earn_cyber_implants(number)
 signal s_earn_exploit_level(number)
 signal s_earn_exploit_point()
 signal s_earn_exploit_xp(number)
@@ -83,6 +89,7 @@ func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
 	_init_sources()
+	cyber_implants = 0
 	brain_xp_next = get_brain_xp(brain_level -1)
 	exploit_xp_next = get_exploit_xp(exploit_level)
 	
@@ -154,6 +161,11 @@ func earn_cyber_force(earning):
 	self.cyber_force += earning
 	cyber_force = clamp(cyber_force, 0, INF)
 	s_earn_cyber_force.emit(cyber_force)
+
+func earn_cyber_implants(earning: int) -> void:
+	if earning <= 0:
+		return
+	cyber_implants += earning
 	
 	
 func level_up():

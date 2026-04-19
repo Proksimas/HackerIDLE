@@ -45,6 +45,9 @@ func add_log(event: Dictionary):
 	#pour la Death spécifiquement, on delay le log
 	if event["action_type"] == "Death":
 		await get_tree().create_timer(0.1).timeout
+	elif event["action_type"] == "Resolution":
+		# La résolution doit apparaître après les autres événements du combat.
+		await get_tree().create_timer(0.2).timeout
 		
 	# 2. Création et ajout du nouveau log
 	var new_log = LOGS_LABEL.instantiate()

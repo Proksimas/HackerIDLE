@@ -100,7 +100,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HackerContainer" type="HBoxContainer" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
@@ -120,8 +119,9 @@ layout_mode = 2
 
 [node name="FightLogs" type="Panel" parent="StackFightPanel/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 250)
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 10
 script = ExtResource("4_x7x87")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="StackFightPanel/VBoxContainer/FightLogs"]
@@ -142,6 +142,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="NextFightCountdownLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -17.0
+offset_right = 295.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "Prochain combat dans 5"
+horizontal_alignment = 1
+
 [node name="StackFightManager" parent="." instance=ExtResource("6_o7dq6")]
+unique_name_in_owner = true
 
 [connection signal="pressed" from="StackFightPanel/VBoxContainer/StartFightButton" to="." method="_on_start_fight_button_pressed"]

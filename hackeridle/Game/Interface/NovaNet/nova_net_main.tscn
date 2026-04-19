@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://jie432gu85wn"]
+
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/nova_net_main.gd" id="1_5cn5c"]
+[ext_resource type="PackedScene" uid="uid://c6ctlstq4ibhs" path="res://Game/Interface/Stacks/SequenceManager/StackSequenceHacker.tscn" id="2_s4q6c"]
+
+[node name="NovaNetMain" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5cn5c")
+
+[node name="StackSequenceHacker" parent="." instance=ExtResource("2_s4q6c")]
+layout_mode = 2
+anchors_preset = 0
+size_flags_vertical = 3

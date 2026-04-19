@@ -5,7 +5,9 @@
 [resource]
 script = ExtResource("1_mssvw")
 stack_script_name = "syn_flood"
-turn_cooldown_base = 5
+turn_cooldown_base = 0
+base_value_hacker = 50.0
+base_value_robot = 3.0
 type_and_coef = {
 "encryption": 0.0,
 "flux": 0.1,

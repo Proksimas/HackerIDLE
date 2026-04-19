@@ -55,18 +55,8 @@ func _format_effects_list(effects: Array) -> String:
 	return ", ".join(parts)
 
 
-func _kill_suffix(event_data: Dictionary) -> String:
-	var kill_suffix := ""
-	if event_data.has("resolution"):
-		var killed: Array = event_data["resolution"].get("killed", [])
-		if killed.size() > 0:
-			var killed_names: Array = []
-			for t in killed:
-				if t != null:
-					killed_names.append(t.entity_name.capitalize())
-			if killed_names.size() > 0:
-				kill_suffix = " [color=#FFFFFF](%s meurt)[/color]" % ", ".join(killed_names)
-	return kill_suffix
+func _kill_suffix(_event_data: Dictionary) -> String:
+	return ""
 
 
 func _get_resolution_entry_for_target(event_data: Dictionary, target: Entity) -> Dictionary:
@@ -119,6 +109,13 @@ func _is_only_type(effects: Array, type_name: String) -> bool:
 func build_log_message(event_data: Dictionary) -> String:
 	var action_type = event_data.get("action_type", "Action Unknown")
 
+	if action_type == "Resolution":
+		var victory: bool = bool(event_data.get("victory", false))
+		var _encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
+		if victory:
+			return "[color=#FFFFFF]Combat terminé: VICTOIRE[/color]"
+		return "[color=#FFFFFF]Combat terminé: DEFAITE [/color]" 
+
 	# --- Caster (normal) ---
 	var caster_name = event_data["caster"].entity_name
 	var formatted_caster = "[color=%s]%s[/color]" % [COLOR_CASTER, caster_name.capitalize()]
@@ -134,8 +131,6 @@ func build_log_message(event_data: Dictionary) -> String:
 			stack_txt = " x%d" % stacks_tick
 
 		formatted_caster = "[color=%s]%s%s[/color]" % [COLOR_DOT, tr(status_id.capitalize()), stack_txt]
-
-	var kill_suffix := _kill_suffix(event_data)
 
 	match action_type:
 		"Damage", "Shield", "Heal":
@@ -195,16 +190,16 @@ func build_log_message(event_data: Dictionary) -> String:
 
 					# --- Choix de la phrase ---
 					if _is_only_type(effects_for_phrase, "Shield"):
-						lines.append("%s renforce %s avec %s.%s" % [
-							formatted_caster, formatted_target, formatted_effects_str, kill_suffix
+						lines.append("%s renforce %s avec %s." % [
+							formatted_caster, formatted_target, formatted_effects_str
 						])
 					elif _is_only_type(effects_for_phrase, "HealHP"):
-						lines.append("%s soigne %s pour %s points.%s" % [
-							formatted_caster, formatted_target, formatted_effects_str, kill_suffix
+						lines.append("%s soigne %s pour %s points." % [
+							formatted_caster, formatted_target, formatted_effects_str
 						])
 					else:
-						lines.append("%s inflige %s à %s%s.%s" % [
-							formatted_caster, formatted_effects_str, formatted_target, extra_suffix, kill_suffix
+						lines.append("%s inflige %s à %s%s." % [
+							formatted_caster, formatted_effects_str, formatted_target, extra_suffix
 						])
 
 				if lines.size() > 0:
@@ -213,7 +208,7 @@ func build_log_message(event_data: Dictionary) -> String:
 			# Fallback si jamais on reçoit un ancien event sans targetEffects
 			var effects_fallback: Array = event_data.get("effects", [])
 			var formatted_effects_str_fb = _format_effects_list(effects_fallback)
-			return "%s exécute une action : %s.%s" % [formatted_caster, formatted_effects_str_fb, kill_suffix]
+			return "%s exécute une action : %s." % [formatted_caster, formatted_effects_str_fb]
 
 		"Death":
 			return "%s est mort." % formatted_caster

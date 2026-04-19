@@ -71,7 +71,7 @@ static func _apply_effects_and_snapshot(caster: Entity, target: Entity, effects:
 	if (not before.isDead) and after.isDead:
 		resolution["killed"].append(target)
 		
-static func _apply_effect(caster: Entity, target: Entity, effect: Dictionary) -> void:
+static func _apply_effect(_caster: Entity, target: Entity, effect: Dictionary) -> void:
 	var effect_type: String = str(effect.get("type", ""))
 	var value: float = float(effect.get("value", 0))
 

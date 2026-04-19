@@ -63,6 +63,7 @@ func queue_script(script_resource: StackScript) -> void:
 	# IMPORTANT: Nous créons une instance locale (duplicata) de la ressource.
 	# C'est cette instance qui gérera son propre temps de rechargement (time_remaining).
 	var script_instance = script_resource.duplicate(true)
+	script_instance.turn_remaining = script_resource.turn_remaining
 	stack_script_sequence.append(script_instance)
 	
 func save_sequence(scripts_name: Array[String]):
@@ -83,6 +84,13 @@ func init_sequence():
 			queue_script(available_scripts[script_name])
 		else:
 			push_error("On init un script qui n'est pas dans le pool de l'entité !")
+
+
+func tick_all_script_cooldowns() -> void:
+	for script_name in available_scripts.keys():
+		var script_res = available_scripts.get(script_name, null)
+		if script_res is StackScript:
+			script_res.tick_cooldown()
 			
 func set_hacker_max_hp():
 	"""Calcule le max hp du hacker selon les stats et autres modificateurs"""
@@ -91,8 +99,9 @@ func set_hacker_max_hp():
 		return
 	
 	max_hp = base_hacker_hp + (StackManager.stack_script_stats["penetration"] + \
-							(StackManager.stack_script_stats["encryption"] * 1.5) + \
-							(StackManager.stack_script_stats["flux"] * 0.5))
+							StackManager.stack_script_stats["encryption"] + \
+							StackManager.stack_script_stats["flux"] + \
+							StackManager.stack_script_stats.get("hp_bonus", 0))
 	
 
 # LOGIQUE DE COMBAT
@@ -133,6 +142,26 @@ func prepare_next_script():
 		return
 	print(" -> Exécution de: " + script_instance.stack_script_name)
 
+	if available_scripts.has(script_instance.stack_script_name):
+		var master_script = available_scripts[script_instance.stack_script_name]
+		if master_script is StackScript:
+			script_instance.turn_remaining = master_script.turn_remaining
+
+	if script_instance.is_on_cooldown():
+		print(" -> %s en cooldown (%s tour(s) restant(s)), script sauté" % [
+			script_instance.stack_script_name,
+			int(script_instance.turn_remaining)
+		])
+		s_send_log.emit({
+			"action_type": "Cooldown",
+			"caster": self,
+			"script_name": script_instance.stack_script_name,
+			"turns_remaining": int(script_instance.turn_remaining)
+		})
+		current_script_index += 1
+		prepare_next_script()
+		return
+
 	script_instance.set_caster_and_targets(self, cache_targets)
 	
 	#On doit lancer l'ui qui cast le script. Lorsque cela sera fini,
@@ -149,6 +178,11 @@ func execute_next_script():
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
+	script_instance.start_cooldown(self)
+	if available_scripts.has(script_instance.stack_script_name):
+		var master_script = available_scripts[script_instance.stack_script_name]
+		if master_script is StackScript:
+			master_script.start_cooldown(self)
 	CombatResolver.resolve(data_from_execution)
 	#reçu par le StackFightUI
 	s_execute_script.emit(current_script_index, data_from_execution)

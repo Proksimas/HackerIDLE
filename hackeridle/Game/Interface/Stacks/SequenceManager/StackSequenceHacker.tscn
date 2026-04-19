@@ -1,0 +1,563 @@
+[gd_scene load_steps=15 format=3 uid="uid://c6ctlstq4ibhs"]
+
+[ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
+[ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptDropArea.gd" id="2_4c8sd"]
+[ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="3_vqvmt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74yab"]
+
+[sub_resource type="StyleBoxFlat" id="style_panel"]
+bg_color = Color(0.1, 0.11, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.24, 0.27, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="style_button_primary_hover"]
+bg_color = Color(0.15, 0.4, 0.33, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.9, 0.75, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button_primary"]
+bg_color = Color(0.12, 0.33, 0.27, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.8, 0.65, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button_hover"]
+bg_color = Color(0.2, 0.22, 0.25, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.35, 0.37, 0.4, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_button"]
+bg_color = Color(0.16, 0.17, 0.19, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.3, 0.33, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_inset"]
+bg_color = Color(0.07, 0.08, 0.09, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.2, 0.23, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_list"]
+bg_color = Color(0.06, 0.07, 0.08, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.2, 0.22, 0.25, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="style_card"]
+bg_color = Color(0.09, 0.1, 0.11, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.24, 0.26, 0.29, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="style_stats"]
+bg_color = Color(0.07, 0.08, 0.09, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.2, 0.23, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2rq4"]
+
+[node name="StackSequenceHacker" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xiqgv")
+
+[node name="Frame" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_74yab")
+
+[node name="OuterMargin" type="MarginContainer" parent="Frame"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RootVBox" type="VBoxContainer" parent="Frame/OuterMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 14
+
+[node name="Content" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScriptsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="ScriptsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="ScriptsVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="ScriptsHeader" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScriptsTitle" type="Label" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "SCRIPTS"
+
+[node name="Tabs" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TabOffense" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "Offense"
+
+[node name="TabDefense" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "Defense"
+
+[node name="TabUtility" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "Utility"
+
+[node name="TabAoe" type="Button" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/Tabs"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_hover")
+theme_override_styles/normal = SubResource("style_button")
+text = "AoE"
+
+[node name="SortRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SortLabel" type="Label" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/SortRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Trier par"
+
+[node name="SortMenu" type="OptionButton" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/SortRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("style_inset")
+
+[node name="ScriptsScroll" type="ScrollContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_list")
+script = ExtResource("2_4c8sd")
+
+[node name="ScriptsContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox/ScriptsScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="SequencePanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/Content"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="SequenceMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="SequenceVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="SequenceHeader" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SequenceTitle" type="Label" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceHeader"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "SEQUENCE"
+
+[node name="SlotsLabel" type="Label" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceHeader"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.64, 0.68, 1)
+text = "Slots : 0/0"
+
+[node name="SequenceActions" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ClearButton" type="Button" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions"]
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "Vider"
+
+[node name="SequenceScroll" type="ScrollContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_list")
+
+[node name="SequenceContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 6
+
+[node name="DetailsPanel" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_panel")
+
+[node name="DetailsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="DetailsVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="DetailsTitle" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.9, 1)
+text = "DETAILS DU SCRIPT"
+
+[node name="StackScriptName" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="DetailsCard" type="PanelContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("style_card")
+
+[node name="DetailsCardMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="DetailsCardVBox" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="GridContainer" type="GridContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+layout_mode = 2
+columns = 2
+
+[node name="TypeRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="TypeLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/TypeRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Type"
+
+[node name="TypeValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/TypeRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="CooldownRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CooldownLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/CooldownRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Cooldown"
+
+[node name="CooldownValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/CooldownRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="ExecRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 8
+
+[node name="ExecLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/ExecRow"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Temps d'execution"
+
+[node name="ExecValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/ExecRow"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Coefficients"
+
+[node name="ScalingValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+autowrap_mode = 2
+
+[node name="DescriptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Effet"
+
+[node name="Description" type="RichTextLabel" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "-"
+scroll_active = false
+autowrap_mode = 2
+
+[node name="StatsBar" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("style_stats")
+
+[node name="StatsMargin" type="MarginContainer" parent="Frame/OuterMargin/RootVBox/StatsBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="BotIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_vqvmt")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="BotsAvailibleLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Bots dispo:"
+
+[node name="BotsAvailibleValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+
+[node name="VSeparator" type="VSeparator" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_x2rq4")
+
+[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "PV max"
+
+[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "-"
+
+[node name="HpPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="StatsRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="PenetrationLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Penetration"
+
+[node name="PenetrationValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="PenetrationPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="EncryptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Encryption"
+
+[node name="EncryptionValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="EncryptionPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow"]
+layout_mode = 2
+
+[node name="FluxLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "Flux"
+
+[node name="FluxValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-"
+
+[node name="FluxPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 0)
+layout_mode = 2
+theme_override_styles/hover = SubResource("style_button_primary_hover")
+theme_override_styles/normal = SubResource("style_button_primary")
+text = "+"
+
+[connection signal="pressed" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions/ClearButton" to="." method="_on_clear_button_pressed"]

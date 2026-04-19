@@ -7,7 +7,10 @@ class_name StackScript
 # Propriétés de base du Script
 @export var stack_script_name: String = "Script Inconnu"
 @export var turn_cooldown_base: int = 5# Temps de rechargement de base
+
 @export_category("Valeurs")
+@export var base_value_hacker: float = 0.0
+@export var base_value_robot: float = 0.0
 
 #Valeur de base de degat si l'entité est un robot
 
@@ -56,7 +59,20 @@ func execute() -> Dictionary:
 func start_cooldown(_caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement
 	var effective_cooldown = turn_cooldown_base
-	turn_remaining = max(0, effective_cooldown)
+	# Le décrément intervient en phase de préparation du tour suivant.
+	# On ajoute 1 pour que "5 tours" signifie bien 5 tours complets d'attente.
+	turn_remaining = max(0, effective_cooldown + 1)
+
+
+func tick_cooldown() -> void:
+	if turn_remaining <= 0:
+		turn_remaining = 0
+		return
+	turn_remaining = max(0, turn_remaining - 1)
+
+
+func is_on_cooldown() -> bool:
+	return turn_remaining > 0
 	
 	
 func calcul_effect_value(_caster: Entity):
@@ -64,6 +80,11 @@ func calcul_effect_value(_caster: Entity):
 	selon les caractéristiques."""
 
 	var bonus_value: float = 0
+	if _caster.entity_is_hacker:
+		bonus_value += base_value_hacker
+	else:
+		bonus_value += base_value_robot
+		
 	for _type in type_and_coef:
 		if _caster.entity_is_hacker:
 			bonus_value += linear_calcul(\

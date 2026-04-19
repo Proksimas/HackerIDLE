@@ -71,7 +71,10 @@ func create_event_and_ui(scenario_specific: int = -1):
 
 	event_ui.event_ui_setup(event)
 	timer_event.paused = true
-	event_ui.s_event_finished.connect(_on_s_event_finished.bind(event_ui))
+	var event_finished_callable := Callable(self, "_on_s_event_finished").bind(event_ui)
+	if event_ui.s_event_finished.is_connected(event_finished_callable):
+		event_ui.s_event_finished.disconnect(event_finished_callable)
+	event_ui.s_event_finished.connect(event_finished_callable, CONNECT_ONE_SHOT)
 	
 func _on_timer_event_timeout() -> void:
 	"""Quand timeout, on instaure un nouvel event"""
@@ -81,8 +84,6 @@ func _on_timer_event_timeout() -> void:
 	
 func _on_s_event_finished(_event_ui):
 	"""L'event est fini. On le supprime et on relance le timer"""
-
-	_event_ui.s_event_finished.disconnect(_on_s_event_finished)
 	_event_ui.hide()
 	_event_ui.queue_free()
 	launch_timer()

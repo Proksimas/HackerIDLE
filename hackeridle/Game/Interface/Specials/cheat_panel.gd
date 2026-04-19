@@ -18,7 +18,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if !self.visible:
 		$Timer.paused = true
 	else:
@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 
 
 func _on_nb_of_rebirth_spin_box_value_changed(value: float) -> void:
-	Player.nb_of_rebirth = value
+	Player.nb_of_rebirth = int(value)
 	pass # Replace with function body.
 
 
@@ -71,8 +71,8 @@ func _on_cheat_event_button_pressed() -> void:
 
 var cache_gain: int = 0
 func _on_gain_spin_box_value_changed(value: float) -> void:
-	cache_gain = value
-	get_tree().call_group("g_gain_value", "set_gain_button", value)
+	cache_gain = int(value)
+	get_tree().call_group("g_gain_value", "set_gain_button", cache_gain)
 	pass # Replace with function body.
 
 

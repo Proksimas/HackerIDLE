@@ -41,14 +41,6 @@ func _get_max_skills_points(_type)-> int:
 			
 func refresh_progress_bar():
 	return
-	#os_progress.min_value = 0
-	#os_progress.max_value = _get_max_skills_points("offensive")
-	#os_progress.value = SkillsManager.OS_invested_points
-	#
-	#ds_progress.min_value = 0
-	#ds_progress.max_value = _get_max_skills_points("defensive")
-	#ds_progress.value = SkillsManager.DS_invested_points
-	pass
 			
 			
 

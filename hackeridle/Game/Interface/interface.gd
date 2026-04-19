@@ -153,7 +153,10 @@ func app_button_pressed(button_name:String):
 			new_style_box.texture = JAIL
 			jail.enter_jail()
 		"novanet":
+			NovaNetManager.on_novanet_entered()
 			novanet.show()
+			if novanet.has_method("on_opened"):
+				novanet.call("on_opened")
 			new_style_box.texture = NOVANET
 		_:
 			push_error("Probleme dans le nom")
@@ -279,3 +282,4 @@ func _on_more_button_container_hidden() -> void:
 func _on_cheat_button_pressed() -> void:
 	cheat_panel.visible = !cheat_panel.visible
 	pass # Replace with function body.
+
