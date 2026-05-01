@@ -56,8 +56,6 @@ func _ready() -> void:
 	if !OS.has_feature("editor"):
 		#cheat_events.hide()
 		cheat_events.show()
-	else:
-		cheat_events.hide()
 	
 	main_tab.current_tab = 0
 	connexions()
