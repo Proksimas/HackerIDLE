@@ -10,9 +10,13 @@ var _last_encounter_type: String = ""
 var _last_encounter_is_boss: bool = false
 var _pending_victory_resolution: bool = false
 var _between_fights_countdown_seconds: int = 5
+var _implant_reward_rng := RandomNumberGenerator.new()
 
 const BETWEEN_FIGHTS_FADE_OUT_DURATION: float = 0.3
 const BETWEEN_FIGHTS_FADE_IN_DURATION: float = 0.25
+const IMPLANT_REWARD_PER_ENEMY_MIN: int = 1
+const IMPLANT_REWARD_PER_ENEMY_MAX: int = 3
+const IMPLANT_REWARD_ELITE_MULTIPLIER: int = 2
 
 const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
 
@@ -29,6 +33,7 @@ signal s_must_execute_script
 signal s_encounter_started(wave_data: Dictionary)
 
 func _ready() -> void:
+	_implant_reward_rng.randomize()
 	if StackManager.has_signal("s_hacker_loadout_changed") and not StackManager.s_hacker_loadout_changed.is_connected(_on_hacker_loadout_changed):
 		StackManager.s_hacker_loadout_changed.connect(_on_hacker_loadout_changed)
 
@@ -140,6 +145,16 @@ func _build_wave_preview_data() -> Dictionary:
 		"waves_per_level": stack_fight_manager.waves_per_level()
 	}
 
+func _compute_implant_reward() -> int:
+	var total_reward := 0
+	for _i in range(_last_wave_enemy_count):
+		total_reward += _implant_reward_rng.randi_range(IMPLANT_REWARD_PER_ENEMY_MIN, IMPLANT_REWARD_PER_ENEMY_MAX)
+
+	if _last_encounter_type == "ELITE":
+		total_reward *= IMPLANT_REWARD_ELITE_MULTIPLIER
+
+	return max(0, total_reward)
+
 func _on_combat_ended(victory: bool) -> void:
 	print("StackFightUI | combat fini | victory=%s | encounter_type=%s | is_boss=%s | enemy_count=%s" % [
 		str(victory),
@@ -148,7 +163,7 @@ func _on_combat_ended(victory: bool) -> void:
 		str(_last_wave_enemy_count)
 	])
 	if victory and _last_wave_enemy_count > 0:
-		Player.earn_cyber_implants(_last_wave_enemy_count)
+		Player.earn_cyber_implants(_compute_implant_reward())
 	current_fight = null
 	# Les logs "Death" sont légèrement différés dans FightLogs.
 	# On attend ce flush pour garantir que "Resolution" soit toujours le dernier log.
