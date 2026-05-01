@@ -33,21 +33,18 @@ func _refresh_translations() -> void:
 func _on_refresh_news_history(breaking_news_passed,chronological_news_passed):
 	print("breaking_news_passed: %s \nchronological_news_passed: %s" % [breaking_news_passed,chronological_news_passed])
 	_clear_news()
-	common_news.text = ""
-	breaking_news.text = ""
-	player_achievement.text = ""
+	_set_rich_text(common_news, "")
+	_set_rich_text(breaking_news, "")
+	_set_rich_text(player_achievement, "")
 	
 	for elmt in breaking_news_passed:
-		var key = elmt["key"] if elmt is Dictionary else str(elmt)
-		breaking_news.text += " [color=red]%s[/color]   %s\n" % [key, tr(key)]
+		_append_rich_text(breaking_news, _format_breaking_line(elmt))
 		
 	for elmt2 in chronological_news_passed:
 		if elmt2 is Dictionary and elmt2.get("kind", "") == "achievement":
-			player_achievement.text += \
-			"[color=green]%s[/color]   %s\n" % [elmt2["date"], tr(elmt2["key"])]
+			_append_rich_text(player_achievement, _format_achievement_line(elmt2))
 		else:
-			var key2 = elmt2["key"] if elmt2 is Dictionary else str(elmt2)
-			common_news.text += " [color=yellow]%s[/color]   %s\n" % [key2.trim_prefix("$"), tr(key2)]
+			_append_rich_text(common_news, _format_chronological_line(elmt2))
 			
 func _clear_news():
 	if common_news != null:
@@ -62,3 +59,27 @@ func _set_label_translation(label: Label, key: String) -> void:
 		push_warning("newspaper.gd: label introuvable pour la clé %s" % key)
 		return
 	label.text = tr(key)
+
+func _set_rich_text(target: RichTextLabel, value: String) -> void:
+	if target == null:
+		return
+	target.text = value
+
+func _append_rich_text(target: RichTextLabel, line: String) -> void:
+	if target == null:
+		return
+	target.text += line
+
+func _entry_key(entry) -> String:
+	return entry["key"] if entry is Dictionary else str(entry)
+
+func _format_breaking_line(entry) -> String:
+	var key := _entry_key(entry)
+	return " [color=red]%s[/color]   %s\n" % [key, tr(key)]
+
+func _format_chronological_line(entry) -> String:
+	var key := _entry_key(entry)
+	return " [color=yellow]%s[/color]   %s\n" % [key.trim_prefix("$"), tr(key)]
+
+func _format_achievement_line(entry: Dictionary) -> String:
+	return "[color=green]%s[/color]   %s\n" % [entry["date"], tr(entry["key"])]
