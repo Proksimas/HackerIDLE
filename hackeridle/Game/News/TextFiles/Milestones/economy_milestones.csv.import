@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://c36yijh1pdmk3"
+
+[deps]
+
+files=["res://Game/News/TextFiles/Milestones/economy_milestones.fr.translation", "res://Game/News/TextFiles/Milestones/economy_milestones.en.translation"]
+
+source_file="res://Game/News/TextFiles/Milestones/economy_milestones.csv"
+dest_files=["res://Game/News/TextFiles/Milestones/economy_milestones.fr.translation", "res://Game/News/TextFiles/Milestones/economy_milestones.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

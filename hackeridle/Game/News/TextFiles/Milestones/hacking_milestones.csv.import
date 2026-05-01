@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ca4vnhtd5wjja"
+
+[deps]
+
+files=["res://Game/News/TextFiles/Milestones/hacking_milestones.fr.translation", "res://Game/News/TextFiles/Milestones/hacking_milestones.en.translation"]
+
+source_file="res://Game/News/TextFiles/Milestones/hacking_milestones.csv"
+dest_files=["res://Game/News/TextFiles/Milestones/hacking_milestones.fr.translation", "res://Game/News/TextFiles/Milestones/hacking_milestones.en.translation"]
+
+[params]
+
+compress=true
+delimiter=1

@@ -21,6 +21,8 @@ func _ready() -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		if not is_node_ready():
+			return
 		_refresh_translations()
 
 func _refresh_translations() -> void:
@@ -31,7 +33,7 @@ func _refresh_translations() -> void:
 	_set_label_translation(player_achievement_label, "$PlayerAchievement")
 
 func _on_refresh_news_history(breaking_news_passed,chronological_news_passed):
-	print("breaking_news_passed: %s \nchronological_news_passed: %s" % [breaking_news_passed,chronological_news_passed])
+	#print("breaking_news_passed: %s \nchronological_news_passed: %s" % [breaking_news_passed,chronological_news_passed])
 	_clear_news()
 	_set_rich_text(common_news, "")
 	_set_rich_text(breaking_news, "")
@@ -56,9 +58,12 @@ func _clear_news():
 
 func _set_label_translation(label: Label, key: String) -> void:
 	if label == null:
-		push_warning("newspaper.gd: label introuvable pour la clé %s" % key)
 		return
 	label.text = tr(key)
+
+func _on_draw() -> void:
+	# Kept for existing scene signal connection.
+	pass
 
 func _set_rich_text(target: RichTextLabel, value: String) -> void:
 	if target == null:
