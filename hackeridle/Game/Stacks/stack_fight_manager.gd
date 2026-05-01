@@ -90,26 +90,16 @@ func _ready():
 	_debug_preview_encounters(DEBUG_PREVIEW_ENCOUNTERS)
 
 func _debug_preview_encounters(encounters_to_simulate: int) -> void:
-	print("\n===== START TEST RUN =====")
 	for i in range(encounters_to_simulate):
 		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
 		_print_encounter(i + 1, encounter)
-	print("===== END TEST RUN =====\n")
 
 func _print_encounter(idx: int, encounter: Dictionary) -> void:
 	var label := _encounter_label(encounter) # <-- CORRECTION: label = snapshot de l'encounter
 	var t := str(encounter.type)
 
-	print("\n%03d | %-6s | %s" % [idx, t, label])
-
-	if t == "ELITE":
-		print("  -> FIN DE NIVEAU (ELITE)")
-	if t == "BOSS":
-		print("  -> FIN DE SECTEUR (BOSS)")
-
 	if t == "BOSS":
 		var boss: Dictionary = encounter.boss
-		print("  Gimmick: %s" % str(encounter.gimmick_id))
 		_print_enemy_line(0, boss)
 		return
 
@@ -118,16 +108,13 @@ func _print_encounter(idx: int, encounter: Dictionary) -> void:
 		_print_enemy_line(j, enemies[j])
 
 func _print_enemy_line(index: int, enemy: Dictionary) -> void:
-	var role_name := _role_to_string(int(enemy.role))
-	var variant := str(enemy.variant)
+	var _role_name := _role_to_string(int(enemy.role))
+	var _variant := str(enemy.variant)
 
-	var hp := float(enemy.hp)
-	var p := float(enemy.penetration)
-	var e := float(enemy.encryption)
-	var f := float(enemy.flux)
-
-	print("  - #%d | %-7s | %-10s | HP=%7.1f | P=%6.1f | E=%6.1f | F=%6.1f"
-		% [index + 1, role_name, variant, hp, p, e, f])
+	var _hp := float(enemy.hp)
+	var _p := float(enemy.penetration)
+	var _e := float(enemy.encryption)
+	var _f := float(enemy.flux)
 
 func _encounter_label(encounter: Dictionary) -> String:
 	# On affiche depuis les champs stockés dans encounter (snapshot)

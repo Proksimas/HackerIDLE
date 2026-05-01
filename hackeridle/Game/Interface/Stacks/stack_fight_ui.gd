@@ -67,14 +67,16 @@ func _start_roguelike_run(reset_progression: bool = false) -> void:
 	if reset_progression:
 		stack_fight_manager.reset_run()
 	hacker = StackManager.create_hacker_entity()
+	if fight_logs != null and fight_logs.has_method("_clear"):
+		fight_logs.call("_clear")
 	_start_next_encounter()
 
 func _start_next_encounter() -> void:
 	if not run_active:
-		print("StackFightUI | _start_next_encounter annulé: run inactive")
+		#print("StackFightUI | _start_next_encounter annulé: run inactive")
 		return
 	if hacker == null or hacker.current_hp <= 0:
-		print("StackFightUI | _start_next_encounter annulé: hacker absent ou mort")
+		#print("StackFightUI | _start_next_encounter annulé: hacker absent ou mort")
 		_end_run(false)
 		return
 
@@ -83,19 +85,17 @@ func _start_next_encounter() -> void:
 	_last_wave_enemy_count = _count_wave_enemies(wave_data)
 	_last_encounter_type = str(wave_data.get("type", ""))
 	_last_encounter_is_boss = wave_data.has("boss") or _last_encounter_type == "BOSS"
-	print("StackFightUI | start encounter | type=%s | is_boss=%s | sector=%s | level=%s | wave=%s" % [
-		_last_encounter_type,
-		str(_last_encounter_is_boss),
-		str(wave_data.get("sector_index", "?")),
-		str(wave_data.get("level_index", "?")),
-		str(wave_data.get("wave_index", "?"))
-	])
+	#print("StackFightUI | start encounter | type=%s | is_boss=%s | sector=%s | level=%s | wave=%s" % [
+		#_last_encounter_type,
+		#str(_last_encounter_is_boss),
+		#str(wave_data.get("sector_index", "?")),
+		#str(wave_data.get("level_index", "?")),
+		#str(wave_data.get("wave_index", "?"))
+	#])
 	var robots := _build_robots_from_wave(wave_data)
 
 	if stack_fight_panel.has_method("_clear"):
 		stack_fight_panel.call("_clear")
-	if fight_logs.has_method("_clear"):
-		fight_logs.call("_clear")
 	_hide_between_fights_countdown()
 
 	stack_fight_panel.set_wave_state(wave_data)
@@ -162,8 +162,10 @@ func _on_combat_ended(victory: bool) -> void:
 		str(_last_encounter_is_boss),
 		str(_last_wave_enemy_count)
 	])
+	var implant_reward: int = 0
 	if victory and _last_wave_enemy_count > 0:
-		Player.earn_cyber_implants(_compute_implant_reward())
+		implant_reward = _compute_implant_reward()
+		Player.earn_cyber_implants(implant_reward)
 	current_fight = null
 	# Les logs "Death" sont légèrement différés dans FightLogs.
 	# On attend ce flush pour garantir que "Resolution" soit toujours le dernier log.
@@ -172,32 +174,33 @@ func _on_combat_ended(victory: bool) -> void:
 		await fight_logs.add_log({
 			"action_type": "Resolution",
 			"victory": victory,
-			"encounter_type": _last_encounter_type
+			"encounter_type": _last_encounter_type,
+			"implant_reward": implant_reward
 		})
 	await get_tree().create_timer(0.6).timeout
-	print("Combat terminé | victory=%s | encounter_type=%s | is_boss=%s" % [
-		str(victory),
-		_last_encounter_type,
-		str(_last_encounter_is_boss)
-	])
+	#print("Combat terminé | victory=%s | encounter_type=%s | is_boss=%s" % [
+		#str(victory),
+		#_last_encounter_type,
+		#str(_last_encounter_is_boss)
+	#])
 
 	if victory and _is_current_encounter_boss():
-		print("StackFightUI | boss détecté en fin de combat")
+		#print("StackFightUI | boss détecté en fin de combat")
 		if _show_boss_rewards_if_needed():
-			print("StackFightUI | reward boss affichée")
+			#print("StackFightUI | reward boss affichée")
 			_pending_victory_resolution = true
 			return
 
-	print("StackFightUI | pas de reward boss, finalisation et enchaînement")
+	#print("StackFightUI | pas de reward boss, finalisation et enchaînement")
 	await _finalize_encounter(victory)
 
 
 func _finalize_encounter(victory: bool) -> void:
-	print("StackFightUI | finalize encounter | victory=%s | previous_type=%s | previous_is_boss=%s" % [
-		str(victory),
-		_last_encounter_type,
-		str(_last_encounter_is_boss)
-	])
+	#print("StackFightUI | finalize encounter | victory=%s | previous_type=%s | previous_is_boss=%s" % [
+		#str(victory),
+		#_last_encounter_type,
+		#str(_last_encounter_is_boss)
+	#])
 
 	if victory and hacker != null and hacker.current_hp > 0:
 		await _fade_out_combat_entities()
@@ -208,17 +211,17 @@ func _finalize_encounter(victory: bool) -> void:
 	_last_encounter_is_boss = false
 
 	if victory and hacker != null and hacker.current_hp > 0:
-		print("StackFightUI | enchainement sur le combat suivant")
+		#print("StackFightUI | enchainement sur le combat suivant")
 		call_deferred("_start_next_encounter_with_countdown")
 		return
 
 	if not victory and run_active:
-		print("StackFightUI | défaite détectée, reprise au début du niveau")
+		#print("StackFightUI | défaite détectée, reprise au début du niveau")
 		hacker = StackManager.create_hacker_entity()
 		call_deferred("_start_next_encounter_with_countdown")
 		return
 
-	print("StackFightUI | fin de run après combat")
+	#print("StackFightUI | fin de run après combat")
 	_end_run(victory)
 
 
@@ -229,12 +232,12 @@ func _is_current_encounter_boss() -> bool:
 func _show_boss_rewards_if_needed() -> bool:
 	var rewards := _build_boss_rewards()
 	if rewards.is_empty():
-		print("StackFightUI | aucun reward boss disponible")
+		#print("StackFightUI | aucun reward boss disponible")
 		return false
 
 	var selector: StackScriptRewardSelector = STACK_SCRIPT_REWARD_SELECTOR.instantiate() as StackScriptRewardSelector
 	if selector == null:
-		print("StackFightUI | échec instanciation reward selector")
+		#print("StackFightUI | échec instanciation reward selector")
 		return false
 
 	add_child(selector)
@@ -288,7 +291,7 @@ func _build_boss_rewards() -> Array[Dictionary]:
 func _on_boss_reward_selected(selected_data: Dictionary) -> void:
 	var payload: Dictionary = selected_data.get("payload", {})
 	var script_name := str(payload.get("script_name", ""))
-	print("StackFightUI | reward boss sélectionnée | script=%s" % script_name)
+	#print("StackFightUI | reward boss sélectionnée | script=%s" % script_name)
 	if script_name != "":
 		StackManager.unlock_hacker_script(script_name)
 		if hacker != null:
@@ -303,8 +306,7 @@ func _end_run(_victory: bool) -> void:
 	_last_encounter_type = ""
 	_last_encounter_is_boss = false
 	_hide_between_fights_countdown()
-	if hacker != null and hacker.current_hp <= 0:
-		print("Run termine: hacker mort")
+
 
 func _on_hacker_loadout_changed() -> void:
 	"""Reflete instantanement les changements de sequence si aucun combat n'est en cours."""

@@ -161,7 +161,6 @@ func _on_bonus_click_multiplator_timer_timeout() -> void:
 	_min = StatsManager.bonus_from_clicking["min"]
 	var coef = (_max - _min) / max_from_click 
 	StatsManager.bonus_from_clicking["current_bonus"] = snapped((len(_recent_clicks) * coef) + _min, 0.01 )
-	#print(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))
 	bonus_click_multiplicator_label.text = "x " + \
 			str(snapped(StatsManager.bonus_from_clicking["current_bonus"], 0.1))
 	_recent_clicks.clear()

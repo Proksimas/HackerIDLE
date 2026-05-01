@@ -23,7 +23,6 @@ var years_in_jail: int = 0
 func enter_jail():
 	if is_in_jail:
 		return
-	print("entre dans la prison")
 	self.show()
 	#self.set_process_mode(Node.ProcessMode.PROCESS_MODE_INHERIT)
 	is_in_jail = true
@@ -50,5 +49,4 @@ func enter_jail():
 func _on_jail_timer_timeout() -> void:
 	get_tree().paused = false
 	is_in_jail = false
-	print("on sort de la prison")
 	pass # Replace with function body.

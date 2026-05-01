@@ -112,7 +112,10 @@ func build_log_message(event_data: Dictionary) -> String:
 	if action_type == "Resolution":
 		var victory: bool = bool(event_data.get("victory", false))
 		var _encounter_type: String = str(event_data.get("encounter_type", "NORMAL"))
+		var implant_reward: int = int(event_data.get("implant_reward", 0))
 		if victory:
+			if implant_reward > 0:
+				return "[color=#FFFFFF]Combat terminé: VICTOIRE | [/color][color=#7CFC00]Gains: +%d implants[/color]" % implant_reward
 			return "[color=#FFFFFF]Combat terminé: VICTOIRE[/color]"
 		return "[color=#FFFFFF]Combat terminé: DEFAITE [/color]" 
 

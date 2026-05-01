@@ -134,7 +134,6 @@ func _draw() -> void:
 	#x_1_button._pressed
 	x_1_button.pressed.emit()
 	#x_1_button.toggle_mode = false
-	#print(x_1_button.button_pressed)
 	#x_1_button.set_pressed_no_signal(true)
 
 	

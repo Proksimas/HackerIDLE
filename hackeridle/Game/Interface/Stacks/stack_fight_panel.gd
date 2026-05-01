@@ -41,7 +41,6 @@ func set_entity_ui_container(entity: Entity)->bool:
 	return true
 	
 func set_wave_state(wave_data):
-	print(wave_data)
 	sector_label.text = tr("$Sector")
 	sector_value.text = "%s" % wave_data["sector_index"]
 	level_label.text = tr("$Level")

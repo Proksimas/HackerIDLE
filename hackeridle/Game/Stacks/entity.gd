@@ -107,14 +107,12 @@ func set_hacker_max_hp():
 # LOGIQUE DE COMBAT
 # Méthode principale appelée par le StackFight pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
-	print(entity_name + " démarre l'exécution de sa séquence de " + str(stack_script_sequence.size()) + " scripts.")
 	current_script_index = 0
 	cache_targets = targets
 	#Cela correspond aussi au début d'un nouveau tour pour l'entité actuelle
 	var tick_events: Array[Dictionary] = StatusResolver.TickStartOfTurn(self)
 
 	for ev in tick_events:
-		print("events de tick: %s" % ev)
 		CombatResolver.resolve(ev)
 		s_send_log.emit(ev)
 	
@@ -123,24 +121,18 @@ func execute_sequence(targets: Array[Entity]) -> void:
 	prepare_next_script()
 
 func prepare_next_script():
-	print("name: %s" % entity_name)
 	if current_script_index >= stack_script_sequence.size():
-		print(entity_name + " : Séquence terminée.\n")
 		# Émettre un signal vers le CombatManager pour indiquer la fin de la Phase
 		s_sequence_completed.emit(self)
 		return
 
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
-	print("Taille des targets: %s" % len(cache_targets))
 	if current_hp <= 0:
-		print(entity_name + " a été détruit et arrête l'exécution.")
 		s_sequence_completed.emit(self)
 		return
 	elif cache_targets.is_empty():
-		print("Toutes les targets sont mortes, on arrete")
 		s_sequence_completed.emit(self)
 		return
-	print(" -> Exécution de: " + script_instance.stack_script_name)
 
 	if available_scripts.has(script_instance.stack_script_name):
 		var master_script = available_scripts[script_instance.stack_script_name]
@@ -148,10 +140,6 @@ func prepare_next_script():
 			script_instance.turn_remaining = master_script.turn_remaining
 
 	if script_instance.is_on_cooldown():
-		print(" -> %s en cooldown (%s tour(s) restant(s)), script sauté" % [
-			script_instance.stack_script_name,
-			int(script_instance.turn_remaining)
-		])
 		s_send_log.emit({
 			"action_type": "Cooldown",
 			"caster": self,

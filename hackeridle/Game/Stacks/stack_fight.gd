@@ -54,7 +54,7 @@ func transition_to(new_phase: CombatPhase) -> void:
 func _on_enter_entering_fight() -> void:
 	"""Phase juste apres la création du fight. on est dans une forme de 
 	pré préparation (en gros, avant de rentrer dans la logique du fight)"""
-	print("PHASE: Entering fight")
+	#print("PHASE: Entering fight")
 	var hacker_die_callable := Callable(self, "_on_hacker_died")
 	if not hacker.s_entity_die.is_connected(hacker_die_callable):
 		hacker.s_entity_die.connect(hacker_die_callable)
@@ -69,15 +69,15 @@ func _on_enter_preparation() -> void:
 	"""La phase de préparation avant chaque lancement de séquence.
 	Correspond à un tour de jeu"""
 	# L'état d'attente/idle. Le _physics_process gère le temps.
-	print("PHASE: Préparation (Attente des Cooldowns")
+	#print("PHASE: Préparation (Attente des Cooldowns")
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
 	# Connexion des signaux
-	print("PV du hacker: %s" % hacker.current_hp)
+	#print("PV du hacker: %s" % hacker.current_hp)
 	current_turn += 1
 	hacker.tick_all_script_cooldowns()
 	hacker.init_sequence()
 	for robot in robots_ia:
-		print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
+		#print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
 		robot.tick_all_script_cooldowns()
 		robot.init_sequence()
 
@@ -89,7 +89,7 @@ func _on_enter_preparation() -> void:
 
 func _on_enter_hacker_execution() -> void:
 	"""Phase du hacker. Il déroule toute sa séquence. """
-	print("PHASE: Exécution du Hacker")
+	#print("PHASE: Exécution du Hacker")
 	
 	# Exécution de la séquence du Hacker contre l'IA
 	entity_connexions(hacker)
@@ -134,7 +134,7 @@ func entity_deconnexion(entity: Entity):
 		entity.s_send_log.disconnect(send_log_callable)
 var current_ia_index: int = 0
 func _on_enter_ia_execution() -> void:
-	print("PHASE: Exécution de l'IA")
+	#print("PHASE: Exécution de l'IA")
 	current_ia_index = 0
 	# 1. L'IA prépare sa séquence pour ce cycle
 	_ia_logic_prepare_sequence() 
@@ -151,11 +151,9 @@ func next_ia_execution():
 	
 
 func _on_enter_resolution() -> void:
-	print("PHASE: Résolution du Cycle")
-	print("PV du hacker: %s" % hacker.current_hp)
+	#print("PHASE: Résolution du Cycle")
+	#print("PV du hacker: %s" % hacker.current_hp)
 	
-	for robot in robots_ia:
-		print("PV du %s: %s" % [robot.entity_name, robot.current_hp])
 	# Vérification de fin de combat
 	if hacker.current_hp <= 0:
 		_end_combat(false) # Défaite
@@ -163,7 +161,7 @@ func _on_enter_resolution() -> void:
 		_end_combat(true)  # Victoire
 	else:
 		# Le combat continue, on revient à l'état Idle pour la prochaine séquence
-		print("Le combat n'est pas fini")
+		#print("Le combat n'est pas fini")
 		transition_to(CombatPhase.PREPARATION)
 
 ## ----------------------------------------------------------------------------
@@ -181,7 +179,6 @@ func _end_combat(victory: bool) -> void:
 	if combat_ended:
 		return
 	combat_ended = true
-	print("--- COMBAT TERMINÉ ---")
 	var hacker_die_callable := Callable(self, "_on_hacker_died")
 	if hacker != null and hacker.s_entity_die.is_connected(hacker_die_callable):
 		hacker.s_entity_die.disconnect(hacker_die_callable)
@@ -194,9 +191,6 @@ func _end_combat(victory: bool) -> void:
 	if victory:
 		print("VICTOIRE ! Gain de Force Cyber !")
 		# Logique de récompense : ajouter de la Force Cyber, passer au niveau IA suivant.
-	else:
-		print("DÉFAITE. Retour au Méta-Jeu.")
-		# Logique de défaite : Réinitialisation.
 		
 	# Ici, vous pourriez arrêter le jeu, changer de scène, ou retourner à l'interface principale.
 	# TODO phase des recompenses
@@ -226,7 +220,6 @@ func _on_sequence_completed(entity: Entity):
 		else:
 			next_ia_execution()
 		
-	print("faut aller au second robot")
 		
 
 func _on_hacker_died(_hacker:Entity):
@@ -235,13 +228,11 @@ func _on_hacker_died(_hacker:Entity):
 	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
 												"caster": _hacker}
 												)
-	print("Le hacker est dead")
 	call_deferred("_end_combat", false)
 	
 func _on_robot_died(_robot:Entity):
 	if combat_ended:
 		return
-	print("%s est dead" % _robot.entity_name)
 	current_stack_fight_ui.fight_logs.add_log({"action_type": "Death",
 												"caster": _robot}
 												)

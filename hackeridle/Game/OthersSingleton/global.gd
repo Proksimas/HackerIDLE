@@ -115,9 +115,9 @@ func _to_scientific(x: float, decimals: int = 2) -> String:
 
 func convertir_secondes(secondes: int) -> String:
 	var s = secondes
-	var h = s / 3600.0
+	var h = snapped(s / 3600.0, 1)
 	s %= 3600  
-	var m = s / 60.0
+	var m = snapped(s / 60.0, 1)
 	s %= 60   
 	var chaine_temps = ""   
 	if h > 0:
