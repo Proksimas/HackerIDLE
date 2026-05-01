@@ -26,12 +26,15 @@ extends Control
 @onready var stack_fight_ui = %StackFightUi
 @onready var start_button: Button = %LaunchCustomFightButton
 @onready var result_label: Label = %ResultLabel
+@onready var fight_type_label: Label = %FightTypeLabel
 
 var current_fight: StackFight
 var test_hacker: Entity
 
 
 func _ready() -> void:
+	if stack_fight_ui != null and stack_fight_ui.has_signal("s_encounter_started") and not stack_fight_ui.s_encounter_started.is_connected(_on_ui_encounter_started):
+		stack_fight_ui.s_encounter_started.connect(_on_ui_encounter_started)
 	_hide_embedded_start_button()
 	_reset_embedded_ui(true)
 	if auto_start_on_ready:
@@ -120,17 +123,25 @@ func _launch_next_encounter(hacker: Entity, clear_logs: bool) -> void:
 
 	_clamp_manager_position(manager)
 	var wave_data: Dictionary = manager.start_encounter()
+	_update_fight_type_label(wave_data)
 	var robots: Array[Entity] = stack_fight_ui._build_robots_from_wave(wave_data)
 	if robots.is_empty():
 		result_label.text = "Impossible de lancer: aucun ennemi genere."
+		_update_fight_type_label()
 		return
 
 	stack_fight_ui.hacker = hacker
+	stack_fight_ui.run_active = true
+	stack_fight_ui._between_fights_countdown_seconds = max(1, int(ceil(max(0.0, chain_delay_seconds))))
 	stack_fight_ui.stack_fight_panel.set_wave_state(wave_data)
+	stack_fight_ui._last_wave_enemy_count = stack_fight_ui._count_wave_enemies(wave_data)
+	stack_fight_ui._last_encounter_type = str(wave_data.get("type", ""))
+	stack_fight_ui._last_encounter_is_boss = wave_data.has("boss") or stack_fight_ui._last_encounter_type == "BOSS"
 
 	current_fight = StackManager.new_fight(hacker, robots)
 	stack_fight_ui.current_fight = current_fight
 	stack_fight_ui.fight_connexions(current_fight)
+	current_fight.s_combat_ended.connect(stack_fight_ui._on_combat_ended, CONNECT_ONE_SHOT)
 	current_fight.s_combat_ended.connect(_on_test_combat_ended, CONNECT_ONE_SHOT)
 	current_fight.start_fight(hacker, robots, stack_fight_ui)
 	await stack_fight_ui._fade_in_combat_entities()
@@ -147,33 +158,25 @@ func _clamp_manager_position(manager: StackFightManager) -> void:
 
 
 func _on_test_combat_ended(victory: bool) -> void:
-	var manager: StackFightManager = stack_fight_ui.stack_fight_manager
-	if manager != null:
-		manager.resolve_encounter(victory)
-
-	await get_tree().create_timer(0.12).timeout
-	if stack_fight_ui.fight_logs != null and stack_fight_ui.fight_logs.has_method("add_log"):
-		await stack_fight_ui.fight_logs.add_log({
-			"action_type": "Resolution",
-			"victory": victory,
-			"encounter_type": "TEST"
-		})
-
-	stack_fight_ui.current_fight = null
 	current_fight = null
 
 	if not victory:
 		result_label.text = "Resultat: DEFAITE"
+		stack_fight_ui.run_active = false
+		test_hacker = null
+		_update_fight_type_label()
 		start_button.disabled = false
 		return
 
 	result_label.text = "Resultat: VICTOIRE"
-	if auto_chain_on_victory and test_hacker != null and test_hacker.current_hp > 0:
-		await get_tree().create_timer(max(0.0, chain_delay_seconds)).timeout
-		await _launch_next_encounter(test_hacker, false)
+	if not auto_chain_on_victory:
+		stack_fight_ui.run_active = false
+		test_hacker = null
+		start_button.disabled = false
+		_update_fight_type_label()
 		return
 
-	start_button.disabled = false
+	start_button.disabled = true
 
 
 func _on_clear_logs_button_pressed() -> void:
@@ -189,8 +192,11 @@ func _reset_embedded_ui(clear_logs: bool) -> void:
 		stack_fight_ui.call("_hide_between_fights_countdown")
 
 	result_label.text = "Resultat: en attente"
+	_update_fight_type_label()
 	start_button.disabled = false
 	current_fight = null
+	test_hacker = null
+	stack_fight_ui.run_active = false
 	stack_fight_ui.current_fight = null
 
 
@@ -198,3 +204,24 @@ func _hide_embedded_start_button() -> void:
 	var default_start_button := stack_fight_ui.get_node_or_null("StackFightPanel/VBoxContainer/StartFightButton")
 	if default_start_button is Button:
 		default_start_button.hide()
+
+
+func _update_fight_type_label(wave_data: Dictionary = {}) -> void:
+	if fight_type_label == null:
+		return
+	if wave_data.is_empty():
+		fight_type_label.text = "Type de combat: en attente"
+		return
+
+	var encounter_type := str(wave_data.get("type", "NORMAL"))
+	var readable_type := "ENNEMIS NORMAUX"
+	if wave_data.has("boss") or encounter_type == "BOSS":
+		readable_type = "BOSS"
+	elif encounter_type == "ELITE":
+		readable_type = "ELITE"
+
+	fight_type_label.text = "Type de combat: %s" % readable_type
+
+
+func _on_ui_encounter_started(wave_data: Dictionary) -> void:
+	_update_fight_type_label(wave_data)

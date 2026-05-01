@@ -1,16 +1,23 @@
 key;fr;en
+syn_flood;SYN Flood;SYN Flood
+cipher_strike;Cipher Strike;Cipher Strike
+crypt_breach;Crypt Breach;Crypt Breach
+data_healing;Data Healing;Data Healing
+firewall_patch;Firewall Patch;Firewall Patch
+kernel_blast;Kernel Blast;Kernel Blast
+malware_apt;APT Malware;APT Malware
 syn_flood_desc;Moyenne attaque sur une cible;Average attack on a target
-cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats binfligés;Small attack on a target, and adds a shield based on the damage inflicted
+cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats infligés;Small attack on a target, and adds a shield based on the damage inflicted
 crypt_breach_desc;Petite attaque sure une cible, puis petite attaque ignorant son bouclier;Small attack on a target, then small attack ignoring its shield
-data_healing_desc;Redonne des pv;Restores HP
-firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les pv max.;Generates a temporary shield.
+data_healing_desc;Redonne des PV;Restores HP
+firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les PV max.;Generates a temporary shield, which cannot exceed the maximum HP
 kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor damage to all targets
-malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corruption faisant des dégats sur 3 tours (stack: 5);IInflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
-stack_tab_all;Tous;All
-stack_tab_damage;Deg.;Dam.
+malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corruption faisant des dégats sur 3 tours (stack: 5);Inflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
+stack_tab_all;Tout;All
+stack_tab_damage;Dom.;Dam.
 stack_tab_shield;Bouc.;Shi.
 stack_tab_utility;Util.;Util.
 stat_penetration;Penetration;Penetration
 stat_encryption;Chiffrement;Encryption
 stat_flux;Flux;Flux
-$Valeur;Valeur;Valeur
+$Valeur;Valeur;Value

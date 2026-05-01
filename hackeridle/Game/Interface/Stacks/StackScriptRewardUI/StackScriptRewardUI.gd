@@ -66,20 +66,20 @@ func _refresh_ui() -> void:
 	if display_name.strip_edges() == "" and script_resource is StackScript:
 		display_name = script_resource.stack_script_name
 	kind_label.text = _kind_label_text()
-	title_label.text = display_name if display_name != "" else "Récompense"
-	description_label.text = description if description != "" else "Aucune description."
-	claim_button.text = "Obtenir"
+	title_label.text = tr(display_name) if display_name != "" else tr("$Reward")
+	description_label.text = tr(description) if description != "" else tr("$NoDescription")
+	claim_button.text = tr("$Obtain")
 
 
 func _kind_label_text() -> String:
 	match reward_kind:
 		RewardKind.SCRIPT:
-			return "StackScript"
+			return tr("$StackScript")
 		RewardKind.SLOT:
-			return "Slot supplémentaire"
+			return tr("$ExtraSlot")
 		RewardKind.CUSTOM:
-			return "Récompense"
-	return "Récompense"
+			return tr("$Reward")
+	return tr("$Reward")
 
 
 func _sync_from_resource() -> void:

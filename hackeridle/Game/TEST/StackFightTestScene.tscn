@@ -59,6 +59,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Resultat: en attente"
 
+[node name="FightTypeLabel" type="Label" parent="RootMargin/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Type de combat: en attente"
+
 [node name="StackFightUi" parent="RootMargin/VBox" instance=ExtResource("2_vn12j")]
 unique_name_in_owner = true
 layout_mode = 2

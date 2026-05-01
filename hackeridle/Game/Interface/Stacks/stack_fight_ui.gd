@@ -26,6 +26,7 @@ const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackS
 signal s_fight_ui_phase_finished
 signal s_execute_script_ui_finished
 signal s_must_execute_script
+signal s_encounter_started(wave_data: Dictionary)
 
 func _ready() -> void:
 	if StackManager.has_signal("s_hacker_loadout_changed") and not StackManager.s_hacker_loadout_changed.is_connected(_on_hacker_loadout_changed):
@@ -73,6 +74,7 @@ func _start_next_encounter() -> void:
 		return
 
 	var wave_data := stack_fight_manager.start_encounter()
+	s_encounter_started.emit(wave_data)
 	_last_wave_enemy_count = _count_wave_enemies(wave_data)
 	_last_encounter_type = str(wave_data.get("type", ""))
 	_last_encounter_is_boss = wave_data.has("boss") or _last_encounter_type == "BOSS"
@@ -222,7 +224,7 @@ func _show_boss_rewards_if_needed() -> bool:
 
 	add_child(selector)
 	selector.reward_selected.connect(_on_boss_reward_selected)
-	selector.show_rewards(rewards, "Récompense de boss")
+	selector.show_rewards(rewards, tr("$BossReward"))
 	return true
 
 

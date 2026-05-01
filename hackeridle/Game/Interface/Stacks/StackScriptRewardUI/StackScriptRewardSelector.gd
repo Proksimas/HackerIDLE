@@ -18,11 +18,11 @@ var _closed: bool = false
 func _ready() -> void:
 	_clear_cards()
 	_set_modal_pause(true)
-	title_label.text = tr("$ChoseReward")
+	title_label.text = tr("$ChooseReward")
 
-func show_rewards(rewards: Array[Dictionary], title: String = "Choisis ta récompense") -> void:
+func show_rewards(rewards: Array[Dictionary], title: String = "") -> void:
 	_closed = false
-	title_label.text = title
+	title_label.text = title if title != "" else tr("$ChooseReward")
 	_clear_cards()
 	for reward_data in rewards:
 		_add_card(reward_data)
