@@ -8,6 +8,7 @@ var run_active: bool = false
 var _last_wave_enemy_count: int = 0
 var _last_encounter_type: String = ""
 var _last_encounter_is_boss: bool = false
+var _last_encounter_depth: int = 1
 var _pending_victory_resolution: bool = false
 var _between_fights_countdown_seconds: int = 5
 var _implant_reward_rng := RandomNumberGenerator.new()
@@ -17,6 +18,8 @@ const BETWEEN_FIGHTS_FADE_IN_DURATION: float = 0.25
 const IMPLANT_REWARD_PER_ENEMY_MIN: int = 1
 const IMPLANT_REWARD_PER_ENEMY_MAX: int = 3
 const IMPLANT_REWARD_ELITE_MULTIPLIER: int = 2
+const IMPLANT_REWARD_BOSS_MULTIPLIER: int = 3
+const IMPLANT_REWARD_DEPTH_SCALE_K: float = 0.12
 
 const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
 
@@ -85,6 +88,7 @@ func _start_next_encounter() -> void:
 	_last_wave_enemy_count = _count_wave_enemies(wave_data)
 	_last_encounter_type = str(wave_data.get("type", ""))
 	_last_encounter_is_boss = wave_data.has("boss") or _last_encounter_type == "BOSS"
+	_last_encounter_depth = max(1, int(wave_data.get("depth", 1)))
 	#print("StackFightUI | start encounter | type=%s | is_boss=%s | sector=%s | level=%s | wave=%s" % [
 		#_last_encounter_type,
 		#str(_last_encounter_is_boss),
@@ -150,9 +154,14 @@ func _compute_implant_reward() -> int:
 	for _i in range(_last_wave_enemy_count):
 		total_reward += _implant_reward_rng.randi_range(IMPLANT_REWARD_PER_ENEMY_MIN, IMPLANT_REWARD_PER_ENEMY_MAX)
 
+	var type_multiplier := 1.0
 	if _last_encounter_type == "ELITE":
-		total_reward *= IMPLANT_REWARD_ELITE_MULTIPLIER
+		type_multiplier = float(IMPLANT_REWARD_ELITE_MULTIPLIER)
+	elif _last_encounter_type == "BOSS":
+		type_multiplier = float(IMPLANT_REWARD_BOSS_MULTIPLIER)
 
+	var depth_multiplier := 1.0 + IMPLANT_REWARD_DEPTH_SCALE_K * sqrt(float(max(1, _last_encounter_depth)))
+	total_reward = int(round(float(total_reward) * type_multiplier * depth_multiplier))
 	return max(0, total_reward)
 
 func _on_combat_ended(victory: bool) -> void:

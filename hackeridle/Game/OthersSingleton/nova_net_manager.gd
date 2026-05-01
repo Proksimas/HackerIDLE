@@ -22,8 +22,8 @@ var _v: float = 0.0                # etat de volatilite
 var clamp_abs: float = 0.5         # borne douce sur v (evite extremes)
 
 # ------------- Parametres pour le farming XP---------------------------------------------
-var coef_farming_xp = {"base": 3}
-var coef_exploit_xp: float
+var coef_farming_xp: Dictionary # voir _init
+var coef_exploit_xp: float # voir _init
 
 # Nombres d'implants affectes aux taches
 var active_tasks = {
@@ -53,8 +53,8 @@ func _init():
 		active_tasks[key] = 0
 	knowledge_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
-	coef_exploit_xp = 10
-	coef_farming_xp = {"base": 3}
+	coef_exploit_xp = 1
+	coef_farming_xp = {"base": 0.5}
 	has_unlocked_syn_flood_from_novanet = false
 
 func on_novanet_entered() -> void:

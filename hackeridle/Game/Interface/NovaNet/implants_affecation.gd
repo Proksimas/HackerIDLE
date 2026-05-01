@@ -21,8 +21,8 @@ var containers_data: Array = []
 var containers: Array = []
 
 func _ready() -> void:
-	if Player.has_signal("s_earn_cyber_implants") and not Player.s_earn_cyber_implants.is_connected(_on_s_cyber_implants_changed):
-		Player.s_earn_cyber_implants.connect(_on_s_cyber_implants_changed)
+	if Player.has_signal("s_earn_cyber_force") and not Player.s_earn_cyber_force.is_connected(_on_s_cyber_force_changed):
+		Player.s_earn_cyber_force.connect(_on_s_cyber_force_changed)
 
 	containers = [farming_xp_container, exploit_research_container, sales_container]
 	for container: BoxContainer in containers:
@@ -52,7 +52,7 @@ func _ready() -> void:
 	_update_value_labels()
 
 func _on_slider_changed(_changed_value: float, slider: HSlider) -> void:
-	var total_implants := Player.cyber_implants
+	var total_implants := int(Player.cyber_force)
 	var sum := 0
 	for data in containers_data:
 		sum += int(data["slider"].value)
@@ -71,7 +71,7 @@ func refresh_sub_container() -> void:
 	exploit_research_grid.refresh()
 
 func _update_sliders_max() -> void:
-	var total_implants := Player.cyber_implants
+	var total_implants := int(Player.cyber_force)
 
 	for data_i in containers_data:
 		var slider_i: HSlider = data_i["slider"]
@@ -85,7 +85,7 @@ func _update_sliders_max() -> void:
 		slider_i.max_value = new_max
 
 func _update_value_labels() -> void:
-	nbr_of_bots_value.text = Global.number_to_string(Player.cyber_implants)
+	nbr_of_bots_value.text = Global.number_to_string(int(Player.cyber_force))
 	for data in containers_data:
 		var label: Label = data.get("value_label", null)
 		if label != null:
@@ -95,10 +95,10 @@ func _update_value_slider() -> void:
 	for data in containers_data:
 		var slider: Slider = data.get("slider", null)
 		if slider != null:
-			slider.max_value = Player.cyber_implants
+			slider.max_value = int(Player.cyber_force)
 			slider.value = NovaNetManager.active_tasks[data["value_name"]]
 
-func _on_s_cyber_implants_changed(_value = 0) -> void:
+func _on_s_cyber_force_changed(_value = 0) -> void:
 	_update_sliders_max()
 	_update_value_labels()
 
@@ -108,7 +108,7 @@ func _load_data(content):
 
 	for data in containers_data:
 		var slider: HSlider = data["slider"]
-		slider.max_value = Player.cyber_implants
+		slider.max_value = int(Player.cyber_force)
 		slider.value = int(tasks[data["value_name"]])
 
 	_update_sliders_max()

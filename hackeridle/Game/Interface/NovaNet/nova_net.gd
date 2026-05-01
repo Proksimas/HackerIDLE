@@ -20,7 +20,7 @@ func on_opened() -> void:
 
 func refresh():
 	bots.name = tr("$Bots")
-	implants_affecation.name = tr("$BotsAffecation")
+	implants_affecation.name = tr("$cyber_force")
 
 func _refresh_novanet_access() -> void:
 	var has_novanet := Player.nb_of_rebirth > 0

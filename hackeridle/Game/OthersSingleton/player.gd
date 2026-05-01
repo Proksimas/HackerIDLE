@@ -165,7 +165,8 @@ func earn_cyber_force(earning):
 func earn_cyber_implants(earning: int) -> void:
 	if earning <= 0:
 		return
-	cyber_implants += earning
+	# Compat: legacy API now maps to Cyber Force gain.
+	earn_cyber_force(earning)
 	
 	
 func level_up():

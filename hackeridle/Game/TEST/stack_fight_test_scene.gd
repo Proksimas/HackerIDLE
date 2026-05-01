@@ -137,6 +137,7 @@ func _launch_next_encounter(hacker: Entity, clear_logs: bool) -> void:
 	stack_fight_ui._last_wave_enemy_count = stack_fight_ui._count_wave_enemies(wave_data)
 	stack_fight_ui._last_encounter_type = str(wave_data.get("type", ""))
 	stack_fight_ui._last_encounter_is_boss = wave_data.has("boss") or stack_fight_ui._last_encounter_type == "BOSS"
+	stack_fight_ui._last_encounter_depth = max(1, int(wave_data.get("depth", 1)))
 
 	current_fight = StackManager.new_fight(hacker, robots)
 	stack_fight_ui.current_fight = current_fight

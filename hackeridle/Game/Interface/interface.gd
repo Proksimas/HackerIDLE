@@ -18,8 +18,8 @@ extends Control
 #@onready var event_ui: Panel = %EventUI
 #@onready var event_container: Container = %EventContainer
 
-@onready var knowledge_resource: Control = %KnowledgeResource
-@onready var gold_resource: Control = %GoldResource
+@onready var knowledge_resource: ResourceBox = %KnowledgeResource
+@onready var gold_resource: ResourceBox = %GoldResource
 @onready var cyber_force_resource: ResourceBox = %CyberForceResource
 
 @onready var cheat_events: HBoxContainer = %cheat_events
@@ -171,6 +171,7 @@ func refresh_specially_resources():
 	gold_resource.refresh_value(int(Player.gold))
 	#sp_resource.refresh_value(int(Player.skill_point))
 	cyber_force_resource.refresh_value(Player.cyber_force)
+
 	
 
 	

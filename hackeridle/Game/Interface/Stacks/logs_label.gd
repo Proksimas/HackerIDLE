@@ -115,7 +115,7 @@ func build_log_message(event_data: Dictionary) -> String:
 		var implant_reward: int = int(event_data.get("implant_reward", 0))
 		if victory:
 			if implant_reward > 0:
-				return "[color=#FFFFFF]Combat terminé: VICTOIRE | [/color][color=#7CFC00]Gains: +%d implants[/color]" % implant_reward
+				return "[color=#FFFFFF]Combat terminé: VICTOIRE | [/color][color=#7CFC00]Gains: +%d force cyber[/color]" % implant_reward
 			return "[color=#FFFFFF]Combat terminé: VICTOIRE[/color]"
 		return "[color=#FFFFFF]Combat terminé: DEFAITE [/color]" 
 
