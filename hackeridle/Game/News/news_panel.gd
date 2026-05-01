@@ -15,11 +15,6 @@ extends PanelContainer
 
 enum NewsType {BREAKING, CHRONOLOGICAL, RANDOM, BANNER, ACHIEVEMENT}
 
-const GENERIC = "res://Game/News/TextFiles/generic.csv"
-const BULLET_POINT = preload("res://Game/Interface/Specials/bullet_point.tscn")
-const BREAKING_NEWS_ICON = preload("res://Game/Graphics/breaking_news_icon_2.png")
-const NEWS_PAPER_ICON = preload("res://Game/Graphics/news_paper_icon.png")
-
 var scroll_starting: bool = false
 var has_news_to_read: bool = false
 var news_size
@@ -27,6 +22,7 @@ var news_cache: Array = []
 
 var breaking_news_passed: Array = []
 var chronological_news_passed: Array = []
+var _breaking_banner_finished_handler: Callable
 
 var nb_of_msg = {"random": 60,}
 
@@ -37,7 +33,8 @@ signal s_refresh_news_history
 func _ready() -> void:
 	has_news_to_read = false
 	warning_icon.visible = false
-	news_size = text_label_container.size.x
+	await get_tree().process_frame
+	_refresh_news_size()
 	new_news()
 	
 	StatsManager.s_add_infamy.connect(_on_s_add_infamy)
@@ -59,7 +56,7 @@ func _process(_delta: float) -> void:
 func swap_panel_to_bandeau(is_breaking_news: bool):
 	var new_color = Color(0.71, 0.231, 0.741)
 	if is_breaking_news:
-		new_color = Color(255, 0, 0)
+		new_color = Color(1, 0, 0)
 	
 	var stylebox = StyleBoxFlat.new()
 	stylebox.bg_color = new_color
@@ -75,34 +72,31 @@ func swap_panel_to_bandeau(is_breaking_news: bool):
 
 # Première étape : lance le défilement de la banderole générique
 func start_breaking_news_sequence(news_key: String):
-	# On déconnecte tous les signaux existants pour éviter les bugs
-	if news_finished.is_connected(_on_news_finished):
-		news_finished.disconnect(_on_news_finished)
-	if news_finished.is_connected(_on_breaking_news_banner_finished):
-		news_finished.disconnect(_on_breaking_news_banner_finished)
+	_disconnect_news_finished_handlers()
 	
 	swap_panel_to_bandeau(true)
 
 	# On connecte le signal à la fin du défilement du bandeau
-	self.news_finished.connect(_on_breaking_news_banner_finished.bind(news_key))
+	_breaking_banner_finished_handler = _on_breaking_news_banner_finished.bind(news_key)
+	self.news_finished.connect(_breaking_banner_finished_handler)
 	
-	news_container.position.x = get_viewport_rect().size.x
-	news_container.position = Vector2(news_size, news_container.position.y)
+	_reset_news_position()
 	scroll_starting = true
 
 
 # Gère le défilement du bandeau et lance le défilement de la news réelle
 func _on_breaking_news_banner_finished(news_key: String):
 	# On déconnecte ce signal pour ne pas le rappeler par erreur
-	self.news_finished.disconnect(_on_breaking_news_banner_finished)
+	if _breaking_banner_finished_handler.is_valid() and news_finished.is_connected(_breaking_banner_finished_handler):
+		self.news_finished.disconnect(_breaking_banner_finished_handler)
+	_breaking_banner_finished_handler = Callable()
 	# Deuxième étape : affiche la news réelle
 	display_news(news_key, NewsType.BANNER)
 
 
 # Gère le défilement de n'importe quelle news (breaking news ou classique)
 func display_news(news_key: String, type: NewsType):
-	if news_finished.is_connected(_on_news_finished):
-		news_finished.disconnect(_on_news_finished)
+	_disconnect_news_finished_handlers()
 	
 	if type == NewsType.BREAKING:
 		swap_panel_to_bandeau(true)
@@ -112,17 +106,20 @@ func display_news(news_key: String, type: NewsType):
 		swap_panel_to_bandeau(false)
 		text_label.text = tr(news_key)
 		if type == NewsType.CHRONOLOGICAL:
-			chronological_news_passed.append(news_key)
+			var chrono_entry := {"kind": "chronological", "key": news_key}
+			if not _history_contains_entry(chronological_news_passed, chrono_entry):
+				chronological_news_passed.append(chrono_entry)
 		elif type == NewsType.BANNER: #alors la Banniere vient de finri, on  affiche la news
 			swap_panel_to_bandeau(true)
 			breaking_news_container.hide()
 			text_label_container.show()
-			breaking_news_passed.append(news_key)
+			var breaking_entry := {"kind": "breaking", "key": news_key}
+			if not _history_contains_entry(breaking_news_passed, breaking_entry):
+				breaking_news_passed.append(breaking_entry)
 	# On connecte le signal pour passer à la prochaine news une fois le défilement terminé
 	self.news_finished.connect(_on_news_finished)
 
-	news_container.position.x = get_viewport_rect().size.x
-	news_container.position = Vector2(news_size, news_container.position.y)
+	_reset_news_position()
 	scroll_starting = true
 	if type != NewsType.RANDOM:
 		has_news_to_read = true
@@ -138,7 +135,8 @@ func pick_random_sentence(key: String):
 	return (key + "_" + str(random))
 
 func _on_news_finished():
-	news_finished.disconnect(_on_news_finished)
+	if news_finished.is_connected(_on_news_finished):
+		news_finished.disconnect(_on_news_finished)
 	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)
 	new_news()
 
@@ -148,10 +146,10 @@ func _on_s_date(date):
 	var chronogical_news_has_trad = tr("$" + formatted_date_1)
 	
 	if breaking_news_has_trad != formatted_date_1:
-		news_cache.append({NewsType.BREAKING: formatted_date_1})
+		_queue_unique_news(NewsType.BREAKING, formatted_date_1)
 	
 	elif chronogical_news_has_trad != "$" + formatted_date_1:
-		news_cache.append({NewsType.CHRONOLOGICAL: "$" + formatted_date_1})
+		_queue_unique_news(NewsType.CHRONOLOGICAL, "$" + formatted_date_1)
 
 func new_news():
 	if not news_cache.is_empty():
@@ -169,8 +167,11 @@ func new_news():
 	
 	
 func add_achievement(achievement_name, date):
-	chronological_news_passed.append({"key": "achievement_" + achievement_name,
-										"date": TimeManager.get_formatted_date_string(date)})
+	var achievement_entry := {"kind": "achievement",
+								"key": "achievement_" + achievement_name,
+								"date": TimeManager.get_formatted_date_string(date)}
+	if not _history_contains_entry(chronological_news_passed, achievement_entry):
+		chronological_news_passed.append(achievement_entry)
 	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)
 	
 	pass
@@ -206,8 +207,8 @@ func _save_data():
 
 func _load_data(content):
 	news_cache =content["news_cache"]
-	breaking_news_passed = content["breaking_news_passed"]
-	chronological_news_passed = content["chronological_news_passed"]
+	breaking_news_passed = _normalize_history_entries(content["breaking_news_passed"], "breaking")
+	chronological_news_passed = _normalize_history_entries(content["chronological_news_passed"], "chronological")
 	pass
 
 
@@ -215,3 +216,62 @@ func _on_news_paper_icon_pressed() -> void:
 	has_news_to_read = false
 	warning_icon.visible = false
 	pass # Replace with function body.
+
+func _refresh_news_size() -> void:
+	news_size = text_label_container.size.x
+
+func _reset_news_position() -> void:
+	_refresh_news_size()
+	news_container.position = Vector2(news_size, news_container.position.y)
+
+func _disconnect_news_finished_handlers() -> void:
+	if news_finished.is_connected(_on_news_finished):
+		news_finished.disconnect(_on_news_finished)
+	if _breaking_banner_finished_handler.is_valid() and news_finished.is_connected(_breaking_banner_finished_handler):
+		news_finished.disconnect(_breaking_banner_finished_handler)
+	_breaking_banner_finished_handler = Callable()
+
+func _normalize_history_entries(entries: Array, fallback_kind: String) -> Array:
+	var normalized: Array = []
+	for entry in entries:
+		if entry is Dictionary:
+			if not entry.has("kind"):
+				entry["kind"] = fallback_kind
+			if not _history_contains_entry(normalized, entry):
+				normalized.append(entry)
+		else:
+			var normalized_entry := {"kind": fallback_kind, "key": entry}
+			if not _history_contains_entry(normalized, normalized_entry):
+				normalized.append(normalized_entry)
+	return normalized
+
+func _queue_unique_news(news_type: NewsType, news_key: String) -> void:
+	if _news_cache_contains(news_type, news_key):
+		return
+	if news_type == NewsType.BREAKING and _history_contains_key(breaking_news_passed, news_key):
+		return
+	if news_type == NewsType.CHRONOLOGICAL and _history_contains_key(chronological_news_passed, news_key):
+		return
+	news_cache.append({news_type: news_key})
+
+func _news_cache_contains(news_type: NewsType, news_key: String) -> bool:
+	for cached_news in news_cache:
+		if not (cached_news is Dictionary) or cached_news.is_empty():
+			continue
+		if cached_news.keys()[0] == news_type and cached_news.values()[0] == news_key:
+			return true
+	return false
+
+func _history_contains_key(history: Array, key: String) -> bool:
+	for entry in history:
+		if entry is Dictionary and entry.get("key", "") == key:
+			return true
+		if str(entry) == key:
+			return true
+	return false
+
+func _history_contains_entry(history: Array, candidate: Dictionary) -> bool:
+	for entry in history:
+		if entry is Dictionary and entry == candidate:
+			return true
+	return false
