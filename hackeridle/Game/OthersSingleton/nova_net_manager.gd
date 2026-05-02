@@ -9,7 +9,7 @@ var k := 5.0               # puissance de l'or investi (rendement decroissant). 
 var next_bot_kwoledge_acquired: float = 0
 var gold_to_invest: int = 100 # Investissement du joueur par click
 var gold_invest_in_bots: float = 0 # correspond a l'argent que le joueur a investi pour les bots
-
+var coef_nerf_bots: float = 0.7
 # ------------- Parametres pour les SALES ---------------------------------------------
 var gold_invest_in_sales: float = 0 # correspond a l'argent que le joueur a investi.
 var knowledge_invest_in_sales: float = 0
@@ -127,11 +127,11 @@ func _randn() -> float:
 	return sqrt(-2.0 * log(u1)) * cos(2.0 * PI * u2)
 
 func expected_income_per_sec() -> float:
-	return float(active_tasks["sales_task"]) * _R * knowledge_invest_in_sales
+	return float(active_tasks["sales_task"] * coef_nerf_bots) * _R * knowledge_invest_in_sales
 
 func current_income_per_sec_estimate() -> float:
 	var M := maxf(0.0, 1.0 + _v)
-	return float(active_tasks["sales_task"]) * _R * knowledge_invest_in_sales * M
+	return float(active_tasks["sales_task"] * coef_nerf_bots) * _R * knowledge_invest_in_sales * M
 #endregion
 
 func get_bot_cost(n: int) -> float:
