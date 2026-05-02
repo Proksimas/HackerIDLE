@@ -162,7 +162,6 @@ func prepare_next_script():
 
 func execute_next_script():
 	"""Tout est bon, l'ui est ok, il faut maintenant executer le script"""
-	print('execute_next_script')
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
 	script_instance.set_caster_and_targets(self, cache_targets)
 	var data_from_execution = script_instance.execute()
@@ -237,7 +236,6 @@ func add_status(status: Dictionary) -> void:
 func _on_s_execute_script_ui_finished():
 	"""signal reçu lorsque l'ui a bien fini d'afficher l exécution du script
 	on peut passer au script suivant"""
-	print("On passe au script suivant")
 	current_script_index += 1
 	prepare_next_script()
 	

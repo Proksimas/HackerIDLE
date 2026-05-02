@@ -43,7 +43,6 @@ func _ready() -> void:
 
 func _on_start_fight_button_pressed() -> void:
 	if current_fight != null and is_instance_valid(current_fight):
-		print("StackFightTestScene | Un combat est deja en cours.")
 		return
 
 	_prepare_manager_for_new_test()

@@ -302,14 +302,6 @@ func _show_stats_modifiers(stat_name: Stats):
 					for_brain_click_modifiers["percentage"].append(str(modifier["value"]) + ": " + modifier["source"])
 				ModifierType.FLAT:
 					for_brain_click_modifiers["flat"].append(str(modifier["value"]) + ": " + modifier["source"])
-	print("global modifiers:")
-	print("\tpercentage: ", for_global_modifiers["percentage"])
-	print("\tbase: ", for_global_modifiers["base"])
-	print("\tflat: ", for_global_modifiers["flat"])
-	print("brain click modifiers:")
-	print("\tpercentage: ", for_brain_click_modifiers["percentage"])
-	print("\tbase: ", for_brain_click_modifiers["base"])
-	print("\tflat: ", for_brain_click_modifiers["flat"])
 
 #region INFAMY
 

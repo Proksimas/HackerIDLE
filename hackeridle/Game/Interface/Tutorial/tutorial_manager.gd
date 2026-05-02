@@ -28,7 +28,6 @@ func _ready():
 
 func start_tutorial():
 	if tutorial_steps.is_empty():
-		print("Aucune étape de tutoriel n'est définie.")
 		return 
 	
 	current_step_index = 0
@@ -42,7 +41,6 @@ func show_current_step():
 		return
 
 	var current_step = tutorial_steps[current_step_index]
-	print(current_step.text_translation_key)
 	
 	
 	var new_ui =  TUTORIAL_UI.instantiate()
@@ -93,7 +91,6 @@ func connect_step_signals(step: TutorialStep):
 			var target_node = get_tree().get_root().get_node_or_null(step.target_node_path)
 			if is_instance_valid(target_node):
 				if !target_node.is_connected(step.target_signal_name, go_to_next_step):
-					print("connexion de %s" % step.target_node_path)
 					target_node.connect(step.target_signal_name, go_to_next_step)
 				else:
 					push_error("Probleme de connexion")
@@ -114,7 +111,6 @@ func connect_step_signals(step: TutorialStep):
 
 func _on_point_receive(point_receive):
 	var current_step = tutorial_steps[current_step_index]
-	#print("on reçoit: %s %s" % [point_receive, current_step.score_variable_name])
 	if point_receive >= current_step.required_score_value:
 		go_to_next_step()
 
@@ -165,7 +161,6 @@ func go_to_next_step():
 		disconnect_step_signals(tutorial_steps[current_step_index])
 		
 	current_tutorial_ui.call_deferred("tutorial_step_finished")
-	print("Étape ", current_step_index + 1, " terminée.")
 	current_step_index += 1
 	input_paused = true
 	delay_input.start()
@@ -177,7 +172,6 @@ func complete_tutorial():
 		get_tree().paused = false
 	tutorial_completed.emit()
 	tutorial_finished = true
-	print("Tutoriel terminé !")
 	
 func reset_tutorial():
 	if current_tutorial_ui != null:

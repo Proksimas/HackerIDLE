@@ -145,7 +145,6 @@ func get_skill_translation(player_skill, type) -> String:
 func create_timer(id_cible: String, duration: float, is_one_shot: bool = false) -> void:
 	# 1. Empêcher la création de timers dupliqués pour la même ID, si nécessaire
 	if active_timers.has(id_cible):
-		print_debug("Avertissement: Le timer pour ID '%s' existe déjà. Ignoré." % id_cible)
 		return
 	var new_timer = Timer.new()
 	new_timer.wait_time = duration
