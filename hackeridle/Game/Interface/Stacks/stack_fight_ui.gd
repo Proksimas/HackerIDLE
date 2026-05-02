@@ -22,6 +22,7 @@ const IMPLANT_REWARD_BOSS_MULTIPLIER: int = 3
 const IMPLANT_REWARD_DEPTH_SCALE_K: float = 0.12
 
 const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
+const BOSS_REWARD_GENERATOR_SCRIPT = preload("res://Game/Interface/Stacks/StackScriptRewardUI/boss_reward_generator.gd")
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
 @onready var hacker_container: Control = %HackerContainer
@@ -35,8 +36,11 @@ signal s_execute_script_ui_finished
 signal s_must_execute_script
 signal s_encounter_started(wave_data: Dictionary)
 
+var boss_reward_generator: BossRewardGenerator
+
 func _ready() -> void:
 	_implant_reward_rng.randomize()
+	boss_reward_generator = BOSS_REWARD_GENERATOR_SCRIPT.new()
 	if StackManager.has_signal("s_hacker_loadout_changed") and not StackManager.s_hacker_loadout_changed.is_connected(_on_hacker_loadout_changed):
 		StackManager.s_hacker_loadout_changed.connect(_on_hacker_loadout_changed)
 
@@ -256,45 +260,9 @@ func _show_boss_rewards_if_needed() -> bool:
 
 
 func _build_boss_rewards() -> Array[Dictionary]:
-	if typeof(StackManager.stack_script_pool) != TYPE_DICTIONARY or StackManager.stack_script_pool.is_empty():
-		StackManager.initialize_pool()
-
-	var candidates: Array[String] = []
-	for script_name_variant in StackManager.stack_script_pool.keys():
-		var script_name := str(script_name_variant)
-		if StackManager.stack_hacker_script_learned.has(script_name):
-			continue
-		candidates.append(script_name)
-
-	candidates.shuffle()
-
-	var rewards: Array[Dictionary] = []
-	var reward_count: int = min(3, candidates.size())
-	for i in range(reward_count):
-		var script_name := candidates[i]
-		var script_path := str(StackManager.stack_script_pool.get(script_name, ""))
-		if script_path == "":
-			continue
-		var script_resource = load(script_path)
-		if not (script_resource is StackScript):
-			continue
-
-		var title := script_name
-		if str(script_resource.stack_script_name).strip_edges() != "" and script_resource.stack_script_name != "Script Inconnu":
-			title = script_resource.stack_script_name
-
-		rewards.append({
-			"id": "%s_reward" % script_name,
-			"kind": "script",
-			"title": title,
-			"description": tr("%s_desc" % script_name),
-			"script_resource": script_resource,
-			"custom_payload": {
-				"script_name": script_name
-			}
-		})
-
-	return rewards
+	if boss_reward_generator == null:
+		boss_reward_generator = BOSS_REWARD_GENERATOR_SCRIPT.new()
+	return boss_reward_generator.build_rewards()
 
 
 func _on_boss_reward_selected(selected_data: Dictionary) -> void:
