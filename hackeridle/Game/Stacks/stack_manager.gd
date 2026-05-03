@@ -6,9 +6,11 @@ const DEFAULT_HACKER_SEQUENCE: Array[String] = []
 const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
 const HP_BONUS_PER_BOT: int = 3
+const MAX_SCRIPT_COPIES: int = 3
 
 var stack_script_pool: Dictionary
 var stack_hacker_script_learned: Dictionary # scripts connus du hacker
+var stack_hacker_script_copies: Dictionary # nombre de copies par script
 var stack_hacker_sequence: Array[String] # ordre de sequence sauvegarde
 var stack_script_stats: Dictionary # stats derivees des bots
 signal s_hacker_loadout_changed
@@ -19,6 +21,7 @@ func _ready() -> void:
 func _init() -> void:
 	stack_script_pool = {}
 	stack_hacker_script_learned = {}
+	stack_hacker_script_copies = {}
 	stack_hacker_sequence = []
 	initialize_pool()
 	stack_script_stats = {
@@ -51,13 +54,17 @@ func create_hacker_entity() -> Entity:
 	return hacker
 
 func unlock_hacker_script(script_name: String, add_to_sequence_if_missing: bool = false) -> bool:
-	"""Debloque un script pour le hacker de run. Idempotent."""
+	"""Debloque un script pour le hacker de run. Chaque unlock ajoute 1 copie (cap MAX_SCRIPT_COPIES)."""
 	if stack_script_pool.is_empty():
 		initialize_pool()
 	if not stack_script_pool.has(script_name):
 		push_warning("Script introuvable pour le hacker: %s" % script_name)
 		return false
+	var current_copies := get_script_copy_count(script_name)
+	if current_copies >= MAX_SCRIPT_COPIES:
+		return false
 	stack_hacker_script_learned[script_name] = true
+	stack_hacker_script_copies[script_name] = current_copies + 1
 	if add_to_sequence_if_missing:
 		_seed_default_sequence_if_needed()
 		if not stack_hacker_sequence.has(script_name):
@@ -83,15 +90,25 @@ func save_hacker_loadout(known_scripts: Array[String], sequence: Array[String]) 
 		initialize_pool()
 
 	stack_hacker_script_learned.clear()
+	stack_hacker_script_copies.clear()
 	for script_name in known_scripts:
 		if stack_script_pool.has(script_name):
 			stack_hacker_script_learned[script_name] = true
+			stack_hacker_script_copies[script_name] = 1
 
 	stack_hacker_sequence.clear()
 	for script_name in sequence:
 		if stack_hacker_script_learned.has(script_name):
 			stack_hacker_sequence.append(script_name)
 	s_hacker_loadout_changed.emit()
+
+func get_script_copy_count(script_name: String) -> int:
+	return clampi(int(stack_hacker_script_copies.get(script_name, 0)), 0, MAX_SCRIPT_COPIES)
+
+func can_receive_script_copy(script_name: String) -> bool:
+	if not stack_script_pool.has(script_name):
+		return false
+	return get_script_copy_count(script_name) < MAX_SCRIPT_COPIES
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	"""Donne a l'entite le script passe en parametre."""

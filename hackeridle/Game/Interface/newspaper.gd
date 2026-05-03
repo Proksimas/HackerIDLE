@@ -33,7 +33,6 @@ func _refresh_translations() -> void:
 	_set_label_translation(player_achievement_label, "$PlayerAchievement")
 
 func _on_refresh_news_history(breaking_news_passed,chronological_news_passed):
-	#print("breaking_news_passed: %s \nchronological_news_passed: %s" % [breaking_news_passed,chronological_news_passed])
 	_clear_news()
 	_set_rich_text(common_news, "")
 	_set_rich_text(breaking_news, "")

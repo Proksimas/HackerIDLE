@@ -20,11 +20,16 @@ func build_rewards() -> Array[Dictionary]:
 		candidates.shuffle()
 
 	var rewards: Array[Dictionary] = []
-	var reward_count = min(max_rewards, candidates.size())
-	for i in range(reward_count):
-		var reward := _build_script_reward(candidates[i])
+	var selected_script_names: Dictionary = {}
+	for script_name in candidates:
+		if rewards.size() >= max_rewards:
+			break
+		if selected_script_names.has(script_name):
+			continue
+		var reward := _build_script_reward(script_name)
 		if reward.is_empty():
 			continue
+		selected_script_names[script_name] = true
 		rewards.append(reward)
 
 	return rewards
@@ -34,7 +39,7 @@ func _build_script_candidates() -> Array[String]:
 	var candidates: Array[String] = []
 	for script_name_variant in StackManager.stack_script_pool.keys():
 		var script_name := str(script_name_variant)
-		if StackManager.stack_hacker_script_learned.has(script_name):
+		if not StackManager.can_receive_script_copy(script_name):
 			continue
 		candidates.append(script_name)
 	return candidates

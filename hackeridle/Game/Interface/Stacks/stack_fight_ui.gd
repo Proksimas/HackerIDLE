@@ -270,8 +270,8 @@ func _on_boss_reward_selected(selected_data: Dictionary) -> void:
 	var script_name := str(payload.get("script_name", ""))
 	#print("StackFightUI | reward boss sélectionnée | script=%s" % script_name)
 	if script_name != "":
-		StackManager.unlock_hacker_script(script_name)
-		if hacker != null:
+		var unlocked := StackManager.unlock_hacker_script(script_name)
+		if unlocked and hacker != null:
 			StackManager.learn_stack_script(hacker, script_name)
 
 	if _pending_victory_resolution:
