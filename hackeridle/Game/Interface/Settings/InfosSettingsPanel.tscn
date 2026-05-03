@@ -1,23 +1,97 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfsjvhhswsj7v"]
+[gd_scene load_steps=9 format=3 uid="uid://cfsjvhhswsj7v"]
 
 [ext_resource type="Script" path="res://Game/Interface/Settings/infos_settings_panel.gd" id="1_wud51"]
 [ext_resource type="StyleBox" uid="uid://svnn6ol3x4r2" path="res://Game/Themes/BlueNightStyleBox.tres" id="2_81yxd"]
 [ext_resource type="Texture2D" uid="uid://bvjheuh2uxods" path="res://Game/Graphics/UIs/Flags/france.png" id="3_4lhem"]
 [ext_resource type="Texture2D" uid="uid://ih7rlkw7xpka" path="res://Game/Graphics/UIs/Flags/royaume-uni.png" id="4_u7r3d"]
 
-[node name="InfosSettingsPanel" type="Panel"]
-custom_minimum_size = Vector2(0, 300)
-script = ExtResource("1_wud51")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gx2uo"]
+bg_color = Color(0, 0, 0, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
+[sub_resource type="FontVariation" id="FontVariation_govgv"]
+variation_transform = Transform2D(1.1, 0, 0, 1, 0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_warn"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.18, 0.05, 0.08, 0.97)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.89, 0.26, 0.31, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_card"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.04, 0.11, 0.16, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.29, 0.75, 0.86, 0.35)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="InfosSettingsPanel" type="Panel"]
+custom_minimum_size = Vector2(0, 340)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gx2uo")
+script = ExtResource("1_wud51")
 
-[node name="NewGameButton" type="Button" parent="VBoxContainer"]
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="GameSectionTitle" type="Label" parent="Margin/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("FontVariation_govgv")
+theme_override_font_sizes/font_size = 25
+text = "Partie"
+
+[node name="NewGameCard" type="PanelContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_warn")
+
+[node name="DangerVBox" type="VBoxContainer" parent="Margin/VBoxContainer/NewGameCard"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NewGameWarningLabel" type="Label" parent="Margin/VBoxContainer/NewGameCard/DangerVBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Action irreversible."
+
+[node name="NewGameButton" type="Button" parent="Margin/VBoxContainer/NewGameCard/DangerVBox"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
@@ -25,30 +99,62 @@ theme_override_styles/focus = ExtResource("2_81yxd")
 theme_override_styles/hover = ExtResource("2_81yxd")
 theme_override_styles/pressed = ExtResource("2_81yxd")
 theme_override_styles/normal = ExtResource("2_81yxd")
-text = "$new_game"
+text = "Nouvelle partie"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="SafeZoneLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+[node name="DisplaySectionTitle" type="Label" parent="Margin/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "$safe_zone"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("FontVariation_govgv")
+theme_override_font_sizes/font_size = 25
+text = "Display"
 
-[node name="SafeZoneCheckBox" type="CheckButton" parent="VBoxContainer/HBoxContainer"]
+[node name="SafeZoneCard" type="PanelContainer" parent="Margin/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_card")
+
+[node name="SafeZoneRow" type="HBoxContainer" parent="Margin/VBoxContainer/SafeZoneCard"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SafeZoneTextBox" type="VBoxContainer" parent="Margin/VBoxContainer/SafeZoneCard/SafeZoneRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SafeZoneLabel" type="Label" parent="Margin/VBoxContainer/SafeZoneCard/SafeZoneRow/SafeZoneTextBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Safe zone"
+
+[node name="SafeZoneHintLabel" type="Label" parent="Margin/VBoxContainer/SafeZoneCard/SafeZoneRow/SafeZoneTextBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Adapte l'interface pour les écrans avec encoche."
+
+[node name="SafeZoneCheckBox" type="CheckButton" parent="Margin/VBoxContainer/SafeZoneCard/SafeZoneRow"]
 unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 
-[node name="CountryContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="LanguageSectionTitle" type="Label" parent="Margin/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = SubResource("FontVariation_govgv")
+theme_override_font_sizes/font_size = 25
+text = "Langue"
+
+[node name="CountryContainer" type="HBoxContainer" parent="Margin/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
-theme_override_constants/separation = 40
+theme_override_constants/separation = 16
 
-[node name="frButton" type="TextureButton" parent="VBoxContainer/CountryContainer"]
+[node name="frButton" type="TextureButton" parent="Margin/VBoxContainer/CountryContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 focus_mode = 0
@@ -56,10 +162,17 @@ texture_normal = ExtResource("3_4lhem")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="enButton" type="TextureButton" parent="VBoxContainer/CountryContainer"]
+[node name="enButton" type="TextureButton" parent="Margin/VBoxContainer/CountryContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 2
 focus_mode = 0
 texture_normal = ExtResource("4_u7r3d")
 ignore_texture_size = true
 stretch_mode = 0
+
+[node name="NewGameConfirmDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+ok_button_text = "Confirmer"
+dialog_text = "Es-tu sur de recommencer une nouvelle partie ?"
+cancel_button_text = "Annuler"
