@@ -11,18 +11,12 @@ var _last_encounter_is_boss: bool = false
 var _last_encounter_depth: int = 1
 var _pending_victory_resolution: bool = false
 var _between_fights_countdown_seconds: int = 5
-var _implant_reward_rng := RandomNumberGenerator.new()
 
 const BETWEEN_FIGHTS_FADE_OUT_DURATION: float = 0.3
 const BETWEEN_FIGHTS_FADE_IN_DURATION: float = 0.25
-const IMPLANT_REWARD_PER_ENEMY_MIN: int = 1
-const IMPLANT_REWARD_PER_ENEMY_MAX: int = 3
-const IMPLANT_REWARD_ELITE_MULTIPLIER: int = 2
-const IMPLANT_REWARD_BOSS_MULTIPLIER: int = 3
-const IMPLANT_REWARD_DEPTH_SCALE_K: float = 0.12
 
 const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
-const BOSS_REWARD_GENERATOR_SCRIPT = preload("res://Game/Interface/Stacks/StackScriptRewardUI/boss_reward_generator.gd")
+const STACK_REWARD_MANAGER_SCRIPT = preload("res://Game/Interface/Stacks/StackScriptReward/stack_reward_manager.gd")
 
 @onready var stack_fight_panel: Panel = $StackFightPanel
 @onready var hacker_container: Control = %HackerContainer
@@ -36,11 +30,11 @@ signal s_execute_script_ui_finished
 signal s_must_execute_script
 signal s_encounter_started(wave_data: Dictionary)
 
-var boss_reward_generator: BossRewardGenerator
+var stack_reward_manager: StackRewardManager
+var _pending_boss_rewards: Array[Dictionary] = []
 
 func _ready() -> void:
-	_implant_reward_rng.randomize()
-	boss_reward_generator = BOSS_REWARD_GENERATOR_SCRIPT.new()
+	stack_reward_manager = STACK_REWARD_MANAGER_SCRIPT.new()
 	if StackManager.has_signal("s_hacker_loadout_changed") and not StackManager.s_hacker_loadout_changed.is_connected(_on_hacker_loadout_changed):
 		StackManager.s_hacker_loadout_changed.connect(_on_hacker_loadout_changed)
 
@@ -153,21 +147,6 @@ func _build_wave_preview_data() -> Dictionary:
 		"waves_per_level": stack_fight_manager.waves_per_level()
 	}
 
-func _compute_implant_reward() -> int:
-	var total_reward := 0
-	for _i in range(_last_wave_enemy_count):
-		total_reward += _implant_reward_rng.randi_range(IMPLANT_REWARD_PER_ENEMY_MIN, IMPLANT_REWARD_PER_ENEMY_MAX)
-
-	var type_multiplier := 1.0
-	if _last_encounter_type == "ELITE":
-		type_multiplier = float(IMPLANT_REWARD_ELITE_MULTIPLIER)
-	elif _last_encounter_type == "BOSS":
-		type_multiplier = float(IMPLANT_REWARD_BOSS_MULTIPLIER)
-
-	var depth_multiplier := 1.0 + IMPLANT_REWARD_DEPTH_SCALE_K * sqrt(float(max(1, _last_encounter_depth)))
-	total_reward = int(round(float(total_reward) * type_multiplier * depth_multiplier))
-	return max(0, total_reward)
-
 func _on_combat_ended(victory: bool) -> void:
 	print("StackFightUI | combat fini | victory=%s | encounter_type=%s | is_boss=%s | enemy_count=%s" % [
 		str(victory),
@@ -175,9 +154,17 @@ func _on_combat_ended(victory: bool) -> void:
 		str(_last_encounter_is_boss),
 		str(_last_wave_enemy_count)
 	])
+	var post_fight_rewards := stack_reward_manager.build_post_fight_rewards(
+		victory,
+		_last_encounter_type,
+		_last_wave_enemy_count,
+		_last_encounter_depth,
+		_last_encounter_is_boss
+	)
 	var implant_reward: int = 0
+	_pending_boss_rewards = post_fight_rewards.get("boss_rewards", [])
 	if victory and _last_wave_enemy_count > 0:
-		implant_reward = _compute_implant_reward()
+		implant_reward = int(post_fight_rewards.get("combat_reward", 0))
 		Player.earn_cyber_implants(implant_reward)
 	current_fight = null
 	# Les logs "Death" sont légèrement différés dans FightLogs.
@@ -243,7 +230,8 @@ func _is_current_encounter_boss() -> bool:
 
 
 func _show_boss_rewards_if_needed() -> bool:
-	var rewards := _build_boss_rewards()
+	var rewards := _pending_boss_rewards
+	_pending_boss_rewards = []
 	if rewards.is_empty():
 		#print("StackFightUI | aucun reward boss disponible")
 		return false
@@ -257,12 +245,6 @@ func _show_boss_rewards_if_needed() -> bool:
 	selector.reward_selected.connect(_on_boss_reward_selected)
 	selector.show_rewards(rewards, tr("$BossReward"))
 	return true
-
-
-func _build_boss_rewards() -> Array[Dictionary]:
-	if boss_reward_generator == null:
-		boss_reward_generator = BOSS_REWARD_GENERATOR_SCRIPT.new()
-	return boss_reward_generator.build_rewards()
 
 
 func _on_boss_reward_selected(selected_data: Dictionary) -> void:

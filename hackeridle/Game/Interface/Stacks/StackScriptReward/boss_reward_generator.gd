@@ -1,5 +1,4 @@
 extends RefCounted
-class_name BossRewardGenerator
 
 # Flexible reward generator for boss encounters.
 # For now it builds script rewards, but the class is isolated so other
