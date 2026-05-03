@@ -133,7 +133,8 @@ func app_button_pressed(button_name:String):
 		"infos":
 			infos.show()
 			new_style_box.texture = FULL_CITY
-			infos.settings_panel.hide()
+			if infos.has_method("hide_settings_panel"):
+				infos.hide_settings_panel()
 		"shopping":
 			shop.show()
 			#new_style_box.texture = PONT
