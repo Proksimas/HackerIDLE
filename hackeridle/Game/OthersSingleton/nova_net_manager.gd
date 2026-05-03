@@ -54,7 +54,7 @@ func _init():
 	knowledge_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
 	coef_exploit_xp = 1
-	coef_farming_xp = {"base": 0.5}
+	coef_farming_xp = {"base": 0.1}
 	has_unlocked_syn_flood_from_novanet = false
 
 func on_novanet_entered() -> void:
@@ -85,7 +85,7 @@ func update_farming_task(delta):
 		Player.earn_brain_xp(xp)
 		farming_time = 0
 
-func gain_farming_xp() -> int:
+func gain_farming_xp() -> float:
 	var bots = active_tasks["farming_xp"]
 	var sum_coef = 0
 	for coef in coef_farming_xp:
