@@ -20,7 +20,7 @@ var event_id: int
 const MIN_KEYS = 1
 const MAX_KEYS = 4
 const MAX_EFFECT_WEIGHT = 30
-const MIN_EFFECT_WEIGHT = 10
+const MIN_EFFECT_WEIGHT = 1
 const MALUS_DECREASE_INFAMY = -0.8 # le maluse du ratio pour baisser l'infamy par rappot au poids
 # le weight est le ratio de 1 unité de la variable pour 1 unité d’infam
 # les valeurs en % devront avoir un /10 

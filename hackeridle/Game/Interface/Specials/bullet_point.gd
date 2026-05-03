@@ -23,7 +23,7 @@ func set_bullet_point(_text: String, has_autowrap: bool = false, _width:float = 
 		var start_index = match.get_start()
 		var end_index = match.get_end()
 		var number_str = match.get_string()
-		var number_value = float(number_str)
+		var number_value = number_str.to_float()
 
 		# Ajoute la partie du texte qui n'est pas un nombre
 		new_text += _text.substr(last_index, start_index - last_index)

@@ -45,6 +45,7 @@ func event_ui_setup(event: Event):
 	apply_background()
 	self.show()
 	_clear_choices_container()
+	choices_modifiers.clear()
 
 	name_of_event_label.text = tr(event.event_titre_id)
 	event_description_label.text = tr(event.event_description_id)
@@ -102,10 +103,8 @@ func event_ui_setup(event: Event):
 				
 				if value == 0:
 					continue
-				elif effect_value < 0:
-					choice_text += Global.number_to_string(value)
 				else:
-					choice_text += Global.number_to_string(value)
+					choice_text += Global.number_to_string(abs(value))
 				
 				if is_perc:
 					choice_text += " %"
