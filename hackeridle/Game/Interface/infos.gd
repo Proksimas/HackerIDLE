@@ -94,14 +94,17 @@ func draw_infamy_stats():
 @onready var learning_item_title: Label = %LearningItemTitle
 @onready var learning_item_cost_label: Label = %LearningItemCostLabel
 @onready var learning_item_knowledge_label: Label = %LearningItemKnowledgeLabel
-var modifiers_bullets_container: VBoxContainer
+var brain_bullets_container: VBoxContainer
+var hack_bullets_container: VBoxContainer
+var learning_bullets_container: VBoxContainer
 
 func draw_modififiers():
-	_ensure_modifiers_bullets_container()
+	_ensure_modifiers_bullets_containers()
 	_clear_modifiers_bullets()
 
 	# BRAIN
-	_add_modifier_section_title(tr("$Brain"))
+	brain_title.show()
+	brain_title.text = tr("$Brain")
 	var xp_cara = StatsManager.get_modifier_type_by_stats(
 		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP
 	)
@@ -109,7 +112,7 @@ func draw_modififiers():
 		StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.BRAIN_XP), 0.1
 	) + "  <---  ( " + Global.number_to_string(xp_cara["base"]) + " + " + \
 		Global.number_to_string(xp_cara["perc"]) + "% ) + " + Global.number_to_string(xp_cara["flat"])
-	_add_modifier_bullet(xp_text, false)
+	_add_modifier_bullet(brain_bullets_container, xp_text, false)
 
 	var knowledge_cara = StatsManager.get_modifier_type_by_stats(
 		StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE
@@ -118,14 +121,16 @@ func draw_modififiers():
 		StatsManager.current_stat_calcul(StatsManager.TargetModifier.BRAIN_CLICK, StatsManager.Stats.KNOWLEDGE), 0.1
 	) + "  <---  ( " + Global.number_to_string(knowledge_cara["base"]) + " + " + \
 		Global.number_to_string(knowledge_cara["perc"]) + "% ) + " + Global.number_to_string(knowledge_cara["flat"])
-	_add_modifier_bullet(knowledge_text, false)
+	_add_modifier_bullet(brain_bullets_container, knowledge_text, false)
 
 	# HACK
-	_add_modifier_section_title(tr("$Hack"))
+	hack_title.show()
+	hack_title.text = tr("$Hack")
 	var hack_time_cara = StatsManager.get_modifier_type_by_stats(
 		StatsManager.TargetModifier.HACK, StatsManager.Stats.TIME
 	)
 	_add_modifier_bullet(
+		hack_bullets_container,
 		tr("$hack_time_perc") + ": " + Global.number_to_string(hack_time_cara["perc"]) + " %",
 		true
 	)
@@ -134,6 +139,7 @@ func draw_modififiers():
 		StatsManager.TargetModifier.HACK, StatsManager.Stats.GOLD
 	)
 	_add_modifier_bullet(
+		hack_bullets_container,
 		tr("$hack_gold_perc") + ": " + Global.number_to_string(hack_gold_cara["perc"]) + " %",
 		false
 	)
@@ -142,16 +148,19 @@ func draw_modififiers():
 		StatsManager.TargetModifier.HACK, StatsManager.Stats.COST
 	)
 	_add_modifier_bullet(
+		hack_bullets_container,
 		tr("$hack_cost_perc") + ": " + Global.number_to_string(hack_cost_cara["perc"]) + " %",
 		true
 	)
 
 	# LEARNING ITEMS
-	_add_modifier_section_title(tr("$LearningItems"))
+	learning_item_title.show()
+	learning_item_title.text = tr("$LearningItems")
 	var learning_items_cost_cara = StatsManager.get_modifier_type_by_stats(
 		StatsManager.TargetModifier.LEARNING_ITEM, StatsManager.Stats.COST
 	)
 	_add_modifier_bullet(
+		learning_bullets_container,
 		tr("$learning_items_cost_perc") + ": " + Global.number_to_string(learning_items_cost_cara["perc"]) + " %",
 		true
 	)
@@ -160,20 +169,25 @@ func draw_modififiers():
 		StatsManager.TargetModifier.LEARNING_ITEM, StatsManager.Stats.KNOWLEDGE
 	)
 	_add_modifier_bullet(
+		learning_bullets_container,
 		tr("$short_learning_items_knowledge_perc") + ": " + Global.number_to_string(learning_items_knowledge_cara["perc"]) + " %",
 		false
 	)
 
 
-func _ensure_modifiers_bullets_container() -> void:
-	if modifiers_bullets_container != null and is_instance_valid(modifiers_bullets_container):
+func _ensure_modifiers_bullets_containers() -> void:
+	if brain_bullets_container != null and is_instance_valid(brain_bullets_container) \
+		and hack_bullets_container != null and is_instance_valid(hack_bullets_container) \
+		and learning_bullets_container != null and is_instance_valid(learning_bullets_container):
 		return
 
-	modifiers_bullets_container = modifiers_container.get_node_or_null("ModifiersBullets")
-	if modifiers_bullets_container == null:
-		modifiers_bullets_container = VBoxContainer.new()
-		modifiers_bullets_container.name = "ModifiersBullets"
-		modifiers_container.add_child(modifiers_bullets_container)
+	brain_bullets_container = _get_or_create_section_container("BrainBullets")
+	hack_bullets_container = _get_or_create_section_container("HackBullets")
+	learning_bullets_container = _get_or_create_section_container("LearningBullets")
+
+	modifiers_container.move_child(brain_bullets_container, brain_title.get_index() + 1)
+	modifiers_container.move_child(hack_bullets_container, hack_title.get_index() + 1)
+	modifiers_container.move_child(learning_bullets_container, learning_item_title.get_index() + 1)
 
 	var old_nodes: Array[Node] = [
 		brain_title, brain_xp_title, brain_knowledge_title,
@@ -186,20 +200,26 @@ func _ensure_modifiers_bullets_container() -> void:
 
 
 func _clear_modifiers_bullets() -> void:
-	for child in modifiers_bullets_container.get_children():
+	for child in brain_bullets_container.get_children():
+		child.queue_free()
+	for child in hack_bullets_container.get_children():
+		child.queue_free()
+	for child in learning_bullets_container.get_children():
 		child.queue_free()
 
-
-func _add_modifier_section_title(text_value: String) -> void:
-	var section_label := Label.new()
-	section_label.text = text_value
-	modifiers_bullets_container.add_child(section_label)
-
-
-func _add_modifier_bullet(text_value: String, inverse_color: bool) -> void:
+func _add_modifier_bullet(target_container: VBoxContainer, text_value: String, inverse_color: bool) -> void:
 	var bullet_label = BULLET_POINT.instantiate()
-	modifiers_bullets_container.add_child(bullet_label)
+	target_container.add_child(bullet_label)
 	bullet_label.set_bullet_point(text_value, false, 150, inverse_color)
+
+
+func _get_or_create_section_container(name_value: String) -> VBoxContainer:
+	var section := modifiers_container.get_node_or_null(name_value) as VBoxContainer
+	if section == null:
+		section = VBoxContainer.new()
+		section.name = name_value
+		modifiers_container.add_child(section)
+	return section
 	
 
 
