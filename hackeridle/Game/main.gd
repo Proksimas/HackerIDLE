@@ -66,8 +66,8 @@ func rebirth():
 		l'experience, niveau du cerveau, skills, exploits (xp, level et point)
 		et les points d'exploits investis dans les shop_item
 		"""
+	MilestoneManager.reset_for_rebirth()
 	Player.nb_of_rebirth += 1
-	MilestoneManager.notify_first_rebirth(TimeManager.current_date)
 	var save_stats_for_rebirth = {"skills_owned": Player.skills_owned,
 									"brain_xp": Player.brain_xp,
 									"brain_level": Player.brain_level,
