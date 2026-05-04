@@ -23,6 +23,8 @@ var news_cache: Array = []
 var breaking_news_passed: Array = []
 var chronological_news_passed: Array = []
 var _breaking_banner_finished_handler: Callable
+var _current_news_key: String = ""
+var _current_news_type: NewsType = NewsType.RANDOM
 
 var nb_of_msg = {"random": 60,}
 
@@ -41,6 +43,13 @@ func _ready() -> void:
 	#StatsManager.s_infamy_effect_added.connect(draw_infamy_stats)
 	TimeManager.s_date.connect(_on_s_date)
 	_on_s_add_infamy(StatsManager.infamy["current_value"])
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		if not is_node_ready():
+			return
+		_refresh_current_news_translation()
+		s_refresh_news_history.emit(breaking_news_passed, chronological_news_passed)
 
 
 func _process(_delta: float) -> void:
@@ -97,6 +106,8 @@ func _on_breaking_news_banner_finished(news_key: String):
 # Gère le défilement de n'importe quelle news (breaking news ou classique)
 func display_news(news_key: String, type: NewsType):
 	_disconnect_news_finished_handlers()
+	_current_news_key = news_key
+	_current_news_type = type
 	
 	if type == NewsType.BREAKING:
 		swap_panel_to_bandeau(true)
@@ -281,3 +292,12 @@ func _history_contains_entry(history: Array, candidate: Dictionary) -> bool:
 		if entry is Dictionary and entry == candidate:
 			return true
 	return false
+
+func _refresh_current_news_translation() -> void:
+	if _current_news_key == "":
+		return
+	if _current_news_type == NewsType.BREAKING:
+		swap_panel_to_bandeau(true)
+		text_label.text = tr(_current_news_key)
+	else:
+		text_label.text = tr(_current_news_key)
