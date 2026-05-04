@@ -65,6 +65,8 @@ func connexions() -> void:
 	news_panel.show_infamy.connect(app_button_pressed.bind("infos"))
 	news_panel.s_refresh_news_history.connect(newspaper._on_refresh_news_history)
 	news_panel.news_paper_icon.pressed.connect(newspaper.show)
+	if not MilestoneManager.s_milestone_news_requested.is_connected(_on_milestone_news_requested):
+		MilestoneManager.s_milestone_news_requested.connect(_on_milestone_news_requested)
 	
 	Player.s_earn_knowledge_point.connect(_on_earn_knowledge_point)
 	Player.s_brain_clicked.connect(_on_s_brain_clicked)
@@ -79,6 +81,7 @@ func connexions() -> void:
 	TimeManager.s_date.connect(_on_s_date)
 	
 	StatsManager.s_go_to_jail.connect(app_button_pressed.bind('jail'))
+	_flush_pending_milestone_news()
 	
 
 func buttons_connexion() -> void:
@@ -270,8 +273,19 @@ func _load_data(data):
 	hack_shop._load_data(data["HackShop"])
 	print("Chargement du news panel\n%s" % data["NewsPanel"])
 	news_panel._load_data(data["NewsPanel"])
+	_flush_pending_milestone_news()
 	infos._load_data(data["Infos"])
 	novanet._load_data(data["NovaNetManager"])
+
+
+func _on_milestone_news_requested(short_id: String, date: Array) -> void:
+	news_panel.add_achievement(short_id, date)
+
+
+func _flush_pending_milestone_news() -> void:
+	var pending_entries: Array[Dictionary] = MilestoneManager.consume_pending_news_entries()
+	for entry in pending_entries:
+		news_panel.add_achievement(entry.get("short_id", ""), entry.get("date", []))
 
 
 func _on_more_button_container_draw() -> void:

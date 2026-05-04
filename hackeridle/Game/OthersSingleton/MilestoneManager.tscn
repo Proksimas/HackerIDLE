@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkegfjo13eoxn"]
+
+[ext_resource type="Script" path="res://Game/OthersSingleton/milestone_manager.gd" id="1_9h7wk"]
+
+[node name="MilestoneManager" type="Node"]
+script = ExtResource("1_9h7wk")

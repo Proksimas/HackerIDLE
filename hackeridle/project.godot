@@ -34,6 +34,7 @@ EventsManager="*res://Game/OthersSingleton/events_manager.tscn"
 TutorialManager="*res://Game/Interface/Tutorial/TutorialManager.tscn"
 NovaNetManager="*res://Game/OthersSingleton/nova_net_manager.tscn"
 StackManager="*res://Game/Stacks/StackManager.tscn"
+MilestoneManager="*res://Game/OthersSingleton/MilestoneManager.tscn"
 
 [display]
 

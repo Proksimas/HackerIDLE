@@ -167,9 +167,15 @@ func new_news():
 	
 	
 func add_achievement(achievement_name, date):
+	var safe_date = date
+	if not (safe_date is Array) or safe_date.size() != 3:
+		safe_date = TimeManager.current_date
+	var formatted_date := TimeManager.get_formatted_date_string(safe_date)
+	if formatted_date == "":
+		formatted_date = "----/--/--"
 	var achievement_entry := {"kind": "achievement",
 								"key": "achievement_" + achievement_name,
-								"date": TimeManager.get_formatted_date_string(date)}
+								"date": formatted_date}
 	if not _history_contains_entry(chronological_news_passed, achievement_entry):
 		chronological_news_passed.append(achievement_entry)
 	s_refresh_news_history.emit(breaking_news_passed,chronological_news_passed)

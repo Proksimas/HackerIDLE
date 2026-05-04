@@ -54,7 +54,6 @@ var learning_item_statut: Dictionary = {}
 var hacking_item_bought: Dictionary = {}
 var hacking_item_statut: Dictionary = {}
 var sources_item_bought: Dictionary = {}
-var has_achievement_jail_first_time: bool = false
 
 var skills_owned = {"active" : [],
 					"passive": [] }
@@ -90,7 +89,6 @@ func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
 	_init_sources()
-	has_achievement_jail_first_time = false
 	cyber_implants = 0
 	brain_xp_next = get_brain_xp(brain_level -1)
 	exploit_xp_next = get_exploit_xp(exploit_level)

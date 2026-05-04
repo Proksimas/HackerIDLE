@@ -22,6 +22,7 @@ func save_game():
 	content[EventsManager.name] = EventsManager._save_data()
 	content[NovaNetManager.name] = NovaNetManager._save_data()
 	content[SkillsManager.name] = SkillsManager._save_date()
+	content[MilestoneManager.name] = MilestoneManager._save_data()
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
@@ -57,6 +58,7 @@ func load_data():
 	events_manager_load_data(data['EventsManager'])
 	novanet_manager_load_data(data['NovaNetManager'])
 	skills_manager_load_data(data['SkillsManager'])
+	milestone_manager_load_data(data.get('MilestoneManager', {}))
 	
 	#CHargement au niveau de l'interface et de ses sous noeuds
 	var interface =  get_tree().get_root().get_node("Main/Interface")
@@ -75,7 +77,8 @@ func player_load_data(content: Dictionary) -> void:
 		# 2.  On ne touche qu’aux variables déclarées dans le script,
 		#     qui ne sont PAS en lecture seule, et qui existent dans le save.
 		if (usage & PROPERTY_USAGE_SCRIPT_VARIABLE):
-			Player.set(p_name, content[p_name])
+			if content.has(p_name):
+				Player.set(p_name, content[p_name])
 	print("Chargement du joueur:")
 	print(content)
 	#Il faut reassocier les compétences
@@ -142,6 +145,11 @@ func skills_manager_load_data(content: Dictionary) -> void:
 	print('chargement du skill manager')
 	print(content)
 	SkillsManager._load_data(content)
+
+func milestone_manager_load_data(content: Dictionary) -> void:
+	print('chargement du milestone manager')
+	print(content)
+	MilestoneManager._load_data(content if content is Dictionary else {})
 func get_save_path():
 	"""renvoie le path user ou editeur"""
 	var save_path

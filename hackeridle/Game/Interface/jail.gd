@@ -30,12 +30,7 @@ func enter_jail():
 	years_in_jail = randi_range(min_year_in_jail, max_year_i_jail)
 	in_jail_label.text = tr("$were_in_jail")
 	purge_title.text = str(years_in_jail) + " " + tr("$years_left")
-
-	if not Player.has_achievement_jail_first_time:
-		Player.has_achievement_jail_first_time = true
-		var interface_node := get_tree().get_root().get_node_or_null("Main/Interface")
-		if interface_node != null and interface_node.has_node("NewsPanel"):
-			interface_node.get_node("NewsPanel").add_achievement("jail_first_time", TimeManager.current_date)
+	MilestoneManager.notify_first_jail(TimeManager.current_date)
 	
 	TimeManager.game_seconds += years_in_jail *\
 		TimeManager.SECONDS_PER_DAY * TimeManager.DAYS_PER_YEAR

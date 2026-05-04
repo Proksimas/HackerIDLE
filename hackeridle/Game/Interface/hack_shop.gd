@@ -79,8 +79,7 @@ func player_bought_hacking_item(item_name,  quantity):
 		if Player.knowledge_point >=  cost:
 			Player.earn_knowledge_point(-cost)
 			Player.add_hacking_item(HackingItemsDb.get_item_cara(item_name))
-			get_tree().get_root().get_node("Main/Interface").\
-				news_panel.add_achievement(item_name, TimeManager.current_date)
+			MilestoneManager.notify_hack_unlocked(item_name, TimeManager.current_date)
 		else:
 			push_warning("On ne devrait pas pouvoir acheter litem. Pas présent et pas assez de connaissance")
 	
