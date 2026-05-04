@@ -3,7 +3,7 @@ extends Node
 const ACH_FIRST_MILLION_KNOWLEDGE := "achievement_first_million_knowledge"
 const ACH_FIRST_MILLION_GOLD := "achievement_first_million_gold"
 const ACH_BRAIN_LVL_10 := "achievement_brain_lvl_10"
-const ACH_BRAIN_LVL_50 := "achievement_brain_lvl_50"
+const ACH_BRAIN_LVL_42 := "achievement_brain_lvl_50"
 const ACH_FIRST_REBIRTH := "achievement_first_rebirth"
 const ACH_JAIL_FIRST_TIME := "achievement_jail_first_time"
 
@@ -76,8 +76,8 @@ func sync_from_player_state() -> void:
 		unlock(ACH_FIRST_MILLION_GOLD, TimeManager.current_date)
 	if Player.brain_level >= 10:
 		unlock(ACH_BRAIN_LVL_10, TimeManager.current_date)
-	if Player.brain_level >= 50:
-		unlock(ACH_BRAIN_LVL_50, TimeManager.current_date)
+	if Player.brain_level >= 42:
+		unlock(ACH_BRAIN_LVL_42, TimeManager.current_date)
 	if Player.nb_of_rebirth >= 1:
 		unlock(ACH_FIRST_REBIRTH, TimeManager.current_date)
 
@@ -95,8 +95,8 @@ func _on_earn_gold(total_value: float) -> void:
 func _on_earn_brain_level(level: int) -> void:
 	if level >= 10:
 		unlock(ACH_BRAIN_LVL_10, TimeManager.current_date)
-	if level >= 50:
-		unlock(ACH_BRAIN_LVL_50, TimeManager.current_date)
+	if level >= 42:
+		unlock(ACH_BRAIN_LVL_42, TimeManager.current_date)
 
 
 func consume_pending_news_entries() -> Array[Dictionary]:
