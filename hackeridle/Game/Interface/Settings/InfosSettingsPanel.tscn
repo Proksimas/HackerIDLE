@@ -103,6 +103,7 @@ text = "Nouvelle partie"
 
 [node name="DisplaySectionTitle" type="Label" parent="Margin/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
@@ -111,6 +112,7 @@ theme_override_font_sizes/font_size = 25
 text = "Display"
 
 [node name="SafeZoneCard" type="PanelContainer" parent="Margin/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_card")
 

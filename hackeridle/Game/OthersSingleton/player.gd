@@ -141,7 +141,6 @@ func earn_brain_xp(earning):
 	else:
 		brain_xp += clamp(earning, 0, INF)
 	brain_xp = snapped(brain_xp, 0.01)
-	print("gain brain_xp: %s" % earning)
 	s_brain_xp_to_earn.emit(earning)
 	s_earn_brain_xp.emit(brain_xp)
 	#print("xp_earned: %s" % earning)
