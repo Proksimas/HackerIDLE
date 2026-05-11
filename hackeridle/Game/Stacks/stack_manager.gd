@@ -236,6 +236,62 @@ func set_hacker_stats(new_stats: Dictionary, keep_unspecified: bool = true) -> v
 
 	s_hacker_loadout_changed.emit()
 
-func _save_data():
-	# TODO
-	pass
+func _save_data() -> Dictionary:
+	return {
+		"stack_hacker_script_learned": stack_hacker_script_learned.duplicate(true),
+		"stack_hacker_script_copies": stack_hacker_script_copies.duplicate(true),
+		"stack_hacker_sequence": stack_hacker_sequence.duplicate(true),
+		"stack_script_stats": stack_script_stats.duplicate(true)
+	}
+
+func _load_data(content: Dictionary) -> void:
+	if typeof(content) != TYPE_DICTIONARY:
+		return
+	if stack_script_pool.is_empty():
+		initialize_pool()
+
+	stack_hacker_script_learned.clear()
+	stack_hacker_script_copies.clear()
+	stack_hacker_sequence.clear()
+	stack_script_stats = {
+		"penetration": 0,
+		"encryption": 0,
+		"flux": 0,
+		"hp_bonus": 0
+	}
+
+	var saved_learned = content.get("stack_hacker_script_learned", {})
+	var saved_copies = content.get("stack_hacker_script_copies", {})
+	var saved_sequence = content.get("stack_hacker_sequence", [])
+	var saved_stats = content.get("stack_script_stats", {})
+
+	if saved_learned is Dictionary:
+		for script_name_variant in saved_learned.keys():
+			var script_name := str(script_name_variant)
+			if stack_script_pool.has(script_name) and bool(saved_learned[script_name_variant]):
+				stack_hacker_script_learned[script_name] = true
+
+	if saved_copies is Dictionary:
+		for script_name_variant in saved_copies.keys():
+			var script_name := str(script_name_variant)
+			if not stack_script_pool.has(script_name):
+				continue
+			var copies := clampi(int(saved_copies[script_name_variant]), 0, MAX_SCRIPT_COPIES)
+			if copies > 0:
+				stack_hacker_script_learned[script_name] = true
+				stack_hacker_script_copies[script_name] = copies
+
+	for script_name in stack_hacker_script_learned.keys():
+		if not stack_hacker_script_copies.has(script_name):
+			stack_hacker_script_copies[script_name] = 1
+
+	if saved_sequence is Array:
+		for script_name_variant in saved_sequence:
+			var script_name := str(script_name_variant)
+			if stack_hacker_script_learned.has(script_name):
+				stack_hacker_sequence.append(script_name)
+
+	if saved_stats is Dictionary:
+		for stat_name in ["penetration", "encryption", "flux", "hp_bonus"]:
+			if saved_stats.has(stat_name):
+				stack_script_stats[stat_name] = max(0, int(saved_stats[stat_name]))

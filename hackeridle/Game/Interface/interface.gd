@@ -275,6 +275,9 @@ func _load_data(data):
 	news_panel._load_data(data["NewsPanel"])
 	_flush_pending_milestone_news()
 	infos._load_data(data["Infos"])
+	if data.has("StackFightManager") and novanet != null and novanet.stack_fight_ui != null and novanet.stack_fight_ui.stack_fight_manager != null:
+		print("Chargement du StackFightManager")
+		novanet.stack_fight_ui.stack_fight_manager._load_data(data["StackFightManager"])
 	novanet._load_data(data["NovaNetManager"])
 
 

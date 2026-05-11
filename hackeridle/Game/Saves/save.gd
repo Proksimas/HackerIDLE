@@ -21,8 +21,10 @@ func save_game():
 	content[TimeManager.name] = TimeManager._save_data()
 	content[EventsManager.name] = EventsManager._save_data()
 	content[NovaNetManager.name] = NovaNetManager._save_data()
+	content[StackManager.name] = StackManager._save_data()
 	content[SkillsManager.name] = SkillsManager._save_date()
 	content[MilestoneManager.name] = MilestoneManager._save_data()
+
 	for node in nodes_savable:
 		content[node.name] = node._save_data()
 	
@@ -34,7 +36,12 @@ func save_game():
 	
 func save_the_data(content):
 	var save_path = get_save_path()
-	var file_path = save_path + save_file_name
+	var absolute_save_path := ProjectSettings.globalize_path(save_path)
+	var dir_error := DirAccess.make_dir_recursive_absolute(absolute_save_path)
+	if dir_error != OK and dir_error != ERR_ALREADY_EXISTS:
+		print("❌ Impossible de créer le dossier de sauvegarde : %s" % absolute_save_path)
+		return
+	var file_path = save_path.path_join(save_file_name)
 	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	if file:
 		file.store_var(content)
@@ -46,7 +53,7 @@ func save_the_data(content):
 
 func load_data():
 	var save_path = get_save_path()
-	var file_path = save_path + save_file_name
+	var file_path = save_path.path_join(save_file_name)
 	var f = FileAccess.open(file_path, FileAccess.READ)
 	var data = f.get_var()
 	f.close()
@@ -57,6 +64,7 @@ func load_data():
 	time_manager_load_data(data["TimeManager"])
 	events_manager_load_data(data['EventsManager'])
 	novanet_manager_load_data(data['NovaNetManager'])
+	stack_manager_load_data(data.get('StackManager', {}))
 	skills_manager_load_data(data['SkillsManager'])
 	milestone_manager_load_data(data.get('MilestoneManager', {}))
 	
@@ -141,6 +149,11 @@ func novanet_manager_load_data(content: Dictionary) -> void:
 			NovaNetManager.set(p_name, content[p_name])
 	
 	#NovaNetManager._load_data(content)
+func stack_manager_load_data(content: Dictionary) -> void:
+	print("Chargement du StackManager:")
+	print(content)
+	StackManager._load_data(content if content is Dictionary else {})
+
 func skills_manager_load_data(content: Dictionary) -> void:
 	print('chargement du skill manager')
 	print(content)
@@ -150,6 +163,7 @@ func milestone_manager_load_data(content: Dictionary) -> void:
 	print('chargement du milestone manager')
 	print(content)
 	MilestoneManager._load_data(content if content is Dictionary else {})
+
 func get_save_path():
 	"""renvoie le path user ou editeur"""
 	var save_path
@@ -161,7 +175,7 @@ func check_has_save():
 	var save_path = get_save_path()
 	var file = FileAccess
 	
-	if file.file_exists(save_path + save_file_name): return true
+	if file.file_exists(save_path.path_join(save_file_name)): return true
 	else: return false
 
 func clean_save():
@@ -176,8 +190,8 @@ func clean_save():
 			# Gérer l'erreur si la suppression échoue
 				print("Erreur lors de la suppression du fichier de sauvegarde")
 	else:
-		# Le fichier n'existe pas ou le dossier n'a pas pu être ouvert
-		print("Aucun fichier de sauvegarde trouvé à supprimer ou erreur d'accès au répertoire.")
+		# Rien à supprimer: cas normal si aucune sauvegarde n'existe encore.
+		pass
 
 	#var file = FileAccess.open(save_path, FileAccess.WRITE)
 	#file.store_var({})

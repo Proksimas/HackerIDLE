@@ -161,11 +161,11 @@ func _on_combat_ended(victory: bool) -> void:
 		_last_encounter_depth,
 		_last_encounter_is_boss
 	)
-	var implant_reward: int = 0
+	var cyber_force_reward: int = 0
 	_pending_boss_rewards = post_fight_rewards.get("boss_rewards", [])
 	if victory and _last_wave_enemy_count > 0:
-		implant_reward = int(post_fight_rewards.get("combat_reward", 0))
-		Player.earn_cyber_implants(implant_reward)
+		cyber_force_reward = int(post_fight_rewards.get("combat_reward", 0))
+		Player.earn_cyber_force(cyber_force_reward)
 	current_fight = null
 	# Les logs "Death" sont légèrement différés dans FightLogs.
 	# On attend ce flush pour garantir que "Resolution" soit toujours le dernier log.
@@ -175,7 +175,7 @@ func _on_combat_ended(victory: bool) -> void:
 			"action_type": "Resolution",
 			"victory": victory,
 			"encounter_type": _last_encounter_type,
-			"implant_reward": implant_reward
+			"implant_reward": cyber_force_reward
 		})
 	await get_tree().create_timer(0.6).timeout
 	#print("Combat terminé | victory=%s | encounter_type=%s | is_boss=%s" % [

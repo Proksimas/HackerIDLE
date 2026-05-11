@@ -1,12 +1,12 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://ys8kpw1o2saf"]
 
 [ext_resource type="Script" path="res://Game/Skills/PassiveSkills/newspapers_are_always_right.gd" id="1_61cp4"]
-[ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_y4ubj"]
+[ext_resource type="Texture2D" uid="uid://b7xmt324kfbv" path="res://Game/Graphics/breaking_news_icon_2.png" id="1_ts6lj"]
 
 [resource]
 script = ExtResource("1_61cp4")
 cost = Array[int]([3, 5, 7])
-ps_texture = ExtResource("1_y4ubj")
+ps_texture = ExtResource("1_ts6lj")
 ps_name = "newspapers_are_always_right"
 data_bonus_1 = [-1, -3, -5]
 data_bonus_2 = []

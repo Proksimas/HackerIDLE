@@ -4,7 +4,11 @@ var knowledge_point: float
 var gold: float
 var brain_xp: float
 var exploit_xp: float
-var cyber_force: float
+var cyber_force: float = 0.0:
+	set(value):
+		cyber_force = clamp(value, 0, INF)
+		s_earn_cyber_force.emit(cyber_force)
+		s_earn_cyber_implants.emit(int(cyber_force))
 var robots_cyber_force: = 1000000 
 		
 var skill_point: int:
@@ -22,10 +26,11 @@ var bots: int = 0:
 		bots = clamp(value, 0, INF)
 		s_earn_bots.emit(bots)
 
-var cyber_implants: int = 0:
+var cyber_implants: int:
+	get:
+		return int(cyber_force)
 	set(value):
-		cyber_implants = clamp(value, 0, INF)
-		s_earn_cyber_implants.emit(cyber_implants)
+		cyber_force = float(max(value, 0))
 		
 var exploit_point: int = 0:
 	set(value):
@@ -89,7 +94,7 @@ func _init():
 	"""Initialise le joueur à zero. Est appelé dans le main pour une new partie"""
 	_init_skills_owned()
 	_init_sources()
-	cyber_implants = 0
+	cyber_force = 0
 	brain_xp_next = get_brain_xp(brain_level -1)
 	exploit_xp_next = get_exploit_xp(exploit_level)
 	
@@ -159,13 +164,11 @@ func earn_exploit_xp(earning):
 	
 func earn_cyber_force(earning):
 	self.cyber_force += earning
-	cyber_force = clamp(cyber_force, 0, INF)
-	s_earn_cyber_force.emit(cyber_force)
 
 func earn_cyber_implants(earning: int) -> void:
 	if earning <= 0:
 		return
-	# Compat: legacy API now maps to Cyber Force gain.
+	# Compat legacy: kept for older call sites, but Cyber Force is the real currency.
 	earn_cyber_force(earning)
 	
 	

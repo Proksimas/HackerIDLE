@@ -74,7 +74,7 @@ func assign_implants(task_name: String, number_of_implants: int) -> void:
 	active_tasks[task_name] = number_of_implants
 
 func earn_cyber_implants(amount: int) -> void:
-	Player.earn_cyber_implants(amount)
+	Player.earn_cyber_force(amount)
 
 var farming_time = 0
 func update_farming_task(delta):

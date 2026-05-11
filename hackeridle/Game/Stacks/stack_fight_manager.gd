@@ -571,6 +571,41 @@ func setup_robot_scripts(entity: Entity, _robot_name: String, _all_scripts_db: D
 	#pour le moment on ne donne que le SYN_FLOOD
 	StackManager.learn_stack_script(entity, "syn_flood")
 	entity.save_sequence(["syn_flood"])
+
+func _save_data() -> Dictionary:
+	return {
+		"sector_index": sector_index,
+		"level_index": level_index,
+		"wave_index": wave_index,
+		"current_encounter": current_encounter.duplicate(true),
+		"encounter_active": encounter_active,
+		"run_seed": run_seed
+	}
+
+func _load_data(content: Dictionary) -> void:
+	if typeof(content) != TYPE_DICTIONARY:
+		return
+
+	sector_index = max(0, int(content.get("sector_index", 0)))
+	level_index = max(1, int(content.get("level_index", 1)))
+	wave_index = max(1, int(content.get("wave_index", 1)))
+
+	var loaded_encounter = content.get("current_encounter", {})
+	current_encounter = loaded_encounter.duplicate(true) if loaded_encounter is Dictionary else {}
+	encounter_active = bool(content.get("encounter_active", false)) and not current_encounter.is_empty()
+
+	run_seed = int(content.get("run_seed", 0))
+	if run_seed == 0:
+		rng.randomize()
+		run_seed = randi()
+
+	rng.seed = _sector_seed(sector_index)
+
+	var max_level := levels_per_sector()
+	level_index = clampi(level_index, 1, max_level)
+
+	var max_wave := waves_per_level()
+	wave_index = clampi(wave_index, 1, max_wave)
 # -------------------------
 # UTIL
 # -------------------------
