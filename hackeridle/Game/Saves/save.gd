@@ -194,7 +194,7 @@ func clean_save():
 		pass
 
 	#var file = FileAccess.open(save_path, FileAccess.WRITE)
-	#file.store_var({})
+	#file.store_var({})deje
 	#file.close()
 
 
