@@ -11,12 +11,12 @@ enum PublicityKind {
 
 @onready var reward_title: Label = %RewardTitle
 @onready var watching_video: Label = %WatchingVideo
-@onready var infamy_panel: Panel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/InfamyPanel"
-@onready var double_reward_panel: Panel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/DoubleRewardPanel"
-@onready var deploy_panel: Panel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/DeployPanel"
-@onready var infamy_label: RichTextLabel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/InfamyPanel/HBoxContainer/RichTextLabel"
-@onready var double_reward_label: RichTextLabel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/DoubleRewardPanel/HBoxContainer/RichTextLabel"
-@onready var deploy_label: RichTextLabel = $"Panel/VBoxContainer/CenterContainer/VBoxContainer/DeployPanel/HBoxContainer/RichTextLabel"
+@onready var infamy_panel: Panel = %InfamyPanel
+@onready var double_reward_panel: Panel = %DoubleRewardPanel
+@onready var deploy_panel: Panel = %DeployPanel
+@onready var infamy_label: Label = %InfamyLabel
+@onready var double_reward_label: Label = %DoubleRewardLabel
+@onready var deploy_label: Label = %DeployLabel
 
 var pending_publicity_kind: int = PublicityKind.NONE
 
@@ -74,6 +74,7 @@ func _handle_panel_click(panel: Control, event: InputEvent, publicity_kind: int)
 	panel.accept_event()
 	get_viewport().set_input_as_handled()
 	prepare_publicity_launch(publicity_kind)
+	self.queue_free()
 
 
 func _is_left_click(event: InputEvent) -> bool:
@@ -89,3 +90,8 @@ func _set_children_mouse_filter_ignore(root: Node) -> void:
 		if control_child != null:
 			control_child.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_set_children_mouse_filter_ignore(child)
+
+
+func _on_close_button_pressed() -> void:
+	self.queue_free()
+	pass # Replace with function body.

@@ -49,6 +49,7 @@ const OPALINE = preload("res://Game/Graphics/Background/Opaline/opaline_from_val
 const PONT = preload("res://Game/Graphics/Background/Pont/pont.png")
 const JAIL = preload("res://Game/Graphics/Background/Jail/jail_2.png")
 const NOVANET= preload("res://Game/Graphics/Background/Novanet/NovaNet_bg.png")
+const WATCHING_VIDEO = preload("res://Game/Publicity/WatchingVideoPanel.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -303,4 +304,11 @@ func _on_more_button_container_hidden() -> void:
 
 func _on_cheat_button_pressed() -> void:
 	cheat_panel.visible = !cheat_panel.visible
+	pass # Replace with function body.
+
+
+func _on_reward_button_pressed() -> void:
+	var new_reward = WATCHING_VIDEO.instantiate()
+	self.add_child(new_reward)
+	new_reward.show()
 	pass # Replace with function body.
