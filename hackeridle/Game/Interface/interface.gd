@@ -307,7 +307,13 @@ func _on_cheat_button_pressed() -> void:
 	pass # Replace with function body.
 
 
-func _on_reward_button_pressed() -> void:
+
+func _on_show_banner_button_pressed() -> void:
+	AdsManager.show_banner()
+	pass # Replace with function body.
+
+
+func _on_show_video_button_pressed() -> void:
 	var new_reward = WATCHING_VIDEO.instantiate()
 	self.add_child(new_reward)
 	new_reward.show()

@@ -104,9 +104,16 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
+offset_left = -394.0
 offset_bottom = 40.0
 grow_horizontal = 0
+theme_override_constants/separation = 20
+
+[node name="ShowVideoButton" type="Button" parent="InterfacePanel/MainZone/Header/cheat_events"]
+layout_mode = 2
+text = "reward button
+"
+metadata/_edit_use_anchors_ = true
 
 [node name="CheatButton" type="Button" parent="InterfacePanel/MainZone/Header/cheat_events"]
 layout_mode = 2
@@ -115,6 +122,10 @@ text = "CHEAT"
 [node name="FpsLabel" type="Label" parent="InterfacePanel/MainZone/Header/cheat_events"]
 layout_mode = 2
 script = ExtResource("4_a3l6n")
+
+[node name="ShowBannerButton" type="Button" parent="InterfacePanel/MainZone/Header/cheat_events"]
+layout_mode = 2
+text = "Show banner"
 
 [node name="Panel" type="ColorRect" parent="InterfacePanel/MainZone"]
 custom_minimum_size = Vector2(0, 45)
@@ -515,18 +526,9 @@ unique_name_in_owner = true
 wait_time = 0.5
 autostart = true
 
-[node name="RewardButton" type="Button" parent="."]
-layout_mode = 0
-anchor_left = 0.38983
-anchor_right = 0.645763
-anchor_bottom = 0.0250391
-offset_right = -3.05176e-05
-text = "reward button
-"
-metadata/_edit_use_anchors_ = true
-
+[connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/ShowVideoButton" to="." method="_on_show_video_button_pressed"]
 [connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/CheatButton" to="." method="_on_cheat_button_pressed"]
+[connection signal="pressed" from="InterfacePanel/MainZone/Header/cheat_events/ShowBannerButton" to="." method="_on_show_banner_button_pressed"]
 [connection signal="draw" from="InterfacePanel/MoreButtonContainer" to="." method="_on_more_button_container_draw"]
 [connection signal="hidden" from="InterfacePanel/MoreButtonContainer" to="." method="_on_more_button_container_hidden"]
 [connection signal="timeout" from="SecondTimer" to="." method="_on_second_timer_timeout"]
-[connection signal="pressed" from="RewardButton" to="." method="_on_reward_button_pressed"]

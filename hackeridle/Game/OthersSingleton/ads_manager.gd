@@ -1,5 +1,17 @@
 extends Node
 
+enum PublicityKind {
+	NONE = -1,
+	INFAMY,
+	DOUBLE_REWARD,
+	DEPLOY,
+}
+
+const INFAMY_REDUCTION_AMOUNT := 10.0
+const DOUBLE_REWARD_DURATION_SECONDS := 60.0
+const DOUBLE_REWARD_SOURCE_GOLD := "rewarded_video_double_reward_gold"
+const DOUBLE_REWARD_SOURCE_BRAIN_XP := "rewarded_video_double_reward_brain_xp"
+
 var debug_label_layer: CanvasLayer = null
 var debug_label: Label = null
 var pending_debug_text := ""
@@ -7,6 +19,8 @@ var pending_debug_text := ""
 var banner_view: AdView = null
 var rewarded_ad: RewardedAd = null
 var pending_rewarded_show := false
+var pending_publicity_kind: int = PublicityKind.NONE
+var double_reward_timer: Timer = null
 var mobile_ads_available := false
 
 const BANNER_ID_ANDROID := "ca-app-pub-3940256099942544/6300978111"
@@ -16,8 +30,11 @@ const REWARDED_ID_ANDROID := "ca-app-pub-3940256099942544/5224354917"
 const BANNER_ID_IOS := "ca-app-pub-3940256099942544/2934735716"
 const REWARDED_ID_IOS := "ca-app-pub-3940256099942544/1712485313"
 
+const LINKS_BUYMEACOFFEE = "https://buymeacoffee.com/wildsungames"
+
 
 func _ready() -> void:
+	_ensure_double_reward_timer()
 	mobile_ads_available = Engine.has_singleton("PoingGodotAdMob")
 	if not mobile_ads_available:
 		print("Poing AdMob non disponible.")
@@ -92,6 +109,7 @@ func load_rewarded() -> void:
 			_show_debug_text("Ads: rewarded ouverte")
 		rewarded_ad.full_screen_content_callback.on_ad_dismissed_full_screen_content = func() -> void:
 			_show_debug_text("Ads: rewarded fermee")
+			pending_publicity_kind = PublicityKind.NONE
 			if rewarded_ad != null:
 				rewarded_ad.destroy()
 				rewarded_ad = null
@@ -101,6 +119,7 @@ func load_rewarded() -> void:
 			if ad_error != null and not ad_error.message.is_empty():
 				error_message += " - " + ad_error.message
 			_show_debug_text(error_message)
+			pending_publicity_kind = PublicityKind.NONE
 		if pending_rewarded_show:
 			pending_rewarded_show = false
 			show_rewarded()
@@ -130,7 +149,13 @@ func show_rewarded() -> void:
 		if rewarded_item != null:
 			reward_text += " %s %s" % [str(rewarded_item.amount), str(rewarded_item.type)]
 		_show_debug_text(reward_text)
+		_grant_pending_publicity_reward()
 	rewarded_ad.show(reward_listener)
+
+
+func prepare_rewarded_publicity(publicity_kind: int) -> void:
+	pending_publicity_kind = publicity_kind
+	show_rewarded()
 
 
 func _on_mobile_ads_initialized(_status: InitializationStatus) -> void:
@@ -189,3 +214,84 @@ func _create_debug_label() -> void:
 		var text := pending_debug_text
 		pending_debug_text = ""
 		_show_debug_text(text)
+
+
+func _grant_pending_publicity_reward() -> void:
+	var granted_publicity_kind := pending_publicity_kind
+	match granted_publicity_kind:
+		PublicityKind.INFAMY:
+			StatsManager.add_infamy(-INFAMY_REDUCTION_AMOUNT)
+			_show_debug_text("Ads: infamy reduite")
+		PublicityKind.DOUBLE_REWARD:
+			_activate_double_reward_bonus()
+			_show_debug_text("Ads: double reward active")
+		PublicityKind.DEPLOY:
+			EventsManager.create_event_and_ui()
+			_show_debug_text("Ads: event deploye")
+		_:
+			_show_debug_text("Ads: aucune recompense")
+			return
+
+	pending_publicity_kind = PublicityKind.NONE
+
+
+func _activate_double_reward_bonus() -> void:
+	_clear_double_reward_bonus()
+	StatsManager.add_modifier(
+		StatsManager.TargetModifier.GLOBAL,
+		StatsManager.Stats.GOLD,
+		StatsManager.ModifierType.PERCENTAGE,
+		1.0,
+		DOUBLE_REWARD_SOURCE_GOLD
+	)
+	StatsManager.add_modifier(
+		StatsManager.TargetModifier.GLOBAL,
+		StatsManager.Stats.BRAIN_XP,
+		StatsManager.ModifierType.PERCENTAGE,
+		1.0,
+		DOUBLE_REWARD_SOURCE_BRAIN_XP
+	)
+	if double_reward_timer != null:
+		double_reward_timer.start(DOUBLE_REWARD_DURATION_SECONDS)
+
+
+func _clear_double_reward_bonus() -> void:
+	var gold_modifier := StatsManager.get_modifier_by_source_name(
+		StatsManager.TargetModifier.GLOBAL,
+		StatsManager.Stats.GOLD,
+		DOUBLE_REWARD_SOURCE_GOLD
+	)
+	if not gold_modifier.is_empty():
+		StatsManager.remove_modifier(
+			StatsManager.TargetModifier.GLOBAL,
+			StatsManager.Stats.GOLD,
+			gold_modifier
+		)
+
+	var brain_xp_modifier := StatsManager.get_modifier_by_source_name(
+		StatsManager.TargetModifier.GLOBAL,
+		StatsManager.Stats.BRAIN_XP,
+		DOUBLE_REWARD_SOURCE_BRAIN_XP
+	)
+	if not brain_xp_modifier.is_empty():
+		StatsManager.remove_modifier(
+			StatsManager.TargetModifier.GLOBAL,
+			StatsManager.Stats.BRAIN_XP,
+			brain_xp_modifier
+		)
+
+
+func _ensure_double_reward_timer() -> void:
+	if double_reward_timer != null and is_instance_valid(double_reward_timer):
+		return
+	double_reward_timer = Timer.new()
+	double_reward_timer.name = "DoubleRewardTimer"
+	double_reward_timer.one_shot = true
+	add_child(double_reward_timer)
+	if not double_reward_timer.timeout.is_connected(_on_double_reward_timer_timeout):
+		double_reward_timer.timeout.connect(_on_double_reward_timer_timeout)
+
+
+func _on_double_reward_timer_timeout() -> void:
+	_clear_double_reward_bonus()
+	_show_debug_text("Ads: double reward terminee")
