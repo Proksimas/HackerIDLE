@@ -11,6 +11,7 @@ signal publicity_prepared(publicity_kind: int)
 @onready var infamy_label: Label = %InfamyLabel
 @onready var double_reward_label: Label = %DoubleRewardLabel
 @onready var deploy_label: Label = %DeployLabel
+@onready var bmc_image: TextureButton = %BMCImage
 
 var pending_publicity_kind: int = AdsManager.PublicityKind.NONE
 
@@ -94,4 +95,9 @@ func _on_close_button_pressed() -> void:
 
 func _on_tree_exiting() -> void:
 	AdsManager.hide_banner()
+	pass # Replace with function body.
+
+
+func _on_bmc_image_pressed() -> void:
+	OS.shell_open(AdsManager.LINKS_BUYMEACOFFEE)
 	pass # Replace with function body.
