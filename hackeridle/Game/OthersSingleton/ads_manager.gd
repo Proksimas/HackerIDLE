@@ -3,14 +3,13 @@ extends Node
 enum PublicityKind {
 	NONE = -1,
 	INFAMY,
-	DOUBLE_REWARD,
+	AUTOCLICKER,
 	DEPLOY,
 }
 
-const INFAMY_REDUCTION_AMOUNT := 10.0
-const DOUBLE_REWARD_DURATION_SECONDS := 60.0
-const DOUBLE_REWARD_SOURCE_GOLD := "rewarded_video_double_reward_gold"
-const DOUBLE_REWARD_SOURCE_BRAIN_XP := "rewarded_video_double_reward_brain_xp"
+const INFAMY_REDUCTION_AMOUNT := 20.0
+const AUTOCLICK_DURATION_SECONDS := 300
+const AUTOCLICK_INTERVAL_SECONDS := 1.0
 
 var debug_label_layer: CanvasLayer = null
 var debug_label: Label = null
@@ -20,7 +19,8 @@ var banner_view: AdView = null
 var rewarded_ad: RewardedAd = null
 var pending_rewarded_show := false
 var pending_publicity_kind: int = PublicityKind.NONE
-var double_reward_timer: Timer = null
+var autoclick_timer: Timer = null
+var autoclick_ticks_remaining: int = 0
 var mobile_ads_available := false
 
 const BANNER_ID_ANDROID := "ca-app-pub-3940256099942544/6300978111"
@@ -34,7 +34,7 @@ const LINKS_BUYMEACOFFEE = "https://buymeacoffee.com/wildsungames"
 
 
 func _ready() -> void:
-	_ensure_double_reward_timer()
+	_ensure_autoclick_timer()
 	mobile_ads_available = Engine.has_singleton("PoingGodotAdMob")
 	if not mobile_ads_available:
 		print("Poing AdMob non disponible.")
@@ -222,9 +222,9 @@ func _grant_pending_publicity_reward() -> void:
 		PublicityKind.INFAMY:
 			StatsManager.add_infamy(-INFAMY_REDUCTION_AMOUNT)
 			_show_debug_text("Ads: infamy reduite")
-		PublicityKind.DOUBLE_REWARD:
-			_activate_double_reward_bonus()
-			_show_debug_text("Ads: double reward active")
+		PublicityKind.AUTOCLICKER:
+			_activate_autoclicker_reward()
+			_show_debug_text("Ads: autoclick actif")
 		PublicityKind.DEPLOY:
 			EventsManager.create_event_and_ui()
 			_show_debug_text("Ads: event deploye")
@@ -235,63 +235,34 @@ func _grant_pending_publicity_reward() -> void:
 	pending_publicity_kind = PublicityKind.NONE
 
 
-func _activate_double_reward_bonus() -> void:
-	_clear_double_reward_bonus()
-	StatsManager.add_modifier(
-		StatsManager.TargetModifier.GLOBAL,
-		StatsManager.Stats.GOLD,
-		StatsManager.ModifierType.PERCENTAGE,
-		1.0,
-		DOUBLE_REWARD_SOURCE_GOLD
-	)
-	StatsManager.add_modifier(
-		StatsManager.TargetModifier.GLOBAL,
-		StatsManager.Stats.BRAIN_XP,
-		StatsManager.ModifierType.PERCENTAGE,
-		1.0,
-		DOUBLE_REWARD_SOURCE_BRAIN_XP
-	)
-	if double_reward_timer != null:
-		double_reward_timer.start(DOUBLE_REWARD_DURATION_SECONDS)
+func _activate_autoclicker_reward() -> void:
+	autoclick_ticks_remaining = AUTOCLICK_DURATION_SECONDS
+	if autoclick_timer != null:
+		autoclick_timer.start()
 
 
-func _clear_double_reward_bonus() -> void:
-	var gold_modifier := StatsManager.get_modifier_by_source_name(
-		StatsManager.TargetModifier.GLOBAL,
-		StatsManager.Stats.GOLD,
-		DOUBLE_REWARD_SOURCE_GOLD
-	)
-	if not gold_modifier.is_empty():
-		StatsManager.remove_modifier(
-			StatsManager.TargetModifier.GLOBAL,
-			StatsManager.Stats.GOLD,
-			gold_modifier
-		)
-
-	var brain_xp_modifier := StatsManager.get_modifier_by_source_name(
-		StatsManager.TargetModifier.GLOBAL,
-		StatsManager.Stats.BRAIN_XP,
-		DOUBLE_REWARD_SOURCE_BRAIN_XP
-	)
-	if not brain_xp_modifier.is_empty():
-		StatsManager.remove_modifier(
-			StatsManager.TargetModifier.GLOBAL,
-			StatsManager.Stats.BRAIN_XP,
-			brain_xp_modifier
-		)
-
-
-func _ensure_double_reward_timer() -> void:
-	if double_reward_timer != null and is_instance_valid(double_reward_timer):
+func _ensure_autoclick_timer() -> void:
+	if autoclick_timer != null and is_instance_valid(autoclick_timer):
 		return
-	double_reward_timer = Timer.new()
-	double_reward_timer.name = "DoubleRewardTimer"
-	double_reward_timer.one_shot = true
-	add_child(double_reward_timer)
-	if not double_reward_timer.timeout.is_connected(_on_double_reward_timer_timeout):
-		double_reward_timer.timeout.connect(_on_double_reward_timer_timeout)
+	autoclick_timer = Timer.new()
+	autoclick_timer.name = "RewardedAutoclickTimer"
+	autoclick_timer.one_shot = false
+	autoclick_timer.wait_time = AUTOCLICK_INTERVAL_SECONDS
+	add_child(autoclick_timer)
+	if not autoclick_timer.timeout.is_connected(_on_autoclick_timer_timeout):
+		autoclick_timer.timeout.connect(_on_autoclick_timer_timeout)
 
 
-func _on_double_reward_timer_timeout() -> void:
-	_clear_double_reward_bonus()
-	_show_debug_text("Ads: double reward terminee")
+func _on_autoclick_timer_timeout() -> void:
+	if autoclick_ticks_remaining <= 0:
+		if autoclick_timer != null:
+			autoclick_timer.stop()
+		_show_debug_text("Ads: autoclick termine")
+		return
+
+	Player.brain_clicked()
+	autoclick_ticks_remaining -= 1
+
+	if autoclick_ticks_remaining <= 0 and autoclick_timer != null:
+		autoclick_timer.stop()
+		_show_debug_text("Ads: autoclick termine")

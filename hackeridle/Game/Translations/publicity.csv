@@ -1,6 +1,6 @@
 key;fr;en
 watching_video;Récompenses;Awards
 watching_video_des;Regarder une vidéo:;Watch a video:
-video_decrease_infamy;Diminuer l'infamy de X;
-video_double_reward;Doubler le gain d'expérience et d'or pendant Xs;
+video_decrease_infamy;Diminuer l'infamy de X;Decrease infamy by X
+video_double_reward;Activer l'autoclick pendant X min;Enable autoclick for X min
 video_deploy_event;Débloquer un évenement;Unlock an event

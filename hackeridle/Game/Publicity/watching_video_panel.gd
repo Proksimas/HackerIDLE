@@ -33,7 +33,7 @@ func _on_infamy_panel_gui_input(event: InputEvent) -> void:
 
 
 func _on_double_reward_panel_gui_input(event: InputEvent) -> void:
-	_handle_panel_click(double_reward_panel, event, AdsManager.PublicityKind.DOUBLE_REWARD)
+	_handle_panel_click(double_reward_panel, event, AdsManager.PublicityKind.AUTOCLICKER)
 	
 
 
@@ -56,7 +56,7 @@ func _refresh_texts() -> void:
 	reward_title.text = tr("watching_video")
 	watching_video.text = tr("watching_video_des")
 	infamy_label.text = tr("video_decrease_infamy").replace("X", str(int(AdsManager.INFAMY_REDUCTION_AMOUNT)))
-	double_reward_label.text = tr("video_double_reward").replace("X", str(int(AdsManager.DOUBLE_REWARD_DURATION_SECONDS)))
+	double_reward_label.text = tr("video_double_reward").replace("X", str(int(AdsManager.AUTOCLICK_DURATION_SECONDS / 60)))
 	deploy_label.text = tr("video_deploy_event")
 
 
