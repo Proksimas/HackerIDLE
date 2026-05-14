@@ -47,7 +47,9 @@ func _on_deploy_panel_gui_input(event: InputEvent) -> void:
 
 func prepare_publicity_launch(publicity_kind: int) -> void:
 	pending_publicity_kind = publicity_kind
+	AdsManager.show_banner()
 	publicity_prepared.emit(publicity_kind)
+	
 
 
 func clear_pending_publicity() -> void:
