@@ -10,7 +10,7 @@ enum PublicityKind {
 const INFAMY_REDUCTION_AMOUNT := 20.0
 const AUTOCLICK_DURATION_SECONDS := 300
 const AUTOCLICK_INTERVAL_SECONDS := 1.0
-const TIME_BETWEEN_PUBLICITY: float = 300 
+const TIME_BETWEEN_PUBLICITY: float = 600 
 
 var debug_label_layer: CanvasLayer = null
 var debug_label: Label = null

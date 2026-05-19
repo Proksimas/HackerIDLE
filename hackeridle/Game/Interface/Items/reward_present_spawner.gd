@@ -5,6 +5,7 @@ const REWARD_PRESENT_SCENE = preload("res://Game/Interface/Items/reward_present_
 @onready var all_container: VBoxContainer = %AllContainer
 
 var active_reward_present: RewardPresentTexture = null
+var next_interval_base := AdsManager.TIME_BETWEEN_PUBLICITY
 
 
 func _ready() -> void:
@@ -12,14 +13,15 @@ func _ready() -> void:
 
 
 func _schedule_next_reward_present() -> void:
-	var interval := AdsManager.TIME_BETWEEN_PUBLICITY * randf_range(0.8, 1.2)
+	var interval := next_interval_base * randf_range(0.8, 1.2)
 	get_tree().create_timer(interval).timeout.connect(_on_reward_present_timer_timeout)
 
 
 func _on_reward_present_timer_timeout() -> void:
-	if active_reward_present == null or not is_instance_valid(active_reward_present):
-		_spawn_reward_present()
-	_schedule_next_reward_present()
+	if active_reward_present != null and is_instance_valid(active_reward_present):
+		_schedule_next_reward_present()
+		return
+	_spawn_reward_present()
 
 
 func _spawn_reward_present() -> void:
@@ -30,5 +32,10 @@ func _spawn_reward_present() -> void:
 	new_present.item_moving(all_container.global_position, all_container.size)
 
 
-func _on_reward_present_deleted() -> void:
+func _on_reward_present_deleted(was_clicked: bool) -> void:
 	active_reward_present = null
+	if was_clicked:
+		next_interval_base = AdsManager.TIME_BETWEEN_PUBLICITY
+	else:
+		next_interval_base = AdsManager.TIME_BETWEEN_PUBLICITY / 2.0
+	_schedule_next_reward_present()

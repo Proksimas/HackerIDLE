@@ -2,7 +2,7 @@ extends TextureButton
 
 class_name RewardPresentTexture
 
-signal reward_present_deleted
+signal reward_present_deleted(was_clicked: bool)
 
 const WATCHING_VIDEO = preload("res://Game/Publicity/WatchingVideoPanel.tscn")
 
@@ -55,7 +55,7 @@ func _on_pressed() -> void:
 		return
 	_opened = true
 	_open_watching_video_panel()
-	_delete_present()
+	_delete_present(true)
 
 
 func _open_watching_video_panel() -> void:
@@ -71,7 +71,7 @@ func _open_watching_video_panel() -> void:
 
 
 func _on_tween_finished() -> void:
-	_delete_present()
+	_delete_present(false)
 
 
 func _on_timeout() -> void:
@@ -79,7 +79,7 @@ func _on_timeout() -> void:
 	tween.tween_property(self, "modulate", Color(1, 1, 1, 0), 2).from(modulate)
 
 
-func _delete_present() -> void:
+func _delete_present(was_clicked: bool) -> void:
 	if _deleted:
 		return
 	_deleted = true
@@ -87,7 +87,7 @@ func _delete_present() -> void:
 		_pulse_tween.kill()
 	if _rotation_tween != null and _rotation_tween.is_valid():
 		_rotation_tween.kill()
-	reward_present_deleted.emit()
+	reward_present_deleted.emit(was_clicked)
 	queue_free()
 
 
