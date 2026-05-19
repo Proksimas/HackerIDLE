@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://drfpq4ni11jna"]
+
+[ext_resource type="Texture2D" uid="uid://di8yph1ck8p4n" path="res://Game/Graphics/reward_present.png" id="1_huagf"]
+[ext_resource type="Script" path="res://Game/Interface/Items/reward_present_texture.gd" id="2_p1q76"]
+
+[node name="RewardPresentTexture" type="TextureButton"]
+modulate = Color(1, 1, 1, 0)
+z_index = 400
+custom_minimum_size = Vector2(100, 100)
+anchors_preset = -1
+anchor_right = 0.169492
+anchor_bottom = 0.0782473
+offset_right = -36.0
+offset_bottom = -36.0
+texture_normal = ExtResource("1_huagf")
+texture_pressed = ExtResource("1_huagf")
+texture_hover = ExtResource("1_huagf")
+texture_disabled = ExtResource("1_huagf")
+texture_focused = ExtResource("1_huagf")
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_p1q76")
+metadata/_edit_use_anchors_ = true
