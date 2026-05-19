@@ -11,8 +11,10 @@ const MAX_PULSE_SCALE := Vector2(1.12, 1.12)
 const PULSE_DURATION := 0.55
 const ROTATION_SWAY_DEGREES := 6.0
 const ROTATION_SWAY_DURATION := 0.85
+const FALL_DURATION := 18.0
+const FALL_DURATION_VARIATION := 0.2
 
-var time_to_move: int
+var time_to_move: float
 var _opened := false
 var _deleted := false
 var _pulse_tween: Tween = null
@@ -33,7 +35,7 @@ func item_moving(_pos: Vector2, _size: Vector2) -> void:
 
 	global_position = Vector2(random_x, start_y)
 	rotation_degrees = randf_range(-20.0, 20.0)
-	time_to_move = randi_range(18, 25)
+	time_to_move = FALL_DURATION * randf_range(1.0 - FALL_DURATION_VARIATION, 1.0 + FALL_DURATION_VARIATION)
 	_start_attention_pulse()
 	_start_rotation_sway()
 

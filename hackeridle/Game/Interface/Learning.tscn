@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=23 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Script" path="res://Game/Interface/Skills/exploits.gd" id="2_7b46d"]
@@ -9,7 +9,6 @@
 [ext_resource type="BitMap" uid="uid://dnqnfdvi5n5nn" path="res://Game/Graphics/Brains/brain_halo_mono.bmp" id="4_dggt3"]
 [ext_resource type="PackedScene" uid="uid://bx7rbqsxy7oii" path="res://Game/Interface/Skills/skill_activation.tscn" id="5_gg0yo"]
 [ext_resource type="Script" path="res://Game/Interface/passive_items_textures.gd" id="7_nxp20"]
-[ext_resource type="Script" path="res://Game/Interface/Items/reward_present_spawner.gd" id="8_w5xtd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_k8p8n"]
 
@@ -321,19 +320,6 @@ grow_vertical = 2
 pivot_offset = Vector2(0, 7.15256e-07)
 mouse_filter = 2
 script = ExtResource("7_nxp20")
-metadata/_edit_use_anchors_ = true
-
-[node name="RewardPresentSpawner" type="Control" parent="."]
-unique_name_in_owner = true
-z_index = 55
-layout_mode = 1
-anchor_top = 0.00312989
-anchor_right = 1.0
-anchor_bottom = 0.794797
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("8_w5xtd")
 metadata/_edit_use_anchors_ = true
 
 [node name="ItemSpawnTimer" type="Timer" parent="."]

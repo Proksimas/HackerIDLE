@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bvny24o7ir84f"]
+[gd_scene load_steps=33 format=3 uid="uid://bvny24o7ir84f"]
 
 [ext_resource type="Script" path="res://Game/Interface/interface.gd" id="1_81dom"]
 [ext_resource type="Theme" uid="uid://c0cer8qg8niwg" path="res://Game/Themes/MainTheme.tres" id="1_lxm1j"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://bl1kvx4t7tyb5" path="res://Game/Graphics/App_icons/Neos/NovaNet/novanet.png" id="23_kfq7a"]
 [ext_resource type="PackedScene" uid="uid://cd4ge4utoly7a" path="res://Game/Interface/Specials/cheat_panel.tscn" id="24_4xl3h"]
 [ext_resource type="PackedScene" uid="uid://qmds5waycjyd" path="res://Game/Interface/Infos.tscn" id="24_vhcrq"]
+[ext_resource type="Script" path="res://Game/Interface/Items/reward_present_spawner.gd" id="25_1fxdu"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2uhhg"]
 texture = ExtResource("3_shfcr")
@@ -231,6 +232,15 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 7
+
+[node name="RewardPresentSpawner" type="Control" parent="InterfacePanel/MainZone/MainTabMargin"]
+unique_name_in_owner = true
+z_index = 55
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("25_1fxdu")
 
 [node name="RessourcesMargin" type="PanelContainer" parent="InterfacePanel/MainZone"]
 custom_minimum_size = Vector2(0, 125)
