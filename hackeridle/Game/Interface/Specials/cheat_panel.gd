@@ -29,6 +29,8 @@ func _process(_delta: float) -> void:
 
 func _on_nb_of_rebirth_spin_box_value_changed(value: float) -> void:
 	Player.nb_of_rebirth = int(value)
+	if Player.nb_of_rebirth >= 1:
+		NovaNetManager.on_novanet_entered()
 	pass # Replace with function body.
 
 

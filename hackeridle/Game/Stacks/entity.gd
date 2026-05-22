@@ -98,10 +98,12 @@ func set_hacker_max_hp():
 		push_warning("L'entité doit etre le hacker")
 		return
 	
-	max_hp = base_hacker_hp + (StackManager.stack_script_stats["penetration"] + \
-							StackManager.stack_script_stats["encryption"] + \
-							StackManager.stack_script_stats["flux"] + \
-							StackManager.stack_script_stats.get("hp_bonus", 0))
+	StackManager.ensure_initialized()
+	var stats_dict: Dictionary = StackManager.stack_script_stats
+	max_hp = base_hacker_hp + (stats_dict.get("penetration", 0) + \
+							stats_dict.get("encryption", 0) + \
+							stats_dict.get("flux", 0) + \
+							stats_dict.get("hp_bonus", 0))
 	
 
 # LOGIQUE DE COMBAT

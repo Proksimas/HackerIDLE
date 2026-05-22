@@ -206,7 +206,7 @@ func _on_infamy_icon_pressed() -> void:
 	show_infamy.emit()
 
 func _draw():
-	infamy_value.text = str(StatsManager.infamy["current_value"])
+	infamy_value.text = str(ceil(StatsManager.infamy["current_value"]))
 	
 func _on_cheat_infamy_pressed() -> void:
 	StatsManager.add_infamy(5)

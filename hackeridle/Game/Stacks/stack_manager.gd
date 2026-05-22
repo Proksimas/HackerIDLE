@@ -1,12 +1,20 @@
 extends Node
 
-const stack_dir_path = "res://Game/Stacks/StackScript/"
 const STACK_FIGHT = preload("res://Game/Stacks/stack_fight.tscn")
 const DEFAULT_HACKER_SEQUENCE: Array[String] = []
 const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
 const HP_BONUS_PER_BOT: int = 3
 const MAX_SCRIPT_COPIES: int = 3
+const BUILTIN_STACK_SCRIPTS: Dictionary = {
+	"cipher_strike": preload("res://Game/Stacks/StackScript/cipher_strike.tres"),
+	"crypt_breach": preload("res://Game/Stacks/StackScript/crypt_breach.tres"),
+	"data_healing": preload("res://Game/Stacks/StackScript/data_healing.tres"),
+	"firewall_patch": preload("res://Game/Stacks/StackScript/firewall_patch.tres"),
+	"kernel_blast": preload("res://Game/Stacks/StackScript/kernel_blast.tres"),
+	"malware_apt": preload("res://Game/Stacks/StackScript/malware_apt.tres"),
+	"syn_flood": preload("res://Game/Stacks/StackScript/syn_flood.tres")
+}
 
 var stack_script_pool: Dictionary
 var stack_hacker_script_learned: Dictionary # scripts connus du hacker
@@ -31,7 +39,25 @@ func _init() -> void:
 		"hp_bonus": 0
 	}
 
+func ensure_initialized() -> void:
+	if typeof(stack_script_pool) != TYPE_DICTIONARY:
+		stack_script_pool = {}
+	if stack_script_pool.is_empty():
+		initialize_pool()
+	if typeof(stack_hacker_script_learned) != TYPE_DICTIONARY:
+		stack_hacker_script_learned = {}
+	if typeof(stack_hacker_script_copies) != TYPE_DICTIONARY:
+		stack_hacker_script_copies = {}
+	if typeof(stack_hacker_sequence) != TYPE_ARRAY:
+		stack_hacker_sequence = []
+	if typeof(stack_script_stats) != TYPE_DICTIONARY:
+		stack_script_stats = {}
+	for stat_name in ["penetration", "encryption", "flux", "hp_bonus"]:
+		if not stack_script_stats.has(stat_name):
+			stack_script_stats[stat_name] = 0
+
 func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
+	ensure_initialized()
 	var fight = STACK_FIGHT.instantiate()
 	self.add_child(fight)
 	# fight.start_fight(_hacker, robots) -> start par l'UI
@@ -39,8 +65,7 @@ func new_fight(_hacker: Entity, _robots: Array[Entity]) -> StackFight:
 
 func create_hacker_entity() -> Entity:
 	"""Fabrique le hacker avec un loadout centralise."""
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 
 	var hacker := Entity.new(true)
 	for script_name in stack_hacker_script_learned.keys():
@@ -53,10 +78,13 @@ func create_hacker_entity() -> Entity:
 	hacker.save_sequence(_resolve_hacker_sequence(hacker.available_scripts))
 	return hacker
 
+func has_hacker_script(script_name: String) -> bool:
+	ensure_initialized()
+	return bool(stack_hacker_script_learned.get(script_name, false)) and get_script_copy_count(script_name) > 0
+
 func unlock_hacker_script(script_name: String, add_to_sequence_if_missing: bool = false) -> bool:
 	"""Debloque un script pour le hacker de run. Chaque unlock ajoute 1 copie (cap MAX_SCRIPT_COPIES)."""
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 	if not stack_script_pool.has(script_name):
 		push_warning("Script introuvable pour le hacker: %s" % script_name)
 		return false
@@ -74,8 +102,7 @@ func unlock_hacker_script(script_name: String, add_to_sequence_if_missing: bool 
 
 func apply_first_novanet_grant() -> void:
 	"""Premiere entree NovaNet: syn_flood seul, sequence vide."""
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 
 	var known_scripts: Array[String] = []
 	for script_name in FIRST_NOVANET_KNOWN_SCRIPTS:
@@ -86,8 +113,7 @@ func apply_first_novanet_grant() -> void:
 
 func save_hacker_loadout(known_scripts: Array[String], sequence: Array[String]) -> void:
 	"""Sauvegarde les scripts connus et la sequence du hacker."""
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 
 	stack_hacker_script_learned.clear()
 	stack_hacker_script_copies.clear()
@@ -106,51 +132,50 @@ func get_script_copy_count(script_name: String) -> int:
 	return clampi(int(stack_hacker_script_copies.get(script_name, 0)), 0, MAX_SCRIPT_COPIES)
 
 func can_receive_script_copy(script_name: String) -> bool:
+	ensure_initialized()
 	if not stack_script_pool.has(script_name):
 		return false
 	return get_script_copy_count(script_name) < MAX_SCRIPT_COPIES
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	"""Donne a l'entite le script passe en parametre."""
+	ensure_initialized()
 	if stack_script_pool.has(stack_script_name):
-		var script = stack_script_pool[stack_script_name]
-		learner.available_scripts[stack_script_name] = load(script).duplicate(true)
-		return true
+		var script_resource := _get_stack_script_resource(stack_script_name)
+		if script_resource is StackScript:
+			learner.available_scripts[stack_script_name] = script_resource.duplicate(true)
+			return true
 	else:
 		push_warning("Probleme dans l'apprentissage du stack script %s" % stack_script_name)
 		return false
+	push_warning("Ressource invalide pour le stack script %s" % stack_script_name)
+	return false
 
 func learn_all_script(learner: Entity) -> void:
 	"""Apprend tous les scripts du pool pour l'entite donnee."""
 	if learner == null:
 		return
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 	for script_name in stack_script_pool.keys():
 		learn_stack_script(learner, str(script_name))
 
 func initialize_pool() -> void:
 	"""Initialisation du pool de scripts."""
 	stack_script_pool.clear()
-	var dir = DirAccess.open(stack_dir_path)
-	if dir:
-		dir.list_dir_begin()
-		var nom_element = dir.get_next()
-		while nom_element != "":
-			if dir.current_is_dir():
-				pass
-			elif nom_element.ends_with(".gd") or nom_element == "stack_script.tres":
-				pass
-			else:
-				var chemin_complet = dir.get_current_dir().path_join(nom_element)
-				var file_name = nom_element.trim_suffix(".tres")
-				stack_script_pool[file_name] = chemin_complet
+	for script_name in BUILTIN_STACK_SCRIPTS.keys():
+		if BUILTIN_STACK_SCRIPTS[script_name] is StackScript:
+			stack_script_pool[str(script_name)] = BUILTIN_STACK_SCRIPTS[script_name]
 
-			nom_element = dir.get_next()
-
-		dir.list_dir_end()
-	else:
-		print("Erreur d'ouverture du dossier.")
+func _get_stack_script_resource(script_name: String) -> StackScript:
+	ensure_initialized()
+	var script_entry = stack_script_pool.get(script_name, null)
+	if script_entry is StackScript:
+		return script_entry
+	if script_entry is String:
+		var loaded_script = load(script_entry)
+		if loaded_script is StackScript:
+			return loaded_script
+	return null
 
 func _seed_default_sequence_if_needed() -> void:
 	if not stack_hacker_sequence.is_empty():
@@ -237,6 +262,7 @@ func set_hacker_stats(new_stats: Dictionary, keep_unspecified: bool = true) -> v
 	s_hacker_loadout_changed.emit()
 
 func _save_data() -> Dictionary:
+	ensure_initialized()
 	return {
 		"stack_hacker_script_learned": stack_hacker_script_learned.duplicate(true),
 		"stack_hacker_script_copies": stack_hacker_script_copies.duplicate(true),
@@ -247,8 +273,7 @@ func _save_data() -> Dictionary:
 func _load_data(content: Dictionary) -> void:
 	if typeof(content) != TYPE_DICTIONARY:
 		return
-	if stack_script_pool.is_empty():
-		initialize_pool()
+	ensure_initialized()
 
 	stack_hacker_script_learned.clear()
 	stack_hacker_script_copies.clear()

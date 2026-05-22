@@ -21,3 +21,7 @@ stat_penetration;Penetration;Penetration
 stat_encryption;Chiffrement;Encryption
 stat_flux;Flux;Flux
 $Valeur;Valeur;Value
+$Stack;Stack;Stack
+$Penetration;Penetration;Penetration
+$Encryption;Chiffrement;Encryption
+$Flux;Flux;Flux

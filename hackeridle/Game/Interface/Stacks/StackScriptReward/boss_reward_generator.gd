@@ -11,8 +11,7 @@ var shuffle_candidates: bool = true
 
 
 func build_rewards() -> Array[Dictionary]:
-	if typeof(StackManager.stack_script_pool) != TYPE_DICTIONARY or StackManager.stack_script_pool.is_empty():
-		StackManager.initialize_pool()
+	StackManager.ensure_initialized()
 
 	var candidates := _build_script_candidates()
 	if shuffle_candidates:
@@ -45,11 +44,7 @@ func _build_script_candidates() -> Array[String]:
 
 
 func _build_script_reward(script_name: String) -> Dictionary:
-	var script_path := str(StackManager.stack_script_pool.get(script_name, ""))
-	if script_path == "":
-		return {}
-
-	var script_resource = load(script_path)
+	var script_resource = StackManager._get_stack_script_resource(script_name)
 	if not (script_resource is StackScript):
 		return {}
 

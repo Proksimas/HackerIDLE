@@ -60,10 +60,20 @@ func _init():
 func on_novanet_entered() -> void:
 	"""Premier acces NovaNet: debloque syn_flood pour le hacker."""
 	if Player.nb_of_rebirth <= 0:
+		push_error("Pas normal d'accéder au novanet")
 		return
+
+	StackManager.ensure_initialized()
+	if StackManager.has_hacker_script("syn_flood"):
+		has_unlocked_syn_flood_from_novanet = true
+		return
+
 	if not has_unlocked_syn_flood_from_novanet:
 		has_unlocked_syn_flood_from_novanet = true
-		StackManager.apply_first_novanet_grant()
+		if StackManager.stack_hacker_script_learned.is_empty():
+			StackManager.apply_first_novanet_grant()
+		else:
+			StackManager.unlock_hacker_script("syn_flood")
 	else:
 		StackManager.unlock_hacker_script("syn_flood")
 
