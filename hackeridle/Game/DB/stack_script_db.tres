@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="StackScriptDB" load_steps=10 format=3 uid="uid://bpgc4indbk304"]
+
+[ext_resource type="Script" path="res://Game/DB/stack_script_db.gd" id="1_8xv0m"]
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/stack_script.gd" id="2_1ciqf"]
+[ext_resource type="Resource" uid="uid://f1nxj5qx0c1u" path="res://Game/Stacks/StackScript/cipher_strike.tres" id="2_c0g7e"]
+[ext_resource type="Resource" uid="uid://dxi8cfxkv22kf" path="res://Game/Stacks/StackScript/crypt_breach.tres" id="3_f6i1a"]
+[ext_resource type="Resource" uid="uid://crq3lymtjrcc3" path="res://Game/Stacks/StackScript/data_healing.tres" id="4_km2xq"]
+[ext_resource type="Resource" uid="uid://dpuvgq34ab6io" path="res://Game/Stacks/StackScript/firewall_patch.tres" id="5_j83fs"]
+[ext_resource type="Resource" uid="uid://2im6tai68ut1" path="res://Game/Stacks/StackScript/kernel_blast.tres" id="6_qjbyu"]
+[ext_resource type="Resource" uid="uid://bmx8crpp0vnpt" path="res://Game/Stacks/StackScript/malware_apt.tres" id="7_epjc2"]
+[ext_resource type="Resource" uid="uid://dpkvud6n50pp2" path="res://Game/Stacks/StackScript/syn_flood.tres" id="8_4jkee"]
+
+[resource]
+script = ExtResource("1_8xv0m")
+scripts = Array[ExtResource("2_1ciqf")]([ExtResource("2_c0g7e"), ExtResource("3_f6i1a"), ExtResource("4_km2xq"), ExtResource("5_j83fs"), ExtResource("6_qjbyu"), ExtResource("7_epjc2"), ExtResource("8_4jkee")])

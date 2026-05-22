@@ -6,15 +6,7 @@ const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
 const HP_BONUS_PER_BOT: int = 3
 const MAX_SCRIPT_COPIES: int = 3
-const BUILTIN_STACK_SCRIPTS: Dictionary = {
-	"cipher_strike": preload("res://Game/Stacks/StackScript/cipher_strike.tres"),
-	"crypt_breach": preload("res://Game/Stacks/StackScript/crypt_breach.tres"),
-	"data_healing": preload("res://Game/Stacks/StackScript/data_healing.tres"),
-	"firewall_patch": preload("res://Game/Stacks/StackScript/firewall_patch.tres"),
-	"kernel_blast": preload("res://Game/Stacks/StackScript/kernel_blast.tres"),
-	"malware_apt": preload("res://Game/Stacks/StackScript/malware_apt.tres"),
-	"syn_flood": preload("res://Game/Stacks/StackScript/syn_flood.tres")
-}
+const STACK_SCRIPT_DB: StackScriptDB = preload("res://Game/DB/stack_script_db.tres")
 
 var stack_script_pool: Dictionary
 var stack_hacker_script_learned: Dictionary # scripts connus du hacker
@@ -162,9 +154,17 @@ func learn_all_script(learner: Entity) -> void:
 func initialize_pool() -> void:
 	"""Initialisation du pool de scripts."""
 	stack_script_pool.clear()
-	for script_name in BUILTIN_STACK_SCRIPTS.keys():
-		if BUILTIN_STACK_SCRIPTS[script_name] is StackScript:
-			stack_script_pool[str(script_name)] = BUILTIN_STACK_SCRIPTS[script_name]
+	if STACK_SCRIPT_DB == null:
+		push_error("StackScriptDB introuvable.")
+		return
+	for script_resource in STACK_SCRIPT_DB.scripts:
+		if script_resource == null:
+			continue
+		var script_name := str(script_resource.stack_script_name).strip_edges()
+		if script_name == "":
+			push_warning("StackScript ignore: nom vide dans la DB.")
+			continue
+		stack_script_pool[script_name] = script_resource
 
 func _get_stack_script_resource(script_name: String) -> StackScript:
 	ensure_initialized()

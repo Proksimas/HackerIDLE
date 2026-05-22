@@ -6,6 +6,8 @@
 script = ExtResource("1_o6ths")
 stack_script_name = "cipher_strike"
 turn_cooldown_base = 5
+base_value_hacker = 0.0
+base_value_robot = 0.0
 type_and_coef = {
 "encryption": 1.0,
 "flux": 0.0,

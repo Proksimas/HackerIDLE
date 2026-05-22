@@ -45,7 +45,7 @@ func _build_script_candidates() -> Array[String]:
 
 func _build_script_reward(script_name: String) -> Dictionary:
 	var script_resource = StackManager._get_stack_script_resource(script_name)
-	if not (script_resource is StackScript):
+	if script_resource == null:
 		return {}
 
 	var title := script_name
