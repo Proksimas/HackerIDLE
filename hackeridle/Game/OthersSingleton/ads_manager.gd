@@ -31,7 +31,7 @@ const REWARDED_ID_ANDROID := "ca-app-pub-3940256099942544/5224354917"
 const BANNER_ID_IOS := "ca-app-pub-3940256099942544/2934735716"
 const REWARDED_ID_IOS := "ca-app-pub-3940256099942544/1712485313"
 
-const LINKS_BUYMEACOFFEE = "https://buymeacoffee.com/wildsungames"
+const LINKS_BUYMEACOFFEE = "https://ko-fi.com/wildsungames"
 
 
 func _ready() -> void:
