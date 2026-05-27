@@ -21,8 +21,6 @@ const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_p
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
 const FLOATING_TEXT = preload("res://Game/Interface/Specials/floating_text.tscn")
-const BRAIN_TEXTURE = preload("res://Game/Graphics/Brains/brain_halo.png")
-const GENIUS_STROKE_BRAIN_TEXTURE = preload("res://Game/Graphics/Brains/brain_halo_blue.png")
 const VIOLET_NEON = Color(0.878, 0.424, 0.973)
 const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
 
@@ -30,6 +28,9 @@ var clicker_scale = Vector2(10,10)
 var button_cliked: bool = false
 var clicker_arc_original_size
 var passives_knowledge:float = 0
+var genius_stroke_color_tween: Tween
+var brain_default_modulate := Color.WHITE
+@export_range(0.1, 5.0, 0.1) var genius_stroke_color_modulation_speed := 1.0
 
 # VARIATION DU BRAIN GLOW
 var min_outline_size:float = 10
@@ -46,6 +47,7 @@ func _ready() -> void:
 	SkillsManager.as_learned.connect(add_skill_activation)
 	_clear()
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
+	brain_default_modulate = clicker_button.modulate
 	current_brain_level.text = tr("$Level") + " 1"
 	_connect_existing_genius_stroke()
 	
@@ -198,8 +200,22 @@ func _connect_genius_stroke_visual(active_skill: ActiveSkill) -> void:
 
 
 func _on_genius_stroke_launched() -> void:
-	clicker_button.texture_normal = GENIUS_STROKE_BRAIN_TEXTURE
+	_stop_genius_stroke_color_tween()
+	var color_step_duration := 0.45 / genius_stroke_color_modulation_speed
+	genius_stroke_color_tween = create_tween()
+	genius_stroke_color_tween.set_loops()
+	genius_stroke_color_tween.tween_property(clicker_button, "modulate", Color(0.35, 0.85, 1.0, 1.0), color_step_duration)
+	genius_stroke_color_tween.tween_property(clicker_button, "modulate", Color(0.75, 0.45, 1.0, 1.0), color_step_duration)
+	genius_stroke_color_tween.tween_property(clicker_button, "modulate", Color(0.25, 1.0, 0.9, 1.0), color_step_duration)
+	genius_stroke_color_tween.tween_property(clicker_button, "modulate", Color(1.0, 0.95, 0.45, 1.0), color_step_duration)
 
 
 func _on_genius_stroke_finished() -> void:
-	clicker_button.texture_normal = BRAIN_TEXTURE
+	_stop_genius_stroke_color_tween()
+	clicker_button.modulate = brain_default_modulate
+
+
+func _stop_genius_stroke_color_tween() -> void:
+	if genius_stroke_color_tween != null and genius_stroke_color_tween.is_valid():
+		genius_stroke_color_tween.kill()
+	genius_stroke_color_tween = null
