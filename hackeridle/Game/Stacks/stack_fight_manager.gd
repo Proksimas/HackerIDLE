@@ -94,8 +94,8 @@ func _debug_preview_encounters(encounters_to_simulate: int) -> void:
 		var encounter := next_encounter() # renvoie le snapshot de la wave, de _wave_pack
 		_print_encounter(i + 1, encounter)
 
-func _print_encounter(idx: int, encounter: Dictionary) -> void:
-	var label := _encounter_label(encounter) # <-- CORRECTION: label = snapshot de l'encounter
+func _print_encounter(_idx: int, encounter: Dictionary) -> void:
+	var _label := _encounter_label(encounter) # <-- CORRECTION: label = snapshot de l'encounter
 	var t := str(encounter.type)
 
 	if t == "BOSS":
@@ -107,7 +107,7 @@ func _print_encounter(idx: int, encounter: Dictionary) -> void:
 	for j in range(enemies.size()):
 		_print_enemy_line(j, enemies[j])
 
-func _print_enemy_line(index: int, enemy: Dictionary) -> void:
+func _print_enemy_line(_index: int, enemy: Dictionary) -> void:
 	var _role_name := _role_to_string(int(enemy.role))
 	var _variant := str(enemy.variant)
 

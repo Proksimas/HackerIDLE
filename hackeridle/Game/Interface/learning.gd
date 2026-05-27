@@ -201,7 +201,7 @@ func _connect_genius_stroke_visual(active_skill: ActiveSkill) -> void:
 
 func _on_genius_stroke_launched() -> void:
 	_stop_genius_stroke_color_tween()
-	var color_step_duration := 0.45 / genius_stroke_color_modulation_speed
+	var color_step_duration = 0.45 / max(genius_stroke_color_modulation_speed, 0.1)
 	genius_stroke_color_tween = create_tween()
 	genius_stroke_color_tween.set_loops()
 	genius_stroke_color_tween.tween_property(clicker_button, "modulate", Color(0.35, 0.85, 1.0, 1.0), color_step_duration)
