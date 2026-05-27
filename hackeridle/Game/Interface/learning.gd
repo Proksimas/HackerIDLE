@@ -21,6 +21,8 @@ const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_p
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")
 const FLOATING_TEXT = preload("res://Game/Interface/Specials/floating_text.tscn")
+const BRAIN_TEXTURE = preload("res://Game/Graphics/Brains/brain_halo.png")
+const GENIUS_STROKE_BRAIN_TEXTURE = preload("res://Game/Graphics/Brains/brain_halo_blue.png")
 const VIOLET_NEON = Color(0.878, 0.424, 0.973)
 const BLUE_NEON =  Color(0.22, 0.996, 0.996) #38fefe
 
@@ -45,6 +47,7 @@ func _ready() -> void:
 	_clear()
 	clicker_arc_original_size = clicker_arc.custom_minimum_size
 	current_brain_level.text = tr("$Level") + " 1"
+	_connect_existing_genius_stroke()
 	
 	
 func refresh_brain_xp_bar():
@@ -64,6 +67,7 @@ func add_skill_activation(skill_to_associated:ActiveSkill):
 	var skill_activation = SKILL_ACTIVATION.instantiate()
 	active_skills.add_child(skill_activation)
 	skill_activation.set_skill_activation(skill_to_associated)
+	_connect_genius_stroke_visual(skill_to_associated)
 	
 func _clear():
 	for child in passif_clickers.get_children():
@@ -174,3 +178,28 @@ func _on_s_brain_xp_to_earn(_xp_from_click):
 	#self.add_child(new_xp_label)
 	#new_xp_label.setup("+ " + str(snapped(_xp_from_click,0.1)), brain_xp_bar.global_position, BLUE_NEON)
 	pass
+
+
+func _connect_existing_genius_stroke() -> void:
+	for active_skill in Player.skills_owned["active"]:
+		if active_skill is ActiveSkill:
+			_connect_genius_stroke_visual(active_skill)
+
+
+func _connect_genius_stroke_visual(active_skill: ActiveSkill) -> void:
+	if active_skill.as_name != "genius_stroke":
+		return
+	if not active_skill.s_as_launched.is_connected(_on_genius_stroke_launched):
+		active_skill.s_as_launched.connect(_on_genius_stroke_launched)
+	if not active_skill.s_as_finished.is_connected(_on_genius_stroke_finished):
+		active_skill.s_as_finished.connect(_on_genius_stroke_finished)
+	if active_skill.as_is_active:
+		_on_genius_stroke_launched()
+
+
+func _on_genius_stroke_launched() -> void:
+	clicker_button.texture_normal = GENIUS_STROKE_BRAIN_TEXTURE
+
+
+func _on_genius_stroke_finished() -> void:
+	clicker_button.texture_normal = BRAIN_TEXTURE
