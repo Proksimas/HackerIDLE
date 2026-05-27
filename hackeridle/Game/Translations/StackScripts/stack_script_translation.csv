@@ -25,3 +25,6 @@ $Stack;Stack;Stack
 $Penetration;Penetration;Penetration
 $Encryption;Chiffrement;Encryption
 $Flux;Flux;Flux
+$fight;Combat;Fight
+$inventory;Inventaire;Inventory
+$bot;Bot;Bot

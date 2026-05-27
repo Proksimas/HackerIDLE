@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cuok3efix0n33"]
 
 [ext_resource type="Script" path="res://Game/Skills/skill_description.gd" id="1_wtii6"]
-[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/trophy_icon.tscn" id="2_tpucq"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/Icons/trophy_icon.tscn" id="2_tpucq"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_u2qmi"]
 
 [node name="SkillDescription" type="Panel"]

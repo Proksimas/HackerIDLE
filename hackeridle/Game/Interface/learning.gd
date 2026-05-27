@@ -13,6 +13,7 @@ extends Control
 @onready var bonus_click_multiplicator_label: Label = %BonusClickMultiplicatorLabel
 @onready var bonus_click_multiplator_timer: Timer = %BonusClickMultiplatorTimer
 @onready var exploits_panel: Panel = %ExploitsPanel
+@onready var reward_point_label: Label = %RewardPointLabel
 
 
 #const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
@@ -50,6 +51,7 @@ func refresh_brain_xp_bar():
 	brain_xp_bar.min_value = 0
 	brain_xp_bar.max_value = Player.brain_xp_next
 	brain_xp_bar.value = Player.brain_xp
+	reward_point_label.text = str(Player.skill_point)
 	if Player.nb_of_rebirth >= 1:
 		exploits_panel.show()
 	else:
@@ -148,6 +150,7 @@ func start_random_tween():
 
 func _draw():
 	current_brain_level.text = tr("$Level") + " " + str(Player.brain_level)
+	reward_point_label.text = str(Player.skill_point)
 	if Player.nb_of_rebirth >= 1:
 		exploits_panel.show()
 	else:

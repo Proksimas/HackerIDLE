@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8l4i0pf65qbq"]
+[gd_scene load_steps=24 format=3 uid="uid://c8l4i0pf65qbq"]
 
 [ext_resource type="Script" path="res://Game/Interface/learning.gd" id="1_vnwnq"]
 [ext_resource type="Script" path="res://Game/Interface/Skills/exploits.gd" id="2_7b46d"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_fecvy"]
+[ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/Icons/trophy_icon.tscn" id="2_q7ean"]
 [ext_resource type="Texture2D" uid="uid://yrqxhvfp2sx4" path="res://Game/Graphics/Common_icons/exploit_blue.png" id="3_i8sx1"]
 [ext_resource type="PackedScene" uid="uid://bglg83v6yd7uf" path="res://Game/Clickers/passif_learning_item.tscn" id="4_6oyge"]
 [ext_resource type="Texture2D" uid="uid://6284yqfcusgg" path="res://Game/Graphics/Brains/brain_halo.png" id="4_8oxsc"]
@@ -101,11 +102,32 @@ theme_override_styles/separator = SubResource("StyleBoxEmpty_k8p8n")
 unique_name_in_owner = true
 z_index = 50
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 24
 text = "Level 1"
 horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AllContainer/Control/LevelContainer/CurrentBrainLevel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="RewardPointLabel" type="Label" parent="AllContainer/Control/LevelContainer/CurrentBrainLevel/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TrophyIcon" parent="AllContainer/Control/LevelContainer/CurrentBrainLevel/HBoxContainer" instance=ExtResource("2_q7ean")]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="HSeparator2" type="HSeparator" parent="AllContainer/Control/LevelContainer"]
 custom_minimum_size = Vector2(0, 5)
