@@ -10,7 +10,7 @@ extends Control
 @onready var type_value: Label = %TypeValue
 @onready var cooldown_value: Label = %CooldownValue
 @onready var exec_value: Label = %ExecValue
-@onready var scaling_value: Label = %ScalingValue
+@onready var scaling_value: RichTextLabel = %ScalingValue
 @onready var description_label: RichTextLabel = %Description
 
 @onready var hp_value: Label = %HpValue
@@ -31,6 +31,13 @@ const SCRIPT_ENTRY_SCENE = preload("res://Game/Interface/Stacks/SequenceManager/
 const SCRIPT_SLOT_SCENE = preload("res://Game/Interface/Stacks/SequenceManager/ScriptSlotPlaceholder.tscn")
 const LOADOUT_STATE = preload("res://Game/Interface/Stacks/SequenceManager/HackerLoadoutState.gd")
 const SCRIPT_PRESENTER = preload("res://Game/Interface/Stacks/SequenceManager/StackScriptPresenter.gd")
+
+const CYAN := Color(0.0, 0.92, 1.0, 1.0)
+const DAMAGE_RED := Color(1.0, 0.22, 0.28, 1.0)
+const SHIELD_BLUE := Color(0.18, 0.62, 1.0, 1.0)
+const PENETRATION_PURPLE := Color(1.0, 0.3, 0.95, 1.0)
+const FLUX_GREEN := Color(0.2, 1.0, 0.25, 1.0)
+const UTILITY_GREEN := Color(0.2, 0.9, 0.45, 1.0)
 
 var _script_lookup: Dictionary = {}
 var _selected_script: StackScript
@@ -160,13 +167,16 @@ func _display_script(script_name: String) -> void:
 	_selected_script = _script_lookup[script_name]
 	stack_script_name.text = _script_presenter.format_script_name(script_name)
 	type_value.text = _script_presenter.script_kind_to_string(_selected_script.script_kind)
+	type_value.add_theme_color_override("font_color", _get_script_kind_color(_selected_script.script_kind))
+	cooldown_value.add_theme_color_override("font_color", CYAN)
+	exec_value.add_theme_color_override("font_color", CYAN)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
 	var damage_preview := _script_presenter.build_damage_preview(_selected_script, _get_hacker_stats())
 	if damage_preview != "":
-		scaling_value.text = damage_preview
+		scaling_value.text = _colorize_scaling_text(damage_preview)
 	else:
-		scaling_value.text = _script_presenter.format_scaling(_selected_script.type_and_coef)
+		scaling_value.text = _colorize_scaling_text(_script_presenter.format_scaling(_selected_script.type_and_coef))
 	description_label.text = tr("%s_desc" % script_name)
 
 
@@ -176,6 +186,8 @@ func _refresh_stats() -> void:
 	var enc := int(stats_dict.get("encryption", 0))
 	var flux := int(stats_dict.get("flux", 0))
 
+	penetration_value.add_theme_color_override("font_color", PENETRATION_PURPLE)
+	flux_value.add_theme_color_override("font_color", FLUX_GREEN)
 	penetration_value.text = str(pen)
 	encryption_value.text = str(enc)
 	flux_value.text = str(flux)
@@ -255,6 +267,28 @@ func _reset_details() -> void:
 	scaling_value.text = "-"
 	description_label.text = "Choisis un script pour voir son effet."
 	_set_selected_entry(null)
+
+
+func _get_script_kind_color(kind: int) -> Color:
+	match kind:
+		StackScript.ScriptKind.DAMAGE:
+			return DAMAGE_RED
+		StackScript.ScriptKind.SHIELD:
+			return SHIELD_BLUE
+		StackScript.ScriptKind.UTILITY:
+			return UTILITY_GREEN
+		_:
+			return CYAN
+
+
+func _colorize_scaling_text(text: String) -> String:
+	var result := text
+	var base_regex := RegEx.new()
+	if base_regex.compile("(Base [^+\\n]+)") == OK:
+		result = base_regex.sub(result, "[color=#00EAFF]$1[/color]", true)
+	return result \
+		.replace(tr("stat_penetration"), "[color=#FF4DF2]%s[/color]" % tr("stat_penetration")) \
+		.replace(tr("stat_flux"), "[color=#33FF40]%s[/color]" % tr("stat_flux"))
 
 
 func _on_script_entry_selected(script_name: String) -> void:

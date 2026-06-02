@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh4l4v6vcurh5"]
+
+[ext_resource type="Texture2D" uid="uid://di55c7xjav4ho" path="res://Game/Graphics/NovaNet/penetration_2.png" id="1_ytcup"]
+
+[node name="PenetrationIcon" type="AspectRatioContainer"]
+anchors_preset = -1
+anchor_right = 0.0508475
+anchor_bottom = 0.0234742
+size_flags_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="PenetrationTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_ytcup")
+expand_mode = 1

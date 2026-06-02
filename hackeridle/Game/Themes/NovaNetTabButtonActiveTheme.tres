@@ -1,0 +1,31 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cgmilxr3xbrti"]
+
+[ext_resource type="StyleBox" uid="uid://dvybc1w7i1uc4" path="res://Game/Themes/night_blue_pressed.tres" id="1_cxgmg"]
+[ext_resource type="StyleBox" uid="uid://cvnr7701o806v" path="res://Game/Themes/night_blue_normal.tres" id="2_ws23k"]
+
+[sub_resource type="StyleBoxFlat" id="tab_disabled"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.005, 0.02, 0.045, 0.4)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.18, 0.35, 0.65)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+Button/colors/font_color = Color(0.9, 0.97, 1, 1)
+Button/colors/font_focus_color = Color(0.9, 0.97, 1, 1)
+Button/colors/font_hover_color = Color(0.9, 0.97, 1, 1)
+Button/colors/font_pressed_color = Color(0.9, 0.97, 1, 1)
+Button/styles/disabled = SubResource("tab_disabled")
+Button/styles/focus = ExtResource("1_cxgmg")
+Button/styles/hover = ExtResource("1_cxgmg")
+Button/styles/normal = ExtResource("2_ws23k")
+Button/styles/pressed = ExtResource("1_cxgmg")

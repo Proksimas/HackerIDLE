@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsxwn1v4cwr1p"]
+
+[ext_resource type="Texture2D" uid="uid://ca7r26xatkf1t" path="res://Game/Graphics/NovaNet/encryption.png" id="1_sgefm"]
+
+[node name="EncryptionIcon" type="AspectRatioContainer"]
+anchors_preset = -1
+anchor_right = 0.0508475
+anchor_bottom = 0.0234742
+size_flags_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="EncryptionTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+texture = ExtResource("1_sgefm")
+expand_mode = 1
