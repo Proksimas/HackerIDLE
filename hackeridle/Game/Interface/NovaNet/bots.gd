@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 @onready var next_bot_price_value: Label = %NextBotPriceValue
 

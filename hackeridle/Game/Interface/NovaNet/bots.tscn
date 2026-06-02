@@ -1,0 +1,288 @@
+[gd_scene load_steps=13 format=3 uid="uid://867qylm5x8ys"]
+
+[ext_resource type="Script" path="res://Game/Interface/NovaNet/bots.gd" id="1_jvk7s"]
+[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_n7exr"]
+[ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="3_xjvev"]
+[ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="4_lswwg"]
+[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="5_v0su0"]
+[ext_resource type="Texture2D" uid="uid://ci1iuld5c4kto" path="res://Game/Graphics/Common_icons/bot_full.png" id="6_v2ugd"]
+[ext_resource type="BitMap" uid="uid://d5y7ixo672cf" path="res://Game/Graphics/Common_icons/bot_full_mono_2.bmp" id="7_4aw7p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7dfa"]
+bg_color = Color(0.1, 0.11, 0.12, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.22, 0.24, 0.27, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdfy1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m5mc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3l6f"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(0.047, 0.894, 0.553, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfak4"]
+bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
+border_width_left = 2
+border_width_top = 1
+border_width_right = 2
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[node name="Bots" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_jvk7s")
+
+[node name="BotsVbox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_tab_index = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="BotsVbox"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s7dfa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NextBotPriceTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Prix du bot: "
+
+[node name="NextBotPriceValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+
+[node name="BrainIcon" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_n7exr")]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NbOfClickTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Clic restants:"
+
+[node name="NbOfClickValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+
+[node name="VSeparator" type="VSeparator" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_gdfy1")
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NbOfBotsTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nombre de Bots: "
+
+[node name="NbOfBotsValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nombre de Bots: "
+
+[node name="BotIcon" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("4_lswwg")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="BotsVbox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6m5mc")
+
+[node name="IAEnabledButton" type="Button" parent="BotsVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/hover = ExtResource("3_xjvev")
+theme_override_styles/pressed = ExtResource("3_xjvev")
+theme_override_styles/normal = ExtResource("3_xjvev")
+text = "Ia Activé"
+
+[node name="HSeparator" type="HSeparator" parent="BotsVbox"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6m5mc")
+
+[node name="HBoxContainer2" type="VBoxContainer" parent="BotsVbox"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BotsVbox/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TotalInvestiTitle" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Total Investi: "
+
+[node name="TotalInvestiLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XX"
+
+[node name="GoldIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer3" instance=ExtResource("5_v0su0")]
+layout_mode = 2
+
+[node name="InvestButton" type="Button" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kfak4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k3l6f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InvestTitle" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$Invest"
+
+[node name="GoldInvestLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "189.28Q"
+
+[node name="GoldIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer" instance=ExtResource("5_v0su0")]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
+[node name="GoldInvestBox" type="HSlider" parent="BotsVbox/HBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(400, 30)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+step = 10.0
+value = 10.0
+rounded = true
+tick_count = 11
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="BotsVbox/HBoxContainer2"]
+layout_mode = 2
+
+[node name="KnowledgeCostLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Investissement par clic:"
+
+[node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "l"
+
+[node name="BrainIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer4" instance=ExtResource("2_n7exr")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="BotsVbox"]
+layout_mode = 2
+size_flags_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerARC" type="AspectRatioContainer" parent="BotsVbox/CenterContainer"]
+unique_name_in_owner = true
+z_index = 90
+custom_minimum_size = Vector2(450, 450)
+layout_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ClickerBotButton" type="TextureButton" parent="BotsVbox/CenterContainer/ClickerARC"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+texture_normal = ExtResource("6_v2ugd")
+texture_click_mask = ExtResource("7_4aw7p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="RefreshTimer" type="Timer" parent="BotsVbox"]
+unique_name_in_owner = true
+autostart = true
+
+[node name="SpamClicTimer" type="Timer" parent="BotsVbox"]
+unique_name_in_owner = true
+wait_time = 2.0
+
+[node name="NotEnoughContainer" type="HBoxContainer" parent="BotsVbox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[connection signal="pressed" from="BotsVbox/IAEnabledButton" to="." method="_on_ia_enabled_button_pressed"]
+[connection signal="pressed" from="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton" to="." method="_on_invest_button_pressed"]
+[connection signal="value_changed" from="BotsVbox/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]
+[connection signal="pressed" from="BotsVbox/CenterContainer/ClickerARC/ClickerBotButton" to="." method="_on_click_bot_pressed"]
+[connection signal="timeout" from="BotsVbox/RefreshTimer" to="." method="_on_refresh_timer_timeout"]
+[connection signal="timeout" from="BotsVbox/SpamClicTimer" to="." method="_on_spam_clic_timer_timeout"]
