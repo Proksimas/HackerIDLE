@@ -285,7 +285,7 @@ func _colorize_scaling_text(text: String) -> String:
 	var result := text
 	var base_regex := RegEx.new()
 	if base_regex.compile("(Base [^+\\n]+)") == OK:
-		result = base_regex.sub(result, "[color=#00EAFF]$1[/color]", true)
+		result = base_regex.sub(result, "$1", true)
 	return result \
 		.replace(tr("stat_penetration"), "[color=#FF4DF2]%s[/color]" % tr("stat_penetration")) \
 		.replace(tr("stat_flux"), "[color=#33FF40]%s[/color]" % tr("stat_flux"))

@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://c6ctlstq4ibhs"]
+[gd_scene load_steps=19 format=3 uid="uid://c6ctlstq4ibhs"]
 
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/stack_sequence_hacker.gd" id="1_xiqgv"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/SequenceManager/ScriptDropArea.gd" id="2_4c8sd"]
+[ext_resource type="StyleBox" uid="uid://1jablaj57dxn" path="res://Game/Themes/Novanet/NightBluePanel.tres" id="2_8rw02"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="3_vqvmt"]
 [ext_resource type="StyleBox" uid="uid://b136hlrgvh1qw" path="res://Game/Themes/Novanet/NightBlueSubPanel.tres" id="4_dpxwa"]
 [ext_resource type="PackedScene" uid="uid://bh4l4v6vcurh5" path="res://Game/Interface/Icons/penetration_icon.tscn" id="5_w1s1k"]
@@ -167,6 +168,7 @@ theme_override_font_sizes/font_size = 20
 text = "SCRIPTS"
 
 [node name="Tabs" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/ScriptsPanel/ScriptsMargin/ScriptsVBox"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_constants/separation = 6
 
@@ -262,14 +264,21 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.6, 0.64, 0.68, 1)
 text = "Slots : 0/0"
 
-[node name="SequenceActions" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
 layout_mode = 2
-theme_override_constants/separation = 8
 
-[node name="ClearButton" type="Button" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions"]
+[node name="ClearButton" type="Button" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/HBoxContainer"]
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
-theme_override_styles/hover = SubResource("style_button_primary_hover")
-theme_override_styles/normal = SubResource("style_button_primary")
+size_flags_horizontal = 0
+theme_override_colors/font_hover_color = Color(0, 0.796078, 0.870588, 1)
+theme_override_colors/font_pressed_color = Color(0, 0.796078, 0.870588, 1)
+theme_override_colors/font_focus_color = Color(0, 0.796078, 0.870588, 1)
+theme_override_colors/font_color = Color(0, 0.796078, 0.870588, 1)
+theme_override_styles/focus = ExtResource("2_8rw02")
+theme_override_styles/hover = ExtResource("2_8rw02")
+theme_override_styles/pressed = ExtResource("2_8rw02")
+theme_override_styles/normal = ExtResource("2_8rw02")
 text = "Vider"
 
 [node name="SequenceScroll" type="ScrollContainer" parent="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox"]
@@ -588,4 +597,4 @@ theme_override_styles/pressed = SubResource("style_button_primary")
 theme_override_styles/normal = SubResource("style_button_primary")
 text = "+"
 
-[connection signal="pressed" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/SequenceActions/ClearButton" to="." method="_on_clear_button_pressed"]
+[connection signal="pressed" from="Frame/OuterMargin/RootVBox/Content/SequencePanel/SequenceMargin/SequenceVBox/HBoxContainer/ClearButton" to="." method="_on_clear_button_pressed"]
