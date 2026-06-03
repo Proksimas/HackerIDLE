@@ -1,15 +1,16 @@
-[gd_scene load_steps=14 format=3 uid="uid://867qylm5x8ys"]
+[gd_scene load_steps=15 format=3 uid="uid://867qylm5x8ys"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots.gd" id="1_jvk7s"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_n7exr"]
 [ext_resource type="StyleBox" uid="uid://1jablaj57dxn" path="res://Game/Themes/Novanet/NightBluePanel.tres" id="2_v84lh"]
 [ext_resource type="StyleBox" uid="uid://b136hlrgvh1qw" path="res://Game/Themes/Novanet/NightBlueSubPanel.tres" id="3_mhc7p"]
-[ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="3_xjvev"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="4_lswwg"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="5_v0su0"]
 [ext_resource type="PackedScene" uid="uid://jw87l4sa6ar6" path="res://Game/Interface/Icons/click_icon.tscn" id="6_a64bi"]
 [ext_resource type="Texture2D" uid="uid://ci1iuld5c4kto" path="res://Game/Graphics/Common_icons/bot_full.png" id="6_v2ugd"]
 [ext_resource type="BitMap" uid="uid://d5y7ixo672cf" path="res://Game/Graphics/Common_icons/bot_full_mono_2.bmp" id="7_4aw7p"]
+[ext_resource type="StyleBox" uid="uid://cuxk2ukmimkfc" path="res://Game/Themes/Novanet/night_blue_disabled.tres" id="8_gna1p"]
+[ext_resource type="StyleBox" uid="uid://dvybc1w7i1uc4" path="res://Game/Themes/Novanet/night_blue_pressed.tres" id="9_bdlqp"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m5mc"]
 
@@ -216,9 +217,12 @@ size_flags_horizontal = 6
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
-theme_override_styles/hover = ExtResource("3_xjvev")
-theme_override_styles/pressed = ExtResource("3_xjvev")
-theme_override_styles/normal = ExtResource("3_xjvev")
+theme_override_styles/focus = ExtResource("8_gna1p")
+theme_override_styles/disabled = ExtResource("8_gna1p")
+theme_override_styles/hover = ExtResource("8_gna1p")
+theme_override_styles/pressed = ExtResource("8_gna1p")
+theme_override_styles/normal = ExtResource("9_bdlqp")
+action_mode = 0
 text = "Ia Activé"
 
 [node name="HSeparator" type="HSeparator" parent="BotsVbox"]
@@ -285,6 +289,7 @@ theme_override_colors/font_color = Color(0, 0.921569, 1, 1)
 text = "Cliquez pour payer"
 
 [node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)

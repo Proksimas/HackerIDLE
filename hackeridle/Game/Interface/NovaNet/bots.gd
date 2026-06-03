@@ -9,7 +9,6 @@ extends Control
 @onready var clicker_arc: AspectRatioContainer = %ClickerARC
 @onready var clicker_bot_button: TextureButton = %ClickerBotButton
 @onready var gold_invest_box: HSlider = %GoldInvestBox
-@onready var knowledge_cost_label: Label = %KnowledgeCostLabel
 @onready var spam_clic_timer: Timer = %SpamClicTimer
 @onready var ia_enabled_button: Button = %IAEnabledButton
 @onready var not_enough_container: HBoxContainer = %NotEnoughContainer
@@ -25,10 +24,11 @@ extends Control
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
 const BOT_NEO_SMILING = preload("res://Game/Graphics/Common_icons/bot_neo_smiling.png")
-const RED_BUTTON_DISABLED = preload("res://Game/Themes/RedButtonDisabled.tres")
-const GREEN_BUTTON_ENABLED = preload("res://Game/Themes/GreenButtonEnabled.tres")
+const NIGHT_BLUE_DISABLED = preload("res://Game/Themes/Novanet/night_blue_disabled.tres")
+const NIGHT_BLUE_PRESSED = preload("res://Game/Themes/Novanet/night_blue_pressed.tres")
 const GOLD_ICON = preload("res://Game/Interface/Icons/gold_icon.tscn")
 const BRAIN_ICON = preload("res://Game/Interface/Icons/brain_icon.tscn")
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,7 +65,6 @@ func refresh():
 	invest_title.text = "$Invest"
 	gold_invest_label.text = Global.number_to_string(floor(NovaNetManager.gold_to_invest_perc * Player.gold))
 	
-	knowledge_cost_label.text = tr("$InvestPerClick") + " "
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_invest_in_bots))
 	
 	if NovaNetManager.time_ia_click > 0:
@@ -120,19 +119,20 @@ func _on_ia_enabled_button_pressed() -> void:
 func ia_button_box():
 	if NovaNetManager.time_ia_click == -1:
 		ia_enabled_button.hide()
-	else: ia_enabled_button.show()
-	
+	else:
+		ia_enabled_button.show()
 	if NovaNetManager.ia_is_enable:
 		ia_enabled_button.text = tr("$ia_enabled")
-		var enabl_box = GREEN_BUTTON_ENABLED
+		var enabl_box = NIGHT_BLUE_PRESSED
 		ia_enabled_button.add_theme_stylebox_override("normal", enabl_box)
 		ia_enabled_button.add_theme_stylebox_override("hover", enabl_box)
+		
 	else:
 		ia_enabled_button.text = tr("$ia_disabled")
-		var disab_box = RED_BUTTON_DISABLED
+		var disab_box = NIGHT_BLUE_DISABLED
 		ia_enabled_button.add_theme_stylebox_override("normal", disab_box)
 		ia_enabled_button.add_theme_stylebox_override("hover", disab_box)
-		
+
 var enough_in_progress: bool = false
 func _on_s_not_enough(type: String):
 	if enough_in_progress:
@@ -150,6 +150,7 @@ func _on_s_not_enough(type: String):
 	label.text = tr("$not_enough")
 	not_enough_container.add_child(icon)
 	not_enough_container.show()
+	
 	enough_in_progress = true
 	await get_tree().create_timer(4).timeout
 	for elmt in not_enough_container.get_children():
