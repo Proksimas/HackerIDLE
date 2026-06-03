@@ -19,6 +19,7 @@ extends Control
 @onready var total_investi_label: Label = %TotalInvestiLabel
 @onready var invest_title: Label = %InvestTitle
 @onready var bots_title: Label = %BotsTitle
+@onready var click_to_pay_label: Label = %ClickToPayLabel
 
 
 

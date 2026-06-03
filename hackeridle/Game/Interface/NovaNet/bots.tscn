@@ -233,51 +233,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="InvestButton" type="Button" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 35)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 6
-size_flags_stretch_ratio = 0.0
-focus_mode = 0
-theme_override_styles/focus = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_kfak4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/normal = SubResource("StyleBoxFlat_k3l6f")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -11.5
-offset_right = 34.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="InvestTitle" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "$Invest"
-
-[node name="GoldInvestLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 10
-text = "189.28Q"
-
-[node name="GoldIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton/HBoxContainer" instance=ExtResource("5_v0su0")]
-layout_mode = 2
-size_flags_horizontal = 8
-mouse_filter = 2
-
 [node name="GoldInvestBox" type="HSlider" parent="BotsVbox/HBoxContainer2"]
 unique_name_in_owner = true
 visible = false
@@ -289,25 +244,6 @@ step = 10.0
 value = 10.0
 rounded = true
 tick_count = 11
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="BotsVbox/HBoxContainer2"]
-layout_mode = 2
-
-[node name="KnowledgeCostLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer4"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Investissement par clic:"
-
-[node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer4"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-text = "l"
-
-[node name="BrainIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer4" instance=ExtResource("2_n7exr")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 
 [node name="CenterContainer" type="CenterContainer" parent="BotsVbox"]
 layout_mode = 2
@@ -338,6 +274,70 @@ autostart = true
 unique_name_in_owner = true
 wait_time = 2.0
 
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="ClickToPayLabel" type="Label" parent="BotsVbox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.921569, 1, 1)
+text = "Cliquez pour payer"
+
+[node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
+text = "X"
+
+[node name="BrainIcon" parent="BotsVbox/HBoxContainer" instance=ExtResource("2_n7exr")]
+layout_mode = 2
+
+[node name="InvestButton" type="Button" parent="BotsVbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 35)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+size_flags_stretch_ratio = 0.0
+focus_mode = 0
+theme_override_styles/focus = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kfak4")
+theme_override_styles/hover = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/normal = SubResource("StyleBoxFlat_k3l6f")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/InvestButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -34.0
+offset_top = -11.5
+offset_right = 34.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InvestTitle" type="Label" parent="BotsVbox/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "$Invest"
+
+[node name="GoldInvestLabel" type="Label" parent="BotsVbox/InvestButton/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 10
+text = "189.28Q"
+
+[node name="GoldIcon" parent="BotsVbox/InvestButton/HBoxContainer" instance=ExtResource("5_v0su0")]
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+
 [node name="NotEnoughContainer" type="HBoxContainer" parent="BotsVbox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -345,8 +345,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 
 [connection signal="pressed" from="BotsVbox/IAEnabledButton" to="." method="_on_ia_enabled_button_pressed"]
-[connection signal="pressed" from="BotsVbox/HBoxContainer2/HBoxContainer3/InvestButton" to="." method="_on_invest_button_pressed"]
 [connection signal="value_changed" from="BotsVbox/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]
 [connection signal="pressed" from="BotsVbox/CenterContainer/ClickerARC/ClickerBotButton" to="." method="_on_click_bot_pressed"]
 [connection signal="timeout" from="BotsVbox/RefreshTimer" to="." method="_on_refresh_timer_timeout"]
 [connection signal="timeout" from="BotsVbox/SpamClicTimer" to="." method="_on_spam_clic_timer_timeout"]
+[connection signal="pressed" from="BotsVbox/InvestButton" to="." method="_on_invest_button_pressed"]
