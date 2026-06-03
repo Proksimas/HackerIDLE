@@ -1,26 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://867qylm5x8ys"]
+[gd_scene load_steps=14 format=3 uid="uid://867qylm5x8ys"]
 
 [ext_resource type="Script" path="res://Game/Interface/NovaNet/bots.gd" id="1_jvk7s"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_n7exr"]
+[ext_resource type="StyleBox" uid="uid://1jablaj57dxn" path="res://Game/Themes/Novanet/NightBluePanel.tres" id="2_v84lh"]
+[ext_resource type="StyleBox" uid="uid://b136hlrgvh1qw" path="res://Game/Themes/Novanet/NightBlueSubPanel.tres" id="3_mhc7p"]
 [ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="3_xjvev"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="4_lswwg"]
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="5_v0su0"]
+[ext_resource type="PackedScene" uid="uid://jw87l4sa6ar6" path="res://Game/Interface/Icons/click_icon.tscn" id="6_a64bi"]
 [ext_resource type="Texture2D" uid="uid://ci1iuld5c4kto" path="res://Game/Graphics/Common_icons/bot_full.png" id="6_v2ugd"]
 [ext_resource type="BitMap" uid="uid://d5y7ixo672cf" path="res://Game/Graphics/Common_icons/bot_full_mono_2.bmp" id="7_4aw7p"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s7dfa"]
-bg_color = Color(0.1, 0.11, 0.12, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.22, 0.24, 0.27, 1)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gdfy1"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m5mc"]
 
@@ -72,59 +61,147 @@ metadata/_tab_index = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="BotsVbox"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_s7dfa")
+theme_override_styles/panel = ExtResource("2_v84lh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="BotsVbox/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+[node name="BotsTitle" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0.92, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Bots"
 
-[node name="NextBotPriceTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("3_mhc7p")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="BrainIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_n7exr")]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NextBotPriceTitle" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "Prix du bot: "
 
-[node name="NextBotPriceValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="NextBotPriceValue" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "x"
+text = "1005 / 5k"
 
-[node name="BrainIcon" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_n7exr")]
+[node name="PanelContainer4" type="PanelContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("3_mhc7p")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
 
-[node name="NbOfClickTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
+[node name="BotIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4/HBoxContainer4" instance=ExtResource("4_lswwg")]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NbOfBotsTitle" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4/HBoxContainer4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Nombre de Bots: "
+
+[node name="NbOfBotsValue" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4/HBoxContainer4/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "100000"
+autowrap_mode = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("3_mhc7p")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="ClickIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2/HBoxContainer3" instance=ExtResource("6_a64bi")]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NbOfClickTitle" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Clic restants:"
 
-[node name="NbOfClickValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
+[node name="NbOfClickValue" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2/HBoxContainer3/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "x"
 
-[node name="VSeparator" type="VSeparator" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(50, 0)
+[node name="PanelContainer3" type="PanelContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_gdfy1")
+size_flags_horizontal = 3
+theme_override_styles/panel = ExtResource("3_mhc7p")
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="BotsVbox/PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
 
-[node name="NbOfBotsTitle" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4"]
+[node name="GoldIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3/HBoxContainer" instance=ExtResource("5_v0su0")]
+custom_minimum_size = Vector2(50, 75)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TotalInvestiTitle" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Nombre de Bots: "
+text = "Total Investi: "
 
-[node name="NbOfBotsValue" type="Label" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4"]
+[node name="TotalInvestiLabel" type="Label" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Nombre de Bots: "
-
-[node name="BotIcon" parent="BotsVbox/PanelContainer/VBoxContainer/HBoxContainer4" instance=ExtResource("4_lswwg")]
-layout_mode = 2
+text = "XX"
+autowrap_mode = 1
 
 [node name="HSeparator2" type="HSeparator" parent="BotsVbox"]
 custom_minimum_size = Vector2(0, 10)
@@ -155,19 +232,6 @@ layout_mode = 2
 [node name="HBoxContainer3" type="HBoxContainer" parent="BotsVbox/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="TotalInvestiTitle" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Total Investi: "
-
-[node name="TotalInvestiLabel" type="Label" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "XX"
-
-[node name="GoldIcon" parent="BotsVbox/HBoxContainer2/HBoxContainer3" instance=ExtResource("5_v0su0")]
-layout_mode = 2
 
 [node name="InvestButton" type="Button" parent="BotsVbox/HBoxContainer2/HBoxContainer3"]
 unique_name_in_owner = true

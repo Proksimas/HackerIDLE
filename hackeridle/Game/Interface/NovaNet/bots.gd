@@ -18,6 +18,7 @@ extends Control
 @onready var total_investi_title: Label = %TotalInvestiTitle
 @onready var total_investi_label: Label = %TotalInvestiLabel
 @onready var invest_title: Label = %InvestTitle
+@onready var bots_title: Label = %BotsTitle
 
 
 
@@ -49,7 +50,7 @@ func connexions():
 	NovaNetManager.s_not_enough.connect(_on_s_not_enough)
 
 func refresh():
-	
+	bots_title.text = tr("$Bots")
 	total_investi_title.text = tr("$TotalInvesti") + ": "
 	total_investi_label.text = Global.number_to_string(NovaNetManager.gold_invest_in_bots)
 	
