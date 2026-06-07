@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 @onready var farming_xp_label: Label = %FarmingXpLabel
 @onready var farming_xp_slider: HSlider = %FarmingXpSlider
 @onready var farming_xp_bots_value: Label = %FarmingXpBotsValue

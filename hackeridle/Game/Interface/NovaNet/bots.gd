@@ -20,6 +20,11 @@ extends Control
 @onready var bots_title: Label = %BotsTitle
 @onready var click_to_pay_label: Label = %ClickToPayLabel
 
+@onready var not_enough_label: Label = %NotEnoughLabel
+@onready var brain_icon: AspectRatioContainer = %BrainIcon
+@onready var gold_icon: AspectRatioContainer = %GoldIcon
+
+
 
 
 const BOT_FULL = preload("res://Game/Graphics/Common_icons/bot_full.png")
@@ -66,6 +71,7 @@ func refresh():
 	gold_invest_label.text = Global.number_to_string(floor(NovaNetManager.gold_to_invest_perc * Player.gold))
 	
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_invest_in_bots))
+
 	
 	if NovaNetManager.time_ia_click > 0:
 		ia_enabled_button.show()
@@ -137,25 +143,20 @@ var enough_in_progress: bool = false
 func _on_s_not_enough(type: String):
 	if enough_in_progress:
 		return
-	var icon
-	var label = Label.new()
-	
+	not_enough_label.text = tr("$not_enough")
 	match type:
 		"knowledge":
-			icon = BRAIN_ICON.instantiate()
+			brain_icon.show()
+			gold_icon.hide()
 		"gold":
-			icon = GOLD_ICON.instantiate()
-			
-	not_enough_container.add_child(label)
-	label.text = tr("$not_enough")
-	not_enough_container.add_child(icon)
-	not_enough_container.show()
-	
+			brain_icon.hide()
+			gold_icon.show()
+
 	enough_in_progress = true
 	await get_tree().create_timer(4).timeout
-	for elmt in not_enough_container.get_children():
-		elmt.queue_free()
-	not_enough_container.hide()
+	brain_icon.hide()
+	gold_icon.hide()
+	not_enough_label.text = " "
 	enough_in_progress = false
 	
 	

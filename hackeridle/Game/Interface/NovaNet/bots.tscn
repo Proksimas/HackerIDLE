@@ -14,32 +14,39 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6m5mc"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3l6f"]
-bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.501961)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y84nr"]
+content_margin_left = 12.0
+content_margin_top = 8.0
+content_margin_right = 12.0
+content_margin_bottom = 8.0
+bg_color = Color(0.00392157, 0.0352941, 0.145098, 0)
 border_width_left = 2
-border_width_top = 1
+border_width_top = 2
 border_width_right = 2
-border_width_bottom = 1
-border_color = Color(0.047, 0.894, 0.553, 0.4)
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 10
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfak4"]
-bg_color = Color(0.0313726, 0.0862745, 0.0588235, 0.517647)
-border_width_left = 2
-border_width_top = 1
-border_width_right = 2
-border_width_bottom = 1
-border_color = Color(1, 0, 0, 1)
+border_width_bottom = 2
+border_color = Color(0.384314, 0.937255, 0.996078, 1)
 border_blend = true
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+shadow_color = Color(0, 0.342333, 0.79, 0.454902)
 shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2qsp"]
+bg_color = Color(0.603922, 0.0313726, 0.611765, 0.541176)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.996078, 0.772549, 1, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.184314, 0.0235294, 0.294118, 1)
+shadow_size = 5
 
 [node name="Bots" type="Control"]
 layout_mode = 3
@@ -98,7 +105,7 @@ theme_override_constants/separation = 15
 alignment = 1
 
 [node name="BrainIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer/HBoxContainer" instance=ExtResource("2_n7exr")]
-custom_minimum_size = Vector2(50, 75)
+custom_minimum_size = Vector2(50, 60)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -126,7 +133,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
 [node name="BotIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer4/HBoxContainer4" instance=ExtResource("4_lswwg")]
-custom_minimum_size = Vector2(50, 75)
+custom_minimum_size = Vector2(50, 60)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -156,7 +163,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
 [node name="ClickIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer2/HBoxContainer3" instance=ExtResource("6_a64bi")]
-custom_minimum_size = Vector2(50, 75)
+custom_minimum_size = Vector2(50, 60)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -185,7 +192,7 @@ size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
 [node name="GoldIcon" parent="BotsVbox/PanelContainer/MarginContainer/VBoxContainer/GridContainer/PanelContainer3/HBoxContainer" instance=ExtResource("5_v0su0")]
-custom_minimum_size = Vector2(50, 75)
+custom_minimum_size = Vector2(50, 60)
 layout_mode = 2
 size_flags_horizontal = 0
 
@@ -226,7 +233,7 @@ action_mode = 0
 text = "Ia Activé"
 
 [node name="HSeparator" type="HSeparator" parent="BotsVbox"]
-custom_minimum_size = Vector2(0, 10)
+custom_minimum_size = Vector2(0, 5)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxEmpty_6m5mc")
 
@@ -249,6 +256,27 @@ value = 10.0
 rounded = true
 tick_count = 11
 
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ClickToPayLabel" type="Label" parent="BotsVbox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.921569, 1, 1)
+text = "Cliquez sur le bot pour payer"
+
+[node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
+text = "X"
+
+[node name="BrainIcon" parent="BotsVbox/HBoxContainer" instance=ExtResource("2_n7exr")]
+layout_mode = 2
+
 [node name="CenterContainer" type="CenterContainer" parent="BotsVbox"]
 layout_mode = 2
 size_flags_vertical = 2
@@ -257,7 +285,7 @@ metadata/_edit_use_anchors_ = true
 [node name="ClickerARC" type="AspectRatioContainer" parent="BotsVbox/CenterContainer"]
 unique_name_in_owner = true
 z_index = 90
-custom_minimum_size = Vector2(450, 450)
+custom_minimum_size = Vector2(430, 430)
 layout_mode = 2
 metadata/_edit_use_anchors_ = true
 
@@ -278,67 +306,54 @@ autostart = true
 unique_name_in_owner = true
 wait_time = 2.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox"]
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="ClickToPayLabel" type="Label" parent="BotsVbox/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0.921569, 1, 1)
-text = "Cliquez pour payer"
-
-[node name="KnowledgePerClickValue" type="Label" parent="BotsVbox/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0.847059, 0.431373, 0.32549, 1)
-text = "X"
-
-[node name="BrainIcon" parent="BotsVbox/HBoxContainer" instance=ExtResource("2_n7exr")]
-layout_mode = 2
-
 [node name="InvestButton" type="Button" parent="BotsVbox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 35)
+custom_minimum_size = Vector2(250, 60)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
 size_flags_stretch_ratio = 0.0
 focus_mode = 0
-theme_override_styles/focus = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_kfak4")
-theme_override_styles/hover = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_k3l6f")
-theme_override_styles/normal = SubResource("StyleBoxFlat_k3l6f")
+theme_override_styles/focus = SubResource("StyleBoxFlat_y84nr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y84nr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_y84nr")
+theme_override_styles/normal = SubResource("StyleBoxFlat_y84nr")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/InvestButton"]
+[node name="MarginContainer" type="MarginContainer" parent="BotsVbox/InvestButton"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -34.0
-offset_top = -11.5
-offset_right = 34.0
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="InvestTitle" type="Label" parent="BotsVbox/InvestButton/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="BotsVbox/InvestButton/MarginContainer"]
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2qsp")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BotsVbox/InvestButton/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+alignment = 1
+
+[node name="InvestTitle" type="Label" parent="BotsVbox/InvestButton/MarginContainer/PanelContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "$Invest"
 
-[node name="GoldInvestLabel" type="Label" parent="BotsVbox/InvestButton/HBoxContainer"]
+[node name="GoldInvestLabel" type="Label" parent="BotsVbox/InvestButton/MarginContainer/PanelContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 10
 text = "189.28Q"
 
-[node name="GoldIcon" parent="BotsVbox/InvestButton/HBoxContainer" instance=ExtResource("5_v0su0")]
+[node name="GoldIcon" parent="BotsVbox/InvestButton/MarginContainer/PanelContainer/HBoxContainer" instance=ExtResource("5_v0su0")]
 layout_mode = 2
 size_flags_horizontal = 8
 mouse_filter = 2
@@ -348,6 +363,21 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+
+[node name="NotEnoughLabel" type="Label" parent="BotsVbox/NotEnoughContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " "
+
+[node name="BrainIcon" parent="BotsVbox/NotEnoughContainer" instance=ExtResource("2_n7exr")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="GoldIcon" parent="BotsVbox/NotEnoughContainer" instance=ExtResource("5_v0su0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 
 [connection signal="pressed" from="BotsVbox/IAEnabledButton" to="." method="_on_ia_enabled_button_pressed"]
 [connection signal="value_changed" from="BotsVbox/HBoxContainer2/GoldInvestBox" to="." method="_on_gold_invest_box_value_changed"]

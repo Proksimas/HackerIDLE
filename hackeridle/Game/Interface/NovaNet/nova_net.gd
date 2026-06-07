@@ -2,7 +2,7 @@ extends Control
 
 @onready var nova_net_tab: TabContainer = %NovaNetTab
 @onready var bots: Control = %Bots
-@onready var implants_affecation: VBoxContainer = %ImplantsAffecation
+@onready var implants_affecation: Control = %ImplantsAffecation
 @onready var nova_net_main: Control = %NovaNetMain
 @onready var stack_fight_ui: Control = %StackFightUi
 
