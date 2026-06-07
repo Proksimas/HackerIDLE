@@ -33,8 +33,11 @@ $bonus_click;Bonus par clic;Bonus per click
 $LearningItems;Objets passifs;Passive items
 $Invest;Investir;Invest
 $FarmingXp;Analyse du NovaNet;NovaNet analysis
+$FarminXpDescription;Analyse le réseau pour en tirer de la connaissance;Analyses the network to gain insights
 $SearchExploits;Recherche d'exploits;Search for exploits
+$SearchExploitsDescription;Recherche des vulnérabilités pour ensuite les exploiter;Searching for vulnerabilities in order to exploit them
 $Sales;Bots trader;Trader bots
+$SalesDescription;Oriente vos recherches dans le trading pour gagner de l'or;Focus your trading research to make a fortune
 $Bots;Bots;Bots
 $ImplantsAffecation;Affectations implants;Implant assignments
 $CyberForceAllocation;Allocation Force Cyber;Cyber Force allocation

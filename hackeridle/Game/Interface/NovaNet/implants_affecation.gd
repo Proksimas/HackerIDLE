@@ -12,6 +12,12 @@ extends Control
 @onready var sales_slider: HSlider = %SalesSlider
 @onready var sales_bots_value: Label = %SalesBotsValue
 @onready var invest_title: Label = %InvestTitle
+@onready var cyber_force_label: Label = %CyberForceLabel
+@onready var farming_description: Label = %FarmingDescription
+@onready var exploit_research_description: Label = $ImplantsAffecationVbox/PanelContainer/MarginContainer/VBoxContainer/GridsContainers/HBoxContainer2/ExploitResearchButton/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ExploitResearchDescription
+@onready var sales_description: Label = %SalesDescription
+
+
 
 @onready var farming_xp_grid_container: Control = %FarmingXpGridContainer
 @onready var exploit_research_grid: Control = %ExploitResearchGrid
@@ -85,6 +91,7 @@ func _update_sliders_max() -> void:
 		slider_i.max_value = new_max
 
 func _update_value_labels() -> void:
+	cyber_force_label.text = tr("$cyber_force") + " : "
 	nbr_of_bots_value.text = Global.number_to_string(int(Player.cyber_force))
 	for data in containers_data:
 		var label: Label = data.get("value_label", null)

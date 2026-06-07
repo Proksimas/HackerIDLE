@@ -13,6 +13,7 @@ extends VBoxContainer
 @onready var sales_title: Label = %SalesTitle
 @onready var average_gain_label: Label = %AverageGainLabel
 @onready var average_gain_value: Label = %AverageGainValue
+@onready var sales_description: Label = %SalesDescription
 
 @onready var market_graph: MarketGraph = %MarketGraph
 
@@ -27,6 +28,7 @@ func _ready() -> void:
 func refresh():
 	sales_label.text = tr("$Sales")
 	sales_title.text = tr("$Sales")
+	sales_description.text = tr("$SalesDescription")
 	sales_bots_value.text = str(NovaNetManager.active_tasks["sales_task"])
 	var to_invest = NovaNetManager.knowledge_to_invest_perc * Player.knowledge_point
 	knowledge_invest_label.text = Global.number_to_string(to_invest)
