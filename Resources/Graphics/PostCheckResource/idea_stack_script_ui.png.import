@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b65s0hwprw1i4"
-path="res://.godot/imported/NovaNet_bg_2.png-7a7cc837c8c1ba66e9d1ecdf222ae5cc.ctex"
+uid="uid://pognsouvxnrh"
+path="res://.godot/imported/idea_stack_script_ui.png-76593710f907ce349838de855b7afe74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/Novanet/NovaNet_bg_2.png"
-dest_files=["res://.godot/imported/NovaNet_bg_2.png-7a7cc837c8c1ba66e9d1ecdf222ae5cc.ctex"]
+source_file="res://Game/tools/idea_stack_script_ui.png"
+dest_files=["res://.godot/imported/idea_stack_script_ui.png-76593710f907ce349838de855b7afe74.ctex"]
 
 [params]
 

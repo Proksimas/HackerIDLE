@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c22bj8mi1rwpg"
-path="res://.godot/imported/exploit - Copie.png-b846817a270fc3533726c2544f9ccfb1.ctex"
+uid="uid://bliiybnnxum0"
+path="res://.godot/imported/infamy_character.png-d2f15977a752693ee2b118290bec23df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/NovaNet/exploit - Copie.png"
-dest_files=["res://.godot/imported/exploit - Copie.png-b846817a270fc3533726c2544f9ccfb1.ctex"]
+source_file="res://Game/tools/infamy_character.png"
+dest_files=["res://.godot/imported/infamy_character.png-d2f15977a752693ee2b118290bec23df.ctex"]
 
 [params]
 

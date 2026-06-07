@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd0xomk8m13wt"
-path="res://.godot/imported/jail_1.png-fd9bd333dc1280c614ffe9de439fecb5.ctex"
+uid="uid://s2h3wlhmyogr"
+path="res://.godot/imported/lunch_in_peace.png-4b2e138de61ebfcee45ea758b2bf4475.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/Jail/jail_1.png"
-dest_files=["res://.godot/imported/jail_1.png-fd9bd333dc1280c614ffe9de439fecb5.ctex"]
+source_file="res://Game/tools/lunch_in_peace.png"
+dest_files=["res://.godot/imported/lunch_in_peace.png-4b2e138de61ebfcee45ea758b2bf4475.ctex"]
 
 [params]
 

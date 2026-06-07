@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7cabuhb2haws"
-path="res://.godot/imported/business_acumen.png-a12edfc5aa8489af790d25d158d175cd.ctex"
+uid="uid://mci7bvjle8fq"
+path="res://.godot/imported/FullCity_shadow.png-cc26c239a6a39003f9c7f3fd695a4e3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Skills/business_acumen.png"
-dest_files=["res://.godot/imported/business_acumen.png-a12edfc5aa8489af790d25d158d175cd.ctex"]
+source_file="res://Game/tools/FullCity_shadow.png"
+dest_files=["res://.godot/imported/FullCity_shadow.png-cc26c239a6a39003f9c7f3fd695a4e3c.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1irlakavx246"
-path="res://.godot/imported/FullCity_3.png-fed19e13a8672dd13047ae05f7eac917.ctex"
+uid="uid://buei1ugqx57m7"
+path="res://.godot/imported/click_worth_3.png-a512d6aa30e2a2e6414b36cd1d1949d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/FullCity/FullCity_3.png"
-dest_files=["res://.godot/imported/FullCity_3.png-fed19e13a8672dd13047ae05f7eac917.ctex"]
+source_file="res://Game/tools/click_worth_3.png"
+dest_files=["res://.godot/imported/click_worth_3.png-a512d6aa30e2a2e6414b36cd1d1949d8.ctex"]
 
 [params]
 

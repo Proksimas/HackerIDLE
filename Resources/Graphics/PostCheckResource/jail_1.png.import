@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mci7bvjle8fq"
-path="res://.godot/imported/FullCity_shadow.png-18de93c2356d8125b974e1566de2767a.ctex"
+uid="uid://cd0xomk8m13wt"
+path="res://.godot/imported/jail_1.png-1fefd47b3b6c7775d2a6cba2db0e0df2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/FullCity/FullCity_shadow.png"
-dest_files=["res://.godot/imported/FullCity_shadow.png-18de93c2356d8125b974e1566de2767a.ctex"]
+source_file="res://Game/tools/jail_1.png"
+dest_files=["res://.godot/imported/jail_1.png-1fefd47b3b6c7775d2a6cba2db0e0df2.ctex"]
 
 [params]
 

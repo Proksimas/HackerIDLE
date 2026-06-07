@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3aq1i2s5cmww"
-path="res://.godot/imported/heron.png-4a1db10345fa6b63cefc3a86234fc476.ctex"
+uid="uid://b7cabuhb2haws"
+path="res://.godot/imported/business_acumen.png-3d8f9feffc0e9e37abad72c80e077f16.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Logos/heron.png"
-dest_files=["res://.godot/imported/heron.png-4a1db10345fa6b63cefc3a86234fc476.ctex"]
+source_file="res://Game/tools/business_acumen.png"
+dest_files=["res://.godot/imported/business_acumen.png-3d8f9feffc0e9e37abad72c80e077f16.ctex"]
 
 [params]
 

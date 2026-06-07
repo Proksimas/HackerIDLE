@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c5hgsiqvugdp8"
-path="res://.godot/imported/NovaSecLogo_miniature.png-c7c7bdde5d420aa3cdbdf033da28b890.ctex"
+uid="uid://b1irlakavx246"
+path="res://.godot/imported/FullCity_3.png-e5a06a0c18537ef9a5ce440cce69019a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Logos/NovaSecLogo_miniature.png"
-dest_files=["res://.godot/imported/NovaSecLogo_miniature.png-c7c7bdde5d420aa3cdbdf033da28b890.ctex"]
+source_file="res://Game/tools/FullCity_3.png"
+dest_files=["res://.godot/imported/FullCity_3.png-e5a06a0c18537ef9a5ce440cce69019a.ctex"]
 
 [params]
 

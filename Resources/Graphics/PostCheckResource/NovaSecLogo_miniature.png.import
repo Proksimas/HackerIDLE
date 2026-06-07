@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cegmhu0xsuli1"
-path="res://.godot/imported/NovaSecLogoBackground_Gauss.png-61657556a53b15289ae56f173a509dd7.ctex"
+uid="uid://dayraobsu31qq"
+path="res://.godot/imported/NovaSecLogo_miniature.png-cd51948da90bd9c581e415e3940b7826.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Logos/NovaSecLogoBackground_Gauss.png"
-dest_files=["res://.godot/imported/NovaSecLogoBackground_Gauss.png-61657556a53b15289ae56f173a509dd7.ctex"]
+source_file="res://Game/tools/NovaSecLogo_miniature.png"
+dest_files=["res://.godot/imported/NovaSecLogo_miniature.png-cd51948da90bd9c581e415e3940b7826.ctex"]
 
 [params]
 

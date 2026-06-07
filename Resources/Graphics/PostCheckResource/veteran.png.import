@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqoofishv15ve"
-path="res://.godot/imported/FullCity_2.png-0cd79b6d2a982ffd303904025cbe615b.ctex"
+uid="uid://c6psogypwvrcv"
+path="res://.godot/imported/veteran.png-175d825b3014d1bbb18189eba5316ee3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Background/FullCity/FullCity_2.png"
-dest_files=["res://.godot/imported/FullCity_2.png-0cd79b6d2a982ffd303904025cbe615b.ctex"]
+source_file="res://Game/tools/veteran.png"
+dest_files=["res://.godot/imported/veteran.png-175d825b3014d1bbb18189eba5316ee3.ctex"]
 
 [params]
 

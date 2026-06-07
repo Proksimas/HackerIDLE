@@ -246,20 +246,32 @@ func _file_size(path: String) -> int:
 
 
 func _write_csv(rows: Array[Dictionary]) -> void:
+	if FileAccess.file_exists(OUTPUT_CSV):
+		var remove_error := DirAccess.remove_absolute(ProjectSettings.globalize_path(OUTPUT_CSV))
+		if remove_error != OK:
+			push_error("Cannot overwrite existing report: %s" % OUTPUT_CSV)
+			return
+
 	var file := FileAccess.open(OUTPUT_CSV, FileAccess.WRITE)
 	if file == null:
 		push_error("Cannot write report: %s" % OUTPUT_CSV)
 		return
 
-	file.store_line("status,asset_path,size_bytes,referenced_by,dynamic_hint_sources")
+	file.store_line(_to_csv_line([
+		"status",
+		"asset_path",
+		"size_mb",
+		"referenced_by",
+		"dynamic_hint_sources",
+	]))
 	for row in rows:
-		file.store_csv_line([
+		file.store_line(_to_csv_line([
 			row["status"],
 			row["asset_path"],
-			str(row["size_bytes"]),
+			_bytes_to_mb_string(row["size_bytes"]),
 			_join_paths(row["referenced_by"]),
 			_join_paths(row["dynamic_hint_sources"]),
-		])
+		]))
 
 	file.close()
 	print("Unused graphics report written to: %s" % OUTPUT_CSV)
@@ -269,7 +281,9 @@ func _build_summary(rows: Array[Dictionary]) -> Dictionary:
 	var summary := {
 		"assets_scanned": rows.size(),
 		"used_direct": 0,
+		"used_direct_size": 0,
 		"maybe_used_dynamic": 0,
+		"maybe_used_dynamic_size": 0,
 		"unused_candidates": 0,
 		"unused_candidate_size": 0,
 		"report_path": OUTPUT_CSV,
@@ -279,8 +293,10 @@ func _build_summary(rows: Array[Dictionary]) -> Dictionary:
 		match row["status"]:
 			"USED_DIRECT":
 				summary["used_direct"] += 1
+				summary["used_direct_size"] += row["size_bytes"]
 			"MAYBE_USED_DYNAMIC":
 				summary["maybe_used_dynamic"] += 1
+				summary["maybe_used_dynamic_size"] += row["size_bytes"]
 			"UNUSED_CANDIDATE":
 				summary["unused_candidates"] += 1
 				summary["unused_candidate_size"] += row["size_bytes"]
@@ -291,10 +307,9 @@ func _build_summary(rows: Array[Dictionary]) -> Dictionary:
 func _print_summary(summary: Dictionary) -> void:
 	print("--- Graphics usage report ---")
 	print("Assets scanned: %d" % summary["assets_scanned"])
-	print("Used directly: %d" % summary["used_direct"])
-	print("Maybe used dynamically: %d" % summary["maybe_used_dynamic"])
-	print("Unused candidates: %d" % summary["unused_candidates"])
-	print("Unused candidate size: %.2f MB" % (float(summary["unused_candidate_size"]) / 1024.0 / 1024.0))
+	print("Used directly: %d (%.2f MB)" % [summary["used_direct"], _bytes_to_mb(summary["used_direct_size"])])
+	print("Maybe used dynamically: %d (%.2f MB)" % [summary["maybe_used_dynamic"], _bytes_to_mb(summary["maybe_used_dynamic_size"])])
+	print("Unused candidates: %d (%.2f MB)" % [summary["unused_candidates"], _bytes_to_mb(summary["unused_candidate_size"])])
 	print("Report: %s" % summary["report_path"])
 
 
@@ -302,4 +317,26 @@ func _join_paths(paths: Array) -> String:
 	var parts: PackedStringArray = []
 	for path in paths:
 		parts.append(str(path))
-	return ";".join(parts)
+	return "|".join(parts)
+
+
+func _bytes_to_mb_string(size_bytes: int) -> String:
+	return "%.3f" % _bytes_to_mb(size_bytes)
+
+
+func _bytes_to_mb(size_bytes: int) -> float:
+	return float(size_bytes) / 1024.0 / 1024.0
+
+
+func _to_csv_line(values: Array) -> String:
+	var escaped_values: PackedStringArray = []
+	for value in values:
+		escaped_values.append(_escape_csv_value(str(value)))
+	return ";".join(escaped_values)
+
+
+func _escape_csv_value(value: String) -> String:
+	var escaped := value.replace("\"", "\"\"")
+	if escaped.find(";") != -1 or escaped.find("\"") != -1 or escaped.find("\n") != -1 or escaped.find("\r") != -1:
+		return "\"%s\"" % escaped
+	return escaped

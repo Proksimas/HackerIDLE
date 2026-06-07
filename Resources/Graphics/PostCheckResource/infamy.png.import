@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bliiybnnxum0"
-path="res://.godot/imported/infamy_character.png-2418e45e2832780c8267ec96537e5d1a.ctex"
+uid="uid://dwuote4yd8sv8"
+path="res://.godot/imported/infamy.png-6504b4cebaf932b74b6990ad4ac72566.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Common_icons/infamy_character.png"
-dest_files=["res://.godot/imported/infamy_character.png-2418e45e2832780c8267ec96537e5d1a.ctex"]
+source_file="res://Game/tools/infamy.png"
+dest_files=["res://.godot/imported/infamy.png-6504b4cebaf932b74b6990ad4ac72566.ctex"]
 
 [params]
 

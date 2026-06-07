@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://r38eixr68j0w"
-path="res://.godot/imported/click_worth.png-e9110c792313479609fbddf66f1b0664.ctex"
+uid="uid://b65s0hwprw1i4"
+path="res://.godot/imported/NovaNet_bg_2.png-f950820e6434caf212e81e4baa5e258d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/Graphics/Skills/click_worth.png"
-dest_files=["res://.godot/imported/click_worth.png-e9110c792313479609fbddf66f1b0664.ctex"]
+source_file="res://Game/tools/NovaNet_bg_2.png"
+dest_files=["res://.godot/imported/NovaNet_bg_2.png-f950820e6434caf212e81e4baa5e258d.ctex"]
 
 [params]
 
