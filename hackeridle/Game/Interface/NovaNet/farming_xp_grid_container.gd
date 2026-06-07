@@ -19,7 +19,7 @@ func refresh():
 	farming_xp_label.text = tr("$FarmingXp")
 	farming_xp_title.text = tr("$FarmingXp")
 	farming_description.text = ("$FarminXpDescription")
-	farming_xp_bots_value.text = str(NovaNetManager.active_tasks["farming_xp"])
+	farming_xp_bots_value.text = Global.number_to_string(NovaNetManager.active_tasks["farming_xp"])
 	farmin_xp_gain_label.text = tr("$Gain") + ": " + str(NovaNetManager.gain_farming_xp()) + " xp/s"
 	
 	var sum = 0

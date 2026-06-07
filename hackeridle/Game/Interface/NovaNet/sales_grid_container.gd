@@ -29,7 +29,7 @@ func refresh():
 	sales_label.text = tr("$Sales")
 	sales_title.text = tr("$Sales")
 	sales_description.text = tr("$SalesDescription")
-	sales_bots_value.text = str(NovaNetManager.active_tasks["sales_task"])
+	sales_bots_value.text = Global.number_to_string(NovaNetManager.active_tasks["sales_task"])
 	var to_invest = NovaNetManager.knowledge_to_invest_perc * Player.knowledge_point
 	knowledge_invest_label.text = Global.number_to_string(to_invest)
 	invest_title.text = tr("$Invest") + ": " 
