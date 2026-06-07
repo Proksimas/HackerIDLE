@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd4ge4utoly7a"]
+[gd_scene load_steps=10 format=3 uid="uid://cd4ge4utoly7a"]
 
 [ext_resource type="Script" path="res://Game/Interface/Specials/cheat_panel.gd" id="1_qnu5x"]
 [ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_ws67d"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/Icons/gold_icon.tscn" id="4_f2g1t"]
 [ext_resource type="PackedScene" uid="uid://b7l0lwdbj0t01" path="res://Game/Interface/Icons/trophy_icon.tscn" id="5_j2dwb"]
 [ext_resource type="PackedScene" uid="uid://bidg1lwunnkr3" path="res://Game/Interface/Icons/exploit_icon.tscn" id="6_ie7d2"]
+[ext_resource type="PackedScene" uid="uid://bf1uu8ngf7m51" path="res://Game/Interface/Icons/cyber_force_icon.tscn" id="7_cyber"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jyah"]
 bg_color = Color(0.301961, 0.301961, 0.301961, 1)
@@ -227,6 +228,36 @@ text = "+ x value"
 script = ExtResource("3_2w4w8")
 value_negative = true
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="CyberForceValue" type="Label" parent="VBoxContainer/HBoxContainer3/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1000"
+
+[node name="CyberForceIcon" parent="VBoxContainer/HBoxContainer3/HBoxContainer4" instance=ExtResource("7_cyber")]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="PlusCyberForceButton" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer4/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+
+[node name="MoinsCyberForceButton" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer4/HBoxContainer" groups=["g_gain_value"]]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+text = "+ x value"
+script = ExtResource("3_2w4w8")
+value_negative = true
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
@@ -245,4 +276,6 @@ autostart = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/GridContainer3/HBoxContainer/MoinsSPButton" to="." method="_on_moins_sp_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer/PlusExploitButton" to="." method="_on_plus_exploit_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer2/HBoxContainer/MoinsExploitButton" to="." method="_on_moins_exploit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer4/HBoxContainer/PlusCyberForceButton" to="." method="_on_plus_cyber_force_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer3/HBoxContainer4/HBoxContainer/MoinsCyberForceButton" to="." method="_on_moins_cyber_force_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

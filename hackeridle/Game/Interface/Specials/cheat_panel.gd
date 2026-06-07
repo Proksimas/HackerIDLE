@@ -7,6 +7,7 @@ extends Panel
 @onready var goldn_value: Label = %GoldnValue
 @onready var sp_value: Label = %SPValue
 @onready var exploit_value: Label = %ExploitValue
+@onready var cyber_force_value: Label = %CyberForceValue
 
 
 # Called when the node enters the scene tree for the first time.
@@ -42,6 +43,7 @@ func _on_draw() -> void:
 	goldn_value.text =  Global.number_to_string(Player.gold)
 	sp_value.text = Global.number_to_string(Player.skill_point)
 	exploit_value.text = Global.number_to_string(Player.exploit_point)
+	cyber_force_value.text = Global.number_to_string(Player.cyber_force)
 	
 	
 	if Player.nb_of_rebirth >= 1:
@@ -98,3 +100,8 @@ func _on_plus_exploit_button_pressed() -> void:
 	Player.exploit_point += cache_gain
 func _on_moins_exploit_button_pressed() -> void:
 	Player.exploit_point -= cache_gain
+
+func _on_plus_cyber_force_button_pressed() -> void:
+	Player.earn_cyber_force(cache_gain)
+func _on_moins_cyber_force_button_pressed() -> void:
+	Player.earn_cyber_force(0 - cache_gain)
