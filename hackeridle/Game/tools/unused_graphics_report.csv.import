@@ -1,0 +1,17 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://ca56x6o8to3ux"
+
+[deps]
+
+files=["res://Game/tools/unused_graphics_report.asset.translation", "res://Game/tools/unused_graphics_report.size.translation", "res://Game/tools/unused_graphics_report.referenced.translation", "res://Game/tools/unused_graphics_report.dynamic.translation"]
+
+source_file="res://Game/tools/unused_graphics_report.csv"
+dest_files=["res://Game/tools/unused_graphics_report.asset.translation", "res://Game/tools/unused_graphics_report.size.translation", "res://Game/tools/unused_graphics_report.referenced.translation", "res://Game/tools/unused_graphics_report.dynamic.translation"]
+
+[params]
+
+compress=true
+delimiter=0
