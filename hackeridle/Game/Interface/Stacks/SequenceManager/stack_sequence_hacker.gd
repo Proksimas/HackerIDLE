@@ -192,7 +192,7 @@ func _refresh_stats() -> void:
 	encryption_value.text = str(enc)
 	flux_value.text = str(flux)
 	bots_availible_label.text = "Bots dispo"
-	bots_availible_value.text = str(Player.bots)
+	bots_availible_value.text = Global.number_to_string(Player.bots)
 	_update_stat_buttons()
 
 	var hp_str := "-"

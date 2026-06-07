@@ -96,7 +96,7 @@ func _update_value_labels() -> void:
 	for data in containers_data:
 		var label: Label = data.get("value_label", null)
 		if label != null:
-			label.text = str(NovaNetManager.active_tasks[data["value_name"]])
+			label.text = Global.number_to_string(NovaNetManager.active_tasks[data["value_name"]])
 
 func _update_value_slider() -> void:
 	for data in containers_data:
