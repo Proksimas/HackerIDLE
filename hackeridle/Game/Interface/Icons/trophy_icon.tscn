@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b7l0lwdbj0t01"]
 
-[ext_resource type="Texture2D" uid="uid://0s7a8fgmw5fl" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="1_4lo0o"]
+[ext_resource type="Texture2D" path="res://Game/Graphics/App_icons/Neos/reward_neo_2.png" id="1_4lo0o"]
 
 [node name="TrophyIcon" type="AspectRatioContainer"]
 anchors_preset = -1

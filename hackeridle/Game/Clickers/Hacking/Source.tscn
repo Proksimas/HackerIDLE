@@ -2,9 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="1_0wmkp"]
 [ext_resource type="Script" path="res://Game/Clickers/Hacking/source.gd" id="1_2ke5q"]
-[ext_resource type="PackedScene" uid="uid://bfre1ywod8qf8" path="res://Game/Interface/brain_icon.tscn" id="2_bayeo"]
+[ext_resource type="PackedScene" path="res://Game/Interface/Icons/brain_icon.tscn" id="2_bayeo"]
 [ext_resource type="PackedScene" uid="uid://cwtklmgj62l4b" path="res://Game/Interface/Specials/bullet_point.tscn" id="2_stmvv"]
-[ext_resource type="PackedScene" uid="uid://b2o66qawxrwjp" path="res://Game/Interface/gold_icon.tscn" id="3_dkssb"]
+[ext_resource type="PackedScene" path="res://Game/Interface/Icons/gold_icon.tscn" id="3_dkssb"]
 [ext_resource type="Texture2D" uid="uid://bdgwj8v5dltce" path="res://Game/Graphics/Common_icons/close_window_32.png" id="5_uj16u"]
 
 [node name="Source" type="Control"]

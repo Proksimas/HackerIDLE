@@ -1,15 +1,3 @@
 [remap]
 
-importer="csv_translation"
-type="Translation"
-uid="uid://jli6dtb3ixlx"
-valid=false
-
-[deps]
-
-source_file="res://Game/tools/unused_graphics_report.csv"
-
-[params]
-
-compress=true
-delimiter=0
+importer="skip"

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Game/Interface/Skills/skill_activation.gd" id="1_t3l6p"]
 [ext_resource type="Texture2D" uid="uid://cbow3lc3huh7r" path="res://icon.svg" id="2_huenf"]
-[ext_resource type="Texture2D" uid="uid://wltwjuv8y5fs" path="res://Game/Graphics/App_icons/Neos/with_halo/box_blind.png" id="2_s1x1d"]
+[ext_resource type="Texture2D" path="res://Game/Graphics/App_icons/Neos/with_halo/box_blind.png" id="2_s1x1d"]
 
 [node name="SkillActivation" type="Control"]
 custom_minimum_size = Vector2(100, 100)

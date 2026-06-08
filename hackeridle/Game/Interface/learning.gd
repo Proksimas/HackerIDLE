@@ -16,7 +16,7 @@ extends Control
 @onready var reward_point_label: Label = %RewardPointLabel
 
 
-#const LEARNING_CLICKER = preload("res://Game/Clickers/learning_clicker.tscn")
+
 const CLICK_PARTICLES = preload("res://Game/Graphics/ParticlesAndShaders/click_particles.tscn")
 const PASSIF_LEARNING_ITEM = preload("res://Game/Clickers/passif_learning_item.tscn")
 const SKILL_ACTIVATION = preload("res://Game/Interface/Skills/skill_activation.tscn")

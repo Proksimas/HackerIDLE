@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dgkjwnfmky14f"]
 
 [ext_resource type="Shader" path="res://Game/Themes/HaloGlow.gdshader" id="1_qf7or"]
-[ext_resource type="Texture2D" uid="uid://c7bi55jus1801" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="2_55p88"]
+[ext_resource type="Texture2D" path="res://Game/Graphics/App_icons/Neos/icon_border_medium.png" id="2_55p88"]
 
 [resource]
 shader = ExtResource("1_qf7or")
