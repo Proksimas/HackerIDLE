@@ -74,6 +74,7 @@ func refresh():
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_invest_in_bots))
 	next_bot_price_title.text = tr("$BotPrice")
 	nb_of_click_title.text = tr("$ClickRemaining")
+	click_to_pay_label.text = tr("click_on_bot_to_pay")
 	
 	if NovaNetManager.time_ia_click > 0:
 		ia_enabled_button.show()

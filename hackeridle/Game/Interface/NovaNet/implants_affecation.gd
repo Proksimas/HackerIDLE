@@ -17,7 +17,9 @@ extends Control
 @onready var exploit_research_description: Label = $ImplantsAffecationVbox/PanelContainer/MarginContainer/VBoxContainer/GridsContainers/HBoxContainer2/ExploitResearchButton/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/ExploitResearchDescription
 @onready var sales_description: Label = %SalesDescription
 
-
+@onready var list_tab: Array = [%FarmingXpGridContainer,
+						%ExploitResearchGrid,
+						%SalesGridContainer]
 
 @onready var farming_xp_grid_container: Control = %FarmingXpGridContainer
 @onready var exploit_research_grid: Control = %ExploitResearchGrid
@@ -121,3 +123,9 @@ func _load_data(content):
 	_update_sliders_max()
 	_update_value_labels()
 	return
+
+
+func _on_container_tab_selected(tab: int) -> void:
+	if self.visible:
+		list_tab[tab].refresh()
+	pass # Replace with function body.
