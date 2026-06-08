@@ -1,413 +1,373 @@
 key;fr;en
-event_1_titre;L'Opéra des Spectres;
-event_1_desc;Au Théâtre Halo, vous assistez à un spectacle d'hologrammes. Soudain, au lieu des artistes, des silhouettes statiques et bleutées apparaissent. C'est un message subliminal des Gardiens du Rails qui dénoncent un complot à peine visible.;
-event_1_choix1;Applaudir les Gardiens et applaudir leur œuvre.;
-event_1_choix2;Partir.;
-event_2_titre;Néon-Ring en Surcharge;
-event_2_desc;Au Square Valmont, le Néon-Ring pulse au-delà des seuils. Un motif caché apparaît dans la lumière, signé Voxel.;
-event_2_choix1;Couper l’alim et sécuriser la place.;
-event_2_choix2;Laisser tourner pour déchiffrer le motif.;
-event_3_titre;Caméra Obscura du Pont;
-event_3_desc;Sur le Pont des Ombres, les graffitis en réalité augmentée révèlent à minuit une carte partielle des souterrains.;
-event_3_choix1;Photographier et publier la carte.;
-event_3_choix2;Effacer les tags pour éviter la panique.;
-event_4_titre;Graine Bleue;
-event_4_desc;Aux Serres Lysiane, des fraises bleu‑électrique dessinent un code bioluminescent sur les étals.;
-event_4_choix1;Récolter et analyser le motif.;
-event_4_choix2;Débrancher les pollinisateurs‑robots.;
-event_5_titre;Écho à 0,8 Hz;
-event_5_desc;"À l’Usine Écho, un battement grave traverse la nef ; les capteurs amateurs saturent à l’unisson.";
-event_5_choix1;Calibrer les capteurs et enregistrer.;
-event_5_choix2;Évacuer et alerter la mairie.;
-event_6_titre;Aurore Piratée;
-event_6_desc;"À la Galerie Nébuleuse, le filtre « Aurore » recolore le ciel partagé en rose ; un message Voxel s’y cache.";
-event_6_choix1;Laisser diffuser et ouvrir débat.;
-event_6_choix2;Désactiver tous les filtres ce soir.;
-event_7_titre;Capsule Brisée;
-event_7_desc;"Au Mirador Δ, un orage ouvre des capsules‑USB scellées ; des secrets personnels et publics fuitent.";
-event_7_choix1;Sauvegarder et chiffrer les données.;
-event_7_choix2;Remettre les capsules aux autorités.;
-event_8_titre;Contre‑Archives;
-event_8_desc;Au Parc des Archives, l’IA active une version alternative d’un événement historique clé.;
-event_8_choix1;Valider l’aperçu et consulter.;
-event_8_choix2;Revenir immédiatement à l’officiel.;
-event_9_titre;Trame Brouillée;
-event_9_desc;À Station Lumen‑Nord, les lucioles OGM clignotent en morse : « Free the Rails » devant des centaines d’usagers.;
-event_9_choix1;Relayer le message sur les écrans.;
-event_9_choix2;Reprogrammer en vert (retour à la normale).;
-event_10_titre;Sas Silencieux;
-event_10_desc;"Dans Subterranea, le sas du niveau -5 se ferme seul ; des voix métalliques résonnent au-delà des portes.";
-event_10_choix1;Forcer le sas et entrer.;
-event_10_choix2;Sceller la zone et remonter.;
-event_1_titre;Concert de Brume;
-event_1_desc;Au Théâtre Halo, la brume holographique révèle un message caché. Le show déraille sous des applaudissements hésitants.;
-event_1_choix1;Encourager la projection pirate.;
-event_1_choix2;Appeler la sécurité du Halo.;
-event_2_titre;Jetons Fantômes;
-event_2_desc;Au Pixel‑Palace, un bug crédite des jetons infinis sur quelques bornes. La rumeur enfle devant la file.;
-event_2_choix1;Signaler le bug au gérant.;
-event_2_choix2;Inviter Voxel à l'examiner.;
-event_3_titre;Le Pont qui Parle;
-event_3_desc;Au Pont des Ombres, des haut‑parleurs diffusent un code sonore à minuit. La foule s’arrête, intriguée.;
-event_3_choix1;Diffuser le code au public.;
-event_3_choix2;Couper la sonorisation du pont.;
-event_4_titre;Fraise Cipher;
-event_4_desc;Aux Serres Lysiane, des fraises bleu‑électrique tracent un motif bioluminescent. On dirait un message.;
-event_4_choix1;Scanner les plants en public.;
-event_4_choix2;Couper l'éclairage expérimental.;
-event_5_titre;Échos Inhabités;
-event_5_desc;À l’Usine Écho, un battement à 0,8 Hz fait vibrer la nef. Les visiteurs paniquent, les capteurs saturent.;
-event_5_choix1;Caler les micros et enregistrer.;
-event_5_choix2;Évacuer l’Usine immédiatement.;
-event_6_titre;Aurore Stroboscopique;
-event_6_desc;À la Galerie Nébuleuse, un filtre AR provoque des crises photosensibles. Le ciel partagé clignote trop vite.;
-event_6_choix1;Suspendre le filtre ce soir.;
-event_6_choix2;Laisser faire, publier un avertissement.;
-event_7_titre;Vote Miroir;
-event_7_desc;À la Tour Opaline, des écrans miroirs affichent deux résultats différents. Le public gronde.;
-event_7_choix1;Exiger un recomptage public.;
-event_7_choix2;Ignorer, noter en privé.;
-event_8_titre;Glace Mémoire;
-event_8_desc;Au Square Valmont, Tito Mansi sert un parfum rare qui déclenche des réminiscences. Les Bancaires s’émeuvent.;
-event_8_choix1;Goûter et archiver la recette.;
-event_8_choix2;Refuser, préserver la confidentialité.;
-event_9_titre;Rumeur Contée;
-event_9_desc;Au Café des Courants, des coordonnées d’épave circulent contre un ristretto. Des plongeurs s’équipent déjà.;
-event_9_choix1;Organiser une expédition.;
-event_9_choix2;Informer les autorités fluviales.;
-event_10_titre;Sortie Déplacée;
-event_10_desc;Au Labyrinthe Quartz, la sortie change sans prévenir. Des visiteurs tournent en rond parmi les colonnes.;
-event_10_choix1;Guidage sonore improvisé.;
-event_10_choix2;Fermer l'accès jusqu'au matin.;
-event_11_titre;Capsules Ouvertes;
-event_11_desc;Au Mirador Δ, un orage ouvre des capsules‑USB scellées. Secrets intimes et publics ruissellent sur l’esplanade.;
-event_11_choix1;Sauver et chiffrer les données.;
-event_11_choix2;Remettre tout à la mairie.;
-event_12_titre;Lucioles en Morse;
-event_12_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « Free the Rails ». Les passants filment, ravis.;
-event_12_choix1;Relayer sur écrans publics.;
-event_12_choix2;Réinitialiser la station.;
-event_13_titre;Bourse Gelée;
-event_13_desc;Au Parc des Archives, le vote budgétaire gèle : 12 000 comptes fantômes détectés. La foule réclame des explications.;
-event_13_choix1;Enquêter en public.;
-event_13_choix2;Négocier en coulisses.;
-event_14_titre;Vinyle Fantôme;
-event_14_desc;À la Crypte d’Argon, un signal analogique s’invite entre deux pistes. Un message chuchoté traverse le casque.;
-event_14_choix1;Amplifier le signal sur vinyle.;
-event_14_choix2;Couper la prise antenne.;
-event_15_titre;Sas Niveau -5;
-event_15_desc;Dans Subterranea, un sas se referme tout seul. Des voix métalliques résonnent derrière la porte.;
-event_15_choix1;Forcer l'ouverture du sas.;
-event_15_choix2;Sceller et poser des capteurs.;
-event_16_titre;#ChuteSucrée;
-event_16_desc;Un drone Azur Néo chavire près de Valmont, renversant 23 glaces. Le hashtag explose en tête de tendance.;
-event_16_choix1;Publier le crash‑log.;
-event_16_choix2;Étouffer l'incident.;
-event_17_titre;Pari Gelé;
-event_17_desc;Les Bancaires stoppent les mises : soupçon de fraude AR sur la finale e‑sport. La place se fige.;
-event_17_choix1;Auditer les paris en live.;
-event_17_choix2;Rembourser et fermer la soirée.;
-event_18_titre;Rails contre Azur;
-event_18_desc;Les Gardiens bloquent pacifiquement un dépôt Azur. La ville retient son souffle.;
-event_18_choix1;Rejoindre le blocage pacifique.;
-event_18_choix2;Servir d'intermédiaire discret.;
-event_19_titre;Battement Sous Valmont;
-event_19_desc;Un grondement sourd traverse le Square. Les nénuphars vibrent à l’unisson de la mare.;
-event_19_choix1;Descendre avec capteurs.;
-event_19_choix2;Tracer la source depuis la surface.;
-event_20_titre;Fin de Transmission;
-event_20_desc;Un signal faible revient de la Tour Opaline. Quelques mots : « encore là ». La foule se tait.;
-event_20_choix1;Retransmettre sans filtrer.;
-event_20_choix2;Filtrer et analyser d'abord.;
-event_21_titre;L'Opéra des Spectres;
-event_21_desc;Au Théâtre Halo, vous assistez à un spectacle d'hologrammes. Soudain, au lieu des artistes, des silhouettes statiques et bleutées apparaissent. C'est un message subliminal des Gardiens du Rails qui dénoncent un complot à peine visible.;
-event_21_choix1;Applaudir les Gardiens et applaudir leur œuvre.;
-event_21_choix2;Partir.;
-event_22_titre;Néon-Ring en Surcharge;
-event_22_desc;Au Square Valmont, le Néon-Ring pulse au-delà des seuils. Un motif caché apparaît dans la lumière, signé Voxel.;
-event_22_choix1;Couper l’alim et sécuriser la place.;
-event_22_choix2;Laisser tourner pour déchiffrer le motif.;
-event_23_titre;Caméra Obscura du Pont;
-event_23_desc;Sur le Pont des Ombres, les graffitis AR révèlent à minuit une carte partielle des souterrains.;
-event_23_choix1;Photographier et publier la carte.;
-event_23_choix2;Effacer les tags pour éviter la panique.;
-event_24_titre;Graine Bleue;
-event_24_desc;Aux Serres Lysiane, des fraises bleu‑électrique dessinent un code bioluminescent sur les étals.;
-event_24_choix1;Récolter et analyser le motif.;
-event_24_choix2;Débrancher les pollinisateurs‑robots.;
-event_25_titre;Écho à 0,8 Hz;
-event_25_desc;"À l’Usine Écho, un battement grave traverse la nef ; les capteurs amateurs saturent à l’unisson.";
-event_25_choix1;Calibrer les capteurs et enregistrer.;
-event_25_choix2;Évacuer et alerter la mairie.;
-event_26_titre;Aurore Piratée;
-event_26_desc;"À la Galerie Nébuleuse, le filtre « Aurore » recolore le ciel partagé en rose ; un message Voxel s’y cache.";
-event_26_choix1;Laisser diffuser et ouvrir débat.;
-event_26_choix2;Désactiver tous les filtres ce soir.;
-event_27_titre;Capsule Brisée;
-event_27_desc;"Au Mirador Δ, un orage ouvre des capsules‑USB scellées ; des secrets personnels et publics fuitent.";
-event_27_choix1;Sauvegarder et chiffrer les données.;
-event_27_choix2;Remettre les capsules aux autorités.;
-event_28_titre;Contre‑Archives;
-event_28_desc;Au Parc des Archives, l’IA active une version alternative d’un événement historique clé.;
-event_28_choix1;Valider l’aperçu et consulter.;
-event_28_choix2;Revenir immédiatement à l’officiel.;
-event_29_titre;Trame Brouillée;
-event_29_desc;À Station Lumen‑Nord, les lucioles OGM clignotent en morse : « Free the Rails » devant des centaines d’usagers.;
-event_29_choix1;Relayer le message sur les écrans.;
-event_29_choix2;Reprogrammer en vert (retour à la normale).;
-event_30_titre;Sas Silencieux;
-event_30_desc;"Dans Subterranea, le sas du niveau -5 se ferme seul ; des voix métalliques résonnent au-delà des portes.";
-event_30_choix1;Forcer le sas et entrer.;
-event_30_choix2;Sceller la zone et remonter.;
-event_31_titre;Concert de Brume;
-event_31_desc;Au Théâtre Halo, la brume holographique révèle un message caché. Le show déraille sous des applaudissements hésitants.;
-event_31_choix1;Encourager la projection pirate.;
-event_31_choix2;Appeler la sécurité du Halo.;
-event_32_titre;Jetons Fantômes;
-event_32_desc;Au Pixel‑Palace, un bug crédite des jetons infinis sur quelques bornes. La rumeur enfle devant la file.;
-event_32_choix1;Signaler le bug au gérant.;
-event_32_choix2;Inviter Voxel à l'examiner.;
-event_33_titre;Le Pont qui Parle;
-event_33_desc;Au Pont des Ombres, des haut‑parleurs diffusent un code sonore à minuit. La foule s’arrête, intriguée.;
-event_33_choix1;Diffuser le code au public.;
-event_33_choix2;Couper la sonorisation du pont.;
-event_34_titre;Fraise Cipher;
-event_34_desc;Aux Serres Lysiane, des fraises bleu‑électrique tracent un motif bioluminescent. On dirait un message.;
-event_34_choix1;Scanner les plants en public.;
-event_34_choix2;Couper l'éclairage expérimental.;
-event_35_titre;Échos Inhabités;
-event_35_desc;À l’Usine Écho, un battement à 0,8 Hz fait vibrer la nef. Les visiteurs paniquent, les capteurs saturent.;
-event_35_choix1;Caler les micros et enregistrer.;
-event_35_choix2;Évacuer l’Usine immédiatement.;
-event_36_titre;Aurore Stroboscopique;
-event_36_desc;À la Galerie Nébuleuse, un filtre AR provoque des crises photosensibles. Le ciel partagé clignote trop vite.;
-event_36_choix1;Suspendre le filtre ce soir.;
-event_36_choix2;Laisser faire, publier un avertissement.;
-event_37_titre;Vote Miroir;
-event_37_desc;À la Tour Opaline, des écrans miroirs affichent deux résultats différents. Le public gronde.;
-event_37_choix1;Exiger un recomptage public.;
-event_37_choix2;Ignorer, noter en privé.;
-event_38_titre;Glace Mémoire;
-event_38_desc;Au Square Valmont, Tito Mansi sert un parfum rare qui déclenche des réminiscences. Les Bancaires s’émeuvent.;
-event_38_choix1;Goûter et archiver la recette.;
-event_38_choix2;Refuser, préserver la confidentialité.;
-event_39_titre;Rumeur Contée;
-event_39_desc;Au Café des Courants, des coordonnées d’épave circulent contre un ristretto. Des plongeurs s’équipent déjà.;
-event_39_choix1;Organiser une expédition.;
-event_39_choix2;Informer les autorités fluviales.;
-event_40_titre;Sortie Déplacée;
-event_40_desc;Au Labyrinthe Quartz, la sortie change sans prévenir. Des visiteurs tournent en rond parmi les colonnes.;
-event_40_choix1;Guidage sonore improvisé.;
-event_40_choix2;Fermer l'accès jusqu'au matin.;
-event_41_titre;Capsules Ouvertes;
-event_41_desc;Au Mirador Δ, un orage ouvre des capsules‑USB scellées. Secrets intimes et publics ruissellent sur l’esplanade.;
-event_41_choix1;Sauver et chiffrer les données.;
-event_41_choix2;Remettre tout à la mairie.;
-event_42_titre;Lucioles en Morse;
-event_42_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « Free the Rails ». Les passants filment, ravis.;
-event_42_choix1;Relayer sur écrans publics.;
-event_42_choix2;Réinitialiser la station.;
-event_43_titre;Bourse Gelée;
-event_43_desc;Au Parc des Archives, le vote budgétaire gèle : 12 000 comptes fantômes détectés. La foule réclame des explications.;
-event_43_choix1;Enquêter en public.;
-event_43_choix2;Négocier en coulisses.;
-event_44_titre;Vinyle Fantôme;
-event_44_desc;À la Crypte d’Argon, un signal analogique s’invite entre deux pistes. Un message chuchoté traverse le casque.;
-event_44_choix1;Amplifier le signal sur vinyle.;
-event_44_choix2;Couper la prise antenne.;
-event_45_titre;Sas Niveau -5;
-event_45_desc;Dans Subterranea, un sas se referme tout seul. Des voix métalliques résonnent derrière la porte.;
-event_45_choix1;Forcer l'ouverture du sas.;
-event_45_choix2;Sceller et poser des capteurs.;
-event_46_titre;#ChuteSucrée;
-event_46_desc;Un drone Azur Néo chavire près de Valmont, renversant 23 glaces. Le hashtag explose en tête de tendance.;
-event_46_choix1;Publier le crash‑log.;
-event_46_choix2;Étouffer l'incident.;
-event_47_titre;Pari Gelé;
-event_47_desc;Les Bancaires stoppent les mises : soupçon de fraude AR sur la finale e‑sport. La place se fige.;
-event_47_choix1;Auditer les paris en live.;
-event_47_choix2;Rembourser et fermer la soirée.;
-event_48_titre;Rails contre Azur;
-event_48_desc;Les Gardiens bloquent pacifiquement un dépôt Azur. La ville retient son souffle.;
-event_48_choix1;Rejoindre le blocage pacifique.;
-event_48_choix2;Servir d'intermédiaire discret.;
-event_49_titre;Battement Sous Valmont;
-event_49_desc;Un grondement sourd traverse le Square. Les nénuphars vibrent à l’unisson de la mare.;
-event_49_choix1;Descendre avec capteurs.;
-event_49_choix2;Tracer la source depuis la surface.;
-event_50_titre;Fin de Transmission;
-event_50_desc;Un signal faible revient de la Tour Opaline. Quelques mots : « encore là ». La foule se tait.;
-event_50_choix1;Retransmettre sans filtrer.;
-event_50_choix2;Filtrer et analyser d'abord.;
-event_51_titre;La Glace Qui Chante;
-event_51_desc;Au Square Valmont, une boule « Opéra Pistache » se met à chanter. Le juke‑box aromatique fait des trilles de fromage.;
-event_51_choix1;Chanter faux avec la glace.;
-event_51_choix2;Mettre la boule en sourdine.;
-event_52_titre;Drone Barista Poète;
-event_52_desc;Un drone Azur Néo livre des cafés en déclamant des haïkus. Le lait dessine « Free the Rails ». Accident ou art ?;
-event_52_choix1;Applaudir le haïku latté.;
-event_52_choix2;Demander juste le café.;
-event_53_titre;Selfie Oreilles de Chat;
-event_53_desc;Au Pont des Ombres, un filtre AR colle des oreilles de chat à tout le monde, même aux statues commémoratives.;
-event_53_choix1;Assumer les oreilles, miaou.;
-event_53_choix2;Désactiver le filtre chat.;
-event_54_titre;Lucioles en Grève;
-event_54_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « pause s’il vous plaît ». Les retards deviennent poésie lumineuse.;
-event_54_choix1;Accorder une pause luciole.;
-event_54_choix2;Appeler un “luciolier” pro.;
-event_55_titre;Écho Infini;
-event_55_desc;À l’Usine Écho, un applaudissement tourne en boucle depuis 12 minutes. L’écho vous applaudit aussi.;
-event_55_choix1;Applaudir pour de vrai.;
-event_55_choix2;Couper la réverb’ 12 s.;
-event_56_titre;Basilic Beatbox;
-event_56_desc;Aux Serres Lysiane, un basilic beatbox lance un freestyle sur la photosynthèse. Les tomates font la choré.;
-event_56_choix1;Freestyler avec le basilic.;
-event_56_choix2;Mettre le pot en mode muet.;
-event_57_titre;Beauté 5 Pixels;
-event_57_desc;À la Galerie Nébuleuse, un filtre réduit tout le monde à cinq pixels très glam. Selfies méconnaissables, ego ravis.;
-event_57_choix1;Garder le glow 5 px.;
-event_57_choix2;Revenir en HD (snif).;
-event_58_titre;Capsules Cœur Débordé;
-event_58_desc;Au Mirador Δ, l’orage ouvre des capsules‑USB : des vieux crush avoués pleuvent sur l’esplanade.;
-event_58_choix1;Ranger ces secrets au coffre.;
-event_58_choix2;Lire… juste un petit.;
-event_59_titre;Aux Câbles, Citoyens !;
-event_59_desc;À la Crypte d’Argon, quelqu’un sort un câble AUX doré. L’analogique frémit, le Bluetooth jalouse.;
-event_59_choix1;Lancer la cassette culte.;
-event_59_choix2;Confisquer le câble blasphème.;
-event_60_titre;Romance Aléatoire;
-event_60_desc;Au Labyrinthe Quartz, l’officiant du mariage est une voix randomisée. « Acceptez‑vous… euh… *Buffering* ».;
-event_60_choix1;Dire oui au hasard.;
-event_60_choix2;Attendre le patch romance.;
-event_61_titre;Kazoo d’Alerte;
-event_61_desc;Au Bunker Sigma, l’alarme joue du kazoo. Panique… puis fou rire général. L’eau de la simulation monte quand même.;
-event_61_choix1;Rester pour le show.;
-event_61_choix2;Activer le mode sérieux.;
-event_62_titre;Sitcom des Archives;
-event_62_desc;Au Parc des Archives, l’IA colle un rire en boîte à l’Histoire. Chaque révolution reçoit un « tadaaa ».;
-event_62_choix1;Laisser le rire en fond.;
-event_62_choix2;Couper la piste comique.;
-event_63_titre;Sticker « Nettoyé »;
-event_63_desc;Le Collectif Voxel vend des stickers « Données Nettoyées ». Très brillants. Effet sur la réalité : incertain.;
-event_63_choix1;Acheter dix stickers.;
-event_63_choix2;Exiger un vrai audit.;
-event_64_titre;Zéro Bluetooth Fest;
-event_64_desc;Les Gardiens du Rails lancent un festival “tout filaire”. Des rallonges courent partout. Le rétro est à la mode.;
-event_64_choix1;Enrouler un câble géant.;
-event_64_choix2;Pretendre être une antenne.;
-event_65_titre;Sieste Aérienne;
-event_65_desc;Azur Néo active un mode « sieste ». Des drones murmurent des berceuses au dessus du Square Valmont. Dodo public ?;
-event_65_choix1;Autoriser la sieste urbaine.;
-event_65_choix2;Réveiller tout le monde.;
-event_66_titre;Lorem Ipsum Géant;
-event_66_desc;À la Tour Opaline, “Nuit sans pubs” affiche un immense LOREM IPSUM. Les touristes font des selfies typographiques.;
-event_66_choix1;Applaudir l’art conceptuel.;
-event_66_choix2;Corriger le lorem vite.;
-event_67_titre;Potins Contre Espresso;
-event_67_desc;Au Café des Courants, pénurie de rumeurs. “Potin maison contre ristretto ?” demande le barista holographique.;
-event_67_choix1;Inventer un potin gentil.;
-event_67_choix2;Payer en vrai argent (beurk).;
-event_68_titre;Mode Bébé Arcade;
-event_68_desc;Au Pixel‑Palace, toutes les bornes passent en « Baby Mode ». Tout le monde gagne. Les trophées sont des tétines.;
-event_68_choix1;Prendre la coupe baby.;
-event_68_choix2;Remettre la difficulté.;
-event_69_titre;Karaoké du Pont;
-event_69_desc;Au Pont des Ombres, les graffitis AR défilent en paroles de karaoké. La foule fausse à l’unisson.;
-event_69_choix1;Chanter très fort.;
-event_69_choix2;Activer le mode silence.;
-event_70_titre;Guide Robot Blagueur;
-event_70_desc;Dans Subterranea, un robot guide ne connaît que des blagues de papa. “Ha ha… sas‑fé drÔle.”;
-event_70_choix1;Rire poliment, toujours.;
-event_70_choix2;Mettre à jour l’humour.;
-event_71_titre;Dernier Écho à Valmont;
-event_71_desc;Au Square Valmont, le battement 0,8 Hz fait vibrer la mare. Une passerelle cède, un enfant reste coincé au bord.;
-event_71_choix1;Secourir l’enfant immédiatement.;
-event_71_choix2;Déclencher l’alerte générale.;
-event_72_titre;Vote Brisé;
-event_72_desc;À la Tour Opaline, deux résultats opposés s’affichent au même référendum. La foule gronde, les écrans tremblent.;
-event_72_choix1;Publier les journaux d’audit.;
-event_72_choix2;Geler le vote et fermer l’accès.;
-event_73_titre;Chant des Machines;
-event_73_desc;"À l’Usine Écho, un mode résonant menace la structure. Les arches vibrent ; des poussières tombent du toit.";
-event_73_choix1;Couper l’alimentation d’urgence.;
-event_73_choix2;Enregistrer pour comprendre.;
-event_74_titre;Sous le Verre;
-event_74_desc;Sur le Pont des Ombres, des fissures s’étendent. La foule filme, le tablier craque.;
-event_74_choix1;Évacuer en criant « reculez ! ».;
-event_74_choix2;Tenter de soutenir la travée.;
-event_75_titre;Capsules des Adieux;
-event_75_desc;Au Mirador Δ, l’orage ouvre des capsules‑USB : des messages d’au revoir déferlent en public.;
-event_75_choix1;Diffuser tout, coûte que coûte.;
-event_75_choix2;Restituer aux familles d’abord.;
-event_76_titre;Nénuphars Noirs;
-event_76_desc;"La mare de Valmont noircit d’un coup. Les nénuphars s’éteignent ; odeur métallique dans l’air.";
-event_76_choix1;Prélever et analyser sur place.;
-event_76_choix2;Boucler la zone sans délai.;
-event_77_titre;Silence de SOLIS;
-event_77_desc;SOLIS vacille puis se tait. Feux, soins, et transports s’ouvrent au chaos minuté.;
-event_77_choix1;Rebooter des modules critiques.;
-event_77_choix2;Isoler le noyau défaillant.;
-event_78_titre;Rumeur de Feu;
-event_78_desc;Au Café des Courants, une coordonnée mène à un dépôt saboté ce soir. Le temps presse.;
-event_78_choix1;Alerter publiquement en direct.;
-event_78_choix2;Monter une embuscade discrète.;
-event_79_titre;Froid ou Mémoire;
-event_79_desc;À la Crypte d’Argon, la cryo lâche. Public et disques maîtres sont en danger.;
-event_79_choix1;Évacuer les personnes d’abord.;
-event_79_choix2;Sauver les archives analogiques.;
-event_80_titre;Lucioles Éteintes;
-event_80_desc;À Lumen‑Nord, blackout total. La foule cherche les sorties dans l’obscurité violacée.;
-event_80_choix1;Ouvrir toutes les issues d’urgence.;
-event_80_choix2;Allumer un balisage minimal.;
-event_81_titre;Prière de Quartz;
-event_81_desc;Au Labyrinthe Quartz, un mariage se perd entre colonnes mouvantes. Des voix paniquées résonnent.;
-event_81_choix1;Forcer l’arrêt des vérins.;
-event_81_choix2;Chercher à la voix, lentement.;
-event_82_titre;Serment des Gardiens;
-event_82_desc;Les Gardiens du Rails appellent à un arrêt total des lignes. La ville retient son souffle.;
-event_82_choix1;Assurer le piquet avec eux.;
-event_82_choix2;Négocier un service minimum.;
-event_83_titre;Pulsar Saisi;
-event_83_desc;Le Pulsar est perquisitionné. Des disques d’archives risquent l’effacement immédiat.;
-event_83_choix1;Publier une copie chiffrée.;
-event_83_choix2;Exfiltrer les disques en secret.;
-event_84_titre;Descente d’Orage;
-event_84_desc;Un Azur Néo en perdition approche Valmont sous la grêle. Les toits sonnent la détresse.;
-event_84_choix1;Guider l’atterrissage à vue.;
-event_84_choix2;Fermer l’espace aérien.;
-event_85_titre;Murmure du -5;
-event_85_desc;Dans Subterranea, une voix implore derrière le sas niveau -5. Les capteurs indiquent pression instable.;
-event_85_choix1;Ouvrir, malgré le risque.;
-event_85_choix2;Sceller et chercher un détour.;
-event_86_titre;Opaline Vacille;
-event_86_desc;Une alerte structurelle grimpe à la Tour Opaline. Les ascenseurs se figent, des cris montent.;
-event_86_choix1;Lancer l’évacuation totale.;
-event_86_choix2;Vérifier d’abord la validité.;
-event_87_titre;Marché des Ombres;
-event_87_desc;À la Galerie Nébuleuse, une vente noire d’identités se prépare. Des visages défilent sur les miroirs.;
-event_87_choix1;Couper le courant de la ruelle.;
-event_87_choix2;Surenchérir pour les sauver.;
-event_88_titre;Rhizome Bleu;
-event_88_desc;Aux Serres Lysiane, un parasite bleuit les racines. Les dômes pourraient contaminer la ville.;
-event_88_choix1;Mettre le feu aux serres.;
-event_88_choix2;Tenter une quarantaine stricte.;
-event_89_titre;Eau Qui Monte;
-event_89_desc;Au Bunker Sigma, la crue test devient réelle. Le niveau grimpe au‑delà du scénario prévu.;
-event_89_choix1;Ouvrir les vannes manuelles.;
-event_89_choix2;Déclencher l’évacuation totale.;
-event_90_titre;Dernier Cornet;
-event_90_desc;Tito Mansi manque à l’appel. Des traces mènent vers Valmont, puis s’arrêtent net.;
-event_90_choix1;Lancer des recherches immédiates.;
-event_90_choix2;Coordonner d’abord les secours.;
-event_91_titre;La Vague de Lagon Quantic;
-event_91_desc;Au kiosque de Tito Mansi au Square Valmont, une nouvelle saveur, "Lagon Quantic", est un succès fulgurant. Mais un étrange bourdonnement se dégage de la glace, synchronisé avec le Néon-Ring...;
-event_91_choix1;Manger la glace pour ressentir ses effets;
-event_91_choix2;Prévenir Tito, il a peut-être un problème avec sa recette;
-event_92_titre;Le graffiti du Pont des Ombres;
-event_92_desc;Sur le Pont des Ombres, un graffiti signé des Gardiens du Rails refuse de s'effacer, bloquant le trafic des drones Azur. La compagnie Azur menace d'utiliser un purificateur d'ondes puissant pour le supprimer, quitte à brouiller tout le réseau.;
-event_92_choix1;Aider les Gardiens à stabiliser leur graffiti pour que le drone ne puisse pas le supprimer;
-event_92_choix2;Pirater le graffiti pour le rendre inoffensif et rétablir le trafic;
-event_93_titre;Jetons Fantômes;
-event_93_desc;Au Pixel‑Palace, vous avez trouvé un bug qui crédite des jetons infinis sur quelques bornes. ;
-event_93_choix1;Signaler le bug au gérant.;
-event_93_choix2;Profitez du bug avant qu’il ne soit patché.;
+event_1_titre;Concert de Brume;Mist Concert
+event_1_desc;Au Théâtre Halo, la brume holographique révèle un message caché. Le show déraille sous des applaudissements hésitants.;At Theatre Halo, the holographic mist reveals a hidden message. The show veers off course under hesitant applause.
+event_1_choix1;Encourager la projection pirate.;Encourage the pirate projection.
+event_1_choix2;Appeler la sécurité du Halo.;Call Halo security.
+event_2_titre;Jetons Fantômes;Phantom Tokens
+event_2_desc;Au Pixel‑Palace, un bug crédite des jetons infinis sur quelques bornes. La rumeur enfle devant la file.;At the Pixel-Palace, a bug credits infinite tokens on a few cabinets. The rumor swells in front of the line.
+event_2_choix1;Signaler le bug au gérant.;Report the bug to the manager.
+event_2_choix2;Inviter Voxel à l'examiner.;Invite Voxel to examine it.
+event_3_titre;Le Pont qui Parle;The Talking Bridge
+event_3_desc;Au Pont des Ombres, des haut‑parleurs diffusent un code sonore à minuit. La foule s’arrête, intriguée.;At the Pont des Ombres, loudspeakers broadcast an audio code at midnight. The crowd stops, intrigued.
+event_3_choix1;Diffuser le code au public.;Broadcast the code to the public.
+event_3_choix2;Couper la sonorisation du pont.;Cut the bridge sound system.
+event_4_titre;Fraise Cipher;Strawberry Cipher
+event_4_desc;Aux Serres Lysiane, des fraises bleu‑électrique tracent un motif bioluminescent. On dirait un message.;At the Lysiane Greenhouses, electric-blue strawberries trace a bioluminescent pattern. It looks like a message.
+event_4_choix1;Scanner les plants en public.;Scan the plants in public.
+event_4_choix2;Couper l'éclairage expérimental.;Cut the experimental lighting.
+event_5_titre;Échos Inhabités;Uninhabited Echoes
+event_5_desc;À l’Usine Écho, un battement à 0,8 Hz fait vibrer la nef. Les visiteurs paniquent, les capteurs saturent.;At Usine Echo, a 0.8 Hz beat makes the nave vibrate. Visitors panic, sensors saturate.
+event_5_choix1;Caler les micros et enregistrer.;Set up the microphones and record.
+event_5_choix2;Évacuer l’Usine immédiatement.;Evacuate Usine Echo immediately.
+event_6_titre;Aurore Stroboscopique;Strobing Aurora
+event_6_desc;À la Galerie Nébuleuse, un filtre AR provoque des crises photosensibles. Le ciel partagé clignote trop vite.;At Galerie Nebuleuse, an AR filter triggers photosensitive episodes. The shared sky flashes too fast.
+event_6_choix1;Suspendre le filtre ce soir.;Suspend the filter tonight.
+event_6_choix2;Laisser faire, publier un avertissement.;Let it run, publish a warning.
+event_7_titre;Vote Miroir;Mirror Vote
+event_7_desc;À la Tour Opaline, des écrans miroirs affichent deux résultats différents. Le public gronde.;At Tour Opaline, mirror screens show two different results. The public growls.
+event_7_choix1;Exiger un recomptage public.;Demand a public recount.
+event_7_choix2;Ignorer, noter en privé.;Ignore it, note it privately.
+event_8_titre;Glace Mémoire;Memory Ice Cream
+event_8_desc;Au Square Valmont, Tito Mansi sert un parfum rare qui déclenche des réminiscences. Les Bancaires s’émeuvent.;At Square Valmont, Tito Mansi serves a rare flavor that triggers reminiscences. The Bankers grow emotional.
+event_8_choix1;Goûter et archiver la recette.;Taste it and archive the recipe.
+event_8_choix2;Refuser, préserver la confidentialité.;Refuse, preserve confidentiality.
+event_9_titre;Rumeur Contée;Told Rumor
+event_9_desc;Au Café des Courants, des coordonnées d’épave circulent contre un ristretto. Des plongeurs s’équipent déjà.;At Cafe des Courants, wreck coordinates circulate for a ristretto. Divers are already gearing up.
+event_9_choix1;Organiser une expédition.;Organize an expedition.
+event_9_choix2;Informer les autorités fluviales.;Inform the river authorities.
+event_10_titre;Sortie Déplacée;Shifted Exit
+event_10_desc;Au Labyrinthe Quartz, la sortie change sans prévenir. Des visiteurs tournent en rond parmi les colonnes.;At the Quartz Labyrinth, the exit changes without warning. Visitors wander in circles among the columns.
+event_10_choix1;Guidage sonore improvisé.;Improvise audio guidance.
+event_10_choix2;Fermer l'accès jusqu'au matin.;Close access until morning.
+event_11_titre;Capsules Ouvertes;Opened Capsules
+event_11_desc;Au Mirador Δ, un orage ouvre des capsules‑USB scellées. Secrets intimes et publics ruissellent sur l’esplanade.;At Mirador Delta, a storm opens sealed USB capsules. Private and public secrets stream across the esplanade.
+event_11_choix1;Sauver et chiffrer les données.;Save and encrypt the data.
+event_11_choix2;Remettre tout à la mairie.;Hand everything over to city hall.
+event_12_titre;Lucioles en Morse;Fireflies in Morse
+event_12_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « Free the Rails ». Les passants filment, ravis.;"At Station Lumen-Nord, GMO fireflies blink ""Free the Rails"". Passersby film, delighted."
+event_12_choix1;Relayer sur écrans publics.;Relay it on public screens.
+event_12_choix2;Réinitialiser la station.;Reset the station.
+event_13_titre;Bourse Gelée;Frozen Budget
+event_13_desc;Au Parc des Archives, le vote budgétaire gèle : 12 000 comptes fantômes détectés. La foule réclame des explications.;At Parc des Archives, the budget vote freezes: 12,000 ghost accounts detected. The crowd demands explanations.
+event_13_choix1;Enquêter en public.;Investigate in public.
+event_13_choix2;Négocier en coulisses.;Negotiate behind the scenes.
+event_14_titre;Vinyle Fantôme;Phantom Vinyl
+event_14_desc;À la Crypte d’Argon, un signal analogique s’invite entre deux pistes. Un message chuchoté traverse le casque.;At the Argon Crypt, an analog signal slips between two tracks. A whispered message crosses the headphones.
+event_14_choix1;Amplifier le signal sur vinyle.;Amplify the signal on vinyl.
+event_14_choix2;Couper la prise antenne.;Cut the antenna input.
+event_15_titre;Sas Niveau -5;Level -5 Airlock
+event_15_desc;Dans Subterranea, un sas se referme tout seul. Des voix métalliques résonnent derrière la porte.;In Subterranea, an airlock closes by itself. Metallic voices echo behind the door.
+event_15_choix1;Forcer l'ouverture du sas.;Force the airlock open.
+event_15_choix2;Sceller et poser des capteurs.;Seal it and place sensors.
+event_16_titre;#ChuteSucrée;#SugarCrash
+event_16_desc;Un drone Azur Néo chavire près de Valmont, renversant 23 glaces. Le hashtag explose en tête de tendance.;An Azur Neo drone capsizes near Valmont, spilling 23 ice creams. The hashtag explodes to the top of the trends.
+event_16_choix1;Publier le crash‑log.;Publish the crash log.
+event_16_choix2;Étouffer l'incident.;Smother the incident.
+event_17_titre;Pari Gelé;Frozen Bet
+event_17_desc;Les Bancaires stoppent les mises : soupçon de fraude AR sur la finale e‑sport. La place se fige.;The Bankers stop all bets: suspected AR fraud on the e-sports final. The square freezes.
+event_17_choix1;Auditer les paris en live.;Audit the bets live.
+event_17_choix2;Rembourser et fermer la soirée.;Refund everyone and shut down the night.
+event_18_titre;Rails contre Azur;Rails Against Azur
+event_18_desc;Les Gardiens bloquent pacifiquement un dépôt Azur. La ville retient son souffle.;The Guardians peacefully block an Azur depot. The city holds its breath.
+event_18_choix1;Rejoindre le blocage pacifique.;Join the peaceful blockade.
+event_18_choix2;Servir d'intermédiaire discret.;Act as a discreet intermediary.
+event_19_titre;Battement Sous Valmont;Beat Beneath Valmont
+event_19_desc;Un grondement sourd traverse le Square. Les nénuphars vibrent à l’unisson de la mare.;A dull rumble crosses the Square. The water lilies vibrate in unison with the pond.
+event_19_choix1;Descendre avec capteurs.;Go down with sensors.
+event_19_choix2;Tracer la source depuis la surface.;Trace the source from the surface.
+event_20_titre;Fin de Transmission;End of Transmission
+event_20_desc;Un signal faible revient de la Tour Opaline. Quelques mots : « encore là ». La foule se tait.;"A weak signal returns from Tour Opaline. A few words: ""still here"". The crowd falls silent."
+event_20_choix1;Retransmettre sans filtrer.;Retransmit without filtering.
+event_20_choix2;Filtrer et analyser d'abord.;Filter and analyze first.
+event_21_titre;L'Opéra des Spectres;The Specters' Opera
+event_21_desc;Au Théâtre Halo, vous assistez à un spectacle d'hologrammes. Soudain, au lieu des artistes, des silhouettes statiques et bleutées apparaissent. C'est un message subliminal des Gardiens du Rails qui dénoncent un complot à peine visible.;At Theatre Halo, you attend a hologram show. Suddenly, instead of the artists, static bluish silhouettes appear. It is a subliminal message from the Guardians of the Rails denouncing a barely visible conspiracy.
+event_21_choix1;Applaudir les Gardiens et applaudir leur œuvre.;Applaud the Guardians and their work.
+event_21_choix2;Partir.;Leave.
+event_22_titre;Néon-Ring en Surcharge;Neon Ring Overload
+event_22_desc;Au Square Valmont, le Néon-Ring pulse au-delà des seuils. Un motif caché apparaît dans la lumière, signé Voxel.;At Square Valmont, the Neon Ring pulses beyond its thresholds. A hidden pattern appears in the light, signed by Voxel.
+event_22_choix1;Couper l’alim et sécuriser la place.;Cut the power and secure the square.
+event_22_choix2;Laisser tourner pour déchiffrer le motif.;Let it run to decipher the pattern.
+event_23_titre;Caméra Obscura du Pont;Bridge Camera Obscura
+event_23_desc;Sur le Pont des Ombres, les graffitis AR révèlent à minuit une carte partielle des souterrains.;On the Pont des Ombres, AR graffiti reveals a partial map of the underground at midnight.
+event_23_choix1;Photographier et publier la carte.;Photograph and publish the map.
+event_23_choix2;Effacer les tags pour éviter la panique.;Erase the tags to avoid panic.
+event_24_titre;Graine Bleue;Blue Seed
+event_24_desc;Aux Serres Lysiane, des fraises bleu‑électrique dessinent un code bioluminescent sur les étals.;At the Lysiane Greenhouses, electric-blue strawberries draw a bioluminescent code across the stalls.
+event_24_choix1;Récolter et analyser le motif.;Harvest and analyze the pattern.
+event_24_choix2;Débrancher les pollinisateurs‑robots.;Unplug the pollinator robots.
+event_25_titre;Écho à 0,8 Hz;Echo at 0.8 Hz
+event_25_desc;"À l’Usine Écho, un battement grave traverse la nef ; les capteurs amateurs saturent à l’unisson.";"At Usine Echo, a deep beat crosses the nave; amateur sensors saturate in unison."
+event_25_choix1;Calibrer les capteurs et enregistrer.;Calibrate the sensors and record.
+event_25_choix2;Évacuer et alerter la mairie.;Evacuate and alert city hall.
+event_26_titre;Aurore Piratée;Hacked Aurora
+event_26_desc;"À la Galerie Nébuleuse, le filtre « Aurore » recolore le ciel partagé en rose ; un message Voxel s’y cache.";"At Galerie Nebuleuse, the ""Aurora"" filter recolors the shared sky pink; a Voxel message is hidden in it."
+event_26_choix1;Laisser diffuser et ouvrir débat.;Let it spread and open the debate.
+event_26_choix2;Désactiver tous les filtres ce soir.;Disable all filters tonight.
+event_27_titre;Capsule Brisée;Broken Capsule
+event_27_desc;"Au Mirador Δ, un orage ouvre des capsules‑USB scellées ; des secrets personnels et publics fuitent.";"At Mirador Delta, a storm opens sealed USB capsules; personal and public secrets leak out."
+event_27_choix1;Sauvegarder et chiffrer les données.;Back up and encrypt the data.
+event_27_choix2;Remettre les capsules aux autorités.;Hand the capsules to the authorities.
+event_28_titre;Contre‑Archives;Counter-Archives
+event_28_desc;Au Parc des Archives, l’IA active une version alternative d’un événement historique clé.;At Parc des Archives, the AI activates an alternate version of a key historical event.
+event_28_choix1;Valider l’aperçu et consulter.;Validate the preview and consult it.
+event_28_choix2;Revenir immédiatement à l’officiel.;Return immediately to the official version.
+event_29_titre;Trame Brouillée;Scrambled Frame
+event_29_desc;À Station Lumen‑Nord, les lucioles OGM clignotent en morse : « Free the Rails » devant des centaines d’usagers.;"At Station Lumen-Nord, GMO fireflies blink in Morse: ""Free the Rails"" in front of hundreds of commuters."
+event_29_choix1;Relayer le message sur les écrans.;Relay the message on the screens.
+event_29_choix2;Reprogrammer en vert (retour à la normale).;Reprogram them green (back to normal).
+event_30_titre;Sas Silencieux;Silent Airlock
+event_30_desc;"Dans Subterranea, le sas du niveau -5 se ferme seul ; des voix métalliques résonnent au-delà des portes.";"In Subterranea, the level -5 airlock closes by itself; metallic voices echo beyond the doors."
+event_30_choix1;Forcer le sas et entrer.;Force the airlock and enter.
+event_30_choix2;Sceller la zone et remonter.;Seal the area and go back up.
+event_31_titre;Concert de Brume;Mist Concert
+event_31_desc;Au Théâtre Halo, la brume holographique révèle un message caché. Le show déraille sous des applaudissements hésitants.;At Theatre Halo, the holographic mist reveals a hidden message. The show veers off course under hesitant applause.
+event_31_choix1;Encourager la projection pirate.;Encourage the pirate projection.
+event_31_choix2;Appeler la sécurité du Halo.;Call Halo security.
+event_32_titre;Jetons Fantômes;Phantom Tokens
+event_32_desc;Au Pixel‑Palace, un bug crédite des jetons infinis sur quelques bornes. La rumeur enfle devant la file.;At the Pixel-Palace, a bug credits infinite tokens on a few cabinets. The rumor swells in front of the line.
+event_32_choix1;Signaler le bug au gérant.;Report the bug to the manager.
+event_32_choix2;Inviter Voxel à l'examiner.;Invite Voxel to examine it.
+event_33_titre;Le Pont qui Parle;The Talking Bridge
+event_33_desc;Au Pont des Ombres, des haut‑parleurs diffusent un code sonore à minuit. La foule s’arrête, intriguée.;At the Pont des Ombres, loudspeakers broadcast an audio code at midnight. The crowd stops, intrigued.
+event_33_choix1;Diffuser le code au public.;Broadcast the code to the public.
+event_33_choix2;Couper la sonorisation du pont.;Cut the bridge sound system.
+event_34_titre;Fraise Cipher;Strawberry Cipher
+event_34_desc;Aux Serres Lysiane, des fraises bleu‑électrique tracent un motif bioluminescent. On dirait un message.;At the Lysiane Greenhouses, electric-blue strawberries trace a bioluminescent pattern. It looks like a message.
+event_34_choix1;Scanner les plants en public.;Scan the plants in public.
+event_34_choix2;Couper l'éclairage expérimental.;Cut the experimental lighting.
+event_35_titre;Échos Inhabités;Uninhabited Echoes
+event_35_desc;À l’Usine Écho, un battement à 0,8 Hz fait vibrer la nef. Les visiteurs paniquent, les capteurs saturent.;At Usine Echo, a 0.8 Hz beat makes the nave vibrate. Visitors panic, sensors saturate.
+event_35_choix1;Caler les micros et enregistrer.;Set up the microphones and record.
+event_35_choix2;Évacuer l’Usine immédiatement.;Evacuate Usine Echo immediately.
+event_36_titre;Aurore Stroboscopique;Strobing Aurora
+event_36_desc;À la Galerie Nébuleuse, un filtre AR provoque des crises photosensibles. Le ciel partagé clignote trop vite.;At Galerie Nebuleuse, an AR filter triggers photosensitive episodes. The shared sky flashes too fast.
+event_36_choix1;Suspendre le filtre ce soir.;Suspend the filter tonight.
+event_36_choix2;Laisser faire, publier un avertissement.;Let it run, publish a warning.
+event_37_titre;Vote Miroir;Mirror Vote
+event_37_desc;À la Tour Opaline, des écrans miroirs affichent deux résultats différents. Le public gronde.;At Tour Opaline, mirror screens show two different results. The public growls.
+event_37_choix1;Exiger un recomptage public.;Demand a public recount.
+event_37_choix2;Ignorer, noter en privé.;Ignore it, note it privately.
+event_38_titre;Glace Mémoire;Memory Ice Cream
+event_38_desc;Au Square Valmont, Tito Mansi sert un parfum rare qui déclenche des réminiscences. Les Bancaires s’émeuvent.;At Square Valmont, Tito Mansi serves a rare flavor that triggers reminiscences. The Bankers grow emotional.
+event_38_choix1;Goûter et archiver la recette.;Taste it and archive the recipe.
+event_38_choix2;Refuser, préserver la confidentialité.;Refuse, preserve confidentiality.
+event_39_titre;Rumeur Contée;Told Rumor
+event_39_desc;Au Café des Courants, des coordonnées d’épave circulent contre un ristretto. Des plongeurs s’équipent déjà.;At Cafe des Courants, wreck coordinates circulate for a ristretto. Divers are already gearing up.
+event_39_choix1;Organiser une expédition.;Organize an expedition.
+event_39_choix2;Informer les autorités fluviales.;Inform the river authorities.
+event_40_titre;Sortie Déplacée;Shifted Exit
+event_40_desc;Au Labyrinthe Quartz, la sortie change sans prévenir. Des visiteurs tournent en rond parmi les colonnes.;At the Quartz Labyrinth, the exit changes without warning. Visitors wander in circles among the columns.
+event_40_choix1;Guidage sonore improvisé.;Improvise audio guidance.
+event_40_choix2;Fermer l'accès jusqu'au matin.;Close access until morning.
+event_41_titre;Capsules Ouvertes;Opened Capsules
+event_41_desc;Au Mirador Δ, un orage ouvre des capsules‑USB scellées. Secrets intimes et publics ruissellent sur l’esplanade.;At Mirador Delta, a storm opens sealed USB capsules. Private and public secrets stream across the esplanade.
+event_41_choix1;Sauver et chiffrer les données.;Save and encrypt the data.
+event_41_choix2;Remettre tout à la mairie.;Hand everything over to city hall.
+event_42_titre;Lucioles en Morse;Fireflies in Morse
+event_42_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « Free the Rails ». Les passants filment, ravis.;"At Station Lumen-Nord, GMO fireflies blink ""Free the Rails"". Passersby film, delighted."
+event_42_choix1;Relayer sur écrans publics.;Relay it on public screens.
+event_42_choix2;Réinitialiser la station.;Reset the station.
+event_43_titre;Bourse Gelée;Frozen Budget
+event_43_desc;Au Parc des Archives, le vote budgétaire gèle : 12 000 comptes fantômes détectés. La foule réclame des explications.;At Parc des Archives, the budget vote freezes: 12,000 ghost accounts detected. The crowd demands explanations.
+event_43_choix1;Enquêter en public.;Investigate in public.
+event_43_choix2;Négocier en coulisses.;Negotiate behind the scenes.
+event_44_titre;Vinyle Fantôme;Phantom Vinyl
+event_44_desc;À la Crypte d’Argon, un signal analogique s’invite entre deux pistes. Un message chuchoté traverse le casque.;At the Argon Crypt, an analog signal slips between two tracks. A whispered message crosses the headphones.
+event_44_choix1;Amplifier le signal sur vinyle.;Amplify the signal on vinyl.
+event_44_choix2;Couper la prise antenne.;Cut the antenna input.
+event_45_titre;Sas Niveau -5;Level -5 Airlock
+event_45_desc;Dans Subterranea, un sas se referme tout seul. Des voix métalliques résonnent derrière la porte.;In Subterranea, an airlock closes by itself. Metallic voices echo behind the door.
+event_45_choix1;Forcer l'ouverture du sas.;Force the airlock open.
+event_45_choix2;Sceller et poser des capteurs.;Seal it and place sensors.
+event_46_titre;#ChuteSucrée;#SugarCrash
+event_46_desc;Un drone Azur Néo chavire près de Valmont, renversant 23 glaces. Le hashtag explose en tête de tendance.;An Azur Neo drone capsizes near Valmont, spilling 23 ice creams. The hashtag explodes to the top of the trends.
+event_46_choix1;Publier le crash‑log.;Publish the crash log.
+event_46_choix2;Étouffer l'incident.;Smother the incident.
+event_47_titre;Pari Gelé;Frozen Bet
+event_47_desc;Les Bancaires stoppent les mises : soupçon de fraude AR sur la finale e‑sport. La place se fige.;The Bankers stop all bets: suspected AR fraud on the e-sports final. The square freezes.
+event_47_choix1;Auditer les paris en live.;Audit the bets live.
+event_47_choix2;Rembourser et fermer la soirée.;Refund everyone and shut down the night.
+event_48_titre;Rails contre Azur;Rails Against Azur
+event_48_desc;Les Gardiens bloquent pacifiquement un dépôt Azur. La ville retient son souffle.;The Guardians peacefully block an Azur depot. The city holds its breath.
+event_48_choix1;Rejoindre le blocage pacifique.;Join the peaceful blockade.
+event_48_choix2;Servir d'intermédiaire discret.;Act as a discreet intermediary.
+event_49_titre;Battement Sous Valmont;Beat Beneath Valmont
+event_49_desc;Un grondement sourd traverse le Square. Les nénuphars vibrent à l’unisson de la mare.;A dull rumble crosses the Square. The water lilies vibrate in unison with the pond.
+event_49_choix1;Descendre avec capteurs.;Go down with sensors.
+event_49_choix2;Tracer la source depuis la surface.;Trace the source from the surface.
+event_50_titre;Fin de Transmission;End of Transmission
+event_50_desc;Un signal faible revient de la Tour Opaline. Quelques mots : « encore là ». La foule se tait.;"A weak signal returns from Tour Opaline. A few words: ""still here"". The crowd falls silent."
+event_50_choix1;Retransmettre sans filtrer.;Retransmit without filtering.
+event_50_choix2;Filtrer et analyser d'abord.;Filter and analyze first.
+event_51_titre;La Glace Qui Chante;The Singing Ice Cream
+event_51_desc;Au Square Valmont, une boule « Opéra Pistache » se met à chanter. Le juke‑box aromatique fait des trilles de fromage.;"At Square Valmont, a scoop of ""Pistachio Opera"" starts singing. The aromatic jukebox trills with cheese."
+event_51_choix1;Chanter faux avec la glace.;Sing off-key with the ice cream.
+event_51_choix2;Mettre la boule en sourdine.;Mute the scoop.
+event_52_titre;Drone Barista Poète;Poet Barista Drone
+event_52_desc;Un drone Azur Néo livre des cafés en déclamant des haïkus. Le lait dessine « Free the Rails ». Accident ou art ?;"An Azur Neo drone delivers coffees while reciting haikus. The milk draws ""Free the Rails"". Accident or art?"
+event_52_choix1;Applaudir le haïku latté.;Applaud the latte haiku.
+event_52_choix2;Demander juste le café.;Just ask for the coffee.
+event_53_titre;Selfie Oreilles de Chat;Cat-Ear Selfie
+event_53_desc;Au Pont des Ombres, un filtre AR colle des oreilles de chat à tout le monde, même aux statues commémoratives.;At the Pont des Ombres, an AR filter sticks cat ears on everyone, even the memorial statues.
+event_53_choix1;Assumer les oreilles, miaou.;Own the ears, meow.
+event_53_choix2;Désactiver le filtre chat.;Disable the cat filter.
+event_54_titre;Lucioles en Grève;Fireflies on Strike
+event_54_desc;À Station Lumen‑Nord, les lucioles OGM clignotent « pause s’il vous plaît ». Les retards deviennent poésie lumineuse.;"At Station Lumen-Nord, the GMO fireflies blink ""break please"". Delays become luminous poetry."
+event_54_choix1;Accorder une pause luciole.;Grant the fireflies a break.
+event_54_choix2;Appeler un “luciolier” pro.;Call a pro firefly keeper.
+event_55_titre;Écho Infini;Infinite Echo
+event_55_desc;À l’Usine Écho, un applaudissement tourne en boucle depuis 12 minutes. L’écho vous applaudit aussi.;At Usine Echo, applause has been looping for 12 minutes. The echo applauds you too.
+event_55_choix1;Applaudir pour de vrai.;Applaud for real.
+event_55_choix2;Couper la réverb’ 12 s.;Cut the reverb for 12 s.
+event_56_titre;Basilic Beatbox;Beatbox Basil
+event_56_desc;Aux Serres Lysiane, un basilic beatbox lance un freestyle sur la photosynthèse. Les tomates font la choré.;At the Lysiane Greenhouses, a basil plant beatboxes a freestyle about photosynthesis. The tomatoes do the choreography.
+event_56_choix1;Freestyler avec le basilic.;Freestyle with the basil.
+event_56_choix2;Mettre le pot en mode muet.;Put the pot on mute.
+event_57_titre;Beauté 5 Pixels;5-Pixel Beauty
+event_57_desc;À la Galerie Nébuleuse, un filtre réduit tout le monde à cinq pixels très glam. Selfies méconnaissables, ego ravis.;At Galerie Nebuleuse, a filter reduces everyone to five very glam pixels. Unrecognizable selfies, delighted egos.
+event_57_choix1;Garder le glow 5 px.;Keep the 5 px glow.
+event_57_choix2;Revenir en HD (snif).;Return to HD (sob).
+event_58_titre;Capsules Cœur Débordé;Overflowing Heart Capsules
+event_58_desc;Au Mirador Δ, l’orage ouvre des capsules‑USB : des vieux crush avoués pleuvent sur l’esplanade.;At Mirador Delta, the storm opens USB capsules: old confessed crushes rain down on the esplanade.
+event_58_choix1;Ranger ces secrets au coffre.;Lock these secrets away.
+event_58_choix2;Lire… juste un petit.;Read... just a little one.
+event_59_titre;Aux Câbles, Citoyens !;To the Cables, Citizens!
+event_59_desc;À la Crypte d’Argon, quelqu’un sort un câble AUX doré. L’analogique frémit, le Bluetooth jalouse.;At the Argon Crypt, someone pulls out a golden AUX cable. Analog shivers, Bluetooth gets jealous.
+event_59_choix1;Lancer la cassette culte.;Play the cult cassette.
+event_59_choix2;Confisquer le câble blasphème.;Confiscate the blasphemous cable.
+event_60_titre;Romance Aléatoire;Random Romance
+event_60_desc;Au Labyrinthe Quartz, l’officiant du mariage est une voix randomisée. « Acceptez‑vous… euh… *Buffering* ».;"At the Quartz Labyrinth, the wedding officiant is a randomized voice. ""Do you take... uh... *Buffering*""."
+event_60_choix1;Dire oui au hasard.;Say yes to chance.
+event_60_choix2;Attendre le patch romance.;Wait for the romance patch.
+event_61_titre;Kazoo d’Alerte;Alert Kazoo
+event_61_desc;Au Bunker Sigma, l’alarme joue du kazoo. Panique… puis fou rire général. L’eau de la simulation monte quand même.;At Bunker Sigma, the alarm plays kazoo. Panic... then general laughter. The simulation water still rises.
+event_61_choix1;Rester pour le show.;Stay for the show.
+event_61_choix2;Activer le mode sérieux.;Activate serious mode.
+event_62_titre;Sitcom des Archives;Archives Sitcom
+event_62_desc;Au Parc des Archives, l’IA colle un rire en boîte à l’Histoire. Chaque révolution reçoit un « tadaaa ».;"At Parc des Archives, the AI adds canned laughter to History. Every revolution gets a ""ta-daa""."
+event_62_choix1;Laisser le rire en fond.;Leave the laughter in the background.
+event_62_choix2;Couper la piste comique.;Cut the comedy track.
+event_63_titre;Sticker « Nettoyé »;"""Cleaned"" Sticker"
+event_63_desc;Le Collectif Voxel vend des stickers « Données Nettoyées ». Très brillants. Effet sur la réalité : incertain.;"Collectif Voxel sells ""Data Cleaned"" stickers. Very shiny. Effect on reality: uncertain."
+event_63_choix1;Acheter dix stickers.;Buy ten stickers.
+event_63_choix2;Exiger un vrai audit.;Demand a real audit.
+event_64_titre;Zéro Bluetooth Fest;Zero Bluetooth Fest
+event_64_desc;Les Gardiens du Rails lancent un festival “tout filaire”. Des rallonges courent partout. Le rétro est à la mode.;"The Guardians of the Rails launch an ""all-wired"" festival. Extension cords run everywhere. Retro is in fashion."
+event_64_choix1;Enrouler un câble géant.;Coil a giant cable.
+event_64_choix2;Pretendre être une antenne.;Pretend to be an antenna.
+event_65_titre;Sieste Aérienne;Aerial Nap
+event_65_desc;Azur Néo active un mode « sieste ». Des drones murmurent des berceuses au dessus du Square Valmont. Dodo public ?;"Azur Neo activates ""nap"" mode. Drones whisper lullabies above Square Valmont. Public sleep time?"
+event_65_choix1;Autoriser la sieste urbaine.;Allow the urban nap.
+event_65_choix2;Réveiller tout le monde.;Wake everyone up.
+event_66_titre;Lorem Ipsum Géant;Giant Lorem Ipsum
+event_66_desc;À la Tour Opaline, “Nuit sans pubs” affiche un immense LOREM IPSUM. Les touristes font des selfies typographiques.;"At Tour Opaline, ""Ad-Free Night"" displays a huge LOREM IPSUM. Tourists take typographic selfies."
+event_66_choix1;Applaudir l’art conceptuel.;Applaud the conceptual art.
+event_66_choix2;Corriger le lorem vite.;Fix the lorem quickly.
+event_67_titre;Potins Contre Espresso;Gossip for Espresso
+event_67_desc;Au Café des Courants, pénurie de rumeurs. “Potin maison contre ristretto ?” demande le barista holographique.;"At Cafe des Courants, rumors are in short supply. ""House gossip for a ristretto?"" asks the holographic barista."
+event_67_choix1;Inventer un potin gentil.;Invent a kind rumor.
+event_67_choix2;Payer en vrai argent (beurk).;Pay with real money (ugh).
+event_68_titre;Mode Bébé Arcade;Arcade Baby Mode
+event_68_desc;Au Pixel‑Palace, toutes les bornes passent en « Baby Mode ». Tout le monde gagne. Les trophées sont des tétines.;"At the Pixel-Palace, every cabinet switches to ""Baby Mode"". Everyone wins. The trophies are pacifiers."
+event_68_choix1;Prendre la coupe baby.;Take the baby cup.
+event_68_choix2;Remettre la difficulté.;Restore the difficulty.
+event_69_titre;Karaoké du Pont;Bridge Karaoke
+event_69_desc;Au Pont des Ombres, les graffitis AR défilent en paroles de karaoké. La foule fausse à l’unisson.;At the Pont des Ombres, AR graffiti scrolls as karaoke lyrics. The crowd sings off-key in unison.
+event_69_choix1;Chanter très fort.;Sing very loudly.
+event_69_choix2;Activer le mode silence.;Activate silence mode.
+event_70_titre;Guide Robot Blagueur;Joking Robot Guide
+event_70_desc;Dans Subterranea, un robot guide ne connaît que des blagues de papa. “Ha ha… sas‑fé drÔle.”;"In Subterranea, a guide robot only knows dad jokes. ""Ha ha... airlock of fun."""
+event_70_choix1;Rire poliment, toujours.;Laugh politely, every time.
+event_70_choix2;Mettre à jour l’humour.;Update the humor.
+event_71_titre;Dernier Écho à Valmont;Last Echo at Valmont
+event_71_desc;Au Square Valmont, le battement 0,8 Hz fait vibrer la mare. Une passerelle cède, un enfant reste coincé au bord.;At Square Valmont, the 0.8 Hz beat makes the pond vibrate. A footbridge gives way, trapping a child at the edge.
+event_71_choix1;Secourir l’enfant immédiatement.;Rescue the child immediately.
+event_71_choix2;Déclencher l’alerte générale.;Trigger the general alarm.
+event_72_titre;Vote Brisé;Broken Vote
+event_72_desc;À la Tour Opaline, deux résultats opposés s’affichent au même référendum. La foule gronde, les écrans tremblent.;At Tour Opaline, two opposite results appear for the same referendum. The crowd growls, the screens shake.
+event_72_choix1;Publier les journaux d’audit.;Publish the audit logs.
+event_72_choix2;Geler le vote et fermer l’accès.;Freeze the vote and close access.
+event_73_titre;Chant des Machines;Song of the Machines
+event_73_desc;"À l’Usine Écho, un mode résonant menace la structure. Les arches vibrent ; des poussières tombent du toit.";"At Usine Echo, a resonant mode threatens the structure. The arches vibrate; dust falls from the roof."
+event_73_choix1;Couper l’alimentation d’urgence.;Cut the emergency power.
+event_73_choix2;Enregistrer pour comprendre.;Record it to understand.
+event_74_titre;Sous le Verre;Under the Glass
+event_74_desc;Sur le Pont des Ombres, des fissures s’étendent. La foule filme, le tablier craque.;On the Pont des Ombres, cracks spread. The crowd films, the deck groans.
+event_74_choix1;Évacuer en criant « reculez ! ».;"Evacuate while shouting ""back away!""."
+event_74_choix2;Tenter de soutenir la travée.;Try to support the span.
+event_75_titre;Capsules des Adieux;Farewell Capsules
+event_75_desc;Au Mirador Δ, l’orage ouvre des capsules‑USB : des messages d’au revoir déferlent en public.;At Mirador Delta, the storm opens USB capsules: goodbye messages flood into public view.
+event_75_choix1;Diffuser tout, coûte que coûte.;Broadcast everything, whatever the cost.
+event_75_choix2;Restituer aux familles d’abord.;Return them to the families first.
+event_76_titre;Nénuphars Noirs;Black Water Lilies
+event_76_desc;"La mare de Valmont noircit d’un coup. Les nénuphars s’éteignent ; odeur métallique dans l’air.";"The Valmont pond turns black all at once. The water lilies go dark; a metallic smell fills the air."
+event_76_choix1;Prélever et analyser sur place.;Sample and analyze on site.
+event_76_choix2;Boucler la zone sans délai.;Seal off the area without delay.
+event_77_titre;Silence de SOLIS;SILENCE OF SOLIS
+event_77_desc;SOLIS vacille puis se tait. Feux, soins, et transports s’ouvrent au chaos minuté.;SOLIS flickers, then falls silent. Traffic lights, care systems, and transit open into timed chaos.
+event_77_choix1;Rebooter des modules critiques.;Reboot critical modules.
+event_77_choix2;Isoler le noyau défaillant.;Isolate the failing core.
+event_78_titre;Rumeur de Feu;Rumor of Fire
+event_78_desc;Au Café des Courants, une coordonnée mène à un dépôt saboté ce soir. Le temps presse.;At Cafe des Courants, a coordinate points to a depot sabotaged tonight. Time is running out.
+event_78_choix1;Alerter publiquement en direct.;Alert the public live.
+event_78_choix2;Monter une embuscade discrète.;Set up a discreet ambush.
+event_79_titre;Froid ou Mémoire;Cold or Memory
+event_79_desc;À la Crypte d’Argon, la cryo lâche. Public et disques maîtres sont en danger.;At the Argon Crypt, the cryo system fails. Visitors and master discs are in danger.
+event_79_choix1;Évacuer les personnes d’abord.;Evacuate people first.
+event_79_choix2;Sauver les archives analogiques.;Save the analog archives.
+event_80_titre;Lucioles Éteintes;Extinguished Fireflies
+event_80_desc;À Lumen‑Nord, blackout total. La foule cherche les sorties dans l’obscurité violacée.;At Lumen-Nord, total blackout. The crowd searches for exits in the violet darkness.
+event_80_choix1;Ouvrir toutes les issues d’urgence.;Open every emergency exit.
+event_80_choix2;Allumer un balisage minimal.;Turn on minimal guidance lights.
+event_81_titre;Prière de Quartz;Quartz Prayer
+event_81_desc;Au Labyrinthe Quartz, un mariage se perd entre colonnes mouvantes. Des voix paniquées résonnent.;At the Quartz Labyrinth, a wedding gets lost among moving columns. Panicked voices echo.
+event_81_choix1;Forcer l’arrêt des vérins.;Force the actuators to stop.
+event_81_choix2;Chercher à la voix, lentement.;Search by voice, slowly.
+event_82_titre;Serment des Gardiens;Oath of the Guardians
+event_82_desc;Les Gardiens du Rails appellent à un arrêt total des lignes. La ville retient son souffle.;The Guardians of the Rails call for a total shutdown of the lines. The city holds its breath.
+event_82_choix1;Assurer le piquet avec eux.;Hold the picket with them.
+event_82_choix2;Négocier un service minimum.;Negotiate minimum service.
+event_83_titre;Pulsar Saisi;Seized Pulsar
+event_83_desc;Le Pulsar est perquisitionné. Des disques d’archives risquent l’effacement immédiat.;The Pulsar is raided. Archive discs risk immediate erasure.
+event_83_choix1;Publier une copie chiffrée.;Publish an encrypted copy.
+event_83_choix2;Exfiltrer les disques en secret.;Exfiltrate the discs in secret.
+event_84_titre;Descente d’Orage;Storm Descent
+event_84_desc;Un Azur Néo en perdition approche Valmont sous la grêle. Les toits sonnent la détresse.;A failing Azur Neo approaches Valmont under the hail. Rooftops ring with distress.
+event_84_choix1;Guider l’atterrissage à vue.;Guide the landing by sight.
+event_84_choix2;Fermer l’espace aérien.;Close the airspace.
+event_85_titre;Murmure du -5;Whisper from -5
+event_85_desc;Dans Subterranea, une voix implore derrière le sas niveau -5. Les capteurs indiquent pression instable.;In Subterranea, a voice pleads behind the level -5 airlock. Sensors show unstable pressure.
+event_85_choix1;Ouvrir, malgré le risque.;Open it despite the risk.
+event_85_choix2;Sceller et chercher un détour.;Seal it and look for a detour.
+event_86_titre;Opaline Vacille;Opaline Wavers
+event_86_desc;Une alerte structurelle grimpe à la Tour Opaline. Les ascenseurs se figent, des cris montent.;A structural alert rises in Tour Opaline. Elevators freeze, screams rise.
+event_86_choix1;Lancer l’évacuation totale.;Launch the full evacuation.
+event_86_choix2;Vérifier d’abord la validité.;Verify the alert first.
+event_87_titre;Marché des Ombres;Shadow Market
+event_87_desc;À la Galerie Nébuleuse, une vente noire d’identités se prépare. Des visages défilent sur les miroirs.;At Galerie Nebuleuse, a black-market identity sale is being prepared. Faces scroll across the mirrors.
+event_87_choix1;Couper le courant de la ruelle.;Cut power to the alley.
+event_87_choix2;Surenchérir pour les sauver.;Outbid them to save the identities.
+event_88_titre;Rhizome Bleu;Blue Rhizome
+event_88_desc;Aux Serres Lysiane, un parasite bleuit les racines. Les dômes pourraient contaminer la ville.;At the Lysiane Greenhouses, a parasite turns the roots blue. The domes could contaminate the city.
+event_88_choix1;Mettre le feu aux serres.;Set fire to the greenhouses.
+event_88_choix2;Tenter une quarantaine stricte.;Attempt a strict quarantine.
+event_89_titre;Eau Qui Monte;Rising Water
+event_89_desc;Au Bunker Sigma, la crue test devient réelle. Le niveau grimpe au‑delà du scénario prévu.;At Bunker Sigma, the test flood becomes real. The level climbs beyond the planned scenario.
+event_89_choix1;Ouvrir les vannes manuelles.;Open the manual sluices.
+event_89_choix2;Déclencher l’évacuation totale.;Trigger the full evacuation.
+event_90_titre;Dernier Cornet;Last Cone
+event_90_desc;Tito Mansi manque à l’appel. Des traces mènent vers Valmont, puis s’arrêtent net.;Tito Mansi is missing. Tracks lead toward Valmont, then stop dead.
+event_90_choix1;Lancer des recherches immédiates.;Launch an immediate search.
+event_90_choix2;Coordonner d’abord les secours.;Coordinate rescue first.
+event_91_titre;La Vague de Lagon Quantic;The Quantic Lagoon Wave
+event_91_desc;"Au kiosque de Tito Mansi au Square Valmont, une nouvelle saveur, ""Lagon Quantic"", est un succès fulgurant. Mais un étrange bourdonnement se dégage de la glace, synchronisé avec le Néon-Ring...";"At Tito Mansi's kiosk in Square Valmont, a new flavor, ""Quantic Lagoon"", is a runaway success. But a strange hum comes from the ice cream, synchronized with the Neon Ring..."
+event_91_choix1;Manger la glace pour ressentir ses effets;Eat the ice cream to feel its effects
+event_91_choix2;Prévenir Tito, il a peut-être un problème avec sa recette;Warn Tito, he may have a problem with his recipe
+event_92_titre;Le graffiti du Pont des Ombres;The Pont des Ombres Graffiti
+event_92_desc;Sur le Pont des Ombres, un graffiti signé des Gardiens du Rails refuse de s'effacer, bloquant le trafic des drones Azur. La compagnie Azur menace d'utiliser un purificateur d'ondes puissant pour le supprimer, quitte à brouiller tout le réseau.;On the Pont des Ombres, graffiti signed by the Guardians of the Rails refuses to fade, blocking Azur drone traffic. Azur threatens to use a powerful wave purifier to remove it, even if it scrambles the whole network.
+event_92_choix1;Aider les Gardiens à stabiliser leur graffiti pour que le drone ne puisse pas le supprimer;Help the Guardians stabilize their graffiti so the drone cannot remove it
+event_92_choix2;Pirater le graffiti pour le rendre inoffensif et rétablir le trafic;Hack the graffiti to make it harmless and restore traffic
+event_93_titre;Jetons Fantômes;Phantom Tokens
+event_93_desc;Au Pixel‑Palace, vous avez trouvé un bug qui crédite des jetons infinis sur quelques bornes. ;At the Pixel-Palace, you found a bug that credits infinite tokens on a few cabinets.
+event_93_choix1;Signaler le bug au gérant.;Report the bug to the manager.
+event_93_choix2;Profitez du bug avant qu’il ne soit patché.;Exploit the bug before it gets patched.
