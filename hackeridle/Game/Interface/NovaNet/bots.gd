@@ -19,6 +19,7 @@ extends Control
 @onready var invest_title: Label = %InvestTitle
 @onready var bots_title: Label = %BotsTitle
 @onready var click_to_pay_label: Label = %ClickToPayLabel
+@onready var next_bot_price_title: Label = %NextBotPriceTitle
 
 @onready var not_enough_label: Label = %NotEnoughLabel
 @onready var brain_icon: AspectRatioContainer = %BrainIcon
@@ -71,7 +72,8 @@ func refresh():
 	gold_invest_label.text = Global.number_to_string(floor(NovaNetManager.gold_to_invest_perc * Player.gold))
 	
 	knowledge_per_click_value.text = Global.number_to_string(NovaNetManager.knowledge_per_click(NovaNetManager.gold_invest_in_bots))
-
+	next_bot_price_title.text = tr("$BotPrice")
+	nb_of_click_title.text = tr("$ClickRemaining")
 	
 	if NovaNetManager.time_ia_click > 0:
 		ia_enabled_button.show()
