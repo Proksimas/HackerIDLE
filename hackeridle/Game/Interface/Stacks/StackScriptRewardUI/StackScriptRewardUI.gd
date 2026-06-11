@@ -51,6 +51,7 @@ func get_reward_data() -> Dictionary:
 				"script_resource": script_resource,
 				"script_name": display_name
 			}
+			payload.merge(custom_payload, true)
 		RewardKind.SLOT:
 			payload = {"slot_increment": slot_increment}
 		RewardKind.CUSTOM:

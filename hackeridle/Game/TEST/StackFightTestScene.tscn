@@ -58,6 +58,11 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Pause + Reward"
 
+[node name="RefreshSequenceButton" type="Button" parent="RootMargin/VBox/Actions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Refresh Sequence"
+
 [node name="ResultLabel" type="Label" parent="RootMargin/VBox"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -99,4 +104,5 @@ size_flags_vertical = 3
 [connection signal="pressed" from="RootMargin/VBox/Actions/LaunchCustomFightButton" to="." method="_on_start_fight_button_pressed"]
 [connection signal="pressed" from="RootMargin/VBox/Actions/ClearLogsButton" to="." method="_on_clear_logs_button_pressed"]
 [connection signal="pressed" from="RootMargin/VBox/Actions/PauseRewardButton" to="." method="_on_pause_reward_button_pressed"]
+[connection signal="pressed" from="RootMargin/VBox/Actions/RefreshSequenceButton" to="." method="_on_refresh_sequence_button_pressed"]
 [connection signal="tab_changed" from="RootMargin/VBox/TestTabs" to="." method="_on_test_tabs_tab_changed"]

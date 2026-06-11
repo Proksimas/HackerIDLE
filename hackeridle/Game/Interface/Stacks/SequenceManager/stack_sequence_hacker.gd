@@ -384,7 +384,9 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 func _persist_hacker_loadout() -> void:
 	if hacker == null:
 		return
-	StackManager.save_hacker_sequence(_loadout.sequence_compact())
+	var sequence := _loadout.sequence_compact()
+	hacker.save_sequence(sequence)
+	StackManager.save_hacker_sequence(sequence)
 
 
 func _refresh_scripts_list() -> void:

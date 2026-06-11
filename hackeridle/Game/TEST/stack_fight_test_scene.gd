@@ -118,8 +118,7 @@ func _apply_hacker_scripts_override() -> void:
 	for script_name in source_sequence:
 		var s := str(script_name)
 		if StackManager.stack_script_pool.has(s):
-			if not valid_known.has(s):
-				valid_known.append(s)
+			valid_known.append(s)
 			valid_sequence.append(s)
 		else:
 			push_warning("StackFightTestScene | script inconnu ignore (sequence): %s" % s)
@@ -241,6 +240,8 @@ func _on_test_reward_selected(selected_data: Dictionary) -> void:
 		result_label.text = "Reward: %s obtenu" % script_name
 	else:
 		result_label.text = "Reward: recompense obtenue"
+	if current_fight == null or not is_instance_valid(current_fight):
+		test_hacker = StackManager.create_hacker_entity()
 	_refresh_sequence_panel()
 
 
@@ -250,6 +251,12 @@ func _on_test_tabs_tab_changed(tab: int) -> void:
 	var current_control := test_tabs.get_child(tab)
 	if current_control != null and current_control.name == "Sequence":
 		_refresh_sequence_panel()
+
+
+func _on_refresh_sequence_button_pressed() -> void:
+	if not sequence_panel_has_loadout:
+		test_hacker = _create_test_hacker(false)
+	_refresh_sequence_panel()
 
 
 func _refresh_sequence_panel() -> void:
