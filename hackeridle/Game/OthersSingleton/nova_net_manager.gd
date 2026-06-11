@@ -51,7 +51,9 @@ func _process(delta: float) -> void:
 func _init():
 	for key in active_tasks:
 		active_tasks[key] = 0
+	gold_invest_in_bots = 0
 	knowledge_invest_in_sales = 0
+	gold_invest_in_sales = 0
 	next_bot_kwoledge_acquired = 0
 	coef_exploit_xp = 1
 	coef_farming_xp = {"base": 0.1}
