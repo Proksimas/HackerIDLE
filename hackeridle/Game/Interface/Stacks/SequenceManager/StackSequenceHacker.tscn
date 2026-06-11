@@ -5,6 +5,7 @@
 [ext_resource type="StyleBox" uid="uid://1jablaj57dxn" path="res://Game/Themes/Novanet/NightBluePanel.tres" id="2_8rw02"]
 [ext_resource type="PackedScene" uid="uid://10caeetrm65n" path="res://Game/Interface/Icons/bot_icon.tscn" id="3_vqvmt"]
 [ext_resource type="StyleBox" uid="uid://b136hlrgvh1qw" path="res://Game/Themes/Novanet/NightBlueSubPanel.tres" id="4_dpxwa"]
+[ext_resource type="StyleBox" uid="uid://c1qvospabnvia" path="res://Game/Themes/GreenButtonEnabled.tres" id="5_ou8q2"]
 [ext_resource type="PackedScene" uid="uid://bh4l4v6vcurh5" path="res://Game/Interface/Icons/penetration_icon.tscn" id="5_w1s1k"]
 [ext_resource type="PackedScene" uid="uid://bsxwn1v4cwr1p" path="res://Game/Interface/Icons/encryption_icon.tscn" id="6_50i18"]
 [ext_resource type="PackedScene" uid="uid://bvppq5s3uv617" path="res://Game/Interface/Icons/flux_icon.tscn" id="7_6owyu"]
@@ -95,12 +96,12 @@ corner_radius_bottom_left = 6
 color = Color(0, 0.168627, 0.254902, 1)
 vertical = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2rq4"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujtes"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_k3aoq"]
 color = Color(0, 0.168627, 0.254902, 1)
+grow_begin = -30.0
+grow_end = -30.0
 
 [node name="StackSequenceHacker" type="Control"]
 layout_mode = 3
@@ -445,6 +446,7 @@ scroll_active = false
 autowrap_mode = 2
 
 [node name="StatsBar" type="PanelContainer" parent="Frame/OuterMargin/RootVBox"]
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_vl8yx")
@@ -459,42 +461,68 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
+size_flags_vertical = 6
 
-[node name="BotIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer" instance=ExtResource("3_vqvmt")]
+[node name="Control" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="XButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(75, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_colors/font_disabled_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_colors/font_hover_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_colors/font_pressed_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_colors/font_focus_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_colors/font_color = Color(0.772549, 0.94902, 0.984314, 1)
+theme_override_styles/focus = ExtResource("5_ou8q2")
+theme_override_styles/disabled = ExtResource("5_ou8q2")
+theme_override_styles/hover_pressed = ExtResource("5_ou8q2")
+theme_override_styles/hover = ExtResource("5_ou8q2")
+theme_override_styles/pressed = ExtResource("5_ou8q2")
+theme_override_styles/normal = ExtResource("5_ou8q2")
+text = "x1"
+
+[node name="Control2" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="BotIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control2" instance=ExtResource("3_vqvmt")]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="BotsAvailibleLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+[node name="BotsAvailibleLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Bots dispo:"
 
-[node name="BotsAvailibleValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+[node name="BotsAvailibleValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control2"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
-[node name="VSeparator" type="VSeparator" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="Control3" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/separator = SubResource("StyleBoxEmpty_x2rq4")
+size_flags_horizontal = 6
 
-[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+[node name="HpLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control3"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "PV max"
 
-[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+[node name="HpValue" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "-"
 
-[node name="HpPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer"]
+[node name="HpPlusButton" type="Button" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/HBoxContainer/Control3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(35, 0)
 layout_mode = 2
@@ -514,7 +542,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_k3aoq")
 [node name="StatsRow" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
-size_flags_vertical = 3
+size_flags_vertical = 6
 theme_override_constants/separation = 16
 alignment = 1
 

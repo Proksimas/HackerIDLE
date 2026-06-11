@@ -23,16 +23,25 @@ extends Control
 @export var use_hacker_scripts_override: bool = true
 @export var hacker_sequence_scripts: Array[String] = ["syn_flood"]
 
+const STACK_SCRIPT_REWARD_SELECTOR = preload("res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardSelector.tscn")
+const STACK_REWARD_MANAGER_SCRIPT = preload("res://Game/Interface/Stacks/StackScriptReward/stack_reward_manager.gd")
+
 @onready var stack_fight_ui = %StackFightUi
+@onready var stack_sequence_hacker: Control = %StackSequenceHacker
+@onready var test_tabs: TabContainer = %TestTabs
 @onready var start_button: Button = %LaunchCustomFightButton
+@onready var pause_reward_button: Button = %PauseRewardButton
 @onready var result_label: Label = %ResultLabel
 @onready var fight_type_label: Label = %FightTypeLabel
 
 var current_fight: StackFight
 var test_hacker: Entity
+var test_reward_manager: StackRewardManager
+var sequence_panel_has_loadout: bool = false
 
 
 func _ready() -> void:
+	test_reward_manager = STACK_REWARD_MANAGER_SCRIPT.new()
 	if stack_fight_ui != null and stack_fight_ui.has_signal("s_encounter_started") and not stack_fight_ui.s_encounter_started.is_connected(_on_ui_encounter_started):
 		stack_fight_ui.s_encounter_started.connect(_on_ui_encounter_started)
 	_hide_embedded_start_button()
@@ -46,10 +55,29 @@ func _on_start_fight_button_pressed() -> void:
 		return
 
 	_prepare_manager_for_new_test()
+	if sequence_panel_has_loadout:
+		test_hacker = StackManager.create_hacker_entity()
+	else:
+		test_hacker = _create_test_hacker(false)
+	await _launch_next_encounter(test_hacker, true)
+
+
+func _create_test_hacker(reset_progression: bool = false) -> Entity:
+	if reset_progression:
+		_prepare_manager_for_new_test()
 	_apply_hacker_stats_override()
 	_apply_hacker_scripts_override()
-	test_hacker = StackManager.create_hacker_entity()
-	await _launch_next_encounter(test_hacker, true)
+	return StackManager.create_hacker_entity()
+
+
+func _get_sequence_hacker() -> Entity:
+	if test_hacker != null and is_instance_valid(test_hacker):
+		return test_hacker
+	if stack_fight_ui != null and stack_fight_ui.hacker != null and is_instance_valid(stack_fight_ui.hacker):
+		test_hacker = stack_fight_ui.hacker
+		return test_hacker
+	test_hacker = _create_test_hacker(false)
+	return test_hacker
 
 
 func _prepare_manager_for_new_test() -> void:
@@ -183,6 +211,57 @@ func _on_clear_logs_button_pressed() -> void:
 	_reset_embedded_ui(true)
 
 
+func _on_pause_reward_button_pressed() -> void:
+	if test_reward_manager == null:
+		test_reward_manager = STACK_REWARD_MANAGER_SCRIPT.new()
+
+	var rewards: Array[Dictionary] = test_reward_manager.build_boss_rewards()
+	if rewards.is_empty():
+		result_label.text = "Reward: aucune recompense disponible"
+		return
+
+	var selector: StackScriptRewardSelector = STACK_SCRIPT_REWARD_SELECTOR.instantiate() as StackScriptRewardSelector
+	if selector == null:
+		result_label.text = "Reward: impossible d'instancier l'UI"
+		return
+
+	add_child(selector)
+	selector.reward_selected.connect(_on_test_reward_selected)
+	selector.show_rewards(rewards, "Reward Test")
+	result_label.text = "Reward: combat en pause"
+
+
+func _on_test_reward_selected(selected_data: Dictionary) -> void:
+	if stack_fight_ui != null and stack_fight_ui.has_method("_on_boss_reward_selected"):
+		stack_fight_ui.call("_on_boss_reward_selected", selected_data)
+
+	var payload: Dictionary = selected_data.get("payload", {})
+	var script_name := str(payload.get("script_name", ""))
+	if script_name != "":
+		result_label.text = "Reward: %s obtenu" % script_name
+	else:
+		result_label.text = "Reward: recompense obtenue"
+	_refresh_sequence_panel()
+
+
+func _on_test_tabs_tab_changed(tab: int) -> void:
+	if test_tabs == null:
+		return
+	var current_control := test_tabs.get_child(tab)
+	if current_control != null and current_control.name == "Sequence":
+		_refresh_sequence_panel()
+
+
+func _refresh_sequence_panel() -> void:
+	if stack_sequence_hacker == null:
+		return
+
+	var sequence_hacker := _get_sequence_hacker()
+	if sequence_hacker != null and stack_sequence_hacker.has_method("load_hacker"):
+		stack_sequence_hacker.call("load_hacker", sequence_hacker)
+		sequence_panel_has_loadout = true
+
+
 func _reset_embedded_ui(clear_logs: bool) -> void:
 	if stack_fight_ui.stack_fight_panel != null and stack_fight_ui.stack_fight_panel.has_method("_clear"):
 		stack_fight_ui.stack_fight_panel.call("_clear")
@@ -196,6 +275,7 @@ func _reset_embedded_ui(clear_logs: bool) -> void:
 	start_button.disabled = false
 	current_fight = null
 	test_hacker = null
+	sequence_panel_has_loadout = false
 	stack_fight_ui.run_active = false
 	stack_fight_ui.current_fight = null
 

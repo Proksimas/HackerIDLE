@@ -51,9 +51,8 @@ func remove_from_sequence(index: int) -> String:
 	if removed == "":
 		return ""
 	sequence_names[index] = ""
-	if not inventory_names.has(removed):
-		inventory_names.append(removed)
-		inventory_names.sort()
+	inventory_names.append(removed)
+	inventory_names.sort()
 	return removed
 
 
@@ -79,8 +78,7 @@ func clear_sequence() -> void:
 		var script_name := sequence_names[i]
 		if script_name == "":
 			continue
-		if not inventory_names.has(script_name):
-			inventory_names.append(script_name)
+		inventory_names.append(script_name)
 		sequence_names[i] = ""
 	inventory_names.sort()
 

@@ -5,7 +5,7 @@ const DEFAULT_HACKER_SEQUENCE: Array[String] = []
 const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
 const HP_BONUS_PER_BOT: int = 3
-const MAX_SCRIPT_COPIES: int = 3
+const MAX_SCRIPT_COPIES: int = 2
 const STACK_SCRIPT_DB: StackScriptDB = preload("res://Game/DB/stack_script_db.tres")
 
 var stack_script_pool: Dictionary
@@ -87,7 +87,7 @@ func unlock_hacker_script(script_name: String, add_to_sequence_if_missing: bool 
 	stack_hacker_script_copies[script_name] = current_copies + 1
 	if add_to_sequence_if_missing:
 		_seed_default_sequence_if_needed()
-		if not stack_hacker_sequence.has(script_name):
+		if _count_script_in_sequence(script_name) < get_script_copy_count(script_name):
 			stack_hacker_sequence.append(script_name)
 	s_hacker_loadout_changed.emit()
 	return true
@@ -130,12 +130,38 @@ func save_hacker_loadout(known_scripts: Array[String], sequence: Array[String]) 
 	for script_name in known_scripts:
 		if stack_script_pool.has(script_name):
 			stack_hacker_script_learned[script_name] = true
-			stack_hacker_script_copies[script_name] = 1
+			var current_copies := int(stack_hacker_script_copies.get(script_name, 0))
+			stack_hacker_script_copies[script_name] = clampi(current_copies + 1, 1, MAX_SCRIPT_COPIES)
 
 	stack_hacker_sequence.clear()
+	var used_copies: Dictionary = {}
 	for script_name in sequence:
-		if stack_hacker_script_learned.has(script_name):
-			stack_hacker_sequence.append(script_name)
+		if not stack_hacker_script_learned.has(script_name):
+			continue
+		var used := int(used_copies.get(script_name, 0))
+		var available := get_script_copy_count(script_name)
+		if used >= available:
+			continue
+		stack_hacker_sequence.append(script_name)
+		used_copies[script_name] = used + 1
+	s_hacker_loadout_changed.emit()
+
+func save_hacker_sequence(sequence: Array[String]) -> void:
+	"""Sauvegarde seulement la sequence equipee en conservant les copies connues."""
+	ensure_initialized()
+	stack_hacker_sequence.clear()
+
+	var used_copies: Dictionary = {}
+	for script_name in sequence:
+		if not stack_hacker_script_learned.has(script_name):
+			continue
+		var used := int(used_copies.get(script_name, 0))
+		var available := get_script_copy_count(script_name)
+		if used >= available:
+			continue
+		stack_hacker_sequence.append(script_name)
+		used_copies[script_name] = used + 1
+
 	s_hacker_loadout_changed.emit()
 
 func get_script_copy_count(script_name: String) -> int:
@@ -146,6 +172,25 @@ func can_receive_script_copy(script_name: String) -> bool:
 	if not stack_script_pool.has(script_name):
 		return false
 	return get_script_copy_count(script_name) < MAX_SCRIPT_COPIES
+
+func get_hacker_script_inventory_names() -> Array[String]:
+	"""Renvoie une entree par copie possedee, pour permettre les doublons en sequence."""
+	ensure_initialized()
+	var inventory: Array[String] = []
+	for script_name_variant in stack_hacker_script_learned.keys():
+		var script_name := str(script_name_variant)
+		var copies := get_script_copy_count(script_name)
+		for _i in range(copies):
+			inventory.append(script_name)
+	inventory.sort()
+	return inventory
+
+func _count_script_in_sequence(script_name: String) -> int:
+	var count := 0
+	for sequence_script_name in stack_hacker_sequence:
+		if sequence_script_name == script_name:
+			count += 1
+	return count
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	"""Donne a l'entite le script passe en parametre."""
@@ -216,9 +261,10 @@ func _resolve_hacker_sequence(available_scripts: Dictionary) -> Array[String]:
 
 	return resolved
 
-func spend_bot_for_stat(stat_name: String) -> bool:
-	"""Consomme 1 bot pour augmenter une stat du hacker."""
-	if Player.bots <= 0:
+func spend_bot_for_stat(stat_name: String, bot_count: int = 1) -> bool:
+	"""Consomme des bots pour augmenter une stat du hacker."""
+	bot_count = max(1, bot_count)
+	if Player.bots < bot_count:
 		return false
 	if stat_name not in ["penetration", "encryption", "flux", "hp_bonus"]:
 		return false
@@ -227,22 +273,23 @@ func spend_bot_for_stat(stat_name: String) -> bool:
 	if not stack_script_stats.has(stat_name):
 		stack_script_stats[stat_name] = 0
 
-	Player.bots -= 1
-	stack_script_stats[stat_name] = int(stack_script_stats.get(stat_name, 0)) + 1
+	Player.bots -= bot_count
+	stack_script_stats[stat_name] = int(stack_script_stats.get(stat_name, 0)) + bot_count
 	s_hacker_loadout_changed.emit()
 	return true
 
-func spend_bot_for_hp_bonus(hp_to_add: int = HP_BONUS_PER_BOT) -> bool:
-	"""Consomme 1 bot pour augmenter les PV max plats."""
-	if Player.bots <= 0:
+func spend_bot_for_hp_bonus(hp_to_add: int = HP_BONUS_PER_BOT, bot_count: int = 1) -> bool:
+	"""Consomme des bots pour augmenter les PV max plats."""
+	bot_count = max(1, bot_count)
+	if Player.bots < bot_count:
 		return false
 	if hp_to_add <= 0:
 		return false
 	if typeof(stack_script_stats) != TYPE_DICTIONARY:
 		stack_script_stats = {"penetration": 0, "encryption": 0, "flux": 0, "hp_bonus": 0}
 
-	Player.bots -= 1
-	stack_script_stats["hp_bonus"] = int(stack_script_stats.get("hp_bonus", 0)) + hp_to_add
+	Player.bots -= bot_count
+	stack_script_stats["hp_bonus"] = int(stack_script_stats.get("hp_bonus", 0)) + (hp_to_add * bot_count)
 	s_hacker_loadout_changed.emit()
 	return true
 
@@ -329,10 +376,17 @@ func _load_data(content: Dictionary) -> void:
 			stack_hacker_script_copies[script_name] = 1
 
 	if saved_sequence is Array:
+		var used_copies: Dictionary = {}
 		for script_name_variant in saved_sequence:
 			var script_name := str(script_name_variant)
-			if stack_hacker_script_learned.has(script_name):
-				stack_hacker_sequence.append(script_name)
+			if not stack_hacker_script_learned.has(script_name):
+				continue
+			var used := int(used_copies.get(script_name, 0))
+			var available := get_script_copy_count(script_name)
+			if used >= available:
+				continue
+			stack_hacker_sequence.append(script_name)
+			used_copies[script_name] = used + 1
 
 	if saved_stats is Dictionary:
 		for stat_name in ["penetration", "encryption", "flux", "hp_bonus"]:

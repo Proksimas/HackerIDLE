@@ -19,6 +19,7 @@ extends Control
 @onready var flux_value: Label = %FluxValue
 @onready var bots_availible_label: Label = %BotsAvailibleLabel
 @onready var bots_availible_value: Label = %BotsAvailibleValue
+@onready var x_button: Button = %XButton
 @onready var hp_plus_button: Button = %HpPlusButton
 @onready var penetration_plus_button: Button = %PenetrationPlusButton
 @onready var encryption_plus_button: Button = %EncryptionPlusButton
@@ -47,6 +48,8 @@ var _loadout = LOADOUT_STATE.new()
 var _script_presenter = SCRIPT_PRESENTER.new()
 var _selected_kind_filter: int = -1
 var _tab_buttons: Dictionary = {}
+var _bot_assignment_amounts: Array[int] = [1, 10, 100]
+var _bot_assignment_index: int = 0
 
 
 func _ready() -> void:
@@ -63,6 +66,9 @@ func _ready() -> void:
 		encryption_plus_button.pressed.connect(_on_encryption_plus_button_pressed)
 	if flux_plus_button != null and not flux_plus_button.pressed.is_connected(_on_flux_plus_button_pressed):
 		flux_plus_button.pressed.connect(_on_flux_plus_button_pressed)
+	if x_button != null and not x_button.pressed.is_connected(_on_x_button_pressed):
+		x_button.pressed.connect(_on_x_button_pressed)
+	_update_x_button_text()
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
 
@@ -132,7 +138,7 @@ func load_hacker(target: Entity) -> void:
 
 func _populate_lists() -> void:
 	_script_lookup.clear()
-	var known_names: Array[String] = []
+	var known_names: Array[String] = StackManager.get_hacker_script_inventory_names()
 
 	if hacker != null and not hacker.available_scripts.is_empty():
 		for key in hacker.available_scripts.keys():
@@ -140,7 +146,6 @@ func _populate_lists() -> void:
 			var script_res = hacker.available_scripts.get(script_name, null)
 			if script_res is StackScript:
 				_script_lookup[script_name] = script_res
-				known_names.append(script_name)
 	known_names.sort()
 
 	var initial_sequence: Array[String] = []
@@ -224,7 +229,7 @@ func _compute_hacker_hp(stats_dict: Dictionary) -> float:
 
 
 func _update_stat_buttons() -> void:
-	var can_buy := Player.bots > 0
+	var can_buy := Player.bots >= _get_bot_assignment_amount()
 	if hp_plus_button != null:
 		hp_plus_button.disabled = not can_buy
 	if penetration_plus_button != null:
@@ -239,23 +244,39 @@ func _on_player_bots_changed(_value: int) -> void:
 	_refresh_stats()
 
 
+func _get_bot_assignment_amount() -> int:
+	return _bot_assignment_amounts[_bot_assignment_index]
+
+
+func _update_x_button_text() -> void:
+	if x_button == null:
+		return
+	x_button.text = "x%d" % _get_bot_assignment_amount()
+
+
+func _on_x_button_pressed() -> void:
+	_bot_assignment_index = (_bot_assignment_index + 1) % _bot_assignment_amounts.size()
+	_update_x_button_text()
+	_update_stat_buttons()
+
+
 func _on_hp_plus_button_pressed() -> void:
-	if StackManager.spend_bot_for_hp_bonus():
+	if StackManager.spend_bot_for_hp_bonus(StackManager.HP_BONUS_PER_BOT, _get_bot_assignment_amount()):
 		_refresh_stats()
 
 
 func _on_penetration_plus_button_pressed() -> void:
-	if StackManager.spend_bot_for_stat("penetration"):
+	if StackManager.spend_bot_for_stat("penetration", _get_bot_assignment_amount()):
 		_refresh_stats()
 
 
 func _on_encryption_plus_button_pressed() -> void:
-	if StackManager.spend_bot_for_stat("encryption"):
+	if StackManager.spend_bot_for_stat("encryption", _get_bot_assignment_amount()):
 		_refresh_stats()
 
 
 func _on_flux_plus_button_pressed() -> void:
-	if StackManager.spend_bot_for_stat("flux"):
+	if StackManager.spend_bot_for_stat("flux", _get_bot_assignment_amount()):
 		_refresh_stats()
 
 
@@ -363,10 +384,7 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 func _persist_hacker_loadout() -> void:
 	if hacker == null:
 		return
-	var known_scripts: Array[String] = []
-	for key in hacker.available_scripts.keys():
-		known_scripts.append(str(key))
-	StackManager.save_hacker_loadout(known_scripts, _loadout.sequence_compact())
+	StackManager.save_hacker_sequence(_loadout.sequence_compact())
 
 
 func _refresh_scripts_list() -> void:
