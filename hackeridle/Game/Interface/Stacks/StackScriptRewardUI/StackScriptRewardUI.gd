@@ -3,6 +3,8 @@ class_name StackScriptRewardUI
 
 enum RewardKind { SCRIPT, SLOT, CUSTOM }
 
+
+
 signal reward_chosen(kind: RewardKind, payload: Dictionary)
 
 @export var reward_id: String = ""
@@ -12,6 +14,10 @@ signal reward_chosen(kind: RewardKind, payload: Dictionary)
 @export var script_resource: StackScript
 @export var slot_increment: int = 1
 @export var custom_payload: Dictionary = {}
+
+@onready var penetration_icon: AspectRatioContainer = %PenetrationIcon
+@onready var flux_icon: AspectRatioContainer = %FluxIcon
+@onready var encryption_icon: AspectRatioContainer = %EncryptionIcon
 
 @onready var kind_label: Label = %KindTag
 @onready var title_label: Label = %TitleLabel

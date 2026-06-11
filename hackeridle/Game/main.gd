@@ -86,6 +86,8 @@ func rebirth():
 	Player.exploit_xp = save_stats_for_rebirth["exploit_xp"]
 	Player.exploit_level = save_stats_for_rebirth["exploit_level"]
 	Player.exploit_point = save_stats_for_rebirth["exploit_point"]
+	StackManager.reset_hacker_loadout_for_rebirth()
+	NovaNetManager.has_unlocked_syn_flood_from_novanet = true
 	
 	#On triche un peu en changeant le level_ipk et ipc de la base de donnée
 	#Comme ça lors de l'achat il y a deja l'exploit 

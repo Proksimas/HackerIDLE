@@ -1,17 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://cokxlkeb0glxx"]
+[gd_scene load_steps=18 format=3 uid="uid://cokxlkeb0glxx"]
 
+[ext_resource type="StyleBox" uid="uid://cvnr7701o806v" path="res://Game/Themes/Novanet/night_blue_normal.tres" id="1_kq5f7"]
 [ext_resource type="Script" path="res://Game/Interface/Stacks/StackScriptRewardUI/StackScriptRewardUI.gd" id="1_l0jxr"]
+[ext_resource type="PackedScene" uid="uid://bh4l4v6vcurh5" path="res://Game/Interface/Icons/penetration_icon.tscn" id="3_4a3gn"]
+[ext_resource type="PackedScene" uid="uid://bvppq5s3uv617" path="res://Game/Interface/Icons/flux_icon.tscn" id="4_rv7w4"]
+[ext_resource type="PackedScene" uid="uid://bsxwn1v4cwr1p" path="res://Game/Interface/Icons/encryption_icon.tscn" id="5_pssd0"]
+[ext_resource type="StyleBox" uid="uid://bvab5eet1x3sj" path="res://Game/Themes/Novanet/violet_normal.tres" id="6_rkopc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dhnqi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0w20e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_30257"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h8mmu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4g3am"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j2bsf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rueuu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5jo8t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8kw50"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sc7rv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bq0fg"]
 
 [node name="StackScriptRewardUI" type="PanelContainer"]
 custom_minimum_size = Vector2(320, 0)
 anchors_preset = -1
 anchor_right = 0.542373
-anchor_bottom = 0.117371
+anchor_bottom = 0.12989
 offset_right = -320.0
-offset_bottom = -150.0
+offset_bottom = -166.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_type_variation = &"Panel"
+theme_override_styles/panel = ExtResource("1_kq5f7")
 script = ExtResource("1_l0jxr")
 metadata/_edit_use_anchors_ = true
 
@@ -30,12 +58,33 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="KindTag" type="Label" parent="MarginContainer/VBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="KindTag" type="Label" parent="MarginContainer/VBox/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(0.58, 0.82, 1, 1)
 theme_override_font_sizes/font_size = 12
 text = "StackScript"
+
+[node name="PenetrationIcon" parent="MarginContainer/VBox/HBoxContainer" instance=ExtResource("3_4a3gn")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="FluxIcon" parent="MarginContainer/VBox/HBoxContainer" instance=ExtResource("4_rv7w4")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="EncryptionIcon" parent="MarginContainer/VBox/HBoxContainer" instance=ExtResource("5_pssd0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
 
 [node name="TitleLabel" type="Label" parent="MarginContainer/VBox"]
 unique_name_in_owner = true
@@ -65,10 +114,27 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ClaimButton" type="Button" parent="MarginContainer/VBox/Actions"]
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBox/Actions"]
+custom_minimum_size = Vector2(70, 35)
+layout_mode = 2
+mouse_filter = 1
+theme_override_styles/panel = ExtResource("6_rkopc")
+
+[node name="ClaimButton" type="Button" parent="MarginContainer/VBox/Actions/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/focus = SubResource("StyleBoxEmpty_dhnqi")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_0w20e")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_30257")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_h8mmu")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_4g3am")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_j2bsf")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_rueuu")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_5jo8t")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_8kw50")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_sc7rv")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_bq0fg")
 text = "Obtenir"
 icon_alignment = 1
 expand_icon = true

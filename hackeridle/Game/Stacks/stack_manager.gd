@@ -103,6 +103,24 @@ func apply_first_novanet_grant() -> void:
 
 	save_hacker_loadout(known_scripts, [])
 
+func reset_hacker_loadout_for_rebirth() -> void:
+	"""Reset rebirth: seul syn_flood reste connu et les stats de stack repartent a zero."""
+	ensure_initialized()
+	stack_script_stats = {
+		"penetration": 0,
+		"encryption": 0,
+		"flux": 0,
+		"hp_bonus": 0
+	}
+	var known_scripts: Array[String] = []
+	var default_sequence: Array[String] = []
+	for script_name in FIRST_NOVANET_KNOWN_SCRIPTS:
+		if stack_script_pool.has(script_name):
+			known_scripts.append(script_name)
+			default_sequence.append(script_name)
+
+	save_hacker_loadout(known_scripts, default_sequence)
+
 func save_hacker_loadout(known_scripts: Array[String], sequence: Array[String]) -> void:
 	"""Sauvegarde les scripts connus et la sequence du hacker."""
 	ensure_initialized()
