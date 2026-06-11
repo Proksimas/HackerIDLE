@@ -37,7 +37,7 @@ func _build_script_candidates() -> Array[String]:
 	var candidates: Array[String] = []
 	for script_name_variant in StackManager.stack_script_pool.keys():
 		var script_name := str(script_name_variant)
-		if not StackManager.can_receive_script_copy(script_name):
+		if not StackManager.can_unlock_hacker_script(script_name):
 			continue
 		candidates.append(script_name)
 	return candidates

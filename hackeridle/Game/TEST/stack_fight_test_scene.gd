@@ -118,8 +118,10 @@ func _apply_hacker_scripts_override() -> void:
 	for script_name in source_sequence:
 		var s := str(script_name)
 		if StackManager.stack_script_pool.has(s):
-			valid_known.append(s)
-			valid_sequence.append(s)
+			if not valid_known.has(s):
+				valid_known.append(s)
+			if not valid_sequence.has(s):
+				valid_sequence.append(s)
 		else:
 			push_warning("StackFightTestScene | script inconnu ignore (sequence): %s" % s)
 

@@ -5,14 +5,13 @@ const DEFAULT_HACKER_SEQUENCE: Array[String] = []
 const DEFAULT_HACKER_KNOWN_SCRIPTS: Array[String] = []
 const FIRST_NOVANET_KNOWN_SCRIPTS: Array[String] = ["syn_flood"]
 const HP_BONUS_PER_BOT: int = 3
-const MAX_SCRIPT_COPIES: int = 2
 const STACK_SCRIPT_DB: StackScriptDB = preload("res://Game/DB/stack_script_db.tres")
 
 var stack_script_pool: Dictionary
 var stack_hacker_script_learned: Dictionary # scripts connus du hacker
-var stack_hacker_script_copies: Dictionary # nombre de copies par script
 var stack_hacker_sequence: Array[String] # ordre de sequence sauvegarde
 var stack_script_stats: Dictionary # stats derivees des bots
+var stack_hacker_extra_slots: Dictionary # slots supplementaires donnes par des sources externes
 signal s_hacker_loadout_changed
 
 func _ready() -> void:
@@ -21,8 +20,8 @@ func _ready() -> void:
 func _init() -> void:
 	stack_script_pool = {}
 	stack_hacker_script_learned = {}
-	stack_hacker_script_copies = {}
 	stack_hacker_sequence = []
+	stack_hacker_extra_slots = {}
 	initialize_pool()
 	stack_script_stats = {
 		"penetration": 0,
@@ -38,10 +37,10 @@ func ensure_initialized() -> void:
 		initialize_pool()
 	if typeof(stack_hacker_script_learned) != TYPE_DICTIONARY:
 		stack_hacker_script_learned = {}
-	if typeof(stack_hacker_script_copies) != TYPE_DICTIONARY:
-		stack_hacker_script_copies = {}
 	if typeof(stack_hacker_sequence) != TYPE_ARRAY:
 		stack_hacker_sequence = []
+	if typeof(stack_hacker_extra_slots) != TYPE_DICTIONARY:
+		stack_hacker_extra_slots = {}
 	if typeof(stack_script_stats) != TYPE_DICTIONARY:
 		stack_script_stats = {}
 	for stat_name in ["penetration", "encryption", "flux", "hp_bonus"]:
@@ -72,22 +71,20 @@ func create_hacker_entity() -> Entity:
 
 func has_hacker_script(script_name: String) -> bool:
 	ensure_initialized()
-	return bool(stack_hacker_script_learned.get(script_name, false)) and get_script_copy_count(script_name) > 0
+	return bool(stack_hacker_script_learned.get(script_name, false))
 
 func unlock_hacker_script(script_name: String, add_to_sequence_if_missing: bool = false) -> bool:
-	"""Debloque un script pour le hacker de run. Chaque unlock ajoute 1 copie (cap MAX_SCRIPT_COPIES)."""
+	"""Debloque un script pour le hacker de run."""
 	ensure_initialized()
 	if not stack_script_pool.has(script_name):
 		push_warning("Script introuvable pour le hacker: %s" % script_name)
 		return false
-	var current_copies := get_script_copy_count(script_name)
-	if current_copies >= MAX_SCRIPT_COPIES:
+	if stack_hacker_script_learned.has(script_name):
 		return false
 	stack_hacker_script_learned[script_name] = true
-	stack_hacker_script_copies[script_name] = current_copies + 1
 	if add_to_sequence_if_missing:
 		_seed_default_sequence_if_needed()
-		if _count_script_in_sequence(script_name) < get_script_copy_count(script_name):
+		if not stack_hacker_sequence.has(script_name):
 			stack_hacker_sequence.append(script_name)
 	s_hacker_loadout_changed.emit()
 	return true
@@ -126,64 +123,42 @@ func save_hacker_loadout(known_scripts: Array[String], sequence: Array[String]) 
 	ensure_initialized()
 
 	stack_hacker_script_learned.clear()
-	stack_hacker_script_copies.clear()
 	for script_name in known_scripts:
 		if stack_script_pool.has(script_name):
 			stack_hacker_script_learned[script_name] = true
-			var current_copies := int(stack_hacker_script_copies.get(script_name, 0))
-			stack_hacker_script_copies[script_name] = clampi(current_copies + 1, 1, MAX_SCRIPT_COPIES)
 
 	stack_hacker_sequence.clear()
-	var used_copies: Dictionary = {}
+	var used_scripts: Dictionary = {}
 	for script_name in sequence:
 		if not stack_hacker_script_learned.has(script_name):
 			continue
-		var used := int(used_copies.get(script_name, 0))
-		var available := get_script_copy_count(script_name)
-		if used >= available:
+		if used_scripts.has(script_name):
 			continue
 		stack_hacker_sequence.append(script_name)
-		used_copies[script_name] = used + 1
+		used_scripts[script_name] = true
 	s_hacker_loadout_changed.emit()
 
 func save_hacker_sequence(sequence: Array[String]) -> void:
-	"""Sauvegarde seulement la sequence equipee en conservant les copies connues."""
+	"""Sauvegarde seulement la sequence equipee."""
 	ensure_initialized()
 	stack_hacker_sequence.clear()
 
-	var used_copies: Dictionary = {}
+	var used_scripts: Dictionary = {}
 	for script_name in sequence:
 		if not stack_hacker_script_learned.has(script_name):
 			continue
-		var used := int(used_copies.get(script_name, 0))
-		var available := get_script_copy_count(script_name)
-		if used >= available:
+		if used_scripts.has(script_name):
 			continue
 		stack_hacker_sequence.append(script_name)
-		used_copies[script_name] = used + 1
+		used_scripts[script_name] = true
 
 	s_hacker_loadout_changed.emit()
 
-func get_script_copy_count(script_name: String) -> int:
-	return clampi(int(stack_hacker_script_copies.get(script_name, 0)), 0, MAX_SCRIPT_COPIES)
-
-func can_receive_script_copy(script_name: String) -> bool:
+func can_unlock_hacker_script(script_name: String) -> bool:
 	ensure_initialized()
 	if not stack_script_pool.has(script_name):
 		return false
-	return get_script_copy_count(script_name) < MAX_SCRIPT_COPIES
-
-func get_hacker_script_inventory_names() -> Array[String]:
-	"""Renvoie une entree par copie possedee, pour permettre les doublons en sequence."""
-	ensure_initialized()
-	var inventory: Array[String] = []
-	for script_name_variant in stack_hacker_script_learned.keys():
-		var script_name := str(script_name_variant)
-		var copies := get_script_copy_count(script_name)
-		for _i in range(copies):
-			inventory.append(script_name)
-	inventory.sort()
-	return inventory
+	return not has_hacker_script(script_name)
 
 func sync_hacker_entity_loadout(entity: Entity) -> void:
 	"""Applique le loadout hacker sauvegarde a une entite active."""
@@ -195,18 +170,33 @@ func sync_hacker_entity_loadout(entity: Entity) -> void:
 		if has_hacker_script(script_name) and not entity.available_scripts.has(script_name):
 			learn_stack_script(entity, script_name)
 	var sequence: Array[String] = []
+	var used_scripts: Dictionary = {}
 	for script_name in stack_hacker_sequence:
 		if entity.available_scripts.has(script_name):
+			if used_scripts.has(script_name):
+				continue
 			sequence.append(script_name)
+			used_scripts[script_name] = true
 	entity.save_sequence(sequence)
 	entity.set_hacker_max_hp()
 
-func _count_script_in_sequence(script_name: String) -> int:
-	var count := 0
-	for sequence_script_name in stack_hacker_sequence:
-		if sequence_script_name == script_name:
-			count += 1
-	return count
+func get_hacker_max_slots(base_slots: int) -> int:
+	ensure_initialized()
+	var slots = max(0, base_slots)
+	for source in stack_hacker_extra_slots:
+		slots += max(0, int(stack_hacker_extra_slots[source]))
+	return slots
+
+func set_hacker_extra_slots(source: String, slots: int) -> void:
+	ensure_initialized()
+	var cleaned_source := source.strip_edges()
+	if cleaned_source == "":
+		return
+	if slots <= 0:
+		stack_hacker_extra_slots.erase(cleaned_source)
+	else:
+		stack_hacker_extra_slots[cleaned_source] = slots
+	s_hacker_loadout_changed.emit()
 
 func learn_stack_script(learner: Entity, stack_script_name: String) -> bool:
 	"""Donne a l'entite le script passe en parametre."""
@@ -346,9 +336,9 @@ func _save_data() -> Dictionary:
 	ensure_initialized()
 	return {
 		"stack_hacker_script_learned": stack_hacker_script_learned.duplicate(true),
-		"stack_hacker_script_copies": stack_hacker_script_copies.duplicate(true),
 		"stack_hacker_sequence": stack_hacker_sequence.duplicate(true),
-		"stack_script_stats": stack_script_stats.duplicate(true)
+		"stack_script_stats": stack_script_stats.duplicate(true),
+		"stack_hacker_extra_slots": stack_hacker_extra_slots.duplicate(true)
 	}
 
 func _load_data(content: Dictionary) -> void:
@@ -357,8 +347,8 @@ func _load_data(content: Dictionary) -> void:
 	ensure_initialized()
 
 	stack_hacker_script_learned.clear()
-	stack_hacker_script_copies.clear()
 	stack_hacker_sequence.clear()
+	stack_hacker_extra_slots.clear()
 	stack_script_stats = {
 		"penetration": 0,
 		"encryption": 0,
@@ -367,9 +357,9 @@ func _load_data(content: Dictionary) -> void:
 	}
 
 	var saved_learned = content.get("stack_hacker_script_learned", {})
-	var saved_copies = content.get("stack_hacker_script_copies", {})
 	var saved_sequence = content.get("stack_hacker_sequence", [])
 	var saved_stats = content.get("stack_script_stats", {})
+	var saved_extra_slots = content.get("stack_hacker_extra_slots", {})
 
 	if saved_learned is Dictionary:
 		for script_name_variant in saved_learned.keys():
@@ -377,34 +367,24 @@ func _load_data(content: Dictionary) -> void:
 			if stack_script_pool.has(script_name) and bool(saved_learned[script_name_variant]):
 				stack_hacker_script_learned[script_name] = true
 
-	if saved_copies is Dictionary:
-		for script_name_variant in saved_copies.keys():
-			var script_name := str(script_name_variant)
-			if not stack_script_pool.has(script_name):
-				continue
-			var copies := clampi(int(saved_copies[script_name_variant]), 0, MAX_SCRIPT_COPIES)
-			if copies > 0:
-				stack_hacker_script_learned[script_name] = true
-				stack_hacker_script_copies[script_name] = copies
-
-	for script_name in stack_hacker_script_learned.keys():
-		if not stack_hacker_script_copies.has(script_name):
-			stack_hacker_script_copies[script_name] = 1
-
 	if saved_sequence is Array:
-		var used_copies: Dictionary = {}
+		var used_scripts: Dictionary = {}
 		for script_name_variant in saved_sequence:
 			var script_name := str(script_name_variant)
 			if not stack_hacker_script_learned.has(script_name):
 				continue
-			var used := int(used_copies.get(script_name, 0))
-			var available := get_script_copy_count(script_name)
-			if used >= available:
+			if used_scripts.has(script_name):
 				continue
 			stack_hacker_sequence.append(script_name)
-			used_copies[script_name] = used + 1
+			used_scripts[script_name] = true
 
 	if saved_stats is Dictionary:
 		for stat_name in ["penetration", "encryption", "flux", "hp_bonus"]:
 			if saved_stats.has(stat_name):
 				stack_script_stats[stat_name] = max(0, int(saved_stats[stat_name]))
+
+	if saved_extra_slots is Dictionary:
+		for source_variant in saved_extra_slots.keys():
+			var source := str(source_variant).strip_edges()
+			if source != "":
+				stack_hacker_extra_slots[source] = max(0, int(saved_extra_slots[source_variant]))

@@ -29,7 +29,7 @@ func load_from_entity(target: Entity) -> void:
 	else:
 		available_names = _to_string_array(entity.available_scripts.keys())
 		available_names.sort()
-		sequence_names = _to_string_array(entity.sequence_order)
+		sequence_names = _unique_string_array(entity.sequence_order)
 	_refresh_lists()
 	dirty = false
 	_update_status()
@@ -46,7 +46,10 @@ func _refresh_lists() -> void:
 func _on_available_item_activated(index: int) -> void:
 	if index < 0 or index >= available_names.size():
 		return
-	sequence_names.append(available_names[index])
+	var script_name := str(available_names[index])
+	if sequence_names.has(script_name):
+		return
+	sequence_names.append(script_name)
 	_refresh_lists()
 	dirty = true
 	_update_status()
@@ -130,6 +133,14 @@ func _to_string_array(arr: Array) -> Array[String]:
 	var res: Array[String] = []
 	for v in arr:
 		res.append(str(v))
+	return res
+
+func _unique_string_array(arr: Array) -> Array[String]:
+	var res: Array[String] = []
+	for v in arr:
+		var value := str(v)
+		if not res.has(value):
+			res.append(value)
 	return res
 
 func open_create_entity_ui() -> void:

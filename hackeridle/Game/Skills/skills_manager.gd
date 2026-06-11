@@ -15,6 +15,7 @@ var passives_skills: Dictionary = {
 	"i_want_to_click": preload("res://Game/Skills/PassiveSkills/i_want_to_click.tres"),
 	"ia": preload("res://Game/Skills/PassiveSkills/ia.tres"),
 	"i_like_bots": preload("res://Game/Skills/PassiveSkills/i_like_bots.tres"),
+	"more_slots": preload("res://Game/Skills/PassiveSkills/more_slots.tres"),
 	"tax_optimization": preload("res://Game/Skills/PassiveSkills/tax_optimization.tres"),
 	"hackathon": preload("res://Game/Skills/PassiveSkills/hackathon.tres"),
 	"lunch_in_peace": preload("res://Game/Skills/PassiveSkills/lunch_in_peace.tres"),

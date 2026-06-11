@@ -59,10 +59,10 @@ const POOL_BOSS := ["TITAN", "TITAN_OMEGA", "TITAN_CORE", "TITAN_SOVEREIGN", "OB
 
 const SCRIPT_POOL:Dictionary = {
 	"DPS": ["syn_flood"],
-	"TANK": ["syn_flood"],
+	"TANK": ["syn_flood", "firewall_patch"],
 	"SUPPORT": ["syn_flood"],
-	"ELITE": ["syn_flood"],
-	"BOSS": ["syn_flood"]
+	"ELITE": ["syn_flood", "crypt_breach"],
+	"BOSS": ["syn_flood", "cipher_strike"]
 }
 
 # -------------------------

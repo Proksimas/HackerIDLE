@@ -1,7 +1,9 @@
 extends Control
 
 @export var hacker: Entity
-@export var max_slots: int = 5
+@export var max_slots: int = 2
+
+var base_max_slots: int = 2
 
 @onready var scripts_scroll: Control = %ScriptsScroll
 @onready var scripts_container: VBoxContainer = %ScriptsContainer
@@ -50,9 +52,11 @@ var _selected_kind_filter: int = -1
 var _tab_buttons: Dictionary = {}
 var _bot_assignment_amounts: Array[int] = [1, 10, 100]
 var _bot_assignment_index: int = 0
+var _suppress_persist: bool = false
 
 
 func _ready() -> void:
+	base_max_slots = max_slots
 	_setup_kind_tabs()
 	_reset_details()
 	_refresh_stats()
@@ -71,6 +75,8 @@ func _ready() -> void:
 	_update_x_button_text()
 	if scripts_scroll.has_signal("script_drop"):
 		scripts_scroll.connect("script_drop", Callable(self, "_on_scripts_drop"))
+	if StackManager.has_signal("s_hacker_loadout_changed") and not StackManager.s_hacker_loadout_changed.is_connected(_on_hacker_loadout_changed):
+		StackManager.s_hacker_loadout_changed.connect(_on_hacker_loadout_changed)
 
 
 func _setup_kind_tabs() -> void:
@@ -131,14 +137,23 @@ func _get_kind_color(kind_filter: int) -> Color:
 
 func load_hacker(target: Entity) -> void:
 	hacker = target
+	_sync_hacker_available_scripts()
 	_refresh_stats()
 	_populate_lists()
 	_persist_hacker_loadout()
 
 
 func _populate_lists() -> void:
+	_sync_hacker_available_scripts()
 	_script_lookup.clear()
-	var known_names: Array[String] = StackManager.get_hacker_script_inventory_names()
+	var known_names: Array[String] = []
+	for script_name_variant in StackManager.stack_hacker_script_learned.keys():
+		var script_name := str(script_name_variant)
+		if StackManager.has_hacker_script(script_name):
+			known_names.append(script_name)
+			var script_resource = StackManager._get_stack_script_resource(script_name)
+			if script_resource is StackScript:
+				_script_lookup[script_name] = script_resource
 
 	if hacker != null and not hacker.available_scripts.is_empty():
 		for key in hacker.available_scripts.keys():
@@ -155,11 +170,25 @@ func _populate_lists() -> void:
 			if _script_lookup.has(script_id):
 				initial_sequence.append(script_id)
 
-	max_slots = max(max_slots, initial_sequence.size())
+	max_slots = max(StackManager.get_hacker_max_slots(base_max_slots), initial_sequence.size())
 	_loadout.setup(known_names, initial_sequence, max_slots)
 
 	_refresh_scripts_list()
 	_refresh_sequence_list()
+
+
+func _sync_hacker_available_scripts() -> void:
+	if hacker == null:
+		return
+	StackManager.sync_hacker_entity_loadout(hacker)
+
+
+func _on_hacker_loadout_changed() -> void:
+	if hacker == null:
+		return
+	_suppress_persist = true
+	_populate_lists()
+	_suppress_persist = false
 
 
 func _display_script(script_name: String) -> void:
@@ -382,6 +411,8 @@ func _refresh_sequence_list(select_idx: int = -1) -> void:
 
 
 func _persist_hacker_loadout() -> void:
+	if _suppress_persist:
+		return
 	if hacker == null:
 		return
 	var sequence := _loadout.sequence_compact()

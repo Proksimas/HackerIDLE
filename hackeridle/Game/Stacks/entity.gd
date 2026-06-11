@@ -70,9 +70,13 @@ func save_sequence(scripts_name: Array[String]):
 	"""on enregitre la séquences des scripts. Ils seront init ensuite
 	au bon moment (phase de préparation du combat)"""
 	sequence_order.clear()
+	var used_scripts: Dictionary = {}
 	for script_name: String in scripts_name:
+		if used_scripts.has(script_name):
+			continue
 		if available_scripts.has(script_name):
 			sequence_order.append(script_name)
+			used_scripts[script_name] = true
 		else:
 			push_error("On save un script qui n'est pas dans le pool de l'entité !")
 
