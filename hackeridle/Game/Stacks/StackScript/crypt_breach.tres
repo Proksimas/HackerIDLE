@@ -5,7 +5,9 @@
 [resource]
 script = ExtResource("1_grbcs")
 stack_script_name = "crypt_breach"
-turn_cooldown_base = 5
+turn_cooldown_base = 1
+base_value_hacker = 3.0
+base_value_robot = 3.0
 type_and_coef = {
 "encryption": 0.5,
 "flux": 0.0,

@@ -71,14 +71,18 @@ func _on_enter_preparation() -> void:
 	# Mettre à jour l'interface utilisateur pour demander la nouvelle séquence au joueur ici.
 	# Connexion des signaux
 	current_turn += 1
+	StackManager.sync_hacker_entity_loadout(hacker)
 	hacker.tick_all_script_cooldowns()
 	hacker.init_sequence()
 	for robot in robots_ia:
 		robot.tick_all_script_cooldowns()
 		robot.init_sequence()
 
-	if current_stack_fight_ui != null and current_stack_fight_ui.has_method("refresh_stack_components_cooldowns"):
-		current_stack_fight_ui.refresh_stack_components_cooldowns()
+	if current_stack_fight_ui != null:
+		if current_stack_fight_ui.has_method("refresh_stack_components"):
+			current_stack_fight_ui.refresh_stack_components()
+		elif current_stack_fight_ui.has_method("refresh_stack_components_cooldowns"):
+			current_stack_fight_ui.refresh_stack_components_cooldowns()
 	
 	transition_to(CombatPhase.HACKER_EXECUTION)
 

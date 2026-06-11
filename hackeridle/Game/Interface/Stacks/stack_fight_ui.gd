@@ -363,6 +363,11 @@ func refresh_stack_components_cooldowns() -> void:
 		stack_fight_panel.refresh_stack_components_cooldowns()
 
 
+func refresh_stack_components() -> void:
+	if stack_fight_panel.has_method("refresh_stack_components"):
+		stack_fight_panel.refresh_stack_components()
+
+
 func _start_next_encounter_with_countdown() -> void:
 	if not run_active:
 		return

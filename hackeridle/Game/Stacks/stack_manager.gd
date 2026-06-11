@@ -185,6 +185,22 @@ func get_hacker_script_inventory_names() -> Array[String]:
 	inventory.sort()
 	return inventory
 
+func sync_hacker_entity_loadout(entity: Entity) -> void:
+	"""Applique le loadout hacker sauvegarde a une entite active."""
+	if entity == null or not entity.entity_is_hacker:
+		return
+	ensure_initialized()
+	for script_name_variant in stack_hacker_script_learned.keys():
+		var script_name := str(script_name_variant)
+		if has_hacker_script(script_name) and not entity.available_scripts.has(script_name):
+			learn_stack_script(entity, script_name)
+	var sequence: Array[String] = []
+	for script_name in stack_hacker_sequence:
+		if entity.available_scripts.has(script_name):
+			sequence.append(script_name)
+	entity.save_sequence(sequence)
+	entity.set_hacker_max_hp()
+
 func _count_script_in_sequence(script_name: String) -> int:
 	var count := 0
 	for sequence_script_name in stack_hacker_sequence:

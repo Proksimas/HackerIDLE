@@ -216,6 +216,23 @@ func build_log_message(event_data: Dictionary) -> String:
 		"Death":
 			return "%s est mort." % formatted_caster
 
+		"Cooldown":
+			var script_name: String = str(event_data.get("script_name", "script"))
+			var turns_remaining: int = int(event_data.get("turns_remaining", 0))
+			if turns_remaining > 1:
+				return "%s ne peut pas lancer [color=%s]%s[/color] (%d tours de cooldown restants)." % [
+					formatted_caster,
+					COLOR_DOT,
+					script_name,
+					turns_remaining
+				]
+			return "%s ne peut pas lancer [color=%s]%s[/color] (%d tour de cooldown restant)." % [
+				formatted_caster,
+				COLOR_DOT,
+				script_name,
+				turns_remaining
+			]
+
 		_:
 			return "Événement de log non reconnu: %s" % str(event_data)
 

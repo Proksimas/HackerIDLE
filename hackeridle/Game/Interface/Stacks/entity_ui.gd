@@ -258,6 +258,12 @@ func reset_entity_ui() -> void:
 	hide()
 
 
+func refresh_stack_components() -> void:
+	if entity_associated == null:
+		return
+	_sync_stack_components(entity_associated.sequence_order)
+
+
 func refresh_stack_components_cooldowns() -> void:
 	if entity_associated == null:
 		return

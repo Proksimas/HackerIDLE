@@ -68,6 +68,15 @@ func refresh_stack_components_cooldowns() -> void:
 			entity_ui.refresh_stack_components_cooldowns()
 
 
+func refresh_stack_components() -> void:
+	for entity_ui in hacker_container.get_children():
+		if entity_ui.visible and entity_ui.has_method("refresh_stack_components"):
+			entity_ui.refresh_stack_components()
+	for entity_ui in robots_container.get_children():
+		if entity_ui.visible and entity_ui.has_method("refresh_stack_components"):
+			entity_ui.refresh_stack_components()
+
+
 func _acquire_entity_ui(container: Control) -> EntityUI:
 	for child in container.get_children():
 		if child is EntityUI and not child.visible:
