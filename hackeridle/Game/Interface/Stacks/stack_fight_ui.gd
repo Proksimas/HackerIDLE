@@ -333,6 +333,13 @@ func _on_execute_script(_script_index: int, data_from_execution: Dictionary) -> 
 				var t: Entity = te.get("target", null)
 				if t != null and not targets_entities.has(t):
 					targets_entities.append(t)
+	if data_from_execution.has("resolution"):
+		var resolved_targets: Array = data_from_execution["resolution"].get("perTarget", [])
+		for entry in resolved_targets:
+			if entry is Dictionary:
+				var resolved_target: Entity = entry.get("target", null)
+				if resolved_target != null and not targets_entities.has(resolved_target):
+					targets_entities.append(resolved_target)
 
 	if targets_entities.is_empty() and data_from_execution.has("resolution"):
 		var per_target: Array = data_from_execution["resolution"].get("perTarget", [])

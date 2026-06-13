@@ -164,7 +164,6 @@ func get_tot_gold() -> float:
 func get_tot_knowledge() -> float:
 	"""Calcul le gain tot de knowlmedge issu des shop_item + le gain par click 
 	sur le cerveau"""
-	
 	var tot_knowledge: float = 0
 	# from click
 	var knowledge_point_to_gain = StatsManager.current_stat_calcul(\

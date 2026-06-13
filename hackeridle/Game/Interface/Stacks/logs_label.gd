@@ -34,6 +34,9 @@ func format_single_effect(effect: Dictionary) -> String:
 		"PierceHP":
 			damage_color = COLOR_HP
 			damage_tag = "Brut"
+		"Reflection":
+			damage_color = COLOR_DOT
+			damage_tag = "Renvoi"
 		"HealHP":
 			damage_color = COLOR_HP
 			damage_tag = "HP"
@@ -97,6 +100,22 @@ func _build_effects_from_resolution_for_target(event_data: Dictionary, target: E
 		effects_for_log.append({"value": int(round(shield_gained)), "type": "Shield"})
 
 	return effects_for_log
+
+
+func _format_reflection_for_target(event_data: Dictionary, target: Entity) -> String:
+	var entry := _get_resolution_entry_for_target(event_data, target)
+	var reflection: Dictionary = entry.get("reflection", {})
+	if reflection.is_empty():
+		return ""
+	var reflected_target: Entity = reflection.get("target", null)
+	if reflected_target == null:
+		return ""
+	var reflected_value: float = float(reflection.get("hpLost", 0.0)) + float(reflection.get("shieldLost", 0.0))
+	return " et renvoie [color=%s]%d[/color] degats a %s" % [
+		COLOR_DOT,
+		int(round(reflected_value)),
+		format_target_names([reflected_target])
+	]
 
 
 func _is_only_type(effects: Array, type_name: String) -> bool:
@@ -184,9 +203,9 @@ func build_log_message(event_data: Dictionary) -> String:
 									stack_txt_apply
 								])
 
-					var extra_suffix := ""
+					var extra_suffix := _format_reflection_for_target(event_data, target)
 					if extra_parts.size() > 0:
-						extra_suffix = " et " + " et ".join(extra_parts)
+						extra_suffix += " et " + " et ".join(extra_parts)
 
 					# --- Format des effets affichés ---
 					var formatted_effects_str = _format_effects_list(effects_for_phrase)
@@ -215,6 +234,18 @@ func build_log_message(event_data: Dictionary) -> String:
 
 		"Death":
 			return "%s est mort." % formatted_caster
+
+		"Status":
+			var status_name: String = str(meta.get("status_name", "Status"))
+			var turn_duration: int = int(meta.get("turn_duration", 0))
+			var redirect_percent: float = float(meta.get("redirect_percent", 0.0))
+			return "%s active [color=%s]%s[/color] pendant %d tours (%.0f%%)." % [
+				formatted_caster,
+				COLOR_DOT,
+				tr(status_name),
+				turn_duration,
+				redirect_percent
+			]
 
 		"Knowledge":
 			var knowledge_gain: float = float(meta.get("knowledge_gain", 0.0))

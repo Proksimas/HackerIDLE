@@ -60,16 +60,80 @@ static func _apply_effects_and_snapshot(caster: Entity, target: Entity, effects:
 		"hpGained": max(0.0, after.hp - before.hp),
 		"shieldGained": max(0.0, after.shield - before.shield)
 	}
+	var reflection := _apply_proxy_redirect(caster, target, float(delta.hpLost))
 
-	resolution["perTarget"].append({
+	var target_resolution := {
 		"target": target,
 		"before": before,
 		"after": after,
 		"delta": delta
-	})
+	}
+	if not reflection.is_empty():
+		target_resolution["reflection"] = reflection
+	resolution["perTarget"].append(target_resolution)
+	if not reflection.is_empty():
+		resolution["perTarget"].append({
+			"target": reflection.get("target", null),
+			"before": reflection.get("before", {}),
+			"after": reflection.get("after", {}),
+			"delta": reflection.get("delta", {})
+		})
 
 	if (not before.isDead) and after.isDead:
 		resolution["killed"].append(target)
+	if not reflection.is_empty() and bool(reflection.get("killed", false)):
+		resolution["killed"].append(caster)
+
+
+static func _apply_proxy_redirect(attacker: Entity, defender: Entity, hp_lost: float) -> Dictionary:
+	if attacker == null or defender == null or attacker == defender or hp_lost <= 0.0:
+		return {}
+	if attacker.self_is_dead:
+		return {}
+
+	for index in range(defender.active_statuses.size()):
+		var status = defender.active_statuses[index]
+		if not (status is Dictionary):
+			continue
+		if str(status.get("type", "")) != "ProxyRedirect":
+			continue
+
+		var redirect_ratio: float = clampf(float(status.get("value", 0.0)), 0.0, 1.0)
+		var reflected_damage: float = hp_lost * redirect_ratio
+		defender.active_statuses.remove_at(index)
+		if reflected_damage <= 0.0:
+			return {}
+
+		var before := {
+			"hp": float(attacker.current_hp),
+			"shield": float(attacker.current_shield),
+			"isDead": bool(attacker.self_is_dead)
+		}
+		var was_dead: bool = attacker.self_is_dead
+		attacker.take_damage(reflected_damage)
+		var after := {
+			"hp": float(attacker.current_hp),
+			"shield": float(attacker.current_shield),
+			"isDead": bool(attacker.self_is_dead)
+		}
+		var delta := {
+			"hpLost": maxf(0.0, float(before.hp) - float(after.hp)),
+			"shieldLost": maxf(0.0, float(before.shield) - float(after.shield)),
+			"hpGained": 0.0,
+			"shieldGained": 0.0
+		}
+		return {
+			"target": attacker,
+			"value": reflected_damage,
+			"hpLost": delta.hpLost,
+			"shieldLost": delta.shieldLost,
+			"before": before,
+			"after": after,
+			"delta": delta,
+			"killed": not was_dead and attacker.self_is_dead
+		}
+
+	return {}
 		
 static func _apply_effect(_caster: Entity, target: Entity, effect: Dictionary) -> void:
 	var effect_type: String = str(effect.get("type", ""))
