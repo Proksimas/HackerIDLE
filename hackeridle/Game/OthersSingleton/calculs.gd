@@ -162,7 +162,7 @@ func get_tot_gold() -> float:
 	
 	
 func get_tot_knowledge() -> float:
-	"""Calcul le hain tot de knowlmedge issu des shop_item + le gain par click 
+	"""Calcul le gain tot de knowlmedge issu des shop_item + le gain par click 
 	sur le cerveau"""
 	
 	var tot_knowledge: float = 0

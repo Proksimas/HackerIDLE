@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cyyiisxgp5384"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/knowledge_siphon.gd" id="1_knowledge_siphon"]
+
+[resource]
+script = ExtResource("1_knowledge_siphon")
+stack_script_name = "knowledge_siphon"
+turn_cooldown_base = 0
+base_value_hacker = 0.0
+base_value_robot = 0.0
+type_and_coef = {
+"encryption": 0.0,
+"flux": 0.05,
+"penetration": 0.0
+}
+execution_time = 10.0
+script_kind = 2

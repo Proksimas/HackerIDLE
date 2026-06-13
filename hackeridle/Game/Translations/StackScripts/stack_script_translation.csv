@@ -8,6 +8,7 @@ kernel_blast;Kernel Blast;Kernel Blast
 malware_apt;APT Malware;APT Malware
 zero_day_exploit;Zero Day Exploit;Zero Day Exploit
 fork_bomb;Fork Bomb;Fork Bomb
+knowledge_siphon;Siphon de connaissance;Knowledge Siphon
 vulnerability;Vulnerabilite;Vulnerability
 syn_flood_desc;Moyenne attaque sur une cible;Average attack on a target
 cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats infligés;Small attack on a target, and adds a shield based on the damage inflicted
@@ -18,6 +19,7 @@ kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor
 malware_apt_desc;Inflige de faibles degats et ajoute un statut de corruption faisant des degats sur {turn_duration} tours (stack: {number_stack});Deals minor damage and applies a corruption status that deals damage over {turn_duration} turns (stack: {number_stack})
 zero_day_exploit_desc;Inflige de faibles degats et applique Vulnerabilite pendant 2 tours, augmentant les degats de {augment}% (0 stack).;Deals minor damage and applies Vulnerability for 2 turns, increasing damage by {augment}% (0 stack).
 fork_bomb_desc;Inflige des degats a une cible. Les degats sont doubles si elle possede 30 % de ses PV maximum ou moins.;Deals damage to one target. Damage is doubled if it has 30% or less of its maximum HP.
+knowledge_siphon_desc;Gagne {knowledge_percent}% de la connaissance totale generee. Le pourcentage augmente avec le Flux.;Gains {knowledge_percent}% of the total knowledge generated. The percentage increases with Flux.
 stack_tab_all;Tout;All
 stack_tab_damage;Dom.;Dam.
 stack_tab_shield;Bouc.;Shi.

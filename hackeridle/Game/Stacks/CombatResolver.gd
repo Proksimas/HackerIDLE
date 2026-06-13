@@ -106,6 +106,9 @@ static func _apply_effect(_caster: Entity, target: Entity, effect: Dictionary) -
 				target.add_status(status)
 			else:
 				push_error("L'entité est censé avoir le add_status")
+		"Knowledge":
+			if _caster != null and _caster.entity_is_hacker and value > 0.0:
+				Player.earn_knowledge_point(value)
 		_:
 			pass
 

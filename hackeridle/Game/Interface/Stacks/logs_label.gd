@@ -216,6 +216,15 @@ func build_log_message(event_data: Dictionary) -> String:
 		"Death":
 			return "%s est mort." % formatted_caster
 
+		"Knowledge":
+			var knowledge_gain: float = float(meta.get("knowledge_gain", 0.0))
+			var knowledge_percent: float = float(meta.get("knowledge_percent", 0.0))
+			return "%s siphonne %s connaissance (%.2f%%)." % [
+				formatted_caster,
+				Global.number_to_string(knowledge_gain),
+				knowledge_percent
+			]
+
 		"Cooldown":
 			var script_name: String = str(event_data.get("script_name", "script"))
 			var turns_remaining: int = int(event_data.get("turns_remaining", 0))
