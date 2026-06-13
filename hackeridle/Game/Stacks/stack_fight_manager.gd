@@ -24,6 +24,8 @@ const LEVELS_MAX := 9
 
 const LEVELS_INC_EVERY_SECTORS := 4
 const WAVES_INC_EVERY_SECTORS := 6
+const LEVEL_DIFFICULTY_PER_STEP := 0.04
+const LEVEL_DIFFICULTY_MAX := 1.80
 const MIX_START_SECTOR := 8
 const ONBOARDING_SECTOR_MAX := 1
 const ONBOARDING_LEVELS_PER_SECTOR := 3
@@ -133,11 +135,14 @@ func _encounter_label(encounter: Dictionary) -> String:
 # DYNAMIQUE: vagues/niveaux qui augmentent avec la progression
 # -------------------------
 func levels_per_sector() -> int:
+	return _levels_for_sector(sector_index)
+
+func _levels_for_sector(target_sector: int) -> int:
 	# Early onboarding: secteurs 0 et 1 = 3 niveaux (2 normaux puis boss).
-	if sector_index <= ONBOARDING_SECTOR_MAX:
+	if target_sector <= ONBOARDING_SECTOR_MAX:
 		return ONBOARDING_LEVELS_PER_SECTOR
 	# +1 niveau tous les 4 secteurs, plafonné
-	var inc := sector_index / float(LEVELS_INC_EVERY_SECTORS)
+	var inc := target_sector / float(LEVELS_INC_EVERY_SECTORS)
 	var v := LEVELS_BASE + inc
 	if v > LEVELS_MAX:
 		v = LEVELS_MAX
@@ -170,6 +175,16 @@ func _scale(depth: int) -> float:
 
 func _flux_scale(depth: int) -> float:
 	return 1.0 + 0.2 * log(1.0 + float(depth))
+
+func _global_level_index() -> int:
+	var completed_levels := 0
+	for previous_sector in range(sector_index):
+		completed_levels += _levels_for_sector(previous_sector)
+	return completed_levels + level_index
+
+func _level_difficulty_mult() -> float:
+	var completed_level_steps = max(0, _global_level_index() - 1)
+	return min(LEVEL_DIFFICULTY_MAX, 1.0 + float(completed_level_steps) * LEVEL_DIFFICULTY_PER_STEP)
 
 func _roll_variation() -> float:
 	return rng.randf_range(STAT_VARIATION_MIN, STAT_VARIATION_MAX)
@@ -343,14 +358,15 @@ func _make_enemy(role: int, variant_id: String) -> Dictionary:
 	var mult = ROLE_MULT[role]
 	var v := _roll_variation()
 	var early_mult := _early_difficulty_mult()
+	var level_mult := _level_difficulty_mult()
 
 	return {
 		"role": role,
 		"variant": variant_id,
-		"hp": round(ENEMY_BASE.hp * s * mult.hp * v * early_mult),
-		"penetration": round(ENEMY_BASE.p * s * mult.p * v * early_mult),
-		"encryption": round(ENEMY_BASE.e * s * mult.e * v * early_mult),
-		"flux": round(ENEMY_BASE.f * fs * mult.f * v * early_mult)
+		"hp": round(ENEMY_BASE.hp * s * mult.hp * v * early_mult * level_mult),
+		"penetration": round(ENEMY_BASE.p * s * mult.p * v * early_mult * level_mult),
+		"encryption": round(ENEMY_BASE.e * s * mult.e * v * early_mult * level_mult),
+		"flux": round(ENEMY_BASE.f * fs * mult.f * v * early_mult * level_mult)
 	}
 
 func _wave_pack(enemies: Array, wave_type: String) -> Dictionary:
@@ -498,6 +514,8 @@ func _encounter_snapshot() -> Dictionary:
 		"waves_per_level": waves_per_level(),
 		"levels_per_sector": levels_per_sector(),
 		"depth": _depth(),
+		"global_level_index": _global_level_index(),
+		"level_difficulty_mult": _level_difficulty_mult(),
 	}
 func _enemy_count_distribution_for_sector(s: int) -> Array:
 	# Paires [count, weight]
