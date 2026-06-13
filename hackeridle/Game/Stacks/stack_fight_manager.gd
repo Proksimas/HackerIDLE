@@ -522,25 +522,24 @@ func _enemy_count_distribution_for_sector(s: int) -> Array:
 	# Progression très douce, pensée pour runs plus longs.
 	if s <= 2:
 		# Ultra early: apprentissage, lecture des scripts
-		return [[1, 100], [2, 0], [3, 0]]
+		return [[1, 100]]
 	if s <= 6:
 		# Early: 1 encore dominant, 2 commence à apparaître
 		return [[1, 80], [2, 15], [3, 5]]
 	if s <= 12:
-		# Transition: 2 devient fréquent, 1 encore présent
-		return [[1, 45], [2, 45], [3, 10]]
+		# Secteurs affiches 8-13: minimum 2 ennemis.
+		return [[2, 85], [3, 15]]
 	if s <= 18:
-		# Mid early: 2 devient la norme
-		return [[1, 25], [2, 55], [3, 18], [4, 2]]
+		# Secteurs affiches 14-19: 2 ennemis minimum, 3 deviennent frequents.
+		return [[2, 65], [3, 32], [4, 3]]
 	if s <= 26:
-		# Mid: 3 apparaît souvent, 4 reste rare
-		return [[1, 12], [2, 50], [3, 33], [4, 5]]
+		# Secteurs affiches 20-27: minimum 3 ennemis.
+		return [[3, 85], [4, 15]]
 	if s <= 34:
-		# Mid-late: 3 fréquent, 4 possible
-		return [[1, 6], [2, 44], [3, 38], [4, 12]]
-	# s >= 35 (late game stable)
-	# 4 ennemis acceptés, 1 devient exceptionnel
-	return [[1, 3], [2, 40], [3, 40], [4, 17]]
+		# Secteurs affiches 28-35: 4 ennemis deviennent plus frequents.
+		return [[3, 75], [4, 25]]
+	# Secteur affiche 36+: minimum 3, maximum 4.
+	return [[3, 65], [4, 35]]
 
 
 
@@ -556,7 +555,7 @@ func _roll_enemy_count() -> int:
 		acc += int(pair[1])
 		if r <= acc:
 			return int(pair[0])
-	return 2
+	return int(dist[0][0]) if not dist.is_empty() else 1
 	
 func _pick_boss_gimmick() -> String:
 	var gimmicks := ["MIRROR", "FIREWALL_REGEN", "PROXY_REFLECT", "SCRIPT_COPY", "SHIELD_INVERSION"]
