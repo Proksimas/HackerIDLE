@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cvwocxe3chgfb"]
+
+[ext_resource type="Texture2D" uid="uid://cw34vm4vuqsaq" path="res://Game/Graphics/Skills/Passifs/ilove_bots.png" id="1_texture"]
+[ext_resource type="Script" path="res://Game/Skills/PassiveSkills/more_slots.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+cost = Array[int]([5, 8, 12])
+ps_texture = ExtResource("1_texture")
+ps_name = "more_slots"
+data_bonus_1 = [1, 2, 3]
+data_bonus_2 = []
+is_offensive_skill = false
+is_defensive_skill = false
+is_novanet_skill = true
+min_cost_invested = 8

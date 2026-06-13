@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://bmx8crpp0vnpt" path="res://Game/Stacks/StackScript/malware_apt.tres" id="7_epjc2"]
 [ext_resource type="Resource" uid="uid://dpkvud6n50pp2" path="res://Game/Stacks/StackScript/syn_flood.tres" id="8_4jkee"]
 [ext_resource type="Resource" uid="uid://t53bmv1uwtfk" path="res://Game/Stacks/StackScript/zero_day_exploit.tres" id="9_zero_day"]
-[ext_resource type="Resource" path="res://Game/Stacks/StackScript/fork_bomb.tres" id="10_fork_bomb"]
+[ext_resource type="Resource" uid="uid://btmhj6sfqftbt" path="res://Game/Stacks/StackScript/fork_bomb.tres" id="10_fork_bomb"]
 
 [resource]
 script = ExtResource("1_8xv0m")

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://btmhj6sfqftbt"]
+
+[ext_resource type="Script" path="res://Game/Stacks/StackScript/fork_bomb.gd" id="1_fork_bomb"]
+
+[resource]
+script = ExtResource("1_fork_bomb")
+stack_script_name = "fork_bomb"
+turn_cooldown_base = 1
+base_value_hacker = 4.0
+base_value_robot = 4.0
+type_and_coef = {
+"encryption": 0.0,
+"flux": 0.2,
+"penetration": 0.8
+}
+execution_time = 3.0
+script_kind = 0
