@@ -6,6 +6,8 @@ data_healing;Data Healing;Data Healing
 firewall_patch;Firewall Patch;Firewall Patch
 kernel_blast;Kernel Blast;Kernel Blast
 malware_apt;APT Malware;APT Malware
+zero_day_exploit;Zero Day Exploit;Zero Day Exploit
+vulnerability;Vulnerabilite;Vulnerability
 syn_flood_desc;Moyenne attaque sur une cible;Average attack on a target
 cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats infligés;Small attack on a target, and adds a shield based on the damage inflicted
 crypt_breach_desc;Petite attaque sure une cible, puis petite attaque ignorant son bouclier;Small attack on a target, then small attack ignoring its shield
@@ -13,6 +15,7 @@ data_healing_desc;Redonne des PV;Restores HP
 firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les PV max.;Generates a temporary shield, which cannot exceed the maximum HP
 kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor damage to all targets
 malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corruption faisant des dégats sur 3 tours (stack: 5);Inflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
+zero_day_exploit_desc;Inflige de faibles degats et applique Vulnerabilite pendant 2 tours. La cible subit 25 % de degats supplementaires. L'effet ne se cumule pas.;Deals minor damage and applies Vulnerability for 2 turns. The target takes 25% more damage. The effect does not stack.
 stack_tab_all;Tout;All
 stack_tab_damage;Dom.;Dam.
 stack_tab_shield;Bouc.;Shi.

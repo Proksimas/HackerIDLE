@@ -586,7 +586,13 @@ func setup_robot_scripts(entity: Entity, _robot_name: String, _all_scripts_db: D
 		#entity.available_scripts[s_name] = all_scripts_db[s_name]
 		
 	#pour le moment on ne donne que le SYN_FLOOD
-	StackManager.learn_stack_script(entity, "syn_flood")
+	if entity == null:
+		return
+	var learned := StackManager.learn_stack_script(entity, "syn_flood")
+	if not learned:
+		push_error("StackFightManager | impossible d'apprendre syn_flood au robot %s" % _robot_name)
+		entity.save_sequence([])
+		return
 	entity.save_sequence(["syn_flood"])
 
 func _save_data() -> Dictionary:

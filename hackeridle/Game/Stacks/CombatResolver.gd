@@ -74,6 +74,8 @@ static func _apply_effects_and_snapshot(caster: Entity, target: Entity, effects:
 static func _apply_effect(_caster: Entity, target: Entity, effect: Dictionary) -> void:
 	var effect_type: String = str(effect.get("type", ""))
 	var value: float = float(effect.get("value", 0))
+	if effect_type == "HP" or effect_type == "PierceHP":
+		value *= _get_damage_taken_multiplier(target)
 
 	match effect_type:
 		"HP":
@@ -106,3 +108,15 @@ static func _apply_effect(_caster: Entity, target: Entity, effect: Dictionary) -
 				push_error("L'entité est censé avoir le add_status")
 		_:
 			pass
+
+static func _get_damage_taken_multiplier(target: Entity) -> float:
+	var multiplier := 1.0
+	if target == null:
+		return multiplier
+	for status in target.active_statuses:
+		if not (status is Dictionary):
+			continue
+		if str(status.get("type", "")) != "Vulnerability":
+			continue
+		multiplier = max(multiplier, 1.0 + max(0.0, float(status.get("value", 0.0))))
+	return multiplier

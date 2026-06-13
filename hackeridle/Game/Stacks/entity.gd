@@ -26,6 +26,7 @@ var self_is_dead: bool = false
 
 var current_script_index: int = 0
 var cache_targets: Array
+var sequence_completion_pending: bool = false
 signal s_entity_die(entity)
 signal s_execute_script
 signal s_sequence_completed(entity)
@@ -41,6 +42,7 @@ func _init(is_hacker: bool, _entity_name: String = "default_name", \
 	current_shield = 0.0
 	self_is_dead = false
 	current_script_index = 0
+	sequence_completion_pending = false
 	cache_targets = []
 
 	stats['penetration'] = float(stat_pen)
@@ -114,6 +116,7 @@ func set_hacker_max_hp():
 # Méthode principale appelée par le StackFight pour exécuter le Stack
 func execute_sequence(targets: Array[Entity]) -> void:
 	current_script_index = 0
+	sequence_completion_pending = false
 	cache_targets = targets
 	#Cela correspond aussi au début d'un nouveau tour pour l'entité actuelle
 	var tick_events: Array[Dictionary] = StatusResolver.TickStartOfTurn(self)
@@ -121,6 +124,7 @@ func execute_sequence(targets: Array[Entity]) -> void:
 	for ev in tick_events:
 		CombatResolver.resolve(ev)
 		s_send_log.emit(ev)
+	StatusResolver.AdvanceDurations(self)
 	
 	#on doit lancer la première exécution sur l'ui. lorsqu'il sera fini,
 	#on execute le next_scrip
@@ -129,15 +133,15 @@ func execute_sequence(targets: Array[Entity]) -> void:
 func prepare_next_script():
 	if current_script_index >= stack_script_sequence.size():
 		# Émettre un signal vers le CombatManager pour indiquer la fin de la Phase
-		s_sequence_completed.emit(self)
+		_request_sequence_completed()
 		return
 
 	var script_instance: StackScript = stack_script_sequence[current_script_index]
 	if current_hp <= 0:
-		s_sequence_completed.emit(self)
+		_request_sequence_completed()
 		return
 	elif cache_targets.is_empty():
-		s_sequence_completed.emit(self)
+		_request_sequence_completed()
 		return
 
 	if available_scripts.has(script_instance.stack_script_name):
@@ -153,7 +157,7 @@ func prepare_next_script():
 			"turns_remaining": int(script_instance.turn_remaining)
 		})
 		current_script_index += 1
-		prepare_next_script()
+		call_deferred("prepare_next_script")
 		return
 
 	script_instance.set_caster_and_targets(self, cache_targets)
@@ -165,6 +169,20 @@ func prepare_next_script():
 			}
 	s_cast_script.emit(current_script_index, data_before_execution) #->StackFightUi
 	
+
+func _request_sequence_completed() -> void:
+	if sequence_completion_pending:
+		return
+	sequence_completion_pending = true
+	call_deferred("_emit_sequence_completed")
+
+
+func _emit_sequence_completed() -> void:
+	if not sequence_completion_pending:
+		return
+	sequence_completion_pending = false
+	s_sequence_completed.emit(self)
+
 
 func execute_next_script():
 	"""Tout est bon, l'ui est ok, il faut maintenant executer le script"""
@@ -184,6 +202,8 @@ func execute_next_script():
 ############# METHODES POUR LE COMBAT #########################################
 # Méthode pour appliquer les dégâts
 func take_damage(damage: float) -> void:
+	if self_is_dead or damage <= 0:
+		return
 	# (Logique simplifiée) Le bouclier absorbe d'abord les dégâts
 	var damage_after_shield = damage
 	if current_shield > 0:
@@ -196,11 +216,11 @@ func take_damage(damage: float) -> void:
 
 	current_hp -= damage_after_shield
 	
-	if current_hp <= 0:
+	if current_hp <= 0 and not self_is_dead:
 		#Entité vaincue
 		current_hp = 0
-		s_entity_die.emit(self)
 		self_is_dead = true
+		s_entity_die.emit(self)
 	
 	print(entity_name + " prend " + str(damage) + " dégâts. HP restants: " + str(current_hp))
 
@@ -210,14 +230,16 @@ func add_shield(value: float) -> void:
 	current_shield = min(current_shield + value, max_hp)
 
 func take_pierce_damage(damage: float) -> void:
+	if self_is_dead or damage <= 0:
+		return
 	current_hp -= damage
-	if current_hp <= 0:
+	if current_hp <= 0 and not self_is_dead:
 		current_hp = 0
-		s_entity_die.emit(self)
 		self_is_dead = true
+		s_entity_die.emit(self)
 
 func heal(value: float) -> void:
-	if value <= 0:
+	if self_is_dead or value <= 0:
 		return
 	current_hp = min(current_hp + value, max_hp)
 
@@ -234,7 +256,9 @@ func add_status(status: Dictionary) -> void:
 			active_statuses[i] = StatusRules.Merge(active_statuses[i], status)
 			return
 
-	active_statuses.append(StatusRules.Init(status))
+	var initialized_status := StatusRules.Init(status)
+	if not initialized_status.is_empty():
+		active_statuses.append(initialized_status)
 
 
 ############## SIGNAUX ########################################################
