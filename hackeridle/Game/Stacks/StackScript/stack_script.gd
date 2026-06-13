@@ -55,6 +55,10 @@ func execute() -> Dictionary:
 	var dict = {}
 	return dict
 
+
+func get_description() -> String:
+	return TranslationServer.translate("%s_desc" % stack_script_name)
+
 # Méthode appelée après l'exécution pour gérer le cooldown
 func start_cooldown(_caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement

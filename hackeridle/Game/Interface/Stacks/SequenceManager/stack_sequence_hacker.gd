@@ -211,7 +211,7 @@ func _display_script(script_name: String) -> void:
 		scaling_value.text = _colorize_scaling_text(damage_preview)
 	else:
 		scaling_value.text = _colorize_scaling_text(_script_presenter.format_scaling(_selected_script.type_and_coef))
-	description_label.text = tr("%s_desc" % script_name)
+	description_label.text = _selected_script.get_description()
 
 
 func _refresh_stats() -> void:

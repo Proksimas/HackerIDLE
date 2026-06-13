@@ -56,7 +56,7 @@ func _build_script_reward(script_name: String) -> Dictionary:
 		"id": "%s_reward" % script_name,
 		"kind": "script",
 		"title": title,
-		"description": TranslationServer.translate("%s_desc" % script_name),
+		"description": script_resource.get_description(),
 		"script_resource": script_resource,
 		"custom_payload": {
 			"script_name": script_name
