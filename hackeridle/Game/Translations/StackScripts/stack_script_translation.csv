@@ -7,6 +7,7 @@ firewall_patch;Firewall Patch;Firewall Patch
 kernel_blast;Kernel Blast;Kernel Blast
 malware_apt;APT Malware;APT Malware
 zero_day_exploit;Zero Day Exploit;Zero Day Exploit
+fork_bomb;Fork Bomb;Fork Bomb
 vulnerability;Vulnerabilite;Vulnerability
 syn_flood_desc;Moyenne attaque sur une cible;Average attack on a target
 cipher_strike_desc;Petite attaque sur une cible, et ajoute un bouclier selon les dégats infligés;Small attack on a target, and adds a shield based on the damage inflicted
@@ -15,7 +16,8 @@ data_healing_desc;Redonne des PV;Restores HP
 firewall_patch_desc;Genère un bouclier temporaire, ne pouvant dépasser les PV max.;Generates a temporary shield, which cannot exceed the maximum HP
 kernel_blast_desc;Inglife des petits dégats à toutes les cibles;Inflicts minor damage to all targets
 malware_apt_desc;Inflige de faibles dégats et ajoute un statut de corruption faisant des dégats sur 3 tours (stack: 5);Inflicts minor damage and adds a corruption status that deals damage over 3 turns (stack: 5)
-zero_day_exploit_desc;Inflige de faibles degats et applique Vulnerabilite pendant 2 tours. La cible subit 25 % de degats supplementaires. L'effet ne se cumule pas.;Deals minor damage and applies Vulnerability for 2 turns. The target takes 25% more damage. The effect does not stack.
+zero_day_exploit_desc;Inflige de faibles degats et applique Vulnerabilite pendant 2 tours. Le bonus progresse de 15 % a 75 % selon le Flux, avec un maximum atteint a 1000 Flux. L'effet ne se cumule pas.;Deals minor damage and applies Vulnerability for 2 turns. The bonus scales from 15% to 75% based on Flux, reaching its maximum at 1000 Flux. The effect does not stack.
+fork_bomb_desc;Inflige des degats a une cible. Les degats sont doubles si elle possede 30 % de ses PV maximum ou moins.;Deals damage to one target. Damage is doubled if it has 30% or less of its maximum HP.
 stack_tab_all;Tout;All
 stack_tab_damage;Dom.;Dam.
 stack_tab_shield;Bouc.;Shi.

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StackScriptDB" load_steps=11 format=3 uid="uid://bpgc4indbk304"]
+[gd_resource type="Resource" script_class="StackScriptDB" load_steps=12 format=3 uid="uid://bpgc4indbk304"]
 
 [ext_resource type="Script" path="res://Game/DB/stack_script_db.gd" id="1_8xv0m"]
 [ext_resource type="Script" path="res://Game/Stacks/StackScript/stack_script.gd" id="2_1ciqf"]
@@ -10,7 +10,8 @@
 [ext_resource type="Resource" uid="uid://bmx8crpp0vnpt" path="res://Game/Stacks/StackScript/malware_apt.tres" id="7_epjc2"]
 [ext_resource type="Resource" uid="uid://dpkvud6n50pp2" path="res://Game/Stacks/StackScript/syn_flood.tres" id="8_4jkee"]
 [ext_resource type="Resource" uid="uid://t53bmv1uwtfk" path="res://Game/Stacks/StackScript/zero_day_exploit.tres" id="9_zero_day"]
+[ext_resource type="Resource" path="res://Game/Stacks/StackScript/fork_bomb.tres" id="10_fork_bomb"]
 
 [resource]
 script = ExtResource("1_8xv0m")
-scripts = Array[ExtResource("2_1ciqf")]([ExtResource("2_c0g7e"), ExtResource("3_f6i1a"), ExtResource("4_km2xq"), ExtResource("5_j83fs"), ExtResource("6_qjbyu"), ExtResource("7_epjc2"), ExtResource("8_4jkee"), ExtResource("9_zero_day")])
+scripts = Array[ExtResource("2_1ciqf")]([ExtResource("2_c0g7e"), ExtResource("3_f6i1a"), ExtResource("4_km2xq"), ExtResource("5_j83fs"), ExtResource("6_qjbyu"), ExtResource("7_epjc2"), ExtResource("8_4jkee"), ExtResource("9_zero_day"), ExtResource("10_fork_bomb")])

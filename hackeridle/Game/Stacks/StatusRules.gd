@@ -96,8 +96,9 @@ static func Merge(existing_in: Dictionary, incoming_in: Dictionary) -> Dictionar
 			if not existing.has("stacks"):
 				existing["stacks"] = 1
 		"NoStack":
-			# On ne change ni stacks ni value
-			pass
+			# La puissance est actualisee sans additionner de stacks ou de valeur.
+			if incoming.has("value"):
+				existing["value"] = incoming["value"]
 		_:
 			# Fallback raisonnable : AddStack
 			var cs: int = int(existing.get("stacks", 1))
