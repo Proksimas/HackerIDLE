@@ -208,9 +208,9 @@ func _display_script(script_name: String) -> void:
 	exec_value.add_theme_color_override("font_color", CYAN)
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
-	var damage_preview := _script_presenter.build_damage_preview(_selected_script, _get_hacker_stats())
-	if damage_preview != "":
-		scaling_value.text = STACK_STAT_ICON_FORMATTER.format(_colorize_scaling_text(damage_preview))
+	var value_preview := _script_presenter.build_value_preview(_selected_script, _get_hacker_stats())
+	if value_preview != "":
+		scaling_value.text = STACK_STAT_ICON_FORMATTER.format(_colorize_scaling_text(value_preview))
 	else:
 		scaling_value.text = STACK_STAT_ICON_FORMATTER.format(_colorize_scaling_text(_script_presenter.format_scaling(_selected_script.type_and_coef)))
 	description_label.text = STACK_STAT_ICON_FORMATTER.format(_selected_script.get_description())

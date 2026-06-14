@@ -38,6 +38,14 @@ func get_description() -> String:
 		.replace("{knowledge_percent}", _format_percent(knowledge_percent))
 
 
+func get_preview_value(stats: Dictionary) -> float:
+	return calculate_knowledge_percent(float(stats.get("flux", 0.0)))
+
+
+func get_preview_suffix() -> String:
+	return "%"
+
+
 func _get_caster_flux() -> float:
 	if caster == null:
 		return 0.0

@@ -59,6 +59,18 @@ func execute() -> Dictionary:
 func get_description() -> String:
 	return TranslationServer.translate("%s_desc" % stack_script_name)
 
+
+func get_preview_value(stats: Dictionary) -> float:
+	var value: float = base_value_hacker
+	for stat_name_variant in type_and_coef.keys():
+		var stat_name := str(stat_name_variant)
+		value += float(stats.get(stat_name, 0.0)) * float(type_and_coef.get(stat_name_variant, 0.0))
+	return value
+
+
+func get_preview_suffix() -> String:
+	return ""
+
 # Méthode appelée après l'exécution pour gérer le cooldown
 func start_cooldown(_caster: Entity) -> void:
 	# La Latence du Hacker réduit le temps réel de rechargement

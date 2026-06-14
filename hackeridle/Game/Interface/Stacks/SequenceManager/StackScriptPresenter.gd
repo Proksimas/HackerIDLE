@@ -54,15 +54,12 @@ func format_number(value: float) -> String:
 	return "%.2f" % value
 
 
-func build_damage_preview(script: StackScript, stats: Dictionary) -> String:
+func build_value_preview(script: StackScript, stats: Dictionary) -> String:
 	if script == null:
-		return ""
-	if script.script_kind != StackScript.ScriptKind.DAMAGE:
 		return ""
 
 	var base := float(script.base_value_hacker)
 	var terms: Array[String] = []
-	var total := base
 
 	if abs(base) > 0.0001:
 		terms.append("Base %s" % format_number(base))
@@ -75,10 +72,9 @@ func build_damage_preview(script: StackScript, stats: Dictionary) -> String:
 		var ratio_percent := format_number(abs(coef) * 100.0)
 		var sign_prefix := "+" if coef >= 0.0 else "-"
 		terms.append("%s %s (%s%%)" % [sign_prefix, format_stat_name(key), ratio_percent])
-		total += float(stats.get(key, 0.0)) * coef
 
+	var preview_value: float = script.get_preview_value(stats)
+	var formatted_value := format_number(preview_value) + script.get_preview_suffix()
 	if terms.is_empty():
-		return ""
-
-	var rounded_total := int(round(total))
-	return "%s: %d\n --> %s" % [tr("$Valeur"), rounded_total, " ".join(terms)]
+		return "%s: %s" % [tr("$Valeur"), formatted_value]
+	return "%s: %s\n --> %s" % [tr("$Valeur"), formatted_value, " ".join(terms)]

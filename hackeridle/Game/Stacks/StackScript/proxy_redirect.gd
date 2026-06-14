@@ -62,6 +62,14 @@ func get_description() -> String:
 		.replace("{turn_duration}", str(status_turn_duration))
 
 
+func get_preview_value(stats: Dictionary) -> float:
+	return calculate_redirect_ratio(stats) * 100.0
+
+
+func get_preview_suffix() -> String:
+	return "%"
+
+
 func _get_caster_stats() -> Dictionary:
 	if caster == null:
 		return {}
