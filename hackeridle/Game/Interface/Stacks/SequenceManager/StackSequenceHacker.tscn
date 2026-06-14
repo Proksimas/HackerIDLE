@@ -422,7 +422,7 @@ text = "-"
 
 [node name="ScalingValue" type="RichTextLabel" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 48)
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -550,9 +550,11 @@ alignment = 1
 layout_mode = 2
 
 [node name="PenetrationIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer" instance=ExtResource("5_w1s1k")]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 
 [node name="PenetrationLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Penetration"
 
@@ -578,9 +580,11 @@ text = "+"
 layout_mode = 2
 
 [node name="EncryptionIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2" instance=ExtResource("6_50i18")]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 
 [node name="EncryptionLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer2"]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
 text = "Encryption"
@@ -607,9 +611,11 @@ text = "+"
 layout_mode = 2
 
 [node name="FluxIcon" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3" instance=ExtResource("7_6owyu")]
+custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 
 [node name="FluxLabel" type="Label" parent="Frame/OuterMargin/RootVBox/StatsBar/StatsMargin/VBoxContainer/StatsRow/HBoxContainer3"]
+visible = false
 layout_mode = 2
 text = "Flux"
 

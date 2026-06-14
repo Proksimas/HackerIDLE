@@ -1,6 +1,8 @@
 extends PanelContainer
 class_name StackScriptRewardUI
 
+const STACK_STAT_ICON_FORMATTER = preload("res://Game/Interface/Stacks/StackStatIconFormatter.gd")
+
 enum RewardKind { SCRIPT, SLOT, CUSTOM }
 
 
@@ -74,7 +76,8 @@ func _refresh_ui() -> void:
 		display_name = script_resource.stack_script_name
 	kind_label.text = _kind_label_text()
 	title_label.text = tr(display_name) if display_name != "" else tr("$Reward")
-	description_label.text = tr(description) if description != "" else tr("$NoDescription")
+	var description_text := tr(description) if description != "" else tr("$NoDescription")
+	description_label.text = STACK_STAT_ICON_FORMATTER.format(description_text)
 	claim_button.text = tr("$Obtain")
 
 
