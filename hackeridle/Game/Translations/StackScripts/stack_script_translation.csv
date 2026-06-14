@@ -22,7 +22,7 @@ malware_apt_desc;Inflige de faibles degats et ajoute un statut de corruption fai
 zero_day_exploit_desc;Inflige de faibles degats et applique Vulnerabilite pendant 2 tours, augmentant les degats de {augment}% (0 stack).;Deals minor damage and applies Vulnerability for 2 turns, increasing damage by {augment}% (0 stack).
 fork_bomb_desc;Inflige des degats a une cible. Les degats sont doubles si elle possede 30 % de ses PV maximum ou moins.;Deals damage to one target. Damage is doubled if it has 30% or less of its maximum HP.
 knowledge_siphon_desc;Gagne {knowledge_percent}% de la connaissance totale generee. Le pourcentage augmente avec le Flux.;Gains {knowledge_percent}% of the total knowledge generated. The percentage increases with Flux.
-proxy_redirect_desc;Pendant {turn_duration} tours, renvoie {redirect_percent}% des prochains degats reellement perdus en PV. L'effet est consomme au declenchement et ne se cumule pas.;For {turn_duration} turns, reflects {redirect_percent}% of the next damage actually lost as HP. The effect is consumed when triggered and does not stack.
+proxy_redirect_desc;Pendant {turn_duration} tours, renvoie {redirect_percent}% des prochains degats reellement perdus en PV. Le renvoi depend principalement du Chiffrement et secondairement du Flux. L'effet est consomme au declenchement et ne se cumule pas.;For {turn_duration} turns, reflects {redirect_percent}% of the next damage actually lost as HP. Reflection scales primarily with Encryption and secondarily with Flux. The effect is consumed when triggered and does not stack.
 stack_tab_all;Tout;All
 stack_tab_damage;Dom.;Dam.
 stack_tab_shield;Bouc.;Shi.
