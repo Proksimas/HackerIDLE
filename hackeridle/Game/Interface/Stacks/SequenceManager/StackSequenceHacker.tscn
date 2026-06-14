@@ -393,11 +393,22 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.92, 1, 1)
 text = "-"
 
-[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ScalingLabel" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 2
 theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
-text = "Coefficients"
+text = "Valeur"
+
+[node name="ScalingValue" type="Label" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_color = Color(0.7, 0.73, 0.76, 1)
+text = "X"
 
 [node name="VSeparator" type="VSeparator" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox/GridContainer"]
 layout_mode = 2
@@ -420,7 +431,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0.92, 1, 1)
 text = "-"
 
-[node name="ScalingValue" type="RichTextLabel" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
+[node name="ScalingDetailledValue" type="RichTextLabel" parent="Frame/OuterMargin/RootVBox/DetailsPanel/DetailsMargin/DetailsVBox/DetailsCard/DetailsCardMargin/DetailsCardVBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2

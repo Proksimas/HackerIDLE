@@ -14,7 +14,10 @@ var base_max_slots: int = 2
 @onready var type_value: Label = %TypeValue
 @onready var cooldown_value: Label = %CooldownValue
 @onready var exec_value: Label = %ExecValue
-@onready var scaling_value: RichTextLabel = %ScalingValue
+@onready var scaling_value: Label = %ScalingValue
+@onready var scaling_label: Label = %ScalingLabel
+@onready var scaling_detailled_value: RichTextLabel = %ScalingDetailledValue
+
 @onready var description_label: RichTextLabel = %Description
 
 @onready var hp_value: Label = %HpValue
@@ -209,10 +212,13 @@ func _display_script(script_name: String) -> void:
 	cooldown_value.text = "%d tour(s)" % int(_selected_script.turn_cooldown_base)
 	exec_value.text = "%.1f s" % float(_selected_script.execution_time)
 	var value_preview := _script_presenter.build_value_preview(_selected_script, _get_hacker_stats())
-	if value_preview != "":
-		scaling_value.text = STACK_STAT_ICON_FORMATTER.format(_colorize_scaling_text(value_preview))
-	else:
-		scaling_value.text = STACK_STAT_ICON_FORMATTER.format(_colorize_scaling_text(_script_presenter.format_scaling(_selected_script.type_and_coef)))
+	scaling_value.text = value_preview if value_preview != "" else "-"
+	scaling_detailled_value.text = STACK_STAT_ICON_FORMATTER.format(
+		_colorize_scaling_text(_script_presenter.format_scaling(
+			_selected_script.type_and_coef,
+			_selected_script.base_value_hacker
+		))
+	)
 	description_label.text = STACK_STAT_ICON_FORMATTER.format(_selected_script.get_description())
 
 
@@ -224,6 +230,7 @@ func _refresh_stats() -> void:
 
 	penetration_value.add_theme_color_override("font_color", PENETRATION_PURPLE)
 	flux_value.add_theme_color_override("font_color", FLUX_GREEN)
+	scaling_label.text = tr("$Valeur")
 	penetration_value.text = str(pen)
 	encryption_value.text = str(enc)
 	flux_value.text = str(flux)
@@ -317,6 +324,7 @@ func _reset_details() -> void:
 	cooldown_value.text = "-"
 	exec_value.text = "-"
 	scaling_value.text = "-"
+	scaling_detailled_value.text = "-"
 	description_label.text = "Choisis un script pour voir son effet."
 	_set_selected_entry(null)
 
@@ -336,7 +344,7 @@ func _get_script_kind_color(kind: int) -> Color:
 func _colorize_scaling_text(text: String) -> String:
 	var result := text
 	var base_regex := RegEx.new()
-	if base_regex.compile("(Base [^+\\n]+)") == OK:
+	if base_regex.compile("([^+\\n]+)") == OK:
 		result = base_regex.sub(result, "$1", true)
 	return result \
 		.replace(tr("stat_penetration"), "[color=#FF4DF2]%s[/color]" % tr("stat_penetration")) \
