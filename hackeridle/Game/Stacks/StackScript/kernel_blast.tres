@@ -6,7 +6,7 @@
 script = ExtResource("1_55bwo")
 stack_script_name = "kernel_blast"
 turn_cooldown_base = 0
-base_value_hacker = 4.0
+base_value_hacker = 3.0
 base_value_robot = 4.0
 type_and_coef = {
 "encryption": 0.5,

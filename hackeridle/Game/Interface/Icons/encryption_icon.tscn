@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bsxwn1v4cwr1p"]
 
-[ext_resource type="Texture2D" uid="uid://brnuk35vbegqy" path="res://Game/Graphics/NovaNet/encryption_2.png" id="1_gp62c"]
+[ext_resource type="Texture2D" uid="uid://buus32mo16hs4" path="res://Game/Graphics/NovaNet/encryption_2.png" id="1_gp62c"]
 
 [node name="EncryptionIcon" type="AspectRatioContainer"]
 anchors_preset = -1

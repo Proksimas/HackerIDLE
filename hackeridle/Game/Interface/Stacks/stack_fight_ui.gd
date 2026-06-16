@@ -128,7 +128,11 @@ func _build_robots_from_wave(wave_data: Dictionary) -> Array[Entity]:
 			int(enemy_dict.get("flux", 0))
 		)
 		robots.append(new_entity)
-		stack_fight_manager.setup_robot_scripts(new_entity, str(enemy_dict.get("variant", "robot")), {})
+		stack_fight_manager.setup_robot_scripts(
+			new_entity,
+			str(enemy_dict.get("variant", "robot")),
+			int(enemy_dict.get("role", StackFightManager.EnemyRole.DPS))
+		)
 
 	return robots
 

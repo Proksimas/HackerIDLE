@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvppq5s3uv617"]
 
-[ext_resource type="Texture2D" uid="uid://cln4r6pldhbnx" path="res://Game/Graphics/NovaNet/flux_2.png" id="1_i2n5v"]
+[ext_resource type="Texture2D" uid="uid://bqv853hxfuh2o" path="res://Game/Graphics/NovaNet/flux_2.png" id="1_i2n5v"]
 
 [node name="FluxIcon" type="AspectRatioContainer"]
 anchors_preset = -1
