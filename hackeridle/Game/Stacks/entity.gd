@@ -106,10 +106,12 @@ func set_hacker_max_hp():
 	
 	StackManager.ensure_initialized()
 	var stats_dict: Dictionary = StackManager.stack_script_stats
-	max_hp = base_hacker_hp + (stats_dict.get("penetration", 0) + \
-							stats_dict.get("encryption", 0) + \
-							stats_dict.get("flux", 0) + \
-							stats_dict.get("hp_bonus", 0))
+	var stat_hp_bonus := int(round((
+		float(stats_dict.get("penetration", 0)) + \
+		float(stats_dict.get("encryption", 0)) + \
+		float(stats_dict.get("flux", 0))
+	) * 0.5))
+	max_hp = int(base_hacker_hp + stat_hp_bonus + int(stats_dict.get("hp_bonus", 0)))
 	
 
 # LOGIQUE DE COMBAT

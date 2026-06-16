@@ -263,7 +263,7 @@ func _compute_hacker_hp(stats_dict: Dictionary) -> float:
 	var enc := float(stats_dict.get("encryption", 0))
 	var flux := float(stats_dict.get("flux", 0))
 	var hp_bonus := float(stats_dict.get("hp_bonus", 0))
-	return base_hp + pen + enc + flux + hp_bonus
+	return float(int(base_hp + round((pen + enc + flux) * 0.5) + hp_bonus))
 
 
 func _update_stat_buttons() -> void:
