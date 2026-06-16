@@ -67,15 +67,6 @@ const SCRIPT_POOL:Dictionary = {
 	"BOSS": ["syn_flood", "fork_bomb", "firewall_patch", "cipher_strike", "data_healing", "zero_day_exploit"]
 }
 
-const BOSS_SCRIPT_POOL: Dictionary = {
-	"TITAN": ["firewall_patch", "cipher_strike", "syn_flood"],
-	"TITAN_OMEGA": ["zero_day_exploit", "syn_flood", "fork_bomb"],
-	"TITAN_CORE": ["data_healing", "firewall_patch", "cipher_strike"],
-	"TITAN_SOVEREIGN": ["proxy_redirect", "cipher_strike", "fork_bomb"],
-	"OBLIVION": ["malware_apt", "zero_day_exploit", "fork_bomb"],
-	"ATLAS_CORE": ["firewall_patch", "proxy_redirect", "data_healing", "syn_flood"]
-}
-
 # -------------------------
 # PROGRESSION
 # -------------------------
@@ -593,7 +584,7 @@ func setup_robot_scripts(entity: Entity, _robot_name: String, role: int = EnemyR
 		return
 
 	var role_key := _role_to_string(role)
-	var script_names: Array = _get_scripts_for_enemy(role_key, _robot_name)
+	var script_names: Array = SCRIPT_POOL.get(role_key, SCRIPT_POOL["DPS"])
 	var learned_scripts: Array[String] = []
 
 	for script_name_variant in script_names:
@@ -608,13 +599,6 @@ func setup_robot_scripts(entity: Entity, _robot_name: String, role: int = EnemyR
 		return
 
 	entity.save_sequence(learned_scripts)
-
-func _get_scripts_for_enemy(role_key: String, robot_name: String) -> Array:
-	if role_key == "BOSS":
-		var boss_key := robot_name.strip_edges().to_upper()
-		if BOSS_SCRIPT_POOL.has(boss_key):
-			return BOSS_SCRIPT_POOL[boss_key]
-	return SCRIPT_POOL.get(role_key, SCRIPT_POOL["DPS"])
 
 func _save_data() -> Dictionary:
 	return {

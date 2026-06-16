@@ -1,7 +1,7 @@
 extends StackScript
 
 @export_category("Proxy Redirect")
-@export_range(0.0, 1.0, 0.01) var redirect_min: float = 0.20
+@export_range(0.0, 1.0, 0.01) var redirect_min: float = 0.05
 @export_range(0.0, 1.0, 0.01) var redirect_max: float = 0.60
 @export_range(1.0, 100000.0, 1.0) var redirect_score_at_max: float = 500.0
 @export_range(0.1, 2.0, 0.05) var redirect_alpha: float = 0.70
