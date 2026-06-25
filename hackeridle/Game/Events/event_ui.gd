@@ -80,16 +80,19 @@ func event_ui_setup(event: Event):
 				if event_effect_name == "perc_from_gold":
 					#On doit mesurer lepercentage du total
 					value = Calculs.get_tot_gold() * effect_value
+					value = _apply_minimum_stat_value(value, effect_value)
 					choice_text = tr("$gold") + ": "
 					#print("On a un perc_from_gold avec la valeur %s " % [value])
 				elif event_effect_name == "perc_from_knowledge":
 					value = Calculs.get_tot_knowledge() * effect_value
+					value = _apply_minimum_stat_value(value, effect_value)
 					choice_text = tr("$knowledge") + ": "
 					#print("On a un perc_from_knowledge avec la valeur %s " % [value])
 					
 				elif event_effect_name == "perc_from_brain_xp":
 					#donne x% de l'exp qu'il faut pouir le prochain level
 					value = Player.brain_xp_next * effect_value
+					value = _apply_minimum_stat_value(value, effect_value)
 					choice_text = tr("$brain_xp") + ": "
 					#print("On a un perc_from_brain_xp avec la valeur %s " % [value])
 					
@@ -99,12 +102,12 @@ func event_ui_setup(event: Event):
 						value *= 100
 					choice_text = tr("$" + event_effect_name) + ": "
 		
-				value = floor(value)
+				value = _get_display_value(value)
 				
-				if value == 0:
+				if is_zero_approx(value):
 					continue
 				else:
-					choice_text += Global.number_to_string(abs(value))
+					choice_text += _format_signed_value(value)
 				
 				if is_perc:
 					choice_text += " %"
@@ -113,11 +116,8 @@ func event_ui_setup(event: Event):
 				choices_container[index].add_child(new_bullet)
 				
 			
-				if EventsManager.malus_effects.has(event_effect_name):
-					new_bullet.set_bullet_point(choice_text, false, 150, true)
-					
-				else:
-					new_bullet.set_bullet_point(choice_text)
+				var positive_value_is_malus := event.is_malus_for_player(event_effect_name, 1.0)
+				new_bullet.set_bullet_point(choice_text, false, 150, positive_value_is_malus)
 		
 		choices_modifiers.append({"choice_name": choices_str[index],
 									"effects": choices_id[index]["effects"],
@@ -137,6 +137,34 @@ func _on_choice_pressed(_choice: String):
 
 	choice_selected = _choice
 	confirm_button.enable()
+
+func _format_signed_value(value: float) -> String:
+	if is_zero_approx(value):
+		return "0"
+	var sign := "+" if value > 0 else "-"
+	return sign + Global.number_to_string(abs(value), 0.01)
+
+func _get_display_value(value: float) -> float:
+	if is_zero_approx(value):
+		return 0.0
+	var sign: float = 1.0 if value > 0.0 else -1.0
+	var abs_value = abs(value)
+	if abs_value < 1.0:
+		var rounded_value = snapped(abs_value, 0.01)
+		if is_zero_approx(rounded_value):
+			rounded_value = 0.01
+		return sign * rounded_value
+	return sign * floor(abs_value)
+
+func _apply_minimum_stat_value(value: float, fallback_sign_source: float) -> float:
+	const MIN_STAT_ABS := 1.0
+	if is_zero_approx(value) and is_zero_approx(fallback_sign_source):
+		return 0.0
+	if abs(value) >= MIN_STAT_ABS:
+		return value
+	var sign_source := value if not is_zero_approx(value) else fallback_sign_source
+	var sign: float = 1.0 if sign_source > 0.0 else -1.0
+	return sign * MIN_STAT_ABS
 	
 func _on_confirm_button_s_pressed():
 	get_tree().paused = false
@@ -223,12 +251,15 @@ func apply_modifiers(_modifiers: Dictionary, event_id):
 				
 			"perc_from_gold":
 				var value = Calculs.get_tot_gold() * _modifiers[stat_name]
+				value = _apply_minimum_stat_value(value, _modifiers[stat_name])
 				Player.earn_gold(value)
 			"perc_from_knowledge":
 				var value = Calculs.get_tot_knowledge() * _modifiers[stat_name]
+				value = _apply_minimum_stat_value(value, _modifiers[stat_name])
 				Player.earn_knowledge_point(value)
 			"perc_from_brain_xp":
 				var value = Player.brain_xp_next * _modifiers[stat_name]
+				value = _apply_minimum_stat_value(value, _modifiers[stat_name])
 				Player.earn_brain_xp(value)
 
 	#print(StatsManager._show_stats_modifiers(StatsManager.Stats.BRAIN_XP))

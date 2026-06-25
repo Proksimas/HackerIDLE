@@ -12,7 +12,7 @@ func set_bullet_point(_text: String, has_autowrap: bool = false, _width:float = 
 
 	# Crée une expression régulière pour trouver tous les nombres
 	var regex = RegEx.new()
-	regex.compile("(-?\\d+\\.?\\d*)")
+	regex.compile("([+-]?\\d+\\.?\\d*)")
 
 	# Recherche toutes les correspondances
 	var matches = regex.search_all(_text)
