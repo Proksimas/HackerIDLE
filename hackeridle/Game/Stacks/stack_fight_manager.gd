@@ -39,17 +39,17 @@ const DEBUG_PREVIEW_ENCOUNTERS := 0
 # -------------------------
 enum EnemyRole { DPS, TANK, SUPPORT, ELITE, BOSS }
 
-const ENEMY_BASE: Dictionary = {"hp": 40.0, "p": 6.0, "e": 5.0, "f": 3.0}
+const ENEMY_BASE: Dictionary = {"hp": 40.0, "p": 4.0, "e": 4.0, "f": 4.0}
 
 const STAT_VARIATION_MIN := 0.90
 const STAT_VARIATION_MAX := 1.10
 
 const ROLE_MULT := {
-	EnemyRole.DPS:     {"p": 1.3, "e": 0.8, "f": 0.9, "hp": 0.9},
+	EnemyRole.DPS:     {"p": 1.3, "e": 0.8, "f": 0.7, "hp": 0.8},
 	EnemyRole.TANK:    {"p": 0.7, "e": 1.5, "f": 0.8, "hp": 1.4},
-	EnemyRole.SUPPORT: {"p": 0.9, "e": 0.9, "f": 1.4, "hp": 0.8},
+	EnemyRole.SUPPORT: {"p": 0.9, "e": 0.9, "f": 1.4, "hp": 0.7},
 	EnemyRole.ELITE:   {"p": 1.3, "e": 1.3, "f": 1.5, "hp": 1.6},
-	EnemyRole.BOSS:    {"p": 1.6, "e": 1.6, "f": 2.0, "hp": 2.2},
+	EnemyRole.BOSS:    {"p": 1.6, "e": 1.6, "f": 2.0, "hp": 2},
 }
 
 # Pools, avec des variantes si besoin
