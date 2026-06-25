@@ -5,8 +5,8 @@ var min_time_in_jail: float = 5 #en MIN
 var max_time_in_jail: float = 10
 
 #la correspondance en minute
-var min_year_in_jail: int = 2
-var max_year_i_jail: int = 5
+var min_year_in_jail: int = 4
+var max_year_i_jail: int = 8
 
 var old_time_scale
 

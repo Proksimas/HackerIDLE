@@ -22,7 +22,7 @@ const MAX_KEYS = 4
 const MAX_POSITIVE_INFAMY_PER_CHOICE = 40
 const MIN_NON_ZERO_EFFECTS_PER_CHOICE = 1
 const BENEFIT_INFAMY_MULTIPLIER = 1.35
-const MALUS_INFAMY_REDUCTION_RATIO = 0.35
+const MALUS_INFAMY_REDUCTION_RATIO = 0.20
 # le weight est le ratio de 1 unité de la variable pour 1 unité d’infam
 # les valeurs en % devront avoir un /10 
 # NOUVEAU DICTIONNAIRE OPTIMISÉ (avec les paramètres pour build_values)
